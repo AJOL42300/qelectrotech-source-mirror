@@ -2406,6 +2406,19 @@ target_compile_definitions(tst_cliquery PRIVATE
   "QET_EXAMPLES_DIR=\"${QET_DIR}/examples\""
   "QET_ELEMENTS_DIR=\"${QET_DIR}/elements\"")
 
+# A .qet and a .qetz of the same project, one converted into the other with
+# --convert-to-qetz and --convert-to-qet: same content, input untouched.
+add_executable(
+  tst_cliconvert
+  tst_cliconvert.cpp)
+add_test(NAME tst_cliconvert COMMAND tst_cliconvert)
+add_dependencies(tst_cliconvert qelectrotech)
+target_link_libraries(tst_cliconvert PRIVATE Qt::Test)
+target_compile_definitions(tst_cliconvert PRIVATE
+  "QET_TEST_BINARY_PATH=\"$<TARGET_FILE:qelectrotech>\""
+  "QET_EXAMPLES_DIR=\"${QET_DIR}/examples\""
+  "QET_ELEMENTS_DIR=\"${QET_DIR}/elements\"")
+
 # A .qetdb survives a kill during its save, a sync tool copying it during
 # its save, a full disk and a missing folder; damaged files never crash
 # QElectroTech. QET-SQL-FORMAT S5.
