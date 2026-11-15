@@ -2484,6 +2484,9 @@ qet_add_app_test(tst_conductorcolorcodes tst_conductorcolorcodes.cpp)
 qet_add_app_test(tst_wireprofiles tst_wireprofiles.cpp)
 # The conductor's text at each end, along the wire.
 qet_add_app_test(tst_conductorendlabels tst_conductorendlabels.cpp)
+# Network and moulded cables (Ethernet, EtherCAT, M12, Y, motor): a type, a
+# length and connectors on a conductor, saved only when used, undone in one step.
+qet_add_app_test(tst_networkcable tst_networkcable.cpp)
 
 # Settings for every test. get_property(... TESTS) only sees the tests added
 # so far, so they wait for the end of this file: a test takes them wherever

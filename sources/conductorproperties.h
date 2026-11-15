@@ -113,6 +113,18 @@ class ConductorProperties
 			/// the section above are copied from it when the profile is
 			/// applied; typing them by hand afterwards leaves the name.
 		QString m_wire_profile;
+			/// Id of the network cable type (NetworkCables) this
+			/// conductor is: a moulded cable linking two devices, drawn
+			/// with its connectors. Empty for an ordinary conductor.
+		QString m_network_cable;
+			/// Length of that cable, in metres, free text
+		QString m_network_length;
+			/// Branch mark of a Y cable, "1" or "2", empty otherwise
+		QString m_network_branch;
+			/// Manufacturer reference of that cable, taken from the
+			/// cable catalogue, empty when none was chosen
+		QString m_network_reference;
+
 			/// The cable of the project this conductor is a core of, null
 			/// when it belongs to no cable. The text shown in m_cable is
 			/// generated from the cable and never typed in: this reference

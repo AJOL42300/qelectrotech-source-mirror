@@ -1,0 +1,56 @@
+<definition version="0.100.0" type="element" link_type="simple" width="120" height="150" hotspot_x="60" hotspot_y="75">
+	<uuid uuid="{6f1c2d34-5a7b-5c8e-9d01-a2b3c4d5e701}"/>
+	<names>
+		<name lang="en">Servo motor with resolver</name>
+		<name lang="fr">Servomoteur avec résolveur</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="designation" show="1"></elementInformation>
+		<elementInformation name="description" show="1"></elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, not copied from a manufacturer drawing. Power terminals U V W PE on top, resolver terminals at the bottom. Put the motor cable (for example 4 G 1.5 mm2) and its length in the description. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<ellipse x="-25" y="-25" width="50" height="50" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="-6" y="-9" font="Liberation Sans,12,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="M"/>
+		<text x="-6" y="3" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="3~"/>
+		<rect x="-40" y="32" width="80" height="18" rx="0" ry="0" style="line-style:dashed;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="-38" y="33" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Resolver"/>
+		<line x1="-18" y1="-50" x2="-18" y2="-17" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-6" y1="-50" x2="-6" y2="-24" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="6" y1="-50" x2="6" y2="-24" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="18" y1="-50" x2="18" y2="-17" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="-21" y="-46" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="U"/>
+		<text x="-9" y="-46" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="V"/>
+		<text x="3" y="-46" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W"/>
+		<text x="13" y="-46" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE"/>
+		<terminal x="-18" y="-50" name="U" orientation="n" type="Generic" uuid="{6f1c2d34-5a7b-5c8e-9d01-a2b3c4d5e711}"/>
+		<terminal x="-6" y="-50" name="V" orientation="n" type="Generic" uuid="{6f1c2d34-5a7b-5c8e-9d01-a2b3c4d5e712}"/>
+		<terminal x="6" y="-50" name="W" orientation="n" type="Generic" uuid="{6f1c2d34-5a7b-5c8e-9d01-a2b3c4d5e713}"/>
+		<terminal x="18" y="-50" name="PE" orientation="n" type="Generic" uuid="{6f1c2d34-5a7b-5c8e-9d01-a2b3c4d5e714}"/>
+		<line x1="-35" y1="50" x2="-35" y2="62" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-25" y1="50" x2="-25" y2="62" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-15" y1="50" x2="-15" y2="62" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-5" y1="50" x2="-5" y2="62" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="5" y1="50" x2="5" y2="62" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="15" y1="50" x2="15" y2="62" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="25" y1="50" x2="25" y2="62" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="-38" y="52" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="R1"/>
+		<text x="-28" y="52" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="R2"/>
+		<text x="-18" y="52" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="S1"/>
+		<text x="-8" y="52" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="S3"/>
+		<text x="2" y="52" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="S2"/>
+		<text x="12" y="52" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="S4"/>
+		<text x="22" y="52" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="SH"/>
+		<terminal x="-35" y="62" name="R1" orientation="s" type="Generic" uuid="{6f1c2d34-5a7b-5c8e-9d01-a2b3c4d5e721}"/>
+		<terminal x="-25" y="62" name="R2" orientation="s" type="Generic" uuid="{6f1c2d34-5a7b-5c8e-9d01-a2b3c4d5e722}"/>
+		<terminal x="-15" y="62" name="S1" orientation="s" type="Generic" uuid="{6f1c2d34-5a7b-5c8e-9d01-a2b3c4d5e723}"/>
+		<terminal x="-5" y="62" name="S3" orientation="s" type="Generic" uuid="{6f1c2d34-5a7b-5c8e-9d01-a2b3c4d5e724}"/>
+		<terminal x="5" y="62" name="S2" orientation="s" type="Generic" uuid="{6f1c2d34-5a7b-5c8e-9d01-a2b3c4d5e725}"/>
+		<terminal x="15" y="62" name="S4" orientation="s" type="Generic" uuid="{6f1c2d34-5a7b-5c8e-9d01-a2b3c4d5e726}"/>
+		<terminal x="25" y="62" name="Shield" orientation="s" type="Generic" uuid="{6f1c2d34-5a7b-5c8e-9d01-a2b3c4d5e727}"/>
+		<dynamic_text x="30" y="-20" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{6f1c2d34-5a7b-5c8e-9d01-a2b3c4d5e731}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>label</info_name></dynamic_text>
+		<dynamic_text x="-55" y="66" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{6f1c2d34-5a7b-5c8e-9d01-a2b3c4d5e732}" font="Liberation Sans,7,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
+		<dynamic_text x="-55" y="78" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{6f1c2d34-5a7b-5c8e-9d01-a2b3c4d5e733}" font="Liberation Sans,7,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>description</info_name></dynamic_text>
+	</description>
+</definition>
