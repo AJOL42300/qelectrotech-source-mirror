@@ -131,6 +131,8 @@ class QETElementEditor : public QMainWindow
 		void copyAndPasteXml(const QDomDocument &xml_document);
 		void setUpCollectionDock();
 		void pasteElement(const ElementsLocation &location);
+		static bool clipboardMayContainImage();
+		bool pasteImageFromClipboard();
 
 	private:
 		Ui::QETElementEditor *ui;

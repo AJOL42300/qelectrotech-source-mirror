@@ -513,10 +513,10 @@
     <iconset theme="folder-open"/>
    </property>
    <property name="text">
-    <string>Import a SVG drawing</string>
+    <string>Import a SVG drawing or an image</string>
    </property>
    <property name="toolTip">
-    <string>Make the element from a SVG drawing, for example a picture of a device. A shape whose id starts with "terminal" marks a terminal.</string>
+    <string>Make the element from a SVG drawing or a picture (traced into outlines). A SVG shape whose id starts with "terminal" marks a terminal. An image on the clipboard can be pasted into the element.</string>
    </property>
   </action>
   <action name="m_import_scaled_element">
