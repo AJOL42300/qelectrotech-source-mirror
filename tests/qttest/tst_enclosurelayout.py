@@ -209,6 +209,184 @@ class CheckTest(unittest.TestCase):
         self.assertEqual(findings, [])
 
 
+def part(label="", reference="", location="", prefix="", maker="",
+         type_="embed://import/10_electric/relay.elmt"):
+    """A symbol of the schema with its element information."""
+    node = ET.Element("element", {"type": type_, "x": "0", "y": "0",
+                                  "orientation": "0", "prefix": prefix})
+    infos = ET.SubElement(node, "elementInformations")
+    for name, value in (("label", label), ("manufacturer_reference",
+                        reference), ("location", location),
+                        ("manufacturer", maker)):
+        ET.SubElement(infos, "elementInformation",
+                      {"name": name, "show": "1"}).text = value
+    return node
+
+
+def enclosure(reference, label):
+    node = placed(ENC % reference, 0, 0)
+    infos = ET.SubElement(node, "elementInformations")
+    ET.SubElement(infos, "elementInformation",
+                  {"name": "label"}).text = label
+    return node
+
+
+class CabinetTest(unittest.TestCase):
+    def setUp(self):
+        self.catalog = el.load_catalog()
+        self.catalog["_devices"] = [
+            {"key": "k1", "manufacturer": "", "reference": "K1",
+             "width": 45, "height": 90, "depth": 60},
+            {"key": "ref-big", "manufacturer": "acme", "reference": "REF-BIG",
+             "width": 200, "height": 200, "depth": 100},
+            {"key": "deep", "manufacturer": "", "reference": "DEEP",
+             "width": 10, "height": 10, "depth": 190}]
+
+    def analyse(self, *folios):
+        return el.analyse_project(self.catalog, list(folios))
+
+    def test_folio_location_is_inherited_and_can_be_overridden(self):
+        _, cabinets = self.analyse(
+            ("Power", "A1", [part("-Q1", "K1"),
+                             part("-S1", "K1", location="A2")]))
+        self.assertEqual(sorted(cabinets), ["A1", "A2"])
+        self.assertEqual(cabinets["A1"]["items"][0]["quantity"], 1)
+        self.assertEqual(cabinets["A2"]["items"][0]["quantity"], 1)
+
+    def test_contents_group_by_reference_and_count_a_label_once(self):
+        _, cabinets = self.analyse(
+            ("Power", "A1", [part("-Q1", "K1"), part("-Q2", "K1"),
+                             part("-Q2", "K1"), part("-Q3")]))
+        items = cabinets["A1"]["items"]
+        self.assertEqual([(i["reference"], i["quantity"]) for i in items],
+                         [("K1", 2)])
+        self.assertEqual(cabinets["A1"]["unreferenced"], 1)
+
+    def test_components_without_cabinet_are_not_listed(self):
+        _, cabinets = self.analyse(("Power", "", [part("-Q1", "K1")]))
+        self.assertEqual(cabinets, {})
+
+    def test_reference_is_linked_to_its_footprint(self):
+        found = el.find_device(self.catalog, "", " k1 ")
+        self.assertEqual((found["width"], found["height"]), (45, 90))
+        self.assertIsNone(el.find_device(self.catalog, "", "unknown"))
+
+    def test_device_manufacturer_must_match_when_given(self):
+        self.assertIsNotNone(el.find_device(self.catalog, "ACME", "ref-big"))
+        self.assertIsNone(el.find_device(self.catalog, "Other", "REF-BIG"))
+
+    def test_devices_that_fit_give_no_warning(self):
+        findings, cabinets = self.analyse(
+            ("Layout", "", [enclosure("GN403020", "A1")]),
+            ("Power", "A1", [part("-Q1", "K1")]))
+        self.assertEqual(findings, [])
+        self.assertEqual(cabinets["A1"]["occupied"], 45 * 90)
+
+    def test_cabinet_without_enclosure_is_a_note(self):
+        findings, _ = self.analyse(("Power", "A1", [part("-Q1", "K1")]))
+        self.assertEqual([f.severity for f in findings], ["info"])
+
+    def test_unlinked_reference_is_a_note(self):
+        findings, _ = self.analyse(
+            ("Layout", "", [enclosure("GN403020", "A1")]),
+            ("Power", "A1", [part("-Q1", "NOPE")]))
+        self.assertEqual([f.severity for f in findings], ["info"])
+        self.assertIn("NOPE", findings[0].message)
+
+    def test_total_area_over_the_usable_area_is_an_error(self):
+        # 250 x 350 mm usable: 87500 mm2; one K1 takes 4050 mm2
+        parts = [part("-Q%d" % n, "K1") for n in range(22)]
+        findings, _ = self.analyse(
+            ("Layout", "", [enclosure("GN403020", "A1")]),
+            ("Power", "A1", parts))
+        self.assertEqual(messages(findings, "error"),
+                         ["A1: the devices take 102% of the usable area of "
+                          "GN403020"])
+
+    def test_crowded_cabinet_is_a_warning(self):
+        parts = [part("-Q%d" % n, "K1") for n in range(19)]
+        findings, _ = self.analyse(
+            ("Layout", "", [enclosure("GN403020", "A1")]),
+            ("Power", "A1", parts))
+        self.assertEqual([f.severity for f in findings], ["warning"])
+        self.assertIn("88%", findings[0].message)
+
+    def test_deep_device_is_an_error_and_a_big_one_that_fits_is_not(self):
+        findings, _ = self.analyse(
+            ("Layout", "", [enclosure("GN403020", "A1")]),
+            ("Power", "A1", [part("-Q1", "REF-BIG", maker="Acme"),
+                             part("-Q2", "DEEP")]))
+        errors = messages(findings, "error")
+        self.assertEqual(len(errors), 1)
+        self.assertIn("deep", errors[0])
+        self.assertEqual(messages(findings, "warning"), [])
+
+    def test_oversized_device_is_an_error(self):
+        findings, _ = self.analyse(
+            ("Layout", "", [enclosure("GN403020", "A1")]),
+            ("Power", "A1", [part("-Q1", "REF-BIG", maker="Acme")]))
+        self.assertEqual(len(messages(findings, "error")), 0)
+        self.catalog["_devices"][1]["width"] = 400
+        findings, _ = self.analyse(
+            ("Layout", "", [enclosure("GN403020", "A1")]),
+            ("Power", "A1", [part("-Q1", "REF-BIG", maker="Acme")]))
+        self.assertIn("does not fit", messages(findings, "error")[0])
+
+    def test_same_component_in_two_cabinets_is_a_warning(self):
+        findings, _ = self.analyse(
+            ("Power", "A1", [part("-K1", "K1")]),
+            ("Field", "A2", [part("-K1", "K1")]))
+        dup = [f for f in findings if "several cabinets" in f.message]
+        self.assertEqual([f.severity for f in dup], ["warning"])
+        self.assertIn("A1 (folio 'Power'), A2 (folio 'Field')",
+                      dup[0].message)
+
+    def test_explicit_cabinet_counts_as_well(self):
+        findings, _ = self.analyse(
+            ("Power", "A1", [part("-K1", "K1")]),
+            ("Power 2", "A1", [part("-K1", "K1", location="A2")]))
+        self.assertEqual(len(messages(findings, "warning")), 1)
+
+    def test_terminals_in_two_cabinets_are_only_a_note(self):
+        findings, _ = self.analyse(
+            ("Power", "A1", [part("-X1", prefix="X")]),
+            ("Field", "A2", [part("-X1", prefix="X")]))
+        dup = [f for f in findings if "several cabinets" in f.message]
+        self.assertEqual([f.severity for f in dup], ["info"])
+
+    def test_report_lists_each_cabinet(self):
+        _, cabinets = self.analyse(
+            ("Layout", "", [enclosure("GN403020", "A1")]),
+            ("Power", "A1", [part("-Q1", "K1"), part("-Q2", "K1")]))
+        text = el.render_report(cabinets)
+        self.assertIn("Cabinet A1", text)
+        self.assertIn("2 x", text)
+        self.assertIn("K1 (45x90x60 mm)", text)
+        self.assertEqual(el.report_rows(cabinets)[1],
+                         ["A1", "GN403020", "", "K1", "2", "45", "90", "60"])
+
+
+class LinkTest(unittest.TestCase):
+    def test_link_writes_the_devices_file_and_replaces_an_entry(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "devices.json"
+            catalog = el.load_catalog(devices_path=path)
+            el.link_device(catalog, "KM1", footprint="din_3m")
+            el.link_device(catalog, "KM1", footprint="din_4m")
+            el.link_device(catalog, "ABC", manufacturer="Acme",
+                           size={"width": 10, "height": 20, "depth": 30})
+            catalog = el.load_catalog(devices_path=path)
+            self.assertEqual(
+                [(d["reference"], d["width"]) for d in catalog["_devices"]],
+                [("ABC", 10), ("KM1", 70)])
+
+    def test_unknown_footprint_is_refused(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            catalog = el.load_catalog(devices_path=Path(tmp) / "d.json")
+            with self.assertRaises(ValueError):
+                el.link_device(catalog, "KM1", footprint="nope")
+
+
 PROJECT = """<project version="0.100.0" title="t">
     <diagram title="Layout">
         <elements>

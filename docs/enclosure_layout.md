@@ -51,6 +51,89 @@ use a smaller enclosure.
 
 A footprint belongs to the enclosure that contains its centre.
 
+## Cabinets in the schema
+
+Components are assigned to a cabinet with fields QElectroTech already has;
+nothing is added to the project format.
+
+- **Folio**: the "Localisation" field of the folio (`locmach` in the
+  project file) names the cabinet the folio belongs to.
+- **Component**: its own "location" information, when filled, overrides the
+  cabinet of the folio (a field sensor drawn on a cabinet folio, for
+  instance).
+- **Enclosure**: an enclosure element stands for the cabinet named like its
+  label (its "label" information; failing that its "location", then the
+  localisation of its folio).
+
+A cabinet name with no enclosure element is still listed, but its space is
+not checked. Components with neither a label nor a manufacturer reference
+are ignored; those without a reference are only counted.
+
+### Link between a symbol and its footprint
+
+A symbol finds its footprint through its **manufacturer reference**, so
+nothing is entered twice. `extra-elements/ide-enclosures/devices.json` maps
+references to a footprint of the catalog, or to dimensions in mm:
+
+```json
+{"devices": [
+	{"reference": "KM1-ABC", "manufacturer": "Acme", "footprint": "din_3m"},
+	{"reference": "XYZ-100", "width": 70, "height": 90, "depth": 62}
+]}
+```
+
+References are compared without regard to case or extra spaces. The
+`manufacturer` entry is optional: when given, it must match the
+"manufacturer" information of the symbol. Add or replace an entry with:
+
+```sh
+python3 misc/enclosure_layout/enclosure_layout.py link KM1-ABC --footprint din_3m
+python3 misc/enclosure_layout/enclosure_layout.py link XYZ-100 --width 70 --height 90 --depth 62
+```
+
+`--devices file.json` uses another file. The shipped file is empty: only
+references you have checked against a datasheet should be added.
+
+### Contents and space of each cabinet
+
+```sh
+python3 misc/enclosure_layout/enclosure_layout.py report project.qet [--csv contents.csv]
+```
+
+lists, for each cabinet, its enclosure, its devices grouped by reference
+with the quantity and the footprint, and the share of the usable area used.
+A component whose label appears several times in a cabinet counts once.
+`check` also reports, per cabinet with an enclosure element:
+
+| Severity | Meaning |
+|----------|---------|
+| error    | a device does not fit in the usable area (a quarter turn is allowed) |
+| error    | a device is deeper than the enclosure allows |
+| error    | the sum of the device footprints exceeds the usable area |
+| warning  | the sum exceeds 80% of the usable area (ducts and spacing are not counted) |
+| note     | a reference has no linked footprint and is not counted |
+| note     | a cabinet has no enclosure element |
+
+### Component in two cabinets
+
+`check` warns when the same label is found in two cabinets, whether
+through its folios or through its "location" information. Terminals (a
+`X` prefix or a terminal symbol) are expected to be spread over several
+cabinets and only give a note. Slave symbols (contacts, cross references)
+carry no label of their own and are not reported. Cables and conductors
+between cabinets are not components and are not reported.
+
+### Limits
+
+- The space check is the sum of areas, not a placement: it cannot tell
+  whether the devices can be arranged on the rails. Use the placed
+  footprints of the Workflow section for that.
+- No folio listing the contents is generated: use `report --csv` and import
+  the result, or the material list of QElectroTech.
+- The checks are not in the application interface.
+- The terminal prefixes (`X`) and the 80% limit can be changed with
+  `shared_prefixes` and `fill_warning` in `catalog.json`.
+
 ## Catalog
 
 `catalog.json` holds:
