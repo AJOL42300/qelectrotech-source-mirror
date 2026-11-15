@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="90" height="194" hotspot_x="45" hotspot_y="95">
+<definition version="0.100.0" type="element" link_type="master" width="90" height="194" hotspot_x="45" hotspot_y="95">
 	<uuid uuid="{f8f927ef-1d05-5d78-b078-68a2da0970c7}"/>
 	<names>
 		<name lang="en">EL3xxx analog input terminal (generic)</name>
@@ -7,8 +7,39 @@
 	<elementInformations>
 		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
 		<elementInformation name="designation" show="1">EL3xxx</elementInformation>
-		<elementInformation name="description" show="1">EtherCAT Terminal, analog input terminal. Generic layout: contacts 1 to 8; the signal on each contact depends on the exact type, see its datasheet.</elementInformation>
+		<elementInformation name="description" show="1">EtherCAT Terminal, analog input terminal. Generic layout: contacts 1 to 8; the signal on each contact depends on the exact type, see its datasheet. The I/O table lists the 8 contacts: edit it in the element properties.</elementInformation>
 	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="8.00">
+			<plcIOs>
+				<plcIO type="entree_analogique" address="1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>1</terminal>
+				</plcIO>
+				<plcIO type="entree_analogique" address="2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>2</terminal>
+				</plcIO>
+				<plcIO type="entree_analogique" address="3" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>3</terminal>
+				</plcIO>
+				<plcIO type="entree_analogique" address="4" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>4</terminal>
+				</plcIO>
+				<plcIO type="entree_analogique" address="5" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>5</terminal>
+				</plcIO>
+				<plcIO type="entree_analogique" address="6" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>6</terminal>
+				</plcIO>
+				<plcIO type="entree_analogique" address="7" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>7</terminal>
+				</plcIO>
+				<plcIO type="entree_analogique" address="8" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>8</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
 	<informations>Author: QElectroTech contributors
 Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>

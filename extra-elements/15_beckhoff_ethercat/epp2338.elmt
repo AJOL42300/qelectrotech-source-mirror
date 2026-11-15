@@ -1,0 +1,63 @@
+<definition version="0.100.0" type="element" link_type="master" width="130" height="124" hotspot_x="65" hotspot_y="55">
+	<uuid uuid="{84d9f3b0-16a5-5b96-96bb-2a859b06b7e8}"/>
+	<names>
+		<name lang="en">EPP2338 EtherCAT P box, 8 channels</name>
+		<name lang="fr">EPP2338 boîtier EtherCAT P, 8 voies</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">EPP2338-0001</elementInformation>
+		<elementInformation name="designation" show="1">EtherCAT P Box, 8-channel digital combi, 24 V DC, 10 us, 0.5 A, M8</elementInformation>
+		<elementInformation name="description" show="1">EtherCAT P box with four M8 sockets X01 to X04, two channels each, EtherCAT P IN X50 and OUT X51. Generic layout, not the manufacturer drawing: put the picture under it. Fill in the function of each channel in the I/O table; the label of the box is the island id (BOX 01).</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="8.00">
+			<plcIOs>
+				<plcIO type="entree_universelle" address="X01(1)" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+				<plcIO type="entree_universelle" address="X01(2)" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+				<plcIO type="entree_universelle" address="X02(1)" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+				<plcIO type="entree_universelle" address="X02(2)" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+				<plcIO type="entree_universelle" address="X03(1)" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+				<plcIO type="entree_universelle" address="X03(2)" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+				<plcIO type="entree_universelle" address="X04(1)" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+				<plcIO type="entree_universelle" address="X04(2)" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="-60" y="-50" width="120" height="110" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="-54" y="-46" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="EPP2338"/>
+		<text x="-54" y="-34" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="EtherCAT P box"/>
+		<terminal x="-60" y="-20" name="IN X50" orientation="w" type="Generic" uuid="{d2d29d46-15c6-57a7-8b39-2bfd3075b5f2}"/>
+		<terminal x="60" y="-20" name="OUT X51" orientation="e" type="Generic" uuid="{7664474b-ab63-5fd5-bfd2-590a7a9b8b72}"/>
+		<line x1="-60" y1="-20" x2="-50" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="50" y1="-20" x2="60" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="-54" y="-16" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="IN X50"/>
+		<text x="30" y="-16" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="OUT X51"/>
+		<terminal x="60" y="0" name="X01" orientation="e" type="Generic" uuid="{5b1ea91f-030f-5e26-902c-78b7ad979c0e}"/>
+		<line x1="50" y1="0" x2="60" y2="0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="30" y="-4" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X01"/>
+		<terminal x="60" y="15" name="X02" orientation="e" type="Generic" uuid="{91e2bc9c-31a4-57ce-9856-5247067c4b58}"/>
+		<line x1="50" y1="15" x2="60" y2="15" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="30" y="11" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X02"/>
+		<terminal x="60" y="30" name="X03" orientation="e" type="Generic" uuid="{8e3a949c-a240-5d21-8145-97f1ba102aa2}"/>
+		<line x1="50" y1="30" x2="60" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="30" y="26" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X03"/>
+		<terminal x="60" y="45" name="X04" orientation="e" type="Generic" uuid="{1f893c07-a264-50ec-b336-f8089d06cd30}"/>
+		<line x1="50" y1="45" x2="60" y2="45" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="30" y="41" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X04"/>
+		<dynamic_text x="-54" y="-4" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{c4af7809-6b05-5052-a2b0-b048085f7c1c}" font="Liberation Sans,10,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>label</info_name></dynamic_text>
+		<dynamic_text x="-60" y="64" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{0f026762-2aaa-5c91-be89-32339107d697}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
+	</description>
+</definition>

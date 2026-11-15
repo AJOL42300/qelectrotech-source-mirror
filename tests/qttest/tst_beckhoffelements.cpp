@@ -106,7 +106,8 @@ class TstBeckhoffElements : public QObject
 						 qPrintable(file));
 
 				QSet<QString> names, term_uuids;
-				const auto terminals = def.elementsByTagName(
+				const auto terminals = def.firstChildElement(
+					QStringLiteral("description")).elementsByTagName(
 					QStringLiteral("terminal"));
 				for (int i = 0; i < terminals.size(); ++i)
 				{
@@ -132,9 +133,47 @@ class TstBeckhoffElements : public QObject
 			}
 		}
 
+		void ioCardsAreMastersWithAnIoTable()
+		{
+			const QStringList types{
+				QStringLiteral("entree_digitale"),
+				QStringLiteral("sortie_digitale"),
+				QStringLiteral("entree_analogique"),
+				QStringLiteral("sortie_analogique"),
+				QStringLiteral("entree_universelle"),
+				QStringLiteral("sortie_universelle")};
+			for (const QString &file : {
+					 QStringLiteral("el1xxx_generic.elmt"),
+					 QStringLiteral("el2xxx_generic.elmt"),
+					 QStringLiteral("el3xxx_generic.elmt"),
+					 QStringLiteral("el4xxx_generic.elmt"),
+					 QStringLiteral("epp2338.elmt")})
+			{
+				const auto def = load(categoryDir().filePath(file))
+					.documentElement();
+				QCOMPARE(def.attribute(QStringLiteral("link_type")),
+						 QStringLiteral("master"));
+				const auto ios = def.elementsByTagName(
+					QStringLiteral("plcIO"));
+				QVERIFY2(ios.size() >= 4, qPrintable(file));
+				for (int i = 0; i < ios.size(); ++i)
+				{
+					const auto io = ios.at(i).toElement();
+					QVERIFY2(types.contains(io.attribute(
+								 QStringLiteral("type"))),
+							 qPrintable(file));
+					QVERIFY2(!io.attribute(QStringLiteral("address"))
+							 .isEmpty(), qPrintable(file));
+				}
+			}
+		}
+
 		void beckhoffProductsAreFilledIn()
 		{
 			for (const QString &file : {
+					 QStringLiteral("el1xxx_generic.elmt"),
+					 QStringLiteral("el2xxx_generic.elmt"),
+					 QStringLiteral("epp2338.elmt"),
 					 QStringLiteral("el3xxx_generic.elmt"),
 					 QStringLiteral("el4xxx_generic.elmt"),
 					 QStringLiteral("el9011.elmt"),
