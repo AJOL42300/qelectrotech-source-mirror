@@ -1,0 +1,75 @@
+{
+	"scale_mm_per_px": 2,
+	"manufacturer": "IDE",
+	"enclosures": [
+		{
+			"reference": "GN403020",
+			"family": "IP66 rolled steel wall-mounting cabinet",
+			"mounting": "wall",
+			"height": 400,
+			"width": 300,
+			"depth": 200,
+			"usable": {"height": 350, "width": 250, "depth": 179},
+			"plate": null,
+			"notes": "Supplied with a flat 2 mm galvanised steel mounting plate; the plate size is not recorded here. Wall fixing 360x260 mm (height x width)."
+		},
+		{
+			"reference": "GN605020",
+			"family": "IP66 rolled steel wall-mounting cabinet",
+			"mounting": "wall",
+			"height": 600,
+			"width": 500,
+			"depth": 200,
+			"usable": {"height": 550, "width": 450, "depth": 179},
+			"plate": null,
+			"notes": "Datasheet read for the version without mounting plate. Wall fixing 560x460 mm (height x width)."
+		},
+		{
+			"reference": "GNG303020",
+			"family": "IP66 galvanised steel wall-mounting cabinet",
+			"mounting": "wall",
+			"height": 300,
+			"width": 300,
+			"depth": 200,
+			"usable": null,
+			"plate": null,
+			"notes": "Outer size only: usable space still to be read from the datasheet."
+		},
+		{
+			"reference": "GNG604020",
+			"family": "IP66 galvanised steel wall-mounting cabinet",
+			"mounting": "wall",
+			"height": 600,
+			"width": 400,
+			"depth": 200,
+			"usable": null,
+			"plate": null,
+			"notes": "Outer size only: usable space still to be read from the datasheet."
+		},
+		{
+			"reference": "BIG2008050PO",
+			"family": "IP65 compact floor-standing cabinet (BIG)",
+			"mounting": "floor",
+			"height": 2000,
+			"width": 800,
+			"depth": 500,
+			"usable": {"height": 1910, "width": 710, "depth": 457},
+			"plate": null,
+			"notes": "Supplied with a flat 3 mm galvanised steel mounting plate; the plate size is not recorded here."
+		}
+	],
+	"footprints": [
+		{"id": "din_1m", "kind": "module", "label": "1M", "name_en": "Modular device, 1 module", "name_fr": "Appareil modulaire, 1 module", "width": 17.5, "height": 90, "depth": 60},
+		{"id": "din_2m", "kind": "module", "label": "2M", "name_en": "Modular device, 2 modules", "name_fr": "Appareil modulaire, 2 modules", "width": 35, "height": 90, "depth": 60},
+		{"id": "din_3m", "kind": "module", "label": "3M", "name_en": "Modular device, 3 modules", "name_fr": "Appareil modulaire, 3 modules", "width": 52.5, "height": 90, "depth": 60},
+		{"id": "din_4m", "kind": "module", "label": "4M", "name_en": "Modular device, 4 modules", "name_fr": "Appareil modulaire, 4 modules", "width": 70, "height": 90, "depth": 60},
+		{"id": "din_6m", "kind": "module", "label": "6M", "name_en": "Modular device, 6 modules", "name_fr": "Appareil modulaire, 6 modules", "width": 105, "height": 90, "depth": 60},
+		{"id": "din_8m", "kind": "module", "label": "8M", "name_en": "Modular device, 8 modules", "name_fr": "Appareil modulaire, 8 modules", "width": 140, "height": 90, "depth": 60},
+		{"id": "din_12m", "kind": "module", "label": "12M", "name_en": "Modular device, 12 modules", "name_fr": "Appareil modulaire, 12 modules", "width": 210, "height": 90, "depth": 60},
+		{"id": "rail_ts35_200", "kind": "rail", "label": "TS35 200", "name_en": "DIN rail TS35, 200 mm", "name_fr": "Rail DIN TS35, 200 mm", "width": 200, "height": 35, "depth": 7.5},
+		{"id": "rail_ts35_300", "kind": "rail", "label": "TS35 300", "name_en": "DIN rail TS35, 300 mm", "name_fr": "Rail DIN TS35, 300 mm", "width": 300, "height": 35, "depth": 7.5},
+		{"id": "rail_ts35_400", "kind": "rail", "label": "TS35 400", "name_en": "DIN rail TS35, 400 mm", "name_fr": "Rail DIN TS35, 400 mm", "width": 400, "height": 35, "depth": 7.5},
+		{"id": "rail_ts35_500", "kind": "rail", "label": "TS35 500", "name_en": "DIN rail TS35, 500 mm", "name_fr": "Rail DIN TS35, 500 mm", "width": 500, "height": 35, "depth": 7.5},
+		{"id": "rail_ts35_600", "kind": "rail", "label": "TS35 600", "name_en": "DIN rail TS35, 600 mm", "name_fr": "Rail DIN TS35, 600 mm", "width": 600, "height": 35, "depth": 7.5}
+	]
+}
