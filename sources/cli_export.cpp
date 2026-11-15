@@ -40,6 +40,7 @@
 #include "qetgraphicsitem/element.h"
 #include "qetgraphicsitem/terminal.h"
 #include "qetproject.h"
+#include "svgtoelmt.h"
 #include "titleblockproperties.h"
 #include "wiringlistexport.h"
 
@@ -97,6 +98,7 @@ const QHash<QString, QString> &exportFlags()
 		{"--export-device-types-brief", "devicetypebrief"},
 		{"--info", "info"},
 		{"--check-elements", "check"},
+		{"--svg-to-elmt", "svgtoelmt"},
 		{"--resave", "resave"},
 		{"--recover", "recover"},
 		{"--history", "history"},
@@ -1371,6 +1373,10 @@ int run(const QStringList &args)
 		}
 		return checkElements(rest.at(0), grid);
 	}
+
+	// --svg-to-elmt makes an element from a SVG drawing, not from a project.
+	if (format == "svgtoelmt")
+		return SvgToElmt::run(rest);
 
 	// --recover reads what it can of a damaged .qetz, which a project
 	// cannot be opened from.
