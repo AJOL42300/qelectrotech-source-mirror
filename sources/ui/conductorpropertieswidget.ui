@@ -212,6 +212,20 @@
                 </property>
                </widget>
               </item>
+              <item row="8" column="3">
+               <widget class="QLabel" name="m_wire_profile_label">
+                <property name="text">
+                 <string>Wire profile :</string>
+                </property>
+               </widget>
+              </item>
+              <item row="8" column="4">
+               <widget class="QComboBox" name="m_wire_profile_cb">
+                <property name="toolTip">
+                 <string>A standard wire of the project: it gives the colour and the section, and follows when the profile is changed.</string>
+                </property>
+               </widget>
+              </item>
               <item row="9" column="0" colspan="3">
                <widget class="QCheckBox" name="m_definition_mark_cb">
                 <property name="toolTip">

@@ -344,6 +344,9 @@ QList<QPair<QString, QString>> ConductorProperties::attributes() const
 		//exactly as it was
 	if (!m_conductor_type.isEmpty())
 		add("conductor_type", m_conductor_type);
+		//Only written when set, like the type above
+	if (!m_wire_profile.isEmpty())
+		add("wire_profile", m_wire_profile);
 	add("numsize", QString::number(text_size));
 	add("condsize", QString::number(cond_size));
 	add("displaytext", QString::number(m_show_text));
@@ -424,6 +427,7 @@ void ConductorProperties::fromXml(QDomElement &e)
 	m_wire_color         = e.attribute("conductor_color");
 	m_wire_section       = e.attribute("conductor_section");
 	m_conductor_type     = e.attribute("conductor_type");
+	m_wire_profile       = e.attribute("wire_profile");
 	text_size            = e.attribute("numsize", QString::number(9)).toInt();
 	cond_size            = e.attribute("condsize", QString::number(1)).toDouble();
 	m_show_text          = e.attribute("displaytext", QString::number(1)).toInt();
@@ -597,6 +601,7 @@ void ConductorProperties::applyForEqualAttributes(QList<ConductorProperties> lis
 		m_wire_color         = cp.m_wire_color;
 		m_wire_section       = cp.m_wire_section;
 		m_conductor_type     = cp.m_conductor_type;
+		m_wire_profile       = cp.m_wire_profile;
 		text_size            = cp.text_size;
 		cond_size            = cp.cond_size;
 		m_show_text          = cp.m_show_text;
@@ -814,6 +819,17 @@ void ConductorProperties::applyForEqualAttributes(QList<ConductorProperties> lis
 		m_conductor_type = s_value;
 	equal = true;
 
+		//Wire profile
+	s_value = clist.first().m_wire_profile;
+	for(ConductorProperties cp : clist)
+	{
+		if (cp.m_wire_profile != s_value)
+			equal = false;
+	}
+	if (equal)
+		m_wire_profile = s_value;
+	equal = true;
+
 
 		//text size
 	i_value = clist.first().text_size;
@@ -974,6 +990,7 @@ void ConductorProperties::applyChanges(const ConductorProperties &before,
 	take(m_tension_protocol,     before.m_tension_protocol,     after.m_tension_protocol);
 	take(m_wire_color,           before.m_wire_color,           after.m_wire_color);
 	take(m_wire_section,         before.m_wire_section,         after.m_wire_section);
+	take(m_wire_profile,         before.m_wire_profile,         after.m_wire_profile);
 	take(m_show_text,            before.m_show_text,            after.m_show_text);
 	take(text_size,              before.text_size,              after.text_size);
 	take(cond_size,              before.cond_size,              after.cond_size);
@@ -1064,6 +1081,7 @@ bool ConductorProperties::operator==(const ConductorProperties &other) const
 		other.m_wire_color == m_wire_color && \
 		other.m_wire_section == m_wire_section && \
 		other.m_conductor_type == m_conductor_type && \
+		other.m_wire_profile == m_wire_profile && \
 		other.m_show_text == m_show_text &&\
 		other.text_size == text_size &&\
 		other.cond_size == cond_size &&\

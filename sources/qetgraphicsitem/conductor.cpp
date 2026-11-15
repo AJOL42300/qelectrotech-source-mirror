@@ -1986,6 +1986,7 @@ void Conductor::setPropertyToPotential(const ConductorProperties &property,
 			other_properties.m_tension_protocol = m_properties.m_tension_protocol;
 			other_properties.m_wire_color = m_properties.m_wire_color;
 			other_properties.m_wire_section = m_properties.m_wire_section;
+			other_properties.m_wire_profile = m_properties.m_wire_profile;
 			other_conductor->setProperties(other_properties);
 		}
 		else
@@ -2215,6 +2216,7 @@ void Conductor::setCableReference(const QString &label,
 	if (!cable_uuid.isNull()) {
 		m_properties.m_wire_color.clear();
 		m_properties.m_wire_section.clear();
+		m_properties.m_wire_profile.clear();
 		m_properties.m_conductor_type.clear();
 	}
 	storeProperties();

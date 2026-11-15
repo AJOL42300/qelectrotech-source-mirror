@@ -129,7 +129,8 @@ class tst_devicetypelist : public QObject
 		QDomDocument other;
 		QDomElement project = other.createElement(QStringLiteral("project"));
 		for (const QString &tag : {QStringLiteral("devicetype_rules"), QStringLiteral("conductor_plant_counters"),
-								   QStringLiteral("potentialtypes"), QStringLiteral("cell_origin"),
+								   QStringLiteral("potentialtypes"), QStringLiteral("wire_profiles"),
+								   QStringLiteral("cell_origin"),
 								   QStringLiteral("a_newer_block")})
 			project.appendChild(other.createElement(tag));
 		QCOMPARE(projectDataBase::foreignChildren(project, false).size(), 1);
