@@ -17,6 +17,12 @@ qelectrotech --svg-to-elmt in.svg|in.png out.elmt [--name TEXT] [--lang CODE]
              [--despeckle PX] [--max-paths N]
 ```
 
+The input can also be one https address, of a picture or of a web page that
+names its picture: it is downloaded once, into the cache folder of the user,
+then converted (10 MB at most, `image/*` only). Write the result outside the
+git repository and only use pictures you may use; see
+[beckhoff-ethercat.md](beckhoff-ethercat.md).
+
 Then open `out.elmt` in the element editor and move the terminals with the
 mouse if they are not exactly on the connectors.
 

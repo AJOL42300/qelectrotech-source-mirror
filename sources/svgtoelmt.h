@@ -46,7 +46,10 @@ class QMimeData;
 	good for line drawings and logos, not for photographs.
 
 	Usage from the command line:
-	  qelectrotech --svg-to-elmt <input.svg|input.png> <output.elmt>
+	  qelectrotech --svg-to-elmt <input.svg|input.png|https://address>
+	      <output.elmt>
+	An https address is fetched once (see PictureUrl): a picture, or a
+	product page that shows one.
 	      [--name <text>] [--lang <code>]
 	      [--mm-scale <px per mm> | --cells <width in grid cells>
 	       | --width <px> | --height <px> | --scale <factor>]

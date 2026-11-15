@@ -1,11 +1,13 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include <QDomDocument>
+#include <QDir>
 #include <QMimeData>
 #include <QPainter>
 #include <QTemporaryDir>
 #include <QtTest>
 
 #include "svgtoelmt.h"
+#include "pictureurl.h"
 
 using namespace SvgToElmt;
 
@@ -74,6 +76,8 @@ private slots:
 	void holesBecomeWhitePolygons();
 	void findsWhatToConvertInMimeData();
 	void readsAPictureFile();
+	void findsThePictureOfAProductPage();
+	void gitRepositoryIsRecognised();
 };
 
 void tst_SvgToElmt::convertsShapesAndTerminals()
@@ -484,6 +488,37 @@ void tst_SvgToElmt::readsAPictureFile()
 	QCOMPARE(r.parts, 1);
 	QVERIFY(!convertFile(dir.filePath(QStringLiteral("none.png")), options,
 			     RasterVectorizer::Options()).ok);
+}
+
+void tst_SvgToElmt::findsThePictureOfAProductPage()
+{
+	QVERIFY(PictureUrl::isUrl(QStringLiteral(" HTTPS://example.org/a.png")));
+	QVERIFY(!PictureUrl::isUrl(QStringLiteral("C:/a.png")));
+
+	const QUrl base(QStringLiteral("https://example.org/products/p1.html"));
+	QCOMPARE(PictureUrl::pictureLinkIn(
+				 "<meta property=\"og:image\" content=\"/img/p1.png\">", base),
+			 QUrl(QStringLiteral("https://example.org/img/p1.png")));
+	QCOMPARE(PictureUrl::pictureLinkIn(
+				 "<meta content='https://cdn.example.org/p2.png' "
+				 "property='og:image'>", base),
+			 QUrl(QStringLiteral("https://cdn.example.org/p2.png")));
+	QCOMPARE(PictureUrl::pictureLinkIn(
+				 "<img src=\"https://multimedia.beckhoff.com/media/"
+				 "el1008_es1008__web_preview.png\">", base),
+			 QUrl(QStringLiteral("https://multimedia.beckhoff.com/media/"
+								 "el1008_es1008__web_preview.png")));
+	QVERIFY(PictureUrl::pictureLinkIn("<html>nothing</html>", base).isEmpty());
+}
+
+void tst_SvgToElmt::gitRepositoryIsRecognised()
+{
+	QTemporaryDir dir;
+	QVERIFY(dir.isValid());
+	const QString out = dir.filePath(QStringLiteral("a.elmt"));
+	QVERIFY(!PictureUrl::isInGitRepository(out));
+	QVERIFY(QDir(dir.path()).mkdir(QStringLiteral(".git")));
+	QVERIFY(PictureUrl::isInGitRepository(out));
 }
 
 QTEST_MAIN(tst_SvgToElmt)

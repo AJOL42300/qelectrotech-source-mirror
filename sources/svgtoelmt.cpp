@@ -17,6 +17,7 @@
 */
 #include "svgtoelmt.h"
 
+#include "pictureurl.h"
 #include "svgtoelmtpalette.h"
 
 #include <QColor>
@@ -1162,7 +1163,8 @@ int run(const QStringList &args)
 {
 	QTextStream err(stderr);
 	const QString usage = QStringLiteral(
-		"usage: --svg-to-elmt <input.svg|input.png> <output.elmt>\n"
+		"usage: --svg-to-elmt <input.svg|input.png|https://address>\n"
+		"       <output.elmt>\n"
 		"       [--name <text>] [--lang <code>]\n"
 		"       [--mm-scale <px per mm> | --cells <width in grid cells>\n"
 		"        | --width <px> | --height <px> | --scale <factor>]\n"
@@ -1230,11 +1232,30 @@ int run(const QStringList &args)
 	if (options.name.isEmpty())
 		options.name = QFileInfo(files.at(1)).completeBaseName();
 
-	const Result result = convertFile(files.at(0), options, vectorizer, dpi);
+	QString input = files.at(0);
+	const bool from_web = PictureUrl::isUrl(input);
+	if (from_web) {
+		QString picture_file, problem;
+		QUrl picture_url;
+		if (!PictureUrl::download(input, &picture_file, &picture_url,
+								  &problem)) {
+			err << input << ": " << problem << "\n";
+			return 1;
+		}
+		err << "picture: " << picture_url.toString() << "\n"
+			<< PictureUrl::notice() << "\n";
+		input = picture_file;
+	}
+
+	const Result result = convertFile(input, options, vectorizer, dpi);
 	for (const QString &w : result.warnings) err << "warning: " << w << "\n";
 	if (!result.ok) {
-		err << files.at(0) << ": " << result.error << "\n";
+		err << input << ": " << result.error << "\n";
 		return 1;
+	}
+	if (from_web && PictureUrl::isInGitRepository(files.at(1))) {
+		err << "warning: " << files.at(1)
+			<< " is in a git repository: do not commit it\n";
 	}
 
 	QDir().mkpath(QFileInfo(files.at(1)).absolutePath());

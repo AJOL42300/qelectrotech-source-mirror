@@ -456,11 +456,12 @@ target_compile_definitions(tst_genericdevice PRIVATE
 
 # svgtoelmt.cpp is pure: a SVG drawing converted to an element definition.
 add_executable(tst_svgtoelmt tst_svgtoelmt.cpp ${QET_DIR}/sources/svgtoelmt.cpp
+  ${QET_DIR}/sources/pictureurl.cpp
   ${QET_DIR}/sources/rastervectorizer.cpp)
 add_test(NAME tst_svgtoelmt COMMAND tst_svgtoelmt)
 set_tests_properties(tst_svgtoelmt PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 target_include_directories(tst_svgtoelmt PRIVATE ${QET_DIR}/sources)
-target_link_libraries(tst_svgtoelmt PRIVATE Qt::Test Qt::Gui Qt::Xml)
+target_link_libraries(tst_svgtoelmt PRIVATE Qt::Test Qt::Gui Qt::Xml Qt::Network)
 
 # moduletooltip.cpp is pure: the text of the tooltip that describes the
 # wiring of a module (terminals, I/O table, links inside the module).

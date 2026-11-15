@@ -135,6 +135,8 @@ set(QET_SRC_FILES
   ${QET_DIR}/sources/moduletooltip.h
   ${QET_DIR}/sources/pinusage.cpp
   ${QET_DIR}/sources/pinusage.h
+  ${QET_DIR}/sources/pictureurl.cpp
+  ${QET_DIR}/sources/pictureurl.h
   ${QET_DIR}/sources/svgtoelmt.cpp
   ${QET_DIR}/sources/svgtoelmt.h
   ${QET_DIR}/sources/svgtoelmtpalette.h
