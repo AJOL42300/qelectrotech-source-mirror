@@ -497,6 +497,17 @@ set_tests_properties(tst_toolmenu PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscr
 target_include_directories(tst_toolmenu PRIVATE ${QET_DIR}/sources)
 target_link_libraries(tst_toolmenu PRIVATE Qt::Test Qt::Widgets)
 
+# The TwinCAT I/O synchronisation: parser, minimal writer and
+# reconciliation. Plain QtCore, on small projects made by the test.
+add_executable(tst_twincat tst_twincat.cpp
+  ${QET_DIR}/sources/twincat/tcxmlscanner.cpp
+  ${QET_DIR}/sources/twincat/tciotree.cpp
+  ${QET_DIR}/sources/twincat/tciowriter.cpp
+  ${QET_DIR}/sources/twincat/tciosync.cpp)
+add_test(NAME tst_twincat COMMAND tst_twincat)
+target_include_directories(tst_twincat PRIVATE ${QET_DIR}/sources)
+target_link_libraries(tst_twincat PRIVATE Qt::Test Qt::Core)
+
 # Tests that need the application around the class they test -- a folio,
 # its view, the editor window and its actions -- link the application's own
 # code (the qelectrotech_objects library) and run a real QETApp offscreen,

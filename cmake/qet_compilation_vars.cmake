@@ -129,6 +129,14 @@ set(QET_RES_FILES
 set(QET_SRC_FILES
   ${QET_DIR}/sources/cli_export.cpp
   ${QET_DIR}/sources/cli_export.h
+  ${QET_DIR}/sources/twincat/tciosync.cpp
+  ${QET_DIR}/sources/twincat/tciosync.h
+  ${QET_DIR}/sources/twincat/tciotree.cpp
+  ${QET_DIR}/sources/twincat/tciotree.h
+  ${QET_DIR}/sources/twincat/tciowriter.cpp
+  ${QET_DIR}/sources/twincat/tciowriter.h
+  ${QET_DIR}/sources/twincat/tcxmlscanner.cpp
+  ${QET_DIR}/sources/twincat/tcxmlscanner.h
   ${QET_DIR}/sources/logging/crashhandler.cpp
   ${QET_DIR}/sources/logging/crashhandler.h
   ${QET_DIR}/sources/logging/eventloopwatchdog.cpp
