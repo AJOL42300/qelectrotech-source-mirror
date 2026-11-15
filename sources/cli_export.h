@@ -52,6 +52,7 @@ namespace CLIExport {
 		  qelectrotech --export-wiring  <project.qet> <output.csv>
 		  qelectrotech --export-nets    <project.qet> <output.json>
 		  qelectrotech --export-links   <project.qet> <output.csv>
+		  qelectrotech --twincat-report <project.qet> <output.csv> [project.tsproj]
 		  qelectrotech --check-device-types <project.qet> <output.csv>
 		  qelectrotech --export-device-types <project.qet> <output.csv>
 		  qelectrotech --export-device-types-brief <project.qet> <output.csv>
