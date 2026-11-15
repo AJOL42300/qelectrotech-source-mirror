@@ -81,6 +81,12 @@ add_executable(tst_darkselectionframe tst_darkselectionframe.cpp
 add_test(NAME tst_darkselectionframe COMMAND tst_darkselectionframe)
 target_include_directories(tst_darkselectionframe PRIVATE ${QET_DIR}/sources)
 target_link_libraries(tst_darkselectionframe PRIVATE Qt::Test Qt::Widgets)
+# The Beckhoff EtherCAT symbols of extra-elements are well formed.
+add_executable(tst_beckhoffelements tst_beckhoffelements.cpp)
+add_test(NAME tst_beckhoffelements COMMAND tst_beckhoffelements)
+target_compile_definitions(tst_beckhoffelements PRIVATE
+  QET_EXTRA_ELEMENTS_DIR="${QET_DIR}/extra-elements")
+target_link_libraries(tst_beckhoffelements PRIVATE Qt::Test Qt::Xml)
 # MSVC's Debug libraries make QElectroTech five to eight times slower than a
 # GCC build, for which the tests' time limits were chosen. Every limit is
 # multiplied by this scale: ctest's below, and the tests' own through
