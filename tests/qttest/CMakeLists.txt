@@ -95,6 +95,10 @@ math(EXPR qet_probe_ctest_timeout "300 * ${qet_test_timeout_scale}")
 # ninja_probe.py locks that build step, so two ninja runs never share the
 # folder; the probes themselves run side by side, each in its own folder.
 find_package(Python3 QUIET COMPONENTS Interpreter)
+if(Python3_Interpreter_FOUND)
+  add_test(NAME tst_enclosurelayout
+    COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tst_enclosurelayout.py)
+endif()
 if(Python3_Interpreter_FOUND AND CMAKE_GENERATOR STREQUAL "Ninja")
   add_test(NAME tst_handlersizeintegration
     COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/run_handle_size_probe.py
