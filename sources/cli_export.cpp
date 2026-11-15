@@ -98,6 +98,8 @@ const QHash<QString, QString> &exportFlags()
 		{"--info", "info"},
 		{"--check-elements", "check"},
 		{"--resave", "resave"},
+		{"--convert-to-qetz", "convertqetz"},
+		{"--convert-to-qet", "convertqet"},
 		{"--recover", "recover"},
 		{"--history", "history"},
 		{"--history-on", "historyon"},
@@ -1360,7 +1362,7 @@ int run(const QStringList &args)
 			break;
 		}
 	}
-	const QString format = exportFlags().value(flag);
+	QString format = exportFlags().value(flag);
 
 	// --check-elements operates on an element file/directory, not a project.
 	if (format == "check") {
@@ -1575,6 +1577,23 @@ int run(const QStringList &args)
 		err << "Usage: qelectrotech " << flag
 			<< " <project.qet> <output>\n";
 		return 2;
+	}
+		//--convert-to-qetz and --convert-to-qet are --resave with the
+		//extension of the output checked: the input is left as it is
+	if (format == "convertqetz" || format == "convertqet") {
+		const bool to_container = format == "convertqetz";
+		if (!output.endsWith(to_container ? ".qetz" : ".qet",
+							 Qt::CaseInsensitive)) {
+			err << "The output of " << flag << " must be a "
+				<< (to_container ? ".qetz" : ".qet") << " file.\n";
+			return 2;
+		}
+		if (QFileInfo(input).absoluteFilePath()
+			== QFileInfo(output).absoluteFilePath()) {
+			err << "The output must not be the input file.\n";
+			return 2;
+		}
+		format = "resave";
 	}
 	if (format == "pdf")
 		return exportPdf(project, output, showTerminals);
