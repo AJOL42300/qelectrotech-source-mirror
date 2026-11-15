@@ -224,6 +224,26 @@
            </widget>
           </item>
           <item>
+           <widget class="QCheckBox" name="m_terminal_wire_id">
+            <property name="text">
+             <string>Show the id of the wire connected to a terminal</string>
+            </property>
+            <property name="toolTip">
+             <string>Writes the id of the wire beside each connected terminal, so the id of the wires of a pluggable terminal block can be read at its terminals. Unchecked by default.</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="m_terminal_magnet">
+            <property name="text">
+             <string>Snap moved elements so that their terminals meet</string>
+            </property>
+            <property name="toolTip">
+             <string>When elements are moved, a free terminal that comes within a short distance of a free terminal of another element facing it (for example a pluggable terminal block and its base) is attracted so that both meet. Unchecked by default.</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QCheckBox" name="m_strip_wires">
             <property name="toolTip">
              <string>One stub per terminal which has a wire of its own, going up from the strip: what the wire is made of at its foot, where it lands at its top (12K1:A1). Cores of a cable are left out -- the cable is drawn below the strip.</string>
@@ -2364,6 +2384,8 @@
   <tabstop>m_use_windows_mode_rb</tabstop>
   <tabstop>m_selection_frame_radius_sb</tabstop>
   <tabstop>m_terminal_conductor_color</tabstop>
+  <tabstop>m_terminal_wire_id</tabstop>
+  <tabstop>m_terminal_magnet</tabstop>
   <tabstop>m_strip_wires</tabstop>
   <tabstop>m_strip_cable_core_targets</tabstop>
   <tabstop>m_zoom_out_beyond_folio</tabstop>

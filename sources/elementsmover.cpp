@@ -37,6 +37,7 @@
 #include "qetgraphicsitem/elementtextitemgroup.h"
 #include "qetgraphicsitem/independenttextitem.h"
 #include "qetgraphicsitem/terminal.h"
+#include "terminalmagnet.h"
 #include "undocommand/addgraphicsobjectcommand.h"
 #include "qetapp.h"
 #include "qetdiagrameditor.h"
@@ -325,6 +326,63 @@ void ElementsMover::continueMovement(const QPointF &movement)
 }
 
 /**
+	@brief ElementsMover::applyTerminalMagnet
+	When the terminal magnet is on, corrects the movement about to be
+	written so that a free terminal of a moved element meets a facing free
+	terminal of another element: a pluggable terminal block is plugged on
+	its base. The correction is part of the movement, so one undo takes it
+	back with the rest.
+*/
+void ElementsMover::applyTerminalMagnet()
+{
+	if (!Terminal::magnetEnabled() || !m_diagram
+		|| m_moved_content.m_elements.isEmpty())
+		return;
+
+	const qreal tol = TerminalMagnet::tolerance;
+	QList<TerminalMagnet::Dock> moved;
+	QRectF area;
+	for (Element *element : std::as_const(m_moved_content.m_elements))
+	{
+		for (Terminal *terminal : element->terminals())
+		{
+			if (terminal->conductorsCount()) continue;
+			const QPointF dock = terminal->dockConductor();
+			moved.append({dock, static_cast<int>(terminal->orientation())});
+			area = area.united(QRectF(dock.x() - tol, dock.y() - tol,
+						  2*tol, 2*tol));
+		}
+	}
+	if (moved.isEmpty()) return;
+
+	QList<TerminalMagnet::Dock> fixed;
+	for (QGraphicsItem *item : m_diagram->items(area))
+	{
+		Terminal *terminal = qgraphicsitem_cast<Terminal *>(item);
+		if (!terminal || terminal->conductorsCount()) continue;
+		Element *element = terminal->parentElement();
+		if (!element || m_moved_content.m_elements.contains(element))
+			continue;
+		fixed.append({terminal->dockConductor(),
+			      static_cast<int>(terminal->orientation())});
+	}
+
+	QPointF delta;
+	if (!TerminalMagnet::correction(moved, fixed, tol, delta)
+		|| delta.isNull())
+		return;
+
+	m_current_movement += delta;
+	applyMovement(delta);
+		//The element under the finger moves with its own hand
+	if (m_movement_driver) {
+		m_movement_driver->QGraphicsItem::setPos(
+			m_movement_driver->pos()
+			+ QET::sceneStepInParent(m_movement_driver, delta));
+	}
+}
+
+/**
 	@brief ElementsMover::endMovement
 	Ended the current movement by creating an undo added to the undostack of the diagram.
 	If there is only one element moved, we try to auto-connect new conductor from this element
@@ -359,6 +417,8 @@ void ElementsMover::endMovement()
 		if (cable) cable->doneLineGesture();
 	}
 	m_moved_cables.clear();
+
+	applyTerminalMagnet();
 
 		//empty command to be used has parent of commands below
 	QUndoCommand *undo_object{new QUndoCommand()};

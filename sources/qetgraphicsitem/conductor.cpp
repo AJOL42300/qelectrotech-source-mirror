@@ -2044,6 +2044,10 @@ void Conductor::setProperties(const ConductorProperties &property)
 		if (terminal1) terminal1->update();
 		if (terminal2) terminal2->update();
 	}
+	if (Terminal::showsWireId()) {
+		if (terminal1) terminal1->refreshWireId();
+		if (terminal2) terminal2->refreshWireId();
+	}
 
 	storeProperties();
 	emit propertiesChange();

@@ -46,6 +46,10 @@ const qreal Terminal::terminalSize = 4.0;
 namespace {
 	/// See Terminal::takesConductorColor(); -1 until read from the settings
 	int s_takes_conductor_color = -1;
+	/// See Terminal::showsWireId(); -1 until read from the settings
+	int s_shows_wire_id = -1;
+	/// See Terminal::magnetEnabled(); -1 until read from the settings
+	int s_magnet = -1;
 }
 
 /**
@@ -73,6 +77,58 @@ void Terminal::setTakesConductorColor(bool takes)
 	s_takes_conductor_color = takes;
 	QSettings settings;
 	settings.setValue(QStringLiteral("diagrameditor/terminal_takes_conductor_color"), takes);
+}
+
+/**
+	@brief Terminal::showsWireId
+	@return true if the id of the wire (conductor text) connected to a
+	terminal is written beside the terminal. Off by default.
+*/
+bool Terminal::showsWireId()
+{
+	if (s_shows_wire_id < 0) {
+		QSettings settings;
+		s_shows_wire_id = settings.value(
+			QStringLiteral("diagrameditor/terminal_shows_wire_id"), false).toBool();
+	}
+	return s_shows_wire_id;
+}
+
+/**
+	@brief Terminal::setShowsWireId
+	@param shows : see showsWireId(); kept in the settings
+*/
+void Terminal::setShowsWireId(bool shows)
+{
+	s_shows_wire_id = shows;
+	QSettings settings;
+	settings.setValue(QStringLiteral("diagrameditor/terminal_shows_wire_id"), shows);
+}
+
+/**
+	@brief Terminal::magnetEnabled
+	@return true if moved elements snap so that their free terminals meet
+	facing free terminals of other elements. Off by default.
+*/
+bool Terminal::magnetEnabled()
+{
+	if (s_magnet < 0) {
+		QSettings settings;
+		s_magnet = settings.value(
+			QStringLiteral("diagrameditor/terminal_magnet"), false).toBool();
+	}
+	return s_magnet;
+}
+
+/**
+	@brief Terminal::setMagnetEnabled
+	@param enabled : see magnetEnabled(); kept in the settings
+*/
+void Terminal::setMagnetEnabled(bool enabled)
+{
+	s_magnet = enabled;
+	QSettings settings;
+	settings.setValue(QStringLiteral("diagrameditor/terminal_magnet"), enabled);
 }
 const qreal Terminal::Z = 1000;
 
@@ -199,6 +255,7 @@ bool Terminal::addConductor(Conductor *conductor)
 
 	m_conductors_list.append(conductor);
 	if (takesConductorColor()) update();
+	if (showsWireId()) refreshWireId();
 	emit conductorWasAdded(conductor);
 	return(true);
 }
@@ -214,6 +271,7 @@ void Terminal::removeConductor(Conductor *conductor)
 	if (index == -1) return;
 	m_conductors_list.removeAt(index);
 	if (takesConductorColor()) update();
+	if (showsWireId()) refreshWireId();
 	emit conductorWasRemoved(conductor);
 }
 
@@ -413,7 +471,82 @@ void Terminal::paint(
 		}
 	}
 
+	if (showsWireId() && (!diagram() || diagram()->drawTerminalNames())) {
+		const QString wire_id = wireIdText();
+		if (!wire_id.isEmpty()) {
+			painter->setRenderHint(QPainter::TextAntialiasing, true);
+			painter->setFont(d->m_label_font);
+			painter->setPen(d->m_label_color);
+			const QRectF rect = wireIdRect(wire_id);
+			const Element *element = qgraphicsitem_cast<Element *>(parentItem());
+			if (element && !element->symbolTextsTransform().isIdentity()) {
+				const QPointF c = rect.center();
+				painter->setTransform(
+					QTransform::fromTranslate(-c.x(), -c.y())
+					* element->symbolTextsTransform().inverted()
+					* QTransform::fromTranslate(c.x(), c.y()), true);
+			}
+			painter->drawText(rect, Qt::AlignCenter, wire_id);
+		}
+	}
+
 	painter -> restore();
+}
+
+/**
+	@brief Terminal::wireIdText
+	@return the id of the wire connected to this terminal (the text of its
+	first conductor), or an empty string if it has none. "_" is the
+	"no id" value of a conductor.
+*/
+QString Terminal::wireIdText() const
+{
+	for (const Conductor *conductor : m_conductors_list) {
+		if (!conductor->textItem()) continue;
+		const QString text = conductor->textItem()->toPlainText().trimmed();
+		if (!text.isEmpty() && text != QLatin1String("_")) return text;
+	}
+	return QString();
+}
+
+/**
+	@brief Terminal::wireIdRect
+	@param text : the wire id to place
+	@return where the wire id is drawn, in the coordinates of the terminal:
+	just outside the tip of the terminal, beside the wire.
+*/
+QRectF Terminal::wireIdRect(const QString &text) const
+{
+	const QFontMetrics fm(d->m_label_font);
+	const QSizeF size = fm.size(Qt::TextSingleLine, text);
+	const QPointF tip = d->m_pos;
+	QPointF origin;
+	switch (d->m_orientation) {
+		case Qet::North:
+			origin = QPointF(tip.x() + 2, tip.y() - size.height() - 2);
+			break;
+		case Qet::East:
+			origin = QPointF(tip.x() + 2, tip.y() - size.height() - 1);
+			break;
+		case Qet::South:
+			origin = QPointF(tip.x() + 2, tip.y() + 2);
+			break;
+		case Qet::West:
+			origin = QPointF(tip.x() - size.width() - 2,
+					 tip.y() - size.height() - 1);
+			break;
+	}
+	return QRectF(origin, size);
+}
+
+/**
+	@brief Terminal::refreshWireId
+	Redraws the terminal after the id of a wire changed.
+*/
+void Terminal::refreshWireId()
+{
+	prepareGeometryChange();
+	update();
 }
 
 /**
@@ -482,9 +615,16 @@ QLineF Terminal::HelpLine() const
 	@return Le rectangle (en precision flottante) delimitant la borne et ses alentours.
 */
 QRectF Terminal::boundingRect() const {
+	QRectF br = m_br;
+	if (showsWireId()) {
+		const QString wire_id = wireIdText();
+		if (!wire_id.isEmpty())
+			br = br.united(wireIdRect(wire_id).adjusted(-2, -2, 2, 2));
+	}
+
 	const QString display_name = name();
 	if (!d->m_show_name || display_name.isEmpty()) {
-		return m_br;
+		return br;
 	}
 
 	QFontMetrics fm(d->m_label_font);
@@ -503,7 +643,7 @@ QRectF Terminal::boundingRect() const {
 	QRectF label_rect(label_pos + QPointF(dx, dy), text_size);
 	label_rect = label_rect.adjusted(-2, -2, 2, 2);
 
-	return m_br.united(label_rect);
+	return m_br.united(label_rect).united(br);
 }
 
 /**
