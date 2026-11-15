@@ -461,6 +461,15 @@ set_tests_properties(tst_svgtoelmt PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offsc
 target_include_directories(tst_svgtoelmt PRIVATE ${QET_DIR}/sources)
 target_link_libraries(tst_svgtoelmt PRIVATE Qt::Test Qt::Gui Qt::Xml)
 
+# islandnumbering.cpp is pure: the numbers and labels of the cards of an
+# island, and the query listing them. The query runs on an in-memory SQLite.
+add_executable(tst_islandnumbering tst_islandnumbering.cpp
+  ${QET_DIR}/sources/island/islandnumbering.cpp)
+add_test(NAME tst_islandnumbering COMMAND tst_islandnumbering)
+set_tests_properties(tst_islandnumbering PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+target_include_directories(tst_islandnumbering PRIVATE ${QET_DIR}/sources)
+target_link_libraries(tst_islandnumbering PRIVATE Qt::Test Qt::Sql)
+
 # configprofile.h is header-only: which settings a saved configuration
 # profile carries, and how loading one replaces the live settings.
 # borderproperties.cpp: the real writer of the folio size defaults, to check
