@@ -18,6 +18,8 @@
 #ifndef QETGRAPHICSTABLEFACTORY_H
 #define QETGRAPHICSTABLEFACTORY_H
 
+#include <QString>
+
 class Diagram;
 class QetGraphicsTableItem;
 class AddTableDialog;
@@ -39,12 +41,18 @@ class QetGraphicsTableFactory
 			// cannot use headlessly) can create a table from it directly.
 			// create() only reads settings already on the dialog; nothing
 			// about it depends on the dialog having been shown.
-		static void create(Diagram *diagram, AddTableDialog *dialog);
+		static void create(Diagram *diagram,
+						   AddTableDialog *dialog,
+						   const QString &island_query = QString());
+		static void createIsland(Diagram *diagram,
+								const QString &island,
+								bool inputs_outputs = false);
 	private:
 		static QetGraphicsTableItem *newTable(
 				Diagram *diagram,
 				AddTableDialog *dialog,
-				QetGraphicsTableItem *previous_table = nullptr);
+				QetGraphicsTableItem *previous_table = nullptr,
+				const QString &island_query = QString());
 };
 
 #endif // QETGRAPHICSTABLEFACTORY_H

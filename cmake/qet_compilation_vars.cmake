@@ -132,6 +132,10 @@ set(QET_SRC_FILES
   ${QET_DIR}/sources/svgtoelmt.cpp
   ${QET_DIR}/sources/svgtoelmt.h
   ${QET_DIR}/sources/svgtoelmtpalette.h
+  ${QET_DIR}/sources/island/islandnumbering.cpp
+  ${QET_DIR}/sources/island/islandnumbering.h
+  ${QET_DIR}/sources/island/islanddialog.cpp
+  ${QET_DIR}/sources/island/islanddialog.h
   ${QET_DIR}/sources/logging/crashhandler.cpp
   ${QET_DIR}/sources/logging/crashhandler.h
   ${QET_DIR}/sources/logging/eventloopwatchdog.cpp

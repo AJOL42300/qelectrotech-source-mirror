@@ -203,6 +203,8 @@ class QETDiagramEditor : public QETMainWindow
 		bool openProjectRevision(QETProject *project, qint64 number);
 		void showProjectChanges(QETProject *project, qint64 from, qint64 to, QWidget *parent);
 		void slot_terminalNumbering();
+		void slot_islandNumbering();
+		void slot_addIslandFolio(bool inputs_outputs);
 		void slot_cableNumbering();
 		void slot_reloadElementDrawings();
 		void slot_updateElementsFromCollections();
@@ -339,6 +341,9 @@ class QETDiagramEditor : public QETMainWindow
 		*m_project_export_wiring_list, ///< Action to export the wiring list
 		*m_project_wiring_list_view,   ///< Action to show the wiring list read from the project database
 		*m_terminal_numbering,         ///< Action to launch terminal numbering
+		*m_island_numbering,           ///< Action to number the cards of an island
+		*m_add_island_folio,           ///< Action to add a folio listing an island
+		*m_add_island_io_folio,        ///< Action to add a folio listing its I/O
 		*m_cable_numbering,            ///< Action to open the cable numbering window (rule + numbering of every cable)
 		*m_add_cable_list,             ///< Add a cable list graphics item
 		*m_export_cable_list,          ///< Export the cable list of the project to CSV
