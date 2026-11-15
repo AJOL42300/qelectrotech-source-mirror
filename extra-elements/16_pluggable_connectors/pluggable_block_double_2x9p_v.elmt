@@ -1,0 +1,126 @@
+<definition version="0.100.0" type="element" link_type="simple" width="390" height="100" hotspot_x="190" hotspot_y="50">
+	<uuid uuid="{7ef8bf19-43e5-50bf-9c1d-bae4fdb0252d}"/>
+	<names>
+		<name lang="en">Pluggable terminal block, double row, 2 x 9 positions (vertical)</name>
+		<name lang="fr">Bornier enfichable double, 2 x 9 positions (vertical)</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="designation" show="1">Pluggable terminal block 2x9</elementInformation>
+		<elementInformation name="description" show="1">Pluggable (detachable) terminal block, two stacked rows of 9 positions, numbered 1 to 18; wires on top, plug underneath.</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors
+Generic pluggable terminal block, not copied from a manufacturer drawing. The wire side and the plug side of a pin share a potential. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="-180" y="-20" width="180" height="40" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<rect x="10" y="-20" width="180" height="40" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<terminal x="-170" y="-30" name="1" orientation="n" type="Generic" potential="1" uuid="{ef7f5a46-0728-5ce0-9172-9d63c4f81bfc}"/>
+		<terminal x="-170" y="30" name="1'" orientation="s" type="Generic" potential="1" uuid="{8dd8541c-43a4-562a-acb7-f0ab5700546a}"/>
+		<line x1="-170" y1="-30" x2="-170" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-170" y1="20" x2="-170" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-170" y1="-14" x2="-170" y2="14" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="-168" y="-4" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="1"/>
+		<terminal x="-150" y="-30" name="2" orientation="n" type="Generic" potential="2" uuid="{190a8129-6aa3-5eff-8720-7e8aa75612e1}"/>
+		<terminal x="-150" y="30" name="2'" orientation="s" type="Generic" potential="2" uuid="{ba9e8e24-d745-5587-86eb-a7103f8215d1}"/>
+		<line x1="-150" y1="-30" x2="-150" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-150" y1="20" x2="-150" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-150" y1="-14" x2="-150" y2="14" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="-148" y="-4" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2"/>
+		<terminal x="-130" y="-30" name="3" orientation="n" type="Generic" potential="3" uuid="{0d1fc207-8a26-5f42-a04c-b69e8721e902}"/>
+		<terminal x="-130" y="30" name="3'" orientation="s" type="Generic" potential="3" uuid="{61b0845b-cccf-5bcb-8685-cd377938e8b6}"/>
+		<line x1="-130" y1="-30" x2="-130" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-130" y1="20" x2="-130" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-130" y1="-14" x2="-130" y2="14" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="-128" y="-4" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="3"/>
+		<terminal x="-110" y="-30" name="4" orientation="n" type="Generic" potential="4" uuid="{fb2ac58d-4fa8-5044-9db0-2bdd23378205}"/>
+		<terminal x="-110" y="30" name="4'" orientation="s" type="Generic" potential="4" uuid="{2480383a-27fa-5539-9774-b2b659bef905}"/>
+		<line x1="-110" y1="-30" x2="-110" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-110" y1="20" x2="-110" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-110" y1="-14" x2="-110" y2="14" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="-108" y="-4" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4"/>
+		<terminal x="-90" y="-30" name="5" orientation="n" type="Generic" potential="5" uuid="{477081b3-3aa3-5687-a262-48629f6c1c2d}"/>
+		<terminal x="-90" y="30" name="5'" orientation="s" type="Generic" potential="5" uuid="{cb78450a-78c8-504c-801d-dec9030c073a}"/>
+		<line x1="-90" y1="-30" x2="-90" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-90" y1="20" x2="-90" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-90" y1="-14" x2="-90" y2="14" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="-88" y="-4" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="5"/>
+		<terminal x="-70" y="-30" name="6" orientation="n" type="Generic" potential="6" uuid="{108463cd-28dc-5a7f-a1c0-d3e515b28162}"/>
+		<terminal x="-70" y="30" name="6'" orientation="s" type="Generic" potential="6" uuid="{daebad86-fd17-52f8-bb3a-939bb7d855cc}"/>
+		<line x1="-70" y1="-30" x2="-70" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-70" y1="20" x2="-70" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-70" y1="-14" x2="-70" y2="14" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="-68" y="-4" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="6"/>
+		<terminal x="-50" y="-30" name="7" orientation="n" type="Generic" potential="7" uuid="{19ca349f-b04c-5d07-9e7e-3dd667be999f}"/>
+		<terminal x="-50" y="30" name="7'" orientation="s" type="Generic" potential="7" uuid="{0d60999e-f207-507a-9a1e-448e5ca84689}"/>
+		<line x1="-50" y1="-30" x2="-50" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-50" y1="20" x2="-50" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-50" y1="-14" x2="-50" y2="14" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="-48" y="-4" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7"/>
+		<terminal x="-30" y="-30" name="8" orientation="n" type="Generic" potential="8" uuid="{dca31900-5ebd-5b9f-9f8d-0f08670ba63f}"/>
+		<terminal x="-30" y="30" name="8'" orientation="s" type="Generic" potential="8" uuid="{f817e0de-4444-556f-9390-836537009a0f}"/>
+		<line x1="-30" y1="-30" x2="-30" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-30" y1="20" x2="-30" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-30" y1="-14" x2="-30" y2="14" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="-28" y="-4" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="8"/>
+		<terminal x="-10" y="-30" name="9" orientation="n" type="Generic" potential="9" uuid="{271e3c0b-a821-570e-aeb6-ebae579888de}"/>
+		<terminal x="-10" y="30" name="9'" orientation="s" type="Generic" potential="9" uuid="{04996f4d-cabf-5416-9541-ab5dbd1eb37c}"/>
+		<line x1="-10" y1="-30" x2="-10" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-10" y1="20" x2="-10" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-10" y1="-14" x2="-10" y2="14" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="-8" y="-4" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="9"/>
+		<terminal x="20" y="-30" name="10" orientation="n" type="Generic" potential="10" uuid="{47cbed31-1bb3-53cf-af0b-c7b2475de5e1}"/>
+		<terminal x="20" y="30" name="10'" orientation="s" type="Generic" potential="10" uuid="{62b59c6e-c764-5467-9c24-8782d28730a1}"/>
+		<line x1="20" y1="-30" x2="20" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="20" y1="20" x2="20" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="20" y1="-14" x2="20" y2="14" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="22" y="-4" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="10"/>
+		<terminal x="40" y="-30" name="11" orientation="n" type="Generic" potential="11" uuid="{12a58483-b03e-5a84-aa05-b4c2caa221d3}"/>
+		<terminal x="40" y="30" name="11'" orientation="s" type="Generic" potential="11" uuid="{7ae01c58-1641-5ec0-8e36-e62f23d26b87}"/>
+		<line x1="40" y1="-30" x2="40" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="40" y1="20" x2="40" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="40" y1="-14" x2="40" y2="14" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="42" y="-4" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="11"/>
+		<terminal x="60" y="-30" name="12" orientation="n" type="Generic" potential="12" uuid="{a659b501-8b4f-58b3-b268-d0c3f2cb985e}"/>
+		<terminal x="60" y="30" name="12'" orientation="s" type="Generic" potential="12" uuid="{b0b17b4e-7b6d-50ad-be18-36e78a3f6d06}"/>
+		<line x1="60" y1="-30" x2="60" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="60" y1="20" x2="60" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="60" y1="-14" x2="60" y2="14" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="62" y="-4" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="12"/>
+		<terminal x="80" y="-30" name="13" orientation="n" type="Generic" potential="13" uuid="{03e09145-5ac3-5a36-91a4-2351d53e5a4d}"/>
+		<terminal x="80" y="30" name="13'" orientation="s" type="Generic" potential="13" uuid="{ab5b068a-39a4-5569-9d40-ccbe9b245e6f}"/>
+		<line x1="80" y1="-30" x2="80" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="80" y1="20" x2="80" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="80" y1="-14" x2="80" y2="14" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="82" y="-4" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="13"/>
+		<terminal x="100" y="-30" name="14" orientation="n" type="Generic" potential="14" uuid="{921e7bb5-6ed2-503e-8c68-834816977ba5}"/>
+		<terminal x="100" y="30" name="14'" orientation="s" type="Generic" potential="14" uuid="{0a88e501-56cf-5b81-a797-9e93c565d49e}"/>
+		<line x1="100" y1="-30" x2="100" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="100" y1="20" x2="100" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="100" y1="-14" x2="100" y2="14" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="102" y="-4" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="14"/>
+		<terminal x="120" y="-30" name="15" orientation="n" type="Generic" potential="15" uuid="{ceb7136f-39dc-53c9-8d09-11db31a46be8}"/>
+		<terminal x="120" y="30" name="15'" orientation="s" type="Generic" potential="15" uuid="{ca5324b6-4612-5556-9f6d-31b412ebb9b2}"/>
+		<line x1="120" y1="-30" x2="120" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="120" y1="20" x2="120" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="120" y1="-14" x2="120" y2="14" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="122" y="-4" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="15"/>
+		<terminal x="140" y="-30" name="16" orientation="n" type="Generic" potential="16" uuid="{2667959a-e70f-5182-b8d1-558305509fbb}"/>
+		<terminal x="140" y="30" name="16'" orientation="s" type="Generic" potential="16" uuid="{167e8dfa-2a72-5a5d-8793-0c1cfa28341b}"/>
+		<line x1="140" y1="-30" x2="140" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="140" y1="20" x2="140" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="140" y1="-14" x2="140" y2="14" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="142" y="-4" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="16"/>
+		<terminal x="160" y="-30" name="17" orientation="n" type="Generic" potential="17" uuid="{6db2e012-5d12-5d7a-9739-66392af7f8f0}"/>
+		<terminal x="160" y="30" name="17'" orientation="s" type="Generic" potential="17" uuid="{b65a7514-9924-50ce-a8a1-4751385a3cf5}"/>
+		<line x1="160" y1="-30" x2="160" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="160" y1="20" x2="160" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="160" y1="-14" x2="160" y2="14" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="162" y="-4" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="17"/>
+		<terminal x="180" y="-30" name="18" orientation="n" type="Generic" potential="18" uuid="{0e7a6256-3889-5afc-ab9e-6120f87e864a}"/>
+		<terminal x="180" y="30" name="18'" orientation="s" type="Generic" potential="18" uuid="{0d2ed5b9-35d7-526b-b9cd-940449759e2e}"/>
+		<line x1="180" y1="-30" x2="180" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="180" y1="20" x2="180" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="180" y1="-14" x2="180" y2="14" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="182" y="-4" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="18"/>
+		<dynamic_text x="-180" y="36" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{cadf95ec-84c4-5a88-975d-40786b922dde}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+	</description>
+</definition>
