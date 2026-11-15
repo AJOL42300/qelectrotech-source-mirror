@@ -14,18 +14,41 @@ collection, as the category **Beckhoff EtherCAT (generic)**.
 | `el2xxx_generic.elmt` | Beckhoff | EL2xxx | contacts 1 to 8 |
 | `el3xxx_generic.elmt` | Beckhoff | EL3xxx | contacts 1 to 8 |
 | `el4xxx_generic.elmt` | Beckhoff | EL4xxx | contacts 1 to 8 |
+| `el1008.elmt` | Beckhoff | EL1008 | contacts 1 to 8 |
+| `el2008.elmt` | Beckhoff | EL2008 | contacts 1 to 8 |
+| `el2652.elmt` | Beckhoff | EL2652 | contacts 1 to 4 (relay output, generic) |
+| `ek1100.elmt` | Beckhoff | EK1100 | EtherCAT IN, EtherCAT OUT |
+| `ek1322.elmt` | Beckhoff | EK1322 | IN X50, OUT X51, OUT X52 |
+| `ek1914.elmt` | Beckhoff | EK1914 | EtherCAT IN/OUT, I1 to I4, SI1, SI2, O1 to O4, SO1, SO2 |
+| `ax5203.elmt` | Beckhoff | AX5203 | EtherCAT IN/OUT, L1, L2, L3, PE, M1-U/V/W/PE, M2-U/V/W/PE |
+| `ax5206.elmt` | Beckhoff | AX5206 | same layout as the AX5203 |
 | `el9011.elmt` | Beckhoff | EL9011 | none (end cap) |
 | `epp2338.elmt` | Beckhoff | EPP2338-0001 | IN X50, OUT X51, X01 to X04 |
 | `ethercat_box_generic.elmt` | (empty) | (empty) | EtherCAT IN, EtherCAT OUT |
 | `af1000_2axes_generic.elmt` | Beckhoff | AF1000 | EtherCAT IN/OUT, A1-U/V/W, A2-U/V/W, L1, L2, L3, PE, RB+, RB- |
 
-The EK1100 coupler, and EL1008, EL2008, EL2564 and other terminals, are
-already in the standard collection, under
+Other terminals are already in the standard collection, under
 `10_electric/20_manufacturers_articles/beckhoff`.
 
-The EL1xxx to EL4xxx cards and the EPP2338 are *PLC master* elements with an
+The cards, the EPP2338 and the EK1914 are *PLC master* elements with an
 **I/O table** (one entry per channel). Everything on the table is generic and
 can be edited in the element properties.
+
+### References of a typical schematic
+
+The references found in the sample schematic and what covers them:
+
+| Reference | Symbol |
+| --- | --- |
+| EL1008, EL2008, EL2652 | their own symbol |
+| EK1100, EK1322, EK1914 | their own symbol |
+| EPP2338 | `epp2338.elmt` (the `-0002` variant is not told apart: the difference is not known, edit the reference) |
+| AX5203, AX5206 | their own symbol |
+| AF1103, AF1107, AF1115, AF1130, AF1155, AF1215, AF1222 | `af1000_2axes_generic.elmt`: set the reference and the number of axes yourself |
+| AX5805, KL219 | none |
+
+The designations are the ones of the Beckhoff product names; the EL2652
+relay output and all the layouts are generic.
 
 ## What is generic
 
@@ -150,6 +173,26 @@ Ctrl+V, with the same scale and threshold choices.
   part, so a raster photo cannot be a symbol. Convert a vector drawing (SVG)
   instead, or add the picture to the folio with the image tool and place the
   symbol over it. Only use pictures you may use.
+
+### Fetching a product picture on your machine
+
+No Beckhoff picture is in the repository, and none must be added to it.
+`--svg-to-elmt` also accepts one address (https) instead of a file: the
+address of a product page, or of a picture, that you copied from your browser:
+
+```
+qelectrotech --svg-to-elmt https://www.beckhoff.com/en-en/products/i-o/ethercat-terminals/el-ed1xxx-digital-input/el1008.html el1008_picture.elmt --cells 10
+```
+
+It downloads that one address when you run the command (no search, no loop
+over references; a product page gives its preview picture), keeps the picture
+in the cache folder of the user, traces it, and writes the element where you
+say. Write it outside the repository, for example in your personal element
+collection: a warning is printed when the output is in a git repository.
+
+I did not find clear terms of use for the product pictures of the Beckhoff
+website, so whether you may use a picture is up to you. A photograph traces
+poorly: this works for line drawings and logos.
 
 ## Limits
 
