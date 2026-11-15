@@ -20,11 +20,49 @@
 
 #include <QDomDocument>
 
+#include <conductorcolorcodes.h>
+
 bool WireProfile::operator==(const WireProfile &other) const
 {
 	return name == other.name
 			&& color == other.color
 			&& section == other.section;
+}
+
+/**
+	@brief WireProfiles::colouredStrands
+	The strands of a multi-pair cable: one profile per single-colour IEC
+	code, named "<code> <section>" ("BN 0.5").
+	@param section : the section of the strands, as written in the profiles
+*/
+QList<WireProfile> WireProfiles::colouredStrands(const QString &section)
+{
+	QList<WireProfile> list;
+	for (const auto &code : ConductorColorCodes::all()) {
+		if (!code.isTwoColour()) {
+			list << WireProfile{QStringLiteral("%1 %2").arg(code.code, section),
+								code.code, section};
+		}
+	}
+	return list;
+}
+
+/**
+	@brief WireProfiles::dinStrands
+	The strands of a multi-pair cable numbered after DIN 47100: one
+	profile per strand, named "DIN <number> <code> <section>"
+	("DIN 12 RDBU 0.5").
+	@param section : the section of the strands, as written in the profiles
+*/
+QList<WireProfile> WireProfiles::dinStrands(const QString &section)
+{
+	QList<WireProfile> list;
+	for (const auto &code : ConductorColorCodes::din47100()) {
+		list << WireProfile{QStringLiteral("DIN %1 %2 %3").arg(
+								QString::number(code.strand), code.code, section),
+							code.code, section};
+	}
+	return list;
 }
 
 /**

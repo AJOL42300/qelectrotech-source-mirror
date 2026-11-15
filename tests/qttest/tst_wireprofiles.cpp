@@ -18,6 +18,7 @@
 */
 #include "qetapptest.h"
 #include "conductorproperties.h"
+#include "conductorcolorcodes.h"
 #include "ElementsCollection/xmlelementcollection.h"
 #include "factory/elementfactory.h"
 #include "properties/wireprofiles.h"
@@ -181,6 +182,76 @@ class tst_wireprofiles : public QObject
 			stack->redo();
 			QCOMPARE(control->properties().m_wire_section, QStringLiteral("0.75"));
 			project->setWireProfiles(WireProfiles());
+		}
+
+		void assigningAProfileFromTheMenuIsOneUndoStep()
+		{
+			QETProject *project = m_diagram->project();
+			project->setWireProfiles(profiles({
+				{QStringLiteral("Control"), QStringLiteral("BU"), QStringLiteral("0.75")}}));
+			Conductor *a = wire(QString(), 100);
+			Conductor *b = wire(QString(), 200);
+			QVERIFY(a && b);
+
+			QUndoStack *stack = project->undoStack();
+			const int before = stack->count();
+			QUndoCommand *assign = ChangeWireProfilesCommand::assign(
+				{a, b}, project->wireProfiles(), QStringLiteral("Control"));
+			QVERIFY(assign);
+			stack->push(assign);
+			QCOMPARE(stack->count(), before + 1);
+			QCOMPARE(a->properties().m_wire_profile, QStringLiteral("Control"));
+			QCOMPARE(b->properties().m_wire_color, QStringLiteral("BU"));
+			QCOMPARE(b->properties().m_wire_section, QStringLiteral("0.75"));
+
+			stack->undo();
+			QVERIFY(a->properties().m_wire_profile.isEmpty());
+			QVERIFY(b->properties().m_wire_color.isEmpty());
+			stack->redo();
+
+				//Leaving the profile keeps the values; nothing to do twice
+			QUndoCommand *leave = ChangeWireProfilesCommand::assign(
+				{a, b}, project->wireProfiles(), QString());
+			QVERIFY(leave);
+			stack->push(leave);
+			QVERIFY(a->properties().m_wire_profile.isEmpty());
+			QCOMPARE(a->properties().m_wire_color, QStringLiteral("BU"));
+			QVERIFY(!ChangeWireProfilesCommand::assign(
+				{a, b}, project->wireProfiles(), QString()));
+
+				//A name the project does not know is refused
+			QVERIFY(!ChangeWireProfilesCommand::assign(
+				{a}, project->wireProfiles(), QStringLiteral("Unknown")));
+			project->setWireProfiles(WireProfiles());
+		}
+
+		void dinStrandsAreOneProfilePerNumber()
+		{
+			const QList<WireProfile> list = WireProfiles::dinStrands(QStringLiteral("0.5"));
+			QCOMPARE(list.size(), 60);
+			WireProfiles all;
+			all.setProfiles(list);
+			QCOMPARE(all.profiles().size(), 60);
+			WireProfile twelve;
+			QVERIFY(all.find(QStringLiteral("DIN 12 RDBU 0.5"), &twelve));
+			QCOMPARE(twelve.color, QStringLiteral("RDBU"));
+			QCOMPARE(twelve.section, QStringLiteral("0.5"));
+			QVERIFY(ConductorColorCodes::find(twelve.color));
+		}
+
+		void colouredStrandsAreOneProfilePerSingleColour()
+		{
+			const QList<WireProfile> list = WireProfiles::colouredStrands(QStringLiteral("0.5"));
+			QVERIFY(!list.isEmpty());
+			WireProfiles all;
+			all.setProfiles(list);
+			WireProfile bn;
+			QVERIFY(all.find(QStringLiteral("BN 0.5"), &bn));
+			QCOMPARE(bn.color, QStringLiteral("BN"));
+			QCOMPARE(bn.section, QStringLiteral("0.5"));
+				//Names are distinct: none is dropped when the list is read
+			QCOMPARE(all.profiles().size(), list.size());
+			QVERIFY(!all.find(QStringLiteral("GNYE 0.5")));
 		}
 
 		void aCableCoreKeepsItsValues()

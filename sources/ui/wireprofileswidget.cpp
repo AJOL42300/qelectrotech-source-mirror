@@ -81,9 +81,19 @@ WireProfilesWidget::WireProfilesWidget(QWidget *parent) :
 	m_table->setSelectionMode(QAbstractItemView::SingleSelection);
 
 	QPushButton *add_pb = new QPushButton(tr("Add"), this);
+	QPushButton *strands_pb = new QPushButton(tr("Add 0.5 mm² coloured strands"), this);
+	strands_pb->setToolTip(tr("One profile per standard colour, for the strands of "
+							  "shielded multi-pair cables: a strand is told apart by its "
+							  "colour, with no number needed."));
+	QPushButton *din_pb = new QPushButton(tr("Add DIN 47100 strands"), this);
+	din_pb->setToolTip(tr("One profile per strand number (1 to 60) of a multi-pair "
+						  "cable colour-coded after DIN 47100, 0.5 mm². The colour "
+						  "is the IEC codes put together: RDBU is red and blue."));
 	QPushButton *remove_pb = new QPushButton(tr("Remove"), this);
 	QHBoxLayout *buttons = new QHBoxLayout;
 	buttons->addWidget(add_pb);
+	buttons->addWidget(strands_pb);
+	buttons->addWidget(din_pb);
 	buttons->addWidget(remove_pb);
 	buttons->addStretch();
 
@@ -99,6 +109,25 @@ WireProfilesWidget::WireProfilesWidget(QWidget *parent) :
 		m_table->item(row, NameColumn)->setData(OriginalNameRole, QString());
 		m_table->setCurrentCell(row, NameColumn);
 		m_table->editItem(m_table->item(row, NameColumn));
+	});
+	connect(strands_pb, &QPushButton::clicked, this, [this]() {
+		const QString section = QLocale().toString(0.5, 'g', 6);
+		const WireProfiles current = wireProfiles();
+		for (const WireProfile &profile : WireProfiles::colouredStrands(section)) {
+				//Rows already there are kept as they are
+			if (!current.find(profile.name)) {
+				addRow(profile);
+			}
+		}
+	});
+	connect(din_pb, &QPushButton::clicked, this, [this]() {
+		const QString section = QLocale().toString(0.5, 'g', 6);
+		const WireProfiles current = wireProfiles();
+		for (const WireProfile &profile : WireProfiles::dinStrands(section)) {
+			if (!current.find(profile.name)) {
+				addRow(profile);
+			}
+		}
 	});
 	connect(remove_pb, &QPushButton::clicked, this, [this]() {
 		const int row = m_table->currentRow();

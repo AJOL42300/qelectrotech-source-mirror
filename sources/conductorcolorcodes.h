@@ -34,6 +34,12 @@ class ConductorProperties;
 	A code goes in the wire's existing colour text (conductor_color), the
 	field the wiring list exports, so nothing new is stored and an older
 	QElectroTech keeps it. Anything else typed there stays free text.
+
+	The strands of multi-pair cables follow DIN 47100: strand 1 to 60,
+	each written as the IEC codes of its colours put together ("RDBU" for
+	strand 12, red and blue). find() knows them too. A wire is drawn with
+	at most two colours, so the third colour of the strands 45 to 60
+	stays in the text only.
 */
 namespace ConductorColorCodes
 {
@@ -49,9 +55,13 @@ namespace ConductorColorCodes
 		QColor color_2;
 
 		bool isTwoColour() const { return color_2.isValid(); }
+
+			/// The strand number in DIN 47100, 0 for an IEC 60757 code
+		int strand = 0;
 	};
 
 	const QList<Code> &all();
+	const QList<Code> &din47100();
 	const Code *find(const QString &text);
 	QString displayName(const Code &code);
 	QIcon swatch(const Code &code);

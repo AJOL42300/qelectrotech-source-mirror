@@ -60,15 +60,69 @@ const QList<ConductorColorCodes::Code> &ConductorColorCodes::all()
 }
 
 /**
+	@brief ConductorColorCodes::din47100
+	@return the 60 strands of DIN 47100 (core identification of
+	telecommunication cables, withdrawn in 1998 but still in use), in
+	the order of their number. The strands 1 to 10 are single colours, 11
+	to 44 two colours, 45 to 60 three colours of which the wire is drawn
+	with the first two. Source of the table: the German Wikipedia article
+	"DIN 47100", after Funkamateur 5/2008.
+*/
+const QList<ConductorColorCodes::Code> &ConductorColorCodes::din47100()
+{
+	static const QList<Code> codes = []() {
+		static const char *const table[] = {
+			"WH", "BN", "GN", "YE", "GY", "PK", "BU", "RD", "BK", "VT",
+			"GYPK", "RDBU", "WHGN", "BNGN", "WHYE", "YEBN", "WHGY", "GYBN",
+			"WHPK", "PKBN", "WHBU", "BNBU", "WHRD", "BNRD", "WHBK", "BNBK",
+			"GYGN", "YEGY", "PKGN", "YEPK", "GNBU", "YEBU", "GNRD", "YERD",
+			"GNBK", "YEBK", "GYBU", "PKBU", "GYRD", "PKRD", "GYBK", "PKBK",
+			"BUBK", "RDBK", "WHBNBK", "YEGNBK", "GYPKBK", "RDBUBK",
+			"WHGNBK", "BNGNBK", "WHYEBK", "YEBNBK", "WHGYBK", "GYBNBK",
+			"WHPKBK", "PKBNBK", "WHBUBK", "BNBUBK", "WHRDBK", "BNRDBK"
+		};
+		QList<Code> list;
+		int number = 0;
+		for (const char *text : table)
+		{
+			++number;
+			const QString joined = QString::fromLatin1(text);
+			Code code{joined, nullptr, QColor(), QColor()};
+			code.strand = number;
+			for (int i = 0; i + 1 < joined.size() && i < 4; i += 2)
+			{
+				const Code *single = nullptr;
+				for (const Code &iec : all()) {
+					if (iec.code == joined.mid(i, 2)) {
+						single = &iec;
+					}
+				}
+				if (single) {
+					(i == 0 ? code.color : code.color_2) = single->color;
+				}
+			}
+			list << code;
+		}
+		return list;
+	}();
+	return codes;
+}
+
+/**
 	@brief ConductorColorCodes::find
 	@param text : a wire's colour text
-	@return the code \p text is, ignoring case and surrounding spaces, or
-	nullptr when it is free text
+	@return the IEC 60757 code or the DIN 47100 strand \p text is,
+	ignoring case and surrounding spaces, or nullptr when it is free text
 */
 const ConductorColorCodes::Code *ConductorColorCodes::find(const QString &text)
 {
 	const QString wanted = text.trimmed();
 	for (const Code &code : all()) {
+		if (code.code.compare(wanted, Qt::CaseInsensitive) == 0) {
+			return &code;
+		}
+	}
+	for (const Code &code : din47100()) {
 		if (code.code.compare(wanted, Qt::CaseInsensitive) == 0) {
 			return &code;
 		}
@@ -84,6 +138,13 @@ const ConductorColorCodes::Code *ConductorColorCodes::find(const QString &text)
 */
 QString ConductorColorCodes::displayName(const Code &code)
 {
+	if (code.strand > 0) {
+		return QStringLiteral("%1 – %2").arg(
+					code.code,
+					QCoreApplication::translate("ConductorColorToolButton",
+												"DIN 47100 strand %1")
+					.arg(code.strand));
+	}
 	return QStringLiteral("%1 – %2").arg(
 				code.code,
 				QCoreApplication::translate("ConductorColorToolButton", code.name));

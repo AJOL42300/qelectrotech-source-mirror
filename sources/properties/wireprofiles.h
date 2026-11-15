@@ -56,6 +56,8 @@ class WireProfiles
 
 		bool find(const QString &name, WireProfile *found = nullptr) const;
 		bool isEmpty() const {return m_profiles.isEmpty();}
+		static QList<WireProfile> colouredStrands(const QString &section);
+		static QList<WireProfile> dinStrands(const QString &section);
 
 		QDomElement toXml(QDomDocument &document) const;
 		static WireProfiles fromXml(const QDomElement &element);

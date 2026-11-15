@@ -20,6 +20,7 @@
 #define CHANGEWIREPROFILESCOMMAND_H
 
 #include <QHash>
+#include <QList>
 #include <QPointer>
 #include <QUndoCommand>
 #include <QVector>
@@ -56,6 +57,9 @@ class ChangeWireProfilesCommand final : public QUndoCommand
 		static ConductorProperties applied(const ConductorProperties &properties,
 										   const WireProfiles &profiles,
 										   const QHash<QString, QString> &renamed);
+		static QUndoCommand *assign(const QList<Conductor *> &wires,
+									const WireProfiles &profiles,
+									const QString &name);
 
 	private:
 		struct Change

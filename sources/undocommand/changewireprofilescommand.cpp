@@ -19,6 +19,7 @@
 #include "changewireprofilescommand.h"
 
 #include <conductorcolorcodes.h>
+#include <QPropertyUndoCommand/qpropertyundocommand.h>
 #include <diagram.h>
 #include <qetgraphicsitem/conductor.h>
 #include <qetproject.h>
@@ -100,6 +101,53 @@ ConductorProperties ChangeWireProfilesCommand::applied(
 	}
 	result.m_wire_section = profile.section;
 	return result;
+}
+
+/**
+	@brief ChangeWireProfilesCommand::assign
+	Give @p wires the profile called @p name (none when it is empty): its
+	colour and section are copied. A core of a cable keeps its own.
+	@param wires : the conductors to change
+	@param profiles : the standard wires of the project
+	@param name : the profile to give
+	@return the undoable step, or nullptr when nothing would change
+*/
+QUndoCommand *ChangeWireProfilesCommand::assign(
+		const QList<Conductor *> &wires, const WireProfiles &profiles,
+		const QString &name)
+{
+	if (!name.isEmpty() && !profiles.find(name)) {
+		return nullptr;
+	}
+
+	QUndoCommand *undo = new QUndoCommand(
+		name.isEmpty() ? QObject::tr("Remove the wire profile")
+					   : QObject::tr("Apply the wire profile \"%1\"").arg(name));
+	int changed = 0;
+	for (Conductor *wire : wires)
+	{
+		const ConductorProperties before = wire->properties();
+		if (!before.m_cable_uuid.isNull()) {
+			continue;
+		}
+		ConductorProperties after = before;
+		after.m_wire_profile = name;
+		after = applied(after, profiles, {});
+		if (after == before) {
+			continue;
+		}
+
+		QVariant old_value, new_value;
+		old_value.setValue(before);
+		new_value.setValue(after);
+		new QPropertyUndoCommand(wire, "properties", old_value, new_value, undo);
+		++changed;
+	}
+	if (!changed) {
+		delete undo;
+		return nullptr;
+	}
+	return undo;
 }
 
 void ChangeWireProfilesCommand::undo()
