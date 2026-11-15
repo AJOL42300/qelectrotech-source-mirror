@@ -1400,6 +1400,25 @@ target_compile_definitions(tst_pdflinkorder PRIVATE
   "QET_TEST_BINARY_PATH=\"$<TARGET_FILE:qelectrotech>\""
   "QET_EXAMPLES_DIR=\"${QET_DIR}/examples\"")
 
+# The HTML technical dossier: the function -> folios map is plain QtCore
+# code, compiled here alone; the export itself runs the real binary on
+# examples/industrial.qet (HTML pages, --pdf-bookmarks).
+add_executable(
+  tst_dossierfunctionmap
+  tst_dossierfunctionmap.cpp
+  ${QET_DIR}/sources/htmlexport/dossierfunctionmap.cpp)
+target_include_directories(tst_dossierfunctionmap PRIVATE ${QET_DIR}/sources)
+target_link_libraries(tst_dossierfunctionmap PRIVATE Qt::Test Qt::Core)
+add_test(NAME tst_dossierfunctionmap COMMAND tst_dossierfunctionmap)
+
+add_executable(tst_htmldossier tst_htmldossier.cpp)
+add_test(NAME tst_htmldossier COMMAND tst_htmldossier)
+add_dependencies(tst_htmldossier qelectrotech)
+target_link_libraries(tst_htmldossier PRIVATE Qt::Test)
+target_compile_definitions(tst_htmldossier PRIVATE
+  "QET_TEST_BINARY_PATH=\"$<TARGET_FILE:qelectrotech>\""
+  "QET_EXAMPLES_DIR=\"${QET_DIR}/examples\"")
+
 # One text per potential: the number goes on the same conductor in every
 # run when two conductors tie for longest. Exports
 # fixtures/one_text_per_potential_tie.qet through the real binary, several

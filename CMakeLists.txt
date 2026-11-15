@@ -198,6 +198,7 @@ add_library(
     ${QET_SRC_FILES}
     ${QET_DIR}/qelectrotech.qrc
     ${QET_DIR}/ico/icon-themes.qrc
+    ${QET_DIR}/sources/htmlexport/htmlexport.qrc
 )
 # The definitions above are set for this whole directory; a test target
 # lives in tests/ and gets them from here, through the library.

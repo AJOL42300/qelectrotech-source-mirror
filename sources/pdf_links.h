@@ -108,6 +108,23 @@ namespace PdfLinks {
 	*/
 	void setDocumentIdFromContent(const QString &pdfPath);
 
+	/// One bookmark of the outline of a PDF: a title and its page.
+	struct OutlineEntry {
+		QString title;
+		int page = 1; ///< from 1
+	};
+
+	/**
+		Post-process a Qt-generated PDF file: add an outline (the bookmarks a
+		viewer lists beside the pages) with one entry per page named in
+		@p entries, and ask the viewer to show it. Written as an
+		incremental update, so the pages and links stay as they are.
+		@return false when the file is not laid out as Qt writes it, or has
+		fewer pages than the entries name; the file is then left alone.
+	*/
+	bool addOutline(const QString &pdfPath,
+					const QList<OutlineEntry> &entries);
+
 	struct ComponentInfo {
 		QString contents;
 	};

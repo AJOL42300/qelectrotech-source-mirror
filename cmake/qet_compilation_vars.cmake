@@ -144,6 +144,12 @@ set(QET_SRC_FILES
   ${QET_DIR}/sources/island/islandnumbering.h
   ${QET_DIR}/sources/island/islanddialog.cpp
   ${QET_DIR}/sources/island/islanddialog.h
+  ${QET_DIR}/sources/htmlexport/dossierfunctionmap.cpp
+  ${QET_DIR}/sources/htmlexport/dossierfunctionmap.h
+  ${QET_DIR}/sources/htmlexport/htmldossier.cpp
+  ${QET_DIR}/sources/htmlexport/htmldossier.h
+  ${QET_DIR}/sources/htmlexport/htmldossierdialog.cpp
+  ${QET_DIR}/sources/htmlexport/htmldossierdialog.h
   ${QET_DIR}/sources/logging/crashhandler.cpp
   ${QET_DIR}/sources/logging/crashhandler.h
   ${QET_DIR}/sources/logging/eventloopwatchdog.cpp

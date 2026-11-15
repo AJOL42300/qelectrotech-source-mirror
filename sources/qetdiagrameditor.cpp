@@ -76,6 +76,7 @@
 #include "factory/elementpicturefactory.h"
 #include "factory/qetgraphicstablefactory.h"
 #include "print/projectprintwindow.h"
+#include "htmlexport/htmldossierdialog.h"
 #include "project/projectpropertieshandler.h"
 #include "ui/multielementinfowidget.h"
 #include "ui/projectlanguagesdialog.h"
@@ -589,6 +590,14 @@ void QETDiagramEditor::setUpActions()
 		if (project) {
 			ProjectPrintWindow::launchDialog(project, QPrinter::PdfFormat, this);
 		}
+	});
+
+		//export interactive technical dossier
+	m_export_html_dossier = new QAction(QET::Icons::DocumentExport, tr("Export the interactive technical dossier"), this);
+	ShortcutManager::instance().registerAction(m_export_html_dossier, "diagrameditor.export_html_dossier", tr("Diagram editors"), QKeySequence());
+	m_export_html_dossier->setStatusTip(tr("Export the project as a folder of HTML pages that opens in a browser", "status bar tip"));
+	connect(m_export_html_dossier, &QAction::triggered, [this] () {
+		HtmlDossierDialog::launchDialog(currentProject(), this);
 	});
 
 		//Quit editor
@@ -2267,6 +2276,7 @@ void QETDiagramEditor::setUpMenu()
 	//menu_fichier -> addAction(import_diagram);
 	menu_fichier -> addAction(m_export_to_images);
 	menu_fichier -> addAction(m_export_to_pdf);
+	menu_fichier -> addAction(m_export_html_dossier);
 	menu_fichier -> addAction(m_export_delivery);
 	menu_fichier -> addAction(m_print);
 	menu_fichier -> addSeparator();
@@ -3996,6 +4006,7 @@ void QETDiagramEditor::slot_updateActions()
 	m_export_to_images->            setEnabled(opened_diagram);
 	m_print->                       setEnabled(opened_diagram);
 	m_export_to_pdf->               setEnabled(opened_diagram);
+	m_export_html_dossier->         setEnabled(opened_diagram);
 	m_edit_diagram_properties->     setEnabled(opened_diagram);
 	m_zoom_actions_group.           setEnabled(opened_diagram);
 	m_select_actions_group.         setEnabled(opened_diagram);
