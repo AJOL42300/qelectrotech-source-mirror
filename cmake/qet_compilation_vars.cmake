@@ -129,6 +129,12 @@ set(QET_RES_FILES
 set(QET_SRC_FILES
   ${QET_DIR}/sources/cli_export.cpp
   ${QET_DIR}/sources/cli_export.h
+  ${QET_DIR}/sources/htmlexport/dossierfunctionmap.cpp
+  ${QET_DIR}/sources/htmlexport/dossierfunctionmap.h
+  ${QET_DIR}/sources/htmlexport/htmldossier.cpp
+  ${QET_DIR}/sources/htmlexport/htmldossier.h
+  ${QET_DIR}/sources/htmlexport/htmldossierdialog.cpp
+  ${QET_DIR}/sources/htmlexport/htmldossierdialog.h
   ${QET_DIR}/sources/logging/crashhandler.cpp
   ${QET_DIR}/sources/logging/crashhandler.h
   ${QET_DIR}/sources/logging/eventloopwatchdog.cpp

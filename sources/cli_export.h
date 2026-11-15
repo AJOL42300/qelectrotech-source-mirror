@@ -20,6 +20,8 @@
 
 #include <QStringList>
 
+class QETProject;
+
 /**
 	@brief Headless command-line export.
 
@@ -42,7 +44,8 @@ namespace CLIExport {
 		@return process exit code (0 on success).
 
 		Usage:
-		  qelectrotech --export-pdf     <project.qet> <output.pdf> [--show-terminals]
+		  qelectrotech --export-pdf     <project.qet> <output.pdf> [--show-terminals] [--pdf-bookmarks]
+		  qelectrotech --export-html    <project.qet> <output_dir> [--html-overview <overview.svg>] [--html-map <map.json|csv>] [--html-folios <1,3-5>] [--html-no-pdf] [--show-terminals]
 		  qelectrotech --export-png     <project.qet> <output_dir> [--show-terminals]
 		  qelectrotech --export-svg     <project.qet> <output_dir> [--show-terminals] [--svg-small-pictures]
 		  qelectrotech --export-dxf     <project.qet> <output_dir> [--show-terminals] [--dxf-blocks] [--dxf-attributes]
@@ -63,6 +66,18 @@ namespace CLIExport {
 		  qelectrotech --query          <SQL> <project>... [--json]
 
 		PDF: one multi-page document (one diagram per page).
+		--pdf-bookmarks: the PDF also has bookmarks, one per folio
+		      ("N - title"), listed by the viewer beside the pages.
+		html: an interactive technical dossier (see docs/html_export.md):
+		      index.html opens it, with no server. Options:
+		      --html-overview <svg>: the machine overview picture of the
+		      home page, copied into the dossier.
+		      --html-map <file>: function -> folios (JSON or CSV);
+		      otherwise deduced from the folios, and written to
+		      function-map.json to be edited.
+		      --html-folios <1,3-5>: only these folios (default: all).
+		      --html-no-pdf: do not write dossier.pdf.
+		      --show-terminals: also paint terminal markers.
 		PNG/SVG/DXF: one file per diagram, named <output_dir>/<NN>_<title>.<ext>.
 		DXF: the same file the export dialog writes with its default options
 		      (the export settings of the preferences).
@@ -127,6 +142,15 @@ namespace CLIExport {
 		      field.  E.g. --set-titleblock in.qet out.qet revision=B date=today
 	*/
 	int run(const QStringList &args);
+
+	/**
+		@brief Write @p project as one multi-page PDF (one folio per
+		page), with the clickable cross-references and, when @p bookmarks
+		is set, a bookmark per folio. Also used by the HTML dossier.
+		@return process exit code (0 on success).
+	*/
+	int exportPdfFile(QETProject &project, const QString &output,
+					  bool bookmarks, bool showTerminals = false);
 
 }
 

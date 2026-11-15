@@ -33,6 +33,7 @@
 #include "editor/terminalnamecheck.h"
 #include "dxfexport.h"
 #include "exportproperties.h"
+#include "htmlexport/htmldossier.h"
 #include "pdf_links.h"
 #include "container/qetcontainer.h"
 #include "qetgraphicsitem/conductor.h"
@@ -83,6 +84,7 @@ const QHash<QString, QString> &exportFlags()
 {
 	static const QHash<QString, QString> flags {
 		{"--export-pdf", "pdf"},
+		{"--export-html", "html"},
 		{"--export-png", "png"},
 		{"--export-svg", "svg"},
 		{"--export-dxf", "dxf"},
@@ -192,7 +194,7 @@ QDateTime sourceDateEpoch()
 }
 
 int exportPdf(QETProject &project, const QString &output,
-			 bool showTerminals = false)
+			 bool showTerminals = false, bool bookmarks = false)
 {
 	const QList<Diagram *> diagrams = project.diagrams();
 	if (diagrams.isEmpty()) {
@@ -301,6 +303,21 @@ int exportPdf(QETProject &project, const QString &output,
 	if (sourceDate.isValid()) {
 		PdfLinks::setDocumentDate(output, sourceDate);
 		PdfLinks::setDocumentIdFromContent(output);
+	}
+	// One bookmark per folio, "1 - Title": the table of contents a viewer
+	// shows beside the pages.
+	if (bookmarks) {
+		QList<PdfLinks::OutlineEntry> entries;
+		for (int i = 0; i < diagrams.size(); ++i) {
+			const QString title = diagrams.at(i)->title().simplified();
+			entries.append({title.isEmpty() ? QString::number(i + 1)
+										   : QStringLiteral("%1 - %2")
+												 .arg(i + 1).arg(title),
+							i + 1});
+		}
+		if (!PdfLinks::addOutline(output, entries))
+			err << "Bookmarks not written: the PDF is not laid out as "
+				   "expected.\n";
 	}
 
 	out << "Exported " << diagrams.size() << " page(s) -> " << output << "\n";
@@ -1325,6 +1342,12 @@ int queryProjects(const QString &sql, const QStringList &files, bool json)
 
 namespace CLIExport {
 
+int exportPdfFile(QETProject &project, const QString &output, bool bookmarks,
+				  bool showTerminals)
+{
+	return exportPdf(project, output, showTerminals, bookmarks);
+}
+
 bool isExportRequest(const QStringList &args)
 {
 	for (const QString &a : args)
@@ -1349,7 +1372,22 @@ int run(const QStringList &args)
 	const bool ignoreLock = filtered.removeAll("--ignore-lock") > 0;
 	const bool json = filtered.removeAll("--json") > 0;
 	const bool grid = filtered.removeAll("--grid") > 0;
-
+	const bool pdfBookmarks = filtered.removeAll("--pdf-bookmarks") > 0;
+	const bool htmlNoPdf = filtered.removeAll("--html-no-pdf") > 0;
+	// options of --export-html which take a value
+	const auto takeValue = [&filtered](const QString &name) {
+		const int i = filtered.indexOf(name);
+		if (i == -1)
+			return QString();
+		filtered.removeAt(i);
+		return i < filtered.size() ? filtered.takeAt(i) : QString();
+	};
+	HtmlDossier::Options htmlOptions;
+	htmlOptions.overviewSvg = takeValue("--html-overview");
+	htmlOptions.mapFile = takeValue("--html-map");
+	htmlOptions.folios = takeValue("--html-folios");
+	htmlOptions.pdf = !htmlNoPdf;
+	htmlOptions.showTerminals = showTerminals;
 	QString flag;
 	QStringList rest;
 	for (int i = 0; i < filtered.size(); ++i) {
@@ -1577,7 +1615,24 @@ int run(const QStringList &args)
 		return 2;
 	}
 	if (format == "pdf")
-		return exportPdf(project, output, showTerminals);
+		return exportPdf(project, output, showTerminals, pdfBookmarks);
+	if (format == "html") {
+		htmlOptions.progress = [](int done, int total, const QString &what) {
+			out << "  [" << done << "/" << total << "] " << what << "\n";
+			out.flush();
+		};
+		const HtmlDossier::Result result =
+			HtmlDossier::exportDossier(project, output, htmlOptions);
+		for (const QString &warning : result.warnings)
+			err << "Warning: " << warning << "\n";
+		if (!result.ok) {
+			err << result.error << "\n";
+			return 1;
+		}
+		out << "Exported the dossier of " << result.folios << " folio(s) -> "
+			<< output << " in " << result.milliseconds / 1000.0 << " s\n";
+		return 0;
+	}
 	if (format == "dxf")
 		return exportDxf(project, output, showTerminals, dxfBlocks, dxfAttributes);
 	if (format == "cables" || format == "wires")
