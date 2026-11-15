@@ -669,6 +669,8 @@ set(QET_SRC_FILES
   ${QET_DIR}/sources/properties/projectlanguages.h
   ${QET_DIR}/sources/properties/potentialtypes.cpp
   ${QET_DIR}/sources/properties/potentialtypes.h
+  ${QET_DIR}/sources/properties/wireprofiles.cpp
+  ${QET_DIR}/sources/properties/wireprofiles.h
   ${QET_DIR}/sources/properties/propertiesinterface.cpp
   ${QET_DIR}/sources/properties/propertiesinterface.h
   ${QET_DIR}/sources/properties/reportproperties.cpp
@@ -690,6 +692,8 @@ set(QET_SRC_FILES
   ${QET_DIR}/sources/qetgraphicsitem/conductor.h
   ${QET_DIR}/sources/qetgraphicsitem/conductordefinitionmark.cpp
   ${QET_DIR}/sources/qetgraphicsitem/conductordefinitionmark.h
+  ${QET_DIR}/sources/qetgraphicsitem/conductorendlabels.cpp
+  ${QET_DIR}/sources/qetgraphicsitem/conductorendlabels.h
   ${QET_DIR}/sources/qetgraphicsitem/conductortextitem.cpp
   ${QET_DIR}/sources/qetgraphicsitem/conductortextitem.h
   ${QET_DIR}/sources/qetgraphicsitem/crossrefitem.cpp
@@ -1000,6 +1004,8 @@ set(QET_SRC_FILES
   ${QET_DIR}/sources/ui/potentialsourceswidget.h
   ${QET_DIR}/sources/ui/potentialtypeswidget.cpp
   ${QET_DIR}/sources/ui/potentialtypeswidget.h
+  ${QET_DIR}/sources/ui/wireprofileswidget.cpp
+  ${QET_DIR}/sources/ui/wireprofileswidget.h
   ${QET_DIR}/sources/ui/projectpropertiesdialog.cpp
   ${QET_DIR}/sources/ui/projectpropertiesdialog.h
   ${QET_DIR}/sources/ui/reportpropertiewidget.cpp
@@ -1044,6 +1050,8 @@ set(QET_SRC_FILES
 
   ${QET_DIR}/sources/undocommand/addelementtextcommand.cpp
   ${QET_DIR}/sources/undocommand/addelementtextcommand.h
+  ${QET_DIR}/sources/undocommand/changewireprofilescommand.cpp
+  ${QET_DIR}/sources/undocommand/changewireprofilescommand.h
   ${QET_DIR}/sources/undocommand/adddiagramcommand.cpp
   ${QET_DIR}/sources/undocommand/adddiagramcommand.h
   ${QET_DIR}/sources/undocommand/addgraphicsobjectcommand.cpp

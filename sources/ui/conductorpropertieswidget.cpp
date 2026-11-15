@@ -21,10 +21,12 @@
 #include <conductorcolorcodes.h>
 #include <qetapp.h>
 #include <qtextorientationspinboxwidget.h>
+#include <TerminalStrip/terminalcatalog.h>
 #include "ui_conductorpropertieswidget.h"
 
 #include <QCompleter>
 #include <QIcon>
+#include <QLocale>
 #include <QMenu>
 #include <QPainter>
 #include <QPixmap>
@@ -98,6 +100,7 @@ void ConductorPropertiesWidget::setProperties(
 	ui->m_text_le               -> setText    (m_properties.text);
 	ui->m_function_le           -> setText    (m_properties.m_function);
 	selectPotentialType(m_properties.m_potential_type);
+	selectWireProfile(m_properties.m_wire_profile);
 	ui->m_cable_le              -> setText    (m_properties.m_cable);
 	ui->m_bus_le                -> setText    (m_properties.m_bus);
 	ui->m_tension_protocol_le   -> setText    (m_properties.m_tension_protocol);
@@ -110,6 +113,7 @@ void ConductorPropertiesWidget::setProperties(
 	ui->m_one_text_per_folio_cb -> setChecked (m_properties.m_one_text_per_folio);
 	ui->m_definition_mark_cb    -> setChecked (m_properties.m_definition_mark);
 	ui->m_definition_mark_hides_text_cb -> setChecked (m_properties.m_definition_mark_hides_text);
+	ui->m_end_labels_cb->setChecked(m_properties.m_end_labels);
 	ui->m_definition_mark_at_sb -> setValue  (m_properties.m_definition_mark_at < 0
 						   ? -1 : qRound(m_properties.m_definition_mark_at * 100));
 	ui->m_earth_cb              -> setChecked (m_properties.singleLineProperties.hasGround);
@@ -138,6 +142,7 @@ void ConductorPropertiesWidget::setProperties(
 	ui->m_wire_color_le->setDisabled(from_cable);
 	ui->m_wire_color_codes_tb->setDisabled(from_cable);
 	ui->m_wire_section_le->setDisabled(from_cable);
+	ui->m_wire_section_values_tb->setDisabled(from_cable);
 	ui->m_conductor_type_le->setDisabled(from_cable);
 	ui->m_wire_color_locked_info->setVisible(from_cable);
 	ui->m_wire_section_locked_info->setVisible(from_cable);
@@ -188,6 +193,11 @@ ConductorProperties ConductorPropertiesWidget::properties() const
 	properties_.m_potential_type        = ui->m_potential_type_cb->isHidden()
 			? m_properties.m_potential_type
 			: ui->m_potential_type_cb->currentData().toString();
+		//Hidden when the project has no wire profile: the conductor
+		//keeps the one it has
+	properties_.m_wire_profile          = ui->m_wire_profile_cb->isHidden()
+			? m_properties.m_wire_profile
+			: ui->m_wire_profile_cb->currentData().toString();
 	properties_.m_cable                 = ui -> m_cable_le->text();
 	properties_.m_bus                   = ui -> m_bus_le->text();
 	properties_.m_tension_protocol      = ui -> m_tension_protocol_le->text();
@@ -200,6 +210,7 @@ ConductorProperties ConductorPropertiesWidget::properties() const
 	properties_.m_one_text_per_folio    = ui -> m_one_text_per_folio_cb -> isChecked();
 	properties_.m_definition_mark       = ui -> m_definition_mark_cb -> isChecked();
 	properties_.m_definition_mark_hides_text = ui -> m_definition_mark_hides_text_cb -> isChecked();
+	properties_.m_end_labels = ui->m_end_labels_cb->isChecked();
 	const int at_percent = ui->m_definition_mark_at_sb->value();
 	properties_.m_definition_mark_at   = at_percent < 0 ? -1 : at_percent / 100.0;
 		//The box shows whole percents: keep the stored place unless it
@@ -287,6 +298,65 @@ void ConductorPropertiesWidget::selectPotentialType(const QString &name)
 		index = cb->count() - 1;
 	}
 	cb->setCurrentIndex(index);
+}
+
+/**
+	@brief ConductorPropertiesWidget::setWireProfiles
+	Offer the standard wires of a project. Without this call, or with an
+	empty list, the choice stays hidden.
+	@param profiles
+*/
+void ConductorPropertiesWidget::setWireProfiles(const WireProfiles &profiles)
+{
+	m_wire_profiles = profiles;
+	const bool shown = !profiles.isEmpty();
+	ui->m_wire_profile_cb->clear();
+	ui->m_wire_profile_cb->addItem(tr("None"), QString());
+	for (const WireProfile &profile : profiles.profiles()) {
+		ui->m_wire_profile_cb->addItem(profile.name, profile.name);
+	}
+	selectWireProfile(m_properties.m_wire_profile);
+	ui->m_wire_profile_cb->setVisible(shown);
+	ui->m_wire_profile_label->setVisible(shown);
+}
+
+/**
+	@brief ConductorPropertiesWidget::selectWireProfile
+	Show \p name in the wire profile choice. A name the project no longer
+	lists is added to it, so opening and closing the dialog does not lose it.
+	@param name
+*/
+void ConductorPropertiesWidget::selectWireProfile(const QString &name)
+{
+	QComboBox *cb = ui->m_wire_profile_cb;
+	int index = cb->findData(name);
+	if (index == -1) {
+		cb->addItem(name, name);
+		index = cb->count() - 1;
+	}
+	cb->setCurrentIndex(index);
+}
+
+/**
+	@brief ConductorPropertiesWidget::applyWireProfile
+	A profile was chosen in the list: give its colour and its section to
+	the fields, unless this wire is a core of a cable, whose colour and
+	section come from the cable.
+	@param index : the index of the choice
+*/
+void ConductorPropertiesWidget::applyWireProfile(int index)
+{
+	WireProfile profile;
+	if (!m_wire_profiles.find(ui->m_wire_profile_cb->itemData(index).toString(), &profile)
+			|| !m_properties.m_cable_uuid.isNull()) {
+		return;
+	}
+	ui->m_wire_section_le->setText(profile.section);
+	if (ConductorColorCodes::find(profile.color)) {
+		pickColorCode(profile.color);
+	} else {
+		ui->m_wire_color_le->setText(profile.color);
+	}
 }
 
 /**
@@ -384,6 +454,11 @@ void ConductorPropertiesWidget::initWidget()
 		//Shown by setPotentialTypes(), for a project that draws from them
 	ui->m_potential_type_cb->hide();
 	ui->m_potential_type_label->hide();
+		//Shown by setWireProfiles(), for a project that has some
+	ui->m_wire_profile_cb->hide();
+	ui->m_wire_profile_label->hide();
+	connect(ui->m_wire_profile_cb, QOverload<int>::of(&QComboBox::activated),
+		this, &ConductorPropertiesWidget::applyWireProfile);
 	m_verti_select = QETApp::createTextOrientationSpinBoxWidget();
 	ui -> m_text_angle_gl -> addWidget(m_verti_select, 2, 0, Qt::AlignHCenter);
 	m_horiz_select = QETApp::createTextOrientationSpinBoxWidget();
@@ -422,6 +497,19 @@ void ConductorPropertiesWidget::initWidget()
 	auto *completer = new QCompleter(code_list, ui->m_wire_color_le);
 	completer->setCaseSensitivity(Qt::CaseInsensitive);
 	ui->m_wire_color_le->setCompleter(completer);
+
+		//The usual sections: picking one writes it in the section field,
+		//which stays free text
+	auto *sections_menu = new QMenu(ui->m_wire_section_values_tb);
+	for (const double section : TerminalCatalog::sections())
+	{
+		const QString text = QLocale().toString(section, 'g', 6);
+		QAction *a = sections_menu->addAction(tr("%1 mm²").arg(text));
+		connect(a, &QAction::triggered, this, [this, text]() {
+			ui->m_wire_section_le->setText(text);
+		});
+	}
+	ui->m_wire_section_values_tb->setMenu(sections_menu);
 
 	connect(ui->m_multiwires_gb, &QGroupBox::toggled, [this](bool toggle) {this->ui->m_singlewire_gb->setChecked(!toggle);});
 	connect(ui->m_singlewire_gb, &QGroupBox::toggled, [this](bool toggle) {this->ui->m_multiwires_gb->setChecked(!toggle);});

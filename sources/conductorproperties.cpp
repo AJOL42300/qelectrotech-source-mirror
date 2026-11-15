@@ -344,6 +344,9 @@ QList<QPair<QString, QString>> ConductorProperties::attributes() const
 		//exactly as it was
 	if (!m_conductor_type.isEmpty())
 		add("conductor_type", m_conductor_type);
+		//Only written when set, like the type above
+	if (!m_wire_profile.isEmpty())
+		add("wire_profile", m_wire_profile);
 	add("numsize", QString::number(text_size));
 	add("condsize", QString::number(cond_size));
 	add("displaytext", QString::number(m_show_text));
@@ -357,6 +360,8 @@ QList<QPair<QString, QString>> ConductorProperties::attributes() const
 		if (m_definition_mark_hides_text)
 			add("definition_mark_hides_text", QStringLiteral("1"));
 	}
+	if (m_end_labels)
+		add("end_labels", QStringLiteral("1"));
 
 	QMetaEnum me = QMetaEnum::fromType<Qt::Alignment>();
 	add("horizontal-alignment", QString::fromLatin1(me.valueToKey(m_horizontal_alignment)));
@@ -424,6 +429,7 @@ void ConductorProperties::fromXml(QDomElement &e)
 	m_wire_color         = e.attribute("conductor_color");
 	m_wire_section       = e.attribute("conductor_section");
 	m_conductor_type     = e.attribute("conductor_type");
+	m_wire_profile       = e.attribute("wire_profile");
 	text_size            = e.attribute("numsize", QString::number(9)).toInt();
 	cond_size            = e.attribute("condsize", QString::number(1)).toDouble();
 	m_show_text          = e.attribute("displaytext", QString::number(1)).toInt();
@@ -433,6 +439,7 @@ void ConductorProperties::fromXml(QDomElement &e)
 	m_definition_mark    = e.attribute("definition_mark").toInt();
 	m_definition_mark_at = e.attribute("definition_mark_at", QStringLiteral("-1")).toDouble();
 	m_definition_mark_hides_text = e.attribute("definition_mark_hides_text").toInt();
+	m_end_labels         = e.attribute("end_labels").toInt();
 	if (!qIsFinite(m_definition_mark_at) || m_definition_mark_at > 1) m_definition_mark_at = -1;
 
 	QMetaEnum me = QMetaEnum::fromType<Qt::Alignment>();
@@ -486,6 +493,7 @@ void ConductorProperties::toSettings(QSettings &settings, const QString &prefix)
 	settings.setValue(prefix + "horizrotatetext", QString::number(horiz_rotate_text));
 	settings.setValue(prefix + "definition_mark", m_definition_mark);
 	settings.setValue(prefix + "definition_mark_hides_text", m_definition_mark_hides_text);
+	settings.setValue(prefix + "end_labels", m_end_labels);
 
 	QMetaEnum me = QMetaEnum::fromType<Qt::Alignment>();
 	settings.setValue(prefix + "horizontal-alignment", me.valueToKey(m_horizontal_alignment));
@@ -544,6 +552,7 @@ void ConductorProperties::fromSettings(QSettings &settings, const QString &prefi
 	horiz_rotate_text    = settings.value((prefix + "horizrotatetext"), "0").toDouble();
 	m_definition_mark    = settings.value(prefix + "definition_mark", false).toBool();
 	m_definition_mark_hides_text = settings.value(prefix + "definition_mark_hides_text", false).toBool();
+	m_end_labels         = settings.value(prefix + "end_labels", false).toBool();
 
 	QMetaEnum me = QMetaEnum::fromType<Qt::Alignment>();
 	m_horizontal_alignment = Qt::Alignment(me.keyToValue(settings.value(prefix + "horizontal-alignment", "AlignBottom").toString().toStdString().data()));
@@ -597,6 +606,7 @@ void ConductorProperties::applyForEqualAttributes(QList<ConductorProperties> lis
 		m_wire_color         = cp.m_wire_color;
 		m_wire_section       = cp.m_wire_section;
 		m_conductor_type     = cp.m_conductor_type;
+		m_wire_profile       = cp.m_wire_profile;
 		text_size            = cp.text_size;
 		cond_size            = cp.cond_size;
 		m_show_text          = cp.m_show_text;
@@ -609,6 +619,7 @@ void ConductorProperties::applyForEqualAttributes(QList<ConductorProperties> lis
 		m_definition_mark    = cp.m_definition_mark;
 		m_definition_mark_at = cp.m_definition_mark_at;
 		m_definition_mark_hides_text = cp.m_definition_mark_hides_text;
+		m_end_labels         = cp.m_end_labels;
 
 		return;
 	}
@@ -814,6 +825,17 @@ void ConductorProperties::applyForEqualAttributes(QList<ConductorProperties> lis
 		m_conductor_type = s_value;
 	equal = true;
 
+		//Wire profile
+	s_value = clist.first().m_wire_profile;
+	for(ConductorProperties cp : clist)
+	{
+		if (cp.m_wire_profile != s_value)
+			equal = false;
+	}
+	if (equal)
+		m_wire_profile = s_value;
+	equal = true;
+
 
 		//text size
 	i_value = clist.first().text_size;
@@ -877,6 +899,16 @@ void ConductorProperties::applyForEqualAttributes(QList<ConductorProperties> lis
 	}
 	if (equal)
 		m_definition_mark_hides_text = b_value;
+	equal = true;
+
+	b_value = clist.first().m_end_labels;
+	for(ConductorProperties cp : clist)
+	{
+		if (cp.m_end_labels != b_value)
+			equal = false;
+	}
+	if (equal)
+		m_end_labels = b_value;
 	equal = true;
 
 		//One text per folio
@@ -974,6 +1006,7 @@ void ConductorProperties::applyChanges(const ConductorProperties &before,
 	take(m_tension_protocol,     before.m_tension_protocol,     after.m_tension_protocol);
 	take(m_wire_color,           before.m_wire_color,           after.m_wire_color);
 	take(m_wire_section,         before.m_wire_section,         after.m_wire_section);
+	take(m_wire_profile,         before.m_wire_profile,         after.m_wire_profile);
 	take(m_show_text,            before.m_show_text,            after.m_show_text);
 	take(text_size,              before.text_size,              after.text_size);
 	take(cond_size,              before.cond_size,              after.cond_size);
@@ -985,6 +1018,7 @@ void ConductorProperties::applyChanges(const ConductorProperties &before,
 	take(m_definition_mark,      before.m_definition_mark,      after.m_definition_mark);
 	take(m_definition_mark_at,  before.m_definition_mark_at,  after.m_definition_mark_at);
 	take(m_definition_mark_hides_text, before.m_definition_mark_hides_text, after.m_definition_mark_hides_text);
+	take(m_end_labels,           before.m_end_labels,           after.m_end_labels);
 
 		//Single-line symbols, one by one
 	SingleLineProperties slp_before = before.singleLineProperties;
@@ -1064,6 +1098,7 @@ bool ConductorProperties::operator==(const ConductorProperties &other) const
 		other.m_wire_color == m_wire_color && \
 		other.m_wire_section == m_wire_section && \
 		other.m_conductor_type == m_conductor_type && \
+		other.m_wire_profile == m_wire_profile && \
 		other.m_show_text == m_show_text &&\
 		other.text_size == text_size &&\
 		other.cond_size == cond_size &&\
@@ -1075,7 +1110,8 @@ bool ConductorProperties::operator==(const ConductorProperties &other) const
 		other.m_vertical_alignment == m_vertical_alignment &&\
 		other.m_definition_mark == m_definition_mark &&\
 		other.m_definition_mark_at == m_definition_mark_at &&\
-		other.m_definition_mark_hides_text == m_definition_mark_hides_text
+		other.m_definition_mark_hides_text == m_definition_mark_hides_text &&\
+		other.m_end_labels == m_end_labels
 	);
 }
 

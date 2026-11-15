@@ -31,6 +31,7 @@
 #include <QImage>
 #include <QLineEdit>
 #include <QPainter>
+#include <QSet>
 #include <QSignalSpy>
 
 /**
@@ -113,6 +114,47 @@ class tst_conductorcolorcodes : public QObject
 			QVERIFY(!ConductorColorCodes::find(QString()));
 				//The fourteen colours of IEC 60757 and green-yellow
 			QCOMPARE(ConductorColorCodes::all().size(), 15);
+		}
+
+		void din47100TableIsComplete()
+		{
+			const auto &table = ConductorColorCodes::din47100();
+			QCOMPARE(table.size(), 60);
+			QSet<QString> seen;
+			for (int i = 0; i < table.size(); ++i)
+			{
+				QCOMPARE(table[i].strand, i + 1);
+				QVERIFY2(!seen.contains(table[i].code), qPrintable(table[i].code));
+				seen.insert(table[i].code);
+					//Every strand is drawn with at least its first colour
+				QVERIFY(table[i].color.isValid());
+					//found again from the text
+				QVERIFY(ConductorColorCodes::find(table[i].code));
+			QCOMPARE(ConductorColorCodes::find(table[i].code)->color, table[i].color);
+			}
+				//Spot checks against the standard
+			QCOMPARE(table[0].code, QStringLiteral("WH"));
+			QCOMPARE(table[11].code, QStringLiteral("RDBU"));
+			QCOMPARE(table[26].code, QStringLiteral("GYGN"));
+			QCOMPARE(table[43].code, QStringLiteral("RDBK"));
+			QCOMPARE(table[59].code, QStringLiteral("BNRDBK"));
+				//Strands 1 to 10 are single colours, 11 to 44 two colours
+			QVERIFY(!table[9].isTwoColour());
+			QVERIFY(table[10].isTwoColour());
+			QVERIFY(table[43].isTwoColour());
+			QCOMPARE(table[11].color, ConductorColorCodes::find(QStringLiteral("RD"))->color);
+			QCOMPARE(table[11].color_2, ConductorColorCodes::find(QStringLiteral("BU"))->color);
+		}
+
+		void aDinStrandIsDrawnStriped()
+		{
+			ConductorProperties properties;
+			ConductorColorCodes::apply(*ConductorColorCodes::find(QStringLiteral("rdbu")), properties);
+			QCOMPARE(properties.m_wire_color, QStringLiteral("RDBU"));
+			QVERIFY(properties.m_bicolor);
+			QCOMPARE(properties.color, QColor(0xFF, 0x00, 0x00));
+			QCOMPARE(properties.m_color_2, QColor(0x00, 0x00, 0xFF));
+			QVERIFY(ConductorColorCodes::displayName(*ConductorColorCodes::find(QStringLiteral("RDBU"))).contains(QStringLiteral("12")));
 		}
 
 		void greenYellowIsStriped()

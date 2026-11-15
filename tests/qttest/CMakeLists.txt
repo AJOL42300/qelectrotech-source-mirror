@@ -2465,6 +2465,11 @@ qet_add_app_test(tst_cablelockedfields tst_cablelockedfields.cpp)
 # IEC 60757 wire colour codes: a code picked from the list sets the colour
 # text and the drawing (green-yellow striped); typed text stays text.
 qet_add_app_test(tst_conductorcolorcodes tst_conductorcolorcodes.cpp)
+# Standard wires of a project (name, colour, section): saved and opened again,
+# and a change of a profile changes all its conductors in one undo step.
+qet_add_app_test(tst_wireprofiles tst_wireprofiles.cpp)
+# The conductor's text at each end, along the wire.
+qet_add_app_test(tst_conductorendlabels tst_conductorendlabels.cpp)
 
 # Settings for every test. get_property(... TESTS) only sees the tests added
 # so far, so they wait for the end of this file: a test takes them wherever

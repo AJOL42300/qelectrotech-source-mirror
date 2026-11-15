@@ -2965,6 +2965,7 @@ QDomDocument QETProject::toXml(QHash<int, QByteArray> *kept_folios, QStringList 
 	writeDeviceTypeRulesXml(project_root);
 	writeLanguagesXml(project_root);
 	writePotentialTypesXml(project_root);
+	writeWireProfilesXml(project_root);
 	writeTerminalLabelSplitXml(project_root);
 	writeWiringRulesXml(project_root);
 	writeChainedReportsXml(project_root);
@@ -4195,6 +4196,7 @@ void QETProject::readProjectXml(QDomDocument &xml_project)
 	readDeviceTypeRulesXml(xml_project);
 	readLanguagesXml(xml_project);
 	readPotentialTypesXml(xml_project);
+	readWireProfilesXml(xml_project);
 	readTerminalLabelSplitXml(xml_project);
 	readWiringRulesXml(xml_project);
 	readChainedReportsXml(xml_project);
@@ -5390,6 +5392,49 @@ void QETProject::setPotentialTypes(const PotentialTypes &potential_types)
 	scheduleDerivedPotentialTypes();
 }
 
+/**
+	@brief QETProject::readWireProfilesXml
+	Read the <wire_profiles> element of the project, if any. A project
+	without it has no standard wires.
+	@param xml_project : the xml description of the project
+*/
+void QETProject::readWireProfilesXml(QDomDocument &xml_project)
+{
+	m_wire_profiles = WireProfiles::fromXml(xml_project.documentElement()
+			.firstChildElement(QStringLiteral("wire_profiles")));
+}
+
+/**
+	@brief QETProject::writeWireProfilesXml
+	Write the <wire_profiles> element, only when the project has standard
+	wires, so any other project saves exactly as before.
+	@param xml_element : the <project> element
+*/
+void QETProject::writeWireProfilesXml(QDomElement &xml_element)
+{
+	if (m_wire_profiles.isEmpty()) {
+		return;
+	}
+	QDomDocument document = xml_element.ownerDocument();
+	xml_element.appendChild(m_wire_profiles.toXml(document));
+}
+
+/**
+	@brief QETProject::setWireProfiles
+	Set the standard wires of the project. This only stores the list: use
+	ChangeWireProfilesCommand to also change the conductors that use them.
+	@param wire_profiles
+*/
+void QETProject::setWireProfiles(const WireProfiles &wire_profiles)
+{
+	if (wire_profiles == m_wire_profiles) {
+		return;
+	}
+	m_wire_profiles = wire_profiles;
+	storeSettings();
+	setModified(true);
+}
+
 QString QETProject::derivedPotentialType(const QUuid &wire)
 {
 	if (m_potential_types.mode() != PotentialTypes::Mode::AtSource)
@@ -5824,6 +5869,7 @@ void QETProject::storeSettings()
 	writeDeviceTypeRulesXml(root);
 	writeLanguagesXml(root);
 	writePotentialTypesXml(root);
+	writeWireProfilesXml(root);
 	writeTerminalLabelSplitXml(root);
 	writeWiringRulesXml(root);
 	writeChainedReportsXml(root);

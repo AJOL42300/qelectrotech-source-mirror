@@ -34,6 +34,7 @@
 #include <ui/conductorpropertiesdialog.h>
 #include "conductortextitem.h"
 #include "conductordefinitionmark.h"
+#include "conductorendlabels.h"
 #include "element.h"
 #include <QetGraphicsItemModeler/qetgraphicshandleritem.h>
 #include <utils/qetutils.h>
@@ -1669,6 +1670,7 @@ bool Conductor::hidesPlaceholder() const
 void Conductor::calculateTextItemPosition()
 {
 	updateDefinitionMark();
+	updateEndLabels();
 	if (!m_text_item || !diagram() || m_properties.type != ConductorProperties::Multi)
 		return;
 
@@ -1830,6 +1832,26 @@ void Conductor::updateDefinitionMark()
 	}
 }
 
+/**
+	@brief Conductor::updateEndLabels
+	Show, refresh or remove the conductor's text at each of its ends, as
+	its properties ask.
+*/
+void Conductor::updateEndLabels()
+{
+	const bool wanted = scene() && m_text_item
+			&& m_properties.m_end_labels
+			&& m_properties.type == ConductorProperties::Multi;
+	if (!wanted) {
+		delete m_end_labels;
+		m_end_labels = nullptr;
+	} else if (!m_end_labels) {
+		m_end_labels = new ConductorEndLabels(this);
+	} else {
+		m_end_labels->refresh();
+	}
+}
+
 
 /**
 	Sauvegarde le profil courant du conducteur pour l'utiliser ulterieurement
@@ -1986,6 +2008,7 @@ void Conductor::setPropertyToPotential(const ConductorProperties &property,
 			other_properties.m_tension_protocol = m_properties.m_tension_protocol;
 			other_properties.m_wire_color = m_properties.m_wire_color;
 			other_properties.m_wire_section = m_properties.m_wire_section;
+			other_properties.m_wire_profile = m_properties.m_wire_profile;
 			other_conductor->setProperties(other_properties);
 		}
 		else
@@ -2215,6 +2238,7 @@ void Conductor::setCableReference(const QString &label,
 	if (!cable_uuid.isNull()) {
 		m_properties.m_wire_color.clear();
 		m_properties.m_wire_section.clear();
+		m_properties.m_wire_profile.clear();
 		m_properties.m_conductor_type.clear();
 	}
 	storeProperties();

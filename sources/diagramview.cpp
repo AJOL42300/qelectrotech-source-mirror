@@ -55,6 +55,8 @@
 #include "ui/multielementinfowidget.h"
 #include "ui/multipastedialog.h"
 #include "undocommand/changetitleblockcommand.h"
+#include "undocommand/changewireprofilescommand.h"
+#include "conductorcolorcodes.h"
 #include "utils/conductorcreator.h"
 #include "undocommand/addgraphicsobjectcommand.h"
 #include "diagram.h"
@@ -166,6 +168,8 @@ DiagramView::DiagramView(Diagram *diagram, QWidget *parent) :
 
 		//Filled each time the context menu opens, see updateFolioReportMenu()
 	m_folio_report_menu = new QMenu(tr("Sheet reference"), this);
+		//Filled each time the context menu opens, see updateWireProfileMenu()
+	m_wire_profile_menu = new QMenu(tr("Wire profile"), this);
 
 		//setup three separators, to be use in context menu
 	for(int i=0 ; i<3 ; ++i)
@@ -3260,7 +3264,7 @@ QList<QAction *> DiagramView::contextMenuActions() const
 				}));
 			list << m_generate_cabinet_thumbnail;
 			list << qde->m_conductor_reset;
-			list << qde->m_select_same_symbols;
+			list << m_wire_profile_menu->menuAction();
 			list << qde->m_show_as_dot;
 			list << qde->m_replace_symbols;
 			list << m_separators.at(1);
@@ -3437,6 +3441,7 @@ void DiagramView::contextMenuEvent(QContextMenuEvent *e)
 		m_paste_here->setEnabled(Diagram::clipboardMayContainDiagram());
 		updateFolioReportMenu();
 	}
+	updateWireProfileMenu();
 
 	QList <QAction *> list = contextMenuActions();
 	if(!list.isEmpty())
@@ -3445,6 +3450,79 @@ void DiagramView::contextMenuEvent(QContextMenuEvent *e)
 		context_menu->addActions(list);
 		context_menu->popup(menu_global_pos);
 		e->accept();
+	}
+}
+
+/**
+	@brief DiagramView::updateWireProfileMenu
+	Fill the "Wire profile" submenu of the context menu with the standard
+	wires of the project. Left empty, and so hidden, when no conductor is
+	selected, the project has no profile or the folio is read-only.
+*/
+void DiagramView::updateWireProfileMenu()
+{
+	m_wire_profile_menu->clear();
+	QETProject *project = m_diagram->project();
+	if (!project || m_diagram->isReadOnly() || project->wireProfiles().isEmpty()) {
+		return;
+	}
+	const QSet<Conductor *> selected = m_diagram->selectedConductors();
+	if (selected.isEmpty()) {
+		return;
+	}
+
+	QSet<QString> used;
+	for (Conductor *wire : selected) {
+		used << wire->properties().m_wire_profile;
+	}
+
+	const QList<WireProfile> profiles = project->wireProfiles().profiles();
+	for (const WireProfile &profile : profiles)
+	{
+		QString text = profile.name;
+		QStringList detail;
+		for (const QString &part : {profile.color, profile.section}) {
+			if (!part.isEmpty()) {
+				detail << part;
+			}
+		}
+		if (!detail.isEmpty()) {
+			text += QStringLiteral(" (%1)").arg(detail.join(QStringLiteral(", ")));
+		}
+		QAction *action = m_wire_profile_menu->addAction(text);
+		if (const auto *code = ConductorColorCodes::find(profile.color)) {
+			action->setIcon(ConductorColorCodes::swatch(*code));
+		}
+		action->setCheckable(true);
+		action->setChecked(used.size() == 1 && used.contains(profile.name));
+		const QString name = profile.name;
+		connect(action, &QAction::triggered, this, [this, name]() { applyWireProfile(name); });
+	}
+	m_wire_profile_menu->addSeparator();
+	QAction *none = m_wire_profile_menu->addAction(tr("No profile"));
+	connect(none, &QAction::triggered, this, [this]() { applyWireProfile(QString()); });
+}
+
+/**
+	@brief DiagramView::applyWireProfile
+	Give the selected conductors, and the conductors sharing their
+	potential, the profile called @p name, as one undo step.
+	@param name : the profile; empty to leave the profile
+*/
+void DiagramView::applyWireProfile(const QString &name)
+{
+	QETProject *project = m_diagram->project();
+	if (!project || m_diagram->isReadOnly()) {
+		return;
+	}
+	QSet<Conductor *> wires;
+	for (Conductor *wire : m_diagram->selectedConductors()) {
+		wires << wire;
+		wires += wire->relatedPotentialConductors();
+	}
+	if (QUndoCommand *undo = ChangeWireProfilesCommand::assign(
+				wires.values(), project->wireProfiles(), name)) {
+		m_diagram->undoStack().push(undo);
 	}
 }
 

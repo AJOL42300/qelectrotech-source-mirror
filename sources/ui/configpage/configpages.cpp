@@ -30,7 +30,9 @@
 #include <ui/potentialtypeswidget.h>
 #include <ui/reportpropertiewidget.h>
 #include <ui/titleblockpropertieswidget.h>
+#include <ui/wireprofileswidget.h>
 #include <ui/xrefpropertieswidget.h>
+#include <undocommand/changewireprofilescommand.h>
 #include "guidespropertieswidget.h"
 #include <autoNum/numerotationcontext.h>
 #include <autoNum/ui/selectautonumw.h>
@@ -183,6 +185,8 @@ NewDiagramPage::NewDiagramPage(QETProject *project,
 		xrefpw -> setProperties (m_project -> defaultXRefProperties());
 		m_ptw = new PotentialTypesWidget(this);
 		m_ptw -> setPotentialTypes(m_project -> potentialTypes());
+		m_wpw = new WireProfilesWidget(this);
+		m_wpw -> setWireProfiles(m_project -> wireProfiles());
 	}
 
 	connect(ipw, &TitleBlockPropertiesWidget::openAutoNumFolioEditor, this, &NewDiagramPage::changeToAutoFolioTab);
@@ -230,6 +234,10 @@ NewDiagramPage::NewDiagramPage(QETProject *project,
 		//Potential types belong to a project: there is no application default
 	if (m_ptw) {
 		tab_widget -> addTab (m_ptw,      tr("Potential types"));
+	}
+		//Standard wires belong to a project too
+	if (m_wpw) {
+		tab_widget -> addTab (m_wpw,      tr("Wire profiles"));
 	}
 
 	// add auto-numbering tab only for global settings (not per project)
@@ -318,6 +326,16 @@ void NewDiagramPage::applyConf()
 			//setPotentialTypes() marks the project modified itself
 		if (m_ptw) {
 			m_project -> setPotentialTypes(m_ptw -> potentialTypes());
+		}
+
+			//One undo step: the list and every conductor that uses it
+		if (m_wpw) {
+			const WireProfiles new_profiles = m_wpw -> wireProfiles();
+			if (new_profiles != m_project -> wireProfiles()) {
+				m_project -> undoStack() -> push(new ChangeWireProfilesCommand(
+					m_project, new_profiles, m_wpw -> renamed()));
+				modified_project = true;
+			}
 		}
 
 		if (modified_project) {

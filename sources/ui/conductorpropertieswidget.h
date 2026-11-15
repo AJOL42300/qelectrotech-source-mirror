@@ -21,6 +21,7 @@
 #include <conductormultiedit.h>
 #include <conductorproperties.h>
 #include <properties/potentialtypes.h>
+#include <properties/wireprofiles.h>
 
 #include <QWidget>
 class QTextOrientationSpinBoxWidget;
@@ -50,6 +51,7 @@ class ConductorPropertiesWidget : public QWidget
 		void addAutonumWidget (QWidget *widget);
 		void setHiddenOneTextPerFolio   (const bool &hide);
 		void setPotentialTypes(const PotentialTypes &types);
+		void setWireProfiles(const WireProfiles &profiles);
 		void setDisabledShowText        (const bool &disable = true);
 		void setHiddenAvailableAutonum (const bool &hide);
 		void setMixedTextFields(const QList<ConductorMultiEdit::TextField> &mixed);
@@ -67,6 +69,8 @@ class ConductorPropertiesWidget : public QWidget
 		void initWidget();
 		void updateDashPatternPreview();
 		void selectPotentialType(const QString &name);
+		void selectWireProfile(const QString &name);
+		void applyWireProfile(int index);
 		void setConductorType(ConductorProperties::ConductorType type);
 
 	protected:
@@ -84,6 +88,7 @@ class ConductorPropertiesWidget : public QWidget
 	private:
 		Ui::ConductorPropertiesWidget *ui;
 		ConductorProperties m_properties;
+		WireProfiles m_wire_profiles;
 		QTextOrientationSpinBoxWidget *m_verti_select, *m_horiz_select;
 		bool m_text_locked = false;
 };
