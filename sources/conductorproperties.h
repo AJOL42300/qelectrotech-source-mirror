@@ -108,6 +108,15 @@ class ConductorProperties
 			/// H07V-K ...), free text, empty when none is set
 		QString m_conductor_type;
 
+			/// Id of the network cable type (NetworkCables) this
+			/// conductor is: a moulded cable linking two devices, drawn
+			/// with its connectors. Empty for an ordinary conductor.
+		QString m_network_cable;
+			/// Length of that cable, in metres, free text
+		QString m_network_length;
+			/// Branch mark of a Y cable, "1" or "2", empty otherwise
+		QString m_network_branch;
+
 			/// The cable of the project this conductor is a core of, null
 			/// when it belongs to no cable. The text shown in m_cable is
 			/// generated from the cable and never typed in: this reference

@@ -32,6 +32,7 @@
 #include <qetdiagrameditor.h>
 #include <qetgraphicsitem/terminal.h>
 #include <ui/conductorpropertiesdialog.h>
+#include <properties/networkcable.h>
 #include "conductortextitem.h"
 #include "conductordefinitionmark.h"
 #include "element.h"
@@ -684,6 +685,32 @@ void Conductor::paint(QPainter *painter, const QStyleOptionGraphicsItem *options
 		painter->restore();
 	}
 
+		//A network cable: a connector at each end and its label. At an
+		//end on a folio report the other folio is written instead
+	if (!m_properties.m_network_cable.isEmpty())
+	{
+		QString references[2];
+		bool plugs[2] = {true, true};
+		Terminal *ends[2] = {terminal1, terminal2};
+		for (int i = 0; i < 2; ++i)
+		{
+			Element *parent = ends[i] ? ends[i]->parentElement() : nullptr;
+			if (!parent || !(parent->linkType() & Element::AllReport))
+				continue;
+			plugs[i] = false;
+			Element *target = parent->jumpTarget();
+			Diagram *other = target ? target->diagram() : nullptr;
+			QETProject *project = other ? other->project() : nullptr;
+			if (project)
+				references[i] = tr("Folio %1")
+						.arg(project->folioIndex(other) + 1);
+		}
+		NetworkCables::paintEnds(painter, painted_path, m_properties,
+					 final_conductor_color, plugs[0],
+					 plugs[1], references[0],
+					 references[1]);
+	}
+
 	if (m_properties.type == ConductorProperties::Single) {
 		painter -> setBrush(final_conductor_color);
 		m_properties.singleLineProperties.draw(
@@ -1070,6 +1097,9 @@ void Conductor::removeHandler()
 QRectF Conductor::boundingRect() const
 {
 	QRectF br = shape().boundingRect();
+		//Room for the connectors, the label and the folio references
+	if (!m_properties.m_network_cable.isEmpty())
+		return br.adjusted(-90, -30, 90, 30);
 	return br.adjusted(-10, -10, 10, 10);
 }
 
@@ -2007,6 +2037,9 @@ void Conductor::setProperties(const ConductorProperties &property)
 		//The run this conductor was part of, which may part now
 	const QList<Conductor *> old_run = cornerChain();
 	QString formula = m_properties.m_formula;
+	if (!m_properties.m_network_cable.isEmpty()
+	    || !property.m_network_cable.isEmpty())
+		prepareGeometryChange();
 	m_properties = property;
 
 	if (!m_properties.m_formula.isEmpty())

@@ -344,6 +344,15 @@ QList<QPair<QString, QString>> ConductorProperties::attributes() const
 		//exactly as it was
 	if (!m_conductor_type.isEmpty())
 		add("conductor_type", m_conductor_type);
+		//Only written when set, like the type above
+	if (!m_network_cable.isEmpty())
+	{
+		add("network_cable", m_network_cable);
+		if (!m_network_length.isEmpty())
+			add("network_length", m_network_length);
+		if (!m_network_branch.isEmpty())
+			add("network_branch", m_network_branch);
+	}
 	add("numsize", QString::number(text_size));
 	add("condsize", QString::number(cond_size));
 	add("displaytext", QString::number(m_show_text));
@@ -424,6 +433,9 @@ void ConductorProperties::fromXml(QDomElement &e)
 	m_wire_color         = e.attribute("conductor_color");
 	m_wire_section       = e.attribute("conductor_section");
 	m_conductor_type     = e.attribute("conductor_type");
+	m_network_cable      = e.attribute("network_cable");
+	m_network_length     = e.attribute("network_length");
+	m_network_branch     = e.attribute("network_branch");
 	text_size            = e.attribute("numsize", QString::number(9)).toInt();
 	cond_size            = e.attribute("condsize", QString::number(1)).toDouble();
 	m_show_text          = e.attribute("displaytext", QString::number(1)).toInt();
@@ -597,6 +609,9 @@ void ConductorProperties::applyForEqualAttributes(QList<ConductorProperties> lis
 		m_wire_color         = cp.m_wire_color;
 		m_wire_section       = cp.m_wire_section;
 		m_conductor_type     = cp.m_conductor_type;
+		m_network_cable      = cp.m_network_cable;
+		m_network_length     = cp.m_network_length;
+		m_network_branch     = cp.m_network_branch;
 		text_size            = cp.text_size;
 		cond_size            = cp.cond_size;
 		m_show_text          = cp.m_show_text;
@@ -974,6 +989,9 @@ void ConductorProperties::applyChanges(const ConductorProperties &before,
 	take(m_tension_protocol,     before.m_tension_protocol,     after.m_tension_protocol);
 	take(m_wire_color,           before.m_wire_color,           after.m_wire_color);
 	take(m_wire_section,         before.m_wire_section,         after.m_wire_section);
+	take(m_network_cable,        before.m_network_cable,        after.m_network_cable);
+	take(m_network_length,       before.m_network_length,       after.m_network_length);
+	take(m_network_branch,       before.m_network_branch,       after.m_network_branch);
 	take(m_show_text,            before.m_show_text,            after.m_show_text);
 	take(text_size,              before.text_size,              after.text_size);
 	take(cond_size,              before.cond_size,              after.cond_size);
@@ -1064,6 +1082,9 @@ bool ConductorProperties::operator==(const ConductorProperties &other) const
 		other.m_wire_color == m_wire_color && \
 		other.m_wire_section == m_wire_section && \
 		other.m_conductor_type == m_conductor_type && \
+		other.m_network_cable == m_network_cable && \
+		other.m_network_length == m_network_length && \
+		other.m_network_branch == m_network_branch && \
 		other.m_show_text == m_show_text &&\
 		other.text_size == text_size &&\
 		other.cond_size == cond_size &&\

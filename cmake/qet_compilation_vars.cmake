@@ -665,6 +665,8 @@ set(QET_SRC_FILES
   ${QET_DIR}/sources/properties/deviceinformation.h
   ${QET_DIR}/sources/properties/elementdata.cpp
   ${QET_DIR}/sources/properties/elementdata.h
+  ${QET_DIR}/sources/properties/networkcable.cpp
+  ${QET_DIR}/sources/properties/networkcable.h
   ${QET_DIR}/sources/properties/projectlanguages.cpp
   ${QET_DIR}/sources/properties/projectlanguages.h
   ${QET_DIR}/sources/properties/potentialtypes.cpp

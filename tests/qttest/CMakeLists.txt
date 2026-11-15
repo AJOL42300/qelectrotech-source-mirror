@@ -2452,6 +2452,9 @@ qet_add_app_test(tst_cablelockedfields tst_cablelockedfields.cpp)
 # IEC 60757 wire colour codes: a code picked from the list sets the colour
 # text and the drawing (green-yellow striped); typed text stays text.
 qet_add_app_test(tst_conductorcolorcodes tst_conductorcolorcodes.cpp)
+# Network and moulded cables (Ethernet, EtherCAT, M12, Y, motor): a type, a
+# length and connectors on a conductor, saved only when used, undone in one step.
+qet_add_app_test(tst_networkcable tst_networkcable.cpp)
 
 # Settings for every test. get_property(... TESTS) only sees the tests added
 # so far, so they wait for the end of this file: a test takes them wherever

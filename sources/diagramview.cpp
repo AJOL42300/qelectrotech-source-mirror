@@ -75,6 +75,9 @@
 #include "qetgraphicsitem/terminal.h"
 #include "qetinformation.h"
 #include "qetversion.h"
+#include "properties/networkcable.h"
+#include <QInputDialog>
+#include <QLineEdit>
 #include <QApplication>
 #include <QDropEvent>
 #include <QMessageBox>
@@ -166,6 +169,8 @@ DiagramView::DiagramView(Diagram *diagram, QWidget *parent) :
 
 		//Filled each time the context menu opens, see updateFolioReportMenu()
 	m_folio_report_menu = new QMenu(tr("Sheet reference"), this);
+		//Filled each time the context menu opens, see updateNetworkCableMenu()
+	m_network_cable_menu = new QMenu(tr("Network cable"), this);
 
 		//setup three separators, to be use in context menu
 	for(int i=0 ; i<3 ; ++i)
@@ -3260,6 +3265,8 @@ QList<QAction *> DiagramView::contextMenuActions() const
 				}));
 			list << m_generate_cabinet_thumbnail;
 			list << qde->m_conductor_reset;
+			if (!m_network_cable_menu->isEmpty())
+				list << m_network_cable_menu->menuAction();
 			list << qde->m_select_same_symbols;
 			list << qde->m_show_as_dot;
 			list << qde->m_replace_symbols;
@@ -3437,6 +3444,10 @@ void DiagramView::contextMenuEvent(QContextMenuEvent *e)
 		m_paste_here->setEnabled(Diagram::clipboardMayContainDiagram());
 		updateFolioReportMenu();
 	}
+	else
+	{
+		updateNetworkCableMenu();
+	}
 
 	QList <QAction *> list = contextMenuActions();
 	if(!list.isEmpty())
@@ -3446,6 +3457,150 @@ void DiagramView::contextMenuEvent(QContextMenuEvent *e)
 		context_menu->popup(menu_global_pos);
 		e->accept();
 	}
+}
+
+/**
+	@brief DiagramView::editNetworkCable
+	Changes the properties of the selected conductors as one undo step.
+	@param text caption of the undo step
+	@param change called on a copy of the properties of each conductor
+*/
+void DiagramView::editNetworkCable(
+	const QString &text,
+	const std::function<void(ConductorProperties &)> &change)
+{
+	const QSet<Conductor *> conductors = m_diagram->selectedConductors();
+	if (conductors.isEmpty()) {
+		return;
+	}
+	auto *parent = new QUndoCommand(text);
+	for (Conductor *conductor : conductors)
+	{
+		ConductorProperties properties = conductor->properties();
+		const ConductorProperties before = properties;
+		change(properties);
+		if (properties == before) {
+			continue;
+		}
+		QVariant old_value, new_value;
+		old_value.setValue(before);
+		new_value.setValue(properties);
+		new QPropertyUndoCommand(conductor, "properties",
+					 old_value, new_value, parent);
+	}
+	if (parent->childCount() == 0) {
+		delete parent;
+		return;
+	}
+	m_diagram->undoStack().push(parent);
+}
+
+/**
+	@brief DiagramView::updateNetworkCableMenu
+	Fill the "Network cable" submenu of the context menu, when conductors
+	are selected: the cable types, the length and the designation of the
+	cable, the branch of a Y cable and the totals of the project. Left
+	empty, and so hidden, otherwise or on a read-only diagram.
+*/
+void DiagramView::updateNetworkCableMenu()
+{
+	m_network_cable_menu->clear();
+	if (m_diagram->isReadOnly()
+	    || m_diagram->selectedConductors().isEmpty()) {
+		return;
+	}
+
+	for (const NetworkCables::Type &type : NetworkCables::types())
+	{
+		const QString id = type.id;
+		m_network_cable_menu->addAction(type.name, this, [this, id]() {
+			editNetworkCable(tr("Set network cable", "undo caption"),
+				[id](ConductorProperties &p) {
+					NetworkCables::apply(p, id);
+				});
+		});
+	}
+	m_network_cable_menu->addSeparator();
+
+	const ConductorProperties first =
+		(*m_diagram->selectedConductors().cbegin())->properties();
+	m_network_cable_menu->addAction(tr("Length..."), this, [this, first]() {
+		bool ok = false;
+		const QString length = QInputDialog::getText(
+			this, tr("Cable length"), tr("Length in metres:"),
+			QLineEdit::Normal, first.m_network_length, &ok);
+		if (!ok) {
+			return;
+		}
+		editNetworkCable(tr("Set cable length", "undo caption"),
+			[length](ConductorProperties &p) {
+				if (!p.m_network_cable.isEmpty()) {
+					p.m_network_length = length.trimmed();
+				}
+			});
+	});
+	m_network_cable_menu->addAction(tr("Designation..."), this, [this, first]() {
+		bool ok = false;
+		const QString designation = QInputDialog::getText(
+			this, tr("Cable designation"),
+			tr("Designation, for example 4 G 1,5 mm²:"),
+			QLineEdit::Normal, first.m_conductor_type, &ok);
+		if (!ok) {
+			return;
+		}
+		editNetworkCable(tr("Set cable designation", "undo caption"),
+			[designation](ConductorProperties &p) {
+				if (!p.m_network_cable.isEmpty()) {
+					p.m_conductor_type = designation.trimmed();
+				}
+			});
+	});
+	for (const QString &branch : {QStringLiteral("1"), QStringLiteral("2"),
+				      QString()}) {
+		const QString name = branch.isEmpty()
+			? tr("No branch mark")
+			: tr("Branch (%1) of a Y cable").arg(branch);
+		m_network_cable_menu->addAction(name, this, [this, branch]() {
+			editNetworkCable(tr("Set cable branch", "undo caption"),
+				[branch](ConductorProperties &p) {
+					if (!p.m_network_cable.isEmpty()) {
+						p.m_network_branch = branch;
+					}
+				});
+		});
+	}
+	m_network_cable_menu->addSeparator();
+	m_network_cable_menu->addAction(
+		tr("Remove the network cable"), this, [this]() {
+			editNetworkCable(tr("Remove network cable", "undo caption"),
+				[](ConductorProperties &p) {
+					NetworkCables::apply(p, QString());
+				});
+		});
+	m_network_cable_menu->addAction(tr("Totals..."), this, [this]() {
+		QList<ConductorProperties> all;
+		QETProject *project = m_diagram->project();
+		const QList<Diagram *> diagrams = project
+			? project->diagrams() : QList<Diagram *>{m_diagram};
+		for (Diagram *diagram : diagrams) {
+			for (Conductor *conductor : diagram->conductors()) {
+				all << conductor->properties();
+			}
+		}
+		QStringList lines;
+		for (const NetworkCables::Total &total : NetworkCables::totals(all)) {
+			const NetworkCables::Type *type = NetworkCables::find(total.id);
+			lines << tr("%1: %n cable(s), %2 m, %3 connector(s)", nullptr,
+				    total.count)
+				.arg(type ? type->name : total.id)
+				.arg(total.metres)
+				.arg(total.connectors);
+		}
+		QMessageBox::information(
+			this, tr("Network cables"),
+			lines.isEmpty() ? tr("There is no network cable.")
+					: lines.join(QLatin1Char('\n')));
+	});
 }
 
 /**
