@@ -32,6 +32,8 @@ class tst_IslandNumbering : public QObject
 		void insertedCardTakesTheMiddle();
 		void severalInsertedCardsAreSpread();
 		void noRoomGivesNothing();
+		void copyTakesTheNextFreeParent();
+		void copyLabelsGoByTen();
 		void queryListsCardsInNumberOrder();
 		void queryEscapesTheLabel();
 		void ioQueryListsChannelsByCard();
@@ -98,6 +100,27 @@ void tst_IslandNumbering::noRoomGivesNothing()
 	QVERIFY(IslandNumbering::numbersAfter({10, 13}, 3, 10).isEmpty());
 	QCOMPARE(IslandNumbering::numbersAfter({10, 13}, 2, 10),
 			 (QList<int>{11, 12}));
+}
+
+void tst_IslandNumbering::copyTakesTheNextFreeParent()
+{
+	QCOMPARE(IslandNumbering::nextParent("BOX 03", {"BOX 03"}),
+			 QString("BOX 04"));
+	QCOMPARE(IslandNumbering::nextParent("BOX 03",
+										 {"BOX 03", "BOX 04.10"}),
+			 QString("BOX 05"));
+	QCOMPARE(IslandNumbering::nextParent("BOX 009", {}),
+			 QString("BOX 010"));
+	QCOMPARE(IslandNumbering::nextParent("CC", {"CC"}), QString("CC 2"));
+	QVERIFY(IslandNumbering::isTaken("BOX 03", {"BOX 03.10"}));
+	QVERIFY(!IslandNumbering::isTaken("BOX 03", {"BOX 030", "BOX 3"}));
+}
+
+void tst_IslandNumbering::copyLabelsGoByTen()
+{
+	QCOMPARE(IslandNumbering::copyLabels("BOX 04", 3),
+			 (QStringList{"BOX 04.10", "BOX 04.20", "BOX 04.30"}));
+	QVERIFY(IslandNumbering::copyLabels("BOX 04", 0).isEmpty());
 }
 
 static QStringList runCards(const QString &parent,

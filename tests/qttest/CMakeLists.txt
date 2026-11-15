@@ -462,6 +462,15 @@ set_tests_properties(tst_svgtoelmt PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offsc
 target_include_directories(tst_svgtoelmt PRIVATE ${QET_DIR}/sources)
 target_link_libraries(tst_svgtoelmt PRIVATE Qt::Test Qt::Gui Qt::Xml)
 
+# moduletooltip.cpp is pure: the text of the tooltip that describes the
+# wiring of a module (terminals, I/O table, links inside the module).
+add_executable(tst_moduletooltip tst_moduletooltip.cpp
+  ${QET_DIR}/sources/moduletooltip.cpp)
+add_test(NAME tst_moduletooltip COMMAND tst_moduletooltip)
+set_tests_properties(tst_moduletooltip PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+target_include_directories(tst_moduletooltip PRIVATE ${QET_DIR}/sources)
+target_link_libraries(tst_moduletooltip PRIVATE Qt::Test Qt::Gui Qt::Xml pugixml::pugixml)
+
 # islandnumbering.cpp is pure: the numbers and labels of the cards of an
 # island, and the query listing them. The query runs on an in-memory SQLite.
 add_executable(tst_islandnumbering tst_islandnumbering.cpp

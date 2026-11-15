@@ -19,20 +19,27 @@
 
 #include "islandnumbering.h"
 #include "../diagram.h"
+#include "../diagramcommands.h"
+#include "../diagramcontent.h"
 #include "../positionorder.h"
 #include "../qet.h"
 #include "../qetgraphicsitem/element.h"
 #include "../qetproject.h"
+#include "../undocommand/changeelementdatacommand.h"
 #include "../undocommand/changeelementinformationcommand.h"
 
 #include <QCheckBox>
 #include <QComboBox>
 #include <QDialogButtonBox>
+#include <QDomDocument>
+#include <QHash>
 #include <QLabel>
+#include <QLineEdit>
 #include <QMessageBox>
 #include <QRadioButton>
 #include <QSet>
 #include <QUndoCommand>
+#include <QUndoStack>
 #include <QVBoxLayout>
 #include <algorithm>
 
@@ -289,4 +296,270 @@ QUndoCommand *IslandDialog::build(QString *error) const
 		return nullptr;
 	}
 	return macro;
+}
+
+/**
+	@brief IslandDuplicateDialog::IslandDuplicateDialog
+	@param project : project of the island
+	@param island : label of the head of the island to duplicate
+	@param target : folio where the copy is made by default
+	@param parent : parent widget
+*/
+IslandDuplicateDialog::IslandDuplicateDialog(QETProject *project,
+											 const QString &island,
+											 Diagram *target,
+											 QWidget *parent) :
+	QDialog(parent),
+	m_project(project),
+	m_island(island)
+{
+	setWindowTitle(tr("Duplicate the island %1").arg(island));
+	QET::trackDialogGeometry(this);
+
+	m_new_copy = new QRadioButton(
+		tr("New copy: an independent island with a new label"), this);
+	m_new_copy->setChecked(true);
+	m_label = new QLineEdit(
+		IslandNumbering::nextParent(island, allLabels()), this);
+	m_linked = new QRadioButton(
+		tr("Linked representation: the same island shown again, with the "
+		   "same labels"), this);
+
+	m_folio = new QComboBox(this);
+	for (Diagram *d : m_project->diagrams()) {
+		m_folio->addItem(d->title(), QVariant::fromValue<void *>(d));
+		if (d == target) {
+			m_folio->setCurrentIndex(m_folio->count() - 1);
+		}
+	}
+
+	m_keep_wires = new QCheckBox(
+		tr("Keep the wires between the cards of the island"), this);
+	m_keep_wires->setChecked(true);
+	m_keep_signals = new QCheckBox(
+		tr("Keep the function and the comment of the channels"), this);
+
+	auto buttons = new QDialogButtonBox(
+		QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
+	connect(buttons, &QDialogButtonBox::accepted, this, &QDialog::accept);
+	connect(buttons, &QDialogButtonBox::rejected, this, &QDialog::reject);
+
+	auto layout = new QVBoxLayout(this);
+	layout->addWidget(m_new_copy);
+	layout->addWidget(new QLabel(tr("Label of the new island:"), this));
+	layout->addWidget(m_label);
+	layout->addWidget(m_keep_signals);
+	layout->addWidget(m_linked);
+	layout->addWidget(new QLabel(tr("Folio of the copy:"), this));
+	layout->addWidget(m_folio);
+	layout->addWidget(m_keep_wires);
+	layout->addWidget(buttons);
+
+	connect(m_new_copy, &QRadioButton::toggled, this, [this](bool on) {
+		m_label->setEnabled(on);
+		m_keep_signals->setEnabled(on);
+	});
+}
+
+/**
+	@param diagram : a folio of the project
+	@return the head of the island and its cards on @p diagram
+*/
+QList<Element *> IslandDuplicateDialog::islandElements(Diagram *diagram) const
+{
+	QList<Element *> list;
+	for (QGraphicsItem *item : diagram->items()) {
+		if (Element *elmt = qgraphicsitem_cast<Element *>(item)) {
+			const QString label = elmt->actualLabel();
+			if (label == m_island
+				|| IslandNumbering::numberOf(label, m_island, nullptr)) {
+				list << elmt;
+			}
+		}
+	}
+	return list;
+}
+
+/**
+	@return the labels of all the elements of the project
+*/
+QStringList IslandDuplicateDialog::allLabels() const
+{
+	QStringList labels;
+	for (Diagram *d : m_project->diagrams()) {
+		for (QGraphicsItem *item : d->items()) {
+			if (Element *elmt = qgraphicsitem_cast<Element *>(item)) {
+				labels << elmt->actualLabel();
+			}
+		}
+	}
+	return labels;
+}
+
+void IslandDuplicateDialog::accept()
+{
+	if (duplicate()) {
+		QDialog::accept();
+	}
+}
+
+/**
+	Copies the island on the chosen folio, by one undo command.
+	@return false, after telling why, if nothing was done
+*/
+bool IslandDuplicateDialog::duplicate()
+{
+	auto *target = static_cast<Diagram *>(m_folio->currentData().value<void *>());
+	if (!target) {
+		return false;
+	}
+	const bool linked = m_linked->isChecked();
+	const QString new_island = m_label->text().trimmed();
+	if (!linked) {
+		if (new_island.isEmpty()) {
+			QMessageBox::warning(this, windowTitle(),
+								 tr("Give the label of the new island."));
+			return false;
+		}
+		if (IslandNumbering::isTaken(new_island, allLabels())) {
+			QMessageBox::warning(
+				this, windowTitle(),
+				tr("The label %1 is already used by an island or by one of "
+				   "its cards.").arg(new_island));
+			return false;
+		}
+	}
+
+		//The islands elements by folio, in the order of the folios
+	QList<QPair<Diagram *, QList<Element *>>> groups;
+	QList<int> numbers;
+	QHash<QString, DiagramContext> source_info;
+	for (Diagram *d : m_project->diagrams()) {
+		const QList<Element *> elements = islandElements(d);
+		if (elements.isEmpty()) {
+			continue;
+		}
+		groups << qMakePair(d, elements);
+		for (Element *elmt : elements) {
+			int number = 0;
+			if (IslandNumbering::numberOf(
+					elmt->actualLabel(), m_island, &number)
+				&& !numbers.contains(number)) {
+				numbers << number;
+			}
+			if (!source_info.contains(elmt->actualLabel())) {
+				source_info.insert(elmt->actualLabel(),
+								   elmt->elementInformations());
+			}
+		}
+	}
+	if (groups.isEmpty()) {
+		QMessageBox::warning(this, windowTitle(),
+							 tr("There is no element labelled %1.")
+								 .arg(m_island));
+		return false;
+	}
+
+		//The new label of each label of the island
+	std::sort(numbers.begin(), numbers.end());
+	QHash<QString, QString> renamed;
+	renamed.insert(m_island, linked ? m_island : new_island);
+	const QStringList copies =
+		IslandNumbering::copyLabels(new_island, numbers.size());
+	for (int i = 0 ; i < numbers.size() ; ++i) {
+		const QString old_label =
+			IslandNumbering::childLabel(m_island, numbers.at(i));
+		renamed.insert(old_label, linked ? old_label : copies.at(i));
+	}
+
+	QUndoStack &stack = target->undoStack();
+	stack.beginMacro(linked
+		? tr("Show the island %1 again").arg(m_island)
+		: tr("Duplicate the island %1 as %2").arg(m_island, new_island));
+	qreal next_x = 0;
+	bool first = true;
+	for (const auto &group : std::as_const(groups)) {
+		Diagram *source = group.first;
+		QRectF area;
+		for (Element *elmt : group.second) {
+			area = area.united(elmt->sceneBoundingRect());
+		}
+
+			//Only the elements of the island are copied: the selection is
+			//made for the export, then given back
+		const QList<QGraphicsItem *> previous = source->selectedItems();
+		source->clearSelection();
+		for (Element *elmt : group.second) {
+			elmt->setSelected(true);
+		}
+		QDomDocument document = source->toXml(false, true);
+		source->clearSelection();
+		for (QGraphicsItem *item : previous) {
+			item->setSelected(true);
+		}
+		if (!m_keep_wires->isChecked()) {
+			const QDomElement wires = document.documentElement()
+				.firstChildElement(QStringLiteral("conductors"));
+			if (!wires.isNull()) {
+				document.documentElement().removeChild(wires);
+			}
+		}
+
+		QPointF position;
+		if (first) {
+			position = source == target
+				? QPointF(area.right() + 40, area.top())
+				: area.topLeft();
+		} else {
+			position = QPointF(next_x, area.top());
+		}
+			//A null position would not be applied
+		position += QPointF(0.1, 0.1);
+		next_x = position.x() + area.width() + 40;
+		first = false;
+
+		target->clearSelection();
+		DiagramContent content;
+		target->fromXml(document, position, false, &content);
+		QHash<Element *, QString> old_labels;
+		for (Element *elmt : content.m_elements) {
+			old_labels.insert(elmt, elmt->actualLabel());
+		}
+		auto *paste = new PasteDiagramCommand(target, content);
+		paste->setAutoNumbering(false);
+		stack.push(paste);
+
+		for (Element *elmt : content.m_elements) {
+			const QString old_label = old_labels.value(elmt);
+			if (!renamed.contains(old_label)) {
+				continue;
+			}
+			ElementData data = elmt->elementData();
+			if (linked) {
+				data.m_informations = source_info.value(old_label);
+			} else {
+				data.m_informations.addValue(
+					QStringLiteral("label"), renamed.value(old_label));
+				data.m_informations.addValue(
+					QStringLiteral("formula"), QString());
+				data.m_informations.addValue(
+					QStringLiteral("comment"), QString());
+				data.m_informations.addValue(
+					QStringLiteral("location"), QString());
+				if (!m_keep_signals->isChecked()) {
+					ElementData::PlcMasterData plc = data.plcMasterData();
+					for (auto &io : plc.ios) {
+						io.functionText.clear();
+						io.comment.clear();
+						io.crossRef.clear();
+					}
+					data.setPlcMasterData(plc);
+				}
+			}
+			stack.push(new ChangeElementDataCommand(elmt, data));
+		}
+		target->adjustSceneRect();
+	}
+	stack.endMacro();
+	return true;
 }

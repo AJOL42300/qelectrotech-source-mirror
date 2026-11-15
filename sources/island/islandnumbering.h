@@ -20,6 +20,7 @@
 
 #include <QList>
 #include <QString>
+#include <QStringList>
 
 /**
 	@brief Numbering of the cards (I/O terminals) of an island.
@@ -40,6 +41,9 @@ namespace IslandNumbering
 	QString childLabel(const QString &parent, int number);
 	bool numberOf(const QString &label, const QString &parent, int *number);
 	QList<int> numbersAfter(const QList<int> &used, int count, int after);
+	bool isTaken(const QString &parent, const QStringList &labels);
+	QString nextParent(const QString &parent, const QStringList &labels);
+	QStringList copyLabels(const QString &parent, int count);
 	QString cardsQuery(const QString &parent);
 	QString ioQuery(const QString &parent);
 }

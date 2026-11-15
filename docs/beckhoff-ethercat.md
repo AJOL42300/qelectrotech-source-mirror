@@ -91,12 +91,55 @@ The bill of materials of the project (folio of references, quantity and
 total) is the existing nomenclature: every card with a manufacturer and a
 reference appears in it, no extra step.
 
+## Duplicating an island
+
+Select the head of an island (or one of its cards) and use
+**Numbering > Duplicate the island...** or the context menu. One undo step
+copies the head and all its cards, in the same relative layout.
+
+- **New copy**: an independent island. The head takes the next free label
+  (`BOX 03` gives `BOX 04`, editable) and the cards take it by steps of 10 in
+  the same order (`BOX 04.10`, `BOX 04.20`...). A label already used by an
+  island or a card is refused. The formula, comment and location are
+  emptied, and so are the function, comment and cross reference of the
+  channels, unless *Keep the function and the comment of the channels* is
+  ticked. The channel addresses and types stay: they describe the module.
+- **Linked representation**: the same island shown again on another folio,
+  with the same labels and the same information, so that the used pins are
+  greyed and the tooltip lists the channels of both folios.
+- The folio of the copy is chosen in the dialog. If the island is on
+  several folios, each part is copied side by side on the chosen folio.
+- *Keep the wires between the cards of the island* copies the conductors
+  which join two copied elements. Conductors leaving the island are never
+  copied.
+
+## Wiring tooltip, used and free pins
+
+Both are settings of the general configuration, off by default.
+
+- **Wiring tooltip**: hovering an element or a terminal shows, per terminal,
+  its name, signal, I/O address, the wires connected (with their folio) and
+  its internal links. An internal link is the `potential` attribute of the
+  terminals (terminals with the same value are linked inside the module: 24 V,
+  0 V, PE, feed-through). The I/O entries of the table belong to the terminal
+  whose name is their address (`X01(1)` belongs to `X01`).
+- **Grey used pins**: a terminal whose pin is wired on another placement of the
+  same element (same label, on any folio) is drawn in light grey, and the
+  tooltip adds the used channels (with their folios) and the free ones.
+  Several placements of one element are made by giving them the same label;
+  the *Linked representation* above does it.
+
+The tooltip is plain text and cannot be clicked: to jump to another folio,
+use the cross references of the folios (double click).
+
 ## Importing a drawing as a symbol
 
 The element editor imports a SVG file (**Import a SVG drawing**), and the
 command line converts one with `--svg-to-elmt`. See
 [svg_to_elmt.md](svg_to_elmt.md). Terminals are placed on the drawing
-afterwards (the editor moves them with the mouse).
+afterwards (the editor moves them with the mouse). The editor also imports a
+PNG or JPEG image (vectorised) and pastes an image of the clipboard with
+Ctrl+V, with the same scale and threshold choices.
 
 ## Using the symbols
 
@@ -115,3 +158,5 @@ afterwards (the editor moves them with the mouse).
   clipping or filter, and does not detect the terminals.
 - The I/O folios use the "island" table: it is not editable with the
   nomenclature query editor.
+- Duplicating an island does not copy the slaves of its cards which are on
+  other folios, nor any conductor leaving the island.

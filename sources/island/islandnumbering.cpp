@@ -119,6 +119,71 @@ QList<int> numbersAfter(const QList<int> &used, int count, int after)
 }
 
 /**
+	@brief isTaken
+	@param parent : label of an island
+	@param labels : the labels of all the elements of the project
+	@return true if an element is labelled @p parent, or is one of its cards
+*/
+bool isTaken(const QString &parent, const QStringList &labels)
+{
+	for (const QString &label : labels) {
+		if (label == parent || numberOf(label, parent, nullptr)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+/**
+	@brief nextParent
+	The label for a copy of an island: the number which ends @p parent goes
+	up by one ("BOX 03" gives "BOX 04", the zeros are kept) until no element
+	of @p labels carries it. A label without a number gets one: "CC" gives
+	"CC 2".
+	@param parent : label of the island to copy
+	@param labels : the labels of all the elements of the project
+	@return a free label for the copy
+*/
+QString nextParent(const QString &parent, const QStringList &labels)
+{
+	int digits = 0;
+	while (digits < parent.length()
+		   && parent.at(parent.length() - 1 - digits).isDigit()) {
+		++digits;
+	}
+	QString head = parent.left(parent.length() - digits);
+	int width = digits;
+	qlonglong value = digits ? parent.right(digits).toLongLong() : 1;
+	if (digits == 0 && !head.isEmpty()
+		&& !head.endsWith(QLatin1Char(' '))) {
+		head += QLatin1Char(' ');
+	}
+	QString candidate;
+	do {
+		++value;
+		candidate = head
+			+ QString::number(value).rightJustified(width, QLatin1Char('0'));
+	} while (isTaken(candidate, labels));
+	return candidate;
+}
+
+/**
+	@brief copyLabels
+	@param parent : label of the island
+	@param count : number of cards
+	@return the labels of @p count cards, by steps of 10 in their order:
+	"BOX 04.10", "BOX 04.20"...
+*/
+QStringList copyLabels(const QString &parent, int count)
+{
+	QStringList labels;
+	for (int i = 1; i <= count; ++i) {
+		labels << childLabel(parent, i * step);
+	}
+	return labels;
+}
+
+/**
 	@brief childFilter
 	@param column : column holding the label
 	@param parent : label of the island

@@ -127,6 +127,7 @@
 #include "ui/wiringlistdialog.h"
 #include "ui/terminalnumberingdialog.h"
 #include "island/islanddialog.h"
+#include "island/islandnumbering.h"
 #include "ui/cablenumberingdialog.h"
 #include "toolbarsettings.h"
 #include <QDateTime>
@@ -1439,6 +1440,9 @@ void QETDiagramEditor::setUpActions()
 	m_island_numbering = new QAction(QET::Icons::TerminalStrip, tr("Number the cards of an island..."), this);
 	ShortcutManager::instance().registerAction(m_island_numbering, "diagrameditor.island_numbering", tr("Diagram editors"), QKeySequence());
 	connect(m_island_numbering, &QAction::triggered, this, &QETDiagramEditor::slot_islandNumbering);
+	m_duplicate_island = new QAction(QET::Icons::TerminalStrip, tr("Duplicate the island..."), this);
+	ShortcutManager::instance().registerAction(m_duplicate_island, "diagrameditor.duplicate_island", tr("Diagram editors"), QKeySequence());
+	connect(m_duplicate_island, &QAction::triggered, this, &QETDiagramEditor::slot_duplicateIsland);
 	m_add_island_folio = new QAction(QET::Icons::TableOfContent, tr("Add a folio listing the cards of an island..."), this);
 	ShortcutManager::instance().registerAction(m_add_island_folio, "diagrameditor.add_island_folio", tr("Diagram editors"), QKeySequence());
 	connect(m_add_island_folio, &QAction::triggered, this, [this]() { slot_addIslandFolio(false); });
@@ -2411,6 +2415,7 @@ void QETDiagramEditor::setUpMenu()
 		//the new one
 	menu_numbering -> addAction(m_terminal_numbering);
 	menu_numbering -> addAction(m_island_numbering);
+	menu_numbering -> addAction(m_duplicate_island);
 	menu_numbering -> addAction(m_cable_numbering);
 
 	// menu Listes
@@ -4124,7 +4129,7 @@ void QETDiagramEditor::slot_updateComplexActions()
 			    << m_group_selection
 			    << m_ungroup_selection
 			    << m_select_same_symbols
-			    << m_show_as_dot
+			    << m_duplicate_island
 			    << m_replace_symbols;
 		for(QAction *action : action_list)
 			action->setEnabled(false);
@@ -4153,6 +4158,9 @@ void QETDiagramEditor::slot_updateComplexActions()
 	m_place_texts->setEnabled(!ro && selected_elements_count >= 1);
 	m_replace_symbols->setEnabled(!ro && selected_elements_count >= 1);
 	m_select_same_symbols->setEnabled(selected_elements_count >= 1);
+	m_duplicate_island->setEnabled(
+		!ro && selected_elements_count == 1
+		&& !dc.m_elements.first()->actualLabel().isEmpty());
 	{
 		bool any = false, all = true;
 		for (Element *element : dc.m_elements)
@@ -5658,6 +5666,33 @@ void QETDiagramEditor::slot_islandNumbering() {
 			undo_group.activeStack()->push(macro);
 		}
 	}
+}
+
+/**
+ * @brief QETDiagramEditor::slot_duplicateIsland
+ * Opens the dialog duplicating the island of the selected element: its head
+ * and all its cards.
+ */
+void QETDiagramEditor::slot_duplicateIsland() {
+	QETProject *project = currentProject();
+	DiagramView *view = currentDiagramView();
+	if (!project || !view) return;
+
+	const auto elements = DiagramContent(view->diagram()).m_elements;
+	if (elements.size() != 1) return;
+
+		//A card stands for its island: its label is "island.number"
+	QString island = elements.first()->actualLabel();
+	const int dot = island.lastIndexOf(QLatin1Char('.'));
+	int number = 0;
+	if (dot > 0 && IslandNumbering::numberOf(island, island.left(dot),
+											 &number)) {
+		island = island.left(dot);
+	}
+	if (island.isEmpty()) return;
+
+	IslandDuplicateDialog dialog(project, island, view->diagram(), this);
+	dialog.exec();
 }
 
 /**

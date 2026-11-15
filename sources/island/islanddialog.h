@@ -22,12 +22,14 @@
 #include <QList>
 #include <QPair>
 #include <QString>
+#include <QStringList>
 
 class Diagram;
 class Element;
 class QCheckBox;
 class QComboBox;
 class QETProject;
+class QLineEdit;
 class QRadioButton;
 class QUndoCommand;
 
@@ -69,6 +71,40 @@ class IslandDialog : public QDialog
 		QComboBox *m_position;
 		QCheckBox *m_left_to_right;
 		QUndoCommand *m_command = nullptr;
+};
+
+/**
+	@brief Dialog to duplicate an island: its head and all its cards.
+
+	"New copy" makes an independent island: the copy takes a new label
+	(the next free one) and its cards take it by steps of 10, in the same
+	order. "Linked representation" shows the same island again, with the
+	same labels, on another folio. All the copies are made by one undo
+	command, on the target folio.
+*/
+class IslandDuplicateDialog : public QDialog
+{
+	Q_OBJECT
+
+	public:
+		IslandDuplicateDialog(QETProject *project, const QString &island,
+							  Diagram *target, QWidget *parent = nullptr);
+
+		void accept() override;
+
+	private:
+		QList<Element *> islandElements(Diagram *diagram) const;
+		QStringList allLabels() const;
+		bool duplicate();
+
+		QETProject *m_project;
+		QString m_island;
+		QRadioButton *m_new_copy;
+		QRadioButton *m_linked;
+		QLineEdit *m_label;
+		QComboBox *m_folio;
+		QCheckBox *m_keep_wires;
+		QCheckBox *m_keep_signals;
 };
 
 #endif

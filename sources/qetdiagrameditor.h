@@ -204,6 +204,7 @@ class QETDiagramEditor : public QETMainWindow
 		void showProjectChanges(QETProject *project, qint64 from, qint64 to, QWidget *parent);
 		void slot_terminalNumbering();
 		void slot_islandNumbering();
+		void slot_duplicateIsland();
 		void slot_addIslandFolio(bool inputs_outputs);
 		void slot_cableNumbering();
 		void slot_reloadElementDrawings();
@@ -266,7 +267,8 @@ class QETDiagramEditor : public QETMainWindow
 		*m_text_clearance = nullptr,	///< Move texts off the wires they sit on
 		*m_show_as_dot = nullptr,	///< Draw the selected T-junctions as a dot
 		*m_replace_symbols = nullptr,	///< Replace the selected symbols by one from a collection
-		*m_select_same_symbols = nullptr;	///< Select the symbols of the same kind as a selected one
+		*m_select_same_symbols = nullptr,	///< Select the symbols of the same kind as a selected one
+		*m_duplicate_island = nullptr;	///< Duplicate an island and its cards
 		
 		QActionGroup
 		m_row_column_actions_group, /// Action related to add/remove rows/column in diagram
