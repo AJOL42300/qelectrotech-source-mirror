@@ -125,6 +125,7 @@
 #include "TerminalStrip/ui/addterminalstripitemdialog.h"
 #include "wiringlistexport.h"
 #include "ui/wiringlistdialog.h"
+#include "twincat/tcsyncdialog.h"
 #include "ui/terminalnumberingdialog.h"
 #include "ui/cablenumberingdialog.h"
 #include "toolbarsettings.h"
@@ -1414,6 +1415,18 @@ void QETDiagramEditor::setUpActions()
 		}
 	});
 
+	//Exchange the names of the I/O with a TwinCAT project, on demand
+	m_twincat_sync = new QAction(QET::Icons::DocumentSpreadsheet, tr("Exchange I/O names with TwinCAT..."), this);
+	m_twincat_sync->setStatusTip(tr("Compare the I/O tables of the PLC modules with a TwinCAT project and exchange names in either direction", "status bar tip"));
+	connect(m_twincat_sync, &QAction::triggered, [this]() {
+		QETProject *project = this->currentProject();
+		if (project)
+		{
+			TcSyncDialog dialog(project, this);
+			dialog.exec();
+		}
+	});
+
 	// Show the wiring list read from the project database
 	m_project_wiring_list_view = new QAction(QET::Icons::DocumentSpreadsheet, tr("Wiring list (database)"), this);
 	ShortcutManager::instance().registerAction(m_project_wiring_list_view, "diagrameditor.wiring_list_view", tr("Diagram editors"), QKeySequence());
@@ -2375,6 +2388,7 @@ void QETDiagramEditor::setUpMenu()
 	menu_project -> addAction(m_project_export_conductor_num);
 	menu_project -> addAction(m_project_export_wiring_list);
 	menu_project -> addAction(m_project_wiring_list_view);
+	menu_project -> addAction(m_twincat_sync);
 	menu_project -> addAction(m_reload_element_drawings);
 	menu_project -> addAction(m_update_elements_from_collections);
 	menu_project -> addAction(m_reset_symbol_texts);
@@ -4009,6 +4023,7 @@ void QETDiagramEditor::slot_updateActions()
 	m_terminal_strip_dialog       -> setEnabled(editable_project);
 	m_project_export_wiring_list  -> setEnabled(opened_project);
 	m_project_wiring_list_view    -> setEnabled(opened_project);
+	m_twincat_sync                -> setEnabled(editable_project);
 	m_terminal_numbering          -> setEnabled(editable_project);
 	m_cable_numbering             -> setEnabled(editable_project);
 	m_add_cable_list              -> setEnabled(editable_project);

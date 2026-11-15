@@ -131,6 +131,12 @@ set(QET_SRC_FILES
   ${QET_DIR}/sources/cli_export.h
   ${QET_DIR}/sources/twincat/tciosync.cpp
   ${QET_DIR}/sources/twincat/tciosync.h
+  ${QET_DIR}/sources/twincat/tcqetbridge.cpp
+  ${QET_DIR}/sources/twincat/tcqetbridge.h
+  ${QET_DIR}/sources/twincat/tcsyncdialog.cpp
+  ${QET_DIR}/sources/twincat/tcsyncdialog.h
+  ${QET_DIR}/sources/undocommand/tcsynccommand.cpp
+  ${QET_DIR}/sources/undocommand/tcsynccommand.h
   ${QET_DIR}/sources/twincat/tciotree.cpp
   ${QET_DIR}/sources/twincat/tciotree.h
   ${QET_DIR}/sources/twincat/tciowriter.cpp
