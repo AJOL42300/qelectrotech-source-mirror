@@ -26,12 +26,15 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QHash>
+#include <QImage>
+#include <QMimeData>
 #include <QPainterPath>
 #include <QPolygonF>
 #include <QRegularExpression>
 #include <QSaveFile>
 #include <QTextStream>
 #include <QTransform>
+#include <QUrl>
 #include <QUuid>
 #include <QtMath>
 
@@ -838,6 +841,10 @@ Result convert(const QByteArray &svg, const Options &options)
 	if (options.scale > 0) scale = options.scale;
 	else if (options.width > 0 && bounds.width() > 0) scale = options.width / bounds.width();
 	else if (options.height > 0 && bounds.height() > 0) scale = options.height / bounds.height();
+	else if (options.widthInCells > 0 && bounds.width() > 0)
+		scale = options.widthInCells * grid_step / bounds.width();
+	else if (options.pixelsPerMm > 0 && options.unitMm > 0)
+		scale = options.pixelsPerMm * options.unitMm;
 	if (!std::isfinite(scale) || scale <= 0) {
 		result.error = QStringLiteral("cannot scale the drawing (%1 x %2)")
 						.arg(bounds.width()).arg(bounds.height());
@@ -855,6 +862,9 @@ Result convert(const QByteArray &svg, const Options &options)
 	QRectF extent = drawing;
 	for (Terminal &t : terminals) {
 		t.position = to_element.map(t.position);
+		if (options.snapTerminals)
+			t.position = QPointF(qRound(t.position.x() / grid_step) * grid_step,
+								 qRound(t.position.y() / grid_step) * grid_step);
 		extent = unite(extent, QRectF(t.position, QSizeF(0, 0)));
 		if (t.orientation.isEmpty()) t.orientation = orientationOf(t.position, drawing);
 	}
@@ -862,7 +872,7 @@ Result convert(const QByteArray &svg, const Options &options)
 	const int half_width = up(qMax(std::abs(extent.left()), std::abs(extent.right())));
 	const int half_height = up(qMax(std::abs(extent.top()), std::abs(extent.bottom())));
 	if (2 * half_width > 600 || 2 * half_height > 600)
-		result.warnings << QStringLiteral("the element is %1 x %2 pixels: use --width, --height or --scale")
+		result.warnings << QStringLiteral("the element is %1 x %2 pixels: use --mm-scale, --cells, --width, --height or --scale")
 							.arg(2 * half_width).arg(2 * half_height);
 
 	QDomDocument out;
@@ -990,7 +1000,7 @@ Result convert(const QByteArray &svg, const Options &options)
 		description.appendChild(e);
 		++result.terminals;
 	}
-	if (!result.terminals)
+	if (!result.terminals && options.warnNoTerminal)
 		result.warnings << QStringLiteral(
 			"no terminal: add some with --terminal or an id=\"terminal-...\" "
 			"shape");
@@ -999,6 +1009,106 @@ Result convert(const QByteArray &svg, const Options &options)
 						+ out.toByteArray(4);
 	result.ok = true;
 	return result;
+}
+
+Result convertImage(const QImage &image, Options options,
+					const RasterVectorizer::Options &vectorizer, double dpi)
+{
+	Result result;
+	const RasterVectorizer::Result traced = RasterVectorizer::toSvg(image, vectorizer);
+	if (!traced.ok) {
+		result.error = traced.error;
+		return result;
+	}
+	if (dpi > 0) options.unitMm = 25.4 / dpi;
+	result = convert(traced.svg, options);
+	result.warnings = traced.warnings + result.warnings;
+	return result;
+}
+
+namespace {
+
+const QStringList &pictureSuffixes()
+{
+	static const QStringList list{QStringLiteral("png"), QStringLiteral("jpg"),
+								  QStringLiteral("jpeg"), QStringLiteral("bmp"),
+								  QStringLiteral("gif"), QStringLiteral("webp")};
+	return list;
+}
+
+bool looksLikeSvg(const QByteArray &data)
+{
+	return data.left(4096).contains("<svg");
+}
+
+} // namespace
+
+Result convertFile(const QString &path, const Options &options,
+				   const RasterVectorizer::Options &vectorizer, double dpi)
+{
+	Result result;
+	const QString suffix = QFileInfo(path).suffix().toLower();
+	if (pictureSuffixes().contains(suffix)) {
+		QImage image;
+		if (!image.load(path)) {
+			result.error = QStringLiteral("cannot read the picture");
+			return result;
+		}
+		return convertImage(image, options, vectorizer, dpi);
+	}
+	QFile file(path);
+	if (!file.open(QIODevice::ReadOnly)) {
+		result.error = QStringLiteral("cannot read the file");
+		return result;
+	}
+	return convert(file.readAll(), options);
+}
+
+QString fileFilter()
+{
+	return QStringLiteral("SVG, PNG, JPEG, BMP, GIF (*.svg *.png *.jpg *.jpeg *.bmp *.gif *.webp)");
+}
+
+bool sourceFromMimeData(const QMimeData *mime, QByteArray *svg,
+						QImage *image, QString *name)
+{
+	if (!mime) return false;
+	svg->clear();
+	*image = QImage();
+	const QString svg_type = QStringLiteral("image/svg+xml");
+	if (mime->hasFormat(svg_type) && looksLikeSvg(mime->data(svg_type))) {
+		*svg = mime->data(svg_type);
+		return true;
+	}
+	for (const QUrl &url : mime->urls()) {
+		if (!url.isLocalFile()) continue;
+		const QString path = url.toLocalFile();
+		const QString suffix = QFileInfo(path).suffix().toLower();
+		if (suffix == QLatin1String("svg")) {
+			QFile file(path);
+			if (file.open(QIODevice::ReadOnly) && looksLikeSvg(file.read(4096))) {
+				file.seek(0);
+				*svg = file.readAll();
+				if (name) *name = QFileInfo(path).completeBaseName();
+				return true;
+			}
+		} else if (pictureSuffixes().contains(suffix) && image->load(path)) {
+			if (name) *name = QFileInfo(path).completeBaseName();
+			return true;
+		}
+	}
+	if (mime->hasImage()) {
+		*image = qvariant_cast<QImage>(mime->imageData());
+		if (!image->isNull()) return true;
+	}
+	if (mime->hasText()) {
+		const QByteArray text = mime->text().toUtf8();
+		if (looksLikeSvg(text)) {
+			*svg = text;
+			return true;
+		}
+	}
+	return false;
 }
 
 bool parseTerminal(const QString &text, Terminal *terminal)
@@ -1052,16 +1162,25 @@ int run(const QStringList &args)
 {
 	QTextStream err(stderr);
 	const QString usage = QStringLiteral(
-		"usage: --svg-to-elmt <input.svg> <output.elmt> [--name <text>] [--lang <code>]\n"
-		"       [--width <px> | --height <px> | --scale <factor>]\n"
+		"usage: --svg-to-elmt <input.svg|input.png> <output.elmt>\n"
+		"       [--name <text>] [--lang <code>]\n"
+		"       [--mm-scale <px per mm> | --cells <width in grid cells>\n"
+		"        | --width <px> | --height <px> | --scale <factor>]\n"
+		"       [--no-snap] [--dpi <n>]\n"
+		"       [--threshold <0-255>] [--invert] [--simplify <px>]\n"
+		"       [--despeckle <px>] [--max-paths <n>]\n"
 		"       [--terminal x,y[,n|e|s|w[,name]]]... [--terminals <file.csv>]\n");
 	QStringList files;
 	Options options;
-	QStringList errors;
+	RasterVectorizer::Options vectorizer;
+	double dpi = 96;
+	double mm_scale = 0;
 
 	for (int i = 0; i < args.size(); ++i) {
 		const QString &a = args.at(i);
 		if (!a.startsWith(QLatin1String("--"))) { files << a; continue; }
+		if (a == QLatin1String("--invert")) { vectorizer.invert = true; continue; }
+		if (a == QLatin1String("--no-snap")) { options.snapTerminals = false; continue; }
 		if (i + 1 >= args.size()) { err << a << " needs a value\n" << usage; return 2; }
 		const QString &v = args.at(++i);
 		bool ok = true;
@@ -1070,6 +1189,13 @@ int run(const QStringList &args)
 		else if (a == QLatin1String("--scale")) options.scale = v.toDouble(&ok);
 		else if (a == QLatin1String("--width")) options.width = v.toDouble(&ok);
 		else if (a == QLatin1String("--height")) options.height = v.toDouble(&ok);
+		else if (a == QLatin1String("--cells")) options.widthInCells = v.toDouble(&ok);
+		else if (a == QLatin1String("--mm-scale")) mm_scale = v.toDouble(&ok);
+		else if (a == QLatin1String("--dpi")) dpi = v.toDouble(&ok);
+		else if (a == QLatin1String("--threshold")) vectorizer.threshold = v.toInt(&ok);
+		else if (a == QLatin1String("--simplify")) vectorizer.simplify = v.toDouble(&ok);
+		else if (a == QLatin1String("--despeckle")) vectorizer.despeckle = v.toInt(&ok);
+		else if (a == QLatin1String("--max-paths")) vectorizer.maxPaths = v.toInt(&ok);
 		else if (a == QLatin1String("--terminal")) {
 			Terminal t;
 			if ((ok = parseTerminal(v, &t))) options.terminals << t;
@@ -1091,16 +1217,20 @@ int run(const QStringList &args)
 		if (!ok) { err << "bad value for " << a << ": " << v << "\n"; return 2; }
 	}
 	if (files.size() != 2) { err << usage; return 2; }
-
-	QFile in(files.at(0));
-	if (!in.open(QIODevice::ReadOnly)) {
-		err << "cannot read " << files.at(0) << "\n";
-		return 1;
+	if (dpi <= 0 || vectorizer.threshold < 0 || vectorizer.threshold > 255) {
+		err << "bad --dpi or --threshold\n";
+		return 2;
 	}
+
+	// Without a size, a millimetre of the drawing is 2 element pixels.
+	options.pixelsPerMm = mm_scale;
+	if (!options.scale && !options.width && !options.height
+		&& !options.widthInCells && !mm_scale)
+		options.pixelsPerMm = 2;
 	if (options.name.isEmpty())
 		options.name = QFileInfo(files.at(1)).completeBaseName();
 
-	const Result result = convert(in.readAll(), options);
+	const Result result = convertFile(files.at(0), options, vectorizer, dpi);
 	for (const QString &w : result.warnings) err << "warning: " << w << "\n";
 	if (!result.ok) {
 		err << files.at(0) << ": " << result.error << "\n";
@@ -1119,3 +1249,4 @@ int run(const QStringList &args)
 }
 
 } // namespace SvgToElmt
+

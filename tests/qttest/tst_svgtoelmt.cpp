@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include <QDomDocument>
+#include <QMimeData>
+#include <QPainter>
+#include <QTemporaryDir>
 #include <QtTest>
 
 #include "svgtoelmt.h"
@@ -61,6 +64,16 @@ private slots:
 	void parsesTerminalArgument_data();
 	void parsesTerminalArgument();
 	void parsesTerminalFile();
+	void tracesAnAreaAndItsHole();
+	void thresholdSelectsTheDarkPixels();
+	void transparentPixelsAreLight();
+	void despeckleAndMaxPathsLimitTheOutlines();
+	void diagonalLinesAreSimplified();
+	void rasterScaleAndGrid();
+	void terminalsAreSnappedToTheGrid();
+	void holesBecomeWhitePolygons();
+	void findsWhatToConvertInMimeData();
+	void readsAPictureFile();
 };
 
 void tst_SvgToElmt::convertsShapesAndTerminals()
@@ -245,6 +258,232 @@ void tst_SvgToElmt::parsesTerminalFile()
 	QCOMPARE(list.at(1).name, QStringLiteral("U"));
 	QCOMPARE(list.at(1).position, QPointF(90, 60));
 	QCOMPARE(errors.count(), 1);
+}
+
+namespace {
+
+QImage whiteImage(int width, int height)
+{
+	QImage image(width, height, QImage::Format_RGB32);
+	image.fill(Qt::white);
+	return image;
+}
+
+void fillRect(QImage *image, const QRect &rect, const QColor &color)
+{
+	QPainter painter(image);
+	painter.fillRect(rect, color);
+}
+
+/// The points of the polygon parts of an element.
+int polygonCount(const Result &r)
+{
+	return partsOf(parse(r.definition), QStringLiteral("polygon")).count();
+}
+
+}
+
+void tst_SvgToElmt::tracesAnAreaAndItsHole()
+{
+	QImage image = whiteImage(40, 40);
+	fillRect(&image, QRect(5, 5, 30, 30), Qt::black);
+	fillRect(&image, QRect(15, 15, 10, 10), Qt::white);
+
+	const RasterVectorizer::Result r =
+		RasterVectorizer::toSvg(image, RasterVectorizer::Options());
+	QVERIFY2(r.ok, qPrintable(r.error));
+	QCOMPARE(r.paths, 2);
+	QVERIFY(r.svg.contains("fill=\"black\""));
+	QVERIFY(r.svg.contains("fill=\"white\""));
+	// The area comes first: the hole is drawn above it.
+	QVERIFY(r.svg.indexOf("fill=\"black\"") < r.svg.indexOf("fill=\"white\""));
+	// A square is simplified to its four corners.
+	QCOMPARE(r.svg.count(" L"), 6);
+}
+
+void tst_SvgToElmt::thresholdSelectsTheDarkPixels()
+{
+	QImage image = whiteImage(20, 20);
+	fillRect(&image, QRect(5, 5, 10, 10), QColor(100, 100, 100));
+
+	RasterVectorizer::Options options;
+	options.threshold = 50;
+	QVERIFY(!RasterVectorizer::toSvg(image, options).ok);
+	options.threshold = 150;
+	QVERIFY(RasterVectorizer::toSvg(image, options).ok);
+
+	// Inverted, the light pixels are drawn: the white around the square.
+	options.invert = true;
+	options.threshold = 200;
+	const RasterVectorizer::Result inverted = RasterVectorizer::toSvg(image, options);
+	QVERIFY(inverted.ok);
+	QCOMPARE(inverted.paths, 2);
+}
+
+void tst_SvgToElmt::transparentPixelsAreLight()
+{
+	QImage image(20, 20, QImage::Format_ARGB32);
+	image.fill(Qt::transparent);
+	QVERIFY(!RasterVectorizer::toSvg(image, RasterVectorizer::Options()).ok);
+	fillRect(&image, QRect(5, 5, 10, 10), Qt::black);
+	QCOMPARE(RasterVectorizer::toSvg(image, RasterVectorizer::Options()).paths, 1);
+}
+
+void tst_SvgToElmt::despeckleAndMaxPathsLimitTheOutlines()
+{
+	QImage image = whiteImage(60, 20);
+	fillRect(&image, QRect(2, 2, 16, 16), Qt::black);
+	fillRect(&image, QRect(22, 2, 10, 10), Qt::black);
+	fillRect(&image, QRect(40, 2, 4, 4), Qt::black);
+	image.setPixelColor(55, 10, Qt::black);
+
+	RasterVectorizer::Options options;
+	options.despeckle = 2;
+	options.maxPaths = 0;
+	QCOMPARE(RasterVectorizer::toSvg(image, options).paths, 3);
+
+	options.maxPaths = 2;
+	const RasterVectorizer::Result r = RasterVectorizer::toSvg(image, options);
+	QCOMPARE(r.paths, 2);
+	QVERIFY(!r.warnings.isEmpty());
+	// The two largest squares are kept.
+	QVERIFY(r.svg.contains("18 "));
+	QVERIFY(r.svg.contains("32 "));
+	QVERIFY(!r.svg.contains("44 "));
+}
+
+void tst_SvgToElmt::diagonalLinesAreSimplified()
+{
+	QImage image = whiteImage(50, 50);
+	QPainter painter(&image);
+	painter.setPen(QPen(Qt::black, 3));
+	painter.drawLine(5, 5, 45, 45);
+	painter.end();
+
+	RasterVectorizer::Options exact;
+	exact.simplify = 0;
+	RasterVectorizer::Options simple;
+	simple.simplify = 1.5;
+	const auto steps = RasterVectorizer::toSvg(image, exact).svg.count(" L");
+	const auto few = RasterVectorizer::toSvg(image, simple).svg.count(" L");
+	QVERIFY2(few < steps / 4, "a staircase must become a few segments");
+	QVERIFY(few >= 3);
+}
+
+void tst_SvgToElmt::rasterScaleAndGrid()
+{
+	QImage image = whiteImage(100, 60);
+	fillRect(&image, QRect(0, 0, 100, 60), Qt::black);
+
+	// 96 dpi, 2 element pixels per millimetre: 100 px = 26.46 mm = 52.9
+	Options mm;
+	mm.pixelsPerMm = 2;
+	mm.warnNoTerminal = false;
+	Result r = convertImage(image, mm, RasterVectorizer::Options());
+	QVERIFY2(r.ok, qPrintable(r.error));
+	QVERIFY(r.warnings.isEmpty());
+	QDomElement root = parse(r.definition).documentElement();
+	QCOMPARE(root.attribute(QStringLiteral("width")).toInt(), 60);
+	QCOMPARE(root.attribute(QStringLiteral("height")).toInt(), 40);
+
+	// 200 dpi: the same picture is half as large
+	r = convertImage(image, mm, RasterVectorizer::Options(), 192);
+	root = parse(r.definition).documentElement();
+	QCOMPARE(root.attribute(QStringLiteral("width")).toInt(), 40);
+
+	// A width in grid cells
+	Options cells;
+	cells.widthInCells = 5;
+	r = convertImage(image, cells, RasterVectorizer::Options());
+	root = parse(r.definition).documentElement();
+	// 5 cells = 50 px of drawing, in the symmetric frame of 60
+	QCOMPARE(root.attribute(QStringLiteral("width")).toInt(), 60);
+	QCOMPARE(root.attribute(QStringLiteral("height")).toInt() % 10, 0);
+}
+
+void tst_SvgToElmt::terminalsAreSnappedToTheGrid()
+{
+	QImage image = whiteImage(100, 60);
+	fillRect(&image, QRect(0, 0, 100, 60), Qt::black);
+
+	Options options;
+	options.widthInCells = 10; // scale 1
+	Terminal t;
+	t.name = QStringLiteral("A");
+	t.position = QPointF(13, 7);
+	options.terminals << t;
+
+	Result r = convertImage(image, options, RasterVectorizer::Options());
+	QVERIFY(r.ok);
+	QDomElement e = partsOf(parse(r.definition), QStringLiteral("terminal")).first();
+	QCOMPARE(e.attribute(QStringLiteral("x")).toDouble(), -40.0);
+	QCOMPARE(e.attribute(QStringLiteral("y")).toDouble(), -20.0);
+
+	options.snapTerminals = false;
+	r = convertImage(image, options, RasterVectorizer::Options());
+	e = partsOf(parse(r.definition), QStringLiteral("terminal")).first();
+	QCOMPARE(e.attribute(QStringLiteral("x")).toDouble(), -37.0);
+	QCOMPARE(e.attribute(QStringLiteral("y")).toDouble(), -23.0);
+}
+
+void tst_SvgToElmt::holesBecomeWhitePolygons()
+{
+	QImage image = whiteImage(40, 40);
+	fillRect(&image, QRect(5, 5, 30, 30), Qt::black);
+	fillRect(&image, QRect(15, 15, 10, 10), Qt::white);
+	Options options;
+	options.warnNoTerminal = false;
+	const Result r = convertImage(image, options, RasterVectorizer::Options());
+	QVERIFY2(r.ok, qPrintable(r.error));
+	QCOMPARE(polygonCount(r), 2);
+	QCOMPARE(r.parts, 2);
+}
+
+void tst_SvgToElmt::findsWhatToConvertInMimeData()
+{
+	QByteArray svg;
+	QImage image;
+
+	QMimeData empty;
+	QVERIFY(!sourceFromMimeData(&empty, &svg, &image));
+
+	QMimeData text;
+	text.setText(QStringLiteral("hello"));
+	QVERIFY(!sourceFromMimeData(&text, &svg, &image));
+
+	QMimeData picture;
+	picture.setImageData(whiteImage(10, 10));
+	QVERIFY(sourceFromMimeData(&picture, &svg, &image));
+	QVERIFY(!image.isNull());
+	QVERIFY(svg.isEmpty());
+
+	QMimeData drawing;
+	drawing.setData(QStringLiteral("image/svg+xml"), device_svg);
+	QVERIFY(sourceFromMimeData(&drawing, &svg, &image));
+	QCOMPARE(svg, device_svg);
+
+	QMimeData source;
+	source.setText(QString::fromUtf8(device_svg));
+	QVERIFY(sourceFromMimeData(&source, &svg, &image));
+	QVERIFY(svg.contains("<svg"));
+}
+
+void tst_SvgToElmt::readsAPictureFile()
+{
+	QTemporaryDir dir;
+	QVERIFY(dir.isValid());
+	QImage image = whiteImage(30, 30);
+	fillRect(&image, QRect(5, 5, 20, 20), Qt::black);
+	const QString path = dir.filePath(QStringLiteral("logo.png"));
+	QVERIFY(image.save(path));
+
+	Options options;
+	options.warnNoTerminal = false;
+	const Result r = convertFile(path, options, RasterVectorizer::Options());
+	QVERIFY2(r.ok, qPrintable(r.error));
+	QCOMPARE(r.parts, 1);
+	QVERIFY(!convertFile(dir.filePath(QStringLiteral("none.png")), options,
+			     RasterVectorizer::Options()).ok);
 }
 
 QTEST_MAIN(tst_SvgToElmt)

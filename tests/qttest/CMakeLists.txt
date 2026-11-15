@@ -455,7 +455,8 @@ target_compile_definitions(tst_genericdevice PRIVATE
   "QET_FONTS_DIR=\"${QET_DIR}/fonts\"")
 
 # svgtoelmt.cpp is pure: a SVG drawing converted to an element definition.
-add_executable(tst_svgtoelmt tst_svgtoelmt.cpp ${QET_DIR}/sources/svgtoelmt.cpp)
+add_executable(tst_svgtoelmt tst_svgtoelmt.cpp ${QET_DIR}/sources/svgtoelmt.cpp
+  ${QET_DIR}/sources/rastervectorizer.cpp)
 add_test(NAME tst_svgtoelmt COMMAND tst_svgtoelmt)
 set_tests_properties(tst_svgtoelmt PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 target_include_directories(tst_svgtoelmt PRIVATE ${QET_DIR}/sources)

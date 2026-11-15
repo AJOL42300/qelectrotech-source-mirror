@@ -18,11 +18,16 @@
 #ifndef SVGTOELMT_H
 #define SVGTOELMT_H
 
+#include "rastervectorizer.h"
+
 #include <QByteArray>
+#include <QImage>
 #include <QList>
 #include <QPointF>
 #include <QString>
 #include <QStringList>
+
+class QMimeData;
 
 /**
 	@brief Convert a SVG drawing (typically a manufacturer's picture of
@@ -37,12 +42,20 @@
 	Not converted: pictures (<image>), texts, clip paths, masks, filters,
 	opacity (it is blended with white), the holes of a compound path.
 
+	A picture (PNG, JPG...) is traced first (see RasterVectorizer): it is
+	good for line drawings and logos, not for photographs.
+
 	Usage from the command line:
-	  qelectrotech --svg-to-elmt <input.svg> <output.elmt>
+	  qelectrotech --svg-to-elmt <input.svg|input.png> <output.elmt>
 	      [--name <text>] [--lang <code>]
-	      [--width <px> | --height <px> | --scale <factor>]
+	      [--mm-scale <px per mm> | --cells <width in grid cells>
+	       | --width <px> | --height <px> | --scale <factor>]
+	      [--no-snap] [--dpi <n>]
+	      [--threshold <0-255>] [--invert] [--simplify <px>]
+	      [--despeckle <px>] [--max-paths <n>]
 	      [--terminal x,y[,n|e|s|w[,name]]]...
 	      [--terminals <file.csv>]
+	See docs/svg_to_elmt.md.
 */
 namespace SvgToElmt {
 
@@ -66,6 +79,19 @@ namespace SvgToElmt {
 		double scale = 0;
 		double width = 0;
 		double height = 0;
+		/// Width of the drawing in cells of the grid (10 element pixels):
+		/// used when none of scale, width and height is
+		double widthInCells = 0;
+		/// Element pixels per millimetre of the drawing, used when none
+		/// of the above is. 0: the units of the drawing are the pixels.
+		double pixelsPerMm = 0;
+		/// Size of a unit of the drawing, in millimetres: a SVG unit is
+		/// a 96th of an inch
+		double unitMm = 25.4 / 96;
+		/// Put the terminals on the grid of 10
+		bool snapTerminals = true;
+		/// Warn when the element has no terminal
+		bool warnNoTerminal = true;
 		/// Added to the terminals the SVG marks with an id starting
 		/// with "terminal"
 		QList<Terminal> terminals;
@@ -94,6 +120,34 @@ namespace SvgToElmt {
 		rounded up to the grid of 10.
 	*/
 	Result convert(const QByteArray &svg, const Options &options);
+
+	/**
+		@brief Convert a picture: its dark areas are traced by
+		RasterVectorizer, then converted as a SVG. A pixel is 25.4 / @p dpi
+		millimetres. Terminals are given in pixels of the picture.
+	*/
+	Result convertImage(const QImage &image, Options options,
+						const RasterVectorizer::Options &vectorizer,
+						double dpi = 96);
+
+	/**
+		@brief Convert the SVG or picture file @p path (see convertImage()).
+	*/
+	Result convertFile(const QString &path, const Options &options,
+					   const RasterVectorizer::Options &vectorizer,
+					   double dpi = 96);
+
+	/// File name filter listing the SVG and picture formats convertFile() reads
+	QString fileFilter();
+
+	/**
+		@brief Find what to convert in @p mime, such as the clipboard: SVG
+		data or text, a picture, or a file (URL) that is one.
+		@param name receives a name for the element, when there is one
+		@return true if there is a SVG (in @p svg), or a picture (in @p image)
+	*/
+	bool sourceFromMimeData(const QMimeData *mime, QByteArray *svg,
+							QImage *image, QString *name = nullptr);
 
 	/**
 		@brief Parse "x,y[,orientation[,name]]", the argument of --terminal.
