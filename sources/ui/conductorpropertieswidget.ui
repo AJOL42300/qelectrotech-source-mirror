@@ -212,17 +212,27 @@
                 </property>
                </widget>
               </item>
-              <item row="8" column="3">
+              <item row="11" column="0" colspan="3">
                <widget class="QLabel" name="m_wire_profile_label">
                 <property name="text">
                  <string>Wire profile :</string>
                 </property>
                </widget>
               </item>
-              <item row="8" column="4">
+              <item row="11" column="3" colspan="2">
                <widget class="QComboBox" name="m_wire_profile_cb">
                 <property name="toolTip">
                  <string>A standard wire of the project: it gives the colour and the section, and follows when the profile is changed.</string>
+                </property>
+               </widget>
+              </item>
+              <item row="12" column="0" colspan="5">
+               <widget class="QCheckBox" name="m_end_labels_cb">
+                <property name="toolTip">
+                 <string>The conductor's text is also written at each end of the conductor, along its direction.</string>
+                </property>
+                <property name="text">
+                 <string>Text at each end of the conductor</string>
                 </property>
                </widget>
               </item>
