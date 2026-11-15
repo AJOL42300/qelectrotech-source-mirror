@@ -131,6 +131,10 @@ set(QET_SRC_FILES
   ${QET_DIR}/sources/cli_export.h
   ${QET_DIR}/sources/rastervectorizer.cpp
   ${QET_DIR}/sources/rastervectorizer.h
+  ${QET_DIR}/sources/moduletooltip.cpp
+  ${QET_DIR}/sources/moduletooltip.h
+  ${QET_DIR}/sources/pinusage.cpp
+  ${QET_DIR}/sources/pinusage.h
   ${QET_DIR}/sources/svgtoelmt.cpp
   ${QET_DIR}/sources/svgtoelmt.h
   ${QET_DIR}/sources/svgtoelmtpalette.h
