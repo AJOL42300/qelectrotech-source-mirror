@@ -20,6 +20,7 @@
 #include "conductorproperties.h"
 #include "ElementsCollection/xmlelementcollection.h"
 #include "factory/elementfactory.h"
+#include "properties/cablecatalog.h"
 #include "properties/networkcable.h"
 #include "qetgraphicsitem/conductor.h"
 #include "qetgraphicsitem/element.h"
@@ -29,6 +30,8 @@
 
 #include <QImage>
 #include <QPainter>
+#include <QSet>
+#include <QTemporaryDir>
 
 /**
 	Network and moulded cables: a conductor which has a cable type, a
@@ -231,6 +234,140 @@ class tst_networkcable : public QObject
 			QVERIFY(conductor->properties().m_network_cable.isEmpty());
 			QCOMPARE(pixelsOf(conductor, green), 0);
 			QCOMPARE(conductor->boundingRect(), plain_rect);
+		}
+
+		void theBuiltInCataloguePointsAtOneCablePerReference()
+		{
+			const QList<CableCatalog::Entry> list =
+				CableCatalog::builtin();
+			QVERIFY(!list.isEmpty());
+			QSet<QString> keys;
+			QSet<QString> makers;
+			for (const CableCatalog::Entry &e : list) {
+				QVERIFY(!e.reference.isEmpty());
+				QVERIFY(!e.manufacturer.isEmpty());
+				QVERIFY(NetworkCables::find(
+					CableCatalog::networkTypeId(e)));
+				QVERIFY(!keys.contains(e.manufacturer + e.reference));
+				keys << e.manufacturer + e.reference;
+				makers << e.manufacturer;
+			}
+			QCOMPARE(makers.size(), 3);
+		}
+
+		void aCatalogueCableFillsTheProperties()
+		{
+			CableCatalog::Entry beckhoff;
+			for (const CableCatalog::Entry &e : CableCatalog::builtin()) {
+				if (e.reference == QLatin1String("ZK7000-0102-0020"))
+					beckhoff = e;
+			}
+			QCOMPARE(beckhoff.usage, QStringLiteral("ethercat_p"));
+
+			ConductorProperties p;
+			CableCatalog::apply(p, beckhoff);
+			QCOMPARE(p.m_network_cable, QStringLiteral("ethercat_p"));
+			QCOMPARE(p.m_network_reference,
+				 QStringLiteral("ZK7000-0102-0020"));
+			QCOMPARE(p.m_network_length, QStringLiteral("2"));
+			QCOMPARE(p.m_wire_section, QStringLiteral("0,34"));
+
+				//The type chosen first is kept
+			ConductorProperties q;
+			NetworkCables::apply(q, QStringLiteral("motor"));
+			CableCatalog::apply(q, beckhoff);
+			QCOMPARE(q.m_network_cable, QStringLiteral("motor"));
+
+			NetworkCables::apply(q, QString());
+			QVERIFY(q.m_network_reference.isEmpty());
+
+			QDomDocument doc;
+			QDomElement e = doc.createElement(QStringLiteral("conductor"));
+			p.toXml(e);
+			ConductorProperties read;
+			read.fromXml(e);
+			QCOMPARE(read.m_network_reference, p.m_network_reference);
+			ConductorProperties plain;
+			QDomElement f = doc.createElement(QStringLiteral("conductor"));
+			plain.toXml(f);
+			QVERIFY(!f.hasAttribute(QStringLiteral("network_reference")));
+		}
+
+		void totalsPerReference()
+		{
+			ConductorProperties a;
+			NetworkCables::apply(a, QStringLiteral("ethernet"));
+			a.m_network_reference = QStringLiteral("REF-A");
+			a.m_network_length = QStringLiteral("2,5");
+			ConductorProperties plain;
+			NetworkCables::apply(plain, QStringLiteral("ethernet"));
+			const QList<NetworkCables::ReferenceTotal> totals =
+				NetworkCables::referenceTotals(
+					{a, a, plain, ConductorProperties()});
+			QCOMPARE(totals.size(), 1);
+			QCOMPARE(totals[0].reference, QStringLiteral("REF-A"));
+			QCOMPARE(totals[0].count, 2);
+			QCOMPARE(totals[0].metres, 5.0);
+		}
+
+		void theCatalogueIsKeptInJson()
+		{
+			QTemporaryDir dir;
+			QVERIFY(dir.isValid());
+			const QString path = dir.filePath(QStringLiteral("c.json"));
+			QVERIFY(CableCatalog::readJson(path).isEmpty());
+			QVERIFY(CableCatalog::writeJson(path, CableCatalog::builtin()));
+			const QList<CableCatalog::Entry> back =
+				CableCatalog::readJson(path);
+			const QList<CableCatalog::Entry> list =
+				CableCatalog::builtin();
+			QCOMPARE(back.size(), list.size());
+			QCOMPARE(back.first().reference, list.first().reference);
+			QCOMPARE(back.last().length, list.last().length);
+
+			CableCatalog::Entry changed = list.first();
+			changed.designation = QStringLiteral("mine");
+			const QList<CableCatalog::Entry> merged =
+				CableCatalog::merged(list, {changed});
+			QCOMPARE(merged.size(), list.size());
+			QCOMPARE(merged.first().designation, QStringLiteral("mine"));
+		}
+
+		void aCsvExportIsImported()
+		{
+			QTemporaryDir dir;
+			QVERIFY(dir.isValid());
+			QFile file(dir.filePath(QStringLiteral("lapp.csv")));
+			QVERIFY(file.open(QIODevice::WriteOnly));
+			file.write("Artikelnummer;Bezeichnung;Adernzahl;"
+				   "Querschnitt;Au\xC3\x9F" "endurchmesser;"
+				   "Hersteller\r\n"
+				   "\"1119304\";\"OELFLEX CLASSIC 110 4G1,5\";4;"
+				   "1,5 mm\xC2\xB2;7,2;LAPP\r\n"
+				   "0027969;\"OELFLEX SERVO; \"\"FD\"\" 796\";"
+				   "0;1,5;;LAPP\r\n"
+				   ";no reference;1;1;1;LAPP\r\n");
+			file.close();
+			QString error;
+			const QList<CableCatalog::Entry> list =
+				CableCatalog::readCsv(file.fileName(), &error);
+			QVERIFY2(error.isEmpty(), qPrintable(error));
+			QCOMPARE(list.size(), 2);
+			QCOMPARE(list[0].reference, QStringLiteral("1119304"));
+			QCOMPARE(list[0].conductors, 4);
+			QCOMPARE(list[0].section, QStringLiteral("1,5"));
+			QCOMPARE(list[0].diameter, QStringLiteral("7,2"));
+			QCOMPARE(list[0].manufacturer, QStringLiteral("LAPP"));
+			QCOMPARE(list[1].designation,
+				 QStringLiteral("OELFLEX SERVO; \"FD\" 796"));
+			QCOMPARE(list[1].usage, QStringLiteral("servo"));
+
+			QFile bad(dir.filePath(QStringLiteral("bad.csv")));
+			QVERIFY(bad.open(QIODevice::WriteOnly));
+			bad.write("colour;size\nred;1\n");
+			bad.close();
+			QVERIFY(CableCatalog::readCsv(bad.fileName(), &error).isEmpty());
+			QVERIFY(!error.isEmpty());
 		}
 };
 

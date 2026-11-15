@@ -69,6 +69,14 @@ namespace NetworkCables
 		int connectors = 0;
 	};
 
+	struct ReferenceTotal
+	{
+		QString reference;
+		QString designation;
+		int count = 0;
+		double metres = 0;
+	};
+
 	const QList<Type> &types();
 	const Type *find(const QString &id);
 
@@ -77,6 +85,8 @@ namespace NetworkCables
 	double lengthInMetres(const QString &length);
 	int connectorCount(const ConductorProperties &properties);
 	QList<Total> totals(const QList<ConductorProperties> &conductors);
+	QList<ReferenceTotal> referenceTotals(
+		const QList<ConductorProperties> &conductors);
 
 	void paintEnds(QPainter *painter,
 		       const QPainterPath &path,

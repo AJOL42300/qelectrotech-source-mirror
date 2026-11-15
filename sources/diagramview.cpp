@@ -76,6 +76,8 @@
 #include "qetinformation.h"
 #include "qetversion.h"
 #include "properties/networkcable.h"
+#include "properties/cablecatalog.h"
+#include <QFileDialog>
 #include <QInputDialog>
 #include <QLineEdit>
 #include <QApplication>
@@ -3555,6 +3557,69 @@ void DiagramView::updateNetworkCableMenu()
 				}
 			});
 	});
+	m_network_cable_menu->addAction(
+		tr("Catalogue cable..."), this, [this]() {
+		const QList<CableCatalog::Entry> all =
+			CableCatalog::entries();
+		const QString every_usage = tr("All usages");
+		QStringList usages{every_usage};
+		for (const CableCatalog::Entry &e : all) {
+			if (!e.usage.isEmpty() && !usages.contains(e.usage)) {
+				usages << e.usage;
+			}
+		}
+		bool ok = false;
+		const QString usage = QInputDialog::getItem(
+			this, tr("Catalogue cable"),
+			tr("Usage of the cable:"), usages, 0, false, &ok);
+		if (!ok) {
+			return;
+		}
+		QList<CableCatalog::Entry> shown;
+		QStringList titles;
+		for (const CableCatalog::Entry &e : all) {
+			if (usage == every_usage || e.usage == usage) {
+				shown << e;
+				titles << CableCatalog::title(e);
+			}
+		}
+		if (shown.isEmpty()) {
+			return;
+		}
+		const QString chosen = QInputDialog::getItem(
+			this, tr("Catalogue cable"), tr("Cable:"), titles, 0,
+			false, &ok);
+		if (!ok || !titles.contains(chosen)) {
+			return;
+		}
+		const CableCatalog::Entry entry =
+			shown.at(titles.indexOf(chosen));
+		editNetworkCable(tr("Set catalogue cable", "undo caption"),
+			[entry](ConductorProperties &p) {
+				CableCatalog::apply(p, entry);
+			});
+	});
+	m_network_cable_menu->addAction(
+		tr("Import catalogue (CSV)..."), this, [this]() {
+		const QString path = QFileDialog::getOpenFileName(
+			this, tr("Import a cable catalogue"), QString(),
+			tr("CSV files (*.csv);;All files (*)"));
+		if (path.isEmpty()) {
+			return;
+		}
+		QString error;
+		const int count = CableCatalog::importCsv(path, &error);
+		if (count < 0 || !error.isEmpty()) {
+			QMessageBox::warning(
+				this, tr("Cable catalogue"),
+				tr("The catalogue could not be imported: %1")
+					.arg(error));
+			return;
+		}
+		QMessageBox::information(
+			this, tr("Cable catalogue"),
+			tr("%n cable(s) imported.", nullptr, count));
+	});
 	for (const QString &branch : {QStringLiteral("1"), QStringLiteral("2"),
 				      QString()}) {
 		const QString name = branch.isEmpty()
@@ -3595,6 +3660,13 @@ void DiagramView::updateNetworkCableMenu()
 				.arg(type ? type->name : total.id)
 				.arg(total.metres)
 				.arg(total.connectors);
+		}
+		for (const NetworkCables::ReferenceTotal &total :
+		     NetworkCables::referenceTotals(all)) {
+			lines << tr("Reference %1 %2: %n cable(s), %3 m", nullptr,
+				    total.count)
+				.arg(total.reference, total.designation)
+				.arg(total.metres);
 		}
 		QMessageBox::information(
 			this, tr("Network cables"),

@@ -74,6 +74,8 @@ const QList<Type> &types()
 		    QColor(120, 120, 120), Connector::M12, 5, true);
 		add(QStringLiteral("motor"), tr("Motor cable"),
 		    QColor(0, 0, 0), Connector::None, 0);
+		add(QStringLiteral("generic"), tr("Cable"),
+		    QColor(60, 60, 60), Connector::None, 0);
 		return l;
 	}();
 	return list;
@@ -101,6 +103,7 @@ void apply(ConductorProperties &properties, const QString &id)
 		properties.m_network_cable.clear();
 		properties.m_network_length.clear();
 		properties.m_network_branch.clear();
+		properties.m_network_reference.clear();
 		return;
 	}
 	properties.m_network_cable = type->id;
@@ -113,8 +116,9 @@ void apply(ConductorProperties &properties, const QString &id)
 	if (!type->y_cable) {
 		properties.m_network_branch.clear();
 	}
-		//A motor cable is named by what is written on it
-	if (type->id != QLatin1String("motor")) {
+		//A motor or plain cable is named by what is written on it
+	if (type->id != QLatin1String("motor")
+	    && type->id != QLatin1String("generic")) {
 		properties.m_conductor_type = type->name;
 	}
 }
@@ -199,6 +203,30 @@ QList<Total> totals(const QList<ConductorProperties> &conductors)
 		}
 	}
 	return result;
+}
+
+/**
+	@return per manufacturer reference, how many cables and how many
+	metres the given conductors hold, sorted by reference. Cables without
+	a reference are ignored.
+*/
+QList<ReferenceTotal> referenceTotals(
+	const QList<ConductorProperties> &conductors)
+{
+	QMap<QString, ReferenceTotal> by_reference;
+	for (const ConductorProperties &properties : conductors) {
+		if (!find(properties.m_network_cable)
+		    || properties.m_network_reference.isEmpty()) {
+			continue;
+		}
+		ReferenceTotal &total =
+			by_reference[properties.m_network_reference];
+		total.reference = properties.m_network_reference;
+		total.designation = properties.m_conductor_type;
+		++total.count;
+		total.metres += lengthInMetres(properties.m_network_length);
+	}
+	return by_reference.values();
 }
 
 	//Draws the plug of one end. The path runs away from it along +x.
