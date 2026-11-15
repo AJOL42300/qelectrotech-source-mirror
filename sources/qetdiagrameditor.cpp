@@ -98,6 +98,7 @@
 #include "shortcutmanager.h"
 #include "cablelist/cableexportdialog.h"
 #include "ui/bomexportdialog.h"
+#include "odoo/odooexchangedialog.h"
 #include "ui/conductorcolortoolbutton.h"
 #include "ui/diagrambgcolorbutton.h"
 #include "ui/duplicatelabelsdialog.h"
@@ -1351,6 +1352,14 @@ void QETDiagramEditor::setUpActions()
 		bom.exec();
 	});
 
+		//Exchange the nomenclature with Odoo
+	m_odoo_exchange = new QAction(QET::Icons::DocumentSpreadsheet, tr("Exchange with Odoo..."), this);
+	ShortcutManager::instance().registerAction(m_odoo_exchange, "diagrameditor.odoo_exchange", tr("Diagram editors"), QKeySequence());
+	connect(m_odoo_exchange, &QAction::triggered, [this]() {
+		OdooExchangeDialog odoo(currentProjectView()->project(), this);
+		odoo.exec();
+	});
+
 		//Add a nomenclature item
 	m_add_nomenclature = new QAction(QET::Icons::TableOfContent, tr("Add a nomenclature"), this);
 	ShortcutManager::instance().registerAction(m_add_nomenclature, "diagrameditor.add_nomenclature", tr("Diagram editors"), QKeySequence());
@@ -2413,6 +2422,7 @@ void QETDiagramEditor::setUpMenu()
 	menu_project->addAction(m_project_languages);
 	menu_project -> addSeparator();
 	menu_project -> addAction(m_csv_export);
+	menu_project -> addAction(m_odoo_exchange);
 	menu_project -> addAction(m_export_cable_list);
 	menu_project -> addAction(m_project_export_conductor_num);
 	menu_project -> addAction(m_project_export_wiring_list);
@@ -4054,6 +4064,7 @@ void QETDiagramEditor::slot_updateActions()
 	m_add_summary                 -> setEnabled(editable_project);
 	m_add_nomenclature            -> setEnabled(editable_project);
 	m_csv_export                  -> setEnabled(editable_project);
+	m_odoo_exchange               -> setEnabled(editable_project);
 	m_project_export_conductor_num-> setEnabled(opened_project);
 	m_terminal_strip_dialog       -> setEnabled(editable_project);
 	m_project_export_wiring_list  -> setEnabled(opened_project);

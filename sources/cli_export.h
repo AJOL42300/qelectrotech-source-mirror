@@ -52,6 +52,7 @@ namespace CLIExport {
 		  qelectrotech --export-cables  <project.qet> <output.csv>
 		  qelectrotech --export-wires   <project.qet> <output.csv>
 		  qelectrotech --export-bom     <project.qet> <output.csv> [--no-slaves] [--no-junctions]
+		  qelectrotech --export-odoo    <project.qet> <output-directory> [--odoo-per-cabinet] [--odoo-cables] [--odoo-mapping=<file.json>]
 		  qelectrotech --export-wiring  <project.qet> <output.csv>
 		  qelectrotech --export-nets    <project.qet> <output.json>
 		  qelectrotech --export-links   <project.qet> <output.csv>
