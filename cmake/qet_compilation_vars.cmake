@@ -1104,6 +1104,23 @@ set(QET_SRC_FILES
   ${QET_DIR}/sources/materiallist/materialselectiondialog.cpp
   ${QET_DIR}/sources/materiallist/materialselectiondialog.h
 
+  ${QET_DIR}/sources/odoo/odoobom.cpp
+  ${QET_DIR}/sources/odoo/odoobom.h
+  ${QET_DIR}/sources/odoo/odoocatalog.cpp
+  ${QET_DIR}/sources/odoo/odoocatalog.h
+  ${QET_DIR}/sources/odoo/odooclient.cpp
+  ${QET_DIR}/sources/odoo/odooclient.h
+  ${QET_DIR}/sources/odoo/odoocsv.cpp
+  ${QET_DIR}/sources/odoo/odoocsv.h
+  ${QET_DIR}/sources/odoo/odooexchangedialog.cpp
+  ${QET_DIR}/sources/odoo/odooexchangedialog.h
+  ${QET_DIR}/sources/odoo/odoomapping.cpp
+  ${QET_DIR}/sources/odoo/odoomapping.h
+  ${QET_DIR}/sources/odoo/odoosecretstore.cpp
+  ${QET_DIR}/sources/odoo/odoosecretstore.h
+  ${QET_DIR}/sources/odoo/odoosync.cpp
+  ${QET_DIR}/sources/odoo/odoosync.h
+
   ${QET_DIR}/sources/cablelist/cabletypelist.cpp
   ${QET_DIR}/sources/cablelist/cabletypelist.h
   ${QET_DIR}/sources/cablelist/cableexportdialog.cpp

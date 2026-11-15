@@ -921,6 +921,56 @@ add_test(NAME tst_groupedbom COMMAND tst_groupedbom)
 target_include_directories(tst_groupedbom PRIVATE ${QET_DIR}/sources)
 target_link_libraries(tst_groupedbom PRIVATE Qt::Test Qt::Sql)
 
+# Exchange with Odoo: the CSV files, the mapping, the grouping of parts and the
+# merge into the catalogue need no network.
+set(QET_ODOO_FILES_DIR ${QET_DIR}/sources/odoo)
+add_executable(
+  tst_odoocsv
+  tst_odoocsv.cpp
+  ${QET_ODOO_FILES_DIR}/odoobom.cpp
+  ${QET_ODOO_FILES_DIR}/odoobom.h
+  ${QET_ODOO_FILES_DIR}/odoocatalog.cpp
+  ${QET_ODOO_FILES_DIR}/odoocatalog.h
+  ${QET_ODOO_FILES_DIR}/odoocsv.cpp
+  ${QET_ODOO_FILES_DIR}/odoocsv.h
+  ${QET_ODOO_FILES_DIR}/odoomapping.cpp
+  ${QET_ODOO_FILES_DIR}/odoomapping.h
+  ${QET_DIR}/sources/materiallist/materiallist.cpp
+  ${QET_DIR}/sources/materiallist/materiallist.h
+  ${QET_DIR}/sources/qetinformation.cpp
+  ${QET_DIR}/sources/qetinformation.h)
+add_test(NAME tst_odoocsv COMMAND tst_odoocsv)
+target_include_directories(tst_odoocsv PRIVATE ${QET_DIR}/sources)
+target_link_libraries(tst_odoocsv PRIVATE Qt::Test Qt::Gui Qt::Sql Qt::Xml)
+
+# The API side runs against a fake Odoo listening on the local machine: no real
+# server is ever contacted.
+add_executable(
+  tst_odooapi
+  tst_odooapi.cpp
+  ${QET_ODOO_FILES_DIR}/odoobom.cpp
+  ${QET_ODOO_FILES_DIR}/odoobom.h
+  ${QET_ODOO_FILES_DIR}/odoocatalog.cpp
+  ${QET_ODOO_FILES_DIR}/odoocatalog.h
+  ${QET_ODOO_FILES_DIR}/odooclient.cpp
+  ${QET_ODOO_FILES_DIR}/odooclient.h
+  ${QET_ODOO_FILES_DIR}/odoomapping.cpp
+  ${QET_ODOO_FILES_DIR}/odoomapping.h
+  ${QET_ODOO_FILES_DIR}/odoosecretstore.cpp
+  ${QET_ODOO_FILES_DIR}/odoosecretstore.h
+  ${QET_ODOO_FILES_DIR}/odoosync.cpp
+  ${QET_ODOO_FILES_DIR}/odoosync.h
+  ${QET_DIR}/sources/materiallist/materiallist.cpp
+  ${QET_DIR}/sources/materiallist/materiallist.h
+  ${QET_DIR}/sources/qetinformation.cpp
+  ${QET_DIR}/sources/qetinformation.h)
+add_test(NAME tst_odooapi COMMAND tst_odooapi)
+target_include_directories(tst_odooapi PRIVATE ${QET_DIR}/sources)
+target_link_libraries(tst_odooapi PRIVATE Qt::Test Qt::Gui Qt::Sql Qt::Xml Qt::Network)
+if(WIN32)
+  target_link_libraries(tst_odooapi PRIVATE advapi32)
+endif()
+
 # The formulas of a table column compile to SQLite expressions.
 add_executable(
   tst_formulabuilder

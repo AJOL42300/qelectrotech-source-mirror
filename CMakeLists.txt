@@ -362,6 +362,11 @@ target_link_libraries(
     ${QET_SPACEMOUSE_LIBRARIES}
 )
 
+if(WIN32)
+    # Windows Credential Manager (Odoo API key)
+    target_link_libraries(${PROJECT_NAME}_objects PUBLIC advapi32)
+endif()
+
 target_include_directories(
     ${PROJECT_NAME}_objects
     PUBLIC

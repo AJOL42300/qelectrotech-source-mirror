@@ -32,7 +32,9 @@
 #include "editor/symbolgridcheck.h"
 #include "editor/terminalnamecheck.h"
 #include "dxfexport.h"
-#include "exportproperties.h"
+#include "odoo/odoobom.h"
+#include "odoo/odoocsv.h"
+#include "odoo/odoomapping.h"#include "exportproperties.h"
 #include "pdf_links.h"
 #include "container/qetcontainer.h"
 #include "qetgraphicsitem/conductor.h"
@@ -89,6 +91,7 @@ const QHash<QString, QString> &exportFlags()
 		{"--export-cables", "cables"},
 		{"--export-wires", "wires"},
 		{"--export-bom", "bom"},
+		{"--export-odoo", "odoo"},
 		{"--export-wiring", "wiring"},
 		{"--export-nets", "nets"},
 		{"--export-links", "links"},
@@ -460,6 +463,62 @@ int exportBom(QETProject &project, const QString &output,
 		return 1;
 	}
 	out << "Exported " << rows << " component(s) -> " << output << "\n";
+	return 0;
+}
+
+/// Bill of materials in the CSV files Odoo's import screen reads: the
+/// products and the bills of materials, in @p directory.
+int exportOdoo(QETProject &project, const QString &directory,
+			   bool perCabinet, bool cables, const QString &mappingPath)
+{
+	OdooMapping mapping = OdooMapping::defaults();
+	if (!mappingPath.isEmpty()) {
+		QString error;
+		if (!OdooMapping::load(mappingPath, &mapping, &error)) {
+			err << "Cannot use the mapping '" << mappingPath << "': " << error << "\n";
+			return 1;
+		}
+	}
+	project.dataBase()->updateDB();
+	QSqlQuery query = project.dataBase()->newQuery(OdooBomBuilder::partsQuery(true));
+	if (!query.exec()) {
+		err << "Odoo query failed: " << query.lastError().text() << "\n";
+		return 1;
+	}
+	QList<OdooPart> parts = OdooBomBuilder::readParts(query);
+	if (cables)
+		parts.append(OdooBomBuilder::cableParts(project.toXml()));
+
+	OdooBomOptions options;
+	options.per_cabinet = perCabinet;
+	options.project_name = project.title().isEmpty()
+			? QFileInfo(project.filePath()).completeBaseName() : project.title();
+	const QList<OdooBom> boms = OdooBomBuilder::buildBoms(parts, options);
+	const QList<OdooPart> products = OdooBomBuilder::productsOfParts(parts);
+
+	if (!QDir().mkpath(directory)) {
+		err << "Cannot create '" << directory << "'\n";
+		return 1;
+	}
+	QString error;
+	const QString products_path = QDir(directory).filePath("odoo_products.csv");
+	const QString bom_path = QDir(directory).filePath("odoo_bom.csv");
+	if (!OdooCsv::writeFile(products_path, OdooCsv::productsCsv(products, boms, mapping), &error)
+			|| !OdooCsv::writeFile(bom_path, OdooCsv::bomCsv(boms, mapping), &error)) {
+		err << "Cannot write the Odoo files: " << error << "\n";
+		return 1;
+	}
+	out << "Exported " << products.size() << " product(s) and "
+		<< boms.size() << " bill(s) of materials -> " << directory << "\n";
+	QSqlQuery unreferenced = project.dataBase()->newQuery(
+			OdooBomBuilder::unreferencedQuery(true));
+	if (unreferenced.exec()) {
+		const int left_out = OdooBomBuilder::readCount(unreferenced);
+		if (left_out > 0) {
+			out << left_out << " component(s) have no manufacturer reference "
+				<< "and are not exported.\n";
+		}
+	}
 	return 0;
 }
 
@@ -1346,6 +1405,16 @@ int run(const QStringList &args)
 	// --no-slaves and --no-junctions leave rows out of --export-bom.
 	const bool includeSlaves = filtered.removeAll("--no-slaves") == 0;
 	const bool includeJunctions = filtered.removeAll("--no-junctions") == 0;
+	// --odoo-per-cabinet, --odoo-cables and --odoo-mapping=<file.json> shape
+	// --export-odoo.
+	const bool odooPerCabinet = filtered.removeAll("--odoo-per-cabinet") > 0;
+	const bool odooCables = filtered.removeAll("--odoo-cables") > 0;
+	QString odooMapping;
+	for (int i = filtered.size() - 1; i >= 0; --i) {
+		if (filtered.at(i).startsWith("--odoo-mapping=")) {
+			odooMapping = filtered.takeAt(i).mid(15);
+		}
+	}
 	const bool ignoreLock = filtered.removeAll("--ignore-lock") > 0;
 	const bool json = filtered.removeAll("--json") > 0;
 	const bool grid = filtered.removeAll("--grid") > 0;
@@ -1584,6 +1653,8 @@ int run(const QStringList &args)
 		return exportCsv(project, format, output);
 	if (format == "bom")
 		return exportBom(project, output, includeSlaves, includeJunctions);
+	if (format == "odoo")
+		return exportOdoo(project, output, odooPerCabinet, odooCables, odooMapping);
 	if (format == "wiring")
 		return exportWiring(project, output);
 	if (format == "nets")
