@@ -991,7 +991,9 @@ Result convert(const QByteArray &svg, const Options &options)
 		++result.terminals;
 	}
 	if (!result.terminals)
-		result.warnings << QStringLiteral("no terminal: add some with --terminal or an id=\"terminal-...\" shape");
+		result.warnings << QStringLiteral(
+			"no terminal: add some with --terminal or an id=\"terminal-...\" "
+			"shape");
 
 	result.definition = QByteArray("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
 						+ out.toByteArray(4);
