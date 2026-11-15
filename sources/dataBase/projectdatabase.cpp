@@ -9193,7 +9193,7 @@ QStringList projectDataBase::foreignChildren(const QDomElement &parent, bool fol
 			//kept as foreign, deleting them would not last past a save
 		QStringLiteral("devicetype_rules"), QStringLiteral("devicetypes"),
 		QStringLiteral("conductor_plant_counters"), QStringLiteral("potentialtypes"),
-		QStringLiteral("cell_origin")};
+		QStringLiteral("cell_origin"), QStringLiteral("twincat_sync")};
 	static const QSet<QString> folio_known{
 		QStringLiteral("defaultconductor"), QStringLiteral("elements"), QStringLiteral("conductors"),
 		QStringLiteral("inputs"), QStringLiteral("images"), QStringLiteral("shapes"),

@@ -395,6 +395,8 @@ class QETProject : public QObject
 		void autoFolioNumberingSelectedFolios(int, int, const QString&);
 		ProjectOrigin::Mode origin() const;
 		void setOrigin(ProjectOrigin::Mode mode);
+		QString twincatPath() const;
+		void setTwincatPath(const QString &path);
 
 		QDomDocument toXml(QHash<int, QByteArray> *kept_folios = nullptr,
 						   QStringList *kept_parts = nullptr);
@@ -535,6 +537,7 @@ class QETProject : public QObject
 		void readUsageXml(QDomDocument &xml_project);
 		void readWireHopsXml(QDomDocument &xml_project);
 		void readOriginXml(QDomDocument& xml_project);
+		void readTwincatXml(QDomDocument &xml_project);
 		void readSymbolTextsXml(QDomDocument &xml_project);
 		void readPlantLocationXml(QDomDocument &xml_project);
 		void readDeviceTypeRulesXml(QDomDocument &xml_project);
@@ -557,6 +560,7 @@ class QETProject : public QObject
 		void writeUsageXml(QDomElement &);
 		void writeWireHopsXml(QDomElement &);
 		void writeOriginXml(QDomElement&);
+		void writeTwincatXml(QDomElement &);
 		void writeSymbolTextsXml(QDomElement &);
 		void writePlantLocationXml(QDomElement &);
 		void writeDeviceTypeRulesXml(QDomElement &);
@@ -683,6 +687,7 @@ class QETProject : public QObject
 		bool m_auto_conductor = true;
 		WireHops::Mode m_wire_hops = WireHops::Mode::None;
 		ProjectOrigin::Mode m_origin = ProjectOrigin::Mode::TopLeft;
+		QString m_twincat_path;
 			/// Texts drawn in a turned symbol stay horizontal (on for a new
 			/// project, off for one saved without it), see uprightSymbolTexts()
 		bool m_upright_symbol_texts = false;
