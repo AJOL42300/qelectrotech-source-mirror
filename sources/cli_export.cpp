@@ -43,6 +43,7 @@
 #include "qetproject.h"
 #include "svgtoelmt.h"
 #include "titleblockproperties.h"
+#include "twincat/tcqetbridge.h"
 #include "wiringlistexport.h"
 
 // Private Qt PDF engine for drawHyperlink() — see pdf_links / projectprintwindow.
@@ -95,6 +96,7 @@ const QHash<QString, QString> &exportFlags()
 		{"--export-wiring", "wiring"},
 		{"--export-nets", "nets"},
 		{"--export-links", "links"},
+		{"--twincat-report", "twincat"},
 		{"--check-device-types", "devicetypes"},
 		{"--export-device-types", "devicetypelist"},
 		{"--export-device-types-brief", "devicetypebrief"},
@@ -1342,6 +1344,48 @@ int queryProjects(const QString &sql, const QStringList &files, bool json)
 	return failed ? 1 : 0;
 }
 
+/**
+	--twincat-report: read-only report of the differences between the I/O
+	tables of the PLC masters of the project and a TwinCAT project. The
+	TwinCAT project is only read, never modified. Semicolon separated.
+*/
+int twincatReport(QETProject &project, const QString &output,
+				  const QString &twincat_override)
+{
+	const QString twincat = twincat_override.isEmpty()
+			? project.twincatPath() : twincat_override;
+	if (twincat.isEmpty()) {
+		err << "No TwinCAT project: set it in the project properties or "
+			   "pass it as the third argument\n";
+		return 2;
+	}
+	TcIoTree tree;
+	QString error;
+	if (!TcIoTree::load(twincat, tree, &error)) {
+		err << "Cannot read the TwinCAT project " << twincat << ": "
+			<< error << "\n";
+		return 1;
+	}
+	const TcQetBridge::Cards cards = TcQetBridge::collect(&project);
+	const QVector<TcSyncItem> items = TcIoSync::compare(cards.cards, tree);
+	QSaveFile file(output);
+	if (!file.open(QIODevice::WriteOnly)) {
+		err << "Cannot write " << output << ": " << file.errorString() << "\n";
+		return 1;
+	}
+	file.write("\xEF\xBB\xBF");
+	file.write(TcIoSync::reportCsv(items).toUtf8());
+	if (!file.commit()) {
+		err << "Cannot write " << output << ": " << file.errorString() << "\n";
+		return 1;
+	}
+	out << items.size() << " difference(s), "
+		<< cards.cards.size() << " QET card(s), "
+		<< tree.boxes.size() << " TwinCAT box(es)\n";
+	out.flush();
+	return 0;
+}
+
 } // anonymous namespace
 
 namespace CLIExport {
@@ -1670,6 +1714,8 @@ int run(const QStringList &args)
 		return exportNets(project, output);
 	if (format == "links")
 		return exportLinks(project, output);
+	if (format == "twincat")
+		return twincatReport(project, output, rest.value(2));
 	if (format == "devicetypes")
 		return exportDeviceTypeCheck(project, output);
 	if (format == "devicetypelist" || format == "devicetypebrief")

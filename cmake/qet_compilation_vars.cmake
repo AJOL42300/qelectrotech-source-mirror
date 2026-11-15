@@ -150,6 +150,20 @@ set(QET_SRC_FILES
   ${QET_DIR}/sources/htmlexport/htmldossier.h
   ${QET_DIR}/sources/htmlexport/htmldossierdialog.cpp
   ${QET_DIR}/sources/htmlexport/htmldossierdialog.h
+  ${QET_DIR}/sources/twincat/tciosync.cpp
+  ${QET_DIR}/sources/twincat/tciosync.h
+  ${QET_DIR}/sources/twincat/tcqetbridge.cpp
+  ${QET_DIR}/sources/twincat/tcqetbridge.h
+  ${QET_DIR}/sources/twincat/tcsyncdialog.cpp
+  ${QET_DIR}/sources/twincat/tcsyncdialog.h
+  ${QET_DIR}/sources/undocommand/tcsynccommand.cpp
+  ${QET_DIR}/sources/undocommand/tcsynccommand.h
+  ${QET_DIR}/sources/twincat/tciotree.cpp
+  ${QET_DIR}/sources/twincat/tciotree.h
+  ${QET_DIR}/sources/twincat/tciowriter.cpp
+  ${QET_DIR}/sources/twincat/tciowriter.h
+  ${QET_DIR}/sources/twincat/tcxmlscanner.cpp
+  ${QET_DIR}/sources/twincat/tcxmlscanner.h
   ${QET_DIR}/sources/logging/crashhandler.cpp
   ${QET_DIR}/sources/logging/crashhandler.h
   ${QET_DIR}/sources/logging/eventloopwatchdog.cpp

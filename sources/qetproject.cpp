@@ -2795,6 +2795,28 @@ void QETProject::autoFolioNumberingSelectedFolios(int from,
 ProjectOrigin::Mode QETProject::origin() const { return m_origin; }
 
 /**
+	@brief QETProject::twincatPath
+	@return The TwinCAT project (.tsproj, .xti, .sln or its folder) the I/O
+	names of this project are exchanged with, empty if none is set.
+*/
+QString QETProject::twincatPath() const { return m_twincat_path; }
+
+/**
+	@brief QETProject::setTwincatPath
+	Set the TwinCAT project to exchange I/O names with. Nothing is read
+	from it here.
+	@param path
+*/
+void QETProject::setTwincatPath(const QString &path)
+{
+	const QString clean = path.trimmed();
+	if (clean == m_twincat_path) { return; }
+	m_twincat_path = clean;
+	storeSettings();
+	setModified(true);
+}
+
+/**
 	@brief QETProject::setOrigin
 	Specifies which corner is used as the origin (coordinate system starting point)
 	and redraws all project sheets.
@@ -2972,6 +2994,7 @@ QDomDocument QETProject::toXml(QHash<int, QByteArray> *kept_folios, QStringList 
 	writeConductorPlantCountersXml(project_root);
 	writeDeviceTypesXml(project_root);
 	writeOriginXml(project_root);
+	writeTwincatXml(project_root);
 
 	// Properties for news diagrams
 	QDomElement new_diagrams_properties = xml_doc.createElement("newdiagrams");
@@ -4203,6 +4226,7 @@ void QETProject::readProjectXml(QDomDocument &xml_project)
 	readConductorPlantCountersXml(xml_project);
 	readDeviceTypesXml(xml_project);
 	readOriginXml(xml_project);
+	readTwincatXml(xml_project);
 
 		//What this QET does not know of the project, kept for every format
 	m_data_base.storeForeignBlocks(QString::fromLatin1(projectDataBase::project_owner),
@@ -4819,6 +4843,19 @@ void QETProject::readOriginXml(QDomDocument& xml_project)
 }
 
 /**
+	@brief QETProject::readTwincatXml
+	Read the <twincat_sync> element: the path of the TwinCAT project the I/O
+	names are exchanged with. A project without it has none.
+	@param xml_project : the xml description of the project
+*/
+void QETProject::readTwincatXml(QDomDocument &xml_project)
+{
+	m_twincat_path = xml_project.documentElement()
+			.firstChildElement(QStringLiteral("twincat_sync"))
+			.attribute(QStringLiteral("path")).trimmed();
+}
+
+/**
 	@brief QETProject::readSymbolTextsXml
 	Read the <symbol_texts> element of the project, if any. A project
 	without it was saved before the setting existed, or with it off, and
@@ -5254,6 +5291,21 @@ void QETProject::writeOriginXml(QDomElement& xml_element)
 		QStringLiteral("corner"),
 		ProjectOrigin::toString(m_origin));
 	xml_element.appendChild(style);
+}
+
+/**
+	@brief QETProject::writeTwincatXml
+	Export the TwinCAT project path as a <twincat_sync> child of
+	@p xml_element, only when one is set: a project that never used the
+	feature is written as before.
+*/
+void QETProject::writeTwincatXml(QDomElement &xml_element)
+{
+	if (m_twincat_path.isEmpty()) { return; }
+	QDomElement sync = xml_element.ownerDocument().createElement(
+		QStringLiteral("twincat_sync"));
+	sync.setAttribute(QStringLiteral("path"), m_twincat_path);
+	xml_element.appendChild(sync);
 }
 
 /**
@@ -5876,6 +5928,7 @@ void QETProject::storeSettings()
 	writeConductorPlantCountersXml(root);
 	writeDeviceTypesXml(root);
 	writeOriginXml(root);
+	writeTwincatXml(root);
 	QDomElement new_diagrams = document.createElement(QStringLiteral("newdiagrams"));
 	writeDefaultPropertiesXml(new_diagrams);
 	for (const QString &numbering : {QStringLiteral("conductors_autonums"), QStringLiteral("folio_autonums"),
