@@ -201,6 +201,8 @@ GeneralConfigurationPage::GeneralConfigurationPage(QWidget *parent) :
 	ui->m_zoom_step_sb->setValue(DiagramView::zoomStep());
 	ui->m_jump_zoom_sb->setValue(DiagramView::jumpZoom());
 	ui->m_terminal_conductor_color->setChecked(Terminal::takesConductorColor());
+	ui->m_terminal_wire_id->setChecked(Terminal::showsWireId());
+	ui->m_terminal_magnet->setChecked(Terminal::magnetEnabled());
 	ui->m_strip_wires->setChecked(QetSettings::stripWiresShown());
 	ui->m_strip_cable_core_targets->setChecked(
 		QetSettings::stripCableCoreTargetsShown());
@@ -517,6 +519,15 @@ void GeneralConfigurationPage::applyConf()
 			for (Diagram *diagram : project->diagrams())
 				diagram->update();
 	}
+	if (ui->m_terminal_wire_id->isChecked() != Terminal::showsWireId()) {
+		Terminal::setShowsWireId(ui->m_terminal_wire_id->isChecked());
+		for (QETProject *project : QETApp::registeredProjects())
+			for (Diagram *diagram : project->diagrams())
+				for (QGraphicsItem *item : diagram->items())
+					if (Terminal *terminal = qgraphicsitem_cast<Terminal *>(item))
+						terminal->refreshWireId();
+	}
+	Terminal::setMagnetEnabled(ui->m_terminal_magnet->isChecked());
 	const bool core_targets = ui->m_strip_cable_core_targets->isChecked();
 	if (ui->m_strip_wires->isChecked() != QetSettings::stripWiresShown()
 		|| core_targets != QetSettings::stripCableCoreTargetsShown()) {

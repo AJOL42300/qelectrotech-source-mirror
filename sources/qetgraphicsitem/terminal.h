@@ -97,6 +97,12 @@ class Terminal : public QGraphicsObject
 		bool canBeLinkedTo(Terminal *);
 		int wireLimit() const;
 		bool hasRoomForWire() const;
+		void refreshWireId();
+
+	private:
+		QString wireIdText() const;
+		QRectF wireIdRect(const QString &text) const;
+	public:
 
 		// methods related to XML import/export
 		static bool valideXml(QDomElement  &);
@@ -130,6 +136,10 @@ class Terminal : public QGraphicsObject
 
 		static bool takesConductorColor();
 		static void setTakesConductorColor(bool takes);
+		static bool showsWireId();
+		static void setShowsWireId(bool shows);
+		static bool magnetEnabled();
+		static void setMagnetEnabled(bool enabled);
 
 	private:
 		bool               m_draw_help_line{false};

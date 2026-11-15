@@ -96,6 +96,7 @@ class ElementsMover {
 			/// Automatic wires of the moved symbols, grey until the drop
 		QList<QPointer<Conductor>> m_preview_wires;
 		void endPreview();
+		void applyTerminalMagnet();
 			///Steps handed over by a line the user dragged himself, to
 			///be pushed together with the rest of the movement
 		QList<QUndoCommand *> m_extra_commands;

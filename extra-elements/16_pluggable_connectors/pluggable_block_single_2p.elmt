@@ -1,0 +1,29 @@
+<definition version="0.100.0" type="element" link_type="simple" width="80" height="90" hotspot_x="40" hotspot_y="30">
+	<uuid uuid="{c77787e3-6a27-5373-9026-2f8d9cca6d8b}"/>
+	<names>
+		<name lang="en">Pluggable terminal block, single row, 2 positions</name>
+		<name lang="fr">Bornier enfichable simple, 2 positions</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="designation" show="1">Pluggable terminal block 2</elementInformation>
+		<elementInformation name="description" show="1">Pluggable (detachable) terminal block, one row of 2 positions; wires on the left, plug on the right.</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors
+Generic pluggable terminal block, not copied from a manufacturer drawing. The wire side and the plug side of a pin share a potential. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="-20" y="-20" width="40" height="40" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<terminal x="-30" y="-10" name="1" orientation="w" type="Generic" potential="1" uuid="{16844176-e9ab-5258-b474-f28a164fe088}"/>
+		<terminal x="30" y="-10" name="1'" orientation="e" type="Generic" potential="1" uuid="{8e61c194-1872-5932-9d59-3d825dbcc619}"/>
+		<line x1="-30" y1="-10" x2="-20" y2="-10" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="20" y1="-10" x2="30" y2="-10" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-14" y1="-10" x2="14" y2="-10" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="-6" y="-19" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="1"/>
+		<terminal x="-30" y="10" name="2" orientation="w" type="Generic" potential="2" uuid="{1e252e15-af04-5a40-961d-8c40d5516e40}"/>
+		<terminal x="30" y="10" name="2'" orientation="e" type="Generic" potential="2" uuid="{ee5b62b0-de1b-5993-9add-38900250685f}"/>
+		<line x1="-30" y1="10" x2="-20" y2="10" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="20" y1="10" x2="30" y2="10" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-14" y1="10" x2="14" y2="10" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="-6" y="1" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2"/>
+		<dynamic_text x="-20" y="24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{5e4348ae-427b-5b4a-ab9a-bcb130f4feed}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+	</description>
+</definition>

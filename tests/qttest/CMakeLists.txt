@@ -1454,6 +1454,20 @@ add_test(NAME tst_conductorrouter COMMAND tst_conductorrouter)
 target_include_directories(tst_conductorrouter PRIVATE ${QET_DIR}/sources)
 target_link_libraries(tst_conductorrouter PRIVATE Qt::Test)
 
+# The geometry behind the terminal magnet: a header with only Qt Core.
+add_executable(tst_terminalmagnet tst_terminalmagnet.cpp)
+add_test(NAME tst_terminalmagnet COMMAND tst_terminalmagnet)
+target_include_directories(tst_terminalmagnet PRIVATE ${QET_DIR}/sources)
+target_link_libraries(tst_terminalmagnet PRIVATE Qt::Test)
+
+# The generic pluggable terminal blocks are well formed XML and carry the
+# potentials that let a wire id cross the plug.
+add_executable(tst_pluggableconnectors tst_pluggableconnectors.cpp)
+add_test(NAME tst_pluggableconnectors COMMAND tst_pluggableconnectors)
+target_compile_definitions(tst_pluggableconnectors PRIVATE
+  QET_PLUGGABLE_DIR="${QET_DIR}/extra-elements/16_pluggable_connectors")
+target_link_libraries(tst_pluggableconnectors PRIVATE Qt::Test Qt::Xml)
+
 # qet.conductorUuids() / qet.conductorEnds(): a script lists a folio's
 # conductors by uuid and finds each one's two ends. Runs a script through
 # the real binary's --run on fixtures/qet_bug_repro_resaved.qet, so only
