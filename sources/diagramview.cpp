@@ -3275,6 +3275,7 @@ QList<QAction *> DiagramView::contextMenuActions() const
 			if (!m_network_cable_menu->isEmpty())
 				list << m_network_cable_menu->menuAction();
 			list << qde->m_select_same_symbols;
+			list << qde->m_duplicate_island;
 			list << qde->m_show_as_dot;
 			list << qde->m_replace_symbols;
 			list << m_separators.at(1);

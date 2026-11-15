@@ -57,6 +57,9 @@ namespace CLIExport {
 		  qelectrotech --export-device-types-brief <project.qet> <output.csv>
 		  qelectrotech --info           <project.qet> [output.json]
 		  qelectrotech --check-elements <element.elmt | directory> [--grid]
+		  qelectrotech --svg-to-elmt    <drawing.svg> <element.elmt> [--name <text>]
+		      [--lang <code>] [--width <px> | --height <px> | --scale <factor>]
+		      [--terminal x,y[,n|e|s|w[,name]]]... [--terminals <file.csv>]
 		  qelectrotech --resave         <project.qet> <output.qet>
 		  qelectrotech --recover        <damaged.qetz> <output.qet>
 		  qelectrotech --set-titleblock <project.qet> <output.qet> key=value...
@@ -98,6 +101,9 @@ namespace CLIExport {
 		info: structural project summary as JSON (stdout, or a file) —
 		      per-page element / conductor counts and unconnected terminals.
 		check-elements: validate .elmt file(s) against the element schema.
+		svg-to-elmt: make an element from a SVG drawing (for example a
+		      manufacturer's picture of a device); see svgtoelmt.h and
+		      docs/svg_to_elmt.md.
 		--grid: check-elements also warns about a symbol that does not line
 		      up with the folio grid: its insertion point on no connection
 		      point, its frame (hotspot, width, height) or a connection

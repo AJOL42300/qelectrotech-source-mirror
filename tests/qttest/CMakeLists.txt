@@ -81,6 +81,12 @@ add_executable(tst_darkselectionframe tst_darkselectionframe.cpp
 add_test(NAME tst_darkselectionframe COMMAND tst_darkselectionframe)
 target_include_directories(tst_darkselectionframe PRIVATE ${QET_DIR}/sources)
 target_link_libraries(tst_darkselectionframe PRIVATE Qt::Test Qt::Widgets)
+# The Beckhoff EtherCAT symbols of extra-elements are well formed.
+add_executable(tst_beckhoffelements tst_beckhoffelements.cpp)
+add_test(NAME tst_beckhoffelements COMMAND tst_beckhoffelements)
+target_compile_definitions(tst_beckhoffelements PRIVATE
+  QET_EXTRA_ELEMENTS_DIR="${QET_DIR}/extra-elements")
+target_link_libraries(tst_beckhoffelements PRIVATE Qt::Test Qt::Xml)
 # MSVC's Debug libraries make QElectroTech five to eight times slower than a
 # GCC build, for which the tests' time limits were chosen. Every limit is
 # multiplied by this scale: ctest's below, and the tests' own through
@@ -447,6 +453,33 @@ target_include_directories(tst_genericdevice PRIVATE ${QET_DIR}/sources)
 target_link_libraries(tst_genericdevice PRIVATE Qt::Test Qt::Gui Qt::Xml)
 target_compile_definitions(tst_genericdevice PRIVATE
   "QET_FONTS_DIR=\"${QET_DIR}/fonts\"")
+
+# svgtoelmt.cpp is pure: a SVG drawing converted to an element definition.
+add_executable(tst_svgtoelmt tst_svgtoelmt.cpp ${QET_DIR}/sources/svgtoelmt.cpp
+  ${QET_DIR}/sources/pictureurl.cpp
+  ${QET_DIR}/sources/rastervectorizer.cpp)
+add_test(NAME tst_svgtoelmt COMMAND tst_svgtoelmt)
+set_tests_properties(tst_svgtoelmt PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+target_include_directories(tst_svgtoelmt PRIVATE ${QET_DIR}/sources)
+target_link_libraries(tst_svgtoelmt PRIVATE Qt::Test Qt::Gui Qt::Xml Qt::Network)
+
+# moduletooltip.cpp is pure: the text of the tooltip that describes the
+# wiring of a module (terminals, I/O table, links inside the module).
+add_executable(tst_moduletooltip tst_moduletooltip.cpp
+  ${QET_DIR}/sources/moduletooltip.cpp)
+add_test(NAME tst_moduletooltip COMMAND tst_moduletooltip)
+set_tests_properties(tst_moduletooltip PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+target_include_directories(tst_moduletooltip PRIVATE ${QET_DIR}/sources)
+target_link_libraries(tst_moduletooltip PRIVATE Qt::Test Qt::Gui Qt::Xml pugixml::pugixml)
+
+# islandnumbering.cpp is pure: the numbers and labels of the cards of an
+# island, and the query listing them. The query runs on an in-memory SQLite.
+add_executable(tst_islandnumbering tst_islandnumbering.cpp
+  ${QET_DIR}/sources/island/islandnumbering.cpp)
+add_test(NAME tst_islandnumbering COMMAND tst_islandnumbering)
+set_tests_properties(tst_islandnumbering PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+target_include_directories(tst_islandnumbering PRIVATE ${QET_DIR}/sources)
+target_link_libraries(tst_islandnumbering PRIVATE Qt::Test Qt::Sql)
 
 # configprofile.h is header-only: which settings a saved configuration
 # profile carries, and how loading one replaces the live settings.

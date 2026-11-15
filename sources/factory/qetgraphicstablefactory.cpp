@@ -22,6 +22,7 @@
 #include <dataBase/ui/elementquerywidget.h>
 #include <dataBase/ui/summaryquerywidget.h>
 #include <diagram.h>
+#include <island/islandnumbering.h>
 #include <undocommand/addgraphicsobjectcommand.h>
 #include <qetgraphicsitem/ViewItem/projectdbmodel.h>
 #include <qetgraphicsitem/ViewItem/qetgraphicsheaderitem.h>
@@ -107,9 +108,11 @@ namespace {
 	}
 }
 
-void QetGraphicsTableFactory::create(Diagram *diagram, AddTableDialog *dialog)
+void QetGraphicsTableFactory::create(Diagram *diagram,
+									 AddTableDialog *dialog,
+									 const QString &island_query)
 {
-	auto table_ = newTable(diagram, dialog);
+	auto table_ = newTable(diagram, dialog, nullptr, island_query);
 	if (dialog->adjustTableToFolio()) {
 		QetGraphicsTableItem::adjustTableToFolio(table_);
 	}
@@ -131,7 +134,7 @@ void QetGraphicsTableFactory::create(Diagram *diagram, AddTableDialog *dialog)
 		{
 				//Add a new diagram after the current one
 			actual_diagram = project_->addNewDiagram(project_->folioIndex(actual_diagram)+1);
-			table_ = newTable(actual_diagram, dialog, previous_table);
+			table_ = newTable(actual_diagram, dialog, previous_table, island_query);
 			table_->setTableName(dialog->tableName() + QString(" %1").arg(table_number));
 				//Adjust table
 			if (dialog->adjustTableToFolio()) {
@@ -147,15 +150,45 @@ void QetGraphicsTableFactory::create(Diagram *diagram, AddTableDialog *dialog)
 }
 
 /**
+	@brief QetGraphicsTableFactory::createIsland
+	Create a table about an island and add it to @p diagram: the list of
+	its cards ordered by their number, or the list of the inputs and
+	outputs of the island and of each card (the I/O tables of the PLC
+	elements), each row giving the label and the folio of its card. The
+	table follows the project: it is updated when a card is added,
+	renumbered or removed. When the rows do not fit on the folio, a folio
+	is added after it for the rest.
+	@param diagram : Diagram where the table is added.
+	@param island : label of the island (the parent of the cards)
+	@param inputs_outputs : true for the inputs and outputs
+*/
+void QetGraphicsTableFactory::createIsland(Diagram *diagram,
+										   const QString &island,
+										   bool inputs_outputs)
+{
+	AddTableDialog dialog(new ElementQueryWidget());
+	dialog.setTableName(inputs_outputs
+			? QObject::tr("Inputs and outputs of island %1").arg(island)
+			: QObject::tr("Island %1").arg(island));
+	dialog.setAdjustTableToFolio(true);
+	dialog.setAddNewTableToNewDiagram(true);
+	create(diagram, &dialog, inputs_outputs
+		   ? IslandNumbering::ioQuery(island)
+		   : IslandNumbering::cardsQuery(island));
+}
+
+/**
 	@brief QetGraphicsTableFactory::newTable
 	Create a new table .
 	@param diagram : Diagram where we must add the new table.
 	@param dialog : dialog conf, it's used to setup the model.
 	@param previous_table : If you know that the new table will have a previous table and you already now the previous table,
 	set it now they will improve time needed for creating the new table by avoiding to create a new model.
+	@param island_query : if not empty, the table lists the cards of an
+	island with this query, instead of the one of the dialog
 	@return the new table
 */
-QetGraphicsTableItem *QetGraphicsTableFactory::newTable(Diagram *diagram, AddTableDialog *dialog, QetGraphicsTableItem *previous_table)
+QetGraphicsTableItem *QetGraphicsTableFactory::newTable(Diagram *diagram, AddTableDialog *dialog, QetGraphicsTableItem *previous_table, const QString &island_query)
 {
 	auto table = new QetGraphicsTableItem();
 	table->setTableName(dialog->tableName());
@@ -164,7 +197,15 @@ QetGraphicsTableItem *QetGraphicsTableFactory::newTable(Diagram *diagram, AddTab
 	{
 		QAbstractTableModel *model = nullptr;
 
-		if (auto query_widget = dynamic_cast<ElementQueryWidget *>(dialog->contentWidget())) {
+		if (!island_query.isEmpty())
+		{
+				//Not "nomenclature": the query is not one the nomenclature
+				//editor can rebuild from its checkboxes
+			auto *db_model = new ProjectDBModel(diagram->project(), diagram->project());
+			db_model->setIdentifier(QStringLiteral("island"));
+			db_model->setQuery(island_query);
+			model = db_model;
+		} else if (auto query_widget = dynamic_cast<ElementQueryWidget *>(dialog->contentWidget())) {
 			auto *db_model = new ProjectDBModel(diagram->project(), diagram->project());
 			db_model->setIdentifier(query_widget->modelIdentifier());
 			db_model->setQuery(query_widget->queryStr());

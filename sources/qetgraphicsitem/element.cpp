@@ -38,6 +38,8 @@
 #include <qetinformation.h>
 #include <qetgraphicsitem/conductor.h>
 #include <qetgraphicsitem/terminal.h>
+#include <moduletooltip.h>
+#include <pinusage.h>
 #include <ui/elementarticleswidget.h>
 #include <ui/elementpropertieswidget.h>
 #include <undocommand/changeelementinformationcommand.h>
@@ -261,6 +263,110 @@ QList<Conductor *> Element::conductors() const
 	}
 
 	return(conductors);
+}
+
+/**
+	@return true if the tooltip describing the wiring of a module is on
+	(a setting, off by default).
+*/
+bool Element::wiringTooltipIsOn()
+{
+	return QSettings().value(
+		QStringLiteral("diagrameditor/wiring-tooltip"), false).toBool();
+}
+
+namespace {
+	QString wireText(const Conductor *conductor, const Terminal *own)
+	{
+		const QString text = conductor->properties().text;
+		if (!text.isEmpty()) return text;
+		const Terminal *other = conductor->terminal1 == own
+				? conductor->terminal2 : conductor->terminal1;
+		if (!other || !other->parentElement()) return QString();
+		const QString label = other->parentElement()->actualLabel();
+		return label.isEmpty() ? other->name()
+				       : label + QLatin1Char(':') + other->name();
+	}
+
+	QList<ModuleTooltip::Pin> pinsOf(const Element *element)
+	{
+		QList<ModuleTooltip::Pin> pins;
+		for (const Terminal *terminal : element->terminals()) {
+			ModuleTooltip::Pin pin;
+			pin.name = terminal->baseName();
+			pin.potential = terminal->potential();
+			for (const Conductor *conductor : terminal->conductors()) {
+				const QString wire = wireText(conductor, terminal);
+				if (!wire.isEmpty()) pin.wires << wire;
+			}
+			pin.folios = PinUsage::foliosOf(element, pin.name);
+			pins << pin;
+		}
+		return pins;
+	}
+
+	/// The I/O table of the module; the entries that a linked symbol
+	/// (a slave on another folio) takes carry the folio of that symbol.
+	QVector<ElementData::PlcIO> iosOf(const Element *element)
+	{
+		QVector<ElementData::PlcIO> ios =
+			element->elementData().plcMasterData().ios;
+		Element *module = const_cast<Element *>(element);
+		for (Element *slave : module->linkedElements()) {
+			const int index = module->groupIndexForElement(slave);
+			if (index < 0 || index >= ios.size()) continue;
+			const Diagram *slave_diagram = slave->diagram();
+			if (!slave_diagram || slave_diagram->folioIndex() < 0) continue;
+			ios[index].crossRef = QCoreApplication::translate(
+				"PinUsage", "folio %1")
+				.arg(slave_diagram->folioIndex() + 1);
+		}
+		return ios;
+	}
+
+	/// true if the symbol describes its wiring: an I/O table, or
+	/// terminals linked inside the module
+	bool describesWiring(const QList<ModuleTooltip::Pin> &pins,
+			     const QVector<ElementData::PlcIO> &ios)
+	{
+		if (!ios.isEmpty()) return true;
+		for (const ModuleTooltip::Pin &pin : pins) {
+			if (!pin.potential.isEmpty()) return true;
+		}
+		return false;
+	}
+}
+
+/**
+	@return the description of the wiring of this module (what each
+	terminal carries, which are linked inside, which are used and where),
+	or an empty string if the symbol describes none: it needs an I/O table
+	or terminals that share a potential.
+*/
+QString Element::wiringTooltip() const
+{
+	const QList<ModuleTooltip::Pin> pins = pinsOf(this);
+	const QVector<ElementData::PlcIO> ios = iosOf(this);
+	if (!describesWiring(pins, ios)) return QString();
+
+	const QString label = actualLabel();
+	const QString title = label.isEmpty() ? name()
+					      : label + QStringLiteral("  ") + name();
+	return ModuleTooltip::moduleText(title, pins, ios);
+}
+
+/**
+	@return the description of @p terminal for the tooltip of the
+	terminal, or an empty string if this symbol describes no wiring.
+*/
+QString Element::wiringTooltipOf(const Terminal *terminal) const
+{
+	const QList<ModuleTooltip::Pin> pins = pinsOf(this);
+	const QVector<ElementData::PlcIO> ios = iosOf(this);
+	if (!describesWiring(pins, ios)) return QString();
+	const int index = terminals().indexOf(const_cast<Terminal *>(terminal));
+	if (index < 0 || index >= pins.size()) return QString();
+	return ModuleTooltip::pinText(pins.at(index), pins, ios);
 }
 
 void Element::editProperty()
@@ -2529,6 +2635,7 @@ void Element::setElementInformations(DiagramContext dc)
 	}
 	storeInformation();
 	emit elementInfoChange(old_info, m_data.m_informations);
+	PinUsage::invalidate();
 	notifyTerminalStrip(this);
 
 	bool label_changed = old_info.value("label").toString() != dc.value("label").toString();
@@ -2953,6 +3060,7 @@ void Element::setElementData(ElementData data)
 		//Type, function, led... of a terminal are not informations
 	notifyTerminalStrip(this);
 
+	PinUsage::invalidate();
 	// Propagate PLC master data changes to linked slaves
 	if (m_data.m_type == ElementData::Master && m_data.m_master_type == ElementData::PLC)
 	{
@@ -3123,7 +3231,11 @@ void Element::hoverEnterEvent(QGraphicsSceneHoverEvent *e)
 	}
 
 	m_mouse_over = true;
-	setToolTip( name() );
+	setToolTip(name());
+	if (wiringTooltipIsOn()) {
+		const QString wiring = wiringTooltip();
+		if (!wiring.isEmpty()) setToolTip(wiring);
+	}
 	update();
 }
 

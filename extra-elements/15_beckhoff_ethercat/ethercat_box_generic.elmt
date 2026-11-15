@@ -1,0 +1,24 @@
+<definition version="0.100.0" type="element" link_type="simple" width="130" height="74" hotspot_x="65" hotspot_y="35">
+	<uuid uuid="{33abfa87-8454-50c0-b9b7-8c6700f671f6}"/>
+	<names>
+		<name lang="en">EtherCAT box (generic)</name>
+		<name lang="fr">Boîtier EtherCAT (générique)</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="description" show="1">EtherCAT box, generic: one EtherCAT IN and one EtherCAT OUT for the daisy chain. Fill in manufacturer and reference.</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="-60" y="-30" width="120" height="60" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="-54" y="-26" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="EtherCAT"/>
+		<text x="-54" y="14" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="IN"/>
+		<text x="40" y="14" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="OUT"/>
+		<terminal x="-60" y="0" name="EtherCAT IN" orientation="w" type="Generic" uuid="{91deb775-b7d1-5566-8904-6f6292263fa9}"/>
+		<terminal x="60" y="0" name="EtherCAT OUT" orientation="e" type="Generic" uuid="{4c4e6917-aea8-59aa-9791-ee7d7bff27b6}"/>
+		<line x1="-60" y1="0" x2="-50" y2="0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="50" y1="0" x2="60" y2="0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<dynamic_text x="-54" y="-14" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{866c2749-2375-5d9a-bd9a-adad107654fa}" font="Liberation Sans,10,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>label</info_name></dynamic_text>
+		<dynamic_text x="-60" y="34" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{1e3c8b96-8fd6-5b25-9c4e-90d8003276df}" font="Liberation Sans,7,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
+	</description>
+</definition>

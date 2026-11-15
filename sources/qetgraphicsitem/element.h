@@ -133,6 +133,9 @@ class Element : public QetGraphicsItem
 		QList<Terminal *> terminals() const;
 		QList<Conductor *> conductors() const;
 		QList<QPair<Terminal *,Terminal *>> AlignedFreeTerminals() const;
+		static bool wiringTooltipIsOn();
+		QString wiringTooltip() const;
+		QString wiringTooltipOf(const Terminal *terminal) const;
 
 		void clearPendingLinks() {
 			tmp_uuids_link.clear();

@@ -129,6 +129,21 @@ set(QET_RES_FILES
 set(QET_SRC_FILES
   ${QET_DIR}/sources/cli_export.cpp
   ${QET_DIR}/sources/cli_export.h
+  ${QET_DIR}/sources/rastervectorizer.cpp
+  ${QET_DIR}/sources/rastervectorizer.h
+  ${QET_DIR}/sources/moduletooltip.cpp
+  ${QET_DIR}/sources/moduletooltip.h
+  ${QET_DIR}/sources/pinusage.cpp
+  ${QET_DIR}/sources/pinusage.h
+  ${QET_DIR}/sources/pictureurl.cpp
+  ${QET_DIR}/sources/pictureurl.h
+  ${QET_DIR}/sources/svgtoelmt.cpp
+  ${QET_DIR}/sources/svgtoelmt.h
+  ${QET_DIR}/sources/svgtoelmtpalette.h
+  ${QET_DIR}/sources/island/islandnumbering.cpp
+  ${QET_DIR}/sources/island/islandnumbering.h
+  ${QET_DIR}/sources/island/islanddialog.cpp
+  ${QET_DIR}/sources/island/islanddialog.h
   ${QET_DIR}/sources/logging/crashhandler.cpp
   ${QET_DIR}/sources/logging/crashhandler.h
   ${QET_DIR}/sources/logging/eventloopwatchdog.cpp
@@ -582,6 +597,8 @@ set(QET_SRC_FILES
   ${QET_DIR}/sources/editor/ui/polygoneditor.h
   ${QET_DIR}/sources/editor/ui/rectangleeditor.cpp
   ${QET_DIR}/sources/editor/ui/rectangleeditor.h
+  ${QET_DIR}/sources/editor/ui/importimagedialog.cpp
+  ${QET_DIR}/sources/editor/ui/importimagedialog.h
   ${QET_DIR}/sources/editor/ui/scaleelementdialog.cpp
   ${QET_DIR}/sources/editor/ui/scaleelementdialog.h
   ${QET_DIR}/sources/editor/ui/terminaleditor.cpp

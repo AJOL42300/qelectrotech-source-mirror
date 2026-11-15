@@ -1196,6 +1196,26 @@
            </widget>
           </item>
           <item>
+           <widget class="QCheckBox" name="m_wiring_tooltip">
+            <property name="toolTip">
+             <string>Hovering a module that describes its I/O table or its internal links shows what each terminal carries, its address, the wires and the terminals linked inside.</string>
+            </property>
+            <property name="text">
+             <string>Describe the wiring of a module in its tooltip</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="m_grey_used_pins">
+            <property name="toolTip">
+             <string>A terminal without wire is drawn in grey when the same pin of the same module (same label) is already wired on another sheet.</string>
+            </property>
+            <property name="text">
+             <string>Grey the pins of a module already used on another sheet</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QCheckBox" name="m_collection_dblclick_edits">
             <property name="toolTip">
              <string>By default, a double-click inserts the element on the sheet; editing remains accessible from the context menu.</string>

@@ -36,6 +36,7 @@
     <addaction name="m_open_from_file_action"/>
     <addaction name="m_import_scaled_element"/>
     <addaction name="m_import_dxf"/>
+    <addaction name="m_import_svg"/>
     <addaction name="m_save_action"/>
     <addaction name="m_save_as_action"/>
     <addaction name="m_save_as_file_action"/>
@@ -505,6 +506,17 @@
    </property>
    <property name="text">
     <string>Import a dxf</string>
+   </property>
+  </action>
+  <action name="m_import_svg">
+   <property name="icon">
+    <iconset theme="folder-open"/>
+   </property>
+   <property name="text">
+    <string>Import a SVG drawing or an image</string>
+   </property>
+   <property name="toolTip">
+    <string>Make the element from a SVG drawing or a picture (traced into outlines). A SVG shape whose id starts with "terminal" marks a terminal. An image on the clipboard can be pasted into the element.</string>
    </property>
   </action>
   <action name="m_import_scaled_element">

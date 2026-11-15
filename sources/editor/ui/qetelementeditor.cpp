@@ -54,6 +54,8 @@
 #include <newelementwizard.h>
 #include <editor/editorcommands.h>
 #include <dxf/dxftoelmt.h>
+#include <svgtoelmt.h>
+#include "importimagedialog.h"
 #include <qet_elementscaler/qet_elementscaler.h>
 #include <editor/UndoCommand/openelmtcommand.h>
 #include <ElementsCollection/elementscollectionwidget.h>
@@ -63,6 +65,8 @@
 #include <qetproject.h>
 #include <qetgraphicsitem/element.h>
 
+#include <QClipboard>
+#include <QMimeData>
 #include <QSettings>
 #include <QActionGroup>
 #include <QMenu>
@@ -1448,7 +1452,9 @@ void QETElementEditor::updateAction()
 
 		//Action about clipboard
 	auto clipboard_contain_elmt = !m_read_only && ElementScene::clipboardMayContainElement();
-	ui->m_paste_action->setEnabled(clipboard_contain_elmt);
+	ui->m_paste_action->setEnabled(
+		clipboard_contain_elmt
+		|| (!m_read_only && clipboardMayContainImage()));
 	ui->m_paste_in_area_action->setEnabled(clipboard_contain_elmt);
 
 		//Action about undo stack status
@@ -1986,7 +1992,14 @@ void QETElementEditor::on_m_cut_action_triggered() { m_view->cut(); }
 
 void QETElementEditor::on_m_copy_action_triggered() { m_view->copy(); }
 
-void QETElementEditor::on_m_paste_action_triggered() { m_view->paste(); }
+void QETElementEditor::on_m_paste_action_triggered()
+{
+	if (!ElementScene::clipboardMayContainElement()
+	    && pasteImageFromClipboard()) {
+		return;
+	}
+	m_view->paste();
+}
 
 void QETElementEditor::on_m_paste_in_area_action_triggered() { m_view->pasteInArea(); }
 
@@ -2106,6 +2119,110 @@ void QETElementEditor::on_m_import_dxf_triggered()
 
 		m_elmt_scene->undoStack().push(new OpenElmtCommand(xml_, m_elmt_scene));
 	}
+}
+
+/**
+	@brief QETElementEditor::on_m_import_svg_triggered
+	Replace the content of the editor with a SVG drawing converted by
+	SvgToElmt. The terminals are the shapes of the SVG whose id starts
+	with "terminal"; they can be moved afterwards.
+*/
+void QETElementEditor::on_m_import_svg_triggered()
+{
+	const QString file_path{QFileDialog::getOpenFileName(
+		this,
+		tr("Import a SVG drawing or an image"),
+		QETApp::documentDir(),
+		SvgToElmt::fileFilter())};
+	if (file_path.isEmpty()) {
+		return;
+	}
+
+	const bool raster =
+		QFileInfo(file_path).suffix().compare(QLatin1String("svg"),
+						      Qt::CaseInsensitive) != 0;
+	ImportImageDialog dialog(raster, this);
+	if (dialog.exec() != QDialog::Accepted) {
+		return;
+	}
+
+	SvgToElmt::Options options;
+	options.name = QFileInfo(file_path).completeBaseName();
+	dialog.applyTo(&options);
+	const SvgToElmt::Result result =
+		SvgToElmt::convertFile(file_path, options, dialog.tracing());
+	if (!result.ok) {
+		QMessageBox::warning(this, tr("Error"), result.error);
+		return;
+	}
+
+	QDomDocument xml_;
+	xml_.setContent(result.definition);
+	m_elmt_scene->undoStack().push(new OpenElmtCommand(xml_, m_elmt_scene));
+
+	if (!result.warnings.isEmpty()) {
+		QMessageBox::information(this,
+					 tr("Warning"),
+					 result.warnings.join(QLatin1Char('\n')));
+	}
+}
+
+/**
+	@return true if the clipboard may hold something to import as a
+	drawing: an image, a SVG drawing or files
+*/
+bool QETElementEditor::clipboardMayContainImage()
+{
+	const QMimeData *mime = QApplication::clipboard()->mimeData();
+	return mime
+		&& (mime->hasImage()
+		    || mime->hasFormat(QStringLiteral("image/svg+xml"))
+		    || mime->hasUrls());
+}
+
+/**
+	@brief QETElementEditor::pasteImageFromClipboard
+	Trace the image or the SVG drawing of the clipboard, then paste the
+	result in the element: the user chooses where, as for a paste in area.
+	@return false if the clipboard holds nothing to import
+*/
+bool QETElementEditor::pasteImageFromClipboard()
+{
+	QByteArray svg;
+	QImage image;
+	QString name;
+	if (!SvgToElmt::sourceFromMimeData(
+			QApplication::clipboard()->mimeData(), &svg, &image, &name)) {
+		return false;
+	}
+
+	ImportImageDialog dialog(svg.isEmpty(), this);
+	if (dialog.exec() != QDialog::Accepted) {
+		return true;
+	}
+
+	SvgToElmt::Options options;
+	options.name = name;
+	options.warnNoTerminal = false;
+	dialog.applyTo(&options);
+	const SvgToElmt::Result result = svg.isEmpty()
+		? SvgToElmt::convertImage(image, options, dialog.tracing())
+		: SvgToElmt::convert(svg, options);
+	if (!result.ok) {
+		QMessageBox::warning(this, tr("Error"), result.error);
+		return true;
+	}
+
+	QDomDocument xml_;
+	xml_.setContent(result.definition);
+	m_view->pasteInArea(xml_);
+
+	if (!result.warnings.isEmpty()) {
+		QMessageBox::information(this,
+					 tr("Warning"),
+					 result.warnings.join(QLatin1Char('\n')));
+	}
+	return true;
 }
 
 /**

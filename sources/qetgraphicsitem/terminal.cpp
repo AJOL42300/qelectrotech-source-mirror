@@ -29,10 +29,13 @@
 #include <qetgraphicsitem/element.h>
 #include "conductortextitem.h"
 #include <wiringrules.h>
+#include <pinusage.h>
 #include <autoconnect.h>
 
 #include <QSettings>
 #include <QToolTip>
+#include <QTimer>
+#include <QPointer>
 
 #include <QtCore/qnumeric.h>
 #include <utility>
@@ -230,6 +233,20 @@ Qet::Orientation Terminal::orientation() const
 	} else return(d->m_orientation);
 }
 
+namespace {
+		//The other placements of a module show the pins of this one
+		//greyed or not: the folio is painted again once the change is done
+	void usageChanged(QGraphicsScene *scene)
+	{
+		PinUsage::invalidate();
+		if (!scene || !PinUsage::greyUsedPinsIsOn()) return;
+		QPointer<QGraphicsScene> guard(scene);
+		QTimer::singleShot(0, scene, [guard] {
+			if (guard) guard->update();
+		});
+	}
+}
+
 /**
 	@brief Terminal::addConductor
 	Add a conductor to this terminal
@@ -254,6 +271,7 @@ bool Terminal::addConductor(Conductor *conductor)
 			return false; //They already a conductor linked to this and other_terminal
 
 	m_conductors_list.append(conductor);
+	usageChanged(scene());
 	if (takesConductorColor()) update();
 	if (showsWireId()) refreshWireId();
 	emit conductorWasAdded(conductor);
@@ -270,6 +288,7 @@ void Terminal::removeConductor(Conductor *conductor)
 	int index = m_conductors_list.indexOf(conductor);
 	if (index == -1) return;
 	m_conductors_list.removeAt(index);
+	usageChanged(scene());
 	if (takesConductorColor()) update();
 	if (showsWireId()) refreshWireId();
 	emit conductorWasRemoved(conductor);
@@ -316,7 +335,10 @@ void Terminal::paint(
 	if (!diagram() || diagram()->drawTerminals()) {
 		t.setColor(takesConductorColor() && !m_conductors_list.isEmpty()
 				   ? m_conductors_list.first()->drawnColor()
-				   : QColor(Qt::red));
+				   : (PinUsage::greyUsedPinsIsOn()
+				      && PinUsage::usedElsewhere(this)
+					? QColor(Qt::lightGray)
+					: QColor(Qt::red)));
 		painter -> setPen(t);
 		painter -> drawLine(c, e);
 
@@ -715,6 +737,11 @@ Terminal* Terminal::alignedWithTerminal() const
 void Terminal::hoverEnterEvent(QGraphicsSceneHoverEvent *)
 {
 	m_hovered = true;
+	setToolTip(QObject::tr("Terminal", "tooltip"));
+	if (parent_element_ && Element::wiringTooltipIsOn()) {
+		const QString wiring = parent_element_->wiringTooltipOf(this);
+		if (!wiring.isEmpty()) setToolTip(wiring);
+	}
 	update();
 }
 

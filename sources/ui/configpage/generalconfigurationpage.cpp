@@ -43,6 +43,7 @@
 #include <qetgraphicsitem/element.h>
 #include <qetgraphicsitem/structureboxitem.h>
 #include <wiringrules.h>
+#include <pinusage.h>
 #include <ui/wiringruleswarning.h>
 #include <editor/terminalnamecheck.h>
 #include <ElementsCollection/qetlabelsfile.h>
@@ -335,6 +336,8 @@ GeneralConfigurationPage::GeneralConfigurationPage(QWidget *parent) :
 	ui->m_cable_align_cb->setCurrentIndex(align_index);
 	
 	ui->m_highlight_integrated_elements->setChecked(settings.value("diagrameditor/highlight-integrated-elements", true).toBool());
+	ui->m_wiring_tooltip->setChecked(settings.value("diagrameditor/wiring-tooltip", false).toBool());
+	ui->m_grey_used_pins->setChecked(settings.value("diagrameditor/grey-used-pins", false).toBool());
 	ui->m_default_elements_info->setPlainText(settings.value("elementeditor/default-informations", "").toString());
 	/*
 	  Nombre maximum de primitives affichees par la "liste des parties"
@@ -500,6 +503,9 @@ void GeneralConfigurationPage::applyConf()
 	QString view_mode = ui->m_use_tab_mode_rb->isChecked() ? "tabbed" : "windowed";
 	settings.setValue("diagrameditor/viewmode", view_mode) ;
 	settings.setValue("diagrameditor/highlight-integrated-elements", ui->m_highlight_integrated_elements->isChecked());
+	settings.setValue("diagrameditor/wiring-tooltip", ui->m_wiring_tooltip->isChecked());
+	settings.setValue("diagrameditor/grey-used-pins", ui->m_grey_used_pins->isChecked());
+	PinUsage::setGreyUsedPins(ui->m_grey_used_pins->isChecked());
 	DiagramView::setSelectionRectangle(static_cast<DiagramView::SelectionRectangle>(
 		ui->m_selection_rectangle_cb->currentIndex()));
 	ElementScene::setLikeFolio(ui->m_editor_like_folio_cb->isChecked());
