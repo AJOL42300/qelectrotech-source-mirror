@@ -520,6 +520,10 @@ function(qet_add_app_test name)
   target_link_libraries(${name} PRIVATE qelectrotech_objects Qt::Test)
 endfunction()
 
+# The application side of the TwinCAT I/O exchange: the project keeps the
+# path of the TwinCAT project, TwinCAT -> QET is one undo step.
+qet_add_app_test(tst_twincat_app tst_twincat_app.cpp)
+
 # The Connections toolbar: a button per symbol on the wires, a click
 # places it, and the symbol of a button can be changed.
 qet_add_app_test(tst_connectionsymbols tst_connectionsymbols.cpp)
