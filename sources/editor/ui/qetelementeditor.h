@@ -114,6 +114,7 @@ class QETElementEditor : public QMainWindow
 		void on_m_donate_action_triggered();
 		void on_m_about_qt_action_triggered();
 		void on_m_import_dxf_triggered();
+		void on_m_import_svg_triggered();
 		void on_m_import_scaled_element_triggered();
 		void scaleElement();
 

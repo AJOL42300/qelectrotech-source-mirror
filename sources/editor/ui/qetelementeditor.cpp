@@ -54,6 +54,7 @@
 #include <newelementwizard.h>
 #include <editor/editorcommands.h>
 #include <dxf/dxftoelmt.h>
+#include <svgtoelmt.h>
 #include <qet_elementscaler/qet_elementscaler.h>
 #include <editor/UndoCommand/openelmtcommand.h>
 #include <ElementsCollection/elementscollectionwidget.h>
@@ -2105,6 +2106,52 @@ void QETElementEditor::on_m_import_dxf_triggered()
 		xml_.setContent(array_);
 
 		m_elmt_scene->undoStack().push(new OpenElmtCommand(xml_, m_elmt_scene));
+	}
+}
+
+/**
+	@brief QETElementEditor::on_m_import_svg_triggered
+	Replace the content of the editor with a SVG drawing converted by
+	SvgToElmt. The terminals are the shapes of the SVG whose id starts
+	with "terminal"; they can be moved afterwards.
+*/
+void QETElementEditor::on_m_import_svg_triggered()
+{
+	const QString file_path{QFileDialog::getOpenFileName(
+		this,
+		tr("Import a SVG drawing"),
+		QETApp::documentDir(),
+		tr("SVG image (*.svg)",
+		   "filetypes allowed when importing a SVG drawing"))};
+	if (file_path.isEmpty()) {
+		return;
+	}
+
+	QFile file(file_path);
+	if (!file.open(QIODevice::ReadOnly)) {
+		QMessageBox::warning(this,
+				     tr("Error"),
+				     tr("Cannot read %1").arg(file_path));
+		return;
+	}
+
+	SvgToElmt::Options options;
+	options.name = QFileInfo(file_path).completeBaseName();
+	const SvgToElmt::Result result =
+		SvgToElmt::convert(file.readAll(), options);
+	if (!result.ok) {
+		QMessageBox::warning(this, tr("Error"), result.error);
+		return;
+	}
+
+	QDomDocument xml_;
+	xml_.setContent(result.definition);
+	m_elmt_scene->undoStack().push(new OpenElmtCommand(xml_, m_elmt_scene));
+
+	if (!result.warnings.isEmpty()) {
+		QMessageBox::information(this,
+					 tr("Warning"),
+					 result.warnings.join(QLatin1Char('\n')));
 	}
 }
 
