@@ -26,11 +26,68 @@ namespace IslandNumbering
 	@brief childLabel
 	@param parent : label of the island (the coupler)
 	@param number : number of the card
-	@return the label of the card, e.g. "BOX 03.10"
+	@return the label of the card, e.g. "A1.10"
 */
 QString childLabel(const QString &parent, int number)
 {
 	return parent + QLatin1Char('.') + QString::number(number);
+}
+
+/**
+	@brief headLabel
+	@param parent : identifier of the island
+	@return the label of its head, e.g. "A1.00"
+*/
+QString headLabel(const QString &parent)
+{
+	return parent + QStringLiteral(".00");
+}
+
+/**
+	@brief islandOf
+	@param label : label of an element
+	@return the identifier of the island @p label belongs to: "A1" for
+	"A1.20", and @p label itself when it has no ".number" at its end
+*/
+QString islandOf(const QString &label)
+{
+	const int dot = label.lastIndexOf(QLatin1Char('.'));
+	int number = 0;
+	if (dot > 0 && numberOf(label, label.left(dot), &number)) {
+		return label.left(dot);
+	}
+	return label;
+}
+
+/**
+	@brief appearancePaths
+	A card can be drawn in three ways, kept in three elements of the same
+	folder: the symbol "name.elmt", the realistic view "name_realistic.elmt"
+	and the table of its channels "name_table.elmt".
+	@param path : path of one of them, in a collection
+	@return the paths of the two others, in the order symbol, realistic view,
+	table; they may not exist
+*/
+QStringList appearancePaths(const QString &path)
+{
+	const QString extension = QStringLiteral(".elmt");
+	if (!path.endsWith(extension)) {
+		return QStringList();
+	}
+	QString base = path.left(path.length() - extension.length());
+	for (const QString &suffix : {QStringLiteral("_realistic"),
+								  QStringLiteral("_table")}) {
+		if (base.endsWith(suffix)) {
+			base.chop(suffix.length());
+			break;
+		}
+	}
+	QStringList all;
+	all << base + extension
+		<< base + QStringLiteral("_realistic") + extension
+		<< base + QStringLiteral("_table") + extension;
+	all.removeAll(path);
+	return all;
 }
 
 /**
@@ -137,7 +194,7 @@ bool isTaken(const QString &parent, const QStringList &labels)
 /**
 	@brief nextParent
 	The label for a copy of an island: the number which ends @p parent goes
-	up by one ("BOX 03" gives "BOX 04", the zeros are kept) until no element
+	up by one ("A1" gives "A2", the zeros are kept) until no element
 	of @p labels carries it. A label without a number gets one: "CC" gives
 	"CC 2".
 	@param parent : label of the island to copy
@@ -172,7 +229,7 @@ QString nextParent(const QString &parent, const QStringList &labels)
 	@param parent : label of the island
 	@param count : number of cards
 	@return the labels of @p count cards, by steps of 10 in their order:
-	"BOX 04.10", "BOX 04.20"...
+	"A2.10", "A2.20"...
 */
 QStringList copyLabels(const QString &parent, int count)
 {

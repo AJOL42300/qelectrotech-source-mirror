@@ -24,8 +24,12 @@
 #include <QDir>
 #include <QDomDocument>
 #include <QFile>
+#include <QLineF>
+#include <QMap>
+#include <QPointF>
 #include <QSet>
 #include <QtTest>
+#include <cmath>
 
 class TstBeckhoffElements : public QObject
 {
@@ -61,6 +65,24 @@ class TstBeckhoffElements : public QObject
 				}
 			}
 			return QString();
+		}
+
+		static QStringList ioAddresses(const QDomElement &definition)
+		{
+			QStringList list;
+			const auto ios = definition.elementsByTagName(
+				QStringLiteral("plcIO"));
+			for (int i = 0; i < ios.size(); ++i) {
+				list << ios.at(i).toElement().attribute(
+					QStringLiteral("address"));
+			}
+			return list;
+		}
+
+		static QStringList cardKeys()
+		{
+			return {QStringLiteral("el1008"), QStringLiteral("el2008"),
+					QStringLiteral("el5152"), QStringLiteral("ek1914")};
 		}
 
 	private slots:
@@ -188,6 +210,147 @@ class TstBeckhoffElements : public QObject
 			}
 		}
 
+		void appearancesShareTheDataOfTheSymbol()
+		{
+			const QStringList info_names{
+				QStringLiteral("manufacturer"),
+				QStringLiteral("manufacturer_reference"),
+				QStringLiteral("designation")};
+			for (const QString &key : {
+					 QStringLiteral("el1008"), QStringLiteral("el2008"),
+					 QStringLiteral("el2652"), QStringLiteral("el5152"),
+					 QStringLiteral("ek1914"), QStringLiteral("epp2338")})
+			{
+				const auto symbol = load(categoryDir().filePath(
+					key + QStringLiteral(".elmt"))).documentElement();
+				QVERIFY2(!symbol.isNull(), qPrintable(key));
+				for (const QString &suffix : {QStringLiteral("_table"),
+											  QStringLiteral("_realistic")})
+				{
+					const QString file = key + suffix + QStringLiteral(".elmt");
+					if (!categoryDir().exists(file)) {
+						QVERIFY2(suffix == QLatin1String("_realistic"),
+								 qPrintable(file));
+						continue;
+					}
+					const auto def = load(categoryDir().filePath(file))
+						.documentElement();
+					QCOMPARE(def.attribute(QStringLiteral("link_type")),
+							 QStringLiteral("master"));
+					for (const QString &n : info_names) {
+						QCOMPARE(info(def, n), info(symbol, n));
+					}
+					QCOMPARE(ioAddresses(def), ioAddresses(symbol));
+				}
+			}
+		}
+
+		void symbolsHideTheirIoTableTheTableAppearanceShowsIt()
+		{
+			const auto files = categoryDir().entryList(
+				{QStringLiteral("*.elmt")}, QDir::Files);
+			for (const QString &file : files) {
+				const auto def = load(categoryDir().filePath(file))
+					.documentElement();
+				if (def.attribute(QStringLiteral("link_type"))
+					!= QLatin1String("master")) {
+					continue;
+				}
+				const auto hidden = def.elementsByTagName(
+					QStringLiteral("column"));
+				const auto parts = def.firstChildElement(
+					QStringLiteral("description")).elementsByTagName(
+					QStringLiteral("plc_table"));
+				if (file.endsWith(QLatin1String("_table.elmt"))) {
+					QCOMPARE(parts.size(), 1);
+					QCOMPARE(hidden.size(), 0);
+					QCOMPARE(def.elementsByTagName(
+								 QStringLiteral("terminal")).size(),
+							 0);
+				} else {
+					QCOMPARE(parts.size(), 0);
+					QCOMPARE(hidden.size(), 5);
+					for (int i = 0; i < hidden.size(); ++i) {
+						QCOMPARE(hidden.at(i).toElement().attribute(
+									 QStringLiteral("visible")),
+								 QStringLiteral("false"));
+					}
+				}
+			}
+		}
+
+		void realisticTerminalsAreAtTheCentreOfTheCirclesOnTheGrid()
+		{
+			for (const QString &key : cardKeys())
+			{
+				const QString file = key + QStringLiteral("_realistic.elmt");
+				const auto def = load(categoryDir().filePath(file))
+					.documentElement();
+				QVERIFY2(!def.isNull(), qPrintable(file));
+				const auto parts = def.firstChildElement(
+					QStringLiteral("description"));
+
+				QList<QPointF> centres;
+				const auto circles = parts.elementsByTagName(
+					QStringLiteral("circle"));
+				for (int i = 0; i < circles.size(); ++i) {
+					const auto c = circles.at(i).toElement();
+					const qreal d = c.attribute(
+						QStringLiteral("diameter")).toDouble();
+					if (d < 4) {
+						continue; // decorative, like a LED
+					}
+					centres << QPointF(
+						c.attribute(QStringLiteral("x")).toDouble() + d / 2,
+						c.attribute(QStringLiteral("y")).toDouble() + d / 2);
+				}
+
+				QList<QPointF> points;
+				const auto terminals = parts.elementsByTagName(
+					QStringLiteral("terminal"));
+				for (int i = 0; i < terminals.size(); ++i) {
+					const auto t = terminals.at(i).toElement();
+					points << QPointF(
+						t.attribute(QStringLiteral("x")).toDouble(),
+						t.attribute(QStringLiteral("y")).toDouble());
+				}
+
+					// every circle of a contact has its terminal at its centre
+				QVERIFY2(centres.size() >= 8, qPrintable(file));
+				for (const QPointF &c : centres) {
+					qreal nearest = 1e9;
+					for (const QPointF &p : points) {
+						nearest = qMin(nearest,
+									   QLineF(c, p).length());
+					}
+					QVERIFY2(nearest < 0.01, qPrintable(
+						file + QStringLiteral(": ")
+						+ QString::number(c.x()) + QLatin1Char(',')
+						+ QString::number(c.y())));
+				}
+
+					// the grid used is written in the note of the element
+				const QString note = def.firstChildElement(
+					QStringLiteral("informations")).text();
+				const int at = note.indexOf(QLatin1String("grid "));
+				QVERIFY2(at >= 0, qPrintable(file));
+				const int grid = note.mid(at + 5).split(
+					QLatin1Char(' ')).first().toInt();
+				QVERIFY2(grid == 10 || grid == 5, qPrintable(file));
+				if (key != QLatin1String("ek1914")) {
+					QCOMPARE(grid, 10); // 5 px only when 10 px is impossible
+				}
+				for (const QPointF &p : points) {
+					QVERIFY2(qFuzzyIsNull(std::fmod(p.x(), grid))
+							 && qFuzzyIsNull(std::fmod(p.y(), grid)),
+							 qPrintable(file + QStringLiteral(": ")
+										+ QString::number(p.x())
+										+ QLatin1Char(',')
+										+ QString::number(p.y())));
+				}
+			}
+		}
+
 		void driveHasBusAndPowerTerminals()
 		{
 			const auto def = load(categoryDir().filePath(
@@ -206,6 +369,90 @@ class TstBeckhoffElements : public QObject
 					 QStringLiteral("L3"), QStringLiteral("PE"),
 					 QStringLiteral("A1-U"), QStringLiteral("A2-W")}) {
 				QVERIFY2(names.contains(n), qPrintable(n));
+			}
+		}
+
+		void exampleProjectShowsEachCardThreeTimes()
+		{
+			const auto doc = load(QStringLiteral(QET_EXAMPLES_DIR)
+				+ QStringLiteral("/beckhoff_islands_example.qet"));
+			const auto project = doc.documentElement();
+			QVERIFY(project.tagName() == QLatin1String("project"));
+
+			QSet<QString> embedded;
+			QSet<QString> terminalUuids;
+			const auto defs = project.firstChildElement(
+				QStringLiteral("collection")).elementsByTagName(
+				QStringLiteral("element"));
+			for (int i = 0; i < defs.size(); ++i) {
+				const auto def = defs.at(i).toElement();
+				embedded.insert(def.attribute(QStringLiteral("name")));
+				const auto terms = def.elementsByTagName(
+					QStringLiteral("terminal"));
+				for (int j = 0; j < terms.size(); ++j) {
+					terminalUuids.insert(terms.at(j).toElement()
+						.attribute(QStringLiteral("uuid")));
+				}
+			}
+
+				//label -> "<file>@<folio>" of each appearance
+			QMap<QString, QStringList> appearances;
+			QSet<QString> used;
+			int folio = 0;
+			const auto folios = project.elementsByTagName(
+				QStringLiteral("diagram"));
+			QCOMPARE(folios.size(), 3);
+			for (int i = 0; i < folios.size(); ++i, ++folio) {
+				const auto els = folios.at(i).toElement()
+					.firstChildElement(QStringLiteral("elements"))
+					.elementsByTagName(QStringLiteral("element"));
+				for (int j = 0; j < els.size(); ++j) {
+					const auto e = els.at(j).toElement();
+					const QString file = e.attribute(QStringLiteral("type"))
+						.section(QLatin1Char('/'), -1);
+					QVERIFY2(embedded.contains(file), qPrintable(file));
+					used.insert(e.attribute(QStringLiteral("uuid")));
+					const auto labels = e.firstChildElement(
+						QStringLiteral("elementInformations"))
+						.elementsByTagName(
+							QStringLiteral("elementInformation"));
+					for (int k = 0; k < labels.size(); ++k) {
+						const auto l = labels.at(k).toElement();
+						if (l.attribute(QStringLiteral("name"))
+							== QLatin1String("label")) {
+							appearances[l.text()] << file
+								+ QLatin1Char('@') + QString::number(folio);
+						}
+					}
+				}
+			}
+
+			QCOMPARE(appearances.value(QStringLiteral("A1.00")).size(), 1);
+			for (const QString &card : {QStringLiteral("A1.10"),
+										QStringLiteral("A1.20"),
+										QStringLiteral("A1.30")}) {
+				const auto list = appearances.value(card);
+				QCOMPARE(list.size(), 3);
+				QSet<int> onFolio;
+				for (const QString &a : list) {
+					onFolio.insert(a.section(QLatin1Char('@'), 1).toInt());
+				}
+				QCOMPARE(onFolio.size(), 3);
+			}
+
+				//every wire joins two terminals of elements of the project
+			const auto wires = project.elementsByTagName(
+				QStringLiteral("conductor"));
+			QVERIFY(wires.size() > 0);
+			for (int i = 0; i < wires.size(); ++i) {
+				const auto c = wires.at(i).toElement();
+				for (const QString &end : {QStringLiteral("1"),
+										   QStringLiteral("2")}) {
+					QVERIFY(used.contains(c.attribute(
+						QStringLiteral("element") + end)));
+					QVERIFY(terminalUuids.contains(c.attribute(
+						QStringLiteral("terminal") + end)));
+				}
 			}
 		}
 };

@@ -85,7 +85,8 @@ target_link_libraries(tst_darkselectionframe PRIVATE Qt::Test Qt::Widgets)
 add_executable(tst_beckhoffelements tst_beckhoffelements.cpp)
 add_test(NAME tst_beckhoffelements COMMAND tst_beckhoffelements)
 target_compile_definitions(tst_beckhoffelements PRIVATE
-  QET_EXTRA_ELEMENTS_DIR="${QET_DIR}/extra-elements")
+  QET_EXTRA_ELEMENTS_DIR="${QET_DIR}/extra-elements"
+  QET_EXAMPLES_DIR="${QET_DIR}/examples")
 target_link_libraries(tst_beckhoffelements PRIVATE Qt::Test Qt::Xml)
 # MSVC's Debug libraries make QElectroTech five to eight times slower than a
 # GCC build, for which the tests' time limits were chosen. Every limit is

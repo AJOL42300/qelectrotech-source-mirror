@@ -1443,6 +1443,10 @@ void QETDiagramEditor::setUpActions()
 	m_duplicate_island = new QAction(QET::Icons::TerminalStrip, tr("Duplicate the island..."), this);
 	ShortcutManager::instance().registerAction(m_duplicate_island, "diagrameditor.duplicate_island", tr("Diagram editors"), QKeySequence());
 	connect(m_duplicate_island, &QAction::triggered, this, &QETDiagramEditor::slot_duplicateIsland);
+	m_create_appearances = new QAction(QET::Icons::TerminalStrip, tr("Create the other appearances..."), this);
+	m_create_appearances->setStatusTip(tr("Draws the realistic view, the symbol and the table of inputs and outputs of the selected card which are not drawn yet"));
+	ShortcutManager::instance().registerAction(m_create_appearances, "diagrameditor.create_appearances", tr("Diagram editors"), QKeySequence());
+	connect(m_create_appearances, &QAction::triggered, this, &QETDiagramEditor::slot_createAppearances);
 	m_add_island_folio = new QAction(QET::Icons::TableOfContent, tr("Add a folio listing the cards of an island..."), this);
 	ShortcutManager::instance().registerAction(m_add_island_folio, "diagrameditor.add_island_folio", tr("Diagram editors"), QKeySequence());
 	connect(m_add_island_folio, &QAction::triggered, this, [this]() { slot_addIslandFolio(false); });
@@ -2416,6 +2420,7 @@ void QETDiagramEditor::setUpMenu()
 	menu_numbering -> addAction(m_terminal_numbering);
 	menu_numbering -> addAction(m_island_numbering);
 	menu_numbering -> addAction(m_duplicate_island);
+	menu_numbering -> addAction(m_create_appearances);
 	menu_numbering -> addAction(m_cable_numbering);
 
 	// menu Listes
@@ -4130,7 +4135,7 @@ void QETDiagramEditor::slot_updateComplexActions()
 			    << m_ungroup_selection
 			    << m_select_same_symbols
 			    << m_duplicate_island
-			    << m_replace_symbols;
+			    << m_create_appearances			    << m_replace_symbols;
 		for(QAction *action : action_list)
 			action->setEnabled(false);
 		m_align_actions_group.setEnabled(false);
@@ -4161,6 +4166,10 @@ void QETDiagramEditor::slot_updateComplexActions()
 	m_duplicate_island->setEnabled(
 		!ro && selected_elements_count == 1
 		&& !dc.m_elements.first()->actualLabel().isEmpty());
+	m_create_appearances->setEnabled(
+		!ro && selected_elements_count == 1
+		&& IslandAppearances::hasMissing(
+			currentProject(), dc.m_elements.first()));
 	{
 		bool any = false, all = true;
 		for (Element *element : dc.m_elements)
@@ -5682,17 +5691,28 @@ void QETDiagramEditor::slot_duplicateIsland() {
 	if (elements.size() != 1) return;
 
 		//A card stands for its island: its label is "island.number"
-	QString island = elements.first()->actualLabel();
-	const int dot = island.lastIndexOf(QLatin1Char('.'));
-	int number = 0;
-	if (dot > 0 && IslandNumbering::numberOf(island, island.left(dot),
-											 &number)) {
-		island = island.left(dot);
-	}
+	QString island = IslandNumbering::islandOf(
+		elements.first()->actualLabel());
 	if (island.isEmpty()) return;
 
 	IslandDuplicateDialog dialog(project, island, view->diagram(), this);
 	dialog.exec();
+}
+
+/**
+ * @brief QETDiagramEditor::slot_createAppearances
+ * Draws the other appearances (realistic view, symbol, table of inputs and
+ * outputs) of the selected card, on a folio asked to the user.
+ */
+void QETDiagramEditor::slot_createAppearances() {
+	QETProject *project = currentProject();
+	DiagramView *view = currentDiagramView();
+	if (!project || !view) return;
+
+	const auto elements = DiagramContent(view->diagram()).m_elements;
+	if (elements.size() != 1) return;
+	IslandAppearances::askAndCreate(
+		project, elements.first(), view->diagram(), this);
 }
 
 /**
@@ -5710,7 +5730,7 @@ void QETDiagramEditor::slot_addIslandFolio(bool inputs_outputs) {
 	const auto selection = view->diagram()->selectedItems();
 	if (selection.size() == 1) {
 		if (Element *elmt = qgraphicsitem_cast<Element *>(selection.first())) {
-			suggestion = elmt->actualLabel();
+			suggestion = IslandNumbering::islandOf(elmt->actualLabel());
 		}
 	}
 	bool ok = false;

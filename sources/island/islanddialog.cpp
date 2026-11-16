@@ -21,10 +21,13 @@
 #include "../diagram.h"
 #include "../diagramcommands.h"
 #include "../diagramcontent.h"
+#include "../ElementsCollection/elementslocation.h"
+#include "../factory/elementfactory.h"
 #include "../positionorder.h"
 #include "../qet.h"
 #include "../qetgraphicsitem/element.h"
 #include "../qetproject.h"
+#include "../undocommand/addgraphicsobjectcommand.h"
 #include "../undocommand/changeelementdatacommand.h"
 #include "../undocommand/changeelementinformationcommand.h"
 
@@ -33,6 +36,7 @@
 #include <QDialogButtonBox>
 #include <QDomDocument>
 #include <QHash>
+#include <QInputDialog>
 #include <QLabel>
 #include <QLineEdit>
 #include <QMessageBox>
@@ -69,19 +73,16 @@ IslandDialog::IslandDialog(QETProject *project, Diagram *diagram,
 		for (QGraphicsItem *item : d->items()) {
 			if (Element *elmt = qgraphicsitem_cast<Element *>(item)) {
 				const QString label = elmt->actualLabel();
-				const int dot = label.lastIndexOf(QLatin1Char('.'));
-				int number = 0;
-				if (dot > 0
-					&& IslandNumbering::numberOf(
-						label, label.left(dot), &number)) {
-					islands.insert(label.left(dot));
+				const QString island = IslandNumbering::islandOf(label);
+				if (island != label) {
+					islands.insert(island);
 				}
 			}
 		}
 	}
 	for (Element *elmt : selectedElements()) {
 		if (!elmt->actualLabel().isEmpty()) {
-			islands.insert(elmt->actualLabel());
+			islands.insert(IslandNumbering::islandOf(elmt->actualLabel()));
 		}
 	}
 	QStringList sorted = islands.values();
@@ -107,7 +108,7 @@ IslandDialog::IslandDialog(QETProject *project, Diagram *diagram,
 
 	auto layout = new QVBoxLayout(this);
 	layout->addWidget(new QLabel(
-		tr("Island (the label of its coupler or box):"), this));
+		tr("Island (its identifier, e.g. A1):"), this));
 	layout->addWidget(m_island);
 	layout->addWidget(m_number_selection);
 	layout->addWidget(new QLabel(tr("Place them:"), this));
@@ -194,8 +195,9 @@ QList<IslandDialog::Card> IslandDialog::cards(const QString &island) const
 		for (QGraphicsItem *item : d->items()) {
 			if (Element *elmt = qgraphicsitem_cast<Element *>(item)) {
 				int number = 0;
+					//The head (number 0) is not one of its cards
 				if (IslandNumbering::numberOf(
-						elmt->actualLabel(), island, &number)) {
+						elmt->actualLabel(), island, &number) && number > 0) {
 					list << Card(elmt, number);
 				}
 			}
@@ -232,7 +234,7 @@ QUndoCommand *IslandDialog::build(QString *error) const
 {
 	const QString parent = island();
 	if (parent.isEmpty()) {
-		*error = tr("Give the label of the island.");
+		*error = tr("Give the identifier of the island.");
 		return nullptr;
 	}
 
@@ -249,7 +251,11 @@ QUndoCommand *IslandDialog::build(QString *error) const
 		QList<Element *> selection;
 		for (Element *elmt : selectedElements()) {
 				//The coupler itself is not one of its cards
-			if (elmt->actualLabel() != parent) {
+			int head_number = -1;
+			if (elmt->actualLabel() != parent
+				&& (!IslandNumbering::numberOf(
+						elmt->actualLabel(), parent, &head_number)
+					|| head_number > 0)) {
 				selection << elmt;
 			}
 		}
@@ -346,7 +352,7 @@ IslandDuplicateDialog::IslandDuplicateDialog(QETProject *project,
 
 	auto layout = new QVBoxLayout(this);
 	layout->addWidget(m_new_copy);
-	layout->addWidget(new QLabel(tr("Label of the new island:"), this));
+	layout->addWidget(new QLabel(tr("Identifier of the new island (e.g. A2):"), this));
 	layout->addWidget(m_label);
 	layout->addWidget(m_keep_signals);
 	layout->addWidget(m_linked);
@@ -418,7 +424,7 @@ bool IslandDuplicateDialog::duplicate()
 	if (!linked) {
 		if (new_island.isEmpty()) {
 			QMessageBox::warning(this, windowTitle(),
-								 tr("Give the label of the new island."));
+								 tr("Give the identifier of the new island."));
 			return false;
 		}
 		if (IslandNumbering::isTaken(new_island, allLabels())) {
@@ -444,7 +450,7 @@ bool IslandDuplicateDialog::duplicate()
 			int number = 0;
 			if (IslandNumbering::numberOf(
 					elmt->actualLabel(), m_island, &number)
-				&& !numbers.contains(number)) {
+				&& number > 0 && !numbers.contains(number)) {
 				numbers << number;
 			}
 			if (!source_info.contains(elmt->actualLabel())) {
@@ -464,6 +470,9 @@ bool IslandDuplicateDialog::duplicate()
 	std::sort(numbers.begin(), numbers.end());
 	QHash<QString, QString> renamed;
 	renamed.insert(m_island, linked ? m_island : new_island);
+	renamed.insert(IslandNumbering::headLabel(m_island),
+				   linked ? IslandNumbering::headLabel(m_island)
+						  : IslandNumbering::headLabel(new_island));
 	const QStringList copies =
 		IslandNumbering::copyLabels(new_island, numbers.size());
 	for (int i = 0 ; i < numbers.size() ; ++i) {
@@ -562,4 +571,207 @@ bool IslandDuplicateDialog::duplicate()
 	}
 	stack.endMacro();
 	return true;
+}
+
+namespace {
+	const QStringList &collectionProtocols()
+	{
+		static const QStringList list{
+			QStringLiteral("common://"), QStringLiteral("custom://"),
+			QStringLiteral("company://")};
+		return list;
+	}
+
+		//Where the other appearances of the element are: in the project,
+		//else in a collection of the machine (to be imported)
+	QList<ElementsLocation> siblings(QETProject *project, Element *element)
+	{
+		QList<ElementsLocation> found;
+		const QString own = element->location().collectionPath(false);
+		const QString prefix = QStringLiteral("import/");
+		for (const QString &path : IslandNumbering::appearancePaths(own)) {
+			ElementsLocation embedded(path, project);
+			if (embedded.exist()) {
+				found << embedded;
+				continue;
+			}
+			const QString relative = path.startsWith(prefix)
+				? path.mid(prefix.size()) : path;
+			for (const QString &protocol : collectionProtocols()) {
+				ElementsLocation file(protocol + relative);
+				if (file.exist()) {
+					found << file;
+					break;
+				}
+			}
+		}
+		return found;
+	}
+
+		//Is a card of this label already drawn in this appearance?
+	bool alreadyDrawn(QETProject *project, const QString &label,
+					  const ElementsLocation &appearance)
+	{
+		const QString name = appearance.fileName();
+		for (Diagram *d : project->diagrams()) {
+			for (QGraphicsItem *item : d->items()) {
+				auto *elmt = qgraphicsitem_cast<Element *>(item);
+				if (elmt && elmt->actualLabel() == label
+					&& elmt->location().fileName() == name) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	QList<ElementsLocation> missing(QETProject *project, Element *element)
+	{
+		QList<ElementsLocation> list;
+		const QString label = element->actualLabel();
+		if (label.isEmpty()) {
+			return list;
+		}
+		for (const ElementsLocation &location : siblings(project, element)) {
+			if (!alreadyDrawn(project, label, location)) {
+				list << location;
+			}
+		}
+		return list;
+	}
+}
+
+/**
+	@return true if the element has an appearance which is not drawn yet
+*/
+bool IslandAppearances::hasMissing(QETProject *project, Element *element)
+{
+	return project && element && !missing(project, element).isEmpty();
+}
+
+/**
+	Draws the appearances of the card which are not drawn yet on the
+	target folio, by one undo command. The label, the informations and the
+	table of inputs and outputs are those of the element.
+	@return the number of elements added
+*/
+int IslandAppearances::create(QETProject *project, Element *element,
+							  Diagram *target, QString *error)
+{
+	const QList<ElementsLocation> wanted = missing(project, element);
+	if (wanted.isEmpty() || !target) {
+		if (error) {
+			*error = QObject::tr("Every appearance of this card is already "
+								 "drawn, or it has none.");
+		}
+		return 0;
+	}
+
+	const QStringList copied{
+		QStringLiteral("label"), QStringLiteral("formula"),
+		QStringLiteral("plant"), QStringLiteral("location"),
+		QStringLiteral("function"), QStringLiteral("comment"),
+		QStringLiteral("designation"), QStringLiteral("manufacturer"),
+		QStringLiteral("manufacturer_reference")};
+	const DiagramContext source_info = element->ownInformations();
+	const ElementData source_data = element->elementData();
+
+	QList<Element *> created;
+	for (ElementsLocation location : wanted) {
+		ElementsLocation imported = location.isFileSystem()
+			? project->importElement(location) : location;
+		if (!imported.exist()) {
+			continue;
+		}
+		int state = 0;
+		Element *copy = ElementFactory::Instance()->createElement(
+			ElementsLocation(imported.projectCollectionPath()),
+			nullptr, &state);
+		if (state || !copy) {
+			delete copy;
+			continue;
+		}
+		ElementData data = copy->elementData();
+		for (const QString &key : copied) {
+			if (source_info.contains(key)) {
+				data.m_informations.addValue(key, source_info.value(key));
+			}
+		}
+		data.setPlcMasterData(source_data.plcMasterData());
+		copy->setElementData(data);
+		created << copy;
+	}
+	if (created.isEmpty()) {
+		if (error) {
+			*error = QObject::tr("The appearances could not be loaded.");
+		}
+		return 0;
+	}
+
+		//Side by side, to the right of the element when it is on the target
+	const bool same_folio = element->diagram() == target;
+	qreal x = element->pos().x();
+	if (same_folio) {
+		x += element->sceneBoundingRect().width() + 40;
+	}
+	QUndoStack &stack = target->undoStack();
+	stack.beginMacro(QObject::tr("Add the other appearances of %1")
+						 .arg(element->actualLabel()));
+	for (Element *copy : std::as_const(created)) {
+		stack.push(new AddGraphicsObjectCommand(
+			copy, target, QPointF(x, element->pos().y())));
+		x += copy->sceneBoundingRect().width() + 40;
+	}
+	stack.endMacro();
+	target->adjustSceneRect();
+	return created.size();
+}
+
+/**
+	Asks for the folio (the current one, another, or a new one after the
+	current one), then draws the other appearances of the element there.
+*/
+void IslandAppearances::askAndCreate(QETProject *project, Element *element,
+									 Diagram *current, QWidget *parent)
+{
+	if (!hasMissing(project, element)) {
+		QMessageBox::information(
+			parent, QObject::tr("Create the other appearances"),
+			QObject::tr("Every appearance of this card is already drawn, "
+						"or it has none."));
+		return;
+	}
+
+	const QList<Diagram *> folios = project->diagrams();
+	QStringList choices;
+	choices << QObject::tr("New folio after the current one");
+	int current_row = 0;
+	for (int i = 0; i < folios.size(); ++i) {
+		choices << QObject::tr("%1: %2").arg(i + 1).arg(folios.at(i)->title());
+		if (folios.at(i) == current) {
+			current_row = i + 1;
+		}
+	}
+	bool ok = false;
+	const QString choice = QInputDialog::getItem(
+		parent, QObject::tr("Create the other appearances"),
+		QObject::tr("Folio for the other appearances of %1:")
+			.arg(element->actualLabel()),
+		choices, current_row, false, &ok);
+	if (!ok) {
+		return;
+	}
+	Diagram *target = nullptr;
+	const int row = choices.indexOf(choice);
+	if (row <= 0) {
+		target = project->addNewDiagram(project->folioIndex(current) + 1);
+	} else {
+		target = folios.at(row - 1);
+	}
+	QString error;
+	if (!create(project, element, target, &error)) {
+		QMessageBox::warning(parent,
+							 QObject::tr("Create the other appearances"),
+							 error);
+	}
 }

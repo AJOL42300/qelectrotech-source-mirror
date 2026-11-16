@@ -3262,6 +3262,7 @@ QList<QAction *> DiagramView::contextMenuActions() const
 			list << qde->m_conductor_reset;
 			list << qde->m_select_same_symbols;
 			list << qde->m_duplicate_island;
+			list << qde->m_create_appearances;
 			list << qde->m_show_as_dot;
 			list << qde->m_replace_symbols;
 			list << m_separators.at(1);
