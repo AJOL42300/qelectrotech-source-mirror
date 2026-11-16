@@ -76,14 +76,19 @@ void tst_IslandNumbering::copyOfAnIslandKeepsTheConvention()
 void tst_IslandNumbering::appearancesAreSiblingsOfTheSymbol()
 {
 	const QString dir = "embed://import/15_beckhoff_ethercat/";
-	const QStringList symbol_others{dir + "el1008_realistic.elmt",
+	const QStringList symbol_others{dir + "el1008_generic.elmt",
+									dir + "el1008_realistic.elmt",
 									dir + "el1008_table.elmt"};
 	QCOMPARE(IslandNumbering::appearancePaths(dir + "el1008.elmt"),
 			 symbol_others);
 	QCOMPARE(IslandNumbering::appearancePaths(dir + "el1008_realistic.elmt"),
-			 (QStringList{dir + "el1008.elmt", dir + "el1008_table.elmt"}));
+			 (QStringList{dir + "el1008.elmt", dir + "el1008_generic.elmt",
+						  dir + "el1008_table.elmt"}));
+	QCOMPARE(IslandNumbering::appearancePaths(dir + "el1008_generic.elmt"),
+			 (QStringList{dir + "el1008.elmt", dir + "el1008_realistic.elmt",
+						  dir + "el1008_table.elmt"}));
 	QCOMPARE(IslandNumbering::appearancePaths(dir + "el1008_table.elmt"),
-			 (QStringList{dir + "el1008.elmt",
+			 (QStringList{dir + "el1008.elmt", dir + "el1008_generic.elmt",
 						  dir + "el1008_realistic.elmt"}));
 	QVERIFY(IslandNumbering::appearancePaths("no_extension").isEmpty());
 }
