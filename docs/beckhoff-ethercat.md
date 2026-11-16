@@ -23,12 +23,12 @@ collection, as the category **Beckhoff EtherCAT (generic)**.
 | `ek1100.elmt` | Beckhoff | EK1100 | EtherCAT IN, EtherCAT OUT |
 | `ek1322.elmt` | Beckhoff | EK1322 | IN X50, OUT X51, OUT X52 |
 | `ek1914.elmt` | Beckhoff | EK1914 | EtherCAT IN/OUT, I1 to I4, SI1, SI2, O1 to O4, SO1, SO2 |
-| `ax5203.elmt` | Beckhoff | AX5203 | EtherCAT IN/OUT, L1, L2, L3, PE, M1-U/V/W/PE, M2-U/V/W/PE |
-| `ax5206.elmt` | Beckhoff | AX5206 | same layout as the AX5203 |
 | `el9011.elmt` | Beckhoff | EL9011 | none (end cap) |
 | `epp2338.elmt` | Beckhoff | EPP2338-0001 | IN X50, OUT X51, X01 to X04 |
 | `ethercat_box_generic.elmt` | (empty) | (empty) | EtherCAT IN, EtherCAT OUT |
-| `af1000_2axes_generic.elmt` | Beckhoff | AF1000 | EtherCAT IN/OUT, A1-U/V/W, A2-U/V/W, L1, L2, L3, PE, RB+, RB- |
+| `drives_af1000/af11xx.elmt`, `af12xx.elmt` | Beckhoff | AF1103, AF1107, AF1115, AF1130, AF1155 (1 axis); AF1215, AF1222 (2 axes) | see [Drives](#drives-af1000-and-ax5000) |
+| `drives_ax5000/ax51xx.elmt`, `ax52xx.elmt` | Beckhoff | AX5101 to AX5125 (1 axis); AX5201 to AX5225 (2 axes) | see [Drives](#drives-af1000-and-ax5000) |
+| `twinsafe/*.elmt` | Beckhoff | EL1904, EL1918, EL2904, EL6910, EK1960 | yellow safety cards, see [Safety cards](#safety-cards-twinsafe-yellow) |
 
 Other terminals are already in the standard collection, under
 `10_electric/20_manufacturers_articles/beckhoff`.
@@ -46,8 +46,9 @@ The references found in the sample schematic and what covers them:
 | EL1008, EL2008, EL2652 | their own symbol |
 | EK1100, EK1322, EK1914 | their own symbol |
 | EPP2338 | `epp2338.elmt` (the `-0002` variant is not told apart: the difference is not known, edit the reference) |
-| AX5203, AX5206 | their own symbol |
-| AF1103, AF1107, AF1115, AF1130, AF1155, AF1215, AF1222 | `af1000_2axes_generic.elmt`: set the reference and the number of axes yourself |
+| AX5203, AX5206 | `drives_ax5000/ax5203.elmt`, `ax5206.elmt` (2 axes) |
+| AF1103, AF1107, AF1115, AF1130, AF1155 | `drives_af1000/`, 1 axis |
+| AF1215, AF1222 | `drives_af1000/`, 2 axes |
 | AX5805, KL219 | none |
 
 The designations are the ones of the Beckhoff product names; the EL2652
@@ -63,10 +64,78 @@ else is copied from a datasheet.
   EL3004) after the datasheet of the terminal you use.
 - The EPP2338 ports (X01 to X04, two channels each) are listed as I/O of
   type "universal"; the actual use of each channel is yours to define.
-- The AF1000 symbol puts its terminals where the connectors are on the front
-  of a two-axis drive, as a layout aid, not measured. The exact type
-  (AF1215...), its power and its current are left for the user.
+- The drive symbols put their terminals where the connectors are on the
+  pictures of the sample schematic (see below), not measured on a product.
+  The exact power, current and mains type are to be checked by the user.
 - The box has no manufacturer and no reference.
+
+## Pin and channel are two things
+
+On a Beckhoff card the number of the **pin** (the terminal point of the
+housing) is not always the number of the **channel**. The EL1008 has its
+channels I1 to I8 on pins 1, 5, 2, 6, 3, 7, 4, 8: the pins 1 to 4 are on one
+side, 5 to 8 on the other. So the terminals of an element are named with the
+Beckhoff pin, and each channel of the I/O table lists its pin(s) in the entry
+(`address` = signal, `terminal` = pin; the file keeps `<plcIO ...>
+<terminal>5</terminal></plcIO>`). Nothing is renumbered by channel.
+
+| Card | Pin to channel | Source |
+| --- | --- | --- |
+| EL1008 | I1 1, I2 5, I3 2, I4 6, I5 3, I6 7, I7 4, I8 8 | the user's drawing |
+| EL2008 | O1 1, O2 5, O3 2, O4 6, O5 3, O6 7, O7 4, O8 8 | the user's drawing |
+| EL5152 | pins 1 A1, 2 +, 3 -, 4 A2, 5 B1, 6 +, 7 -, 8 B2; 2 and 6 are 24 V, 3 and 7 are 0 V | the user's drawing, the supply is inferred from the labels |
+| EL1918 | SIn on pins n and n+8 | **assumption**, not verified |
+| other cards | pin = channel | generic |
+
+The tooltip writes `5 → I2`, the I/O table has an optional **Terminal**
+column (in the table properties, hidden by default; the `_table` elements show
+it), and the greyed pins use the pin. When the pin-out is unknown (EK1914:
+the drawing names no channel, so the pin of each channel is not listed; the
+realistic view then has numbered pins and no channel) it is flagged in the
+description of the element.
+
+## Drives (AF1000 and AX5000)
+
+The drives were redrawn in vector (rectangles, circles, text; no bitmap) from
+the pictures of the sample schematic, which are kept outside the repository.
+`misc/beckhoff/gen_drives.py` writes them (`--report` prints the residuals).
+Each reference has three elements: the symbol, `_realistic` and `_table`,
+with the same label and information. Terminals are on the 10 px grid.
+
+**Number of axes**: the second digit of the number in the reference. AF1103,
+AF1107, AF1115, AF1130, AF1155, AX5101 to AX5125 are 1 axis; AF1215, AF1222,
+AX5201 to AX5225 are 2 axes (a 2-axis element adds `M2-U/V/W/PE` and X21/X22
+on the AX, the second power rows on the AF). The rule is the user's; no
+reference breaks it. Only AX5203, AX5206 and the AF references named in the
+schematic come from it; the other AX5100/AX5200 references (5101, 5103, 5106,
+5112, 5118, 5125, 5201, 5212, 5218, 5225) share the drawing and exist from the
+rule only, their existence is not checked against a datasheet. The rating of
+the AF1155 (18 A) looks suspect.
+
+| Family | Terminals | Scale | Largest gap to the picture |
+| --- | --- | --- | --- |
+| AF1000 | EtherCAT IN/OUT (X04, X05); X03 control (IN1.., GND1, TH1, TH2, OUT, FGND, 24V_A..C); M1-U/V/W/PE (+ M2- on 2 axes); L1 L2 L3 PE RB+ RB- | 0.95 | 7.6 px |
+| AX5000 | EtherCAT IN/OUT; X11, X12 (+ X21, X22 on 2 axes); X06 (24, 0 to 7, 0V); DC+, DC-; L1 L2 L3N PE; Up, Us, GND; M1-U/V/W/PE (+ M2-) | 0.313 | 16.7 px |
+
+The I/O table of an AF lists IN* (digital inputs), TH1/TH2 (analog) and OUT;
+the AX lists X06-0 to X06-7 as universal channels.
+
+Not known or not checked: 1-phase or 3-phase mains of the AF (the 3-phase
+layout is drawn); the "25 Vdc" of a blurry picture is read as 24 V; the
+function names of X03 and X06 come from blurry pictures; the motor and brake
+connectors of the AX are not on the pictures, so `M1-*`/`M2-*` are generic
+and the brake is not modelled; the AX5805 (TwinSAFE option) is a rectangle on
+the picture and has no element.
+
+## Safety cards (TwinSAFE, yellow)
+
+`twinsafe/` has EL1904, EL1918, EL2904 (symbol, realistic, table), EL6910 and
+EK1960 (symbol and realistic only), drawn with a yellow body. **None of them
+is in the sample schematic**, so every pin-out is generic and flagged "not
+verified" in the description. The EL1918 is drawn with **16 terminals** (not
+8): its 8 safe inputs SI1..SI8 each use two terminals, pins n and n+8 (left
+column 1 to 8, right column 9 to 16), and the I/O table lists both pins.
+`misc/beckhoff/gen_safety.py` writes them.
 
 ## Island numbering
 
@@ -205,8 +274,9 @@ Both are settings of the general configuration, off by default.
   its name, signal, I/O address, the wires connected (with their folio) and
   its internal links. An internal link is the `potential` attribute of the
   terminals (terminals with the same value are linked inside the module: 24 V,
-  0 V, PE, feed-through). The I/O entries of the table belong to the terminal
-  whose name is their address (`X01(1)` belongs to `X01`).
+  0 V, PE, feed-through). A channel whose entry lists pins (`5 → I2`) belongs
+  to those pins; otherwise it belongs to the terminal whose name is its
+  address (`X01(1)` belongs to `X01`).
 - **Grey used pins**: a terminal whose pin is wired on another placement of the
   same element (same label, on any folio) is drawn in light grey, and the
   tooltip adds the used channels (with their folios) and the free ones.
@@ -257,30 +327,40 @@ poorly: this works for line drawings and logos.
 
 ## Example project
 
-`examples/beckhoff_islands_example.qet` shows island `A1`: its head `A1.00`
-(EK1100) and the cards `A1.10` (EL1008), `A1.20` (EL2008) and `A1.30`
-(EL5152). Folio 1 has the symbols, with two sensors wired on pins 1 and 2 of
-`A1.10` and a lamp on pin 1 of `A1.20` (these pins show as used); folio 2 the
-realistic views; folio 3 the I/O tables, where the used channels carry their
-function. All the generic Beckhoff elements are embedded in the project. It is
+`examples/beckhoff_islands_example.qet` has three islands on 9 folios (3 per
+island: symbols, realistic views, I/O tables):
+
+- `A1`: head `A1.00` (EK1100), cards `A1.10` (EL1008), `A1.20` (EL2008),
+  `A1.30` (EL5152). Two sensors are wired on pins 1 and 2 of `A1.10` (pin 2 is
+  channel I3) and a lamp on pin 1 of `A1.20`; these pins show as used.
+- `A2`: head `A2.00`, the yellow card `A2.10` (EL1918, 16 terminals), the
+  1-axis drive `A2.20` (AF1103) and the 2-axis drive `A2.30` (AF1215). A
+  sensor is wired on the SI1 pins 1 and 9 of `A2.10` and one on IN1 of
+  `A2.20`.
+- `A3`: head `A3.00`, the 1-axis drive `A3.10` (AX5103) and the 2-axis drive
+  `A3.20` (AX5203).
+
+The used channels carry their function in the I/O tables. The Beckhoff
+elements used are embedded in the project. It is
 written by `python misc/beckhoff/gen_example.py` (the uuids are fixed, so the
 file is always the same). Open it with the QElectroTech built from this
 branch (`build\qelectrotech.exe examples\beckhoff_islands_example.qet`).
 Checked: `--info`, `--resave` (a second save is identical to the first) and
 `--export-png`. The three appearances are tied by their label; there is no
-cross reference between them, and the head has no I/O table.
+cross reference between them, and the heads have no I/O table.
 
 ## Limits
 
-- The ios of the EK1914 are named `I1`..`SO2` while the terminals of its
-  realistic view are numbered `1`..`16`: the tooltip and the grey pins do not
-  match them there.
+- The ios of the EK1914 name the channels `I1`..`SO2`, but the pin of each
+  channel is unknown (the user's drawing has no channel names), so they are
+  not listed and the tooltip of its realistic view, with numbered pins,
+  cannot tell the channels.
 - The designation of the EL5152 is generic and was not checked against a
   datasheet.
 - No table is added automatically on the nomenclature folio: choose the folio
   in *Create the other appearances*.
-- The drives (AF1000, AX5203, AX5206), the AX5805 and the EPP2338-0002 have no
-  realistic view yet.
+- The AX5805 and the EPP2338-0002 have no realistic view yet. The drives and
+  the safety cards are not verified against a datasheet (see above).
 - The realistic views were checked by drawing them with their terminals
   (every terminal is inside its circle), and by the tests; the interface
   (menus, dialogs, tooltip) was not tried by hand.

@@ -45,8 +45,11 @@ def uid(*parts):
     return "{" + str(uuid.uuid5(NS, "/".join(parts))) + "}"
 
 
-def load(name):
-    return ET.parse(os.path.join(ELMT_DIR, name + ".elmt")).getroot()
+def load(category, name):
+    sub = category[len(CAT):].strip("/")
+    return ET.parse(os.path.join(ELMT_DIR, *sub.split("/"), name + ".elmt")
+                    if sub else os.path.join(ELMT_DIR, name + ".elmt")
+                    ).getroot()
 
 
 def device(name, label_en, shape, link="simple"):
@@ -115,7 +118,8 @@ def get(category, name):
     key = (category, name)
     if key not in ELEMENTS:
         ELEMENTS[key] = Elmt(category, name,
-                             load(name) if category == CAT else None)
+                             load(category, name)
+                             if category.startswith(CAT) else None)
     return ELEMENTS[key]
 
 
@@ -123,11 +127,14 @@ def esc(text):
     return quoteattr(text)[1:-1]
 
 
-# Signal given to the wired channels: (card, pin) -> function text.
+# Signal given to the wired channels: (card, signal) -> function text.
+# On the EL1008 the contact 2 carries the channel I3 (Beckhoff order).
 USED = {
-    ("A1.10", "1"): "Presence sensor 1",
-    ("A1.10", "2"): "Presence sensor 2",
-    ("A1.20", "1"): "Run lamp",
+    ("A1.10", "I1"): "Presence sensor 1",
+    ("A1.10", "I3"): "Presence sensor 2",
+    ("A1.20", "O1"): "Run lamp",
+    ("A2.10", "SI1"): "Emergency stop, channel 1",
+    ("A2.20", "IN1"): "Drive enable",
 }
 CARDS = [
     # label, element base name, x on the folio
@@ -137,6 +144,13 @@ CARDS = [
 ]
 HEAD = ("A1.00", "ek1100")
 CARD_Y = 250
+SAFE = CAT + "/twinsafe"
+AF = CAT + "/drives_af1000"
+AX = CAT + "/drives_ax5000"
+# Islands with the safety card and the drives: label, category, name
+ISLAND2 = ("A2.00", [("A2.10", SAFE, "el1918"), ("A2.20", AF, "af1103"),
+                     ("A2.30", AF, "af1215")])
+ISLAND3 = ("A3.00", [("A3.10", AX, "ax5103"), ("A3.20", AX, "ax5203")])
 
 
 def plc_xml(el, label):
@@ -223,13 +237,14 @@ DEFCOND = (
     'vertical-alignment="AlignRight" vertirotatetext="270"')
 
 
-def diagram_xml(order, title, elements, conductors):
+def diagram_xml(order, title, elements, conductors, rows=8):
     return (
         '<diagram author="" auto_page_num="" cols="17" colsize="60" '
         'date="null" displayAt="bottom" displaycols="true" '
         'displayrows="true" filename="" folio="%id/%total" '
-        'freezeNewConductor="false" freezeNewElement="false" height="660" '
-        f'indexrev="" locmach="" order="{order}" plant="" rows="8" '
+        f'freezeNewConductor="false" freezeNewElement="false" '
+        f'height="{rows * 80 + 20}" '
+        f'indexrev="" locmach="" order="{order}" plant="" rows="{rows}" '
         f'rowsize="80" title="{esc(title)}" uuid="{uid("d", str(order))}" '
         f'version="{VERSION}-dev"><defaultconductor {DEFCOND}/>'
         "<elements>" + "".join(elements) + "</elements><conductors>" +
@@ -275,6 +290,66 @@ def folio_tables():
     return diagram_xml(3, "A1 island - I/O tables", els, [])
 
 
+def island_folios(first, head_label, cards):
+    """Symbols, realistic views and I/O tables of an island of drives or
+    safety cards; first is the order of its first folio."""
+    els = [element_xml(get(CAT, "ek1100"), head_label, 120, 320,
+                       f"sym/{head_label}")]
+    conductors = []
+    for n, (label, cat, name) in enumerate(cards):
+        els.append(element_xml(get(cat, name), label, 360 + 230 * n, 70,
+                               f"sym/{label}"))
+    sensor = get(DEV, "sensor")
+    wired = []
+    if cards[0][2] == "el1918":
+        wired = [("B3", 250, "A2.10", get(SAFE, "el1918"), ("1", "9"))]
+    if cards[1:] and cards[1][2] == "af1103":
+        wired.append(("B4", 450, "A2.20", get(AF, "af1103"), ("IN1",)))
+    for label, x, card, el, pins in wired:
+        els.append(element_xml(sensor, label, x, 400, f"sym/{label}"))
+        for i, pin in enumerate(pins):
+            conductors.append(conductor_xml(
+                f"sym/{label}/{i}", f"sym/{card}", card, el, pin,
+                f"sym/{label}", label, sensor, str(i + 1)))
+    folios = [diagram_xml(first, f"{head_label[:2]} island - symbols",
+                          els, conductors, 9)]
+    els = [element_xml(get(cat, name + "_realistic"), label, 40 + 230 * n,
+                       20, f"real/{label}")
+           for n, (label, cat, name) in enumerate(cards)]
+    folios.append(diagram_xml(first + 1,
+                              f"{head_label[:2]} island - realistic views",
+                              els, [], 9))
+    els = [element_xml(get(cat, name + "_table"), label,
+                       60 + 480 * (n % 2), 60 + 260 * (n // 2),
+                       f"table/{label}")
+           for n, (label, cat, name) in enumerate(cards)]
+    folios.append(diagram_xml(first + 2,
+                              f"{head_label[:2]} island - I/O tables",
+                              els, [], 9))
+    return folios
+
+
+def category_names(path):
+    sub = path[len(CAT):].strip("/")
+    names = ET.parse(os.path.join(ELMT_DIR, *(sub.split("/") if sub else []),
+                                  "qet_directory")).getroot()
+    return [(n.get("lang"), n.text) for n in names.iter("name")]
+
+
+def tree_xml(path):
+    inner = ""
+    for (category, name), el in sorted(ELEMENTS.items()):
+        if category == path:
+            inner += (f'<element name="{name}.elmt">' +
+                      ET.tostring(el.root, encoding="unicode") +
+                      "</element>")
+    subs = sorted({c[len(path) + 1:].split("/")[0]
+                   for c, _ in ELEMENTS if c.startswith(path + "/")})
+    for s in subs:
+        inner += tree_xml(path + "/" + s)
+    return category_xml(path.split("/")[-1], category_names(path), inner)
+
+
 def category_xml(name, names, inner):
     ns = "".join(f'<name lang="{lang}">{esc(text)}</name>'
                  for lang, text in names)
@@ -282,14 +357,7 @@ def category_xml(name, names, inner):
 
 
 def collection_xml():
-    inner = ""
-    for (category, name), el in sorted(ELEMENTS.items()):
-        if category != CAT:
-            continue
-        inner += (f'<element name="{name}.elmt">' +
-                  ET.tostring(el.root, encoding="unicode") + "</element>")
-    beckhoff = category_xml(CAT, [("en", "Beckhoff EtherCAT (generic)")],
-                            inner)
+    beckhoff = tree_xml(CAT)
     inner = ""
     for name in sorted(DEVICES):
         inner += f'<element name="{name}.elmt">{DEVICES[name]}</element>'
@@ -301,6 +369,8 @@ def collection_xml():
 
 def main():
     folios = [folio_symbols(), folio_realistic(), folio_tables()]
+    folios += island_folios(4, *ISLAND2)
+    folios += island_folios(7, *ISLAND3)
     xrefs = "".join(
         f'<xref delayprefix="" displayhas="cross" master_label="%f-%l%c" '
         'offset="0" powerprefix="" showallconfiguredslaves="false" '
