@@ -19,7 +19,7 @@
 Usage: python misc/beckhoff/gen_drives.py <extra-elements> [--report]
 
 Every reference gets three appearances: <ref>.elmt (symbol),
-<ref>_realistic.elmt (vector redraw of the front of the drive) and
+<ref>_generic.elmt (vector redraw of the front of the drive, in colour) and
 <ref>_table.elmt (I/O table). The drawings are redrawn by hand from the
 user's project pictures, which are NOT in the repository: only plain lines,
 rectangles, circles and the names of the connectors. Positions were
@@ -216,32 +216,39 @@ def symbol(ref, axes, family, rating, blocks):
     return e
 
 
-def realistic(ref, axes, family, rating, blocks, size):
+def generic(ref, axes, family, rating, blocks, size):
     note = AF_NOTE if family == "AF" else AX_NOTE
-    e = Elmt(ref.lower() + "_realistic",
-             "%s servo drive, %d axis - realistic" % (ref, axes),
-             "%s variateur, %d axe(s) - réaliste" % (ref, axes),
+    e = Elmt(ref.lower() + "_generic",
+             "%s servo drive, %d axis - generic" % (ref, axes),
+             "%s variateur, %d axe(s) - générique" % (ref, axes),
              infos_of(ref, axes, family, rating, note), NOTE)
     add_io(e, blocks)
     w, h = size
-    e.rect(0, 0, w, h)
-    e.text(8, 8, "BECKHOFF", 5, True)
-    e.text(8, 20, ref, 10, True)
-    e.dyn(8, 36, "label", 10, True)
+    # colours of the real fronts: light grey body, black top cover, red band
+    # on the right edge, green status LEDs, black connector housings
+    e.rect(0, 0, w, h, "normal", "lightgray")
+    e.rect(0, 0, w, 52, "normal", "black")
+    e.rect(w - 12, 52, 12, h - 104, "thin", "red")
+    for i in range(4):
+        e.circle(w - 20 - 12 * i, 44, 4, "green" if i % 2 == 0 else "orange")
+    e.text(8, 8, "BECKHOFF", 5, True, "#ffffff")
+    e.text(8, 20, ref, 10, True, "#ffffff")
+    e.dyn(8, 56, "label", 10, True)
     for b in blocks:
         xs = [p.x for p in b.pins]
         ys = [p.y for p in b.pins]
         if b.shape == "rj45":
             for p in b.pins:
-                e.rect(p.x - 14, p.y - 17, 28, 34)
-                e.rect(p.x - 8, p.y - 9, 16, 14, "thin")
+                e.rect(p.x - 14, p.y - 17, 28, 34, "normal", "gray")
+                e.rect(p.x - 8, p.y - 9, 16, 14, "thin", "green")
                 e.text(p.x - 12, p.y + 8, p.label, 4)
         elif b.shape == "dsub":
             for p in b.pins:
-                e.rect(p.x - 10, p.y - 30, 20, 60)
+                e.rect(p.x - 10, p.y - 30, 20, 60, "normal", "gray")
                 e.text(p.x - 8, p.y - 40, p.label, 5)
         elif b.shape == "motor":
-            e.rect(min(xs) - 12, 620, max(xs) - min(xs) + 24, 40)
+            e.rect(min(xs) - 12, 620, max(xs) - min(xs) + 24, 40, "normal",
+                   "orange")
             e.text(min(xs) - 12, 662, b.title, 5)
         else:
             if b.shape == "row":
@@ -253,14 +260,14 @@ def realistic(ref, axes, family, rating, blocks, size):
                 rw = max(xs) - min(xs) + (36 if b.title != "X03" else 36 + 4)
                 rh = max(ys) - min(ys) + 16
                 e.text(rx, ry - 8, b.title, 5)
-            e.rect(rx, ry, rw, rh)
+            e.rect(rx, ry, rw, rh, "normal", "black")
         for p in b.pins:
             if b.shape in ("strip", "row"):
                 e.circle(p.x, p.y, 6)
                 if b.shape == "row":
-                    e.text(p.x - 3, p.y - 14, p.label, 4)
+                    e.text(p.x - 3, p.y - 14, p.label, 4, False, "#ffffff")
                 else:
-                    e.text(p.x + 6, p.y - 5, p.label, 5)
+                    e.text(p.x + 6, p.y - 5, p.label, 5, False, "#ffffff")
             e.terminal(p.x, p.y, p.name, p.orient)
     e.dyn(8, h + 6, "designation", 6)
     return e
@@ -286,7 +293,7 @@ def write_family(root, folder, title_en, title_fr, family, refs, build,
         blocks, size = build(axes)
         sym = symbol(ref, axes, family, rating, blocks)
         files[ref.lower() + ".elmt"] = sym.xml()
-        files[ref.lower() + "_realistic.elmt"] = realistic(
+        files[ref.lower() + "_generic.elmt"] = generic(
             ref, axes, family, rating, blocks, size).xml()
         files[ref.lower() + "_table.elmt"] = gs.table_of(sym).xml()
         if do_report:

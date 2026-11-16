@@ -16,24 +16,31 @@
 # along with QElectroTech.  If not, see <http://www.gnu.org/licenses/>.
 """Build the realistic appearance of Beckhoff cards from your own drawings.
 
-The drawings are elements that you drew yourself (for instance the ones
-embedded in a project) and extracted as .elmt files. They are never copied
-into the repository: this script reads them and writes new elements, with:
+The drawings are elements that you drew yourself (Beckhoff_<REF>.elmt, in
+your own element collection). They are read-only inputs: they are never
+modified and never copied into the repository. This script reads them and
+writes new elements, <key>_realistic.elmt, next to the symbol of the card:
 
-  * one terminal exactly at the centre of each terminal circle of the
-    drawing (the original terminals are replaced);
-  * the whole drawing scaled by one uniform factor, with an origin offset,
-    so that the centres of the circles fall on the 10 px grid of the
-    diagram (5 px if 10 px is not possible, the residual is reported);
+  * the drawing is kept as drawn (geometry, colours, yellow of the safety
+    cards) and scaled by ONE uniform factor, with an origin offset;
+  * the circles of the drawing (screw circles, drawn as arcs or circles) are
+    detected: a terminal is created exactly at the centre of each of them,
+    and the centres are on the 10 px grid of the diagram (5 px when 10 px
+    is not possible, see the report). The parts of the drawing that belong
+    to a circle move with it by the residual of the fit;
+  * the terminals are named after the physical pin number of the card
+    (left column 1 to 4, right column 5 to 8, the second group 9 to 16),
+    never after the channel: the channel is in the I/O table;
   * the elementInformations and the I/O table of the symbol of the same
-    card, so that every appearance carries the same data.
+    card are copied, so that every appearance carries the same data.
 
 Usage:
-  realistic_from_model.py <drawings dir> <symbols dir> <output dir>
+  realistic_from_model.py <drawings dir> <elements dir>
 
-<drawings dir> holds <name>.elmt.elmt files, <symbols dir> is
-extra-elements/15_beckhoff_ethercat (made by gen_symbols.py). The report
-(scale, offset, residual) goes to the standard output.
+<drawings dir> holds the Beckhoff_<REF>.elmt files, <elements dir> is
+extra-elements/15_beckhoff_ethercat (made by gen_symbols.py and
+gen_safety.py). The report (scale, offset, residual) goes to the standard
+output.
 """
 import math
 import os
@@ -43,22 +50,22 @@ import xml.etree.ElementTree as ET
 
 NS = uuid.UUID("6f1c2a5e-8b0f-4d57-9a7e-5b1d0c8e2f10")
 
-# key of the card -> (name of the drawing without extension, English name,
-# French name, names of the terminals that are not on a circle)
+# key -> (drawing, folder of the symbol)
 CARDS = {
-    "el1008": ("el-1008-8-entrees19-12-24", "EL1008 digital input terminal",
-               "EL1008 borne d'entrée numérique", ["X1"]),
-    "el2008": ("el2008", "EL2008 digital output terminal",
-               "EL2008 borne de sortie numérique", ["X1"]),
-    "el5152": ("entrees-codeur-ab", "EL5152 encoder input terminal",
-               "EL5152 borne d'entrée codeur", []),
-    "ek1914": ("ek-1914", "EK1914 EtherCAT Coupler",
-               "EK1914 coupleur EtherCAT", ["X000", "X001"]),
+    "ek1914": ("EK1914", "."), "el1004": ("EL1004", "."),
+    "el1008": ("EL1008", "."), "el1904": ("EL1904", "twinsafe"),
+    "el1918": ("EL1918", "twinsafe"), "el2004": ("EL2004", "."),
+    "el2008": ("EL2008", "."), "el2522": ("EL2522", "."),
+    "el2574": ("EL2574", "."), "el2904": ("EL2904", "twinsafe"),
+    "el2911": ("EL2911", "."), "el5152": ("EL5152", "."),
+    "el9100": ("EL9100", "."),
 }
 
-MIN_CIRCLE = 4         # smaller circles are decorative (LEDs)
-NAME_RADIUS = 20       # a circle is named by an integer text this close
+MIN_ARC = 10           # arcs smaller than this are not screw circles
+MIN_CIRCLE = 7         # same for <circle> parts
 MAX_RESIDUAL = 1.5     # above, the 5 px grid is tried
+# EtherCAT sockets of the EK1914 drawing, measured on it (drawing units)
+EK1914_SOCKETS = [("EtherCAT IN", -22.0, -50.0), ("EtherCAT OUT", -22.0, 8.0)]
 
 
 def uid(*parts):
@@ -70,36 +77,44 @@ def num(v):
     return str(int(v)) if v == int(v) else ("%.2f" % v).rstrip("0")
 
 
-def circles_of(root):
-    out = []
-    for c in root.find("description").iter("circle"):
-        d = float(c.get("diameter"))
-        if d >= MIN_CIRCLE:
-            out.append((float(c.get("x")) + d / 2,
-                        float(c.get("y")) + d / 2, c))
-    return out
+def f(part, name):
+    return float(part.get(name))
 
 
-def name_circles(root, circles):
-    """Name each circle after the nearest integer text (greedy, one to one)."""
-    texts = []
-    for t in root.find("description").iter("text"):
-        s = t.get("text", "").strip()
-        if s.isdigit():
-            texts.append((float(t.get("x")) + 3, float(t.get("y")) + 5, s))
-    pairs = sorted((math.hypot(cx - tx, cy - ty), i, j)
-                   for i, (cx, cy, _) in enumerate(circles)
-                   for j, (tx, ty, _s) in enumerate(texts))
-    names, used = {}, set()
-    for dist, i, j in pairs:
-        if dist > NAME_RADIUS or i in names or j in used:
+def box(p):
+    """Bounding box (x0, y0, x1, y1) of a drawing part, or None."""
+    t, a = p.tag, p.attrib
+    if t in ("rect", "arc", "ellipse"):
+        x, y, w, h = f(p, "x"), f(p, "y"), f(p, "width"), f(p, "height")
+        return min(x, x + w), min(y, y + h), max(x, x + w), max(y, y + h)
+    if t == "circle":
+        d = f(p, "diameter")
+        return f(p, "x"), f(p, "y"), f(p, "x") + d, f(p, "y") + d
+    if t == "line":
+        xs, ys = [f(p, "x1"), f(p, "x2")], [f(p, "y1"), f(p, "y2")]
+        return min(xs), min(ys), max(xs), max(ys)
+    if t == "polygon":
+        xs = [float(v) for k, v in a.items() if k[0] == "x" and k[1:].isdigit()]
+        ys = [float(v) for k, v in a.items() if k[0] == "y" and k[1:].isdigit()]
+        return min(xs), min(ys), max(xs), max(ys)
+    return None
+
+
+def circles_of(desc):
+    """Centres of the screw circles: [(cx, cy, diameter)], sorted."""
+    found = {}
+    for p in desc:
+        d = None
+        if p.tag == "arc" and abs(f(p, "width")) >= MIN_ARC:
+            d = abs(f(p, "width"))
+        elif p.tag == "circle" and f(p, "diameter") >= MIN_CIRCLE:
+            d = f(p, "diameter")
+        if d is None:
             continue
-        names[i] = texts[j][2]
-        used.add(j)
-    for i in range(len(circles)):
-        if i not in names:
-            names[i] = "C%d" % (i + 1)
-    return names
+        x0, y0, x1, y1 = box(p)
+        key = (round((x0 + x1) / 2, 1), round((y0 + y1) / 2, 1))
+        found[key] = max(found.get(key, 0), d)
+    return [(k[0], k[1], d) for k, d in sorted(found.items())]
 
 
 def residual(values, s, offset, grid):
@@ -123,7 +138,7 @@ def fit(points, grid):
     xs = [p[0] for p in points]
     ys = [p[1] for p in points]
     candidates = []
-    for k in range(80, 141):
+    for k in range(60, 141):
         s = k / 100.0
         rx, ox = best_offset(xs, s, grid)
         ry, oy = best_offset(ys, s, grid)
@@ -139,7 +154,7 @@ def choose_scale(points):
     result = fit(points, 10)
     if result["residual"] > MAX_RESIDUAL:
         alt = fit(points, 5)
-        if alt["residual"] <= MAX_RESIDUAL:
+        if alt["residual"] < result["residual"]:
             return alt
     return result
 
@@ -153,10 +168,21 @@ def scale_font(font, s):
     return ",".join(parts)
 
 
-def transform(root, fitted, snap):
-    s, ox, oy = fitted["s"], fitted["ox"], fitted["oy"]
-    desc = root.find("description")
+def shift(part, dx, dy):
+    t = part.tag
+    if t in ("rect", "arc", "ellipse", "circle"):
+        part.set("x", num(f(part, "x") + dx))
+        part.set("y", num(f(part, "y") + dy))
+    elif t == "line":
+        for a, d in (("x1", dx), ("y1", dy), ("x2", dx), ("y2", dy)):
+            part.set(a, num(f(part, a) + d))
+    elif t == "polygon":
+        for a in list(part.attrib):
+            if a[0] in "xy" and a[1:].isdigit():
+                part.set(a, num(f(part, a) + (dx if a[0] == "x" else dy)))
 
+
+def transform(desc, s, ox, oy):
     def X(v):
         return s * v + ox
 
@@ -164,63 +190,61 @@ def transform(root, fitted, snap):
         return s * v + oy
 
     for part in list(desc):
-        tag = part.tag
-        if tag in ("rect", "arc"):
-            part.set("x", num(X(float(part.get("x")))))
-            part.set("y", num(Y(float(part.get("y")))))
-            part.set("width", num(s * float(part.get("width"))))
-            part.set("height", num(s * float(part.get("height"))))
-        elif tag == "line":
-            for a, f in (("x1", X), ("y1", Y), ("x2", X), ("y2", Y)):
-                part.set(a, num(f(float(part.get(a)))))
-        elif tag == "polygon":
+        t = part.tag
+        if t in ("rect", "arc", "ellipse"):
+            part.set("x", num(X(f(part, "x"))))
+            part.set("y", num(Y(f(part, "y"))))
+            part.set("width", num(s * f(part, "width")))
+            part.set("height", num(s * f(part, "height")))
+        elif t == "circle":
+            part.set("x", num(X(f(part, "x"))))
+            part.set("y", num(Y(f(part, "y"))))
+            part.set("diameter", num(s * f(part, "diameter")))
+        elif t == "line":
+            for a, fn in (("x1", X), ("y1", Y), ("x2", X), ("y2", Y)):
+                part.set(a, num(fn(f(part, a))))
+        elif t == "polygon":
             for a in list(part.attrib):
                 if a[0] == "x" and a[1:].isdigit():
-                    part.set(a, num(X(float(part.get(a)))))
+                    part.set(a, num(X(f(part, a))))
                 elif a[0] == "y" and a[1:].isdigit():
-                    part.set(a, num(Y(float(part.get(a)))))
-        elif tag == "circle":
-            d = float(part.get("diameter"))
-            cx, cy = float(part.get("x")) + d / 2, float(part.get("y")) + d / 2
-            nd = max(1.0, s * d)
-            if id(part) in snap:
-                cx, cy = snap[id(part)]
-            else:
-                cx, cy = X(cx), Y(cy)
-            part.set("diameter", num(nd))
-            part.set("x", num(cx - nd / 2))
-            part.set("y", num(cy - nd / 2))
-        elif tag in ("text", "dynamic_text"):
-            part.set("x", num(X(float(part.get("x")))))
-            part.set("y", num(Y(float(part.get("y")))))
+                    part.set(a, num(Y(f(part, a))))
+        elif t in ("text", "dynamic_text"):
+            part.set("x", num(X(f(part, "x"))))
+            part.set("y", num(Y(f(part, "y"))))
             if part.get("font"):
                 part.set("font", scale_font(part.get("font"), s))
-        elif tag == "terminal":
+        elif t == "terminal":
             desc.remove(part)
 
 
-def bounds(root):
+def snap_circles(desc, centres, grid):
+    """Move every circle (and the small parts inside it) onto the grid."""
+    maxd = max(c[2] for c in centres)
+    moves = []
+    for cx, cy, d in centres:
+        moves.append((cx, cy, round(cx / grid) * grid - cx,
+                      round(cy / grid) * grid - cy))
+    for part in list(desc):
+        b = box(part)
+        if b is None or max(b[2] - b[0], b[3] - b[1]) > 1.5 * maxd:
+            continue
+        mx, my = (b[0] + b[2]) / 2, (b[1] + b[3]) / 2
+        near = min(moves, key=lambda m: math.hypot(m[0] - mx, m[1] - my))
+        if math.hypot(near[0] - mx, near[1] - my) <= maxd * 0.6:
+            shift(part, near[2], near[3])
+
+
+def bounds(desc):
     xs, ys = [], []
-    for p in root.find("description"):
-        a = p.attrib
-        t = p.tag
-        if t in ("rect", "arc", "circle"):
-            w = float(a.get("width", a.get("diameter", 0)))
-            h = float(a.get("height", a.get("diameter", 0)))
-            x, y = float(a["x"]), float(a["y"])
-            xs += [x, x + w]
-            ys += [y, y + h]
-        elif t == "line":
-            xs += [float(a["x1"]), float(a["x2"])]
-            ys += [float(a["y1"]), float(a["y2"])]
-        elif t == "polygon":
-            xs += [float(v) for k, v in a.items()
-                   if k[0] == "x" and k[1:].isdigit()]
-            ys += [float(v) for k, v in a.items()
-                   if k[0] == "y" and k[1:].isdigit()]
-        elif t in ("text", "dynamic_text", "terminal"):
-            xs.append(float(a["x"]))
-            ys.append(float(a["y"]))
+    for p in desc:
+        b = box(p)
+        if b:
+            xs += [b[0], b[2]]
+            ys += [b[1], b[3]]
+        elif p.tag in ("text", "dynamic_text", "terminal"):
+            xs.append(f(p, "x"))
+            ys.append(f(p, "y"))
     return min(xs), min(ys), max(xs), max(ys)
 
 
@@ -236,74 +260,69 @@ def indent(elem, level=0):
         elem.tail = pad
 
 
-def layout_of(points):
-    xs = sorted(round(p[0]) for p in points)
-    clusters = 1
-    for a, b in zip(xs, xs[1:]):
-        if b - a > 6:
-            clusters += 1
-    return "rows" if clusters > 2 else "columns"
+def pin_names(key, grid_pts):
+    """Physical pin number of each circle (same order as grid_pts).
+
+    EL cards: two columns of four rows, left 1 to 4, right 5 to 8; the
+    second group of the EL2911 is 9 to 16. EK1914: rows of two, 1 to 16."""
+    xs = sorted({round(p[0]) for p in grid_pts})
+    ys = sorted({round(p[1]) for p in grid_pts})
+    names = []
+    for x, y in grid_pts:
+        c, r = xs.index(round(x)), ys.index(round(y))
+        if key == "ek1914":
+            names.append(str(2 * r + c + 1))
+        else:
+            names.append(str(8 * (c // 2) + 4 * (c % 2) + r + 1))
+    return names
 
 
-def build(key, drawings, symbols, out_dir):
-    src, name_en, name_fr, extra_names = CARDS[key]
-    root = ET.parse(os.path.join(drawings, src + ".elmt.elmt")).getroot()
-    symbol = ET.parse(os.path.join(symbols, key + ".elmt")).getroot()
+def build(key, drawings, elements):
+    ref, folder = CARDS[key]
+    out_dir = os.path.join(elements, folder)
+    root = ET.parse(os.path.join(drawings, "Beckhoff_%s.elmt" % ref)).getroot()
+    symbol = ET.parse(os.path.join(out_dir, key + ".elmt")).getroot()
     potentials = {t.get("name"): t.get("potential")
                   for t in symbol.find("description").iter("terminal")
                   if t.get("potential")}
-
-    circles = circles_of(root)
-    names = name_circles(root, circles)
-    fitted = choose_scale([(c[0], c[1]) for c in circles])
-    s, ox, oy, grid = fitted["s"], fitted["ox"], fitted["oy"], fitted["grid"]
-
-    snap, centres = {}, []
-    for i, (cx, cy, node) in enumerate(circles):
-        gx = round((s * cx + ox) / grid) * grid
-        gy = round((s * cy + oy) / grid) * grid
-        snap[id(node)] = (gx, gy)
-        centres.append((gx, gy, names[i]))
-
-    originals = [(float(t.get("x")), float(t.get("y")), t.get("orientation"))
-                 for t in root.find("description").iter("terminal")]
-    extras = [t for t in originals
-              if all(math.hypot(t[0] - c[0], t[1] - c[1]) > 30
-                     for c in circles)]
-
-    transform(root, fitted, snap)
     desc = root.find("description")
 
-    layout = layout_of([(c[0], c[1]) for c in centres])
-    mid_x = sum(c[0] for c in centres) / len(centres)
-    mid_y = sum(c[1] for c in centres) / len(centres)
-    for gx, gy, name in sorted(centres, key=lambda c: (c[1], c[0])):
-        if layout == "rows":
-            orient = "n" if gy < mid_y else "s"
-        else:
-            orient = "w" if gx < mid_x else "e"
-        attrs = {
-            "x": num(gx), "y": num(gy), "name": name, "orientation": orient,
-            "type": "Generic", "uuid": uid(key, "realistic", "term", name)}
-        # the potential of a pin (24 V, 0 V...) comes from the symbol
+    centres = circles_of(desc)
+    points = [(c[0], c[1]) for c in centres]
+    sockets = EK1914_SOCKETS if key == "ek1914" else []
+    fitted = choose_scale(points + [(x, y) for _, x, y in sockets])
+    s, ox, oy, grid = fitted["s"], fitted["ox"], fitted["oy"], fitted["grid"]
+
+    transform(desc, s, ox, oy)
+    scaled = [(s * c[0] + ox, s * c[1] + oy, s * c[2]) for c in centres]
+    snap_circles(desc, scaled, grid)
+    snapped = [(round(c[0] / grid) * grid, round(c[1] / grid) * grid)
+               for c in scaled]
+    names = pin_names(key, snapped)
+
+    mid_x = sum(p[0] for p in snapped) / len(snapped)
+    for (gx, gy), name in sorted(zip(snapped, names),
+                                 key=lambda z: int(z[1])):
+        attrs = {"x": num(gx), "y": num(gy), "name": name,
+                 "orientation": "w" if gx < mid_x else "e",
+                 "type": "Generic",
+                 "uuid": uid(key, "realistic", "term", name)}
         if name in potentials:
             attrs["potential"] = potentials[name]
         ET.SubElement(desc, "terminal", attrs)
-    for n, (ex, ey, orient) in enumerate(sorted(extras)):
-        label = extra_names[n] if n < len(extra_names) else "X%d" % (n + 1)
-        gx = round((s * ex + ox) / grid) * grid
-        gy = round((s * ey + oy) / grid) * grid
+    for name, sx, sy in sockets:
         ET.SubElement(desc, "terminal", {
-            "x": num(gx), "y": num(gy), "name": label,
-            "orientation": orient or "n", "type": "Generic",
-            "uuid": uid(key, "realistic", "term", label)})
+            "x": num(round((s * sx + ox) / grid) * grid),
+            "y": num(round((s * sy + oy) / grid) * grid),
+            "name": name, "orientation": "w", "type": "Generic",
+            "uuid": uid(key, "realistic", "term", name)})
 
-    labels = False
+    has_label = False
     for d in desc.iter("dynamic_text"):
         d.set("uuid", uid(key, "realistic", "dyn", d.get("x"), d.get("y")))
-        labels |= (d.findtext("info_name") == "label")
-    if not labels:
-        left, top, right, bottom = bounds(root)
+        has_label |= (d.findtext("info_name") == "label")
+    if not has_label:
+        left, top, right, bottom = bounds(desc)
         dyn = ET.SubElement(desc, "dynamic_text", {
             "x": num(left), "y": num(bottom + 4), "z": "25",
             "text_width": "-1", "Halignment": "AlignLeft",
@@ -314,7 +333,7 @@ def build(key, drawings, symbols, out_dir):
         ET.SubElement(dyn, "text")
         ET.SubElement(dyn, "info_name").text = "label"
 
-    left, top, right, bottom = bounds(root)
+    left, top, right, bottom = bounds(desc)
     left = math.floor((left - 5) / 10) * 10
     top = math.floor((top - 5) / 10) * 10
     width = int(math.ceil((right + 5 - left) / 10) * 10)
@@ -327,10 +346,11 @@ def build(key, drawings, symbols, out_dir):
         "hotspot_x": str(int(-left)), "hotspot_y": str(int(-top))})
     ET.SubElement(out, "uuid", {"uuid": uid(key, "realistic", "element")})
     names_el = ET.SubElement(out, "names")
-    ET.SubElement(names_el, "name", {"lang": "en"}).text = \
-        name_en + ", realistic view"
-    ET.SubElement(names_el, "name", {"lang": "fr"}).text = \
-        name_fr + ", vue réaliste"
+    for sym_name in symbol.find("names"):
+        suffix = (", realistic view" if sym_name.get("lang") == "en"
+                  else ", vue réaliste")
+        ET.SubElement(names_el, "name", {"lang": sym_name.get("lang")}).text = \
+            sym_name.text + suffix
     for tag in ("elementInformations", "kindInformations"):
         node = symbol.find(tag)
         if node is not None:
@@ -338,11 +358,11 @@ def build(key, drawings, symbols, out_dir):
     ET.SubElement(out, "informations").text = (
         "Author: QElectroTech contributors\n"
         "Realistic view made by misc/beckhoff/realistic_from_model.py from "
-        "a drawing of the user: scale %.2f, grid %d px, residual %.2f px. "
-        "License: see http://qelectrotech.org/wiki/doc/elements_license"
+        "a drawing supplied by the user: scale %.2f, grid %d px, residual "
+        "%.2f px. License: see "
+        "http://qelectrotech.org/wiki/doc/elements_license"
         % (s, grid, fitted["residual"]))
-    # the pins listed by the symbol must exist here, else the channel is
-    # described without pin (the pin-out of the card is then unknown)
+    # a channel whose pin does not exist on the drawing keeps no pin
     present = {t.get("name") for t in desc.iter("terminal")}
     for io in out.iter("plcIO"):
         pins = io.findall("terminal")
@@ -353,22 +373,23 @@ def build(key, drawings, symbols, out_dir):
     out.append(desc)
     indent(out)
     path = os.path.join(out_dir, key + "_realistic.elmt")
-    with open(path, "w", encoding="utf-8", newline="\n") as f:
-        f.write(ET.tostring(out, encoding="unicode") + "\n")
-    print("%-7s scale %.2f  offset (%.1f, %.1f)  grid %d px  "
-          "max residual %.2f px  circles %d  extra terminals %d  size %dx%d"
-          % (key, s, ox, oy, grid, fitted["residual"], len(circles),
-             len(extras), width, height))
+    with open(path, "w", encoding="utf-8", newline="\n") as fh:
+        fh.write(ET.tostring(out, encoding="unicode") + "\n")
+    worst = max(max(abs(p[0] - c[0]), abs(p[1] - c[1]))
+                for p, c in zip(snapped, scaled))
+    print("%-7s scale %.2f  offset (%.1f, %.1f)  grid %d px  fit residual "
+          "%.2f px  circles %d  sockets %d  size %dx%d  hotspot (%d, %d)"
+          % (key, s, ox, oy, grid, max(fitted["residual"], worst),
+             len(centres), len(sockets), width, height, -left, -top))
 
 
 def main():
-    if len(sys.argv) != 4:
+    if len(sys.argv) != 3:
         print(__doc__)
         return 2
-    drawings, symbols, out_dir = sys.argv[1:]
-    os.makedirs(out_dir, exist_ok=True)
+    drawings, elements = sys.argv[1:]
     for key in CARDS:
-        build(key, drawings, symbols, out_dir)
+        build(key, drawings, elements)
     return 0
 
 

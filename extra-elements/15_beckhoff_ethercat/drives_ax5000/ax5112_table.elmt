@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="master" width="390" height="154" hotspot_x="5" hotspot_y="29">
+<definition version="0.100.0" type="element" link_type="master" width="410" height="154" hotspot_x="5" hotspot_y="29">
 	<uuid uuid="{d8c200fa-84a4-52c0-9fbc-c6a7c7aa334a}"/>
 	<names>
 		<name lang="en">AX5112 servo drive, 1 axis - I/O table</name>
@@ -12,10 +12,20 @@
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
-		<plcMasterData rowHeight="8.00">
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="36"/>
+				<column index="2" width="110"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="40"/>
+			</columnWidths>
 			<columnVisibility>
 				<column index="5" visible="true"/>
 			</columnVisibility>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
 			<plcIOs>
 				<plcIO type="entree_universelle" address="X06-0" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>X06-0</terminal>

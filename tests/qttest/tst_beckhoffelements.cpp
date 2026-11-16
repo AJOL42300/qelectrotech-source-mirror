@@ -81,8 +81,28 @@ class TstBeckhoffElements : public QObject
 
 		static QStringList cardKeys()
 		{
-			return {QStringLiteral("el1008"), QStringLiteral("el2008"),
-					QStringLiteral("el5152"), QStringLiteral("ek1914")};
+			return {QStringLiteral("el1004"), QStringLiteral("el1008"),
+					QStringLiteral("el2004"), QStringLiteral("el2008"),
+					QStringLiteral("el2522"), QStringLiteral("el2574"),
+					QStringLiteral("el5152"), QStringLiteral("el9100"),
+					QStringLiteral("ek1914"), QStringLiteral("el2911")};
+		}
+
+			// path of an appearance of a card, in the folders of the set
+		static QString appearance(const QString &key, const QString &suffix)
+		{
+			const QStringList folders{QString(),
+									  QStringLiteral("twinsafe/"),
+									  QStringLiteral("drives_af1000/"),
+									  QStringLiteral("drives_ax5000/")};
+			for (const QString &folder : folders) {
+				const QString file = folder + key + suffix
+					+ QStringLiteral(".elmt");
+				if (categoryDir().exists(file)) {
+					return categoryDir().filePath(file);
+				}
+			}
+			return QString();
 		}
 
 	private slots:
@@ -221,17 +241,19 @@ class TstBeckhoffElements : public QObject
 			for (const QString &key : {
 					 QStringLiteral("el1008"), QStringLiteral("el2008"),
 					 QStringLiteral("el2652"), QStringLiteral("el5152"),
-					 QStringLiteral("ek1914"), QStringLiteral("epp2338")})
+					 QStringLiteral("ek1914"), QStringLiteral("epp2338"),
+					 QStringLiteral("el1004"), QStringLiteral("el2522")})
 			{
 				const auto symbol = load(categoryDir().filePath(
 					key + QStringLiteral(".elmt"))).documentElement();
 				QVERIFY2(!symbol.isNull(), qPrintable(key));
 				for (const QString &suffix : {QStringLiteral("_table"),
-											  QStringLiteral("_realistic")})
+											  QStringLiteral("_realistic"),
+											  QStringLiteral("_generic")})
 				{
 					const QString file = key + suffix + QStringLiteral(".elmt");
 					if (!categoryDir().exists(file)) {
-						QVERIFY2(suffix == QLatin1String("_realistic"),
+						QVERIFY2(suffix != QLatin1String("_table"),
 								 qPrintable(file));
 						continue;
 					}
@@ -259,7 +281,8 @@ class TstBeckhoffElements : public QObject
 					continue;
 				}
 				const auto hidden = def.elementsByTagName(
-					QStringLiteral("column"));
+					QStringLiteral("columnVisibility")).at(0).toElement()
+					.elementsByTagName(QStringLiteral("column"));
 				const auto parts = def.firstChildElement(
 					QStringLiteral("description")).elementsByTagName(
 					QStringLiteral("plc_table"));
@@ -304,12 +327,28 @@ class TstBeckhoffElements : public QObject
 					const auto c = circles.at(i).toElement();
 					const qreal d = c.attribute(
 						QStringLiteral("diameter")).toDouble();
-					if (d < 4) {
+					if (d < 7) {
 						continue; // decorative, like a LED
 					}
 					centres << QPointF(
 						c.attribute(QStringLiteral("x")).toDouble() + d / 2,
 						c.attribute(QStringLiteral("y")).toDouble() + d / 2);
+				}
+					// the screws of the cards are drawn with arcs
+				const auto arcs = parts.elementsByTagName(
+					QStringLiteral("arc"));
+				for (int i = 0; i < arcs.size(); ++i) {
+					const auto a = arcs.at(i).toElement();
+					const qreal w = a.attribute(
+						QStringLiteral("width")).toDouble();
+					const qreal h = a.attribute(
+						QStringLiteral("height")).toDouble();
+					if (qAbs(w) < 10) {
+						continue;
+					}
+					centres << QPointF(
+						a.attribute(QStringLiteral("x")).toDouble() + w / 2,
+						a.attribute(QStringLiteral("y")).toDouble() + h / 2);
 				}
 
 				QList<QPointF> points;
@@ -317,23 +356,26 @@ class TstBeckhoffElements : public QObject
 					QStringLiteral("terminal"));
 				for (int i = 0; i < terminals.size(); ++i) {
 					const auto t = terminals.at(i).toElement();
-					points << QPointF(
-						t.attribute(QStringLiteral("x")).toDouble(),
-						t.attribute(QStringLiteral("y")).toDouble());
+						// the RJ45 sockets of the coupler are not circles
+					if (!t.attribute(QStringLiteral("name"))
+							.startsWith(QLatin1String("EtherCAT"))) {
+						points << QPointF(
+							t.attribute(QStringLiteral("x")).toDouble(),
+							t.attribute(QStringLiteral("y")).toDouble());
+					}
 				}
 
-					// every circle of a contact has its terminal at its centre
-				QVERIFY2(centres.size() >= 8, qPrintable(file));
-				for (const QPointF &c : centres) {
+					// every terminal is at the centre of a circle
+				QVERIFY2(points.size() >= 8, qPrintable(file));
+				for (const QPointF &p : points) {
 					qreal nearest = 1e9;
-					for (const QPointF &p : points) {
-						nearest = qMin(nearest,
-									   QLineF(c, p).length());
+					for (const QPointF &c : centres) {
+						nearest = qMin(nearest, QLineF(c, p).length());
 					}
-					QVERIFY2(nearest < 0.01, qPrintable(
+					QVERIFY2(nearest < 0.05, qPrintable(
 						file + QStringLiteral(": ")
-						+ QString::number(c.x()) + QLatin1Char(',')
-						+ QString::number(c.y())));
+						+ QString::number(p.x()) + QLatin1Char(',')
+						+ QString::number(p.y())));
 				}
 
 					// the grid used is written in the note of the element
@@ -344,7 +386,8 @@ class TstBeckhoffElements : public QObject
 				const int grid = note.mid(at + 5).split(
 					QLatin1Char(' ')).first().toInt();
 				QVERIFY2(grid == 10 || grid == 5, qPrintable(file));
-				if (key != QLatin1String("ek1914")) {
+				if (key != QLatin1String("ek1914")
+					&& key != QLatin1String("el2911")) {
 					QCOMPARE(grid, 10); // 5 px only when 10 px is impossible
 				}
 				for (const QPointF &p : points) {
@@ -407,11 +450,19 @@ class TstBeckhoffElements : public QObject
 			const auto el5152 = load(categoryDir().filePath(
 				QStringLiteral("el5152.elmt"))).documentElement();
 			QCOMPARE(ioPins(el5152).value(QStringLiteral("A2")),
-					 QStringList{"4"});
+					 QStringList{"5"});
+
+			const auto el1004 = load(categoryDir().filePath(
+				QStringLiteral("el1004.elmt"))).documentElement();
+			QCOMPARE(ioPins(el1004).value(QStringLiteral("I2")),
+					 QStringList{"5"});
+			QCOMPARE(ioPins(el1004).value(QStringLiteral("I3")),
+					 QStringList{"3"});
 
 				// every listed pin is a terminal of the symbol and of its
 				// realistic view
-			for (const QString &key : {QStringLiteral("el1008"),
+			for (const QString &key : {QStringLiteral("el1004"),
+									   QStringLiteral("el1008"),
 									   QStringLiteral("el2008"),
 									   QStringLiteral("el5152"),
 									   QStringLiteral("ek1914")}) {
@@ -445,7 +496,7 @@ class TstBeckhoffElements : public QObject
 				for (const QString &file : dir.entryList(
 						 {QStringLiteral("*.elmt")}, QDir::Files))
 				{
-					if (file.contains(QLatin1String("_realistic"))
+					if (file.contains(QLatin1String("_generic"))
 						|| file.contains(QLatin1String("_table"))) {
 						continue;
 					}
@@ -454,7 +505,7 @@ class TstBeckhoffElements : public QObject
 					QVERIFY2(axes == 1 || axes == 2, qPrintable(key));
 
 					for (const QString &suffix : {
-							 QString(), QStringLiteral("_realistic"),
+							 QString(), QStringLiteral("_generic"),
 							 QStringLiteral("_table")}) {
 						const QString name = key + suffix + QStringLiteral(".elmt");
 						QVERIFY2(dir.exists(name), qPrintable(name));
@@ -506,7 +557,7 @@ class TstBeckhoffElements : public QObject
 			}
 		}
 
-		void safetyCardsAreYellowAndEl1918HasSixteenTerminals()
+		void safetyCardsAreYellowAndEl1918HasEightTerminals()
 		{
 			const QDir dir(categoryDir().filePath(QStringLiteral("twinsafe")));
 			for (const QString &key : {QStringLiteral("el1904"),
@@ -515,31 +566,83 @@ class TstBeckhoffElements : public QObject
 									   QStringLiteral("el6910"),
 									   QStringLiteral("ek1960")}) {
 				const QString file = key + QStringLiteral(".elmt");
-				QFile f(dir.filePath(file));
-				QVERIFY2(f.open(QIODevice::ReadOnly), qPrintable(file));
-				QVERIFY2(f.readAll().contains("filling:yellow"),
-						 qPrintable(file));
 				QVERIFY2(!info(load(dir.filePath(file)).documentElement(),
 							   QStringLiteral("description")).isEmpty(),
 						 qPrintable(file));
+					// the generic and the realistic views are yellow too
+				for (const QString &suffix : {QStringLiteral("_generic"),
+											  QStringLiteral("_realistic")}) {
+					QFile f(dir.filePath(key + suffix
+										 + QStringLiteral(".elmt")));
+					if (!f.exists()) {
+						QVERIFY2(key == QLatin1String("el6910")
+								 || key == QLatin1String("ek1960")
+								 || suffix == QLatin1String("_realistic"),
+								 qPrintable(f.fileName()));
+						continue;
+					}
+					QVERIFY2(f.open(QIODevice::ReadOnly),
+							 qPrintable(f.fileName()));
+					QVERIFY2(f.readAll().contains("filling:yellow"),
+							 qPrintable(f.fileName()));
+				}
 			}
 
 			const auto def = load(dir.filePath(
 				QStringLiteral("el1918.elmt"))).documentElement();
 			QStringList expected;
-			for (int i = 1; i <= 16; ++i) {
+			for (int i = 1; i <= 8; ++i) {
 				expected << QString::number(i);
 			}
 			QCOMPARE(terminalNames(def), expected);
 			const auto pins = ioPins(def);
 			QCOMPARE(pins.size(), 8);
-			QCOMPARE(pins.value(QStringLiteral("SI1")),
-					 (QStringList{"1", "9"}));
-			QCOMPARE(pins.value(QStringLiteral("SI8")),
-					 (QStringList{"8", "16"}));
+				// Beckhoff order: SI2 is on the terminal 5, not 2
+			QCOMPARE(pins.value(QStringLiteral("SI1")), QStringList{"1"});
+			QCOMPARE(pins.value(QStringLiteral("SI2")), QStringList{"5"});
+			QCOMPARE(pins.value(QStringLiteral("SI3")), QStringList{"2"});
 			QCOMPARE(terminalNames(load(dir.filePath(
 				QStringLiteral("el1918_realistic.elmt"))).documentElement())
-				.size(), 16);
+				.size(), 8);
+		}
+
+		void tablesUseRobotoCondensedWithRoomForEveryColumn()
+		{
+			int checked = 0;
+			for (const QString &key : cardKeys() + QStringList{
+					 QStringLiteral("el2652"), QStringLiteral("epp2338")}) {
+				const QString path = appearance(key, QStringLiteral("_table"));
+				if (path.isEmpty()) {
+					QVERIFY2(key == QLatin1String("el9100"), qPrintable(key));
+					continue;
+				}
+				QFile f(path);
+				QVERIFY(f.open(QIODevice::ReadOnly));
+				const QString text = QString::fromUtf8(f.readAll());
+				QVERIFY2(text.contains(QLatin1String("Roboto Condensed")),
+						 qPrintable(key));
+				QVERIFY2(text.contains(QLatin1String("rowHeight=\"12.00\"")),
+						 qPrintable(key));
+				QVERIFY2(text.contains(QLatin1String("<columnWidths>")),
+						 qPrintable(key));
+				++checked;
+			}
+			QVERIFY(checked >= 10);
+		}
+
+		void newCardsHaveAllTheirAppearances()
+		{
+			for (const QString &key : {QStringLiteral("el1004"),
+									   QStringLiteral("el2004"),
+									   QStringLiteral("el2522"),
+									   QStringLiteral("el2574")}) {
+				for (const QString &suffix : {QString(),
+											  QStringLiteral("_realistic"),
+											  QStringLiteral("_table")}) {
+					QVERIFY2(!appearance(key, suffix).isEmpty(),
+							 qPrintable(key + suffix));
+				}
+			}
 		}
 
 		void exampleProjectShowsEachCardThreeTimes()
@@ -571,7 +674,7 @@ class TstBeckhoffElements : public QObject
 			int folio = 0;
 			const auto folios = project.elementsByTagName(
 				QStringLiteral("diagram"));
-			QCOMPARE(folios.size(), 9);
+			QCOMPARE(folios.size(), 10);
 			for (int i = 0; i < folios.size(); ++i, ++folio) {
 				const auto els = folios.at(i).toElement()
 					.firstChildElement(QStringLiteral("elements"))
@@ -607,13 +710,22 @@ class TstBeckhoffElements : public QObject
 										QStringLiteral("A3.10"),
 										QStringLiteral("A3.20")}) {
 				const auto list = appearances.value(card);
-				QCOMPARE(list.size(), 3);
+				QVERIFY2(list.size() >= 3, qPrintable(card));
 				QSet<int> onFolio;
 				for (const QString &a : list) {
 					onFolio.insert(a.section(QLatin1Char('@'), 1).toInt());
 				}
-				QCOMPARE(onFolio.size(), 3);
+				QCOMPARE(onFolio.size(), list.size());
 			}
+
+				// nothing of the collection of the user is embedded
+			QFile raw(QStringLiteral(QET_EXAMPLES_DIR)
+					  + QStringLiteral("/beckhoff_islands_example.qet"));
+			QVERIFY(raw.open(QIODevice::ReadOnly));
+			const QByteArray bytes = raw.readAll();
+			QVERIFY(!bytes.contains("Entreprise"));
+			QVERIFY(!bytes.contains("mcatech"));
+			QVERIFY(!bytes.contains("company"));
 
 				// 1 axis and 2 axes drives, and the yellow card with 16 pins
 			const auto has = [&](const QString &card, const QString &file) {

@@ -114,6 +114,12 @@ class Elmt:
 ELEMENTS = {}
 
 
+def exists(category, name):
+    sub = category[len(CAT):].strip("/")
+    return os.path.exists(os.path.join(
+        ELMT_DIR, *(sub.split("/") if sub else []), name + ".elmt"))
+
+
 def get(category, name):
     key = (category, name)
     if key not in ELEMENTS:
@@ -278,7 +284,7 @@ def folio_realistic():
     els = []
     for label, name, x in CARDS:
         els.append(element_xml(get(CAT, name + "_realistic"), label,
-                               x - 300, 250, f"real/{label}"))
+                               x - 300, 230, f"real/{label}"))
     return diagram_xml(2, "A1 island - realistic views", els, [])
 
 
@@ -302,7 +308,7 @@ def island_folios(first, head_label, cards):
     sensor = get(DEV, "sensor")
     wired = []
     if cards[0][2] == "el1918":
-        wired = [("B3", 250, "A2.10", get(SAFE, "el1918"), ("1", "9"))]
+        wired = [("B3", 250, "A2.10", get(SAFE, "el1918"), ("1", "5"))]
     if cards[1:] and cards[1][2] == "af1103":
         wired.append(("B4", 450, "A2.20", get(AF, "af1103"), ("IN1",)))
     for label, x, card, el, pins in wired:
@@ -313,17 +319,24 @@ def island_folios(first, head_label, cards):
                 f"sym/{label}", label, sensor, str(i + 1)))
     folios = [diagram_xml(first, f"{head_label[:2]} island - symbols",
                           els, conductors, 9)]
-    els = [element_xml(get(cat, name + "_realistic"), label, 40 + 230 * n,
-                       20, f"real/{label}")
-           for n, (label, cat, name) in enumerate(cards)]
-    folios.append(diagram_xml(first + 1,
-                              f"{head_label[:2]} island - realistic views",
-                              els, [], 9))
+    for suffix, title in (("generic", "generic views"),
+                          ("realistic", "realistic views")):
+        here = [(label, cat, name) for label, cat, name in cards
+                if exists(cat, name + "_" + suffix)]
+        if not here:
+            continue
+        els = [element_xml(get(cat, name + "_" + suffix), label,
+                           60 + 230 * n, 220 if suffix == "realistic" else 20,
+                           f"{suffix}/{label}")
+               for n, (label, cat, name) in enumerate(here)]
+        folios.append(diagram_xml(first + len(folios),
+                                  f"{head_label[:2]} island - {title}",
+                                  els, [], 9))
     els = [element_xml(get(cat, name + "_table"), label,
-                       60 + 480 * (n % 2), 60 + 260 * (n // 2),
+                       60 + 480 * (n % 2), 60 + 320 * (n // 2),
                        f"table/{label}")
            for n, (label, cat, name) in enumerate(cards)]
-    folios.append(diagram_xml(first + 2,
+    folios.append(diagram_xml(first + len(folios),
                               f"{head_label[:2]} island - I/O tables",
                               els, [], 9))
     return folios

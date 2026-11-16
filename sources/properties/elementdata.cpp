@@ -18,6 +18,24 @@
 #include "elementdata.h"
 #include <qetxml.h>
 #include <QDebug>
+#include <QFont>
+
+namespace {
+	/**
+		@brief setTableFontFamily
+		Set the family of a table font. A condensed family that is not
+		installed falls back to a narrow one, so that the table keeps
+		its width.
+	*/
+	void setTableFontFamily(QFont &font, const QString &family)
+	{
+		font.setFamily(family);
+		if (family.contains(QLatin1String("Condensed"), Qt::CaseInsensitive))
+			font.setFamilies({family,
+							  QStringLiteral("Arial Narrow"),
+							  QStringLiteral("Liberation Sans Narrow")});
+	}
+}
 
 void ElementData::toSettings(QSettings &settings, const QString prefix) const {
 	Q_UNUSED(settings)
@@ -522,13 +540,13 @@ void ElementData::plcMasterDataFromXml(const QDomElement &xml_plc)
 	// Load fonts
 	auto xml_hfont = xml_plc.firstChildElement(QStringLiteral("headerFont"));
 	if (!xml_hfont.isNull()) {
-		m_plc_master_data.headerFont.setFamily(xml_hfont.attribute(QStringLiteral("family")));
+		setTableFontFamily(m_plc_master_data.headerFont, xml_hfont.attribute(QStringLiteral("family")));
 		m_plc_master_data.headerFont.setPointSize(xml_hfont.attribute(QStringLiteral("size")).toInt());
 		m_plc_master_data.headerFont.setBold(xml_hfont.attribute(QStringLiteral("bold")) == QLatin1String("true"));
 	}
 	auto xml_cfont = xml_plc.firstChildElement(QStringLiteral("cellFont"));
 	if (!xml_cfont.isNull()) {
-		m_plc_master_data.cellFont.setFamily(xml_cfont.attribute(QStringLiteral("family")));
+		setTableFontFamily(m_plc_master_data.cellFont, xml_cfont.attribute(QStringLiteral("family")));
 		m_plc_master_data.cellFont.setPointSize(xml_cfont.attribute(QStringLiteral("size")).toInt());
 		m_plc_master_data.cellFont.setBold(xml_cfont.attribute(QStringLiteral("bold")) == QLatin1String("true"));
 	}
@@ -1207,13 +1225,13 @@ void ElementData::kindInfoFromXml(const QDomElement &xml_element)
 			// Parse fonts
 			auto xml_hfont = xml_plc.firstChildElement(QStringLiteral("headerFont"));
 			if (!xml_hfont.isNull()) {
-				m_plc_master_data.headerFont.setFamily(xml_hfont.attribute(QStringLiteral("family")));
+				setTableFontFamily(m_plc_master_data.headerFont, xml_hfont.attribute(QStringLiteral("family")));
 				m_plc_master_data.headerFont.setPointSize(xml_hfont.attribute(QStringLiteral("size"), QStringLiteral("8")).toInt());
 				m_plc_master_data.headerFont.setBold(xml_hfont.attribute(QStringLiteral("bold")) == QLatin1String("true"));
 			}
 			auto xml_cfont = xml_plc.firstChildElement(QStringLiteral("cellFont"));
 			if (!xml_cfont.isNull()) {
-				m_plc_master_data.cellFont.setFamily(xml_cfont.attribute(QStringLiteral("family")));
+				setTableFontFamily(m_plc_master_data.cellFont, xml_cfont.attribute(QStringLiteral("family")));
 				m_plc_master_data.cellFont.setPointSize(xml_cfont.attribute(QStringLiteral("size"), QStringLiteral("8")).toInt());
 				m_plc_master_data.cellFont.setBold(xml_cfont.attribute(QStringLiteral("bold")) == QLatin1String("true"));
 			}

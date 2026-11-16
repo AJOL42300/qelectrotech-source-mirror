@@ -697,7 +697,11 @@ int IslandAppearances::create(QETProject *project, Element *element,
 				data.m_informations.addValue(key, source_info.value(key));
 			}
 		}
-		data.setPlcMasterData(source_data.plcMasterData());
+			//Only the channels are shared: the layout (fonts, columns, row
+			//height) belongs to the appearance
+		auto master = data.plcMasterData();
+		master.ios = source_data.plcMasterData().ios;
+		data.setPlcMasterData(master);
 		copy->setElementData(data);
 		created << copy;
 	}

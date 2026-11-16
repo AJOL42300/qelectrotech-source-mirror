@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="master" width="390" height="202" hotspot_x="5" hotspot_y="29">
+<definition version="0.100.0" type="element" link_type="master" width="410" height="202" hotspot_x="5" hotspot_y="29">
 	<uuid uuid="{2cad9322-fd31-567e-82c9-d8a23477423c}"/>
 	<names>
 		<name lang="en">EK1914 EtherCAT Coupler, 4 standard inputs, 4 standard outputs, 2 safe inputs, 2 safe outputs - I/O table</name>
@@ -12,10 +12,20 @@
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
-		<plcMasterData rowHeight="8.00">
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="36"/>
+				<column index="2" width="110"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="40"/>
+			</columnWidths>
 			<columnVisibility>
 				<column index="5" visible="true"/>
 			</columnVisibility>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
 			<plcIOs>
 				<plcIO type="entree_digitale" address="I1" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>I1</terminal>

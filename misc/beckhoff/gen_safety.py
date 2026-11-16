@@ -30,15 +30,17 @@ import gen_symbols as gs
 from gen_symbols import Elmt, NOTE
 
 YELLOW = "yellow"
-GENERIC = ("Generic layout, terminal numbering NOT verified against the "
-           "datasheet: check it before use.")
+GENERIC = ("Terminal numbering follows the user's own drawing and is NOT "
+           "verified against the datasheet: check it before use.")
 
 
 class Safety:
-    def __init__(self, key, ref, title, desc, pins, ios, tabled=True):
+    def __init__(self, key, ref, title, desc, pins, ios, rest=None,
+                 tabled=True):
         self.key, self.ref, self.title, self.desc = key, ref, title, desc
         self.pins = pins      # terminal numbers, in physical order
         self.ios = ios        # (kind, signal, [terminals])
+        self.rest = rest or {}  # terminal -> label of the terminals without channel
         self.tabled = tabled
 
     def infos(self):
@@ -47,6 +49,8 @@ class Safety:
                 ("description", "%s %s" % (self.desc, GENERIC))]
 
     def label_of(self, pin):
+        if pin in self.rest:
+            return self.rest[pin]
         for _, signal, pins in self.ios:
             if pin in pins:
                 return signal if pins[0] == pin else "%s (%d)" % (
@@ -74,7 +78,8 @@ class Safety:
         for column, x, sign in ((left, -50, -1), (right, 50, 1)):
             for i, pin in enumerate(column):
                 y = 40 + 20 * i
-                e.terminal(x, y, pin, "w" if sign < 0 else "e")
+                e.terminal(x, y, pin, "w" if sign < 0 else "e",
+                           gs.potential_of(self.label_of(pin)))
                 e.line(x, y, x - 10 * sign, y)
                 text = "%s %s" % (pin, self.label_of(pin)) if sign < 0 else \
                     "%s %s" % (self.label_of(pin), pin)
@@ -84,10 +89,10 @@ class Safety:
         e.dyn(-50, h + 16, "designation", 6)
         return e
 
-    def realistic(self):
-        e = Elmt(self.key + "_realistic",
-                 "%s %s - realistic" % (self.ref, self.title),
-                 "%s %s - réaliste" % (self.ref, self.title), self.infos(), NOTE)
+    def generic(self):
+        e = Elmt(self.key + "_generic",
+                 "%s %s - generic" % (self.ref, self.title),
+                 "%s %s - générique" % (self.ref, self.title), self.infos(), NOTE)
         self.add_io(e)
         left, right = self.split()
         rows = max(len(left), len(right), 1)
@@ -123,8 +128,8 @@ def plain(key, ref, title, desc, ports):
         e.line(x, y, x + (10 if side == "w" else -10), y)
         e.text(-44 if side == "w" else 44 - 4.2 * len(name), y - 6, name, 6)
     e.dyn(-50, h + 4, "label")
-    r = Elmt(key + "_realistic", "%s %s - realistic" % (ref, title),
-             "%s %s - réaliste" % (ref, title), list(e.infos), NOTE)
+    r = Elmt(key + "_generic", "%s %s - generic" % (ref, title),
+             "%s %s - générique" % (ref, title), list(e.infos), NOTE)
     r.rect(0, 0, 70, 60 + 20 * len(ports), fill=YELLOW)
     r.text(4, 4, "BECKHOFF", 4, True)
     r.text(4, 14, ref, 8, True)
@@ -138,23 +143,28 @@ def plain(key, ref, title, desc, ports):
 
 
 def cards():
-    si = lambda n, pins: [("entree_digitale", "SI%d" % i, [str(pins(i))])
-                          for i in range(1, n + 1)]
+    # pin-out read on the user's own drawings: the safe channels sit on the
+    # first terminal of each pair of the rows, the other terminals are 0 V
+    rows = {1: "1", 2: "5", 3: "3", 4: "7"}
     return [
         Safety("el1904", "EL1904", "EtherCAT Terminal, 4 fail-safe digital inputs, 24 V DC",
-               "TwinSAFE input terminal: SI1 to SI4 on the terminals 1 to 4.",
-               [str(i) for i in range(1, 9)], si(4, lambda i: i)),
-        Safety("el1918", "EL1918", "EtherCAT Terminal, 8 fail-safe digital inputs, 24 V DC",
-               "TwinSAFE input terminal, 16 terminals: two per safe input, "
-               "SIn on the terminals n and n+8 (left column 1 to 8, right "
-               "column 9 to 16).",
-               [str(i) for i in range(1, 17)],
-               [("entree_digitale", "SI%d" % i, [str(i), str(i + 8)])
-                for i in range(1, 9)]),
-        Safety("el2904", "EL2904", "EtherCAT Terminal, 4 fail-safe digital outputs, 24 V DC",
-               "TwinSAFE output terminal: SO1 to SO4 on the terminals 1 to 4.",
+               "TwinSAFE input terminal: SI1 to SI4 on the terminals 1, 5, 3 and 7; "
+               "the terminals 2, 6, 4 and 8 are 0 V.",
                [str(i) for i in range(1, 9)],
-               [("sortie_digitale", "SO%d" % i, [str(i)]) for i in range(1, 5)]),
+               [("entree_digitale", "SI%d" % i, [rows[i]]) for i in range(1, 5)],
+               {"2": "0V1", "6": "0V2", "4": "0V3", "8": "0V4"}),
+        Safety("el1918", "EL1918", "EtherCAT Terminal, 8 fail-safe digital inputs, 24 V DC",
+               "TwinSAFE input terminal, 8 terminals as drawn by the user (S1 to S8): "
+               "SI1 to SI8 on the terminals 1, 5, 2, 6, 3, 7, 4 and 8.",
+               [str(i) for i in range(1, 9)],
+               [("entree_digitale", "SI%d" % (i + 1), [str(p)])
+                for i, p in enumerate(gs.EL8_PINS)]),
+        Safety("el2904", "EL2904", "EtherCAT Terminal, 4 fail-safe digital outputs, 24 V DC",
+               "TwinSAFE output terminal: SO1 to SO4 on the terminals 1, 5, 3 and 7; "
+               "the terminals 2, 6, 4 and 8 are 0 V.",
+               [str(i) for i in range(1, 9)],
+               [("sortie_digitale", "SO%d" % i, [rows[i]]) for i in range(1, 5)],
+               {"2": "0V1", "6": "0V2", "4": "0V3", "8": "0V4"}),
     ]
 
 
@@ -167,7 +177,7 @@ def main(root):
     for c in cards():
         sym = c.symbol()
         files[c.key + ".elmt"] = sym.xml()
-        files[c.key + "_realistic.elmt"] = c.realistic().xml()
+        files[c.key + "_generic.elmt"] = c.generic().xml()
         files[c.key + "_table.elmt"] = gs.table_of(sym).xml()
     for key, ref, title, desc, ports in (
             ("el6910", "EL6910", "TwinSAFE Logic Terminal",
@@ -177,7 +187,7 @@ def main(root):
              [("EtherCAT IN", "w"), ("EtherCAT OUT", "e")])):
         sym, real = plain(key, ref, title, desc, ports)
         files[key + ".elmt"] = sym.xml()
-        files[key + "_realistic.elmt"] = real.xml()
+        files[key + "_generic.elmt"] = real.xml()
     for n, c in files.items():
         with open(os.path.join(out, n), "w", encoding="utf-8", newline="\n") as f:
             f.write(c)
