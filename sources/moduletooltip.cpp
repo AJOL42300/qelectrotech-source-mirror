@@ -89,8 +89,13 @@ QList<ElementData::PlcIO> ModuleTooltip::entriesOf(
 	if (pin_name.isEmpty()) return found;
 	const QString prefix = pin_name + QLatin1Char('(');
 	for (const ElementData::PlcIO &io : ios) {
-		if (io.address == pin_name || io.address.startsWith(prefix))
+		// A channel that names its terminals is found only through them
+		if (!io.terminals.isEmpty()) {
+			if (io.terminals.contains(pin_name)) found << io;
+		} else if (io.address == pin_name
+			   || io.address.startsWith(prefix)) {
 			found << io;
+		}
 	}
 	return found;
 }
@@ -115,8 +120,13 @@ QString ModuleTooltip::pinText(const Pin &pin,
 	QStringList parts;
 	parts << QStringLiteral("<b>%1</b>").arg(esc(pin.name));
 	const QList<ElementData::PlcIO> entries = entriesOf(pin.name, ios);
-	for (const ElementData::PlcIO &io : entries)
-		parts << entryText(io);
+	for (const ElementData::PlcIO &io : entries) {
+		// "terminal -> signal": the pin is not always the channel number
+		if (parts.size() == 1 && !io.terminals.isEmpty())
+			parts[0] += QStringLiteral(" &rarr; ") + entryText(io);
+		else
+			parts << entryText(io);
+	}
 	const QStringList links = linkedTo(pin, pins);
 	if (!pin.potential.isEmpty()) {
 		parts << (links.isEmpty()
@@ -149,7 +159,9 @@ QString ModuleTooltip::moduleText(const QString &title,
 			continue;
 		QStringList signal;
 		for (const ElementData::PlcIO &io : entries) {
-			signal << entryText(io);
+			signal << (io.terminals.isEmpty()
+				   ? entryText(io)
+				   : QStringLiteral("&rarr; ") + entryText(io));
 			used << io.address;
 		}
 		rows << QStringLiteral("<tr><td><b>%1</b>&nbsp;</td><td>%2&nbsp;</td><td>%3</td></tr>")

@@ -37,7 +37,10 @@
 	linked inside the module (24 V, 0 V, PE, a feed-through...);
 	- an entry of the I/O table belongs to a terminal when its address is
 	the name of the terminal, or starts with it followed by "(", as
-	"X01(1)" for the terminal "X01".
+	"X01(1)" for the terminal "X01";
+	- an entry that lists terminals (Beckhoff: the physical terminal number,
+	which is not always the channel number) belongs only to those
+	terminals, and the tooltip tells "terminal -> signal".
 */
 namespace ModuleTooltip
 {

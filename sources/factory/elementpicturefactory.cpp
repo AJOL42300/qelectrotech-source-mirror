@@ -1323,12 +1323,14 @@ void ElementPictureFactory::parsePlcTable(const QDomElement &dom, const QDomElem
 
 	if (plc_data.isNull()) return;
 
-	const int COL_COUNT = 5;
+	const int COL_COUNT = 6;
 	const int COL_TYPE     = 0;
 	const int COL_ADDRESS  = 1;
 	const int COL_FUNCTION = 2;
 	const int COL_COMMENT  = 3;
 	const int COL_CROSSREF = 4;
+	// Beckhoff pin of the channel: shown only when the file asks for it
+	const int COL_TERMINAL = 5;
 
 	qreal rowHeight = plc_data.attribute("rowHeight", "8.0").toDouble();
 
@@ -1423,6 +1425,11 @@ void ElementPictureFactory::parsePlcTable(const QDomElement &dom, const QDomElem
 		io_data[COL_FUNCTION] = xml_io.attribute("functionText");
 		io_data[COL_COMMENT]  = xml_io.attribute("comment");
 		io_data[COL_CROSSREF] = xml_io.attribute("crossRef");
+		QStringList pins;
+		for (auto xml_t = xml_io.firstChildElement("terminal");
+			 !xml_t.isNull(); xml_t = xml_t.nextSiblingElement("terminal"))
+			pins << xml_t.text();
+		io_data[COL_TERMINAL] = pins.join(", ");
 		ios.append(io_data);
 	}
 
@@ -1431,17 +1438,17 @@ void ElementPictureFactory::parsePlcTable(const QDomElement &dom, const QDomElem
 	if (!column_order.isEmpty()) {
 		for (int logical : column_order) {
 			if (logical >= 0 && logical < COL_COUNT
-				&& col_visible.value(logical, true)
+				&& col_visible.value(logical, logical != COL_TERMINAL)
 				&& !visible_cols.contains(logical))
 				visible_cols.append(logical);
 		}
 		for (int i = 0; i < COL_COUNT; ++i) {
-			if (col_visible.value(i, true) && !visible_cols.contains(i))
+			if (col_visible.value(i, i != COL_TERMINAL) && !visible_cols.contains(i))
 				visible_cols.append(i);
 		}
 	} else {
 		for (int i = 0; i < COL_COUNT; ++i) {
-			if (col_visible.value(i, true))
+			if (col_visible.value(i, i != COL_TERMINAL))
 				visible_cols.append(i);
 		}
 	}
@@ -1455,6 +1462,7 @@ void ElementPictureFactory::parsePlcTable(const QDomElement &dom, const QDomElem
 	headers[COL_FUNCTION] = QObject::tr("Function");
 	headers[COL_COMMENT]  = QObject::tr("Annotation");
 	headers[COL_CROSSREF] = QObject::tr("Cross-reference");
+	headers[COL_TERMINAL] = QObject::tr("Terminal");
 	for (auto it = column_names.constBegin(); it != column_names.constEnd(); ++it)
 		headers[it.key()] = it.value();
 

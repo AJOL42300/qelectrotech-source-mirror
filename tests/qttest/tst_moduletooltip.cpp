@@ -38,6 +38,7 @@ class TstModuleTooltip : public QObject
 
 	private slots:
 		void entriesFollowTheTerminalName();
+		void listedTerminalsWinOverTheAddress();
 		void potentialsLinkTerminals();
 		void wiresAndSignalsAreListed();
 		void nothingToSayGivesNoText();
@@ -54,6 +55,26 @@ void TstModuleTooltip::entriesFollowTheTerminalName()
 	QCOMPARE(ModuleTooltip::entriesOf("X02", ios).size(), 1);
 	QCOMPARE(ModuleTooltip::entriesOf("X03", ios).size(), 0);
 	QCOMPARE(ModuleTooltip::entriesOf(QString(), ios).size(), 0);
+}
+
+void TstModuleTooltip::listedTerminalsWinOverTheAddress()
+{
+	// channel I2 sits on the Beckhoff terminal 5
+	ElementData::PlcIO i2 = io("I2", "sensor");
+	i2.terminals << "5";
+	QVector<ElementData::PlcIO> ios;
+	ios << io("I1", "other") << i2;
+	QCOMPARE(ModuleTooltip::entriesOf("5", ios).size(), 1);
+	QCOMPARE(ModuleTooltip::entriesOf("5", ios).first().address,
+		 QString("I2"));
+	// "I1" has no terminal list: the legacy address rule still applies
+	QCOMPARE(ModuleTooltip::entriesOf("I1", ios).size(), 1);
+	QCOMPARE(ModuleTooltip::entriesOf("2", ios).size(), 0);
+
+	ModuleTooltip::Pin pin;
+	pin.name = "5";
+	const QString text = ModuleTooltip::pinText(pin, {pin}, ios);
+	QVERIFY(text.contains("<b>5</b> &rarr; <b>I2</b>"));
 }
 
 void TstModuleTooltip::potentialsLinkTerminals()

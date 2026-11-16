@@ -4023,12 +4023,14 @@ void Element::drawPlcTable(QPainter *painter)
 	if (positions.isEmpty())
 		positions.append(QPointF(0, 0));
 
-	const int COL_COUNT = 5;
+	const int COL_COUNT = 6;
 	const int COL_TYPE      = 0;
 	const int COL_ADDRESS   = 1;
 	const int COL_FUNCTION  = 2;
 	const int COL_COMMENT   = 3;
 	const int COL_CROSSREF  = 4;
+	// Beckhoff pin of the channel: shown only when the file asks for it
+	const int COL_TERMINAL  = 5;
 
 	// Build header labels
 	QMap<int, QString> headers;
@@ -4037,6 +4039,7 @@ void Element::drawPlcTable(QPainter *painter)
 	headers[COL_FUNCTION] = QObject::tr("Function");
 	headers[COL_COMMENT]  = QObject::tr("Annotation");
 	headers[COL_CROSSREF] = QObject::tr("Cross-reference");
+	headers[COL_TERMINAL] = QObject::tr("Terminal");
 
 	// Override with custom column names
 	if (!plc_data.columnNames.isEmpty()) {
@@ -4053,17 +4056,17 @@ void Element::drawPlcTable(QPainter *painter)
 	if (!plc_data.columnOrder.isEmpty()) {
 		for (int logical : plc_data.columnOrder) {
 			if (logical >= 0 && logical < COL_COUNT
-				&& plc_data.colVisible.value(logical, true)
+				&& plc_data.colVisible.value(logical, logical != COL_TERMINAL)
 				&& !visible_cols.contains(logical))
 				visible_cols.append(logical);
 		}
 		for (int i = 0; i < COL_COUNT; ++i) {
-			if (plc_data.colVisible.value(i, true) && !visible_cols.contains(i))
+			if (plc_data.colVisible.value(i, i != COL_TERMINAL) && !visible_cols.contains(i))
 				visible_cols.append(i);
 		}
 	} else {
 		for (int i = 0; i < COL_COUNT; ++i) {
-			if (plc_data.colVisible.value(i, true))
+			if (plc_data.colVisible.value(i, i != COL_TERMINAL))
 				visible_cols.append(i);
 		}
 	}
@@ -4082,6 +4085,7 @@ void Element::drawPlcTable(QPainter *painter)
 				case COL_FUNCTION: col_widths[col] = 50; break;
 				case COL_COMMENT:  col_widths[col] = 40; break;
 				case COL_CROSSREF: col_widths[col] = 30; break;
+				case COL_TERMINAL: col_widths[col] = 25; break;
 				default:           col_widths[col] = 30; break;
 			}
 		}
@@ -4173,6 +4177,9 @@ void Element::drawPlcTable(QPainter *painter)
 						case COL_ADDRESS:  cell_text = io.address; break;
 						case COL_FUNCTION: cell_text = io.functionText; break;
 						case COL_COMMENT:  cell_text = io.comment; break;
+						case COL_TERMINAL:
+							cell_text = io.terminals.join(QStringLiteral(", "));
+							break;
 						case COL_CROSSREF:
 						{
 							cell_text = io.crossRef;
