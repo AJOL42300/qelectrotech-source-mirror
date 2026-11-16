@@ -1,0 +1,43 @@
+<definition version="0.100.0" type="element" link_type="master" width="340" height="154" hotspot_x="5" hotspot_y="29">
+	<uuid uuid="{508bc5bc-278e-51f2-bff8-3741853b953e}"/>
+	<names>
+		<name lang="en">EL2008 digital output terminal (generic) - I/O table</name>
+		<name lang="fr">EL2008 borne de sortie numérique (générique) - tableau d'E/S</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">EL2008</elementInformation>
+		<elementInformation name="designation" show="1">EtherCAT Terminal, 8-channel digital output, 24 V DC, 0.5 A</elementInformation>
+		<elementInformation name="description" show="1">EtherCAT Terminal, digital output terminal. Generic layout: contacts 1 to 8; the signal on each contact depends on the exact type, see its datasheet. The I/O table lists the 8 contacts: edit it in the element properties.</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="8.00">
+			<plcIOs>
+				<plcIO type="sortie_digitale" address="1" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+				<plcIO type="sortie_digitale" address="2" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+				<plcIO type="sortie_digitale" address="3" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+				<plcIO type="sortie_digitale" address="4" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+				<plcIO type="sortie_digitale" address="5" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+				<plcIO type="sortie_digitale" address="6" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+				<plcIO type="sortie_digitale" address="7" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+				<plcIO type="sortie_digitale" address="8" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{8643f1c5-99dd-553f-8cf0-d70dff39c43c}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>label</info_name></dynamic_text>
+		<dynamic_text x="60" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{710cb4db-f310-5d99-b738-d8660d5e082e}" font="Liberation Sans,7,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
+		<plc_table x="0" y="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+	</description>
+</definition>

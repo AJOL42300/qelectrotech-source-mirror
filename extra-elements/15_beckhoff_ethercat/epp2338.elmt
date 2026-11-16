@@ -8,11 +8,18 @@
 		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
 		<elementInformation name="manufacturer_reference" show="1">EPP2338-0001</elementInformation>
 		<elementInformation name="designation" show="1">EtherCAT P Box, 8-channel digital combi, 24 V DC, 10 us, 0.5 A, M8</elementInformation>
-		<elementInformation name="description" show="1">EtherCAT P box with four M8 sockets X01 to X04, two channels each, EtherCAT P IN X50 and OUT X51. Generic layout, not the manufacturer drawing: put the picture under it. Fill in the function of each channel in the I/O table; the label of the box is the island id (BOX 01).</elementInformation>
+		<elementInformation name="description" show="1">EtherCAT P box with four M8 sockets X01 to X04, two channels each, EtherCAT P IN X50 and OUT X51. Generic layout, not the manufacturer drawing: put the picture under it. Fill in the function of each channel in the I/O table; the label of the box is the card id (A1.10).</elementInformation>
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
 		<plcMasterData rowHeight="8.00">
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="false"/>
+				<column index="2" visible="false"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+			</columnVisibility>
 			<plcIOs>
 				<plcIO type="entree_universelle" address="X01(1)" functionText="" comment="" crossRef="" terminalCount="0">
 				</plcIO>
