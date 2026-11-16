@@ -17,6 +17,9 @@ collection, as the category **Beckhoff EtherCAT (generic)**.
 | `el1008.elmt` | Beckhoff | EL1008 | contacts 1 to 8 |
 | `el2008.elmt` | Beckhoff | EL2008 | contacts 1 to 8 |
 | `el2652.elmt` | Beckhoff | EL2652 | contacts 1 to 4 (relay output, generic) |
+| `el5152.elmt` | Beckhoff | EL5152 | contacts 1 to 8 (generic layout) |
+| `*_realistic.elmt` | as the symbol | as the symbol | terminals on the circles of the drawing (EL1008, EL2008, EL5152, EK1914) |
+| `*_table.elmt` | as the symbol | as the symbol | none: the I/O table only (EL1008, EL2008, EL2652, EL5152, EK1914, EPP2338) |
 | `ek1100.elmt` | Beckhoff | EK1100 | EtherCAT IN, EtherCAT OUT |
 | `ek1322.elmt` | Beckhoff | EK1322 | IN X50, OUT X51, OUT X52 |
 | `ek1914.elmt` | Beckhoff | EK1914 | EtherCAT IN/OUT, I1 to I4, SI1, SI2, O1 to O4, SO1, SO2 |
@@ -67,25 +70,82 @@ else is copied from a datasheet.
 
 ## Island numbering
 
-An island is a coupler or a box with its cards. The cards take the label of
-the island followed by a number, in steps of 10, so that a card can be added
+An island is a coupler or a box (the **head**, `A1.00`) with its **cards**
+(`A1.10`, `A1.20`...). The prefix `A1` is the island number: the next island
+is `A2`. The cards are numbered in steps of 10, so that a card can be added
 between two others without renumbering:
 
 ```
-BOX 03        the island (coupler or box)
-BOX 03.10     first card
-BOX 03.20     second card
-BOX 03.15     card inserted between .10 and .20
+A1.00     the head of island A1 (coupler or box)
+A1.10     first card
+A1.20     second card
+A1.15     card inserted between .10 and .20
+A2.00     the head of the next island
 ```
 
 Use **Numbering > Number the cards of an island...**. Select the cards on the
-folio, give the island label (the existing islands are proposed), choose where
-to place them (end, beginning, after card N) and the reading order, then
-validate. When there is room, only the new cards are numbered (`.15` is
+folio, give the island label (`A1`; the existing islands are proposed), choose
+where to place them (end, beginning, after card N) and the reading order,
+then validate. When there is room, only the new cards are numbered (`.15` is
 the middle of `.10` and `.20`). Otherwise, or on request, all the cards of
 the island are renumbered by steps of 10. The whole operation is one undo
-step. Only the direct cards of the island are counted: `BOX 03.10.5`
-belongs to `BOX 03.10`.
+step. Only the direct cards of the island are counted: `A1.10.5`
+belongs to `A1.10`. A head written `A1` (without `.00`) is still recognised.
+
+### Parent, card, appearances
+
+A card can be drawn up to three times, as three elements: **symbol**
+(`el1008.elmt`), **realistic** view (`el1008_realistic.elmt`) and **I/O
+table** (`el1008_table.elmt`). The link between them is the label, not a
+reference to another object:
+
+```
+island A1
+ ├─ A1.00  head (ek1100)             symbol
+ ├─ A1.10  card (el1008)             symbol  +  realistic  +  I/O table
+ ├─ A1.20  card (el2008)             symbol  +  realistic  +  I/O table
+ └─ A1.30  card (el5152)             symbol  +  realistic  +  I/O table
+```
+
+- parent to card: the card label starts with the label of the head
+  (`A1.10` belongs to `A1`), with a step of 10 inherited from the island;
+- card to appearances: the three elements have the same label (`A1.10`), the
+  same manufacturer, reference and designation, and the same I/O table, so
+  that the used pins and the tooltip see them as one card.
+
+**Numbering > Create the other appearances...** (also in the context menu of
+a card) adds the missing appearances of the selected card, on the current
+folio (placed to its right), on another folio, or on a new folio, in one
+undo step, with the label, the information and the I/O table copied. It
+needs the symbols of the three appearances to be side by side in the same
+collection folder (`X.elmt`, `X_realistic.elmt`, `X_table.elmt`), as the
+Beckhoff ones are. Renumbering and duplicating work on the label, so they
+apply to every appearance at once.
+
+The nomenclature of the project counts each appearance, so a card drawn three
+times is counted three times by the core bill of materials. The I/O lists
+of the island and `qet_plc_io` list a card once.
+
+### Realistic appearances and the grid
+
+The realistic views are made from the user's own drawings of the "Entreprise"
+collection with `misc/beckhoff/realistic_from_model.py`: each terminal is
+placed on the centre of the circle it belongs to, and the drawing is scaled
+and shifted so that these centres fall on the grid of QElectroTech. The
+manufacturer drawings and texts are not part of the repository.
+
+| Element | Scale | Offset (px) | Grid | Largest remaining gap |
+| --- | --- | --- | --- | --- |
+| `el1008_realistic` | 1.00 | 4.5, 0 | 10 px | 0.5 px |
+| `el2008_realistic` | 1.00 | 4.5, 0 | 10 px | 0.5 px |
+| `el5152_realistic` | 1.13 | 1.8, 5.5 | 10 px | 1.2 px |
+| `ek1914_realistic` | 1.09 | 2.5, 3.8 | 5 px | 1.5 px |
+
+A single scale cannot bring all the circles of a drawing to the grid: the
+gap above is what is left, and the terminals are placed on the grid nodes.
+The EK1914 spacing only allows a 5 px grid. The grid used is written in the
+`informations` of each element and checked by the tests. The hotspot is the
+origin of the drawing after the offset.
 
 ## Folios generated for an island
 
@@ -120,10 +180,11 @@ Select the head of an island (or one of its cards) and use
 **Numbering > Duplicate the island...** or the context menu. One undo step
 copies the head and all its cards, in the same relative layout.
 
-- **New copy**: an independent island. The head takes the next free label
-  (`BOX 03` gives `BOX 04`, editable) and the cards take it by steps of 10 in
-  the same order (`BOX 04.10`, `BOX 04.20`...). A label already used by an
-  island or a card is refused. The formula, comment and location are
+- **New copy**: an independent island. The head takes the next free
+  identifier (`A1` gives `A2`, editable; any text ending with a number works,
+  `BOX 03` gives `BOX 04`) and the cards take it by steps of 10 in the same
+  order (`A2.00` for the head, `A2.10`, `A2.20`...). A label already used by
+  an island or a card is refused. The formula, comment and location are
   emptied, and so are the function, comment and cross reference of the
   channels, unless *Keep the function and the comment of the channels* is
   ticked. The channel addresses and types stay: they describe the module.
@@ -194,7 +255,35 @@ I did not find clear terms of use for the product pictures of the Beckhoff
 website, so whether you may use a picture is up to you. A photograph traces
 poorly: this works for line drawings and logos.
 
+## Example project
+
+`examples/beckhoff_islands_example.qet` shows island `A1`: its head `A1.00`
+(EK1100) and the cards `A1.10` (EL1008), `A1.20` (EL2008) and `A1.30`
+(EL5152). Folio 1 has the symbols, with two sensors wired on pins 1 and 2 of
+`A1.10` and a lamp on pin 1 of `A1.20` (these pins show as used); folio 2 the
+realistic views; folio 3 the I/O tables, where the used channels carry their
+function. All the generic Beckhoff elements are embedded in the project. It is
+written by `python misc/beckhoff/gen_example.py` (the uuids are fixed, so the
+file is always the same). Open it with the QElectroTech built from this
+branch (`build\qelectrotech.exe examples\beckhoff_islands_example.qet`).
+Checked: `--info`, `--resave` (a second save is identical to the first) and
+`--export-png`. The three appearances are tied by their label; there is no
+cross reference between them, and the head has no I/O table.
+
 ## Limits
+
+- The ios of the EK1914 are named `I1`..`SO2` while the terminals of its
+  realistic view are numbered `1`..`16`: the tooltip and the grey pins do not
+  match them there.
+- The designation of the EL5152 is generic and was not checked against a
+  datasheet.
+- No table is added automatically on the nomenclature folio: choose the folio
+  in *Create the other appearances*.
+- The drives (AF1000, AX5203, AX5206), the AX5805 and the EPP2338-0002 have no
+  realistic view yet.
+- The realistic views were checked by drawing them with their terminals
+  (every terminal is inside its circle), and by the tests; the interface
+  (menus, dialogs, tooltip) was not tried by hand.
 
 - No E-bus or power contact terminals are drawn between the I/O terminals.
 - A SVG conversion only keeps the colours of the symbol palette, no text,
