@@ -5528,6 +5528,13 @@ QStringList projectDataBase::publicViewStatements()
 			"s.folio AS folio, s.position AS position, "
 			"m.device_uuid AS plc_uuid, s.device_uuid AS slave_uuid "
 			"FROM io JOIN qet_devices m ON m.device_uuid = io.element_uuid "
+				//Several appearances of one card share its label and its
+				//table: only the first one (folio, position) is listed
+			"AND (COALESCE(m.label, '') = '' OR m.device_uuid = "
+				"(SELECT x.device_uuid FROM qet_devices x "
+				"WHERE x.device_uuid IN (SELECT element_uuid FROM io) "
+				"AND x.structure_id = m.structure_id AND x.label = m.label "
+				"ORDER BY x.folio_number, x.position, x.device_uuid LIMIT 1)) "
 			"LEFT JOIN link l ON l.element_uuid = io.element_uuid AND l.group_index = io.ord "
 			"LEFT JOIN qet_devices s ON s.device_uuid = l.linked_uuid "
 			"ORDER BY m.structure_id, io.ord"),

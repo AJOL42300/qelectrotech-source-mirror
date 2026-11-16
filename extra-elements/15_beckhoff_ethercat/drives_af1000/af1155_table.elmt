@@ -1,0 +1,48 @@
+<definition version="0.100.0" type="element" link_type="master" width="390" height="130" hotspot_x="5" hotspot_y="29">
+	<uuid uuid="{35d5548d-627e-59e6-aa7a-188fd53bdc43}"/>
+	<names>
+		<name lang="en">AF1155 servo drive, 1 axis - I/O table</name>
+		<name lang="fr">AF1155 variateur, 1 axe(s) - tableau d'E/S</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">AF1155</elementInformation>
+		<elementInformation name="designation" show="1">AF1155 servo drive, 1 axis</elementInformation>
+		<elementInformation name="description" show="1">AF 1-axis drive (the second digit of the reference is the number of axes). Rating from the project nomenclature: 5.5 kW, 18 A (as written in the project, to be checked). Redrawn in vector from a picture of the project, terminals snapped to the 10 px grid. Mains terminals drawn as 3-phase L1 L2 L3 PE RB+ RB-; the 1-phase version (L N PE RB+ RB-) is not drawn. 24V_A..C are the '25 Vdc' of a blurry picture, read as 24 V. Check against the datasheet.</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="8.00">
+			<columnVisibility>
+				<column index="5" visible="true"/>
+			</columnVisibility>
+			<plcIOs>
+				<plcIO type="entree_digitale" address="IN1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>IN1</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="IN5" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>IN5</terminal>
+				</plcIO>
+				<plcIO type="entree_analogique" address="TH1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>TH1</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="OUT" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>OUT</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="IN2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>IN2</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="IN6" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>IN6</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{17150e03-fb1b-5ef9-9a42-18c522508f55}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>label</info_name></dynamic_text>
+		<dynamic_text x="60" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{18e3b6cc-4c29-55c1-85ce-ced0c60f77ae}" font="Liberation Sans,7,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
+		<plc_table x="0" y="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+	</description>
+</definition>

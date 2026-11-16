@@ -1859,7 +1859,8 @@ void CrossRefItem::drawAsPlcTable(QPainter &painter)
 	const int COL_FUNCTION  = 2;
 	const int COL_COMMENT   = 3;
 	const int COL_CROSSREF  = 4;
-	const int COL_COUNT     = 5;
+	const int COL_TERMINAL  = 5; // shown only when the file asks for it
+	const int COL_COUNT     = 6;
 
 	// Column headers (French)
 	QMap<int, QString> headers;
@@ -1868,23 +1869,24 @@ void CrossRefItem::drawAsPlcTable(QPainter &painter)
 	headers[COL_FUNCTION] = QObject::tr("Function");
 	headers[COL_COMMENT]  = QObject::tr("Annotation");
 	headers[COL_CROSSREF] = QObject::tr("Cross-reference");
+	headers[COL_TERMINAL] = QObject::tr("Terminal");
 
 	// Build visible columns (must match Element::drawPlcTable logic)
 	QList<int> visible_cols;
 	if (!plc_data.columnOrder.isEmpty()) {
 		for (int logical : plc_data.columnOrder) {
 			if (logical >= 0 && logical < COL_COUNT
-				&& plc_data.colVisible.value(logical, true)
+				&& plc_data.colVisible.value(logical, logical != COL_TERMINAL)
 				&& !visible_cols.contains(logical))
 				visible_cols.append(logical);
 		}
 		for (int i = 0; i < COL_COUNT; ++i) {
-			if (plc_data.colVisible.value(i, true) && !visible_cols.contains(i))
+			if (plc_data.colVisible.value(i, i != COL_TERMINAL) && !visible_cols.contains(i))
 				visible_cols.append(i);
 		}
 	} else {
 		for (int i = 0; i < COL_COUNT; ++i) {
-			if (plc_data.colVisible.value(i, true))
+			if (plc_data.colVisible.value(i, i != COL_TERMINAL))
 				visible_cols.append(i);
 		}
 	}
@@ -2018,6 +2020,9 @@ void CrossRefItem::drawAsPlcTable(QPainter &painter)
 						break;
 					case COL_CROSSREF:
 						cell_text = cross_ref_text;
+						break;
+					case COL_TERMINAL:
+						cell_text = io.terminals.join(QStringLiteral(", "));
 						break;
 				}
 

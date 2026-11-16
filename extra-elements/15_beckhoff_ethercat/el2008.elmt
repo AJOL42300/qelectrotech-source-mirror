@@ -13,29 +13,36 @@
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
 		<plcMasterData rowHeight="8.00">
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="false"/>
+				<column index="2" visible="false"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+			</columnVisibility>
 			<plcIOs>
-				<plcIO type="sortie_digitale" address="1" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="sortie_digitale" address="O1" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>1</terminal>
 				</plcIO>
-				<plcIO type="sortie_digitale" address="2" functionText="" comment="" crossRef="" terminalCount="1">
-					<terminal>2</terminal>
-				</plcIO>
-				<plcIO type="sortie_digitale" address="3" functionText="" comment="" crossRef="" terminalCount="1">
-					<terminal>3</terminal>
-				</plcIO>
-				<plcIO type="sortie_digitale" address="4" functionText="" comment="" crossRef="" terminalCount="1">
-					<terminal>4</terminal>
-				</plcIO>
-				<plcIO type="sortie_digitale" address="5" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="sortie_digitale" address="O2" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>5</terminal>
 				</plcIO>
-				<plcIO type="sortie_digitale" address="6" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="sortie_digitale" address="O3" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>2</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="O4" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>6</terminal>
 				</plcIO>
-				<plcIO type="sortie_digitale" address="7" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="sortie_digitale" address="O5" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>3</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="O6" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>7</terminal>
 				</plcIO>
-				<plcIO type="sortie_digitale" address="8" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="sortie_digitale" address="O7" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>4</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="O8" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>8</terminal>
 				</plcIO>
 			</plcIOs>

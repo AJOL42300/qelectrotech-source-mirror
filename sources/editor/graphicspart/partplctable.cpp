@@ -66,24 +66,25 @@ QSizeF PartPlcTable::calculateTableSize() const
 	if (plc_data.ios.isEmpty())
 		return QSizeF(100, 50);
 
-	const int COL_COUNT = 5;
+	const int COL_COUNT = 6;
+	const int COL_TERMINAL = 5; // shown only when the file asks for it
 
 	// Build list of visible columns
 	QList<int> visible_cols;
 	if (!plc_data.columnOrder.isEmpty()) {
 		for (int logical : plc_data.columnOrder) {
 			if (logical >= 0 && logical < COL_COUNT
-				&& plc_data.colVisible.value(logical, true)
+				&& plc_data.colVisible.value(logical, logical != COL_TERMINAL)
 				&& !visible_cols.contains(logical))
 				visible_cols.append(logical);
 		}
 		for (int i = 0; i < COL_COUNT; ++i) {
-			if (plc_data.colVisible.value(i, true) && !visible_cols.contains(i))
+			if (plc_data.colVisible.value(i, i != COL_TERMINAL) && !visible_cols.contains(i))
 				visible_cols.append(i);
 		}
 	} else {
 		for (int i = 0; i < COL_COUNT; ++i) {
-			if (plc_data.colVisible.value(i, true))
+			if (plc_data.colVisible.value(i, i != COL_TERMINAL))
 				visible_cols.append(i);
 		}
 	}
@@ -203,7 +204,8 @@ void PartPlcTable::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 	const int COL_FUNCTION  = 2;
 	const int COL_COMMENT   = 3;
 	const int COL_CROSSREF  = 4;
-	const int COL_COUNT     = 5;
+	const int COL_TERMINAL  = 5; // shown only when the file asks for it
+	const int COL_COUNT     = 6;
 
 	QMap<int, QString> headers;
 	headers[COL_TYPE]     = QObject::tr("Type");
@@ -211,6 +213,7 @@ void PartPlcTable::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 	headers[COL_FUNCTION] = QObject::tr("Function");
 	headers[COL_COMMENT]  = QObject::tr("Annotation");
 	headers[COL_CROSSREF] = QObject::tr("Cross-reference");
+	headers[COL_TERMINAL] = QObject::tr("Terminal");
 
 	// Override with custom column names if set
 	if (!plc_data.columnNames.isEmpty()) {
@@ -226,17 +229,17 @@ void PartPlcTable::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 	if (!plc_data.columnOrder.isEmpty()) {
 		for (int logical : plc_data.columnOrder) {
 			if (logical >= 0 && logical < COL_COUNT
-				&& plc_data.colVisible.value(logical, true)
+				&& plc_data.colVisible.value(logical, logical != COL_TERMINAL)
 				&& !visible_cols.contains(logical))
 				visible_cols.append(logical);
 		}
 		for (int i = 0; i < COL_COUNT; ++i) {
-			if (plc_data.colVisible.value(i, true) && !visible_cols.contains(i))
+			if (plc_data.colVisible.value(i, i != COL_TERMINAL) && !visible_cols.contains(i))
 				visible_cols.append(i);
 		}
 	} else {
 		for (int i = 0; i < COL_COUNT; ++i) {
-			if (plc_data.colVisible.value(i, true))
+			if (plc_data.colVisible.value(i, i != COL_TERMINAL))
 				visible_cols.append(i);
 		}
 	}
@@ -344,6 +347,9 @@ void PartPlcTable::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 					case COL_FUNCTION: cell_text = io.functionText; break;
 					case COL_COMMENT:  cell_text = io.comment; break;
 					case COL_CROSSREF: cell_text = io.crossRef; break;
+					case COL_TERMINAL:
+						cell_text = io.terminals.join(QStringLiteral(", "));
+						break;
 				}
 
 				QRectF text_rect = cell_rect.adjusted(1, 0, -1, 0);

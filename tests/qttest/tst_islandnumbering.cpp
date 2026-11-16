@@ -37,7 +37,56 @@ class tst_IslandNumbering : public QObject
 		void queryListsCardsInNumberOrder();
 		void queryEscapesTheLabel();
 		void ioQueryListsChannelsByCard();
+		void headIsNumberZero();
+		void islandOfStripsTheCardNumber();
+		void copyOfAnIslandKeepsTheConvention();
+		void appearancesAreSiblingsOfTheSymbol();
 };
+
+void tst_IslandNumbering::headIsNumberZero()
+{
+	int n = -1;
+	QCOMPARE(IslandNumbering::headLabel("A1"), QString("A1.00"));
+	QVERIFY(IslandNumbering::numberOf("A1.00", "A1", &n));
+	QCOMPARE(n, 0);
+	QVERIFY(!IslandNumbering::numberOf("A1.00", "A2", &n));
+}
+
+void tst_IslandNumbering::islandOfStripsTheCardNumber()
+{
+	QCOMPARE(IslandNumbering::islandOf("A1.20"), QString("A1"));
+	QCOMPARE(IslandNumbering::islandOf("A12.00"), QString("A12"));
+	QCOMPARE(IslandNumbering::islandOf("A1"), QString("A1"));
+	QCOMPARE(IslandNumbering::islandOf("A1.x"), QString("A1.x"));
+	QCOMPARE(IslandNumbering::islandOf("A1.10.5"), QString("A1.10"));
+	QCOMPARE(IslandNumbering::islandOf(QString()), QString());
+}
+
+void tst_IslandNumbering::copyOfAnIslandKeepsTheConvention()
+{
+	const QString next = IslandNumbering::nextParent(
+		"A1", {"A1.00", "A1.10", "A1.20"});
+	QCOMPARE(next, QString("A2"));
+	QCOMPARE(IslandNumbering::headLabel(next), QString("A2.00"));
+	QCOMPARE(IslandNumbering::copyLabels(next, 2),
+			 (QStringList{"A2.10", "A2.20"}));
+	QCOMPARE(IslandNumbering::nextParent("A1", {"A2.00"}), QString("A3"));
+}
+
+void tst_IslandNumbering::appearancesAreSiblingsOfTheSymbol()
+{
+	const QString dir = "embed://import/15_beckhoff_ethercat/";
+	const QStringList symbol_others{dir + "el1008_realistic.elmt",
+									dir + "el1008_table.elmt"};
+	QCOMPARE(IslandNumbering::appearancePaths(dir + "el1008.elmt"),
+			 symbol_others);
+	QCOMPARE(IslandNumbering::appearancePaths(dir + "el1008_realistic.elmt"),
+			 (QStringList{dir + "el1008.elmt", dir + "el1008_table.elmt"}));
+	QCOMPARE(IslandNumbering::appearancePaths(dir + "el1008_table.elmt"),
+			 (QStringList{dir + "el1008.elmt",
+						  dir + "el1008_realistic.elmt"}));
+	QVERIFY(IslandNumbering::appearancePaths("no_extension").isEmpty());
+}
 
 void tst_IslandNumbering::childLabelInheritsParent()
 {

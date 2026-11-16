@@ -1,0 +1,46 @@
+<definition version="0.100.0" type="element" link_type="master" width="390" height="154" hotspot_x="5" hotspot_y="29">
+	<uuid uuid="{74bbed86-1156-59e0-bf72-1e0e7ded74be}"/>
+	<names>
+		<name lang="en">EPP2338 EtherCAT P box, 8 channels - I/O table</name>
+		<name lang="fr">EPP2338 boîtier EtherCAT P, 8 voies - tableau d'E/S</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">EPP2338-0001</elementInformation>
+		<elementInformation name="designation" show="1">EtherCAT P Box, 8-channel digital combi, 24 V DC, 10 us, 0.5 A, M8</elementInformation>
+		<elementInformation name="description" show="1">EtherCAT P box with four M8 sockets X01 to X04, two channels each, EtherCAT P IN X50 and OUT X51. Generic layout, not the manufacturer drawing: put the picture under it. Fill in the function of each channel in the I/O table; the label of the box is the card id (A1.10).</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="8.00">
+			<columnVisibility>
+				<column index="5" visible="true"/>
+			</columnVisibility>
+			<plcIOs>
+				<plcIO type="entree_universelle" address="X01(1)" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+				<plcIO type="entree_universelle" address="X01(2)" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+				<plcIO type="entree_universelle" address="X02(1)" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+				<plcIO type="entree_universelle" address="X02(2)" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+				<plcIO type="entree_universelle" address="X03(1)" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+				<plcIO type="entree_universelle" address="X03(2)" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+				<plcIO type="entree_universelle" address="X04(1)" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+				<plcIO type="entree_universelle" address="X04(2)" functionText="" comment="" crossRef="" terminalCount="0">
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{b7cfae8c-bcef-5c8c-b2cd-b8b51a886655}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>label</info_name></dynamic_text>
+		<dynamic_text x="60" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{e093681f-2232-5fbc-bc6f-8dff62c31a0c}" font="Liberation Sans,7,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
+		<plc_table x="0" y="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+	</description>
+</definition>

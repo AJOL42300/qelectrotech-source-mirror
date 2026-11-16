@@ -676,7 +676,12 @@ int checkOneElement(const QString &path, bool grid)
 		return 2;
 	}
 
-	const QDomNodeList terminal_nodes = root.elementsByTagName("terminal");
+	// the <terminal> children of a plcIO name pins, they are not terminals
+	const QDomNodeList description_nodes =
+		root.elementsByTagName("description");
+	const QDomNodeList terminal_nodes = description_nodes.isEmpty()
+		? QDomNodeList()
+		: description_nodes.at(0).toElement().elementsByTagName("terminal");
 	const int terminals = terminal_nodes.count();
 	QStringList terminal_names;
 	for (int i = 0; i < terminals; ++i)

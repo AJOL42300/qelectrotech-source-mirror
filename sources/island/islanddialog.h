@@ -107,4 +107,22 @@ class IslandDuplicateDialog : public QDialog
 		QCheckBox *m_keep_signals;
 };
 
+/**
+	@brief Other appearances of a card.
+
+	A card can be drawn as a realistic view, as a symbol and as a table
+	of its inputs and outputs: three elements of the same collection
+	folder, named "card.elmt", "card_realistic.elmt" and "card_table.elmt"
+	(see IslandNumbering::appearancePaths). They share the label of the
+	card, so they are the same card on the folios.
+*/
+namespace IslandAppearances
+{
+	bool hasMissing(QETProject *project, Element *element);
+	int create(QETProject *project, Element *element, Diagram *target,
+			   QString *error = nullptr);
+	void askAndCreate(QETProject *project, Element *element,
+					  Diagram *current, QWidget *parent);
+}
+
 #endif
