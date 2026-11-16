@@ -1,0 +1,62 @@
+<definition version="0.100.0" type="element" link_type="master" width="390" height="154" hotspot_x="5" hotspot_y="29">
+	<uuid uuid="{ea18e5d2-def7-58ed-a34b-71e982f7bb14}"/>
+	<names>
+		<name lang="en">EL1918 EtherCAT Terminal, 8 fail-safe digital inputs, 24 V DC - I/O table</name>
+		<name lang="fr">EL1918 EtherCAT Terminal, 8 fail-safe digital inputs, 24 V DC - tableau d'E/S</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">EL1918</elementInformation>
+		<elementInformation name="designation" show="1">EtherCAT Terminal, 8 fail-safe digital inputs, 24 V DC</elementInformation>
+		<elementInformation name="description" show="1">TwinSAFE input terminal, 16 terminals: two per safe input, SIn on the terminals n and n+8 (left column 1 to 8, right column 9 to 16). Generic layout, terminal numbering NOT verified against the datasheet: check it before use.</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="8.00">
+			<columnVisibility>
+				<column index="5" visible="true"/>
+			</columnVisibility>
+			<plcIOs>
+				<plcIO type="entree_digitale" address="SI1" functionText="" comment="" crossRef="" terminalCount="2">
+					<terminal>1</terminal>
+					<terminal>9</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI2" functionText="" comment="" crossRef="" terminalCount="2">
+					<terminal>2</terminal>
+					<terminal>10</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI3" functionText="" comment="" crossRef="" terminalCount="2">
+					<terminal>3</terminal>
+					<terminal>11</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI4" functionText="" comment="" crossRef="" terminalCount="2">
+					<terminal>4</terminal>
+					<terminal>12</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI5" functionText="" comment="" crossRef="" terminalCount="2">
+					<terminal>5</terminal>
+					<terminal>13</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI6" functionText="" comment="" crossRef="" terminalCount="2">
+					<terminal>6</terminal>
+					<terminal>14</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI7" functionText="" comment="" crossRef="" terminalCount="2">
+					<terminal>7</terminal>
+					<terminal>15</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI8" functionText="" comment="" crossRef="" terminalCount="2">
+					<terminal>8</terminal>
+					<terminal>16</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{f424cf47-7be1-57c0-aff8-b79bd862a8ec}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>label</info_name></dynamic_text>
+		<dynamic_text x="60" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{c8e3d29b-8c1f-5613-8ebd-4f312c27284a}" font="Liberation Sans,7,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
+		<plc_table x="0" y="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+	</description>
+</definition>

@@ -1,0 +1,115 @@
+<definition version="0.100.0" type="element" link_type="master" width="80" height="154" hotspot_x="5" hotspot_y="5">
+	<uuid uuid="{573ae4b7-b663-5b13-9baf-39beeaf7c5df}"/>
+	<names>
+		<name lang="en">EL1918 EtherCAT Terminal, 8 fail-safe digital inputs, 24 V DC - realistic</name>
+		<name lang="fr">EL1918 EtherCAT Terminal, 8 fail-safe digital inputs, 24 V DC - réaliste</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">EL1918</elementInformation>
+		<elementInformation name="designation" show="1">EtherCAT Terminal, 8 fail-safe digital inputs, 24 V DC</elementInformation>
+		<elementInformation name="description" show="1">TwinSAFE input terminal, 16 terminals: two per safe input, SIn on the terminals n and n+8 (left column 1 to 8, right column 9 to 16). Generic layout, terminal numbering NOT verified against the datasheet: check it before use.</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="8.00">
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="false"/>
+				<column index="2" visible="false"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+			</columnVisibility>
+			<plcIOs>
+				<plcIO type="entree_digitale" address="SI1" functionText="" comment="" crossRef="" terminalCount="2">
+					<terminal>1</terminal>
+					<terminal>9</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI2" functionText="" comment="" crossRef="" terminalCount="2">
+					<terminal>2</terminal>
+					<terminal>10</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI3" functionText="" comment="" crossRef="" terminalCount="2">
+					<terminal>3</terminal>
+					<terminal>11</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI4" functionText="" comment="" crossRef="" terminalCount="2">
+					<terminal>4</terminal>
+					<terminal>12</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI5" functionText="" comment="" crossRef="" terminalCount="2">
+					<terminal>5</terminal>
+					<terminal>13</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI6" functionText="" comment="" crossRef="" terminalCount="2">
+					<terminal>6</terminal>
+					<terminal>14</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI7" functionText="" comment="" crossRef="" terminalCount="2">
+					<terminal>7</terminal>
+					<terminal>15</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI8" functionText="" comment="" crossRef="" terminalCount="2">
+					<terminal>8</terminal>
+					<terminal>16</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="0" y="0" width="70" height="140" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:yellow;color:black" antialias="false"/>
+		<text x="4" y="4" font="Liberation Sans,4,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="BECKHOFF"/>
+		<text x="4" y="14" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="EL1918"/>
+		<circle x="17" y="37" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+		<terminal x="20" y="40" name="1" orientation="w" type="Generic" uuid="{34cee65b-9c20-585a-8f9d-992ef9db1017}"/>
+		<text x="4" y="36" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="1"/>
+		<circle x="17" y="47" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+		<terminal x="20" y="50" name="2" orientation="w" type="Generic" uuid="{a9604701-3374-5bcf-858d-ee298ee54bb7}"/>
+		<text x="4" y="46" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2"/>
+		<circle x="17" y="57" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+		<terminal x="20" y="60" name="3" orientation="w" type="Generic" uuid="{7ecee030-76f3-53f0-b104-fdb6e4761604}"/>
+		<text x="4" y="56" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="3"/>
+		<circle x="17" y="67" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+		<terminal x="20" y="70" name="4" orientation="w" type="Generic" uuid="{d1f3bdb7-dc78-5344-8b43-832aac304956}"/>
+		<text x="4" y="66" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4"/>
+		<circle x="17" y="77" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+		<terminal x="20" y="80" name="5" orientation="w" type="Generic" uuid="{7f26dc9a-02bf-50ec-a2f3-860277f18a5e}"/>
+		<text x="4" y="76" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="5"/>
+		<circle x="17" y="87" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+		<terminal x="20" y="90" name="6" orientation="w" type="Generic" uuid="{26335c02-3c07-5383-b24c-e6958b1f3e0d}"/>
+		<text x="4" y="86" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="6"/>
+		<circle x="17" y="97" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+		<terminal x="20" y="100" name="7" orientation="w" type="Generic" uuid="{3c8a09e5-f798-5330-b404-20af2b00f5f7}"/>
+		<text x="4" y="96" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7"/>
+		<circle x="17" y="107" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+		<terminal x="20" y="110" name="8" orientation="w" type="Generic" uuid="{affd7541-5d17-5da7-9e3b-0a05d0f1b422}"/>
+		<text x="4" y="106" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="8"/>
+		<circle x="47" y="37" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+		<terminal x="50" y="40" name="9" orientation="e" type="Generic" uuid="{760fc80d-1095-5e5a-890b-a585d613c03b}"/>
+		<text x="58" y="36" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="9"/>
+		<circle x="47" y="47" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+		<terminal x="50" y="50" name="10" orientation="e" type="Generic" uuid="{92ee06e9-d7bb-5527-adff-1fc98ea15946}"/>
+		<text x="58" y="46" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="10"/>
+		<circle x="47" y="57" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+		<terminal x="50" y="60" name="11" orientation="e" type="Generic" uuid="{24019d5c-fa27-5c17-88ad-edb126bff4fd}"/>
+		<text x="58" y="56" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="11"/>
+		<circle x="47" y="67" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+		<terminal x="50" y="70" name="12" orientation="e" type="Generic" uuid="{25b9cb8e-6a8a-58a2-9955-dc86d9f0af21}"/>
+		<text x="58" y="66" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="12"/>
+		<circle x="47" y="77" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+		<terminal x="50" y="80" name="13" orientation="e" type="Generic" uuid="{6d4157a4-5806-502e-99ec-d12a6bc5ed9f}"/>
+		<text x="58" y="76" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="13"/>
+		<circle x="47" y="87" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+		<terminal x="50" y="90" name="14" orientation="e" type="Generic" uuid="{82db0a25-9657-581c-a2a6-1fdc2f25864e}"/>
+		<text x="58" y="86" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="14"/>
+		<circle x="47" y="97" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+		<terminal x="50" y="100" name="15" orientation="e" type="Generic" uuid="{0bb6c665-b334-52c4-91c9-905f9ec20b80}"/>
+		<text x="58" y="96" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="15"/>
+		<circle x="47" y="107" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+		<terminal x="50" y="110" name="16" orientation="e" type="Generic" uuid="{5d96172c-d775-523a-b94f-15baad60295f}"/>
+		<text x="58" y="106" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="16"/>
+		<dynamic_text x="0" y="144" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{9104f5e9-a49d-5c0f-ba9d-39d8a6ebc9ec}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+	</description>
+</definition>

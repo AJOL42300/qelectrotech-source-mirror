@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="master" width="340" height="154" hotspot_x="5" hotspot_y="29">
+<definition version="0.100.0" type="element" link_type="master" width="390" height="154" hotspot_x="5" hotspot_y="29">
 	<uuid uuid="{74bbed86-1156-59e0-bf72-1e0e7ded74be}"/>
 	<names>
 		<name lang="en">EPP2338 EtherCAT P box, 8 channels - I/O table</name>
@@ -13,6 +13,9 @@
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
 		<plcMasterData rowHeight="8.00">
+			<columnVisibility>
+				<column index="5" visible="true"/>
+			</columnVisibility>
 			<plcIOs>
 				<plcIO type="entree_universelle" address="X01(1)" functionText="" comment="" crossRef="" terminalCount="0">
 				</plcIO>

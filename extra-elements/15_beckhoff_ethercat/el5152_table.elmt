@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="master" width="340" height="154" hotspot_x="5" hotspot_y="29">
+<definition version="0.100.0" type="element" link_type="master" width="390" height="106" hotspot_x="5" hotspot_y="29">
 	<uuid uuid="{f8c15696-642c-5b96-b8df-38e302d662dd}"/>
 	<names>
 		<name lang="en">EL5152 encoder input terminal (generic) - I/O table</name>
@@ -8,27 +8,26 @@
 		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
 		<elementInformation name="manufacturer_reference" show="1">EL5152</elementInformation>
 		<elementInformation name="designation" show="1">EL5152 EtherCAT Terminal</elementInformation>
-		<elementInformation name="description" show="1">EtherCAT Terminal, encoder input terminal. Generic layout: contacts 1 to 8; the signal on each contact depends on the exact type, see its datasheet. The I/O table lists the 8 contacts: edit it in the element properties.</elementInformation>
+		<elementInformation name="description" show="1">EtherCAT Terminal, two incremental encoder inputs A/B. Terminals numbered in the Beckhoff order, as in the user's drawing: 1 A1, 2 +, 3 -, 4 A2 on the left; 5 B1, 6 +, 7 -, 8 B2 on the right. Check against the datasheet of your terminal.</elementInformation>
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
 		<plcMasterData rowHeight="8.00">
+			<columnVisibility>
+				<column index="5" visible="true"/>
+			</columnVisibility>
 			<plcIOs>
-				<plcIO type="entree_universelle" address="1" functionText="" comment="" crossRef="" terminalCount="0">
+				<plcIO type="entree_digitale" address="A1" functionText="Encoder 1, A" comment="" crossRef="" terminalCount="1">
+					<terminal>1</terminal>
 				</plcIO>
-				<plcIO type="entree_universelle" address="2" functionText="" comment="" crossRef="" terminalCount="0">
+				<plcIO type="entree_digitale" address="B1" functionText="Encoder 1, B" comment="" crossRef="" terminalCount="1">
+					<terminal>5</terminal>
 				</plcIO>
-				<plcIO type="entree_universelle" address="3" functionText="" comment="" crossRef="" terminalCount="0">
+				<plcIO type="entree_digitale" address="A2" functionText="Encoder 2, A" comment="" crossRef="" terminalCount="1">
+					<terminal>4</terminal>
 				</plcIO>
-				<plcIO type="entree_universelle" address="4" functionText="" comment="" crossRef="" terminalCount="0">
-				</plcIO>
-				<plcIO type="entree_universelle" address="5" functionText="" comment="" crossRef="" terminalCount="0">
-				</plcIO>
-				<plcIO type="entree_universelle" address="6" functionText="" comment="" crossRef="" terminalCount="0">
-				</plcIO>
-				<plcIO type="entree_universelle" address="7" functionText="" comment="" crossRef="" terminalCount="0">
-				</plcIO>
-				<plcIO type="entree_universelle" address="8" functionText="" comment="" crossRef="" terminalCount="0">
+				<plcIO type="entree_digitale" address="B2" functionText="Encoder 2, B" comment="" crossRef="" terminalCount="1">
+					<terminal>8</terminal>
 				</plcIO>
 			</plcIOs>
 		</plcMasterData>

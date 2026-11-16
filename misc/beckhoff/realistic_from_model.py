@@ -249,6 +249,9 @@ def build(key, drawings, symbols, out_dir):
     src, name_en, name_fr, extra_names = CARDS[key]
     root = ET.parse(os.path.join(drawings, src + ".elmt.elmt")).getroot()
     symbol = ET.parse(os.path.join(symbols, key + ".elmt")).getroot()
+    potentials = {t.get("name"): t.get("potential")
+                  for t in symbol.find("description").iter("terminal")
+                  if t.get("potential")}
 
     circles = circles_of(root)
     names = name_circles(root, circles)
@@ -279,9 +282,13 @@ def build(key, drawings, symbols, out_dir):
             orient = "n" if gy < mid_y else "s"
         else:
             orient = "w" if gx < mid_x else "e"
-        ET.SubElement(desc, "terminal", {
+        attrs = {
             "x": num(gx), "y": num(gy), "name": name, "orientation": orient,
-            "type": "Generic", "uuid": uid(key, "realistic", "term", name)})
+            "type": "Generic", "uuid": uid(key, "realistic", "term", name)}
+        # the potential of a pin (24 V, 0 V...) comes from the symbol
+        if name in potentials:
+            attrs["potential"] = potentials[name]
+        ET.SubElement(desc, "terminal", attrs)
     for n, (ex, ey, orient) in enumerate(sorted(extras)):
         label = extra_names[n] if n < len(extra_names) else "X%d" % (n + 1)
         gx = round((s * ex + ox) / grid) * grid
@@ -334,6 +341,15 @@ def build(key, drawings, symbols, out_dir):
         "a drawing of the user: scale %.2f, grid %d px, residual %.2f px. "
         "License: see http://qelectrotech.org/wiki/doc/elements_license"
         % (s, grid, fitted["residual"]))
+    # the pins listed by the symbol must exist here, else the channel is
+    # described without pin (the pin-out of the card is then unknown)
+    present = {t.get("name") for t in desc.iter("terminal")}
+    for io in out.iter("plcIO"):
+        pins = io.findall("terminal")
+        if any(p.text not in present for p in pins):
+            for p in pins:
+                io.remove(p)
+            io.attrib.pop("terminalCount", None)
     out.append(desc)
     indent(out)
     path = os.path.join(out_dir, key + "_realistic.elmt")

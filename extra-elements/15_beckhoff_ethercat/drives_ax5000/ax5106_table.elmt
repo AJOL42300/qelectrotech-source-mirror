@@ -1,0 +1,54 @@
+<definition version="0.100.0" type="element" link_type="master" width="390" height="154" hotspot_x="5" hotspot_y="29">
+	<uuid uuid="{4a4d0e4f-af6d-519b-ad74-0b72d979ac47}"/>
+	<names>
+		<name lang="en">AX5106 servo drive, 1 axis - I/O table</name>
+		<name lang="fr">AX5106 variateur, 1 axe(s) - tableau d'E/S</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">AX5106</elementInformation>
+		<elementInformation name="designation" show="1">AX5106 digital compact servo drive, 1 axis</elementInformation>
+		<elementInformation name="description" show="1">AX 1-axis drive (the second digit of the reference is the number of axes). Rating from the project nomenclature: 6 A. Redrawn in vector from a picture of the project, terminals snapped to the 10 px grid. The motor and brake connectors are not on the pictures: the Motor terminals are generic, under the body. X06 function names are generic (0..7).</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="8.00">
+			<columnVisibility>
+				<column index="5" visible="true"/>
+			</columnVisibility>
+			<plcIOs>
+				<plcIO type="entree_universelle" address="X06-0" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-0</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X06-1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-1</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X06-2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-2</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X06-3" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-3</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X06-4" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-4</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X06-5" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-5</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X06-6" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-6</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X06-7" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-7</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{7c90bab4-b350-5ad7-9afa-42a7c0d903cc}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>label</info_name></dynamic_text>
+		<dynamic_text x="60" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{65f93136-6b8c-5695-89af-4a1fb230bd22}" font="Liberation Sans,7,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
+		<plc_table x="0" y="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+	</description>
+</definition>

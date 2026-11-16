@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="master" width="340" height="106" hotspot_x="5" hotspot_y="29">
+<definition version="0.100.0" type="element" link_type="master" width="390" height="106" hotspot_x="5" hotspot_y="29">
 	<uuid uuid="{8be7031b-84fe-5429-9252-b055588ddf21}"/>
 	<names>
 		<name lang="en">EL2652 relay output terminal (generic) - I/O table</name>
@@ -13,14 +13,21 @@
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
 		<plcMasterData rowHeight="8.00">
+			<columnVisibility>
+				<column index="5" visible="true"/>
+			</columnVisibility>
 			<plcIOs>
-				<plcIO type="sortie_digitale" address="1" functionText="" comment="" crossRef="" terminalCount="0">
+				<plcIO type="sortie_digitale" address="1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>1</terminal>
 				</plcIO>
-				<plcIO type="sortie_digitale" address="2" functionText="" comment="" crossRef="" terminalCount="0">
+				<plcIO type="sortie_digitale" address="2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>2</terminal>
 				</plcIO>
-				<plcIO type="sortie_digitale" address="3" functionText="" comment="" crossRef="" terminalCount="0">
+				<plcIO type="sortie_digitale" address="3" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>3</terminal>
 				</plcIO>
-				<plcIO type="sortie_digitale" address="4" functionText="" comment="" crossRef="" terminalCount="0">
+				<plcIO type="sortie_digitale" address="4" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>4</terminal>
 				</plcIO>
 			</plcIOs>
 		</plcMasterData>
