@@ -1,0 +1,64 @@
+<definition version="0.100.0" type="element" link_type="master" width="410" height="154" hotspot_x="5" hotspot_y="29">
+	<uuid uuid="{5243dd64-efed-55d5-8a4c-caa182e65643}"/>
+	<names>
+		<name lang="en">EL2522 pulse train output terminal - I/O table</name>
+		<name lang="fr">EL2522 borne de sortie train d'impulsions - tableau d'E/S</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">EL2522</elementInformation>
+		<elementInformation name="designation" show="1">EtherCAT Terminal, 2-channel pulse train output</elementInformation>
+		<elementInformation name="description" show="1">EtherCAT Terminal, pulse train output terminal. Pin names are the Beckhoff terminal points in the order of the user's own drawing (left column 1 to 4, right column 5 to 8): 1 CH1A, 2 CH1C, 3 CH2A, 4 CH2C, 5 CH1B, 6 CH1D, 7 CH2B, 8 CH2D. The channel is the signal in the I/O table, not the pin number. Check this against the datasheet of your terminal.</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="36"/>
+				<column index="2" width="110"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="40"/>
+			</columnWidths>
+			<columnVisibility>
+				<column index="5" visible="true"/>
+			</columnVisibility>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
+			<plcIOs>
+				<plcIO type="sortie_digitale" address="CH1A" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>1</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="CH1C" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>2</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="CH2A" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>3</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="CH2C" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>4</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="CH1B" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>5</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="CH1D" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>6</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="CH2B" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>7</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="CH2D" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>8</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{4b2b8dc2-90fc-5760-9b7b-cf1778a448fa}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>label</info_name></dynamic_text>
+		<dynamic_text x="60" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{1d937868-f143-59aa-8b83-c34ab22c8d75}" font="Liberation Sans,7,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
+		<plc_table x="0" y="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+	</description>
+</definition>

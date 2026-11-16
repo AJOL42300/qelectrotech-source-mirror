@@ -8,7 +8,7 @@
 		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
 		<elementInformation name="manufacturer_reference" show="1">EL2904</elementInformation>
 		<elementInformation name="designation" show="1">EtherCAT Terminal, 4 fail-safe digital outputs, 24 V DC</elementInformation>
-		<elementInformation name="description" show="1">TwinSAFE output terminal: SO1 to SO4 on the terminals 1 to 4. Generic layout, terminal numbering NOT verified against the datasheet: check it before use.</elementInformation>
+		<elementInformation name="description" show="1">TwinSAFE output terminal: SO1 to SO4 on the terminals 1, 5, 3 and 7; the terminals 2, 6, 4 and 8 are 0 V. Terminal numbering follows the user's own drawing and is NOT verified against the datasheet: check it before use.</elementInformation>
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
@@ -25,13 +25,13 @@
 					<terminal>1</terminal>
 				</plcIO>
 				<plcIO type="sortie_digitale" address="SO2" functionText="" comment="" crossRef="" terminalCount="1">
-					<terminal>2</terminal>
+					<terminal>5</terminal>
 				</plcIO>
 				<plcIO type="sortie_digitale" address="SO3" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>3</terminal>
 				</plcIO>
 				<plcIO type="sortie_digitale" address="SO4" functionText="" comment="" crossRef="" terminalCount="1">
-					<terminal>4</terminal>
+					<terminal>7</terminal>
 				</plcIO>
 			</plcIOs>
 		</plcMasterData>
@@ -45,27 +45,27 @@ Generic layout, not copied from a manufacturer drawing. License: see http://qele
 		<terminal x="-50" y="40" name="1" orientation="w" type="Generic" uuid="{f5c94b99-436d-5ca7-a952-104a08086c66}"/>
 		<line x1="-50" y1="40" x2="-40" y2="40" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
 		<text x="-44" y="34" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="1 SO1"/>
-		<terminal x="-50" y="60" name="2" orientation="w" type="Generic" uuid="{16edb66b-2fca-582e-bb44-173e2bbf68b3}"/>
+		<terminal x="-50" y="60" name="2" orientation="w" type="Generic" uuid="{16edb66b-2fca-582e-bb44-173e2bbf68b3}" potential="0V"/>
 		<line x1="-50" y1="60" x2="-40" y2="60" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="-44" y="54" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2 SO2"/>
+		<text x="-44" y="54" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2 0V1"/>
 		<terminal x="-50" y="80" name="3" orientation="w" type="Generic" uuid="{e3b1b7f4-e9ff-5512-9eff-b5008b532844}"/>
 		<line x1="-50" y1="80" x2="-40" y2="80" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
 		<text x="-44" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="3 SO3"/>
-		<terminal x="-50" y="100" name="4" orientation="w" type="Generic" uuid="{e6dba4ca-691e-5979-b56d-fc855fa31ced}"/>
+		<terminal x="-50" y="100" name="4" orientation="w" type="Generic" uuid="{e6dba4ca-691e-5979-b56d-fc855fa31ced}" potential="0V"/>
 		<line x1="-50" y1="100" x2="-40" y2="100" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="-44" y="94" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4 SO4"/>
+		<text x="-44" y="94" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4 0V3"/>
 		<terminal x="50" y="40" name="5" orientation="e" type="Generic" uuid="{dc923ecf-82a3-55f3-b70a-ae778a47ee9a}"/>
 		<line x1="50" y1="40" x2="40" y2="40" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="35.6" y="34" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="5"/>
-		<terminal x="50" y="60" name="6" orientation="e" type="Generic" uuid="{09c7c1bb-bbb0-5d91-8adc-eef9d81d5590}"/>
+		<text x="23" y="34" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="SO2 5"/>
+		<terminal x="50" y="60" name="6" orientation="e" type="Generic" uuid="{09c7c1bb-bbb0-5d91-8adc-eef9d81d5590}" potential="0V"/>
 		<line x1="50" y1="60" x2="40" y2="60" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="35.6" y="54" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="6"/>
+		<text x="23" y="54" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V2 6"/>
 		<terminal x="50" y="80" name="7" orientation="e" type="Generic" uuid="{fcee84cd-6fda-5e82-a57b-bce0a66f5c54}"/>
 		<line x1="50" y1="80" x2="40" y2="80" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="35.6" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7"/>
-		<terminal x="50" y="100" name="8" orientation="e" type="Generic" uuid="{cd631fb9-1ff4-57f8-a0dd-3a62a1b37119}"/>
+		<text x="23" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="SO4 7"/>
+		<terminal x="50" y="100" name="8" orientation="e" type="Generic" uuid="{cd631fb9-1ff4-57f8-a0dd-3a62a1b37119}" potential="0V"/>
 		<line x1="50" y1="100" x2="40" y2="100" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="35.6" y="94" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="8"/>
+		<text x="23" y="94" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V4 8"/>
 		<dynamic_text x="-50" y="144" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{f08745ec-75ba-597f-80f7-b92c0e0cd34c}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
 		<dynamic_text x="-50" y="156" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{c7bd80df-b3b8-542f-91b5-154bd7a7c866}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
 	</description>

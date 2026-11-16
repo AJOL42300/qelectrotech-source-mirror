@@ -31,7 +31,15 @@ ALL = {}
 # in the user's model: 1 and 5 on the first row, 2 and 6 on the second...
 EL8_PINS = [1, 5, 2, 6, 3, 7, 4, 8]
 # cards that also come as an I/O table appearance (<key>_table.elmt)
-TABLES = ("el1008", "el2008", "el2652", "el5152", "ek1914", "epp2338")
+TABLES = ("el1004", "el1008", "el2004", "el2008", "el2522", "el2574",
+          "el2652", "el2911", "el5152", "ek1914", "epp2338")
+# I/O table appearance: Roboto Condensed (QET falls back to Arial Narrow),
+# rows 12 high, columns Type, Address, Function, Comment, Cross-reference,
+# Terminal
+TABLE_FONT = "Roboto Condensed"
+TABLE_SIZE = 7
+TABLE_ROW = 12
+TABLE_COLUMNS = (60, 36, 110, 90, 64, 40)
 
 
 def uid(*parts):
@@ -56,9 +64,17 @@ class Elmt:
         # element has a plc_table part: hide it on drawings, show it on the
         # table appearance (with the Beckhoff terminal as 6th column).
         if self.mode == "table":
-            return (["\t\t\t<columnVisibility>",
-                     '\t\t\t\t<column index="5" visible="true"/>',
-                     "\t\t\t</columnVisibility>"])
+            out = ["\t\t\t<columnWidths>"]
+            out += ['\t\t\t\t<column index="%d" width="%g"/>' % (i, w)
+                    for i, w in enumerate(TABLE_COLUMNS)]
+            out += ["\t\t\t</columnWidths>", "\t\t\t<columnVisibility>",
+                    '\t\t\t\t<column index="5" visible="true"/>',
+                    "\t\t\t</columnVisibility>",
+                    '\t\t\t<headerFont family="%s" size="%d" bold="true"/>'
+                    % (TABLE_FONT, TABLE_SIZE),
+                    '\t\t\t<cellFont family="%s" size="%d" bold="false"/>'
+                    % (TABLE_FONT, TABLE_SIZE)]
+            return out
         return (["\t\t\t<columnVisibility>"]
                 + ['\t\t\t\t<column index="%d" visible="false"/>' % i
                    for i in range(5)]
@@ -101,11 +117,12 @@ class Elmt:
             'length1="1.5" length2="1.5" style="%s" antialias="false"/>'
             % (x1, y1, x2, y2, STYLE % (weight, "none")))
 
-    def text(self, x, y, s, size=7, bold=False):
+    def text(self, x, y, s, size=7, bold=False, color="#000000"):
         self._b(x, y)
         self.parts.append(
-            '<text x="%g" y="%g" font="%s" rotation="0" color="#000000" text="%s"/>'
-            % (x, y, FONT % (size, 75 if bold else 50, "Bold" if bold else "Regular"), esc(s)))
+            '<text x="%g" y="%g" font="%s" rotation="0" color="%s" text="%s"/>'
+            % (x, y, FONT % (size, 75 if bold else 50, "Bold" if bold else "Regular"),
+               color, esc(s)))
 
     def dyn(self, x, y, info, size=9, bold=False):
         self._b(x, y)
@@ -142,7 +159,8 @@ class Elmt:
         if self.ios:
             out += ["\t<kindInformations>",
                     '\t\t<kindInformation name="type">plc</kindInformation>',
-                    '\t\t<plcMasterData rowHeight="8.00">']
+                    '\t\t<plcMasterData rowHeight="%.2f">'
+                    % (TABLE_ROW if self.mode == "table" else 8)]
             out += self.column_visibility()
             out += ["\t\t\t<plcIOs>"]
             for kind, address, function, comment, pins in self.ios:
@@ -182,7 +200,7 @@ def card(key, designation, kind_en, kind_fr, short, io_kind, ref="", title="",
                "The I/O table lists the %d contacts: edit it in the element properties."
                % (kind_en, channels, channels))]
     e = Elmt(key, "%s %s (generic)" % (designation, kind_en),
-             "%s %s (générique)" % (designation, kind_fr), infos, NOTE)
+             "%s %s (gÃ©nÃ©rique)" % (designation, kind_fr), infos, NOTE)
     for i in range(channels):
         signal = signals[i] if signals else str(i + 1)
         pin = pin_map[i] if pin_map else i + 1
@@ -206,34 +224,108 @@ def card(key, designation, kind_en, kind_fr, short, io_kind, ref="", title="",
     return e
 
 
-def el5152():
-    """Encoder terminal: pin names and labels as drawn in the user's model."""
-    e = Elmt("el5152", "EL5152 encoder input terminal (generic)",
-             "EL5152 borne d'entrée codeur (générique)",
-             [("manufacturer", "Beckhoff"), ("manufacturer_reference", "EL5152"),
-              ("designation", "EL5152 EtherCAT Terminal"),
-              ("description", "EtherCAT Terminal, two incremental encoder inputs A/B. "
-               "Terminals numbered in the Beckhoff order, as in the user's drawing: "
-               "1 A1, 2 +, 3 -, 4 A2 on the left; 5 B1, 6 +, 7 -, 8 B2 on the right. "
-               "Check against the datasheet of your terminal.")], NOTE)
-    # pin -> (label, potential, side)
-    pins = {1: ("A1", "", "w"), 2: ("+", "24V", "w"), 3: ("-", "0V", "w"),
-            4: ("A2", "", "w"), 5: ("B1", "", "e"), 6: ("+", "24V", "e"),
-            7: ("-", "0V", "e"), 8: ("B2", "", "e")}
-    for ch, pin, fn in (("A1", 1, "Encoder 1, A"), ("B1", 5, "Encoder 1, B"),
-                        ("A2", 4, "Encoder 2, A"), ("B2", 8, "Encoder 2, B")):
-        e.io("entree_digitale", ch, fn, pins=[str(pin)])
-    e.rect(-40, -90, 80, 180)
-    e.text(-34, -86, "BECKHOFF", 5, True)
-    e.text(-34, -72, "EL5152", 9, True)
-    e.text(-34, -56, "Encoder A/B", 7)
-    for pin, (label, potential, side) in pins.items():
-        y = -30 + 20 * ((pin - 1) % 4)
-        x = -40 if side == "w" else 40
-        e.terminal(x, y, str(pin), side, potential)
+def potential_of(label):
+    if label.startswith("0V") or label.startswith("GND"):
+        return "0V"
+    if label.startswith("24V"):
+        return "24V"
+    return ""
+
+
+# Cards whose pin-out is read on the user's own drawings. rows are the
+# printed labels, row by row, as (left, right); the Beckhoff terminal number
+# follows the position: the left column is 1 to 4 (top to bottom), the right
+# column 5 to 8 (so row 1 is the pins 1 and 5). A second group of four rows
+# continues with 9 to 16. The channel (I1, O3...) is not the pin number.
+#   key: (reference, kind, English, French, short text, designation, rows,
+#         channel names {label: signal}, I/O type)
+MODEL_CARDS = {
+    "el1004": ("EL1004", "digital input terminal", "borne d'entrÃ©e numÃ©rique",
+               "4 x DI 24 V DC",
+               "EtherCAT Terminal, 4-channel digital input, 24 V DC, 3 ms",
+               [("I1", "I2"), ("0V1", "0V2"), ("I3", "I4"), ("0V3", "0V4")],
+               "entree_digitale"),
+    "el2004": ("EL2004", "digital output terminal", "borne de sortie numÃ©rique",
+               "4 x DO 24 V DC",
+               "EtherCAT Terminal, 4-channel digital output, 24 V DC, 0.5 A",
+               [("Q1", "Q2"), ("0V1", "0V2"), ("Q3", "Q4"), ("0V3", "0V4")],
+               "sortie_digitale"),
+    "el2522": ("EL2522", "pulse train output terminal",
+               "borne de sortie train d'impulsions", "2 x pulse train",
+               "EtherCAT Terminal, 2-channel pulse train output",
+               [("CH1A", "CH1B"), ("CH1C", "CH1D"), ("CH2A", "CH2B"),
+                ("CH2C", "CH2D")], "sortie_digitale"),
+    "el2574": ("EL2574", "LED output terminal", "borne de sortie LED",
+               "4 x P+ / P-",
+               "EtherCAT Terminal, 4-channel output, labels as drawn",
+               [("P1+", "P1-"), ("P2+", "P2-"), ("P3+", "P3-"),
+                ("P4+", "P4-")], "sortie_digitale"),
+    "el5152": ("EL5152", "encoder input terminal", "borne d'entrÃ©e codeur",
+               "Encoder A/B", "EtherCAT Terminal, 2-channel incremental "
+               "encoder input", [("A1", "A2"), ("B1", "B2"),
+                                 ("24V1", "0V1"), ("24V2", "0V2")],
+               "entree_digitale"),
+    "el2911": ("EL2911", "safety terminal", "borne de sÃ©curitÃ©",
+               "IN1-4 / OUT",
+               "EtherCAT Terminal, labels as drawn (drawing doubled)",
+               [("IN1", "IN2"), ("OUT", "24V_UP"), ("GND_UP", "24V"),
+                ("IN3", "IN4"), ("IN1", "IN2"), ("OUT", "24V_UP"),
+                ("GND_UP", "24V"), ("IN3", "IN4")], "entree_digitale"),
+    "el9100": ("EL9100", "potential feed terminal",
+               "borne d'alimentation de potentiel", "END / NC",
+               "EtherCAT Terminal, labels as drawn",
+               [("END1", "END2"), ("NC1", "NC2"), ("NC3", "NC4"),
+                ("NC5", "NC6")], None),
+}
+# the channel is the label itself unless named here
+CHANNELS_ONLY = {"el2911": ("IN1", "IN2", "IN3", "IN4", "OUT")}
+FUNCTIONS = {"el5152": {"A1": "Encoder 1, A", "A2": "Encoder 2, A",
+                        "B1": "Encoder 1, B", "B2": "Encoder 2, B"}}
+
+
+def model_pins(rows):
+    """(pin, label, side, row) of every terminal, in the Beckhoff order."""
+    out = []
+    for r, (left, right) in enumerate(rows):
+        base = 8 * (r // 4) + r % 4 + 1
+        out.append((base, left, "w", r))
+        out.append((base + 4, right, "e", r))
+    return out
+
+
+def model_card(key, uncertain=True):
+    ref, en, fr, short, title, rows, kind = MODEL_CARDS[key]
+    pins = model_pins(rows)
+    note = ("Pin names are the Beckhoff terminal points in the order of the "
+            "user's own drawing (left column 1 to 4, right column 5 to 8): "
+            "%s. The channel is the signal in the I/O table, not the pin "
+            "number. Check this against the datasheet of your terminal."
+            % ", ".join("%d %s" % (p, l) for p, l, _, _ in sorted(pins)))
+    infos = [("manufacturer", "Beckhoff"), ("manufacturer_reference", ref),
+             ("designation", title),
+             ("description", "EtherCAT Terminal, %s. %s" % (en, note))]
+    e = Elmt(key, "%s %s" % (ref, en), "%s %s" % (ref, fr), infos, NOTE)
+    only = CHANNELS_ONLY.get(key)
+    for pin, label, _, _ in sorted(pins):
+        if kind and not potential_of(label) and not label.startswith(
+                ("END", "NC")) and (only is None or (label in only
+                                                      and pin <= 8)):
+            e.io(kind, label, FUNCTIONS.get(key, {}).get(label, ""),
+                 pins=[str(pin)])
+    n = len(rows)
+    h = 180 + 20 * max(0, n - 4)
+    e.rect(-50, -90, 100, h)
+    e.text(-44, -86, "BECKHOFF", 5, True)
+    e.text(-44, -72, ref, 9, True)
+    e.text(-44, -56, short, 7)
+    for pin, label, side, r in pins:
+        y = -30 + 20 * r
+        x = -50 if side == "w" else 50
+        e.terminal(x, y, str(pin), side, potential_of(label))
         e.line(x, y, x + (10 if side == "w" else -10), y)
-        e.text(-28 if side == "w" else 22, y - 8, "%d %s" % (pin, label), 6)
-    e.dyn(-40, 94, "label")
+        text = "%d %s" % (pin, label) if side == "w" else "%s %d" % (label, pin)
+        e.text(-38 if side == "w" else 38 - 4.2 * len(text), y - 8, text, 6)
+    e.dyn(-50, -90 + h + 4, "label")
     return e
 
 
@@ -245,7 +337,7 @@ def table_of(src):
     e.ios = list(src.ios)
     e.dyn(0, -24, "label", 9, True)
     e.dyn(60, -24, "designation", 7)
-    e._b(0, -24, 380, 12 * (len(e.ios) + 2))
+    e._b(0, -24, sum(TABLE_COLUMNS), TABLE_ROW * (len(e.ios) + 2))
     e.parts.append('<plc_table x="0" y="0" style="%s" antialias="false"/>'
                    % (STYLE % ("thin", "none")))
     return e
@@ -253,7 +345,7 @@ def table_of(src):
 
 def epp2338():
     e = Elmt("epp2338", "EPP2338 EtherCAT P box, 8 channels",
-             "EPP2338 boîtier EtherCAT P, 8 voies",
+             "EPP2338 boÃ®tier EtherCAT P, 8 voies",
              [("manufacturer", "Beckhoff"), ("manufacturer_reference", "EPP2338-0001"),
               ("designation", "EtherCAT P Box, 8-channel digital combi, 24 V DC, 10 us, 0.5 A, M8"),
               ("description", "EtherCAT P box with four M8 sockets X01 to X04, two channels "
@@ -295,7 +387,7 @@ def end_cap():
 
 
 def box():
-    e = Elmt("ethercat_box", "EtherCAT box (generic)", "Boîtier EtherCAT (générique)",
+    e = Elmt("ethercat_box", "EtherCAT box (generic)", "BoÃ®tier EtherCAT (gÃ©nÃ©rique)",
              [("description", "EtherCAT box, generic: one EtherCAT IN and one EtherCAT OUT "
                "for the daisy chain. Fill in manufacturer and reference.")], NOTE)
     e.rect(-60, -30, 120, 60)
@@ -339,17 +431,18 @@ def dir_entries():
     out = {}
     out["el1008.elmt"] = card(
         "el1008", "EL1008", "digital input terminal",
-        "borne d'entrée numérique", "8 x DI 24 V DC", "entree_digitale",
+        "borne d'entrÃ©e numÃ©rique", "8 x DI 24 V DC", "entree_digitale",
         ref="EL1008",
         title="EtherCAT Terminal, 8-channel digital input, 24 V DC, 3 ms",
         signals=["I%d" % i for i in range(1, 9)], pin_map=EL8_PINS).xml()
     out["el2008.elmt"] = card(
         "el2008", "EL2008", "digital output terminal",
-        "borne de sortie numérique", "8 x DO 24 V DC", "sortie_digitale",
+        "borne de sortie numÃ©rique", "8 x DO 24 V DC", "sortie_digitale",
         ref="EL2008",
         title="EtherCAT Terminal, 8-channel digital output, 24 V DC, 0.5 A",
         signals=["O%d" % i for i in range(1, 9)], pin_map=EL8_PINS).xml()
-    out["el5152.elmt"] = el5152().xml()
+    for key in MODEL_CARDS:
+        out[key + ".elmt"] = model_card(key).xml()
     out["el2652.elmt"] = card(
         "el2652", "EL2652", "relay output terminal",
         "borne de sortie relais", "Relay output", "sortie_digitale",
@@ -396,15 +489,15 @@ def main(root):
     os.makedirs(cat, exist_ok=True)
     files = {
         "qet_directory": directory([("en", "Beckhoff EtherCAT (generic)"),
-                                    ("fr", "Beckhoff EtherCAT (générique)")]),
+                                    ("fr", "Beckhoff EtherCAT (gÃ©nÃ©rique)")]),
         "el1xxx_generic.elmt": card("el1xxx", "EL1xxx", "digital input terminal",
-                                    "borne d'entrée numérique", "Digital input",
+                                    "borne d'entrÃ©e numÃ©rique", "Digital input",
                                     "entree_digitale").xml(),
         "el2xxx_generic.elmt": card("el2xxx", "EL2xxx", "digital output terminal",
-                                    "borne de sortie numérique", "Digital output",
+                                    "borne de sortie numÃ©rique", "Digital output",
                                     "sortie_digitale").xml(),
         "el3xxx_generic.elmt": card("el3xxx", "EL3xxx", "analog input terminal",
-                                    "borne d'entrée analogique", "Analog input",
+                                    "borne d'entrÃ©e analogique", "Analog input",
                                     "entree_analogique").xml(),
         "el4xxx_generic.elmt": card("el4xxx", "EL4xxx", "analog output terminal",
                                     "borne de sortie analogique", "Analog output",

@@ -16,10 +16,14 @@ collection, as the category **Beckhoff EtherCAT (generic)**.
 | `el4xxx_generic.elmt` | Beckhoff | EL4xxx | contacts 1 to 8 |
 | `el1008.elmt` | Beckhoff | EL1008 | contacts 1 to 8 |
 | `el2008.elmt` | Beckhoff | EL2008 | contacts 1 to 8 |
+| `el1004.elmt`, `el2004.elmt` | Beckhoff | EL1004, EL2004 | pins 1 to 8 (channels on 1, 5, 3, 7; 0 V on 2, 6, 4, 8) |
+| `el2522.elmt`, `el2574.elmt` | Beckhoff | EL2522, EL2574 | pins 1 to 8 (channels as printed on the drawing) |
+| `el2911.elmt`, `el9100.elmt` | Beckhoff | EL2911, EL9100 | 16 pins (doubled drawing) / 8 pins |
 | `el2652.elmt` | Beckhoff | EL2652 | contacts 1 to 4 (relay output, generic) |
 | `el5152.elmt` | Beckhoff | EL5152 | contacts 1 to 8 (generic layout) |
-| `*_realistic.elmt` | as the symbol | as the symbol | terminals on the circles of the drawing (EL1008, EL2008, EL5152, EK1914) |
-| `*_table.elmt` | as the symbol | as the symbol | none: the I/O table only (EL1008, EL2008, EL2652, EL5152, EK1914, EPP2338) |
+| `*_realistic.elmt` | as the symbol | as the symbol | terminals on the screw circles of the drawing (EL1004, EL1008, EL1904, EL1918, EL2004, EL2008, EL2522, EL2574, EL2904, EL2911, EL5152, EL9100, EK1914) |
+| `*_generic.elmt` | as the symbol | as the symbol | generic vector view drawn here (drives, EL6910, EK1960 and the yellow cards EL1904, EL1918, EL2904) |
+| `*_table.elmt` | as the symbol | as the symbol | none: the I/O table only (EL1004, EL1008, EL2004, EL2008, EL2522, EL2574, EL2652, EL2911, EL5152, EK1914, EPP2338) |
 | `ek1100.elmt` | Beckhoff | EK1100 | EtherCAT IN, EtherCAT OUT |
 | `ek1322.elmt` | Beckhoff | EK1322 | IN X50, OUT X51, OUT X52 |
 | `ek1914.elmt` | Beckhoff | EK1914 | EtherCAT IN/OUT, I1 to I4, SI1, SI2, O1 to O4, SO1, SO2 |
@@ -84,7 +88,8 @@ Beckhoff pin, and each channel of the I/O table lists its pin(s) in the entry
 | EL1008 | I1 1, I2 5, I3 2, I4 6, I5 3, I6 7, I7 4, I8 8 | the user's drawing |
 | EL2008 | O1 1, O2 5, O3 2, O4 6, O5 3, O6 7, O7 4, O8 8 | the user's drawing |
 | EL5152 | pins 1 A1, 2 +, 3 -, 4 A2, 5 B1, 6 +, 7 -, 8 B2; 2 and 6 are 24 V, 3 and 7 are 0 V | the user's drawing, the supply is inferred from the labels |
-| EL1918 | SIn on pins n and n+8 | **assumption**, not verified |
+| EL1004, EL2004, EL1904, EL2904 | channels 1 to 4 on pins 1, 5, 3, 7; 0 V on 2, 6, 4, 8 | the user's drawing (the yellow cards print S1..S4; the I/O table calls them SI1..SI4 / SO1..SO4) |
+| EL1918 | SI1..SI8 on pins 1, 5, 2, 6, 3, 7, 4, 8 | the user's drawing: **8 terminals** (the earlier 16-pin assumption was wrong) |
 | other cards | pin = channel | generic |
 
 The tooltip writes `5 → I2`, the I/O table has an optional **Terminal**
@@ -99,8 +104,11 @@ description of the element.
 The drives were redrawn in vector (rectangles, circles, text; no bitmap) from
 the pictures of the sample schematic, which are kept outside the repository.
 `misc/beckhoff/gen_drives.py` writes them (`--report` prints the residuals).
-Each reference has three elements: the symbol, `_realistic` and `_table`,
-with the same label and information. Terminals are on the 10 px grid.
+Each reference has three elements: the symbol, `_generic` and `_table`,
+with the same label and information. Terminals are on the 10 px grid. The
+generic view is coloured like a real front (grey body, black cover, red
+band, status LEDs, grey RJ45 sockets, black connector housings, orange motor
+block); it is plain vector drawing, not a picture of a product.
 
 **Number of axes**: the second digit of the number in the reference. AF1103,
 AF1107, AF1115, AF1130, AF1155, AX5101 to AX5125 are 1 axis; AF1215, AF1222,
@@ -129,13 +137,14 @@ the picture and has no element.
 
 ## Safety cards (TwinSAFE, yellow)
 
-`twinsafe/` has EL1904, EL1918, EL2904 (symbol, realistic, table), EL6910 and
-EK1960 (symbol and realistic only), drawn with a yellow body. **None of them
-is in the sample schematic**, so every pin-out is generic and flagged "not
-verified" in the description. The EL1918 is drawn with **16 terminals** (not
-8): its 8 safe inputs SI1..SI8 each use two terminals, pins n and n+8 (left
-column 1 to 8, right column 9 to 16), and the I/O table lists both pins.
-`misc/beckhoff/gen_safety.py` writes them.
+`twinsafe/` has EL1904, EL1918, EL2904 (symbol, generic, realistic, table),
+EL6910 and EK1960 (symbol and generic only), drawn with a yellow body. EL1904,
+EL1918 and EL2904 have a **realistic** view taken from the user's drawings
+(yellow). The **EL1918 has 8 terminals**, not 16: the drawing shows SI1..SI8
+on pins 1, 5, 2, 6, 3, 7, 4, 8. The EL1904 and EL2904 have the channels on
+pins 1, 5, 3, 7 and 0 V on 2, 6, 4, 8. The EL6910 and EK1960 are not
+verified and flagged so in the description. `misc/beckhoff/gen_safety.py`
+writes them.
 
 ## Island numbering
 
@@ -163,22 +172,23 @@ belongs to `A1.10`. A head written `A1` (without `.00`) is still recognised.
 
 ### Parent, card, appearances
 
-A card can be drawn up to three times, as three elements: **symbol**
-(`el1008.elmt`), **realistic** view (`el1008_realistic.elmt`) and **I/O
-table** (`el1008_table.elmt`). The link between them is the label, not a
+A card can be drawn up to four times, as four elements: **symbol**
+(`el1008.elmt`), **generic** view (`el1008_generic.elmt`), **realistic**
+view (`el1008_realistic.elmt`) and **I/O table** (`el1008_table.elmt`);
+the ones that do not exist for a card are skipped. The link between them is the label, not a
 reference to another object:
 
 ```
 island A1
  ├─ A1.00  head (ek1100)             symbol
- ├─ A1.10  card (el1008)             symbol  +  realistic  +  I/O table
- ├─ A1.20  card (el2008)             symbol  +  realistic  +  I/O table
- └─ A1.30  card (el5152)             symbol  +  realistic  +  I/O table
+ ├─ A1.10  card (el1008)             symbol + realistic + table
+ ├─ A1.20  card (el2008)             symbol + realistic + table
+ └─ A1.30  card (el5152)             symbol + realistic + table
 ```
 
 - parent to card: the card label starts with the label of the head
   (`A1.10` belongs to `A1`), with a step of 10 inherited from the island;
-- card to appearances: the three elements have the same label (`A1.10`), the
+- card to appearances: the elements have the same label (`A1.10`), the
   same manufacturer, reference and designation, and the same I/O table, so
   that the used pins and the tooltip see them as one card.
 
@@ -186,8 +196,8 @@ island A1
 a card) adds the missing appearances of the selected card, on the current
 folio (placed to its right), on another folio, or on a new folio, in one
 undo step, with the label, the information and the I/O table copied. It
-needs the symbols of the three appearances to be side by side in the same
-collection folder (`X.elmt`, `X_realistic.elmt`, `X_table.elmt`), as the
+needs the appearances to be side by side in the same collection folder
+(`X.elmt`, `X_generic.elmt`, `X_realistic.elmt`, `X_table.elmt`), as the
 Beckhoff ones are. Renumbering and duplicating work on the label, so they
 apply to every appearance at once.
 
@@ -197,24 +207,49 @@ of the island and `qet_plc_io` list a card once.
 
 ### Realistic appearances and the grid
 
-The realistic views are made from the user's own drawings of the "Entreprise"
-collection with `misc/beckhoff/realistic_from_model.py`: each terminal is
-placed on the centre of the circle it belongs to, and the drawing is scaled
-and shifted so that these centres fall on the grid of QElectroTech. The
-manufacturer drawings and texts are not part of the repository.
+**Generic** = the views drawn here (vector, no manufacturer picture).
+**Realistic** = the user's own drawings of the cards, with their geometry and
+colours (the yellow of the safety cards). They are rebuilt by
+`misc/beckhoff/realistic_from_model.py <folder of the drawings> <elements>`:
+each terminal is placed on the centre of the screw circle it belongs to, and
+the drawing is scaled and shifted so that these centres fall on the grid of
+QElectroTech. The drawings are read from a folder outside the repository (a
+local copy of the user's own company collection); no generated file, example
+or test refers to that collection at run time, and the example project does
+not embed it.
 
-| Element | Scale | Offset (px) | Grid | Largest remaining gap |
+| Element | Scale | Grid | Largest remaining gap | Size, hotspot |
 | --- | --- | --- | --- | --- |
-| `el1008_realistic` | 1.00 | 4.5, 0 | 10 px | 0.5 px |
-| `el2008_realistic` | 1.00 | 4.5, 0 | 10 px | 0.5 px |
-| `el5152_realistic` | 1.13 | 1.8, 5.5 | 10 px | 1.2 px |
-| `ek1914_realistic` | 1.09 | 2.5, 3.8 | 5 px | 1.5 px |
+| single-width cards (EL1004, EL1008, EL1904, EL1918, EL2004, EL2008, EL2522, EL2574, EL2904, EL5152, EL9100) | 1.26 | 10 px | 0.55 px | 80x400, (30,190) |
+| `ek1914_realistic` | 1.00 | 5 px | 1.35 px | 130x230, (60,110) |
+| `el2911_realistic` | 1.01 | 5 px | 0.80 px | 120x330, (30,160) |
 
-A single scale cannot bring all the circles of a drawing to the grid: the
-gap above is what is left, and the terminals are placed on the grid nodes.
-The EK1914 spacing only allows a 5 px grid. The grid used is written in the
-`informations` of each element and checked by the tests. The hotspot is the
-origin of the drawing after the offset.
+The row pitch of the drawings is not uniform, so a single scale cannot bring
+all the circles to the grid: the gap above is what is left, and the circles
+(with the small parts inside them) are moved onto the grid nodes, so the
+terminals are exactly at the centres. The EK1914 and EL2911 spacing only
+allows a 5 px grid. The grid used is in the `informations` of each element
+and checked by the tests. The hotspot is the origin of the drawing after the
+offset. The RJ45 sockets of the EK1914 are not circles: their terminals
+(EtherCAT IN/OUT) are at a position estimated on the drawing.
+
+The pin names of the realistic views follow the position (left column 1 to 4,
+right column 5 to 8, second group 9 to 16 on the EL2911); the signal printed
+in the drawing (I1, S1, CH1A, P1+...) is the channel of the I/O table.
+Uncertain: the channels of the EL2522, EL2574 and EL9100 (the labels of the
+drawing are used as they are), the EL2911 (the drawing is doubled, channels
+only for the first group) and the numbering of the EK1914 terminals (row by
+row, 1 to 16).
+
+### I/O table appearance
+
+The `_table` elements draw the I/O table in **Roboto Condensed**, size 7,
+with rows of 12 px (about 1.5 times the default), a bold header on a grey
+band, and the columns Type, Address, Function, Comment, Cross reference and
+Terminal wide enough for their text (the widths are in the element). Roboto
+Condensed is installed on the machine where this was checked; the font file
+is **not** in the repository. If it is missing, Arial Narrow or Liberation
+Sans Narrow is used, then the system sans-serif.
 
 ## Folios generated for an island
 
@@ -327,15 +362,15 @@ poorly: this works for line drawings and logos.
 
 ## Example project
 
-`examples/beckhoff_islands_example.qet` has three islands on 9 folios (3 per
-island: symbols, realistic views, I/O tables):
+`examples/beckhoff_islands_example.qet` has three islands on 10 folios (symbols,
+generic and/or realistic views, I/O tables for each island):
 
 - `A1`: head `A1.00` (EK1100), cards `A1.10` (EL1008), `A1.20` (EL2008),
   `A1.30` (EL5152). Two sensors are wired on pins 1 and 2 of `A1.10` (pin 2 is
   channel I3) and a lamp on pin 1 of `A1.20`; these pins show as used.
-- `A2`: head `A2.00`, the yellow card `A2.10` (EL1918, 16 terminals), the
+- `A2`: head `A2.00`, the yellow card `A2.10` (EL1918, 8 terminals), the
   1-axis drive `A2.20` (AF1103) and the 2-axis drive `A2.30` (AF1215). A
-  sensor is wired on the SI1 pins 1 and 9 of `A2.10` and one on IN1 of
+  sensor is wired on the pins 1 and 5 (SI1 and SI2) of `A2.10` and one on IN1 of
   `A2.20`.
 - `A3`: head `A3.00`, the 1-axis drive `A3.10` (AX5103) and the 2-axis drive
   `A3.20` (AX5203).
@@ -359,7 +394,8 @@ cross reference between them, and the heads have no I/O table.
   datasheet.
 - No table is added automatically on the nomenclature folio: choose the folio
   in *Create the other appearances*.
-- The AX5805 and the EPP2338-0002 have no realistic view yet. The drives and
+- The AX5805 and the EPP2338-0002 have no realistic view yet; the cards
+  without a drawing of the user keep their symbol, generic view and table. The drives and
   the safety cards are not verified against a datasheet (see above).
 - The realistic views were checked by drawing them with their terminals
   (every terminal is inside its circle), and by the tests; the interface

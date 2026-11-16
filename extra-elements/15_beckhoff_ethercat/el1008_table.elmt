@@ -1,8 +1,8 @@
-<definition version="0.100.0" type="element" link_type="master" width="390" height="154" hotspot_x="5" hotspot_y="29">
+<definition version="0.100.0" type="element" link_type="master" width="410" height="154" hotspot_x="5" hotspot_y="29">
 	<uuid uuid="{2b2e538b-a010-50e2-91e3-767d01ef33d7}"/>
 	<names>
 		<name lang="en">EL1008 digital input terminal (generic) - I/O table</name>
-		<name lang="fr">EL1008 borne d'entrée numérique (générique) - tableau d'E/S</name>
+		<name lang="fr">EL1008 borne d'entrÃ©e numÃ©rique (gÃ©nÃ©rique) - tableau d'E/S</name>
 	</names>
 	<elementInformations>
 		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
@@ -12,10 +12,20 @@
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
-		<plcMasterData rowHeight="8.00">
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="36"/>
+				<column index="2" width="110"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="40"/>
+			</columnWidths>
 			<columnVisibility>
 				<column index="5" visible="true"/>
 			</columnVisibility>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
 			<plcIOs>
 				<plcIO type="entree_digitale" address="I1" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>1</terminal>
