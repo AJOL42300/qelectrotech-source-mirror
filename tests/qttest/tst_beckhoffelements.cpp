@@ -311,14 +311,25 @@ class TstBeckhoffElements : public QObject
 					QStringLiteral("plc_table"));
 				if (file.endsWith(QLatin1String("_table.elmt"))) {
 					QCOMPARE(parts.size(), 1);
-						// only the Terminal column (5) is switched on
-					QCOMPARE(hidden.size(), 1);
-					QCOMPARE(hidden.at(0).toElement().attribute(
-								 QStringLiteral("index")),
-							 QStringLiteral("5"));
-					QCOMPARE(hidden.at(0).toElement().attribute(
-								 QStringLiteral("visible")),
-							 QStringLiteral("true"));
+						// pin (5), label (2), TwinCAT ID (1) only
+					QCOMPARE(hidden.size(), 6);
+					const QStringList shown{QStringLiteral("1"),
+											QStringLiteral("2"),
+											QStringLiteral("5")};
+					for (int i = 0; i < hidden.size(); ++i) {
+						const auto c = hidden.at(i).toElement();
+						QCOMPARE(c.attribute(QStringLiteral("visible")),
+								 shown.contains(c.attribute(
+									 QStringLiteral("index")))
+								 ? QStringLiteral("true")
+								 : QStringLiteral("false"));
+					}
+					QCOMPARE(def.elementsByTagName(
+								 QStringLiteral("columnOrder")).at(0)
+								 .toElement().text(),
+							 QStringLiteral("5,2,1"));
+					QVERIFY(load(elementPath(file)).toString().contains(
+						QStringLiteral("ID TwinCAT")));
 					QCOMPARE(terminalNames(def).size(), 0);
 				} else {
 					QCOMPARE(parts.size(), 0);
@@ -593,7 +604,7 @@ class TstBeckhoffElements : public QObject
 						const qreal y = t.attribute(QStringLiteral("y"))
 							.toDouble();
 						label |= x > p.x() - 22 && x < p.x() + 2
-							&& y > p.y() - 36 && y < p.y() - 12;
+							&& y > p.y() - 30 && y < p.y() - 6;
 					}
 					QVERIFY2(label, qPrintable(key + QLatin1Char(' ')
 												+ it.key()));
@@ -1176,7 +1187,62 @@ class TstBeckhoffElements : public QObject
 				}
 				++checked;
 			}
-			QCOMPARE(checked, 33);
+			QCOMPARE(checked, 38);
+		}
+
+		void schematicViewsAreDrawnInADottedOutlineAtTheRealisticPins()
+		{
+			int pinned = 0;
+			int outlined = 0;
+			for (const QString &file : allFiles()) {
+				if (file.endsWith(QLatin1String("_realistic.elmt"))
+					|| file.endsWith(QLatin1String("_description.elmt"))
+					|| file.endsWith(QLatin1String("_table.elmt"))
+					|| file.endsWith(QLatin1String("qet_directory"))) {
+					continue;
+				}
+				const auto sym = load(elementPath(file)).documentElement()
+					.firstChildElement(QStringLiteral("description"));
+					// not a plain rectangle: the dotted outline of the card
+				bool dotted = false;
+				for (auto n = sym.firstChildElement(); !n.isNull();
+					 n = n.nextSiblingElement()) {
+					dotted |= n.attribute(QStringLiteral("style")).contains(
+						QLatin1String("line-style:dotted"));
+				}
+				QVERIFY2(dotted, qPrintable(file));
+				++outlined;
+
+				const QString key = QFileInfo(file).fileName().chopped(5);
+				const QString real = appearance(
+					key, QStringLiteral("_realistic"));
+				if (real.isEmpty() || key.startsWith(QLatin1String("af"))
+					|| key.startsWith(QLatin1String("ax"))) {
+					continue;
+				}
+				const auto rdesc = load(real).documentElement()
+					.firstChildElement(QStringLiteral("description"));
+				QCOMPARE(pinPoints(sym), pinPoints(rdesc));
+				++pinned;
+			}
+			QVERIFY(outlined >= 30);
+			QVERIFY(pinned >= 15);
+		}
+
+		void genericCardsHaveARealisticViewAndATable()
+		{
+			for (const QString &key : {QStringLiteral("el1xxx_generic"),
+									   QStringLiteral("el2xxx_generic"),
+									   QStringLiteral("el3xxx_generic"),
+									   QStringLiteral("el4xxx_generic"),
+									   QStringLiteral("el2652")}) {
+				for (const QString &suffix : {QStringLiteral("_realistic"),
+											  QStringLiteral("_description"),
+											  QStringLiteral("_table")}) {
+					QVERIFY2(!appearance(key, suffix).isEmpty(),
+							 qPrintable(key + suffix));
+				}
+			}
 		}
 
 		void descriptionViewsDrawTheLedsAndTheLegendsOfTheChannels()

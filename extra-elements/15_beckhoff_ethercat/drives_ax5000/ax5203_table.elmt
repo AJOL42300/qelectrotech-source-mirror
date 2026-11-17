@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="master" width="410" height="154" hotspot_x="5" hotspot_y="29">
+<definition version="0.100.0" type="element" link_type="master" width="250" height="154" hotspot_x="5" hotspot_y="29">
 	<uuid uuid="{9c2cad67-9eea-5265-855b-3bd5676701a0}"/>
 	<names>
 		<name lang="en">AX5203 servo drive, 2 axis - I/O table</name>
@@ -15,15 +15,29 @@
 		<plcMasterData rowHeight="12.00">
 			<columnWidths>
 				<column index="0" width="60"/>
-				<column index="1" width="36"/>
-				<column index="2" width="110"/>
+				<column index="1" width="66"/>
+				<column index="2" width="130"/>
 				<column index="3" width="90"/>
 				<column index="4" width="64"/>
-				<column index="5" width="40"/>
+				<column index="5" width="44"/>
 			</columnWidths>
 			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="true"/>
+				<column index="2" visible="true"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
 				<column index="5" visible="true"/>
 			</columnVisibility>
+			<columnNames>
+				<column index="0"></column>
+				<column index="1">ID TwinCAT</column>
+				<column index="2">Label</column>
+				<column index="3"></column>
+				<column index="4"></column>
+				<column index="5">N° pin</column>
+			</columnNames>
+			<columnOrder>5,2,1</columnOrder>
 			<headerFont family="Roboto Condensed" size="7" bold="true"/>
 			<cellFont family="Roboto Condensed" size="7" bold="false"/>
 			<plcIOs>

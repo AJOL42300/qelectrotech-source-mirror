@@ -4044,7 +4044,7 @@ void Element::drawPlcTable(QPainter *painter)
 	// Override with custom column names
 	if (!plc_data.columnNames.isEmpty()) {
 		QList<int> all_cols;
-		all_cols << COL_TYPE << COL_ADDRESS << COL_FUNCTION << COL_COMMENT << COL_CROSSREF;
+		all_cols << COL_TYPE << COL_ADDRESS << COL_FUNCTION << COL_COMMENT << COL_CROSSREF << COL_TERMINAL;
 		for (int i = 0; i < qMin(plc_data.columnNames.size(), all_cols.size()); ++i) {
 			if (!plc_data.columnNames.at(i).isEmpty())
 				headers[all_cols.at(i)] = plc_data.columnNames.at(i);

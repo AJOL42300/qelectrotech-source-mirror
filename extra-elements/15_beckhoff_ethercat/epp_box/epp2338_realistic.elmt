@@ -1,48 +1,48 @@
-<definition version="0.100.0" type="element" link_type="master" width="130" height="220" hotspot_x="65" hotspot_y="110">
-	<uuid uuid="{ac0bb5cb-a1b1-5064-8693-5cb2ad882743}"/>
+<definition version="0.100.0" type="element" link_type="master" width="100" height="440" hotspot_x="50" hotspot_y="195">
+	<uuid uuid="{ac0bb5cb-a1b1-5064-8693-5cb2ad882743}" />
 	<names>
 		<name lang="en">EPP2338 EtherCAT P box, 8 channels, realistic view</name>
 		<name lang="fr">EPP2338 boîtier EtherCAT P, 8 voies, vue réaliste</name>
 	</names>
 	<elementInformations>
 		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
-		<elementInformation name="manufacturer_reference" show="1">EPP2338-0001</elementInformation>
-		<elementInformation name="designation" show="1">EtherCAT P Box, 8-channel digital combi, 24 V DC, 10 us, 0.5 A, M8</elementInformation>
-		<elementInformation name="description" show="1">EtherCAT P box with four M8 sockets X01 to X04, two channels each, EtherCAT P IN X50 and OUT X51. Schematic view: one block per socket, pins named after the socket (X01.1 to X04.4, the pin order assumed for a 4-pin M8 socket: 1 +24 V, 2 channel 2, 3 0 V, 4 channel 1; check it in the datasheet). The channel (X01(1)...) is the signal in the I/O table, not the pin. The label of the box is the card id (A1.10).</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">EPP2338-0002</elementInformation>
+		<elementInformation name="designation" show="1">EtherCAT P Box, 8-channel digital input/output, 24 V DC, M12</elementInformation>
+		<elementInformation name="description" show="1">EtherCAT P box with a dark housing: four M12 sockets X01 to X04, two channels each (pin 4 = channel A, pin 2 = channel B, pin 1 = +24 V DC Up, pin 3 = GND P, pin 5 not connected), and two M8 EtherCAT P sockets, X50 IN and X51 OUT. The pins X01.1 to X04.4 are drawn on the sockets; the channel (X01(1)...) is the signal of the I/O table, not the pin. The positions on the housing are assumed. The label of the box is the card id (A1.10).</elementInformation>
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
 		<plcMasterData rowHeight="8.00">
 			<columnVisibility>
-				<column index="0" visible="false"/>
-				<column index="1" visible="false"/>
-				<column index="2" visible="false"/>
-				<column index="3" visible="false"/>
-				<column index="4" visible="false"/>
+				<column index="0" visible="false" />
+				<column index="1" visible="false" />
+				<column index="2" visible="false" />
+				<column index="3" visible="false" />
+				<column index="4" visible="false" />
 			</columnVisibility>
 			<plcIOs>
-				<plcIO type="entree_universelle" address="X01(1)" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="entree_universelle" address="X01(1)" functionText="In-/Output A" comment="" crossRef="" terminalCount="1">
 					<terminal>X01.4</terminal>
 				</plcIO>
-				<plcIO type="entree_universelle" address="X01(2)" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="entree_universelle" address="X01(2)" functionText="In-/Output B" comment="" crossRef="" terminalCount="1">
 					<terminal>X01.2</terminal>
 				</plcIO>
-				<plcIO type="entree_universelle" address="X02(1)" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="entree_universelle" address="X02(1)" functionText="In-/Output A" comment="" crossRef="" terminalCount="1">
 					<terminal>X02.4</terminal>
 				</plcIO>
-				<plcIO type="entree_universelle" address="X02(2)" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="entree_universelle" address="X02(2)" functionText="In-/Output B" comment="" crossRef="" terminalCount="1">
 					<terminal>X02.2</terminal>
 				</plcIO>
-				<plcIO type="entree_universelle" address="X03(1)" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="entree_universelle" address="X03(1)" functionText="In-/Output A" comment="" crossRef="" terminalCount="1">
 					<terminal>X03.4</terminal>
 				</plcIO>
-				<plcIO type="entree_universelle" address="X03(2)" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="entree_universelle" address="X03(2)" functionText="In-/Output B" comment="" crossRef="" terminalCount="1">
 					<terminal>X03.2</terminal>
 				</plcIO>
-				<plcIO type="entree_universelle" address="X04(1)" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="entree_universelle" address="X04(1)" functionText="In-/Output A" comment="" crossRef="" terminalCount="1">
 					<terminal>X04.4</terminal>
 				</plcIO>
-				<plcIO type="entree_universelle" address="X04(2)" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="entree_universelle" address="X04(2)" functionText="In-/Output B" comment="" crossRef="" terminalCount="1">
 					<terminal>X04.2</terminal>
 				</plcIO>
 			</plcIOs>
@@ -51,79 +51,103 @@
 	<informations>Author: QElectroTech contributors
 Realistic view drawn by misc/beckhoff/gen_symbols.py, layout assumed: scale 1.00, grid 5 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<rect x="-60" y="-105" width="120" height="210" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<rect x="-55" y="-100" width="110" height="200" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<circle x="-53" y="-95" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="-53" y="89" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="47" y="-95" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="47" y="89" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="-45" y="-65" diameter="30" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="-41" y="-61" diameter="22" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<text x="-36" y="-34" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X01"/>
-		<circle x="-42" y="-74" diameter="4" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="-22" y="-74" diameter="4" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="-38.5" y="-58.5" diameter="7" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<terminal x="-35" y="-55" name="X01.1" orientation="e" type="Generic" uuid="{70effb1e-c3c8-5482-b757-354421f61312}"/>
-		<circle x="-28.5" y="-58.5" diameter="7" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<terminal x="-25" y="-55" name="X01.2" orientation="e" type="Generic" uuid="{54ed220e-e25f-5726-acd8-aa68cdd16336}"/>
-		<circle x="-28.5" y="-48.5" diameter="7" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<terminal x="-25" y="-45" name="X01.3" orientation="e" type="Generic" uuid="{c7fe089a-7941-5b09-9c49-856e21f9928e}"/>
-		<circle x="-38.5" y="-48.5" diameter="7" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<terminal x="-35" y="-45" name="X01.4" orientation="e" type="Generic" uuid="{cab4b913-4381-507d-8676-c966e8bdc607}"/>
-		<circle x="15" y="-65" diameter="30" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="19" y="-61" diameter="22" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<text x="24" y="-34" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X02"/>
-		<circle x="18" y="-74" diameter="4" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="38" y="-74" diameter="4" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="21.5" y="-58.5" diameter="7" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<terminal x="25" y="-55" name="X02.1" orientation="e" type="Generic" uuid="{c3eaf449-3adb-5fd8-876b-20e48c71c893}"/>
-		<circle x="31.5" y="-58.5" diameter="7" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<terminal x="35" y="-55" name="X02.2" orientation="e" type="Generic" uuid="{c6dab130-270c-5929-aada-169d84a30f1b}"/>
-		<circle x="31.5" y="-48.5" diameter="7" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<terminal x="35" y="-45" name="X02.3" orientation="e" type="Generic" uuid="{ac8206ea-3abf-5e22-bbfc-a541a5f8a5c9}"/>
-		<circle x="21.5" y="-48.5" diameter="7" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<terminal x="25" y="-45" name="X02.4" orientation="e" type="Generic" uuid="{ac28164b-80bf-596c-9f8a-0585e74474a7}"/>
-		<circle x="-45" y="-5" diameter="30" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="-41" y="-1" diameter="22" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<text x="-36" y="26" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X03"/>
-		<circle x="-42" y="-14" diameter="4" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="-22" y="-14" diameter="4" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="-38.5" y="1.5" diameter="7" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<terminal x="-35" y="5" name="X03.1" orientation="e" type="Generic" uuid="{00bf8d17-faab-5246-b0f7-58472d5bb8e1}"/>
-		<circle x="-28.5" y="1.5" diameter="7" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<terminal x="-25" y="5" name="X03.2" orientation="e" type="Generic" uuid="{7f6065c9-0f46-505c-b7c1-44c87b5a380e}"/>
-		<circle x="-28.5" y="11.5" diameter="7" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<terminal x="-25" y="15" name="X03.3" orientation="e" type="Generic" uuid="{62d57003-7033-5049-b6d4-f3b5fd91a78b}"/>
-		<circle x="-38.5" y="11.5" diameter="7" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<terminal x="-35" y="15" name="X03.4" orientation="e" type="Generic" uuid="{5a6d7b93-e847-5efc-a7c4-d59d0fb818e1}"/>
-		<circle x="15" y="-5" diameter="30" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="19" y="-1" diameter="22" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<text x="24" y="26" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X04"/>
-		<circle x="18" y="-14" diameter="4" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="38" y="-14" diameter="4" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="21.5" y="1.5" diameter="7" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<terminal x="25" y="5" name="X04.1" orientation="e" type="Generic" uuid="{4def3db7-c297-5406-8102-7c323eef47bc}"/>
-		<circle x="31.5" y="1.5" diameter="7" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<terminal x="35" y="5" name="X04.2" orientation="e" type="Generic" uuid="{6d23b610-6a2e-5bfa-935c-688d5ccfb7f9}"/>
-		<circle x="31.5" y="11.5" diameter="7" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<terminal x="35" y="15" name="X04.3" orientation="e" type="Generic" uuid="{4ef4639f-7295-515c-ac40-9f637cf245f7}"/>
-		<circle x="21.5" y="11.5" diameter="7" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<terminal x="25" y="15" name="X04.4" orientation="e" type="Generic" uuid="{ab3c8f91-eef3-5a88-ad97-bf1c1849ed5a}"/>
-		<circle x="-45" y="45" diameter="30" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="-41" y="49" diameter="22" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<text x="-42" y="76" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="IN X50"/>
-		<circle x="-42" y="36" diameter="4" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="-22" y="36" diameter="4" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="-34" y="56" diameter="8" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<terminal x="-30" y="60" name="IN X50" orientation="e" type="Generic" uuid="{9166ffb5-feb8-5907-b866-4953f844f497}"/>
-		<circle x="15" y="45" diameter="30" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="19" y="49" diameter="22" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<text x="16" y="76" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="OUT X51"/>
-		<circle x="18" y="36" diameter="4" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="38" y="36" diameter="4" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<circle x="26" y="56" diameter="8" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<terminal x="30" y="60" name="OUT X51" orientation="e" type="Generic" uuid="{ba8639b5-65b5-56d0-94af-3ba8985129a6}"/>
-		<text x="-40" y="88" font="Roboto Condensed,8,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="EPP2338"/>
-		<dynamic_text x="-40" y="-100" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{4ee22e6b-7dbd-5e12-b4b4-53bd1adf4532}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>label</info_name></dynamic_text>
+		<rect x="-40" y="-175" width="80" height="380" antialias="false" style="line-style:normal;line-weight:normal;filling:gray;color:black" rx="0" ry="0" />
+		<rect x="-37" y="-172" width="74" height="374" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" rx="0" ry="0" />
+		<circle x="-33" y="-148" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="26" />
+		<circle x="7" y="-148" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="26" />
+		<text x="-31" y="-121" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="IN X50" />
+		<text x="9" y="-121" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="OUT X51" />
+		<circle x="-27.5" y="-165.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
+		<circle x="22.5" y="-165.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
+		<circle x="-2.5" y="-165.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
+		<circle x="-25" y="-95" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="50" />
+		<circle x="-22" y="-92" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="44" />
+		<circle x="-19.5" y="-89.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
+		<text x="-16.5" y="-88.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="1" />
+		<circle x="10.5" y="-89.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
+		<text x="13.5" y="-88.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="2" />
+		<circle x="10.5" y="-59.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
+		<text x="13.5" y="-58.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="3" />
+		<circle x="-19.5" y="-59.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
+		<text x="-16.5" y="-58.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="4" />
+		<circle x="-3" y="-73" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="6" />
+		<text x="-38" y="-74" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="X01" />
+		<circle x="30.5" y="-80.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
+		<circle x="30.5" y="-64.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
+		<text x="3" y="-103" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="X01(2)" />
+		<text x="-30" y="-42" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="X01(1)" />
+		<circle x="-25" y="-25" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="50" />
+		<circle x="-22" y="-22" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="44" />
+		<circle x="-19.5" y="-19.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
+		<text x="-16.5" y="-18.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="1" />
+		<circle x="10.5" y="-19.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
+		<text x="13.5" y="-18.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="2" />
+		<circle x="10.5" y="10.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
+		<text x="13.5" y="11.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="3" />
+		<circle x="-19.5" y="10.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
+		<text x="-16.5" y="11.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="4" />
+		<circle x="-3" y="-3" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="6" />
+		<text x="-38" y="-4" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="X02" />
+		<circle x="30.5" y="-10.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
+		<circle x="30.5" y="5.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
+		<text x="3" y="-33" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="X02(2)" />
+		<text x="-30" y="28" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="X02(1)" />
+		<circle x="-25" y="45" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="50" />
+		<circle x="-22" y="48" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="44" />
+		<circle x="-19.5" y="50.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
+		<text x="-16.5" y="51.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="1" />
+		<circle x="10.5" y="50.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
+		<text x="13.5" y="51.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="2" />
+		<circle x="10.5" y="80.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
+		<text x="13.5" y="81.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="3" />
+		<circle x="-19.5" y="80.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
+		<text x="-16.5" y="81.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="4" />
+		<circle x="-3" y="67" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="6" />
+		<text x="-38" y="66" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="X03" />
+		<circle x="30.5" y="59.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
+		<circle x="30.5" y="75.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
+		<text x="3" y="37" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="X03(2)" />
+		<text x="-30" y="98" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="X03(1)" />
+		<circle x="-25" y="115" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="50" />
+		<circle x="-22" y="118" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="44" />
+		<circle x="-19.5" y="120.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
+		<text x="-16.5" y="121.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="1" />
+		<circle x="10.5" y="120.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
+		<text x="13.5" y="121.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="2" />
+		<circle x="10.5" y="150.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
+		<text x="13.5" y="151.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="3" />
+		<circle x="-19.5" y="150.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
+		<text x="-16.5" y="151.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="4" />
+		<circle x="-3" y="137" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="6" />
+		<text x="-38" y="136" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="X04" />
+		<circle x="30.5" y="129.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
+		<circle x="30.5" y="145.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
+		<text x="3" y="107" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="X04(2)" />
+		<text x="-30" y="168" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="X04(1)" />
+		<circle x="-12.5" y="170.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
+		<circle x="7.5" y="170.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
+		<text x="-19" y="187" rotation="0" color="#000000" font="Roboto Condensed,8,-1,5,75,0,0,0,0,0,Bold" text="EPP2338" />
+		<terminal x="-20" y="-135" name="IN X50" orientation="e" type="Generic" uuid="{d5816a82-72e6-5d23-97f4-7703c2eb9bbb}" />
+		<terminal x="20" y="-135" name="OUT X51" orientation="e" type="Generic" uuid="{b7e491ef-129f-51ca-8792-879d1365d9d7}" />
+		<terminal x="-15" y="-85" name="X01.1" orientation="e" type="Generic" uuid="{4114316e-767a-5f8a-893f-745aa34b58d3}" />
+		<terminal x="15" y="-85" name="X01.2" orientation="e" type="Generic" uuid="{531e4272-654b-5fe9-ad2a-287ac02f0f3b}" />
+		<terminal x="15" y="-55" name="X01.3" orientation="e" type="Generic" uuid="{b398556b-7cbb-5dd9-ab2d-82b193d49867}" />
+		<terminal x="-15" y="-55" name="X01.4" orientation="e" type="Generic" uuid="{ae03e64d-6a85-5b9c-89a8-65d9506a3445}" />
+		<terminal x="-15" y="-15" name="X02.1" orientation="e" type="Generic" uuid="{04c29153-bc40-5ae4-94cf-fbc66fa530f7}" />
+		<terminal x="15" y="-15" name="X02.2" orientation="e" type="Generic" uuid="{4acbf920-cf0b-5640-a1fc-5ae0b4313cb4}" />
+		<terminal x="15" y="15" name="X02.3" orientation="e" type="Generic" uuid="{98c0aea6-8203-5373-b089-5431094e6a12}" />
+		<terminal x="-15" y="15" name="X02.4" orientation="e" type="Generic" uuid="{72dadc1a-169f-590a-a167-05f4b4d49f0f}" />
+		<terminal x="-15" y="55" name="X03.1" orientation="e" type="Generic" uuid="{d64db51e-f128-5460-a717-6c11fb640204}" />
+		<terminal x="15" y="55" name="X03.2" orientation="e" type="Generic" uuid="{6c2abec3-6566-518d-86ff-c7a18b964c19}" />
+		<terminal x="15" y="85" name="X03.3" orientation="e" type="Generic" uuid="{b1e0a48a-49c0-576b-82d1-6a01024121ce}" />
+		<terminal x="-15" y="85" name="X03.4" orientation="e" type="Generic" uuid="{fe2b7f82-3505-50d7-9453-5f9c275a0449}" />
+		<terminal x="-15" y="125" name="X04.1" orientation="e" type="Generic" uuid="{4486850c-7b6f-5583-961b-5d40498cfb8c}" />
+		<terminal x="15" y="125" name="X04.2" orientation="e" type="Generic" uuid="{7c2160a1-c863-5627-835a-32a3e37731dd}" />
+		<terminal x="15" y="155" name="X04.3" orientation="e" type="Generic" uuid="{07e82508-5cbe-597e-9dc3-ea77496c6bf4}" />
+		<terminal x="-15" y="155" name="X04.4" orientation="e" type="Generic" uuid="{7679bafe-a46d-5cda-9bdd-aa9057076fa4}" />
+		<dynamic_text x="-40" y="-195" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{4ee22e6b-7dbd-5e12-b4b4-53bd1adf4532}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
 	</description>
 </definition>

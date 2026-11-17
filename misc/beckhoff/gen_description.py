@@ -69,9 +69,13 @@ EL_LEDS = {
     "el2008": (8, False), "el2522": (2, False), "el2574": (4, False),
     "el5152": (2, False), "el9100": (0, False), "el1904": (4, True),
     "el2904": (4, True), "el2911": (5, True),
+    "el1xxx_generic": (8, False), "el2xxx_generic": (8, False),
+    "el3xxx_generic": (8, False), "el4xxx_generic": (8, False),
+    "el2652": (4, False),
 }
 EL60 = ("el1004", "el1008", "el2004", "el2008", "el2522", "el2574", "el5152",
-        "el9100", "el1904", "el2904")
+        "el9100", "el1904", "el2904", "el1xxx_generic", "el2xxx_generic",
+        "el3xxx_generic", "el4xxx_generic", "el2652")
 
 
 def uid(*parts):
@@ -197,7 +201,7 @@ class Card:
         for i, lab in enumerate(self.texts):
             if i in used or lab["size"] != 7 or lab["bold"]:
                 continue
-            if not t.y - 34 <= lab["y"] <= t.y - 14:
+            if not t.y - 34 <= lab["y"] <= t.y - 8:
                 continue
             d = abs(lab["x"] + lab["w"] / 2 - t.x)
             if d < bd:
@@ -447,31 +451,42 @@ def build_drive(card):
 
 
 def build_epp(card):
-    for n in ("X01", "X02", "X03", "X04"):
-        ts = [t for t in card.terms if t.name.startswith(n + ".")]
-        side = "L" if ts[0].x < 0 else "R"
-        cy = sum(t.y for t in ts) / 4.0
-        xs = [t.x for t in ts]
-        x0 = (min(xs) - ts[0].r - 4) if side == "L" \
-            else (max(xs) + ts[0].r + 4)
-        sig = []
-        for pin in sorted(card.io, key=lambda p: p):
-            if pin.startswith(n + "."):
-                io = card.io[pin]
-                sig.append((pin, io.get("address")))
-        lines = ["%s (M8 socket)" % n]
-        for i, (pin, addr) in enumerate(sorted(sig, key=lambda s: s[1])):
-            lines.append("pin %s: signal %d" % (pin.split(".")[1], i + 1))
-        lines.append("LEDs above the socket")
-        card.legends.append(Legend(side, cy, x0, lines, 6))
+    """EPP2338: M12 sockets X01 to X04 and M8 EtherCAT P sockets (see
+    gen_epp.py for the pinout)."""
+    import gen_epp as epp
+    for n, cy in enumerate(epp.SOCKET_Y):
+        name = "X%02d" % (n + 1)
+        pins = {t.name: t for t in card.terms
+                if t.name.startswith(name + ".")}
+        left, right = pins[name + ".1"], pins[name + ".2"]
+        card.legends.append(Legend(
+            "L", left.y, left.x - left.r - LEAD_GAP,
+            ["%s: M12 socket" % name, "Pin 1: +24 V DC Up",
+             "Pin 3: GND P"], 6))
+        card.legends.append(Legend(
+            "R", right.y, right.x + right.r + LEAD_GAP,
+            ["Pin 2: In-/Output B", "Pin 4: In-/Output A"], 6))
+        for dy, text in ((-8, "LED channel B"), (8, "LED channel A")):
+            card.legends.append(Legend(
+                "R", cy + dy, 33 + epp.LED_D / 2 + LEAD_GAP, [text], 6))
+    pinout = ["Pin %d: %s" % (i + 1, p)
+              for i, p in enumerate(epp.M8_PINOUT)]
     for t in card.terms:
         if t.name in ("IN X50", "OUT X51"):
             side = "L" if t.x < 0 else "R"
-            x0 = obstacle(card, t, side)
-            word = "in" if t.name.startswith("IN") else "out"
+            word = "IN" if t.name.startswith("IN") else "OUT"
             card.legends.append(Legend(
-                side, t.y, x0, ["%s (M8)" % t.name,
-                                "EtherCAT P " + word], 6))
+                side, t.y, t.x + (-1 if side == "L" else 1) * (t.r + LEAD_GAP),
+                ["%s: M8, EtherCAT P %s" % (t.name.split()[1], word)]
+                + pinout, 6))
+    card.legends.append(Legend("L", -163, -25 - epp.LED_D / 2 - LEAD_GAP,
+                               ["LED L/A (IN)"], 6))
+    card.legends.append(Legend("R", -163, 25 + epp.LED_D / 2 + LEAD_GAP,
+                               ["LED L/A (OUT)"], 6))
+    card.legends.append(Legend("L", 173, -10 - epp.LED_D / 2 - LEAD_GAP,
+                               ["LED Us"], 6))
+    card.legends.append(Legend("R", 173, 10 + epp.LED_D / 2 + LEAD_GAP,
+                               ["LED Up"], 6))
 
 
 def maxx_body(self):
@@ -547,7 +562,7 @@ def retag(card):
     r = card.root
     for n in r.find("names"):
         n.text = n.text.replace(", realistic view", ", description view") \
-                       .replace(", vue réaliste", ", vue description")
+                       .replace(", vue rÃ©aliste", ", vue description")
     r.find("uuid").set("uuid", uid("description", card.stem))
     for t in card.desc.findall("terminal"):
         t.set("uuid", uid("description", card.stem, t.get("name")))

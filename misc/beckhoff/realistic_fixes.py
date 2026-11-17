@@ -285,6 +285,37 @@ def fix_el1918(path, ek_path):
     write(root, path)
 
 
+LABEL_SHIFT = 10.0   # labels end 3 px above the circle instead of 13
+
+
+def closer_labels(path):
+    """Move the terminal labels down to a small constant gap above their
+    circle. Labels still at the former offsets (22 or 32.3 above the
+    terminal) are moved, so the pass can safely run twice."""
+    root = ET.parse(path).getroot()
+    desc = root.find("description")
+    circles = [c for c in desc.findall("circle")
+               if abs(float(c.get("diameter")) - RING_D) < 0.3]
+    terminals = desc.findall("terminal")
+    if not terminals or len(circles) < len(terminals):
+        return False
+    moved = False
+    for lab in desc.findall("text"):
+        ly = float(lab.get("y"))
+        for t in terminals:
+            tx, ty = float(t.get("x")), float(t.get("y"))
+            cx = float(lab.get("x")) + text_width(lab.get("text")) / 2
+            if abs(cx - tx) > 12:
+                continue
+            if abs(ly - (ty - 22)) < 0.05 or abs(ly - (ty - 32.3)) < 0.05:
+                lab.set("y", num(ly + LABEL_SHIFT))
+                moved = True
+                break
+    if moved:
+        write(root, path)
+    return moved
+
+
 def main():
     if len(sys.argv) != 2:
         raise SystemExit(__doc__)
@@ -295,6 +326,8 @@ def main():
     for f in sorted(glob.glob(os.path.join(base, "*", "*_realistic.elmt"))):
         if simplify_terminals(f):
             print("simplified", os.path.relpath(f, base))
+        if closer_labels(f):
+            print("labels closer", os.path.relpath(f, base))
 
 
 if __name__ == "__main__":

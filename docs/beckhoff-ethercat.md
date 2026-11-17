@@ -26,10 +26,26 @@ of the generators into these folders (see
 `*_generic` in the table (`el1xxx_generic`...) are the base symbols of a
 family, not a view.
 
-Every card has up to **four appearances**: the symbol, the realistic view
-(`_realistic`), the description view (`_description`) and the I/O table
-(`_table`). A card without a drawing of its own keeps its symbol and its
-table. There is no "generic view" any more.
+Every card has up to **four appearances**:
+
+- the **schematic** (the symbol, `X.elmt`): the wiring diagram of the card
+  drawn inside its dotted outline (rail clips, optocouplers or output stages,
+  numbered terminals, +24 V / 0 V, power contacts), with the terminals at the
+  same positions as the realistic view, so the views are interchangeable;
+- the **realistic** view (`_realistic`): the front with only the pin numbers
+  and the I/O labels;
+- the **description** view (`_description`): the realistic view with the
+  descriptions of the I/O on the sides (leader lines, LEDs);
+- the **table** (`_table`): a simple table N° pin | Label | TwinCAT ID.
+
+There are no plain rectangle symbols any more: the `*_generic` symbols and the
+couplers are schematics in a dotted outline too. The generic cards
+(`el1xxx_generic`, `el2xxx_generic`, `el3xxx_generic`, `el4xxx_generic`,
+`el2652`) have the four appearances, generated from the common model of the
+EL1008 / EL2008 / EL2004 front with the pin number as label (the signal of
+each contact depends on the exact type). The couplers (EK1100, EK1322,
+EK1960), the EL6910, the EL9011 and `ethercat_box_generic` only have the
+schematic.
 
 ## What is there
 
@@ -47,8 +63,8 @@ table. There is no "generic view" any more.
 | `el2652.elmt` | Beckhoff | EL2652 | contacts 1 to 4 (relay output, generic) |
 | `el5152.elmt` | Beckhoff | EL5152 | contacts 1 to 8 (generic layout) |
 | `*_realistic.elmt` | as the symbol | as the symbol | terminals on the screw circles of the drawing (EL1004, EL1008, EL1904, EL1918, EL2004, EL2008, EL2522, EL2574, EL2904, EL2911, EL5152, EL9100, EK1914, EPP2338), and the vector view of the drives |
-| `*_description.elmt` | as the symbol | as the symbol | the realistic view (same terminals, same scale) with annotated legends and the status LEDs, for every card that has a realistic view (33 cards, see "Description appearance") |
-| `*_table.elmt` | as the symbol | as the symbol | none: the I/O table only (EL1004, EL1008, EL2004, EL2008, EL2522, EL2574, EL2652, EL2911, EL5152, EK1914, EPP2338) |
+| `*_description.elmt` | as the symbol | as the symbol | the realistic view (same terminals, same scale) with annotated legends and the status LEDs, for every card that has a realistic view (38 cards, see "Description appearance") |
+| `*_table.elmt` | as the symbol | as the symbol | none: the simple I/O table only (every card with a realistic view) |
 | `ek1100.elmt` | Beckhoff | EK1100 | EtherCAT IN, EtherCAT OUT |
 | `ek1322.elmt` | Beckhoff | EK1322 | IN X50, OUT X51, OUT X52 |
 | `ek1914.elmt` | Beckhoff | EK1914 | EtherCAT IN/OUT, I1 to I4, SI1, SI2, O1 to O4, SO1, SO2 |
@@ -346,10 +362,29 @@ manufacturer is in the repository.
 
 ### I/O table appearance
 
-The `_table` elements draw the I/O table in **Roboto Condensed**, size 7,
-with rows of 12 px (about 1.5 times the default), a bold header on a grey
-band, and the columns Type, Address, Function, Comment, Cross reference and
-Terminal wide enough for their text (the widths are in the element). Roboto
+The `_table` elements draw a **simple table with three columns**: `N° pin`,
+`Label` and `ID TwinCAT`, in **Roboto Condensed**, size 7, with rows of 12 px
+(about 1.5 times the default), a bold header on a grey band. There is no type,
+function, address or comment column on the appearance. The data of the I/O
+table (address, type, function, comment, terminals) is still stored in the
+card as before: the TwinCAT synchronisation, the tooltips, the live cross
+reference and the exports keep using it, only the drawing is simplified.
+
+- N° pin: the pins of the channel (the Terminal column, index 5).
+- Label: the function text of the channel.
+- ID TwinCAT: the address of the channel (`I1`, `Q2`, `SI1`, `O3`,
+  `X01(1)`...). The full identifier is `<card label>.<address>`, for example
+  `A1.10.I3`. This is what the TwinCAT synchronisation uses as it is: the box
+  is found by the label of the card, and the channel by its direction and the
+  trailing number of the address. For the drives (`IN5`, `TH1`, `OUT`) and the
+  EPP2338 (`X01(1)`) the trailing number is the one used for the match.
+
+The columns are configurable per element (no fork of the drawing code): the
+element keeps `columnVisibility`, `columnOrder` (here `5,2,1`) and
+`columnNames` (the six columns, index 5 is the Terminal column). The simple
+table is the default for the `_table` appearance. The element properties
+editor only knows the five first columns: saving a table from it may drop the
+name or visibility of the Terminal column. Roboto
 Condensed is installed on the machine where this was checked; the font file
 is **not** in the repository. If it is missing, Arial Narrow or Liberation
 Sans Narrow is used, then the system sans-serif.
@@ -511,29 +546,37 @@ ones, and new folios of the example are created as A3 landscape.
 
 ## EPP2338 box
 
-The EPP2338 (EtherCAT P box, `epp_box`) has two views, both original vector
-drawings made from the public description of the box (M8 connectors, two
-channels per socket); no Beckhoff image or text is used:
+The EPP2338-0002 (EtherCAT P box, `epp_box`, reference `EPP2338-0002`) is a
+dark box, not a terminal card: 8 channels on four **M12** 5-pin sockets X01 to
+X04 (two channels per socket) and two **M8** EtherCAT P sockets X50 (IN) and
+X51 (OUT). It has four appearances, all original vector drawings that follow
+the structure of the reference pictures given by the user (socket stack, LEDs,
+labelling areas, pin-out); no image or manufacturer text is in the repository:
 
-- `epp2338.elmt`: a functional view in the style of a module diagram: dotted
-  module outline with rail clips, IN X50 / OUT X51, a +24 V and a 0 V rail,
-  four sockets X01 to X04 of four pins, one block per channel (LED and
-  phototransistor), junction dots on the supplies. Terminals are on the
-  circles, on the 5 px grid.
+- `epp2338.elmt` (schematic): dotted module outline with rail clips, the
+  EtherCAT P sockets, a +24 V and a 0 V rail, the four M12 sockets, one block
+  per channel (LED and phototransistor). Terminals are on the circles, on the
+  5 px grid.
 - `epp2338_realistic.elmt`: the front of the box at the EK1914 scale, with the
-  six sockets, their LEDs and the reference inside, at the bottom.
-  The terminals are named `X0n.1` to `X0n.4` (pin of the socket); the two
-  extra terminals are `IN X50` and `OUT X51`.
+  six sockets, the LEDs (one per channel, L/A, Run, Us/Up) and the reference
+  inside, at the bottom. The terminals are named `X0n.1` to `X0n.5` (pin of
+  the socket); the two extra terminals are `IN X50` and `OUT X51`.
+- `epp2338_description.elmt` and `epp2338_table.elmt`.
 
-The table, the views and "Create the other appearances" share the same data.
-Each channel has its pin: channel 1 of a socket is on pin 4 and channel 2 on
-pin 2, pin 1 is +24 V and pin 3 is 0 V.
+Each channel has its pin: on an M12 socket, pin 4 is In-/Output A, pin 2 is
+In-/Output B, pin 1 is +24 V DC Up, pin 3 is GND P and pin 5 is not connected.
 
-INCERTAIN: the M8 pin-out and the position of the sockets on the front are
-assumed (pin numbering of the realistic view too). Check them against the
-datasheet of your box. The functional style could also be applied to the other
-cards if you want it.
+INCERTAIN: the positions of the sockets, the LEDs and the labelling areas on
+the front are assumed from the reference picture; check the pin-outs against
+the datasheet of your box.
+
 ## Limits
+
+- The generic cards and the couplers are generated from the common model, not
+  from a drawing of the user. The stage circuits of the schematics (input
+  optocoupler, output stage) are generic, not taken from a datasheet. The
+  couplers, the EL6910, the EL9011 and the generic EtherCAT box have no
+  realistic, description or table view yet.
 
 - The ios of the EK1914 name the channels `I1`..`SO2`, but the pin of each
   channel is unknown (the user's drawing has no channel names), so they are
@@ -570,7 +613,12 @@ python misc/beckhoff/gen_drives.py <scratch>
 python misc/beckhoff/realistic_from_model.py <drawings> <scratch>/15_beckhoff_ethercat
 python misc/beckhoff/organize.py <scratch> extra-elements
 python misc/beckhoff/realistic_fixes.py extra-elements/15_beckhoff_ethercat
+python misc/beckhoff/gen_epp.py extra-elements/15_beckhoff_ethercat
+python misc/beckhoff/gen_generic.py extra-elements/15_beckhoff_ethercat
+python misc/beckhoff/gen_schematic.py <absolute path of extra-elements/15_beckhoff_ethercat>
+python misc/beckhoff/gen_couplers.py extra-elements/15_beckhoff_ethercat
 python misc/beckhoff/gen_description.py extra-elements/15_beckhoff_ethercat
+python misc/beckhoff/simple_tables.py extra-elements/15_beckhoff_ethercat
 python misc/beckhoff/gen_titleblocks.py
 python misc/beckhoff/gen_example.py
 ```

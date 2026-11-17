@@ -1870,6 +1870,10 @@ void CrossRefItem::drawAsPlcTable(QPainter &painter)
 	headers[COL_COMMENT]  = QObject::tr("Annotation");
 	headers[COL_CROSSREF] = QObject::tr("Cross-reference");
 	headers[COL_TERMINAL] = QObject::tr("Terminal");
+	for (int i = 0; i < qMin(plc_data.columnNames.size(), COL_COUNT); ++i) {
+		if (!plc_data.columnNames.at(i).isEmpty())
+			headers[i] = plc_data.columnNames.at(i);
+	}
 
 	// Build visible columns (must match Element::drawPlcTable logic)
 	QList<int> visible_cols;

@@ -1,5 +1,5 @@
-<definition version="0.100.0" type="element" link_type="master" width="110" height="166" hotspot_x="55" hotspot_y="5">
-	<uuid uuid="{ff0bdaaf-a361-5d16-9eee-6a22e9bfb6a9}"/>
+<definition version="0.100.0" type="element" link_type="master" width="47" height="302" hotspot_x="20" hotspot_y="149">
+	<uuid uuid="{ff0bdaaf-a361-5d16-9eee-6a22e9bfb6a9}" />
 	<names>
 		<name lang="en">EL1904 EtherCAT Terminal, 4 fail-safe digital inputs, 24 V DC</name>
 		<name lang="fr">EL1904 EtherCAT Terminal, 4 fail-safe digital inputs, 24 V DC</name>
@@ -14,11 +14,11 @@
 		<kindInformation name="type">plc</kindInformation>
 		<plcMasterData rowHeight="8.00">
 			<columnVisibility>
-				<column index="0" visible="false"/>
-				<column index="1" visible="false"/>
-				<column index="2" visible="false"/>
-				<column index="3" visible="false"/>
-				<column index="4" visible="false"/>
+				<column index="0" visible="false" />
+				<column index="1" visible="false" />
+				<column index="2" visible="false" />
+				<column index="3" visible="false" />
+				<column index="4" visible="false" />
 			</columnVisibility>
 			<plcIOs>
 				<plcIO type="entree_digitale" address="SI1" functionText="" comment="" crossRef="" terminalCount="1">
@@ -37,36 +37,78 @@
 		</plcMasterData>
 	</kindInformations>
 	<informations>Author: QElectroTech contributors
-Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: the stages are generic, check them against the datasheet. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<rect x="-50" y="0" width="100" height="140" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:yellow;color:black" antialias="false"/>
-		<text x="-44" y="6" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="BECKHOFF"/>
-		<text x="-44" y="18" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="EL1904"/>
-		<terminal x="-50" y="40" name="1" orientation="w" type="Generic" uuid="{dbaa4c62-8360-506d-850c-2bdba2610392}"/>
-		<line x1="-50" y1="40" x2="-40" y2="40" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="-44" y="34" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="1 SI1"/>
-		<terminal x="-50" y="60" name="2" orientation="w" type="Generic" uuid="{c178546f-e573-595e-8513-c0881b82dfdc}" potential="0V"/>
-		<line x1="-50" y1="60" x2="-40" y2="60" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="-44" y="54" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2 0V1"/>
-		<terminal x="-50" y="80" name="3" orientation="w" type="Generic" uuid="{05ec7e2a-35fd-5845-bd7c-ac7c6d9e1390}"/>
-		<line x1="-50" y1="80" x2="-40" y2="80" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="-44" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="3 SI3"/>
-		<terminal x="-50" y="100" name="4" orientation="w" type="Generic" uuid="{abb6463c-68aa-5c03-8960-e19c4ed90f72}" potential="0V"/>
-		<line x1="-50" y1="100" x2="-40" y2="100" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="-44" y="94" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4 0V3"/>
-		<terminal x="50" y="40" name="5" orientation="e" type="Generic" uuid="{2dce1ac6-fad1-5af4-9e6e-e594af9f02cb}"/>
-		<line x1="50" y1="40" x2="40" y2="40" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="23" y="34" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="SI2 5"/>
-		<terminal x="50" y="60" name="6" orientation="e" type="Generic" uuid="{ee365871-3758-5f4d-967a-4899061e8a61}" potential="0V"/>
-		<line x1="50" y1="60" x2="40" y2="60" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="23" y="54" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V2 6"/>
-		<terminal x="50" y="80" name="7" orientation="e" type="Generic" uuid="{4466b375-7c22-5f70-841a-7e65ed9824a3}"/>
-		<line x1="50" y1="80" x2="40" y2="80" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="23" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="SI4 7"/>
-		<terminal x="50" y="100" name="8" orientation="e" type="Generic" uuid="{179b558a-83ef-529f-bde0-13cf36c016bd}" potential="0V"/>
-		<line x1="50" y1="100" x2="40" y2="100" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="23" y="94" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V4 8"/>
-		<dynamic_text x="-50" y="144" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{6df16b5c-ff90-5b23-89a6-5add0a336d1d}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
-		<dynamic_text x="-50" y="156" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{e43e751b-724e-5409-82af-eaed837ff898}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
+		<rect x="-14.5" y="-136.7" width="36.5" height="277.2" rx="0" ry="0" style="line-style:dotted;line-weight:normal;filling:none;color:black" antialias="false" />
+		<rect x="-6.25" y="-143.7" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-3.25" y1="-141.7" x2="6.75" y2="-141.7" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<rect x="-6.25" y="140.5" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-3.25" y1="145.5" x2="6.75" y2="145.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-5" y1="-40.5" x2="-5" y2="-32.17" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="-3" y1="-32.17" x2="-3" y2="-23.17" x3="-7" y3="-23.17" x4="-7" y4="-32.17" />
+		<line x1="-5" y1="-23.17" x2="-5" y2="-14.83" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="-2" y1="-14.83" x2="-8" y2="-14.83" x3="-5" y3="-9.33" />
+		<line x1="-2" y1="-9.33" x2="-8" y2="-9.33" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-8.8" y1="-11.63" x2="-11.3" y2="-14.63" end1="none" end2="simple" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-11.6" y1="-11.63" x2="-14.1" y2="-14.63" end1="none" end2="simple" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-5" y1="-7.83" x2="-5" y2="0.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-5" y1="64.5" x2="-5" y2="74.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="-3" y1="74.5" x2="-3" y2="83.5" x3="-7" y3="83.5" x4="-7" y4="74.5" />
+		<line x1="-5" y1="83.5" x2="-5" y2="93.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="-2" y1="93.5" x2="-8" y2="93.5" x3="-5" y3="99" />
+		<line x1="-2" y1="99" x2="-8" y2="99" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-8.8" y1="96.7" x2="-11.3" y2="93.7" end1="none" end2="simple" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-11.6" y1="96.7" x2="-14.1" y2="93.7" end1="none" end2="simple" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-5" y1="100.5" x2="-5" y2="110.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="10" y1="-40.5" x2="10" y2="-32.17" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="12" y1="-32.17" x2="12" y2="-23.17" x3="8" y3="-23.17" x4="8" y4="-32.17" />
+		<line x1="10" y1="-23.17" x2="10" y2="-14.83" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="13" y1="-14.83" x2="7" y2="-14.83" x3="10" y3="-9.33" />
+		<line x1="13" y1="-9.33" x2="7" y2="-9.33" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="6.2" y1="-11.63" x2="3.7" y2="-14.63" end1="none" end2="simple" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="3.4" y1="-11.63" x2="0.9" y2="-14.63" end1="none" end2="simple" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="10" y1="-7.83" x2="10" y2="0.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="10" y1="64.5" x2="10" y2="74.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="12" y1="74.5" x2="12" y2="83.5" x3="8" y3="83.5" x4="8" y4="74.5" />
+		<line x1="10" y1="83.5" x2="10" y2="93.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="13" y1="93.5" x2="7" y2="93.5" x3="10" y3="99" />
+		<line x1="13" y1="99" x2="7" y2="99" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="6.2" y1="96.7" x2="3.7" y2="93.7" end1="none" end2="simple" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="3.4" y1="96.7" x2="0.9" y2="93.7" end1="none" end2="simple" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="10" y1="100.5" x2="10" y2="110.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<circle x="-9.5" y="-49.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="-6.33" y="-49.33" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="1" />
+		<circle x="-9.5" y="0.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="-6.63" y="0.67" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="2" />
+		<circle x="-9.5" y="55.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="-6.63" y="55.67" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="3" />
+		<circle x="-9.5" y="110.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="-6.63" y="110.67" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="4" />
+		<circle x="5.5" y="-49.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="8.37" y="-49.33" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="5" />
+		<circle x="5.5" y="0.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="8.37" y="0.67" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="6" />
+		<circle x="5.5" y="55.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="8.37" y="55.67" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="7" />
+		<circle x="5.5" y="110.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="8.37" y="110.67" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="8" />
+		<text x="5.38" y="-57" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="S2" />
+		<text x="-9.62" y="48" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="S3" />
+		<text x="5.38" y="48" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="S4" />
+		<text x="-9.2" y="-57" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="S1" />
+		<text x="-10.7" y="135.74" font="Roboto Condensed,8,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="EL1904" />
+		<terminal x="-5" y="-45" name="1" orientation="w" type="Generic" uuid="{dbaa4c62-8360-506d-850c-2bdba2610392}" />
+		<terminal x="-5" y="5" name="2" orientation="w" type="Generic" uuid="{c178546f-e573-595e-8513-c0881b82dfdc}" potential="0V" />
+		<terminal x="-5" y="60" name="3" orientation="w" type="Generic" uuid="{05ec7e2a-35fd-5845-bd7c-ac7c6d9e1390}" />
+		<terminal x="-5" y="115" name="4" orientation="w" type="Generic" uuid="{abb6463c-68aa-5c03-8960-e19c4ed90f72}" potential="0V" />
+		<terminal x="10" y="-45" name="5" orientation="e" type="Generic" uuid="{2dce1ac6-fad1-5af4-9e6e-e594af9f02cb}" />
+		<terminal x="10" y="5" name="6" orientation="e" type="Generic" uuid="{ee365871-3758-5f4d-967a-4899061e8a61}" potential="0V" />
+		<terminal x="10" y="60" name="7" orientation="e" type="Generic" uuid="{4466b375-7c22-5f70-841a-7e65ed9824a3}" />
+		<terminal x="10" y="115" name="8" orientation="e" type="Generic" uuid="{179b558a-83ef-529f-bde0-13cf36c016bd}" potential="0V" />
+		<dynamic_text x="-20.96" y="155.89" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{56b60f61-d6a4-5d7c-b898-0cd645b16ade}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
 	</description>
 </definition>
