@@ -470,6 +470,139 @@ class TstBeckhoffElements : public QObject
 			}
 		}
 
+		void ek1914NumbersAreOutsideTheBlockNextToTheirTerminal()
+		{
+			const auto parts = load(appearance(QStringLiteral("ek1914"),
+				QStringLiteral("_realistic"))).documentElement()
+				.firstChildElement(QStringLiteral("description"));
+			const auto pins = pinPoints(parts);
+			bool yellowBlock = false;
+			const auto rects = parts.elementsByTagName(QStringLiteral("rect"));
+			for (int i = 0; i < rects.size(); ++i) {
+				const auto r = rects.at(i).toElement();
+				const QRectF box(r.attribute(QStringLiteral("x")).toDouble(),
+								 r.attribute(QStringLiteral("y")).toDouble(),
+								 r.attribute(QStringLiteral("width"))
+								 .toDouble(),
+								 r.attribute(QStringLiteral("height"))
+								 .toDouble());
+				if (r.attribute(QStringLiteral("style"))
+						.contains(QLatin1String("filling:yellow"))
+						&& box.contains(pins.value(QStringLiteral("11")))
+						&& box.contains(pins.value(QStringLiteral("16")))
+						&& !box.contains(pins.value(QStringLiteral("10")))) {
+					yellowBlock = true;
+				}
+			}
+				// the whole lower block is yellow, not only the circles
+			QVERIFY(yellowBlock);
+
+			int seen = 0;
+			const auto texts = parts.elementsByTagName(QStringLiteral("text"));
+			for (int i = 0; i < texts.size(); ++i) {
+				const auto t = texts.at(i).toElement();
+				const QString name = t.attribute(QStringLiteral("text"));
+				bool number = false;
+				const int pin = name.toInt(&number);
+				if (!number || pin < 1 || pin > 16) {
+					continue;
+				}
+				++seen;
+				const QPointF p = pins.value(name);
+				const qreal x = t.attribute(QStringLiteral("x")).toDouble();
+				const qreal y = t.attribute(QStringLiteral("y")).toDouble();
+					// 7 pt digits: outside the circles (radius 4.25), a
+					// small gap from the circle, on the line of the terminal
+				if (pin % 2) {
+					QVERIFY2(x + 4 * name.size() < p.x() - 4.25,
+							 qPrintable(name));
+					QVERIFY2(p.x() - x < 25, qPrintable(name));
+				} else {
+					QVERIFY2(x > p.x() + 4.25, qPrintable(name));
+					QVERIFY2(x - p.x() < 25, qPrintable(name));
+				}
+				QVERIFY2(qAbs(y + 5.5 - p.y()) < 4, qPrintable(name));
+			}
+			QCOMPARE(seen, 16);
+		}
+
+		void el1918HasTheTerminalsOfTheRightPartOfTheEk1914()
+		{
+			const auto ek = pinPoints(load(appearance(
+				QStringLiteral("ek1914"), QStringLiteral("_realistic")))
+				.documentElement().firstChildElement(
+				QStringLiteral("description")));
+			const auto el = pinPoints(load(appearance(
+				QStringLiteral("el1918"), QStringLiteral("_realistic")))
+				.documentElement().firstChildElement(
+				QStringLiteral("description")));
+			for (int n = 1; n <= 16; ++n) {
+				const QString name = QString::number(n);
+				QVERIFY2(el.contains(name), qPrintable(name));
+					// two columns, odd on the left, row by row
+				QCOMPARE(el.value(name).x(), ek.value(name).x());
+				QCOMPARE(el.value(name).y(), ek.value(name).y());
+			}
+		}
+
+		void realisticTerminalsAreOnlyACircleWithTheLabelAbove()
+		{
+			int checked = 0;
+			for (const QString &key : {QStringLiteral("el1004"),
+									   QStringLiteral("el1008"),
+									   QStringLiteral("el2004"),
+									   QStringLiteral("el2008"),
+									   QStringLiteral("el1904"),
+									   QStringLiteral("el2904"),
+									   QStringLiteral("el2911")}) {
+				const auto parts = load(appearance(key,
+					QStringLiteral("_realistic"))).documentElement()
+					.firstChildElement(QStringLiteral("description"));
+				const auto pins = pinPoints(parts);
+				const auto lines = parts.elementsByTagName(
+					QStringLiteral("line"));
+				const auto texts = parts.elementsByTagName(
+					QStringLiteral("text"));
+				for (auto it = pins.cbegin(); it != pins.cend(); ++it) {
+					const QPointF p = it.value();
+						// no frame left above the circle
+					for (int i = 0; i < lines.size(); ++i) {
+						const auto l = lines.at(i).toElement();
+						const qreal x1 = l.attribute(QStringLiteral("x1"))
+							.toDouble();
+						const qreal x2 = l.attribute(QStringLiteral("x2"))
+							.toDouble();
+						const qreal y1 = l.attribute(QStringLiteral("y1"))
+							.toDouble();
+						const qreal y2 = l.attribute(QStringLiteral("y2"))
+							.toDouble();
+						const bool frame =
+							qMin(x1, x2) >= p.x() - 6
+							&& qMax(x1, x2) <= p.x() + 6.5
+							&& qMin(y1, y2) >= p.y() - 25.5
+							&& qMax(y1, y2) <= p.y() - 9.5;
+						QVERIFY2(!frame, qPrintable(key + QLatin1Char(' ')
+							+ it.key()));
+					}
+						// the label of the terminal is above the circle
+					bool label = false;
+					for (int i = 0; i < texts.size(); ++i) {
+						const auto t = texts.at(i).toElement();
+						const qreal x = t.attribute(QStringLiteral("x"))
+							.toDouble();
+						const qreal y = t.attribute(QStringLiteral("y"))
+							.toDouble();
+						label |= x > p.x() - 22 && x < p.x() + 2
+							&& y > p.y() - 36 && y < p.y() - 12;
+					}
+					QVERIFY2(label, qPrintable(key + QLatin1Char(' ')
+												+ it.key()));
+					++checked;
+				}
+			}
+			QVERIFY(checked >= 40);
+		}
+
 		void referenceIsInsideTheCardAtTheBottom()
 		{
 			for (const QString &key : {QStringLiteral("el1004"),
@@ -525,6 +658,22 @@ class TstBeckhoffElements : public QObject
 				}
 				QVERIFY2(seen, qPrintable(key));
 			}
+		}
+
+		static QMap<QString, QPointF> pinPoints(const QDomElement &parts)
+		{
+			QMap<QString, QPointF> pins;
+			const auto terminals = parts.elementsByTagName(
+				QStringLiteral("terminal"));
+			for (int i = 0; i < terminals.size(); ++i) {
+				const auto t = terminals.at(i).toElement();
+				pins.insert(t.attribute(QStringLiteral("name")),
+							QPointF(t.attribute(QStringLiteral("x"))
+									.toDouble(),
+									t.attribute(QStringLiteral("y"))
+									.toDouble()));
+			}
+			return pins;
 		}
 
 		static QStringList terminalNames(const QDomElement &def)
