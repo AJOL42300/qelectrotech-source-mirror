@@ -29,11 +29,17 @@ The output is deterministic (all uuids are derived from fixed names).
 """
 import copy
 import os
+import sys
 import uuid
 import xml.etree.ElementTree as ET
 from xml.sax.saxutils import quoteattr
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import gen_titleblocks  # noqa: E402
+
 ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", ".."))
+TB_DIR = os.path.join(ROOT, "titleblocks")
+TITLEBLOCKS = {"A3 landscape": "A3_landscape", "A3 portrait": "A3_portrait"}
 ELMT_DIR = os.path.join(ROOT, "extra-elements", "15_beckhoff_ethercat")
 OUT = os.path.join(ROOT, "examples", "beckhoff_islands_example.qet")
 NS = uuid.UUID("0b0d4f0e-6f1b-4c58-9a3e-5d1c9f5b7a10")
@@ -262,15 +268,33 @@ DEFCOND = (
     'vertical-alignment="AlignRight" vertirotatetext="270"')
 
 
-def diagram_xml(order, title, elements, conductors, rows=8):
+def titleblock_templates():
+    """The A3 title block templates of the titleblocks folder, embedded so
+    that the example does not depend on an installed library."""
+    xml = ""
+    for name in TITLEBLOCKS.values():
+        with open(os.path.join(TB_DIR, name + ".titleblock"),
+                  encoding="utf-8") as f:
+            root = ET.fromstring(f.read())
+        xml += ET.tostring(root, encoding="unicode")
+    return "<titleblocktemplates>" + xml + "</titleblocktemplates>"
+
+
+def diagram_xml(order, title, elements, conductors, portrait=False):
+    size = "A3 portrait" if portrait else "A3 landscape"
+    cols, colsize, rows, rowsize = gen_titleblocks.FOLIO_SIZES[size]
     return (
-        '<diagram author="" auto_page_num="" cols="17" colsize="60" '
+        f'<diagram author="" auto_page_num="" cols="{cols}" '
+        f'colsize="{colsize}" '
         'date="null" displayAt="bottom" displaycols="true" '
         'displayrows="true" filename="" folio="%id/%total" '
         f'freezeNewConductor="false" freezeNewElement="false" '
-        f'height="{rows * 80 + 20}" '
+        f'height="{rows * rowsize + 20}" '
         f'indexrev="" locmach="" order="{order}" plant="" rows="{rows}" '
-        f'rowsize="80" title="{esc(title)}" uuid="{uid("d", str(order))}" '
+        f'rowsize="{rowsize}" title="{esc(title)}" '
+        f'titleblocktemplate="{size}" '
+        'titleblocktemplateCollection="embedded" '
+        f'uuid="{uid("d", str(order))}" '
         f'version="{VERSION}-dev"><defaultconductor {DEFCOND}/>'
         "<elements>" + "".join(elements) + "</elements><conductors>" +
         "".join(conductors) + "</conductors><inputs/></diagram>")
@@ -312,7 +336,7 @@ def folio_tables():
     for n, (label, name, x) in enumerate(CARDS):
         els.append(element_xml(get(CAT, name + "_table"), label, 60,
                                60 + 190 * n, f"table/{label}"))
-    return diagram_xml(3, "A1 island - I/O tables", els, [])
+    return diagram_xml(3, "A1 island - I/O tables", els, [], portrait=True)
 
 
 def island_folios(first, head_label, cards):
@@ -337,7 +361,7 @@ def island_folios(first, head_label, cards):
                 f"sym/{label}/{i}", f"sym/{card}", card, el, pin,
                 f"sym/{label}", label, sensor, str(i + 1)))
     folios = [diagram_xml(first, f"{head_label[:2]} island - symbols",
-                          els, conductors, 9)]
+                          els, conductors)]
     here = [(label, cat, name) for label, cat, name in cards
             if exists(cat, name + "_realistic")]
     if here:
@@ -346,14 +370,14 @@ def island_folios(first, head_label, cards):
                for n, (label, cat, name) in enumerate(here)]
         folios.append(diagram_xml(first + len(folios),
                                   f"{head_label[:2]} island - "
-                                  "realistic views", els, [], 9))
+                                  "realistic views", els, []))
     els = [element_xml(get(cat, name + "_table"), label,
                        60 + 480 * (n % 2), 60 + 320 * (n // 2),
                        f"table/{label}")
            for n, (label, cat, name) in enumerate(cards)]
     folios.append(diagram_xml(first + len(folios),
                               f"{head_label[:2]} island - I/O tables",
-                              els, [], 9))
+                              els, []))
     return folios
 
 
@@ -410,12 +434,14 @@ def main():
     head = (
         f'<project title="Beckhoff EtherCAT island example" '
         f'uuid="{uid("project")}" version="{VERSION}"><properties/>'
+        + titleblock_templates() +
         '<usage enabled="true" time_spent="0"/><newdiagrams>'
-        '<border cols="17" colsize="60" displaycols="true" '
-        'displayrows="true" rows="8" rowsize="80"/>'
+        '<border cols="20" colsize="61" displaycols="true" '
+        'displayrows="true" rows="10" rowsize="80"/>'
         '<inset author="" auto_page_num="" date="null" displayAt="bottom" '
         'filename="" folio="" indexrev="" locmach="" plant="" title="" '
-        'version=""/>'
+        'titleblocktemplate="A3 landscape" '
+        'titleblocktemplateCollection="embedded" version=""/>'
         f"<conductors {DEFCOND}/><report label=\"%f-%l%c\"/>"
         f"<xrefs>{xrefs}</xrefs>"
         '<conductors_autonums auto_break_conductors="false" '

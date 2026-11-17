@@ -31,6 +31,7 @@
 #include <QPointF>
 #include <QSet>
 #include <QtTest>
+#include <algorithm>
 #include <cmath>
 
 class TstBeckhoffElements : public QObject
@@ -882,6 +883,90 @@ class TstBeckhoffElements : public QObject
 						QStringLiteral("terminal") + end)));
 				}
 			}
+		}
+
+		void a3TitleBlocksAreShippedAndAppliedToTheExample()
+		{
+			const QString dir = QStringLiteral(QET_EXAMPLES_DIR)
+				+ QStringLiteral("/../titleblocks/");
+			const QMap<QString, QString> files{
+				{QStringLiteral("A3 landscape"),
+				 QStringLiteral("A3_landscape.titleblock")},
+				{QStringLiteral("A3 portrait"),
+				 QStringLiteral("A3_portrait.titleblock")}};
+			QMap<QString, QString> grids;
+			for (auto it = files.cbegin(); it != files.cend(); ++it) {
+				const auto doc = load(dir + it.value());
+				const auto root = doc.documentElement();
+				QCOMPARE(root.tagName(),
+						 QStringLiteral("titleblocktemplate"));
+				QCOMPARE(root.attribute(QStringLiteral("name")), it.key());
+					// no logo is embedded, the first cell stays empty
+				QCOMPARE(root.firstChildElement(QStringLiteral("logos"))
+						 .childNodes().size(), 0);
+				const auto grid = root.firstChildElement(
+					QStringLiteral("grid"));
+				QCOMPARE(grid.attribute(QStringLiteral("rows")),
+						 QStringLiteral("25;25;"));
+				QVERIFY(grid.elementsByTagName(QStringLiteral("field"))
+						.size() >= 6);
+				QVERIFY(grid.elementsByTagName(QStringLiteral("logo"))
+						.isEmpty());
+				grids.insert(it.key(),
+							 grid.attribute(QStringLiteral("cols")));
+			}
+
+			const auto doc = load(QStringLiteral(QET_EXAMPLES_DIR)
+				+ QStringLiteral("/beckhoff_islands_example.qet"));
+			const auto project = doc.documentElement();
+			const auto templates = project.firstChildElement(
+				QStringLiteral("titleblocktemplates"))
+				.elementsByTagName(QStringLiteral("titleblocktemplate"));
+			QCOMPARE(templates.size(), 2);
+			for (int i = 0; i < templates.size(); ++i) {
+				const auto t = templates.at(i).toElement();
+				QCOMPARE(t.firstChildElement(QStringLiteral("grid"))
+						 .attribute(QStringLiteral("cols")),
+						 grids.value(t.attribute(QStringLiteral("name"))));
+			}
+
+			int portrait = 0;
+			const auto folios = project.elementsByTagName(
+				QStringLiteral("diagram"));
+			for (int i = 0; i < folios.size(); ++i) {
+				const auto d = folios.at(i).toElement();
+				const QString name = d.attribute(
+					QStringLiteral("titleblocktemplate"));
+				QVERIFY2(files.contains(name), qPrintable(name));
+				QCOMPARE(d.attribute(
+					QStringLiteral("titleblocktemplateCollection")),
+					QStringLiteral("embedded"));
+				const int w = d.attribute(QStringLiteral("cols")).toInt()
+					* d.attribute(QStringLiteral("colsize")).toInt();
+				const int h = d.attribute(QStringLiteral("rows")).toInt()
+					* d.attribute(QStringLiteral("rowsize")).toInt();
+				const bool isPortrait =
+					name == QLatin1String("A3 portrait");
+				QVERIFY(isPortrait ? h > w : w > h);
+				portrait += isPortrait ? 1 : 0;
+					// A3 is 420 x 297 mm: about 2.9 px per mm
+				QVERIFY(qAbs(std::max(w, h) - 420 * 2.9) < 80);
+				QVERIFY(qAbs(std::min(w, h) - 297 * 2.9) < 80);
+					// the origin of every element is inside the frame,
+					// above the title block
+				const auto els = d.firstChildElement(
+					QStringLiteral("elements"))
+					.elementsByTagName(QStringLiteral("element"));
+				for (int j = 0; j < els.size(); ++j) {
+					const auto e = els.at(j).toElement();
+					const qreal x = e.attribute(QStringLiteral("x")).toDouble();
+					const qreal y = e.attribute(QStringLiteral("y")).toDouble();
+					QVERIFY(x > 0 && x < w);
+					QVERIFY(y > 0 && y < h - 50);
+				}
+			}
+			QVERIFY(portrait >= 1);
+			QVERIFY(portrait < folios.size());
 		}
 };
 

@@ -406,7 +406,8 @@ poorly: this works for line drawings and logos.
 ## Example project
 
 `examples/beckhoff_islands_example.qet` has three islands on 9 folios (symbols,
-realistic views, I/O tables for each island):
+realistic views, I/O tables for each island), all on A3 folios with the A3 title
+blocks (see below):
 
 - `A1`: head `A1.00` (EK1100), cards `A1.10` (EL1008), `A1.20` (EL2008),
   `A1.30` (EL5152). Two sensors are wired on pins 1 and 2 of `A1.10` (pin 2 is
@@ -426,6 +427,26 @@ branch (`build\qelectrotech.exe examples\beckhoff_islands_example.qet`).
 Checked: `--info`, `--resave` (a second save is identical to the first) and
 `--export-png`. The three appearances are tied by their label; there is no
 cross reference between them, and the heads have no I/O table.
+
+### A3 title blocks
+
+The folder `titleblocks` has two templates, **A3 landscape** and **A3 portrait**
+(`A3_landscape.titleblock`, `A3_portrait.titleblock`), installed with the
+other title blocks (the build reads `build\titleblocks` next to the
+executable: copy the folder there to see them in the list of templates). They
+reproduce the layout of the title block of a typical schematic: a strip of two
+rows of 25 px under the folio, with an empty cell for a logo, the author, the
+project title and the file name on the first row, then the date, the title of
+the folio and the folio number. The widths are relative, so the strip fits the
+folio. They use variables only: no logo and no company text is in the
+repository (put your logo in the first cell with the title block editor).
+
+A3 is 20 x 10 cells of 61 x 80 px for a landscape folio and 14 x 15 cells for a
+portrait folio (about 2.9 px per mm). In the example, every folio is landscape
+except the I/O tables of the island `A1` (portrait, to show it). The
+templates are embedded in the project, so it does not need the installed
+ones, and new folios of the example are created as A3 landscape.
+`python misc/beckhoff/gen_titleblocks.py` writes the two files.
 
 ## Limits
 
@@ -463,6 +484,7 @@ python misc/beckhoff/gen_safety.py <scratch>
 python misc/beckhoff/gen_drives.py <scratch>
 python misc/beckhoff/realistic_from_model.py <drawings> <scratch>/15_beckhoff_ethercat
 python misc/beckhoff/organize.py <scratch> extra-elements
+python misc/beckhoff/gen_titleblocks.py
 python misc/beckhoff/gen_example.py
 ```
 
