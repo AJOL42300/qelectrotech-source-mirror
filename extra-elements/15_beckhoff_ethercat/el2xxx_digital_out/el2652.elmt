@@ -1,0 +1,61 @@
+<definition version="0.100.0" type="element" link_type="master" width="90" height="194" hotspot_x="45" hotspot_y="95">
+	<uuid uuid="{26cfd6ec-0818-5f65-9e7c-4c90ede44aa6}"/>
+	<names>
+		<name lang="en">EL2652 relay output terminal (generic)</name>
+		<name lang="fr">EL2652 borne de sortie relais (générique)</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">EL2652</elementInformation>
+		<elementInformation name="designation" show="1">EL2652 EtherCAT Terminal, relay output</elementInformation>
+		<elementInformation name="description" show="1">EtherCAT Terminal, relay output terminal. Generic layout: contacts 1 to 4; the signal on each contact depends on the exact type, see its datasheet. The I/O table lists the 4 contacts: edit it in the element properties.</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="8.00">
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="false"/>
+				<column index="2" visible="false"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+			</columnVisibility>
+			<plcIOs>
+				<plcIO type="sortie_digitale" address="1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>1</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>2</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="3" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>3</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="4" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>4</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="-40" y="-90" width="80" height="180" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="-34" y="-86" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="BECKHOFF"/>
+		<text x="-34" y="-72" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="EL2652"/>
+		<text x="-34" y="-56" font="Liberation Sans,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Relay output"/>
+		<terminal x="-40" y="-30" name="1" orientation="w" type="Generic" uuid="{afc8eb95-8ab9-5287-949e-616bc97c11d3}"/>
+		<line x1="-40" y1="-30" x2="-30" y2="-30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="-28" y="-38" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="1"/>
+		<terminal x="-40" y="-10" name="2" orientation="w" type="Generic" uuid="{ce8c310f-d21e-5c82-bd3a-6c3f1e70b955}"/>
+		<line x1="-40" y1="-10" x2="-30" y2="-10" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="-28" y="-18" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2"/>
+		<terminal x="-40" y="10" name="3" orientation="w" type="Generic" uuid="{bfc30913-d494-504e-9baa-23c159902063}"/>
+		<line x1="-40" y1="10" x2="-30" y2="10" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="-28" y="2" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="3"/>
+		<terminal x="-40" y="30" name="4" orientation="w" type="Generic" uuid="{335185ab-e972-5a12-9cec-0883ef60c0d9}"/>
+		<line x1="-40" y1="30" x2="-30" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="-28" y="22" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4"/>
+		<text x="-34" y="56" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="see datasheet"/>
+		<dynamic_text x="-40" y="94" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{d1650d17-2575-5661-8bce-8f8cf7ebcf49}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+	</description>
+</definition>

@@ -200,7 +200,7 @@ def card(key, designation, kind_en, kind_fr, short, io_kind, ref="", title="",
                "The I/O table lists the %d contacts: edit it in the element properties."
                % (kind_en, channels, channels))]
     e = Elmt(key, "%s %s (generic)" % (designation, kind_en),
-             "%s %s (gÃ©nÃ©rique)" % (designation, kind_fr), infos, NOTE)
+             "%s %s (générique)" % (designation, kind_fr), infos, NOTE)
     for i in range(channels):
         signal = signals[i] if signals else str(i + 1)
         pin = pin_map[i] if pin_map else i + 1
@@ -240,12 +240,12 @@ def potential_of(label):
 #   key: (reference, kind, English, French, short text, designation, rows,
 #         channel names {label: signal}, I/O type)
 MODEL_CARDS = {
-    "el1004": ("EL1004", "digital input terminal", "borne d'entrÃ©e numÃ©rique",
+    "el1004": ("EL1004", "digital input terminal", "borne d'entrée numérique",
                "4 x DI 24 V DC",
                "EtherCAT Terminal, 4-channel digital input, 24 V DC, 3 ms",
                [("I1", "I2"), ("0V1", "0V2"), ("I3", "I4"), ("0V3", "0V4")],
                "entree_digitale"),
-    "el2004": ("EL2004", "digital output terminal", "borne de sortie numÃ©rique",
+    "el2004": ("EL2004", "digital output terminal", "borne de sortie numérique",
                "4 x DO 24 V DC",
                "EtherCAT Terminal, 4-channel digital output, 24 V DC, 0.5 A",
                [("Q1", "Q2"), ("0V1", "0V2"), ("Q3", "Q4"), ("0V3", "0V4")],
@@ -260,12 +260,12 @@ MODEL_CARDS = {
                "EtherCAT Terminal, 4-channel output, labels as drawn",
                [("P1+", "P1-"), ("P2+", "P2-"), ("P3+", "P3-"),
                 ("P4+", "P4-")], "sortie_digitale"),
-    "el5152": ("EL5152", "encoder input terminal", "borne d'entrÃ©e codeur",
+    "el5152": ("EL5152", "encoder input terminal", "borne d'entrée codeur",
                "Encoder A/B", "EtherCAT Terminal, 2-channel incremental "
                "encoder input", [("A1", "A2"), ("B1", "B2"),
                                  ("24V1", "0V1"), ("24V2", "0V2")],
                "entree_digitale"),
-    "el2911": ("EL2911", "safety terminal", "borne de sÃ©curitÃ©",
+    "el2911": ("EL2911", "safety terminal", "borne de sécurité",
                "IN1-4 / OUT",
                "EtherCAT Terminal, labels as drawn (drawing doubled)",
                [("IN1", "IN2"), ("OUT", "24V_UP"), ("GND_UP", "24V"),
@@ -345,7 +345,7 @@ def table_of(src):
 
 def epp2338():
     e = Elmt("epp2338", "EPP2338 EtherCAT P box, 8 channels",
-             "EPP2338 boÃ®tier EtherCAT P, 8 voies",
+             "EPP2338 boîtier EtherCAT P, 8 voies",
              [("manufacturer", "Beckhoff"), ("manufacturer_reference", "EPP2338-0001"),
               ("designation", "EtherCAT P Box, 8-channel digital combi, 24 V DC, 10 us, 0.5 A, M8"),
               ("description", "EtherCAT P box with four M8 sockets X01 to X04, two channels "
@@ -387,7 +387,7 @@ def end_cap():
 
 
 def box():
-    e = Elmt("ethercat_box", "EtherCAT box (generic)", "BoÃ®tier EtherCAT (gÃ©nÃ©rique)",
+    e = Elmt("ethercat_box", "EtherCAT box (generic)", "Boîtier EtherCAT (générique)",
              [("description", "EtherCAT box, generic: one EtherCAT IN and one EtherCAT OUT "
                "for the daisy chain. Fill in manufacturer and reference.")], NOTE)
     e.rect(-60, -30, 120, 60)
@@ -431,13 +431,13 @@ def dir_entries():
     out = {}
     out["el1008.elmt"] = card(
         "el1008", "EL1008", "digital input terminal",
-        "borne d'entrÃ©e numÃ©rique", "8 x DI 24 V DC", "entree_digitale",
+        "borne d'entrée numérique", "8 x DI 24 V DC", "entree_digitale",
         ref="EL1008",
         title="EtherCAT Terminal, 8-channel digital input, 24 V DC, 3 ms",
         signals=["I%d" % i for i in range(1, 9)], pin_map=EL8_PINS).xml()
     out["el2008.elmt"] = card(
         "el2008", "EL2008", "digital output terminal",
-        "borne de sortie numÃ©rique", "8 x DO 24 V DC", "sortie_digitale",
+        "borne de sortie numérique", "8 x DO 24 V DC", "sortie_digitale",
         ref="EL2008",
         title="EtherCAT Terminal, 8-channel digital output, 24 V DC, 0.5 A",
         signals=["O%d" % i for i in range(1, 9)], pin_map=EL8_PINS).xml()
@@ -489,15 +489,15 @@ def main(root):
     os.makedirs(cat, exist_ok=True)
     files = {
         "qet_directory": directory([("en", "Beckhoff EtherCAT (generic)"),
-                                    ("fr", "Beckhoff EtherCAT (gÃ©nÃ©rique)")]),
+                                    ("fr", "Beckhoff EtherCAT (générique)")]),
         "el1xxx_generic.elmt": card("el1xxx", "EL1xxx", "digital input terminal",
-                                    "borne d'entrÃ©e numÃ©rique", "Digital input",
+                                    "borne d'entrée numérique", "Digital input",
                                     "entree_digitale").xml(),
         "el2xxx_generic.elmt": card("el2xxx", "EL2xxx", "digital output terminal",
-                                    "borne de sortie numÃ©rique", "Digital output",
+                                    "borne de sortie numérique", "Digital output",
                                     "sortie_digitale").xml(),
         "el3xxx_generic.elmt": card("el3xxx", "EL3xxx", "analog input terminal",
-                                    "borne d'entrÃ©e analogique", "Analog input",
+                                    "borne d'entrée analogique", "Analog input",
                                     "entree_analogique").xml(),
         "el4xxx_generic.elmt": card("el4xxx", "EL4xxx", "analog output terminal",
                                     "borne de sortie analogique", "Analog output",

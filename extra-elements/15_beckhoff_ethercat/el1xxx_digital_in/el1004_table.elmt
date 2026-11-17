@@ -1,0 +1,52 @@
+<definition version="0.100.0" type="element" link_type="master" width="410" height="106" hotspot_x="5" hotspot_y="29">
+	<uuid uuid="{f4067db9-3d27-5c62-8272-33308bbcfeee}"/>
+	<names>
+		<name lang="en">EL1004 digital input terminal - I/O table</name>
+		<name lang="fr">EL1004 borne d'entrée numérique - tableau d'E/S</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">EL1004</elementInformation>
+		<elementInformation name="designation" show="1">EtherCAT Terminal, 4-channel digital input, 24 V DC, 3 ms</elementInformation>
+		<elementInformation name="description" show="1">EtherCAT Terminal, digital input terminal. Pin names are the Beckhoff terminal points in the order of the user's own drawing (left column 1 to 4, right column 5 to 8): 1 I1, 2 0V1, 3 I3, 4 0V3, 5 I2, 6 0V2, 7 I4, 8 0V4. The channel is the signal in the I/O table, not the pin number. Check this against the datasheet of your terminal.</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="36"/>
+				<column index="2" width="110"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="40"/>
+			</columnWidths>
+			<columnVisibility>
+				<column index="5" visible="true"/>
+			</columnVisibility>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
+			<plcIOs>
+				<plcIO type="entree_digitale" address="I1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>1</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="I3" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>3</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="I2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>5</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="I4" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>7</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{1e4f2431-7aae-5312-9a86-3ebad4a419b7}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>label</info_name></dynamic_text>
+		<dynamic_text x="60" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{8a16e66a-ce43-58e0-9939-1ab44746c3e4}" font="Liberation Sans,7,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
+		<plc_table x="0" y="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+	</description>
+</definition>

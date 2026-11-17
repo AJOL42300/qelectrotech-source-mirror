@@ -1,0 +1,72 @@
+<definition version="0.100.0" type="element" link_type="master" width="110" height="194" hotspot_x="55" hotspot_y="95">
+	<uuid uuid="{79387da7-d69b-5660-b09a-393009c72d1b}"/>
+	<names>
+		<name lang="en">EL5152 encoder input terminal</name>
+		<name lang="fr">EL5152 borne d'entrée codeur</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">EL5152</elementInformation>
+		<elementInformation name="designation" show="1">EtherCAT Terminal, 2-channel incremental encoder input</elementInformation>
+		<elementInformation name="description" show="1">EtherCAT Terminal, encoder input terminal. Pin names are the Beckhoff terminal points in the order of the user's own drawing (left column 1 to 4, right column 5 to 8): 1 A1, 2 B1, 3 24V1, 4 24V2, 5 A2, 6 B2, 7 0V1, 8 0V2. The channel is the signal in the I/O table, not the pin number. Check this against the datasheet of your terminal.</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="8.00">
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="false"/>
+				<column index="2" visible="false"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+			</columnVisibility>
+			<plcIOs>
+				<plcIO type="entree_digitale" address="A1" functionText="Encoder 1, A" comment="" crossRef="" terminalCount="1">
+					<terminal>1</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="B1" functionText="Encoder 1, B" comment="" crossRef="" terminalCount="1">
+					<terminal>2</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="A2" functionText="Encoder 2, A" comment="" crossRef="" terminalCount="1">
+					<terminal>5</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="B2" functionText="Encoder 2, B" comment="" crossRef="" terminalCount="1">
+					<terminal>6</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="-50" y="-90" width="100" height="180" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<text x="-44" y="-86" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="BECKHOFF"/>
+		<text x="-44" y="-72" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="EL5152"/>
+		<text x="-44" y="-56" font="Liberation Sans,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Encoder A/B"/>
+		<terminal x="-50" y="-30" name="1" orientation="w" type="Generic" uuid="{cbe6b856-0a10-5f4f-b0e0-621eb63804b8}"/>
+		<line x1="-50" y1="-30" x2="-40" y2="-30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="-38" y="-38" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="1 A1"/>
+		<terminal x="50" y="-30" name="5" orientation="e" type="Generic" uuid="{87925b31-545a-522a-bc8c-4bba2cc719b6}"/>
+		<line x1="50" y1="-30" x2="40" y2="-30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="21.2" y="-38" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="A2 5"/>
+		<terminal x="-50" y="-10" name="2" orientation="w" type="Generic" uuid="{7f52772d-4a68-52f5-b0e7-c2aa158f95f2}"/>
+		<line x1="-50" y1="-10" x2="-40" y2="-10" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="-38" y="-18" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2 B1"/>
+		<terminal x="50" y="-10" name="6" orientation="e" type="Generic" uuid="{1b0bb288-5715-5fcb-bb58-a218c7210b5b}"/>
+		<line x1="50" y1="-10" x2="40" y2="-10" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="21.2" y="-18" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="B2 6"/>
+		<terminal x="-50" y="10" name="3" orientation="w" type="Generic" uuid="{9aa4bff6-ecfe-5e84-8981-fd4b58a0884c}" potential="24V"/>
+		<line x1="-50" y1="10" x2="-40" y2="10" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="-38" y="2" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="3 24V1"/>
+		<terminal x="50" y="10" name="7" orientation="e" type="Generic" uuid="{711018ba-3540-5c1d-bf35-9a2213baa221}" potential="0V"/>
+		<line x1="50" y1="10" x2="40" y2="10" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="17" y="2" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V1 7"/>
+		<terminal x="-50" y="30" name="4" orientation="w" type="Generic" uuid="{248eab63-20da-5350-9fa9-7b384dab141c}" potential="24V"/>
+		<line x1="-50" y1="30" x2="-40" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="-38" y="22" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4 24V2"/>
+		<terminal x="50" y="30" name="8" orientation="e" type="Generic" uuid="{0b12b71e-a65c-51b6-8db4-0c68a796238a}" potential="0V"/>
+		<line x1="50" y1="30" x2="40" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="17" y="22" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V2 8"/>
+		<dynamic_text x="-50" y="94" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{9cd0bb82-eb3c-5e58-b10a-948778fabc55}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+	</description>
+</definition>

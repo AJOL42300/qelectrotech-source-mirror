@@ -8,7 +8,7 @@
 		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
 		<elementInformation name="manufacturer_reference" show="1">EL1918</elementInformation>
 		<elementInformation name="designation" show="1">EtherCAT Terminal, 8 fail-safe digital inputs, 24 V DC</elementInformation>
-		<elementInformation name="description" show="1">TwinSAFE input terminal, 8 terminals as drawn by the user (S1 to S8): SI1 to SI8 on the terminals 1, 5, 2, 6, 3, 7, 4 and 8. Terminal numbering follows the user's own drawing and is NOT verified against the datasheet: check it before use.</elementInformation>
+		<elementInformation name="description" show="1">TwinSAFE input terminal with 16 terminals: for each input n, a clock output Sn+ and a safe input SIn (terminal Sn-). The order is 1, 3, 5, 7, 2, 4, 6, 8 (terminals 1 to 16). 16 terminals (user request, public Beckhoff list). The terminal order is documented, the physical arrangement (rows of two) is an assumption: check it before use.</elementInformation>
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
@@ -28,28 +28,28 @@
 			<cellFont family="Roboto Condensed" size="7" bold="false"/>
 			<plcIOs>
 				<plcIO type="entree_digitale" address="SI1" functionText="" comment="" crossRef="" terminalCount="1">
-					<terminal>1</terminal>
-				</plcIO>
-				<plcIO type="entree_digitale" address="SI2" functionText="" comment="" crossRef="" terminalCount="1">
-					<terminal>5</terminal>
-				</plcIO>
-				<plcIO type="entree_digitale" address="SI3" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>2</terminal>
 				</plcIO>
-				<plcIO type="entree_digitale" address="SI4" functionText="" comment="" crossRef="" terminalCount="1">
-					<terminal>6</terminal>
+				<plcIO type="entree_digitale" address="SI2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>10</terminal>
 				</plcIO>
-				<plcIO type="entree_digitale" address="SI5" functionText="" comment="" crossRef="" terminalCount="1">
-					<terminal>3</terminal>
-				</plcIO>
-				<plcIO type="entree_digitale" address="SI6" functionText="" comment="" crossRef="" terminalCount="1">
-					<terminal>7</terminal>
-				</plcIO>
-				<plcIO type="entree_digitale" address="SI7" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="entree_digitale" address="SI3" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>4</terminal>
 				</plcIO>
-				<plcIO type="entree_digitale" address="SI8" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="entree_digitale" address="SI4" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>12</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI5" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>6</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI6" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>14</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI7" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>8</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI8" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>16</terminal>
 				</plcIO>
 			</plcIOs>
 		</plcMasterData>
