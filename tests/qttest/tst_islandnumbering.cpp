@@ -77,16 +77,26 @@ void tst_IslandNumbering::appearancesAreSiblingsOfTheSymbol()
 {
 	const QString dir = "embed://import/15_beckhoff_ethercat/";
 	const QStringList symbol_others{dir + "el1008_realistic.elmt",
+									dir + "el1008_description.elmt",
 									dir + "el1008_table.elmt"};
 	QCOMPARE(IslandNumbering::appearancePaths(dir + "el1008.elmt"),
 			 symbol_others);
 	QCOMPARE(IslandNumbering::appearancePaths(dir + "el1008_realistic.elmt"),
-			 (QStringList{dir + "el1008.elmt", dir + "el1008_table.elmt"}));
+			 (QStringList{dir + "el1008.elmt",
+						  dir + "el1008_description.elmt",
+						  dir + "el1008_table.elmt"}));
+	QCOMPARE(IslandNumbering::appearancePaths(
+				 dir + "el1008_description.elmt"),
+			 (QStringList{dir + "el1008.elmt",
+						  dir + "el1008_realistic.elmt",
+						  dir + "el1008_table.elmt"}));
 	QCOMPARE(IslandNumbering::appearancePaths(dir + "el1008_table.elmt"),
 			 (QStringList{dir + "el1008.elmt",
-						  dir + "el1008_realistic.elmt"}));
+						  dir + "el1008_realistic.elmt",
+						  dir + "el1008_description.elmt"}));
 	QCOMPARE(IslandNumbering::appearancePaths(dir + "el1xxx_generic.elmt"),
 			 (QStringList{dir + "el1xxx_generic_realistic.elmt",
+						  dir + "el1xxx_generic_description.elmt",
 						  dir + "el1xxx_generic_table.elmt"}));
 	QVERIFY(IslandNumbering::appearancePaths("no_extension").isEmpty());
 }

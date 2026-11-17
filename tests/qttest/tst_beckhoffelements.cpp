@@ -772,6 +772,7 @@ class TstBeckhoffElements : public QObject
 						 {QStringLiteral("*.elmt")}, QDir::Files))
 				{
 					if (file.contains(QLatin1String("_realistic"))
+						|| file.contains(QLatin1String("_description"))
 						|| file.contains(QLatin1String("_table"))) {
 						continue;
 					}
@@ -950,7 +951,7 @@ class TstBeckhoffElements : public QObject
 			int folio = 0;
 			const auto folios = project.elementsByTagName(
 				QStringLiteral("diagram"));
-			QCOMPARE(folios.size(), 9);
+			QCOMPARE(folios.size(), 10);
 			for (int i = 0; i < folios.size(); ++i, ++folio) {
 				const auto els = folios.at(i).toElement()
 					.firstChildElement(QStringLiteral("elements"))
@@ -1118,6 +1119,101 @@ class TstBeckhoffElements : public QObject
 			QVERIFY(portrait < folios.size());
 		}
 
+		void everyRealisticViewHasADescriptionViewWithTheSameTerminals()
+		{
+			int checked = 0;
+			for (const QString &file : allFiles()) {
+				const QString suffix = QStringLiteral("_realistic.elmt");
+				if (!file.endsWith(suffix)) {
+					continue;
+				}
+				const QString key = QFileInfo(file).fileName()
+					.chopped(suffix.size());
+				const QString path = appearance(
+					key, QStringLiteral("_description"));
+				QVERIFY2(!path.isEmpty(), qPrintable(key));
+				QCOMPARE(QFileInfo(path).path(),
+						 QFileInfo(elementPath(file)).path());
+
+				const auto real = load(elementPath(file)).documentElement();
+				const auto desc = load(path).documentElement();
+				QVERIFY2(!desc.isNull(), qPrintable(key));
+				QCOMPARE(desc.attribute(QStringLiteral("link_type")),
+						 real.attribute(QStringLiteral("link_type")));
+				QCOMPARE(pinPoints(desc), pinPoints(real));
+				QCOMPARE(terminalNames(desc), terminalNames(real));
+				QCOMPARE(ioAddresses(desc), ioAddresses(real));
+				QCOMPARE(info(desc, QStringLiteral("manufacturer_reference")),
+						 info(real, QStringLiteral("manufacturer_reference")));
+
+					// the legends fit in the declared box
+				const qreal hx = desc.attribute(
+					QStringLiteral("hotspot_x")).toDouble();
+				const qreal hy = desc.attribute(
+					QStringLiteral("hotspot_y")).toDouble();
+				const qreal w = desc.attribute(
+					QStringLiteral("width")).toDouble();
+				const qreal h = desc.attribute(
+					QStringLiteral("height")).toDouble();
+				QVERIFY2(w >= real.attribute(QStringLiteral("width"))
+						 .toDouble(), qPrintable(key));
+				const auto texts = desc.firstChildElement(
+					QStringLiteral("description")).elementsByTagName(
+					QStringLiteral("text"));
+				QVERIFY2(texts.size() > real.firstChildElement(
+					QStringLiteral("description")).elementsByTagName(
+					QStringLiteral("text")).size(), qPrintable(key));
+				for (int i = 0; i < texts.size(); ++i) {
+					const auto t = texts.at(i).toElement();
+					const qreal x = t.attribute(QStringLiteral("x"))
+						.toDouble();
+					const qreal y = t.attribute(QStringLiteral("y"))
+						.toDouble();
+					QVERIFY2(x >= -hx && x <= w - hx
+							 && y >= -hy && y <= h - hy,
+							 qPrintable(key + QLatin1Char(' ')
+										+ t.attribute(QStringLiteral("text"))));
+				}
+				++checked;
+			}
+			QCOMPARE(checked, 33);
+		}
+
+		void descriptionViewsDrawTheLedsAndTheLegendsOfTheChannels()
+		{
+			const auto desc = load(appearance(
+				QStringLiteral("el1004"), QStringLiteral("_description")))
+				.documentElement();
+			const auto real = load(appearance(
+				QStringLiteral("el1004"), QStringLiteral("_realistic")))
+				.documentElement();
+			QStringList legends;
+			const auto texts = desc.elementsByTagName(QStringLiteral("text"));
+			for (int i = 0; i < texts.size(); ++i) {
+				legends << texts.at(i).toElement()
+					.attribute(QStringLiteral("text"));
+			}
+			for (int n = 1; n <= 4; ++n) {
+				QVERIFY(legends.contains(
+					QStringLiteral("Signal %1").arg(n)));
+			}
+			QVERIFY(legends.contains(QStringLiteral("1: I1 - Input 1")));
+			QVERIFY(legends.contains(QStringLiteral("5: I2 - Input 2")));
+				// one green LED per channel on top of the realistic view
+			int green = 0;
+			const auto circles = desc.elementsByTagName(
+				QStringLiteral("circle"));
+			for (int i = 0; i < circles.size(); ++i) {
+				if (circles.at(i).toElement().attribute(
+						QStringLiteral("style")).contains(
+						QLatin1String("filling:green"))) {
+					++green;
+				}
+			}
+			QVERIFY(green >= 4);
+			QVERIFY(desc.elementsByTagName(QStringLiteral("circle")).size()
+					> real.elementsByTagName(QStringLiteral("circle")).size());
+		}
 		void epp2338HasASchematicAndARealisticView()
 		{
 			const QString key = QStringLiteral("epp2338");

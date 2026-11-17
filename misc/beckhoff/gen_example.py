@@ -17,8 +17,9 @@
 """Write examples/beckhoff_islands_example.qet.
 
 The project shows one EtherCAT island: its head A1.00 and three child cards
-A1.10, A1.20 and A1.30. Each card is drawn three times (symbol, realistic
-view, I/O table) with the same label, on three folios, and a few card pins
+A1.10, A1.20 and A1.30. Each card is drawn four times (symbol, realistic
+view, description view, I/O table) with the same label, on four folios, and
+a few card pins
 are wired so that they show as used. A2 has a safety card and two drives, A3
 two drives (1 and 2 axes). The Beckhoff elements of
 extra-elements/15_beckhoff_ethercat (family folders) are embedded in the
@@ -331,12 +332,23 @@ def folio_realistic():
     return diagram_xml(2, "A1 island - realistic views", els, [])
 
 
+def folio_description():
+    els = []
+    x = 60
+    for label, name, _ in CARDS:
+        el = get(CAT, name + "_description")
+        hx = int(el.root.get("hotspot_x"))
+        els.append(element_xml(el, label, x + hx, 230, f"desc/{label}"))
+        x += int(el.root.get("width")) + 40
+    return diagram_xml(3, "A1 island - description views", els, [])
+
+
 def folio_tables():
     els = []
     for n, (label, name, x) in enumerate(CARDS):
         els.append(element_xml(get(CAT, name + "_table"), label, 60,
                                60 + 190 * n, f"table/{label}"))
-    return diagram_xml(3, "A1 island - I/O tables", els, [], portrait=True)
+    return diagram_xml(4, "A1 island - I/O tables", els, [], portrait=True)
 
 
 def island_folios(first, head_label, cards):
@@ -420,9 +432,10 @@ def collection_xml():
 
 
 def main():
-    folios = [folio_symbols(), folio_realistic(), folio_tables()]
-    folios += island_folios(4, *ISLAND2)
-    folios += island_folios(7, *ISLAND3)
+    folios = [folio_symbols(), folio_realistic(), folio_description(),
+              folio_tables()]
+    folios += island_folios(5, *ISLAND2)
+    folios += island_folios(8, *ISLAND3)
     xrefs = "".join(
         f'<xref delayprefix="" displayhas="cross" master_label="%f-%l%c" '
         'offset="0" powerprefix="" showallconfiguredslaves="false" '

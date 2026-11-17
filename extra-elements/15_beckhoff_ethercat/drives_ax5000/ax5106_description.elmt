@@ -1,0 +1,189 @@
+<definition version="0.100.0" type="element" link_type="master" width="348" height="506" hotspot_x="85" hotspot_y="5">
+	<uuid uuid="{4f9eb4d9-78ff-5e0c-a87e-91c8cfe5284c}" />
+	<names>
+		<name lang="en">AX5106 servo drive, 1 axis - realistic view</name>
+		<name lang="fr">AX5106 variateur, 1 axe(s) - vue réaliste</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">AX5106</elementInformation>
+		<elementInformation name="designation" show="1">AX5106 digital compact servo drive, 1 axis</elementInformation>
+		<elementInformation name="description" show="1">AX 1-axis drive (the second digit of the reference is the number of axes). Rating from the project nomenclature: 6 A. Redrawn in vector from a picture of the project, terminals snapped to the 10 px grid. The motor and brake connectors are not on the pictures: the Motor terminals are generic, under the body. X06 function names are generic (0..7).</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="8.00">
+			<columnVisibility>
+				<column index="0" visible="false" />
+				<column index="1" visible="false" />
+				<column index="2" visible="false" />
+				<column index="3" visible="false" />
+				<column index="4" visible="false" />
+			</columnVisibility>
+			<plcIOs>
+				<plcIO type="entree_universelle" address="X06-0" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-0</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X06-1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-1</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X06-2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-2</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X06-3" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-3</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X06-4" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-4</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X06-5" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-5</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X06-6" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-6</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X06-7" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-7</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Description view made by misc/beckhoff/gen_description.py from the realistic view: legends, LEDs and power contacts are generic, check them against the datasheet. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="0" y="0" width="180" height="490" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:lightgray;color:black" antialias="false" />
+		<rect x="0" y="0" width="180" height="52" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:black;color:black" antialias="false" />
+		<rect x="168" y="52" width="12" height="386" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:black" antialias="false" />
+		<circle x="158" y="42" diameter="4" style="line-style:normal;line-weight:normal;filling:green;color:black" antialias="false" />
+		<circle x="146" y="42" diameter="4" style="line-style:normal;line-weight:normal;filling:orange;color:black" antialias="false" />
+		<circle x="134" y="42" diameter="4" style="line-style:normal;line-weight:normal;filling:green;color:black" antialias="false" />
+		<circle x="122" y="42" diameter="4" style="line-style:normal;line-weight:normal;filling:orange;color:black" antialias="false" />
+		<text x="8" y="8" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#ffffff" text="BECKHOFF" />
+		<text x="8" y="20" font="Liberation Sans,10,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#ffffff" text="AX5106" />
+		<line end1="none" end2="none" y1="110" antialias="false" y2="110" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="25.5" length1="4.5" x2="-8" length2="4.5" />
+		<text x="-37.2" y="106" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X11, X12" />
+		<line end1="none" end2="none" y1="170" antialias="false" y2="170" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="35.5" length1="4.5" x2="-8" length2="4.5" />
+		<text x="-73.04" y="166" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X06: 24, 0, 1, 2, 3" />
+		<line end1="none" end2="none" y1="230" antialias="false" y2="230" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="55.5" length1="4.5" x2="-8" length2="4.5" />
+		<text x="-75.2" y="226" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="EtherCAT IN (RJ45)" />
+		<line end1="none" end2="none" y1="300" antialias="false" y2="300" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="25.5" length1="4.5" x2="-8" length2="4.5" />
+		<text x="-49.6" y="296" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC+ - DC link" />
+		<line end1="none" end2="none" y1="320" antialias="false" y2="320" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="25.5" length1="4.5" x2="-8" length2="4.5" />
+		<text x="-48.08" y="316" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC- - DC link" />
+		<line end1="none" end2="none" y1="350" antialias="false" y2="350" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="25.5" length1="4.5" x2="-8" length2="4.5" />
+		<text x="-64.88" y="346" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L1 - Mains supply" />
+		<line end1="none" end2="none" y1="370" antialias="false" y2="370" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="25.5" length1="4.5" x2="-8" length2="4.5" />
+		<text x="-65.6" y="366" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L2 - Mains supply" />
+		<line end1="none" end2="none" y1="390" antialias="false" y2="390" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="25.5" length1="4.5" x2="-8" length2="4.5" />
+		<text x="-69.6" y="386" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3N - Mains supply" />
+		<line end1="none" end2="none" y1="410" antialias="false" y2="410" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="25.5" length1="4.5" x2="-8" length2="4.5" />
+		<text x="-83.68" y="406" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE - Protective earth" />
+		<line end1="none" end2="none" y1="450" antialias="false" y2="450" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="15.5" length1="4.5" x2="-8" length2="4.5" />
+		<text x="-77.68" y="446" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Motor 1: U, V, W, PE" />
+		<line end1="none" end2="none" y1="44" antialias="false" y2="44" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="163.5" length1="4.5" x2="188" length2="4.5" />
+		<text x="190" y="40" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Status LEDs" />
+		<line end1="none" end2="none" y1="170" antialias="false" y2="170" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="134.5" length1="4.5" x2="188" length2="4.5" />
+		<text x="190" y="166" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X06: 4, 5, 6, 7, 0V" />
+		<line end1="none" end2="none" y1="230" antialias="false" y2="230" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="104.5" length1="4.5" x2="188" length2="4.5" />
+		<text x="190" y="226" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="EtherCAT OUT (RJ45)" />
+		<line end1="none" end2="none" y1="280" antialias="false" y2="280" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="144.17" length1="4.5" x2="188" length2="4.5" />
+		<text x="190" y="276" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Up" />
+		<line end1="none" end2="none" y1="300" antialias="false" y2="300" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="144.17" length1="4.5" x2="188" length2="4.5" />
+		<text x="190" y="296" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Us" />
+		<line end1="none" end2="none" y1="320" antialias="false" y2="320" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="147.5" length1="4.5" x2="188" length2="4.5" />
+		<text x="190" y="316" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="GND - Ground" />
+		<dynamic_text x="8" y="56" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{e8737095-9a20-559e-982d-e98338b5aec9}" font="Liberation Sans,10,-1,5,75,0,0,0,0,0,Bold">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+		<rect x="46" y="213" width="28" height="34" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:gray;color:black" antialias="false" />
+		<rect x="52" y="221" width="16" height="14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false" />
+		<text x="48" y="238" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X04 IN" />
+		<rect x="86" y="213" width="28" height="34" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:gray;color:black" antialias="false" />
+		<rect x="92" y="221" width="16" height="14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false" />
+		<text x="88" y="238" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X05 OUT" />
+		<terminal x="60" y="230" name="EtherCAT IN" orientation="n" type="Generic" uuid="{7fd9ca04-3bc1-525b-9f30-7649f168597e}" />
+		<terminal x="100" y="230" name="EtherCAT OUT" orientation="n" type="Generic" uuid="{8a01abe5-fa55-5e25-8688-1a5010aa69b0}" />
+		<rect x="20" y="80" width="20" height="60" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:gray;color:black" antialias="false" />
+		<text x="22" y="70" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X11" />
+		<rect x="50" y="80" width="20" height="60" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:gray;color:black" antialias="false" />
+		<text x="52" y="70" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X12" />
+		<terminal x="30" y="110" name="X11" orientation="n" type="Generic" uuid="{3a836282-6384-57f3-9103-1e9fa52474fa}" />
+		<terminal x="60" y="110" name="X12" orientation="n" type="Generic" uuid="{8ad1c201-c0b4-5919-bfa7-ba86176fa02b}" />
+		<text x="30" y="146" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X06" />
+		<rect x="30" y="154" width="110" height="26" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:black;color:black" antialias="false" />
+		<circle x="37" y="167" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
+		<text x="37" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="24" />
+		<terminal x="40" y="170" name="X06-24" orientation="s" type="Generic" uuid="{9a4dd400-0e77-5cf0-8900-41c0f1617759}" />
+		<circle x="47" y="167" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
+		<text x="47" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="0" />
+		<terminal x="50" y="170" name="X06-0" orientation="s" type="Generic" uuid="{3f6e5b43-b814-5e1e-8886-ab9d3bd8da19}" />
+		<circle x="57" y="167" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
+		<text x="57" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="1" />
+		<terminal x="60" y="170" name="X06-1" orientation="s" type="Generic" uuid="{3be5f383-7c00-5dbe-bf7a-0b19bed3064c}" />
+		<circle x="67" y="167" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
+		<text x="67" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="2" />
+		<terminal x="70" y="170" name="X06-2" orientation="s" type="Generic" uuid="{0b83edc8-e1e8-545a-ab86-13d1c7930ffe}" />
+		<circle x="77" y="167" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
+		<text x="77" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="3" />
+		<terminal x="80" y="170" name="X06-3" orientation="s" type="Generic" uuid="{998eac95-b02f-5600-a8d0-6c432a50a4fb}" />
+		<circle x="87" y="167" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
+		<text x="87" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="4" />
+		<terminal x="90" y="170" name="X06-4" orientation="s" type="Generic" uuid="{5517e2e6-b285-5d66-b308-ecab939c8962}" />
+		<circle x="97" y="167" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
+		<text x="97" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="5" />
+		<terminal x="100" y="170" name="X06-5" orientation="s" type="Generic" uuid="{b92acc00-3805-5f27-8d51-e5dbc8bb9b80}" />
+		<circle x="107" y="167" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
+		<text x="107" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="6" />
+		<terminal x="110" y="170" name="X06-6" orientation="s" type="Generic" uuid="{7401dbc9-1466-5fa7-a187-061c3b7eb985}" />
+		<circle x="117" y="167" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
+		<text x="117" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="7" />
+		<terminal x="120" y="170" name="X06-7" orientation="s" type="Generic" uuid="{6b9a5dc8-8599-58c1-b637-0692e11037e7}" />
+		<circle x="127" y="167" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
+		<text x="127" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="0V" />
+		<terminal x="130" y="170" name="X06-0V" orientation="s" type="Generic" uuid="{a123931f-1a42-5095-a3d8-243afebdfbf8}" />
+		<text x="18" y="284" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X02" />
+		<rect x="18" y="292" width="36" height="36" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:black;color:black" antialias="false" />
+		<circle x="27" y="297" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
+		<text x="36" y="295" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="DC+" />
+		<terminal x="30" y="300" name="DC+" orientation="w" type="Generic" uuid="{1cb0f1d8-8444-566b-8948-a03196e4bdd5}" />
+		<circle x="27" y="317" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
+		<text x="36" y="315" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="DC-" />
+		<terminal x="30" y="320" name="DC-" orientation="w" type="Generic" uuid="{a3565a10-4049-5c95-af31-1da6d96ce19b}" />
+		<text x="18" y="334" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X01" />
+		<rect x="18" y="342" width="36" height="76" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:black;color:black" antialias="false" />
+		<circle x="27" y="347" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
+		<text x="36" y="345" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="L1" />
+		<terminal x="30" y="350" name="L1" orientation="w" type="Generic" uuid="{90141b41-db60-5ad8-b9d2-90bd475a165f}" />
+		<circle x="27" y="367" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
+		<text x="36" y="365" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="L2" />
+		<terminal x="30" y="370" name="L2" orientation="w" type="Generic" uuid="{9d5e4283-da1d-54d8-a2ab-b451b7b651aa}" />
+		<circle x="27" y="387" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
+		<text x="36" y="385" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="L3N" />
+		<terminal x="30" y="390" name="L3N" orientation="w" type="Generic" uuid="{db2312ed-b2ff-5a92-bd43-cbb2fe144f99}" />
+		<circle x="27" y="407" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
+		<text x="36" y="405" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="PE" />
+		<terminal x="30" y="410" name="PE" orientation="w" type="Generic" uuid="{1e242cc4-47c5-57b3-bbd1-217c239d3803}" />
+		<text x="118" y="264" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Up Us GND" />
+		<rect x="118" y="272" width="36" height="56" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:black;color:black" antialias="false" />
+		<circle x="127" y="277" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
+		<text x="136" y="275" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="Up" />
+		<terminal x="130" y="280" name="Up" orientation="e" type="Generic" uuid="{ded69229-c041-5f0f-b9da-0319412acd06}" />
+		<circle x="127" y="297" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
+		<text x="136" y="295" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="Us" />
+		<terminal x="130" y="300" name="Us" orientation="e" type="Generic" uuid="{10afe012-0730-511b-a344-629fb8434782}" />
+		<circle x="127" y="317" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
+		<text x="136" y="315" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="GND" />
+		<terminal x="130" y="320" name="GND" orientation="e" type="Generic" uuid="{2a3af8c5-57f3-5b36-9ae6-648cc8690afc}" />
+		<rect x="12" y="430" width="76" height="40" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:orange;color:black" antialias="false" />
+		<text x="12" y="472" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Motor 1" />
+		<terminal x="20" y="450" name="M1-U" orientation="s" type="Generic" uuid="{3b90886e-7e57-55cf-9d87-87ddcf0b6cb5}" />
+		<terminal x="40" y="450" name="M1-V" orientation="s" type="Generic" uuid="{2acbe50c-7c2a-57ad-b4f2-0d1d96a5fd1b}" />
+		<terminal x="60" y="450" name="M1-W" orientation="s" type="Generic" uuid="{750f53dd-fa04-56a1-9898-4b97abfba920}" />
+		<terminal x="80" y="450" name="M1-PE" orientation="s" type="Generic" uuid="{bb7113ec-5243-5094-a713-e4b406cc6859}" />
+		<dynamic_text x="8" y="496" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{8aa9784f-1406-523e-80f0-44dc09267021}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>designation</info_name>
+		</dynamic_text>
+	</description>
+</definition>

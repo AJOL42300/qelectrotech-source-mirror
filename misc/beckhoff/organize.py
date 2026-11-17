@@ -70,7 +70,7 @@ def family_of(key):
 def card_key(filename):
     """ek1914_realistic.elmt -> ek1914; el1xxx_generic.elmt is a card."""
     stem = filename[:-len(".elmt")]
-    for suffix in ("_realistic", "_table"):
+    for suffix in ("_realistic", "_description", "_table"):
         if stem.endswith(suffix):
             return stem[:-len(suffix)]
     return stem

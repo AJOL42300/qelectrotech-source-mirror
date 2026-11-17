@@ -26,9 +26,10 @@ of the generators into these folders (see
 `*_generic` in the table (`el1xxx_generic`...) are the base symbols of a
 family, not a view.
 
-Every card has up to **three appearances**: the symbol, the realistic view
-(`_realistic`) and the I/O table (`_table`). A card without a drawing of its
-own keeps its symbol and its table. There is no "generic view" any more.
+Every card has up to **four appearances**: the symbol, the realistic view
+(`_realistic`), the description view (`_description`) and the I/O table
+(`_table`). A card without a drawing of its own keeps its symbol and its
+table. There is no "generic view" any more.
 
 ## What is there
 
@@ -46,6 +47,7 @@ own keeps its symbol and its table. There is no "generic view" any more.
 | `el2652.elmt` | Beckhoff | EL2652 | contacts 1 to 4 (relay output, generic) |
 | `el5152.elmt` | Beckhoff | EL5152 | contacts 1 to 8 (generic layout) |
 | `*_realistic.elmt` | as the symbol | as the symbol | terminals on the screw circles of the drawing (EL1004, EL1008, EL1904, EL1918, EL2004, EL2008, EL2522, EL2574, EL2904, EL2911, EL5152, EL9100, EK1914, EPP2338), and the vector view of the drives |
+| `*_description.elmt` | as the symbol | as the symbol | the realistic view (same terminals, same scale) with annotated legends and the status LEDs, for every card that has a realistic view (33 cards, see "Description appearance") |
 | `*_table.elmt` | as the symbol | as the symbol | none: the I/O table only (EL1004, EL1008, EL2004, EL2008, EL2522, EL2574, EL2652, EL2911, EL5152, EK1914, EPP2338) |
 | `ek1100.elmt` | Beckhoff | EK1100 | EtherCAT IN, EtherCAT OUT |
 | `ek1322.elmt` | Beckhoff | EK1322 | IN X50, OUT X51, OUT X52 |
@@ -209,8 +211,9 @@ belongs to `A1.10`. A head written `A1` (without `.00`) is still recognised.
 
 ### Parent, card, appearances
 
-A card can be drawn up to three times, as three elements: **symbol**
-(`el1008.elmt`), **realistic** view (`el1008_realistic.elmt`) and
+A card can be drawn up to four times, as four elements: **symbol**
+(`el1008.elmt`), **realistic** view (`el1008_realistic.elmt`),
+**description** view (`el1008_description.elmt`) and
 **I/O table** (`el1008_table.elmt`); the ones that do not exist for a card
 are skipped. The link between them is the label, not a
 reference to another object:
@@ -218,9 +221,9 @@ reference to another object:
 ```
 island A1
  ├─ A1.00  head (ek1100)             symbol
- ├─ A1.10  card (el1008)             symbol + realistic + table
- ├─ A1.20  card (el2008)             symbol + realistic + table
- └─ A1.30  card (el5152)             symbol + realistic + table
+ ├─ A1.10  card (el1008)             symbol + realistic + description + table
+ ├─ A1.20  card (el2008)             symbol + realistic + description + table
+ └─ A1.30  card (el5152)             symbol + realistic + description + table
 ```
 
 - parent to card: the card label starts with the label of the head
@@ -234,12 +237,12 @@ a card) adds the missing appearances of the selected card, on the current
 folio (placed to its right), on another folio, or on a new folio, in one
 undo step, with the label, the information and the I/O table copied. It
 needs the appearances to be side by side in the same collection folder
-(`X.elmt`, `X_realistic.elmt`, `X_table.elmt`), as the
+(`X.elmt`, `X_realistic.elmt`, `X_description.elmt`, `X_table.elmt`), as the
 Beckhoff ones are. Renumbering and duplicating work on the label, so they
 apply to every appearance at once.
 
-The nomenclature of the project counts each appearance, so a card drawn three
-times is counted three times by the core bill of materials. The I/O lists
+The nomenclature of the project counts each appearance, so a card drawn four
+times is counted four times by the core bill of materials. The I/O lists
 of the island and `qet_plc_io` list a card once.
 
 ### Realistic appearances and the grid
@@ -284,6 +287,62 @@ Uncertain: the channels of the EL2522, EL2574 and EL9100 (the labels of the
 drawing are used as they are), the EL2911 (the drawing is doubled, channels
 only for the first group) and the numbering of the EK1914 terminals (row by
 row, 1 to 16).
+
+**Terminals are only a circle.** In every realistic view of a card (not the
+drives) a terminal is drawn as its circle, with the label of the terminal
+(I1, 0V, OUT, 24V...) above it: the small square above the circle (the wire
+slot) is not drawn. `misc/beckhoff/realistic_fixes.py` applies this, and the
+two layouts below, to the generated views.
+
+- **EK1914**: the numbers 1 to 16 are outside the block of terminals, next to
+  their circle (odd pins on the left, even pins on the right), and the whole
+  lower block (pins 11 to 16, TwinSAFE) is yellow, as the TwinSAFE cards.
+- **EL1918**: its 16 terminals are laid out as the right part of the EK1914:
+  two columns, rows 1-2, 3-4, ... 15-16, on a yellow body. The signals follow
+  the Beckhoff order, not the channel order (Sn+ on the odd pins, SIn on the
+  even ones, channels 1, 3, 5, 7 first, then 2, 4, 6, 8).
+
+### Description appearance
+
+`*_description.elmt` is the realistic view with legends, as an annotated front
+of a manufacturer manual: the same terminals on the same circles, the same
+scale and the same position of the reference, and in addition
+
+- a legend with a leader line for each terminal, on the left or the right of
+  the card: `pin: signal - function` (`1: I1 - Input 1`, `2: 0V1 - 0 V`); the
+  signal is the address of the I/O table, the pin is shown when it differs
+  from the signal, the function is the text of the table or a factual generic
+  one (Input n, Output n, Safe input n, +24 V DC, 0 V...);
+- the **status LEDs**: one LED per channel at the top of the front, with a
+  "Signal n" legend, and a "Diagnostic" LED for the TwinSAFE cards; four
+  status LEDs for the EK1914; the header LEDs of the drives, which a "Status
+  LEDs" legend points to;
+- the power contacts (+24 V DC / 0 V) as two black marks on the side of the
+  card, with a legend;
+- for the drives, the connectors are summarised by one legend per connector
+  (`Motor 1: U, V, W, PE`); for the EPP2338, one legend per socket.
+
+The legends use Roboto Condensed (same fallback as the tables). The box of
+the element is widened (only the width, height and hotspot change, never the
+coordinates) so the legends fit and the terminals stay on the grid. The
+files are written by `python misc/beckhoff/gen_description.py
+<15_beckhoff_ethercat>` from the realistic views and their I/O tables (no
+duplicated data; a second run gives identical files). There is one for each
+of the 33 cards that have a realistic view: AF1103, AF1107, AF1115, AF1130,
+AF1155, AF1215, AF1222, AX5101, AX5103, AX5106, AX5112, AX5118, AX5125,
+AX5201, AX5203, AX5206, AX5212, AX5218, AX5225, EK1914, EL1004, EL1008,
+EL1904, EL1918, EL2004, EL2008, EL2522, EL2574, EL2904, EL2911, EL5152,
+EL9100 and EPP2338.
+
+INCERTAIN: the number and the position of the LEDs, the "Signal n" and
+"Diagnostic" legends, the power contacts and the generic functions (for
+example "Functional ground", "Analog input") are generic, not taken from a
+datasheet; the LEDs are drawn neutral (green); the EL2911 legends only cover
+the outer columns (pins 1 to 4 and 13 to 16); the EK1914 legends assume
+terminals 1 to 10 standard and 11 to 16 TwinSAFE. The layout (LED area at the
+top, "Signal n" legends, power contacts) follows an annotated front of an
+EL1004 given as a reference, redrawn in vector; no image or text of the
+manufacturer is in the repository.
 
 ### I/O table appearance
 
@@ -406,8 +465,9 @@ poorly: this works for line drawings and logos.
 
 ## Example project
 
-`examples/beckhoff_islands_example.qet` has three islands on 9 folios (symbols,
-realistic views, I/O tables for each island), all on A3 folios with the A3 title
+`examples/beckhoff_islands_example.qet` has three islands on 10 folios (symbols,
+realistic views, I/O tables for each island, and the description views of the
+cards of `A1`), all on A3 folios with the A3 title
 blocks (see below):
 
 - `A1`: head `A1.00` (EK1100), cards `A1.10` (EL1008), `A1.20` (EL2008),
@@ -426,7 +486,7 @@ written by `python misc/beckhoff/gen_example.py` (the uuids are fixed, so the
 file is always the same). Open it with the QElectroTech built from this
 branch (`build\qelectrotech.exe examples\beckhoff_islands_example.qet`).
 Checked: `--info`, `--resave` (a second save is identical to the first) and
-`--export-png`. The three appearances are tied by their label; there is no
+`--export-png`. The appearances are tied by their label; there is no
 cross reference between them, and the heads have no I/O table.
 
 ### A3 title blocks
@@ -509,6 +569,8 @@ python misc/beckhoff/gen_safety.py <scratch>
 python misc/beckhoff/gen_drives.py <scratch>
 python misc/beckhoff/realistic_from_model.py <drawings> <scratch>/15_beckhoff_ethercat
 python misc/beckhoff/organize.py <scratch> extra-elements
+python misc/beckhoff/realistic_fixes.py extra-elements/15_beckhoff_ethercat
+python misc/beckhoff/gen_description.py extra-elements/15_beckhoff_ethercat
 python misc/beckhoff/gen_titleblocks.py
 python misc/beckhoff/gen_example.py
 ```
