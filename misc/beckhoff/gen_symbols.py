@@ -97,11 +97,13 @@ class Elmt:
             self.xs.append(xy[i])
             self.ys.append(xy[i + 1])
 
-    def rect(self, x, y, w, h, weight="normal", fill="none"):
+    def rect(self, x, y, w, h, weight="normal", fill="none", dash="normal"):
         self._b(x, y, x + w, y + h)
         self.parts.append(
             '<rect x="%g" y="%g" width="%g" height="%g" rx="0" ry="0" '
-            'style="%s" antialias="false"/>' % (x, y, w, h, STYLE % (weight, fill)))
+            'style="%s" antialias="false"/>'
+            % (x, y, w, h,
+               (STYLE % (weight, fill)).replace("style:normal", "style:" + dash)))
 
     def circle(self, cx, cy, d, fill="white"):
         """Circle of diameter d centred on (cx, cy)."""
@@ -110,19 +112,21 @@ class Elmt:
             '<circle x="%g" y="%g" diameter="%g" style="%s" antialias="false"/>'
             % (cx - d / 2, cy - d / 2, d, STYLE % ("normal", fill)))
 
-    def line(self, x1, y1, x2, y2, weight="thin"):
+    def line(self, x1, y1, x2, y2, weight="thin", dash="normal"):
         self._b(x1, y1, x2, y2)
         self.parts.append(
             '<line x1="%g" y1="%g" x2="%g" y2="%g" end1="none" end2="none" '
             'length1="1.5" length2="1.5" style="%s" antialias="false"/>'
-            % (x1, y1, x2, y2, STYLE % (weight, "none")))
+            % (x1, y1, x2, y2,
+               (STYLE % (weight, "none")).replace("style:normal", "style:" + dash)))
 
-    def text(self, x, y, s, size=7, bold=False, color="#000000"):
+    def text(self, x, y, s, size=7, bold=False, color="#000000",
+             family="Liberation Sans"):
         self._b(x, y)
         self.parts.append(
             '<text x="%g" y="%g" font="%s" rotation="0" color="%s" text="%s"/>'
-            % (x, y, FONT % (size, 75 if bold else 50, "Bold" if bold else "Regular"),
-               color, esc(s)))
+            % (x, y, (FONT % (size, 75 if bold else 50, "Bold" if bold else "Regular"))
+               .replace("Liberation Sans", family, 1), color, esc(s)))
 
     def dyn(self, x, y, info, size=9, bold=False):
         self._b(x, y)
@@ -349,29 +353,100 @@ def epp2338():
              [("manufacturer", "Beckhoff"), ("manufacturer_reference", "EPP2338-0001"),
               ("designation", "EtherCAT P Box, 8-channel digital combi, 24 V DC, 10 us, 0.5 A, M8"),
               ("description", "EtherCAT P box with four M8 sockets X01 to X04, two channels "
-               "each, EtherCAT P IN X50 and OUT X51. Generic layout, not the manufacturer "
-               "drawing: put the picture under it. Fill in the function of each channel "
-               "in the I/O table; the label of the box is the card id (A1.10).")], NOTE)
-    e.rect(-60, -50, 120, 110)
-    e.text(-54, -46, "EPP2338", 9, True)
-    e.text(-54, -34, "EtherCAT P box", 5)
-    e.terminal(-60, -20, "IN X50", "w")
-    e.terminal(60, -20, "OUT X51", "e")
-    e.line(-60, -20, -50, -20)
-    e.line(50, -20, 60, -20)
-    e.text(-54, -16, "IN X50", 5)
-    e.text(30, -16, "OUT X51", 5)
+               "each, EtherCAT P IN X50 and OUT X51. Schematic view: one block per "
+               "socket, pins named after the socket (X01.1 to X04.4, the pin order "
+               "assumed for a 4-pin M8 socket: 1 +24 V, 2 channel 2, 3 0 V, "
+               "4 channel 1; check it in the datasheet). The channel (X01(1)...) is "
+               "the signal in the I/O table, not the pin. The label of the box is "
+               "the card id (A1.10).")], NOTE)
     for i in range(4):
-        y = 0 + 15 * i
         port = "X%02d" % (i + 1)
-        e.terminal(60, y, port, "e")
-        e.line(50, y, 60, y)
-        e.text(30, y - 4, port, 5)
-        e.io("entree_universelle", "%s(1)" % port, term=False)
-        e.io("entree_universelle", "%s(2)" % port, term=False)
-    e.dyn(-54, -4, "label", 10, True)
-    e.dyn(-60, 64, "designation", 6)
+        e.io("entree_universelle", "%s(1)" % port, pins=["%s.4" % port])
+        e.io("entree_universelle", "%s(2)" % port, pins=["%s.2" % port])
+    # dotted outline of the module, with the clips of the rail
+    e.rect(-70, -120, 140, 220, dash="dotted")
+    e.rect(-12, -128, 24, 8, "thin")
+    e.rect(-12, 100, 24, 8, "thin")
+    # EtherCAT P: IN above OUT, passing through the module
+    for y, name, text in ((-100, "IN X50", "IN X50"), (-50, "OUT X51", "OUT X51")):
+        e.terminal(-70, y, name, "w")
+        e.circle(-70, y, 6)
+        e.line(-67, y, -66, y)
+        e.rect(-66, y - 7, 30, 14, "thin")
+        e.text(-63, y - 5, text, 5)
+    e.line(-51, -93, -51, -57, dash="dotted")
+    # supply rails: 24 V and 0 V, shared by the four sockets
+    e.line(-10, -100, -10, 80)
+    e.line(-20, -100, -20, 80)
+    e.text(-14, -112, "+24 V", 5)
+    e.text(-34, -112, "0 V", 5)
+    for i in range(4):
+        y0 = -100 + 50 * i
+        port = "X%02d" % (i + 1)
+        e.text(2, y0 - 11, port, 6, True)
+        for pin in range(1, 5):
+            y = y0 + 10 * (pin - 1)
+            e.terminal(70, y, "%s.%d" % (port, pin), "e")
+            e.circle(70, y, 6)
+            e.text(60, y - 9, str(pin), 5)
+            if pin == 1:  # +24 V
+                e.line(-10, y, 67, y)
+                e.circle(-10, y, 2, "black")
+            elif pin == 3:  # 0 V
+                e.line(-20, y, 67, y)
+                e.circle(-20, y, 2, "black")
+            else:  # channel: LED and phototransistor of the stage
+                e.rect(0, y - 6, 36, 12, "thin")
+                e.circle(7, y, 5)
+                e.circle(29, y, 5)
+                e.line(11, y, 25, y, dash="dotted")
+                e.line(36, y, 67, y)
+    e.text(-66, -30, "EPP2338", 8, True)
+    e.dyn(-66, -18, "label", 9, True)
+    e.dyn(-66, 104, "designation", 6)
     return e
+
+
+def epp2338_realistic():
+    """Realistic view of the EPP2338: scale of the EK1914, grid of 5 px.
+
+    The layout of the box (two columns of M8 sockets, EtherCAT P at the
+    bottom) and the position of the pins in a socket are assumed; the
+    drawing is original.
+    """
+    src = ALL["epp2338"]
+    e = Elmt("epp2338_realistic", src.name_en + ", realistic view",
+             src.name_fr + ", vue réaliste", list(src.infos),
+             "Author: QElectroTech contributors\n"
+             "Realistic view drawn by misc/beckhoff/gen_symbols.py, layout "
+             "assumed: scale 1.00, grid 5 px. License: see "
+             "http://qelectrotech.org/wiki/doc/elements_license")
+    e.ios = list(src.ios)
+    f = "Roboto Condensed"
+    e.rect(-60, -105, 120, 210, "thin")
+    e.rect(-55, -100, 110, 200, "thin")
+    for x in (-50, 50):
+        for y in (-92, 92):
+            e.circle(x, y, 6)
+    sockets = ((-30, -50, "X01"), (30, -50, "X02"), (-30, 10, "X03"),
+               (30, 10, "X04"), (-30, 60, "IN X50"), (30, 60, "OUT X51"))
+    for cx, cy, name in sockets:
+        e.circle(cx, cy, 30)
+        e.circle(cx, cy, 22)
+        e.text(cx - len(name) * 2, cy + 16, name, 6, family=f)
+        for dx in (-5, 5):  # state LEDs of the two channels
+            e.circle(cx + dx * 2, cy - 22, 4)
+        if name.startswith("X0"):
+            for pin, (dx, dy) in enumerate(((-5, -5), (5, -5), (5, 5), (-5, 5)), 1):
+                e.circle(cx + dx, cy + dy, 7)
+                e.terminal(cx + dx, cy + dy, "%s.%d" % (name, pin), "e")
+        else:
+            e.circle(cx, cy, 8)
+            e.terminal(cx, cy, name, "e")
+    e.text(-40, 88, "EPP2338", 8, True, family=f)
+    e.dyn(-40, -100, "label", 9, True)
+    return e
+
 
 
 def end_cap():
@@ -503,6 +578,7 @@ def main(root):
                                     "borne de sortie analogique", "Analog output",
                                     "sortie_analogique").xml(),
         "epp2338.elmt": epp2338().xml(),
+        "epp2338_realistic.elmt": epp2338_realistic().xml(),
         "el9011.elmt": end_cap().xml(),
         "ethercat_box_generic.elmt": box().xml(),
     }

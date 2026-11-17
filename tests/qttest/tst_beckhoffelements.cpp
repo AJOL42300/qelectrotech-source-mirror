@@ -968,6 +968,112 @@ class TstBeckhoffElements : public QObject
 			QVERIFY(portrait >= 1);
 			QVERIFY(portrait < folios.size());
 		}
+
+		void epp2338HasASchematicAndARealisticView()
+		{
+			const QString key = QStringLiteral("epp2338");
+			const auto symbol = load(elementPath(
+				key + QStringLiteral(".elmt"))).documentElement();
+			const auto real = load(appearance(
+				key, QStringLiteral("_realistic"))).documentElement();
+			QVERIFY(!symbol.isNull());
+			QVERIFY(!real.isNull());
+
+				// the socket pins carry the Beckhoff pin number (X01.4 is
+				// the channel 1 of X01), not the channel number
+			QMap<QString, QPointF> pins;
+			const auto terminals = real.firstChildElement(
+				QStringLiteral("description")).elementsByTagName(
+				QStringLiteral("terminal"));
+			for (int i = 0; i < terminals.size(); ++i) {
+				const auto t = terminals.at(i).toElement();
+				pins.insert(t.attribute(QStringLiteral("name")),
+							QPointF(t.attribute(QStringLiteral("x"))
+									.toDouble(),
+									t.attribute(QStringLiteral("y"))
+									.toDouble()));
+			}
+			QStringList expected{QStringLiteral("IN X50"),
+								 QStringLiteral("OUT X51")};
+			for (int s = 1; s <= 4; ++s) {
+				for (int p = 1; p <= 4; ++p) {
+					expected << QStringLiteral("X0%1.%2").arg(s).arg(p);
+				}
+			}
+			QCOMPARE(QStringList(pins.keys()).size(), expected.size());
+			for (const QString &name : expected) {
+				QVERIFY2(pins.contains(name), qPrintable(name));
+			}
+			QCOMPARE(terminalNames(symbol).size(), expected.size());
+			for (const QString &name : expected) {
+				QVERIFY2(terminalNames(symbol).contains(name),
+						 qPrintable(name));
+			}
+
+				// each pin of the realistic view is the centre of a circle,
+				// on the 5 px grid
+			const auto circles = real.firstChildElement(
+				QStringLiteral("description")).elementsByTagName(
+				QStringLiteral("circle"));
+			for (auto it = pins.cbegin(); it != pins.cend(); ++it) {
+				bool centre = false;
+				for (int i = 0; i < circles.size(); ++i) {
+					const auto c = circles.at(i).toElement();
+					const qreal d = c.attribute(
+						QStringLiteral("diameter")).toDouble();
+					centre |= QLineF(
+						QPointF(c.attribute(QStringLiteral("x")).toDouble()
+								+ d / 2,
+								c.attribute(QStringLiteral("y")).toDouble()
+								+ d / 2), it.value()).length() < 0.05;
+				}
+				QVERIFY2(centre, qPrintable(it.key()));
+				QVERIFY2(qFuzzyIsNull(std::fmod(it.value().x(), 5))
+						 && qFuzzyIsNull(std::fmod(it.value().y(), 5)),
+						 qPrintable(it.key()));
+			}
+				// the channel is not the pin: X01(1) is on the pin 4
+			const auto ios = real.elementsByTagName(
+				QStringLiteral("plcIO"));
+			QVERIFY(ios.size() == 8);
+			const auto first = ios.at(0).toElement();
+			QCOMPARE(first.attribute(QStringLiteral("address")),
+					 QStringLiteral("X01(1)"));
+			QCOMPARE(first.firstChildElement(QStringLiteral("terminal"))
+					 .text(), QStringLiteral("X01.4"));
+			QCOMPARE(ioAddresses(real), ioAddresses(symbol));
+
+				// the reference is inside the box, under the sockets
+			const auto texts = real.firstChildElement(
+				QStringLiteral("description")).elementsByTagName(
+				QStringLiteral("text"));
+			bool seen = false;
+			for (int i = 0; i < texts.size(); ++i) {
+				const auto t = texts.at(i).toElement();
+				if (t.attribute(QStringLiteral("text"))
+						== QLatin1String("EPP2338")) {
+					seen = true;
+					QVERIFY(t.attribute(QStringLiteral("y")).toDouble()
+							> pins.value(QStringLiteral("OUT X51")).y()
+							+ 15);
+				}
+			}
+			QVERIFY(seen);
+
+				// the schematic is dotted: outline of the module
+			QVERIFY(symbol.firstChildElement(QStringLiteral("description"))
+					.elementsByTagName(QStringLiteral("rect")).size() > 4);
+			bool dotted = false;
+			const auto rects = symbol.firstChildElement(
+				QStringLiteral("description")).elementsByTagName(
+				QStringLiteral("rect"));
+			for (int i = 0; i < rects.size(); ++i) {
+				dotted |= rects.at(i).toElement()
+					.attribute(QStringLiteral("style"))
+					.contains(QLatin1String("line-style:dotted"));
+			}
+			QVERIFY(dotted);
+		}
 };
 
 QTEST_GUILESS_MAIN(TstBeckhoffElements)

@@ -45,7 +45,7 @@ own keeps its symbol and its table. There is no "generic view" any more.
 | `el2911.elmt`, `el9100.elmt` | Beckhoff | EL2911, EL9100 | 16 pins (doubled drawing) / 8 pins |
 | `el2652.elmt` | Beckhoff | EL2652 | contacts 1 to 4 (relay output, generic) |
 | `el5152.elmt` | Beckhoff | EL5152 | contacts 1 to 8 (generic layout) |
-| `*_realistic.elmt` | as the symbol | as the symbol | terminals on the screw circles of the drawing (EL1004, EL1008, EL1904, EL1918, EL2004, EL2008, EL2522, EL2574, EL2904, EL2911, EL5152, EL9100, EK1914), and the vector view of the drives |
+| `*_realistic.elmt` | as the symbol | as the symbol | terminals on the screw circles of the drawing (EL1004, EL1008, EL1904, EL1918, EL2004, EL2008, EL2522, EL2574, EL2904, EL2911, EL5152, EL9100, EK1914, EPP2338), and the vector view of the drives |
 | `*_table.elmt` | as the symbol | as the symbol | none: the I/O table only (EL1004, EL1008, EL2004, EL2008, EL2522, EL2574, EL2652, EL2911, EL5152, EK1914, EPP2338) |
 | `ek1100.elmt` | Beckhoff | EK1100 | EtherCAT IN, EtherCAT OUT |
 | `ek1322.elmt` | Beckhoff | EK1322 | IN X50, OUT X51, OUT X52 |
@@ -90,7 +90,8 @@ else is copied from a datasheet.
   contacts. Rename the terminals and set the exact designation (for example
   EL3004) after the datasheet of the terminal you use.
 - The EPP2338 ports (X01 to X04, two channels each) are listed as I/O of
-  type "universal"; the actual use of each channel is yours to define.
+  type "universal"; the actual use of each channel is yours to define. The M8
+  pin-out and the physical layout are assumed (see [EPP2338](#epp2338-box)).
 - The drive symbols put their terminals where the connectors are on the
   pictures of the sample schematic (see below), not measured on a product.
   The exact power, current and mains type are to be checked by the user.
@@ -448,6 +449,30 @@ templates are embedded in the project, so it does not need the installed
 ones, and new folios of the example are created as A3 landscape.
 `python misc/beckhoff/gen_titleblocks.py` writes the two files.
 
+## EPP2338 box
+
+The EPP2338 (EtherCAT P box, `epp_box`) has two views, both original vector
+drawings made from the public description of the box (M8 connectors, two
+channels per socket); no Beckhoff image or text is used:
+
+- `epp2338.elmt`: a functional view in the style of a module diagram: dotted
+  module outline with rail clips, IN X50 / OUT X51, a +24 V and a 0 V rail,
+  four sockets X01 to X04 of four pins, one block per channel (LED and
+  phototransistor), junction dots on the supplies. Terminals are on the
+  circles, on the 5 px grid.
+- `epp2338_realistic.elmt`: the front of the box at the EK1914 scale, with the
+  six sockets, their LEDs and the reference inside, at the bottom.
+  The terminals are named `X0n.1` to `X0n.4` (pin of the socket); the two
+  extra terminals are `IN X50` and `OUT X51`.
+
+The table, the views and "Create the other appearances" share the same data.
+Each channel has its pin: channel 1 of a socket is on pin 4 and channel 2 on
+pin 2, pin 1 is +24 V and pin 3 is 0 V.
+
+INCERTAIN: the M8 pin-out and the position of the sockets on the front are
+assumed (pin numbering of the realistic view too). Check them against the
+datasheet of your box. The functional style could also be applied to the other
+cards if you want it.
 ## Limits
 
 - The ios of the EK1914 name the channels `I1`..`SO2`, but the pin of each
@@ -458,7 +483,7 @@ ones, and new folios of the example are created as A3 landscape.
   datasheet.
 - No table is added automatically on the nomenclature folio: choose the folio
   in *Create the other appearances*.
-- The AX5805 and the EPP2338-0002 have no realistic view yet; the cards
+- The AX5805 has no realistic view yet; the cards
   without a drawing of the user keep their symbol and table. The drives and
   the safety cards are not verified against a datasheet (see above).
 - The realistic views were checked by drawing them with their terminals
