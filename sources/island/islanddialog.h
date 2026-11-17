@@ -110,10 +110,9 @@ class IslandDuplicateDialog : public QDialog
 /**
 	@brief Other appearances of a card.
 
-	A card can be drawn as a symbol, as a generic view, as a realistic view
-	and as a table of its inputs and outputs: four elements of the same
-	collection folder, named "card.elmt", "card_generic.elmt",
-	"card_realistic.elmt" and "card_table.elmt"
+	A card can be drawn as a symbol, as a realistic view and as a table of
+	its inputs and outputs: three elements of the same collection folder,
+	named "card.elmt", "card_realistic.elmt" and "card_table.elmt"
 	(see IslandNumbering::appearancePaths). They share the label of the
 	card, so they are the same card on the folios.
 */

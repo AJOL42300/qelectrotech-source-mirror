@@ -1444,7 +1444,7 @@ void QETDiagramEditor::setUpActions()
 	ShortcutManager::instance().registerAction(m_duplicate_island, "diagrameditor.duplicate_island", tr("Diagram editors"), QKeySequence());
 	connect(m_duplicate_island, &QAction::triggered, this, &QETDiagramEditor::slot_duplicateIsland);
 	m_create_appearances = new QAction(QET::Icons::TerminalStrip, tr("Create the other appearances..."), this);
-	m_create_appearances->setStatusTip(tr("Draws the symbol, the generic view, the realistic view and the table of inputs and outputs of the selected card which are not drawn yet"));
+	m_create_appearances->setStatusTip(tr("Draws the symbol, the realistic view and the table of inputs and outputs of the selected card which are not drawn yet"));
 	ShortcutManager::instance().registerAction(m_create_appearances, "diagrameditor.create_appearances", tr("Diagram editors"), QKeySequence());
 	connect(m_create_appearances, &QAction::triggered, this, &QETDiagramEditor::slot_createAppearances);
 	m_add_island_folio = new QAction(QET::Icons::TableOfContent, tr("Add a folio listing the cards of an island..."), this);
@@ -5701,7 +5701,7 @@ void QETDiagramEditor::slot_duplicateIsland() {
 
 /**
  * @brief QETDiagramEditor::slot_createAppearances
- * Draws the other appearances (symbol, generic view, realistic view, table of
+ * Draws the other appearances (symbol, realistic view, table of
  * inputs and outputs) of the selected card, on a folio asked to the user.
  */
 void QETDiagramEditor::slot_createAppearances() {

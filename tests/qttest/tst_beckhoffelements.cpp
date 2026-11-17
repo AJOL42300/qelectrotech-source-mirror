@@ -22,8 +22,10 @@
 	their manufacturer and designation filled in.
 */
 #include <QDir>
+#include <QDirIterator>
 #include <QDomDocument>
 #include <QFile>
+#include <QFileInfo>
 #include <QLineF>
 #include <QMap>
 #include <QPointF>
@@ -85,24 +87,47 @@ class TstBeckhoffElements : public QObject
 					QStringLiteral("el2004"), QStringLiteral("el2008"),
 					QStringLiteral("el2522"), QStringLiteral("el2574"),
 					QStringLiteral("el5152"), QStringLiteral("el9100"),
-					QStringLiteral("ek1914"), QStringLiteral("el2911")};
+					QStringLiteral("ek1914"), QStringLiteral("el2911"),
+					QStringLiteral("el1904"), QStringLiteral("el1918"),
+					QStringLiteral("el2904")};
 		}
 
-			// path of an appearance of a card, in the folders of the set
-		static QString appearance(const QString &key, const QString &suffix)
+			// every .elmt of the set, relative to the category: the
+			// library is sorted in one folder per family
+		static QStringList allFiles()
 		{
-			const QStringList folders{QString(),
-									  QStringLiteral("twinsafe/"),
-									  QStringLiteral("drives_af1000/"),
-									  QStringLiteral("drives_ax5000/")};
-			for (const QString &folder : folders) {
-				const QString file = folder + key + suffix
-					+ QStringLiteral(".elmt");
-				if (categoryDir().exists(file)) {
+			QStringList list;
+			QDirIterator it(categoryDir().path(),
+							{QStringLiteral("*.elmt")}, QDir::Files,
+							QDirIterator::Subdirectories);
+			while (it.hasNext()) {
+				list << categoryDir().relativeFilePath(it.next());
+			}
+			list.sort();
+			return list;
+		}
+
+			// full path of a file given by its name or its relative path
+		static QString elementPath(const QString &name)
+		{
+			if (QFileInfo::exists(categoryDir().filePath(name))) {
+				return categoryDir().filePath(name);
+			}
+			const QString base = QFileInfo(name).fileName();
+			for (const QString &file : allFiles()) {
+				if (QFileInfo(file).fileName() == base) {
 					return categoryDir().filePath(file);
 				}
 			}
-			return QString();
+			return categoryDir().filePath(name);
+		}
+
+			// path of an appearance of a card, or an empty string
+		static QString appearance(const QString &key, const QString &suffix)
+		{
+			const QString path =
+				elementPath(key + suffix + QStringLiteral(".elmt"));
+			return QFileInfo::exists(path) ? path : QString();
 		}
 
 	private slots:
@@ -123,15 +148,14 @@ class TstBeckhoffElements : public QObject
 
 		void elementsAreWellFormed()
 		{
-			const auto files = categoryDir().entryList(
-				{QStringLiteral("*.elmt")}, QDir::Files);
+			const auto files = allFiles();
 			QVERIFY(files.size() >= 5);
 
 			QSet<QString> element_uuids;
 			for (const QString &file : files)
 			{
 				QVERIFY2(!file.contains(QLatin1Char(' ')), qPrintable(file));
-				const auto doc = load(categoryDir().filePath(file));
+				const auto doc = load(elementPath(file));
 				const auto def = doc.documentElement();
 				QVERIFY2(def.tagName() == QLatin1String("definition"),
 						 qPrintable(file));
@@ -191,7 +215,7 @@ class TstBeckhoffElements : public QObject
 					 QStringLiteral("el4xxx_generic.elmt"),
 					 QStringLiteral("epp2338.elmt")})
 			{
-				const auto def = load(categoryDir().filePath(file))
+				const auto def = load(elementPath(file))
 					.documentElement();
 				QCOMPARE(def.attribute(QStringLiteral("link_type")),
 						 QStringLiteral("master"));
@@ -223,7 +247,7 @@ class TstBeckhoffElements : public QObject
 					 QStringLiteral("drives_ax5000/ax5203.elmt"),
 					 QStringLiteral("twinsafe/el1918.elmt")})
 			{
-				const auto def = load(categoryDir().filePath(file))
+				const auto def = load(elementPath(file))
 					.documentElement();
 				QCOMPARE(info(def, QStringLiteral("manufacturer")),
 						 QStringLiteral("Beckhoff"));
@@ -244,20 +268,19 @@ class TstBeckhoffElements : public QObject
 					 QStringLiteral("ek1914"), QStringLiteral("epp2338"),
 					 QStringLiteral("el1004"), QStringLiteral("el2522")})
 			{
-				const auto symbol = load(categoryDir().filePath(
+				const auto symbol = load(elementPath(
 					key + QStringLiteral(".elmt"))).documentElement();
 				QVERIFY2(!symbol.isNull(), qPrintable(key));
 				for (const QString &suffix : {QStringLiteral("_table"),
-											  QStringLiteral("_realistic"),
-											  QStringLiteral("_generic")})
+											  QStringLiteral("_realistic")})
 				{
 					const QString file = key + suffix + QStringLiteral(".elmt");
-					if (!categoryDir().exists(file)) {
+					if (!QFileInfo::exists(elementPath(file))) {
 						QVERIFY2(suffix != QLatin1String("_table"),
 								 qPrintable(file));
 						continue;
 					}
-					const auto def = load(categoryDir().filePath(file))
+					const auto def = load(elementPath(file))
 						.documentElement();
 					QCOMPARE(def.attribute(QStringLiteral("link_type")),
 							 QStringLiteral("master"));
@@ -271,10 +294,9 @@ class TstBeckhoffElements : public QObject
 
 		void symbolsHideTheirIoTableTheTableAppearanceShowsIt()
 		{
-			const auto files = categoryDir().entryList(
-				{QStringLiteral("*.elmt")}, QDir::Files);
+			const auto files = allFiles();
 			for (const QString &file : files) {
-				const auto def = load(categoryDir().filePath(file))
+				const auto def = load(elementPath(file))
 					.documentElement();
 				if (def.attribute(QStringLiteral("link_type"))
 					!= QLatin1String("master")) {
@@ -314,7 +336,7 @@ class TstBeckhoffElements : public QObject
 			for (const QString &key : cardKeys())
 			{
 				const QString file = key + QStringLiteral("_realistic.elmt");
-				const auto def = load(categoryDir().filePath(file))
+				const auto def = load(elementPath(file))
 					.documentElement();
 				QVERIFY2(!def.isNull(), qPrintable(file));
 				const auto parts = def.firstChildElement(
@@ -385,11 +407,12 @@ class TstBeckhoffElements : public QObject
 				QVERIFY2(at >= 0, qPrintable(file));
 				const int grid = note.mid(at + 5).split(
 					QLatin1Char(' ')).first().toInt();
+					// every realistic view is at the scale of the EK1914
+					// (1.00), where the 10 px grid is impossible (rows 14.5
+					// and 21 apart): the terminals are on the 5 px grid
 				QVERIFY2(grid == 10 || grid == 5, qPrintable(file));
-				if (key != QLatin1String("ek1914")
-					&& key != QLatin1String("el2911")) {
-					QCOMPARE(grid, 10); // 5 px only when 10 px is impossible
-				}
+				QVERIFY2(note.contains(QLatin1String("scale 1.00")),
+						 qPrintable(file));
 				for (const QPointF &p : points) {
 					QVERIFY2(qFuzzyIsNull(std::fmod(p.x(), grid))
 							 && qFuzzyIsNull(std::fmod(p.y(), grid)),
@@ -398,6 +421,108 @@ class TstBeckhoffElements : public QObject
 										+ QLatin1Char(',')
 										+ QString::number(p.y())));
 				}
+			}
+		}
+
+		void ek1914BottomTerminalsAreYellow()
+		{
+			const auto def = load(appearance(QStringLiteral("ek1914"),
+				QStringLiteral("_realistic"))).documentElement();
+			const auto parts = def.firstChildElement(
+				QStringLiteral("description"));
+			QMap<QString, QPointF> pins;
+			const auto terminals = parts.elementsByTagName(
+				QStringLiteral("terminal"));
+			for (int i = 0; i < terminals.size(); ++i) {
+				const auto t = terminals.at(i).toElement();
+				pins.insert(t.attribute(QStringLiteral("name")),
+							QPointF(t.attribute(QStringLiteral("x"))
+									.toDouble(),
+									t.attribute(QStringLiteral("y"))
+									.toDouble()));
+			}
+			const auto circles = parts.elementsByTagName(
+				QStringLiteral("circle"));
+			for (int n = 1; n <= 16; ++n) {
+				const QPointF p = pins.value(QString::number(n));
+				bool yellow = false;
+				bool found = false;
+				for (int i = 0; i < circles.size(); ++i) {
+					const auto c = circles.at(i).toElement();
+					const qreal d = c.attribute(
+						QStringLiteral("diameter")).toDouble();
+					if (d < 8) {
+						continue; // the outer circle of the screw
+					}
+					const QPointF centre(
+						c.attribute(QStringLiteral("x")).toDouble() + d / 2,
+						c.attribute(QStringLiteral("y")).toDouble() + d / 2);
+					if (QLineF(centre, p).length() < 2.5) {
+						found = true;
+						yellow |= c.attribute(QStringLiteral("style"))
+							.contains(QLatin1String("filling:yellow"));
+					}
+				}
+				QVERIFY2(found, qPrintable(QString::number(n)));
+					// the lowest block, the terminals 11 to 16
+				QCOMPARE(yellow, n >= 11);
+			}
+		}
+
+		void referenceIsInsideTheCardAtTheBottom()
+		{
+			for (const QString &key : {QStringLiteral("el1004"),
+									   QStringLiteral("el2911"),
+									   QStringLiteral("ek1914"),
+									   QStringLiteral("el1918")}) {
+				const auto def = load(appearance(key,
+					QStringLiteral("_realistic"))).documentElement();
+				const auto parts = def.firstChildElement(
+					QStringLiteral("description"));
+				qreal minX = 1e9, maxY = -1e9;
+				const auto terminals = parts.elementsByTagName(
+					QStringLiteral("terminal"));
+				for (int i = 0; i < terminals.size(); ++i) {
+					const auto t = terminals.at(i).toElement();
+					if (t.attribute(QStringLiteral("name"))
+							.startsWith(QLatin1String("EtherCAT"))) {
+						continue;
+					}
+					minX = qMin(minX, t.attribute(QStringLiteral("x"))
+								.toDouble());
+					maxY = qMax(maxY, t.attribute(QStringLiteral("y"))
+								.toDouble());
+				}
+				bool seen = false;
+				const auto texts = parts.elementsByTagName(
+					QStringLiteral("text"));
+				for (int i = 0; i < texts.size(); ++i) {
+					const auto t = texts.at(i).toElement();
+					if (t.attribute(QStringLiteral("text"))
+							!= key.toUpper()) {
+						continue;
+					}
+					seen = true;
+					const qreal x = t.attribute(QStringLiteral("x"))
+						.toDouble();
+					const qreal y = t.attribute(QStringLiteral("y"))
+						.toDouble();
+					if (key == QLatin1String("ek1914")) {
+							// in the body, on the left of the terminals,
+							// above the bottom of the card
+						QVERIFY(x < minX - 20);
+						QVERIFY(y < maxY + 20);
+					} else if (key == QLatin1String("el1918")) {
+						QVERIFY(x < minX);
+						QVERIFY(y > maxY);
+					} else {
+							// under the first column of terminals, in
+							// the first card
+						QVERIFY2(x <= minX, qPrintable(key));
+						QVERIFY2(y >= maxY, qPrintable(key));
+					}
+				}
+				QVERIFY2(seen, qPrintable(key));
 			}
 		}
 
@@ -434,7 +559,7 @@ class TstBeckhoffElements : public QObject
 
 		void pinsFollowTheBeckhoffOrderNotTheChannel()
 		{
-			const auto el1008 = load(categoryDir().filePath(
+			const auto el1008 = load(elementPath(
 				QStringLiteral("el1008.elmt"))).documentElement();
 			const auto in = ioPins(el1008);
 			QCOMPARE(in.value(QStringLiteral("I1")), QStringList{"1"});
@@ -442,17 +567,17 @@ class TstBeckhoffElements : public QObject
 			QCOMPARE(in.value(QStringLiteral("I3")), QStringList{"2"});
 			QCOMPARE(in.value(QStringLiteral("I8")), QStringList{"8"});
 
-			const auto el2008 = load(categoryDir().filePath(
+			const auto el2008 = load(elementPath(
 				QStringLiteral("el2008.elmt"))).documentElement();
 			QCOMPARE(ioPins(el2008).value(QStringLiteral("O2")),
 					 QStringList{"5"});
 
-			const auto el5152 = load(categoryDir().filePath(
+			const auto el5152 = load(elementPath(
 				QStringLiteral("el5152.elmt"))).documentElement();
 			QCOMPARE(ioPins(el5152).value(QStringLiteral("A2")),
 					 QStringList{"5"});
 
-			const auto el1004 = load(categoryDir().filePath(
+			const auto el1004 = load(elementPath(
 				QStringLiteral("el1004.elmt"))).documentElement();
 			QCOMPARE(ioPins(el1004).value(QStringLiteral("I2")),
 					 QStringList{"5"});
@@ -468,7 +593,7 @@ class TstBeckhoffElements : public QObject
 									   QStringLiteral("ek1914")}) {
 				for (const QString &suffix : {QString(),
 											  QStringLiteral("_realistic")}) {
-					const auto def = load(categoryDir().filePath(
+					const auto def = load(elementPath(
 						key + suffix + QStringLiteral(".elmt")))
 						.documentElement();
 					const QStringList names = terminalNames(def);
@@ -492,11 +617,11 @@ class TstBeckhoffElements : public QObject
 			for (const QString &family : {QStringLiteral("drives_af1000"),
 										  QStringLiteral("drives_ax5000")})
 			{
-				const QDir dir(categoryDir().filePath(family));
+				const QDir dir(elementPath(family));
 				for (const QString &file : dir.entryList(
 						 {QStringLiteral("*.elmt")}, QDir::Files))
 				{
-					if (file.contains(QLatin1String("_generic"))
+					if (file.contains(QLatin1String("_realistic"))
 						|| file.contains(QLatin1String("_table"))) {
 						continue;
 					}
@@ -505,7 +630,7 @@ class TstBeckhoffElements : public QObject
 					QVERIFY2(axes == 1 || axes == 2, qPrintable(key));
 
 					for (const QString &suffix : {
-							 QString(), QStringLiteral("_generic"),
+							 QString(), QStringLiteral("_realistic"),
 							 QStringLiteral("_table")}) {
 						const QString name = key + suffix + QStringLiteral(".elmt");
 						QVERIFY2(dir.exists(name), qPrintable(name));
@@ -557,9 +682,9 @@ class TstBeckhoffElements : public QObject
 			}
 		}
 
-		void safetyCardsAreYellowAndEl1918HasEightTerminals()
+		void safetyCardsAreYellowAndEl1918HasSixteenTerminals()
 		{
-			const QDir dir(categoryDir().filePath(QStringLiteral("twinsafe")));
+			const QDir dir(elementPath(QStringLiteral("twinsafe")));
 			for (const QString &key : {QStringLiteral("el1904"),
 									   QStringLiteral("el1918"),
 									   QStringLiteral("el2904"),
@@ -569,41 +694,42 @@ class TstBeckhoffElements : public QObject
 				QVERIFY2(!info(load(dir.filePath(file)).documentElement(),
 							   QStringLiteral("description")).isEmpty(),
 						 qPrintable(file));
-					// the generic and the realistic views are yellow too
-				for (const QString &suffix : {QStringLiteral("_generic"),
-											  QStringLiteral("_realistic")}) {
-					QFile f(dir.filePath(key + suffix
-										 + QStringLiteral(".elmt")));
-					if (!f.exists()) {
-						QVERIFY2(key == QLatin1String("el6910")
-								 || key == QLatin1String("ek1960")
-								 || suffix == QLatin1String("_realistic"),
-								 qPrintable(f.fileName()));
-						continue;
-					}
-					QVERIFY2(f.open(QIODevice::ReadOnly),
+					// no generic view any more: symbol, realistic, table
+				QVERIFY2(!dir.exists(key + QStringLiteral("_generic.elmt")),
+						 qPrintable(key));
+				QFile f(dir.filePath(key + QStringLiteral("_realistic.elmt")));
+				if (!f.exists()) {
+					QVERIFY2(key == QLatin1String("el6910")
+							 || key == QLatin1String("ek1960"),
 							 qPrintable(f.fileName()));
-					QVERIFY2(f.readAll().contains("filling:yellow"),
-							 qPrintable(f.fileName()));
+					continue;
 				}
+				QVERIFY2(f.open(QIODevice::ReadOnly),
+						 qPrintable(f.fileName()));
+				QVERIFY2(f.readAll().contains("filling:yellow"),
+						 qPrintable(f.fileName()));
 			}
 
 			const auto def = load(dir.filePath(
 				QStringLiteral("el1918.elmt"))).documentElement();
 			QStringList expected;
-			for (int i = 1; i <= 8; ++i) {
+			for (int i = 1; i <= 16; ++i) {
 				expected << QString::number(i);
 			}
 			QCOMPARE(terminalNames(def), expected);
 			const auto pins = ioPins(def);
 			QCOMPARE(pins.size(), 8);
-				// Beckhoff order: SI2 is on the terminal 5, not 2
-			QCOMPARE(pins.value(QStringLiteral("SI1")), QStringList{"1"});
-			QCOMPARE(pins.value(QStringLiteral("SI2")), QStringList{"5"});
-			QCOMPARE(pins.value(QStringLiteral("SI3")), QStringList{"2"});
-			QCOMPARE(terminalNames(load(dir.filePath(
-				QStringLiteral("el1918_realistic.elmt"))).documentElement())
-				.size(), 8);
+				// public Beckhoff order: the input n is on the terminal 2k,
+				// the clock output Sn+ on the terminal 2k-1, with the order
+				// of the inputs 1, 3, 5, 7, 2, 4, 6, 8
+			QCOMPARE(pins.value(QStringLiteral("SI1")), QStringList{"2"});
+			QCOMPARE(pins.value(QStringLiteral("SI3")), QStringList{"4"});
+			QCOMPARE(pins.value(QStringLiteral("SI2")), QStringList{"10"});
+			QCOMPARE(pins.value(QStringLiteral("SI8")), QStringList{"16"});
+			const auto real = load(dir.filePath(
+				QStringLiteral("el1918_realistic.elmt"))).documentElement();
+			QCOMPARE(terminalNames(real).size(), 16);
+			QCOMPARE(ioPins(real), pins);
 		}
 
 		void tablesUseRobotoCondensedWithRoomForEveryColumn()
@@ -674,7 +800,7 @@ class TstBeckhoffElements : public QObject
 			int folio = 0;
 			const auto folios = project.elementsByTagName(
 				QStringLiteral("diagram"));
-			QCOMPARE(folios.size(), 10);
+			QCOMPARE(folios.size(), 9);
 			for (int i = 0; i < folios.size(); ++i, ++folio) {
 				const auto els = folios.at(i).toElement()
 					.firstChildElement(QStringLiteral("elements"))
