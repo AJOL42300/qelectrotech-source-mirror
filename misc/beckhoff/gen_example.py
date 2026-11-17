@@ -19,9 +19,10 @@
 The project shows one EtherCAT island: its head A1.00 and three child cards
 A1.10, A1.20 and A1.30. Each card is drawn three times (symbol, realistic
 view, I/O table) with the same label, on three folios, and a few card pins
-are wired so that they show as used. The generic Beckhoff elements of
-extra-elements/15_beckhoff_ethercat are embedded in the project; nothing
-comes from a manufacturer.
+are wired so that they show as used. A2 has a safety card and two drives, A3
+two drives (1 and 2 axes). The Beckhoff elements of
+extra-elements/15_beckhoff_ethercat (family folders) are embedded in the
+project; nothing comes from a manufacturer.
 
 Usage: python misc/beckhoff/gen_example.py
 The output is deterministic (all uuids are derived from fixed names).
@@ -115,12 +116,29 @@ ELEMENTS = {}
 
 
 def exists(category, name):
+    if category == CAT:
+        try:
+            family(name)
+        except KeyError:
+            return False
+        return True
     sub = category[len(CAT):].strip("/")
     return os.path.exists(os.path.join(
         ELMT_DIR, *(sub.split("/") if sub else []), name + ".elmt"))
 
 
+def family(name):
+    """The family folder of a card, such as el1xxx_digital_in."""
+    for entry in sorted(os.listdir(ELMT_DIR)):
+        folder = os.path.join(ELMT_DIR, entry)
+        if os.path.exists(os.path.join(folder, name + ".elmt")):
+            return CAT + "/" + entry
+    raise KeyError(name)
+
+
 def get(category, name):
+    if category == CAT:
+        category = family(name)
     key = (category, name)
     if key not in ELEMENTS:
         ELEMENTS[key] = Elmt(category, name,
@@ -140,6 +158,7 @@ USED = {
     ("A1.10", "I3"): "Presence sensor 2",
     ("A1.20", "O1"): "Run lamp",
     ("A2.10", "SI1"): "Emergency stop, channel 1",
+    ("A2.10", "SI3"): "Emergency stop, channel 2",
     ("A2.20", "IN1"): "Drive enable",
 }
 CARDS = [
@@ -308,7 +327,7 @@ def island_folios(first, head_label, cards):
     sensor = get(DEV, "sensor")
     wired = []
     if cards[0][2] == "el1918":
-        wired = [("B3", 250, "A2.10", get(SAFE, "el1918"), ("1", "5"))]
+        wired = [("B3", 250, "A2.10", get(SAFE, "el1918"), ("2", "4"))]
     if cards[1:] and cards[1][2] == "af1103":
         wired.append(("B4", 450, "A2.20", get(AF, "af1103"), ("IN1",)))
     for label, x, card, el, pins in wired:
@@ -319,19 +338,15 @@ def island_folios(first, head_label, cards):
                 f"sym/{label}", label, sensor, str(i + 1)))
     folios = [diagram_xml(first, f"{head_label[:2]} island - symbols",
                           els, conductors, 9)]
-    for suffix, title in (("generic", "generic views"),
-                          ("realistic", "realistic views")):
-        here = [(label, cat, name) for label, cat, name in cards
-                if exists(cat, name + "_" + suffix)]
-        if not here:
-            continue
-        els = [element_xml(get(cat, name + "_" + suffix), label,
-                           60 + 230 * n, 220 if suffix == "realistic" else 20,
-                           f"{suffix}/{label}")
+    here = [(label, cat, name) for label, cat, name in cards
+            if exists(cat, name + "_realistic")]
+    if here:
+        els = [element_xml(get(cat, name + "_realistic"), label,
+                           60 + 230 * n, 220, f"realistic/{label}")
                for n, (label, cat, name) in enumerate(here)]
         folios.append(diagram_xml(first + len(folios),
-                                  f"{head_label[:2]} island - {title}",
-                                  els, [], 9))
+                                  f"{head_label[:2]} island - "
+                                  "realistic views", els, [], 9))
     els = [element_xml(get(cat, name + "_table"), label,
                        60 + 480 * (n % 2), 60 + 320 * (n // 2),
                        f"table/{label}")
