@@ -24,6 +24,8 @@
 #include <elementprovider.h>
 #include <qetgraphicsitem/element.h>
 #include <undocommand/linkelementcommand.h>
+#include <undocommand/changeelementdatacommand.h>
+#include <functionpropagation.h>
 #include "ui_masterpropertieswidget.h"
 #include <properties/elementdata.h>
 #include <ElementsCollection/elementslocation.h>
@@ -1095,7 +1097,15 @@ void MasterPropertiesWidget::plcUpdateDisplaySettings()
 	}
 
 	ed.setPlcMasterData(plc_data);
-	m_element->setElementData(ed);
+	// A function that the cables carry to the other end is one undo step
+	auto *follow = FunctionPropagation::isEnabled() && m_element->diagram()
+		? new ChangeElementDataCommand(m_element, ed) : nullptr;
+	if (follow && follow->childCount() > 0) {
+		m_element->diagram()->undoStack().push(follow);
+	} else {
+		delete follow;
+		m_element->setElementData(ed);
+	}
 
 	// Trigger update of the cross ref item
 	if (m_element->scene())

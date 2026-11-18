@@ -865,6 +865,12 @@ qet_add_app_test(tst_cablelist tst_cablelist.cpp)
 # A wire dropped on a terminal that already has a wire is made.
 qet_add_app_test(tst_wireonusedterminal tst_wireonusedterminal.cpp)
 
+# The function of an EPP channel follows the M12 cables, T couplers and Y
+# distributors to the valves and back, channel by channel.
+qet_add_app_test(tst_functionpropagation tst_functionpropagation.cpp)
+target_compile_definitions(tst_functionpropagation PRIVATE
+  QET_EXTRA_ELEMENTS_DIR="${QET_DIR}/extra-elements")
+
 # Joining two potentials offers only the two potentials.
 qet_add_app_test(tst_potentialchoices tst_potentialchoices.cpp)
 

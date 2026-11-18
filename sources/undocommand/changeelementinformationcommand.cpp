@@ -19,6 +19,7 @@
 #include <qetproject.h>
 #include <diagram.h>
 #include <qetgraphicsitem/element.h>
+#include <functionpropagation.h>
 
 #include <QObject>
 
@@ -40,6 +41,7 @@ ChangeElementInformationCommand::ChangeElementInformationCommand(
 	m_map.insert(QPointer<Element>(elmt), qMakePair(old_info, new_info));
 	setText(QObject::tr("Edit information of the element : %1")
 			.arg(elmt -> name()));
+	FunctionPropagation::follow(this, m_map);
 }
 
 ChangeElementInformationCommand::ChangeElementInformationCommand(QMap<QPointer<Element>, QPair<DiagramContext, DiagramContext> > map,
@@ -48,11 +50,15 @@ ChangeElementInformationCommand::ChangeElementInformationCommand(QMap<QPointer<E
 	m_map(map)
 {
 	setText(QObject::tr("Edit information for multiple items"));
+	FunctionPropagation::follow(this, m_map);
 }
 
 bool ChangeElementInformationCommand::mergeWith(const QUndoCommand *other)
 {
 	if (id() != other->id())
+		return false;
+		//The channels that followed are not merged
+	if (childCount() > 0 || other->childCount() > 0)
 		return false;
 
 	ChangeElementInformationCommand const *other_undo = static_cast<const ChangeElementInformationCommand*>(other);
@@ -88,6 +94,8 @@ bool ChangeElementInformationCommand::mergeWith(const QUndoCommand *other)
 */
 void ChangeElementInformationCommand::undo()
 {
+		//The channels that followed come back first
+	QUndoCommand::undo();
 	for (auto element : m_map.keys()) {
 		if (element) {
 			element->setElementInformations(m_map.value(element).first);
@@ -127,6 +135,7 @@ void ChangeElementInformationCommand::redo()
 		}
 	}
 	updateProjectDB();
+	QUndoCommand::redo();
 }
 
 void ChangeElementInformationCommand::updateProjectDB()

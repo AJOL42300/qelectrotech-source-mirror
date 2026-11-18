@@ -178,12 +178,14 @@ def plc_xml(terminals, table):
 
 def write_element(path, key, names, infos, informations, canvas, terminals,
                   table=False, label_at=(0, -24), margin=10, master=True,
-                  extra_texts=()):
+                  extra_texts=(), kind_informations=()):
     """Write one .elmt file. names: lang -> text; infos: ordered name ->
     text. The terminals are in the local coordinates of the canvas; the
     bounding box of the parts gives the size and the hotspot. With
     master=False the element is a plain simple element (no pin table).
-    extra_texts: (info, x, y, size) dynamic texts shown next to the label."""
+    extra_texts: (info, x, y, size) dynamic texts shown next to the label.
+    kind_informations: (name, text) entries QElectroTech keeps as they are,
+    read by the function following (function_routes, function_ends)."""
     lx, ly = label_at
     if table:
         width = sum(TABLE_WIDTHS[i] for i in TABLE_COLUMNS) + 10
@@ -217,10 +219,17 @@ def write_element(path, key, names, infos, informations, canvas, terminals,
         out.append(f'\t\t<elementInformation name="{name}" show="1">'
                    f"{esc(text)}</elementInformation>")
     out.append("\t</elementInformations>")
+    extra_kinds = [f'\t\t<kindInformation name="{esc(name)}">'
+                   f"{esc(text)}</kindInformation>"
+                   for name, text in kind_informations]
     if master:
         out += ["\t<kindInformations>",
                 '\t\t<kindInformation name="type">plc</kindInformation>',
-                plc_xml(terminals, table), "\t</kindInformations>"]
+                plc_xml(terminals, table)] + extra_kinds \
+            + ["\t</kindInformations>"]
+    elif extra_kinds:
+        out += ["\t<kindInformations>"] + extra_kinds \
+            + ["\t</kindInformations>"]
     out += [f"\t<informations>{informations}\n{LICENCE}</informations>",
             "\t<description>"]
     out.append("\t\t" + dyn_text(key, lx, ly, "label", 9, True))

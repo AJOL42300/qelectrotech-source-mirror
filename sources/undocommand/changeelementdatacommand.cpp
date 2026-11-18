@@ -17,6 +17,7 @@
 */
 #include "changeelementdatacommand.h"
 #include <qetgraphicsitem/element.h>
+#include <functionpropagation.h>
 
 ChangeElementDataCommand::ChangeElementDataCommand(Element *element, ElementData new_data, QUndoCommand *parent) :
 	QUndoCommand(parent),
@@ -25,9 +26,12 @@ ChangeElementDataCommand::ChangeElementDataCommand(Element *element, ElementData
 	m_new_data(new_data)
 {
 	setText(QObject::tr("Modify the properties of an element"));
+	FunctionPropagation::follow(this, element, new_data);
 }
 
 void ChangeElementDataCommand::undo() {
+		//The channels that followed come back first
+	QUndoCommand::undo();
 	if (m_element) {
 		m_element.data()->setElementData(m_old_data);
 	}
@@ -37,4 +41,5 @@ void ChangeElementDataCommand::redo() {
 	if (m_element) {
 		m_element.data()->setElementData(m_new_data);
 	}
+	QUndoCommand::redo();
 }

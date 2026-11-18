@@ -167,19 +167,50 @@ Approach without C++ (nothing in the application changes):
   T coupler -> coils `Y4` (`EV14`) and `Y5` (`EV15`, typed on the valve); the
   MICO output 1 -> 5 m cable -> coil `Y3` (`EV16`).
 
-Limits: the texts are computed when the example is generated. They do not
-change by themselves when a function is edited in the application, and the
-intermediate parts show nothing. Making it live and bidirectional needs a
-small C++ change, proposed here and not done: a generic pass-through step in
-`Terminal::relatedPotentialTerminal` that, for an element with a per-terminal
-channel map, continues through its other connector; the coil `function`
-text and the EPP tooltip would read the result. Editing the function of the
-valve or of the output would, in one `QUndoCommand` (a single undo), copy the
-text to the other end of the chain with the rule above: nothing on the other
-end, copy; the same text, nothing; a different text, warn and do not
-overwrite silently (the new text wins only if the user confirms). It must be
-an option of the settings dialog, off by default, and does not change the
-`.qet` format.
+Without the setting below, the texts are computed when the example is
+generated and do not change by themselves.
+
+### Live and bidirectional (setting, off by default)
+
+**Settings > General > "Follow the function of an M12 output along the
+cables, T couplers and Y distributors"** (`project/enable-function-propagation`
+in the application settings; off by default, so nothing changes until it is
+ticked). It is an application setting, not a project one, because a project
+option would change the `.qet` format, which stays as it is. With it on:
+
+- editing the function of a channel of the EPP (the PLC table of the master,
+  or the module properties) or the `function` of a valve gives the new text
+  to the other end(s) of the chain, in both directions. One edit is one undo
+  step: undo restores every end;
+- the walk is made by `FunctionPropagation` (`sources/functionpropagation.cpp`),
+  not by `Terminal::relatedPotentialTerminal`, which is potential based and
+  does not know the channels: changing it would change the results of its
+  other users. It follows the conductors, crosses the transit elements with
+  their route table and keeps the channel, so channels never mix. A chain
+  broken by a missing conductor, a channel without route, or two sockets
+  wired directly (no transit element between) propagates nothing;
+- the tables are in the data of the elements, as `kindInformation` entries of
+  the `.elmt` written by `gen_m12.py` (no table in the C++):
+  - `function_routes`: `X1:1>X2:1;X1:2>X2:2` (symmetric: terminal, channel
+    on one side, terminal, channel on the other side);
+  - `function_ends`: `X1:1` on the valve coil, the channel that carries the
+    function. The channels of a PLC module come from its `plcIO` table
+    (channel k of a terminal = k-th `plcIO` of that terminal);
+- the rule is the one of `chain.reconcile()`: the other end empty, copy; the
+  same text, nothing; a different text is a conflict, both are kept and a
+  message is shown in the status bar (and `FunctionPropagation::notifier()`
+  emits `conflictFound`). One addition for live edits: an end that still holds
+  the value the edited end had before the edit is in sync and follows (it
+  makes typing and a later change at the source follow). The text that a PLC
+  symbol brings from its definition (`In-/Output A`) counts as empty. Nothing
+  is ever overwritten silently; to resolve a conflict, edit the end that must
+  change.
+
+Limits: only the function (not the comment or the label) is followed; it is
+followed when a function is edited, not when conductors are added or removed;
+only direct conductors (not folio reports); with the setting on, a chain of
+edits cannot be merged in one undo step; the M12 elements already embedded in
+an old project have no route table until they are updated from the library.
 
 ## Example
 
@@ -234,6 +265,7 @@ qelectrotech --check-elements extra-elements/16_murrelektronik_mico --grid
 qelectrotech --check-elements extra-elements/17_meanwell_psu --grid
 qelectrotech --check-elements extra-elements/18_murrelektronik_m12 --grid
 ctest --test-dir build -R tst_murrmeanwellelements -j1
+ctest --test-dir build -R tst_functionpropagation -j1
 ```
 
 `--check-elements` must report 0 failures; the only warnings are the "no
