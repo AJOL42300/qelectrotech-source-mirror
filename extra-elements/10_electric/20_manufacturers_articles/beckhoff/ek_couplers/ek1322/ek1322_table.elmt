@@ -1,0 +1,73 @@
+<definition version="0.100.0" type="element" link_type="master" width="250" height="130" hotspot_x="5" hotspot_y="29">
+	<uuid uuid="{1e755dc9-0596-5570-b57c-1ee17709b1de}"/>
+	<names>
+		<name lang="en">EK1322 EtherCAT P junction - terminal table</name>
+		<name lang="fr">EK1322 jonction EtherCAT P - tableau des bornes</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">EK1322</elementInformation>
+		<elementInformation name="designation" show="1">EtherCAT P junction, 2 ports, with feed-in</elementInformation>
+		<elementInformation name="description" show="1">EtherCAT P coupler with feed-in: two P-coded M8 sockets, X1 (previous strand) and X2 (next strand), and four feed-in terminals: 1 Us +24 V DC (system and sensor supply), 2 Us 0 V, 3 Up +24 V DC (peripheral voltage), 4 Up 0 V. Each socket is one terminal. The position of the terminals and of the LEDs (Run, L/A X1, L/A X2, Us, Up) is assumed.</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="66"/>
+				<column index="2" width="130"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="44"/>
+			</columnWidths>
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="true"/>
+				<column index="2" visible="true"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+				<column index="5" visible="true"/>
+			</columnVisibility>
+			<columnNames>
+				<column index="0"></column>
+				<column index="1">ID TwinCAT</column>
+				<column index="2">Label</column>
+				<column index="3"></column>
+				<column index="4"></column>
+				<column index="5">N° pin</column>
+			</columnNames>
+			<columnOrder>5,2,1</columnOrder>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
+			<plcIOs>
+				<plcIO type="entree_universelle" address="" functionText="X1: EtherCAT P in (M8)" comment="" crossRef="" terminalCount="1">
+					<terminal>X1</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="" functionText="X2: EtherCAT P out (M8)" comment="" crossRef="" terminalCount="1">
+					<terminal>X2</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="" functionText="+24 V DC (Us)" comment="" crossRef="" terminalCount="1">
+					<terminal>1</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="" functionText="0 V (Us)" comment="" crossRef="" terminalCount="1">
+					<terminal>2</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="" functionText="+24 V DC (Up)" comment="" crossRef="" terminalCount="1">
+					<terminal>3</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="" functionText="0 V (Up)" comment="" crossRef="" terminalCount="1">
+					<terminal>4</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, drawn from the public description of the product, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Table made by misc/beckhoff/gen_ek1322.py. </informations>
+	<description>
+		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{47528ecf-18b5-5446-b222-a206f4103851}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>label</info_name></dynamic_text>
+		<dynamic_text x="60" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{ba23540f-f7e8-5337-9ae0-5bc3b2d4b6a3}" font="Liberation Sans,7,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
+		<plc_table x="0" y="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+	</description>
+</definition>

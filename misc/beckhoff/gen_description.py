@@ -468,6 +468,34 @@ def build_el9410(card):
                                ["Power contacts", "24 V / 0 V / PE"], 6))
 
 
+def build_ek1322(card):
+    """EK1322 (EtherCAT P junction with feed-in): the two M8 sockets, the
+    feed-in terminals (Us left, Up right) and the five LEDs (see
+    gen_ek1322.py; the layout is assumed)."""
+    import gen_ek1322 as ek
+    for t in card.terms:
+        if t.name.startswith("X"):
+            word = "previous strand" if t.name == "X1" else "next strand"
+            card.legends.append(Legend(
+                "R", t.y, t.x + t.r + LEAD_GAP,
+                ["%s: M8 socket" % t.name, "EtherCAT P, %s" % word], 6))
+        else:
+            side = "L" if t.x < ek.CX else "R"
+            text = dict(ek.FUNCTION)[t.name]
+            card.legends.append(Legend(
+                side, t.y, t.x + (-1 if side == "L" else 1)
+                * (t.r + LEAD_GAP), ["%s: %s" % (t.name, text)], 7))
+    words = {"Run": "LED Run", "L/A X1": "LED L/A X1",
+             "L/A X2": "LED L/A X2", "Us": "LED Us (system supply)",
+             "Up": "LED Up (peripheral supply)"}
+    for led, (lx, ly) in ek.LEDS.items():
+        card.circle(lx, ly, LED_D)
+        card.legends.append(Legend(
+            "L" if lx < ek.CX else "R", ly,
+            lx + (-1 if lx < ek.CX else 1) * (LED_D / 2 + LEAD_GAP),
+            [words[led]], 6))
+
+
 def build_ek1914(card):
     positions = [(28, -112 + LED_PITCH * k) for k in range(4)]
     add_leds(card, positions,
@@ -633,6 +661,8 @@ def build(card):
         build_el2911(card)
     elif s == "ek1914":
         build_ek1914(card)
+    elif s == "ek1322":
+        build_ek1322(card)
     elif s.startswith("af") or s.startswith("ax"):
         build_drive(card)
     elif s == "epp2338":

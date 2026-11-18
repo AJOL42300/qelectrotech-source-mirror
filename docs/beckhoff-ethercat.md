@@ -58,7 +58,7 @@ couplers are schematics in a dotted outline too. The generic cards
 (`el1xxx_generic`, `el2xxx_generic`, `el3xxx_generic`, `el4xxx_generic`,
 `el2652`) have the four appearances, generated from the common model of the
 EL1008 / EL2008 / EL2004 front with the pin number as label (the signal of
-each contact depends on the exact type). The couplers (EK1100, EK1322,
+each contact depends on the exact type). The couplers (EK1100,
 EK1960), the EL6910, the EL9011 and `ethercat_box_generic` only have the
 schematic.
 
@@ -78,11 +78,11 @@ schematic.
 | `el9410.elmt` | Beckhoff | EL9410 | pins 1 to 8: +24 V DC (1), 0 V (5), infeed 24 V (2, 6), infeed 0 V (3, 7), PE (4, 8); power feed with diagnostics, no I/O channel |
 | `el2652.elmt` | Beckhoff | EL2652 | contacts 1 to 4 (relay output, generic) |
 | `el5152.elmt` | Beckhoff | EL5152 | contacts 1 to 8 (generic layout) |
-| `*_realistic.elmt` | as the symbol | as the symbol | terminals on the screw circles of the drawing (EL1004, EL1008, EL1904, EL1918, EL2004, EL2008, EL2522, EL2574, EL2904, EL2911, EL5152, EL9100, EL9410, EK1914, EPP2338), and the vector view of the drives |
-| `*_description.elmt` | as the symbol | as the symbol | the realistic view (same terminals, same scale) with annotated legends and the status LEDs, for every card that has a realistic view (39 cards, see "Description appearance") |
+| `*_realistic.elmt` | as the symbol | as the symbol | terminals on the screw circles of the drawing (EL1004, EL1008, EL1904, EL1918, EL2004, EL2008, EL2522, EL2574, EL2904, EL2911, EL5152, EL9100, EL9410, EK1914, EK1322, EPP2338), and the vector view of the drives |
+| `*_description.elmt` | as the symbol | as the symbol | the realistic view (same terminals, same scale) with annotated legends and the status LEDs, for every card that has a realistic view (40 cards, see "Description appearance") |
 | `*_table.elmt` | as the symbol | as the symbol | none: the simple I/O table only (every card with a realistic view) |
 | `ek1100.elmt` | Beckhoff | EK1100 | EtherCAT IN, EtherCAT OUT |
-| `ek1322.elmt` | Beckhoff | EK1322 | IN X50, OUT X51, OUT X52 |
+| `ek1322.elmt` | Beckhoff | EK1322 | X1, X2 (M8 EtherCAT P sockets, one pin each), 1 +24 V Us, 2 0 V Us, 3 +24 V Up, 4 0 V Up (feed-in); no I/O channel, see [EK1322](#ek1322-ethercat-p-junction-with-feed-in) |
 | `ek1914.elmt` | Beckhoff | EK1914 | EtherCAT IN/OUT, I1 to I4, SI1, SI2, O1 to O4, SO1, SO2 (pins 2, 10, 3, 11 / 7, 15 / 4, 12, 5, 13 / 8, 16) |
 | `el9011.elmt` | Beckhoff | EL9011 | none (end cap) |
 | `epp2338.elmt` | Beckhoff | EPP2338-0002 | IN X50, OUT X51, X01 to X04 |
@@ -105,7 +105,7 @@ The references found in the sample schematic and what covers them:
 | Reference | Symbol |
 | --- | --- |
 | EL1008, EL2008, EL2652 | their own symbol |
-| EK1100, EK1322, EK1914 | their own symbol |
+| EK1100, EK1322, EK1914 | their own symbol (the EK1322 is the EtherCAT P junction with feed-in) |
 | EPP2338 | `epp2338.elmt` (the `-0002` variant is not told apart: the difference is not known, edit the reference) |
 | AX5203, AX5206 | `drives_ax5000/ax5203.elmt`, `ax5206.elmt` (2 axes) |
 | AF1103, AF1107, AF1115, AF1130, AF1155 | `drives_af1000/`, 1 axis |
@@ -373,9 +373,9 @@ coordinates) so the legends fit and the terminals stay on the grid. The
 files are written by `python misc/beckhoff/gen_description.py
 <library folder>` from the realistic views and their I/O tables (no
 duplicated data; a second run gives identical files). There is one for each
-of the 39 cards that have a realistic view: AF1103, AF1107, AF1115, AF1130,
+of the 40 cards that have a realistic view: AF1103, AF1107, AF1115, AF1130,
 AF1155, AF1215, AF1222, AX5101, AX5103, AX5106, AX5112, AX5118, AX5125,
-AX5201, AX5203, AX5206, AX5212, AX5218, AX5225, EK1914, EL1004, EL1008,
+AX5201, AX5203, AX5206, AX5212, AX5218, AX5225, EK1322, EK1914, EL1004, EL1008,
 EL1904, EL1918, EL2004, EL2008, EL2522, EL2574, EL2904, EL2911, EL5152,
 EL9100, EL9410 and EPP2338.
 
@@ -419,6 +419,27 @@ name or visibility of the Terminal column. Roboto
 Condensed is installed on the machine where this was checked; the font file
 is **not** in the repository. If it is missing, Arial Narrow or Liberation
 Sans Narrow is used, then the system sans-serif.
+
+## EK1322 (EtherCAT P junction with feed-in)
+
+The four appearances (symbol, `_realistic`, `_description`, `_table`) are in
+`ek_couplers/ek1322`. They are written by `python misc/beckhoff/gen_ek1322.py <library folder>`,
+then `gen_description.py`. Vector drawing only, no logo or manufacturer text.
+
+- **Public facts used** (only facts, no text or image copied): the EK1322 couples
+  EtherCAT P junctions and can sit anywhere in an EtherCAT strand; two shielded
+  P-coded M8 sockets, X1 (previous strand) and X2 (next strand); four feed-in
+  terminals: 1 Us +24 V, 2 Us 0 V, 3 Up +24 V, 4 Up 0 V (Us = system and sensor
+  supply, Up = peripheral voltage); LEDs Run, L/A X1, L/A X2, Us and Up; width 24 mm.
+- **Terminals**: 6 pins, one per M8 socket (X1, X2) and one per feed point (1 to 4,
+  with the potential 24 V / 0 V, so the schematic draws them red / blue). The
+  housing has the common height of the other cards.
+- **Table**: pin | label | TwinCAT ID. It lists the function of each terminal; the
+  card has no I/O channel, so the TwinCAT ID is empty.
+- **INCERTAIN**: the position of the feed-in terminals (Us on the left, Up on the
+  right, numbered column by column) and of the LEDs on the front is assumed (not
+  public); the junction drawn in the schematic is generic, and no power contact is
+  drawn because the public documentation does not say that the EK1322 passes them on.
 
 ## Folios generated for an island
 
@@ -531,7 +552,7 @@ poorly: this works for line drawings and logos.
 
 ## Example project
 
-`examples/beckhoff_islands_example.qet` has three islands on 10 folios (symbols,
+`examples/beckhoff_islands_example.qet` has four islands on 13 folios (symbols,
 realistic views, I/O tables for each island, and the description views of the
 cards of `A1`), all on A3 folios with the A3 title
 blocks (see below):
@@ -545,6 +566,8 @@ blocks (see below):
   of `A2.20`.
 - `A3`: head `A3.00`, the 1-axis drive `A3.10` (AX5103) and the 2-axis drive
   `A3.20` (AX5203).
+- `A4`: an EtherCAT P island: head `A4.00` (EK1322) and the box `A4.10`.
+  (EPP2338-0002).
 
 The used channels carry their function in the I/O tables. The Beckhoff
 elements used are embedded in the project. It is
@@ -612,8 +635,8 @@ the datasheet of your box.
 - The generic cards and the couplers are generated from the common model, not
   from a drawing of the user. The stage circuits of the schematics (input
   optocoupler, output stage) are generic, not taken from a datasheet. The
-  couplers, the EL6910, the EL9011 and the generic EtherCAT box have no
-  realistic, description or table view yet.
+  couplers EK1100 and EK1960, the EL6910, the EL9011 and the generic EtherCAT box
+  have no realistic, description or table view yet (the EK1322 has them).
 
 - The ios of the EK1914 name the channels `I1`..`SO2` and follow the public
   terminal list; the column-by-column numbering of its pins is deduced, and
@@ -625,6 +648,7 @@ the datasheet of your box.
   checked against the datasheet; its table has 8 rows (label = function, no
   TwinCAT ID) which use a stand-in channel type only because the table needs
   an I/O entry to be drawn.
+- **EK1322** (2-port EtherCAT P junction with feed-in): see [EK1322](#ek1322-ethercat-p-junction-with-feed-in).
 - The designation of the EL5152 is generic and was not checked against a
   datasheet.
 - No table is added automatically on the nomenclature folio: choose the folio
@@ -671,6 +695,7 @@ python misc/beckhoff/gen_generic.py extra-elements/10_electric/20_manufacturers_
 python misc/beckhoff/gen_schematic.py <absolute path of extra-elements/10_electric/20_manufacturers_articles/beckhoff>
 python misc/beckhoff/gen_couplers.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/gen_el9410.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
+python misc/beckhoff/gen_ek1322.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/gen_description.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/simple_tables.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/gen_titleblocks.py

@@ -184,6 +184,9 @@ AX = CAT + "/drives_ax5000"
 ISLAND2 = ("A2.00", [("A2.10", SAFE, "el1918"), ("A2.20", AF, "af1103"),
                      ("A2.30", AF, "af1215")])
 ISLAND3 = ("A3.00", [("A3.10", AX, "ax5103"), ("A3.20", AX, "ax5203")])
+# EtherCAT P island: the EK1322 junction heads an EPP box
+EPP = CAT + "/epp_box"
+ISLAND4 = ("A4.00", [("A4.10", EPP, "epp2338")], "ek1322")
 
 
 def plc_xml(el, label):
@@ -352,15 +355,15 @@ def folio_tables():
     return diagram_xml(4, "A1 island - I/O tables", els, [], portrait=True)
 
 
-def island_folios(first, head_label, cards):
+def island_folios(first, head_label, cards, head="ek1100"):
     """Symbols, realistic views and I/O tables of an island of drives or
     safety cards; first is the order of its first folio."""
-    els = [element_xml(get(CAT, "ek1100"), head_label, 120, 320,
+    els = [element_xml(get(CAT, head), head_label, 120, 320,
                        f"sym/{head_label}")]
     conductors = []
     for n, (label, cat, name) in enumerate(cards):
         els.append(element_xml(get(cat, name), label, 360 + 230 * n,
-                               175 if name == "el1918" else 70,
+                               {"el1918": 175, "epp2338": 230}.get(name, 70),
                                f"sym/{label}"))
     sensor = get(DEV, "sensor")
     wired = []
@@ -378,6 +381,8 @@ def island_folios(first, head_label, cards):
                           els, conductors)]
     here = [(label, cat, name) for label, cat, name in cards
             if exists(cat, name + "_realistic")]
+    if exists(CAT, head + "_realistic"):
+        here.insert(0, (head_label, CAT, head))
     if here:
         els = [element_xml(get(cat, name + "_realistic"), label,
                            60 + 230 * n, 220, f"realistic/{label}")
@@ -443,6 +448,7 @@ def main():
               folio_tables()]
     folios += island_folios(5, *ISLAND2)
     folios += island_folios(8, *ISLAND3)
+    folios += island_folios(11, *ISLAND4[:2], head=ISLAND4[2])
     xrefs = "".join(
         f'<xref delayprefix="" displayhas="cross" master_label="%f-%l%c" '
         'offset="0" powerprefix="" showallconfiguredslaves="false" '

@@ -1033,7 +1033,7 @@ class TstBeckhoffElements : public QObject
 			int folio = 0;
 			const auto folios = project.elementsByTagName(
 				QStringLiteral("diagram"));
-			QCOMPARE(folios.size(), 10);
+			QCOMPARE(folios.size(), 13);
 			for (int i = 0; i < folios.size(); ++i, ++folio) {
 				const auto els = folios.at(i).toElement()
 					.firstChildElement(QStringLiteral("elements"))
@@ -1067,7 +1067,8 @@ class TstBeckhoffElements : public QObject
 										QStringLiteral("A2.20"),
 										QStringLiteral("A2.30"),
 										QStringLiteral("A3.10"),
-										QStringLiteral("A3.20")}) {
+										QStringLiteral("A3.20"),
+										QStringLiteral("A4.10")}) {
 				const auto list = appearances.value(card);
 				QVERIFY2(list.size() >= 3, qPrintable(card));
 				QSet<int> onFolio;
@@ -1100,6 +1101,11 @@ class TstBeckhoffElements : public QObject
 			QVERIFY(has(QStringLiteral("A2.30"), QStringLiteral("af1215.elmt")));
 			QVERIFY(has(QStringLiteral("A3.10"), QStringLiteral("ax5103.elmt")));
 			QVERIFY(has(QStringLiteral("A3.20"), QStringLiteral("ax5203.elmt")));
+				// the EtherCAT P island: junction head and EPP box
+			QVERIFY(has(QStringLiteral("A4.00"), QStringLiteral("ek1322.elmt")));
+			QVERIFY(has(QStringLiteral("A4.00"),
+					   QStringLiteral("ek1322_realistic.elmt")));
+			QVERIFY(has(QStringLiteral("A4.10"), QStringLiteral("epp2338.elmt")));
 
 				//every wire joins two terminals of elements of the project
 			const auto wires = project.elementsByTagName(
@@ -1258,7 +1264,7 @@ class TstBeckhoffElements : public QObject
 				}
 				++checked;
 			}
-			QCOMPARE(checked, 39);
+			QCOMPARE(checked, 40);
 		}
 
 		void schematicViewsAreDrawnInADottedOutlineAtTheRealisticPins()
@@ -1543,6 +1549,91 @@ class TstBeckhoffElements : public QObject
 										QStringLiteral("2: Infeed 24 V"),
 										QStringLiteral("3: Infeed 0 V"),
 										QStringLiteral("4: PE")}) {
+				QVERIFY2(legends.contains(text), qPrintable(text));
+			}
+		}
+		void ek1322HasTwoM8SocketsAndFourFeedPins()
+		{
+			const QString key = QStringLiteral("ek1322");
+			const auto symbol = load(elementPath(
+				key + QStringLiteral(".elmt"))).documentElement();
+			const auto real = load(appearance(
+				key, QStringLiteral("_realistic"))).documentElement();
+			const auto desc = load(appearance(
+				key, QStringLiteral("_description"))).documentElement();
+			const auto table = load(appearance(
+				key, QStringLiteral("_table"))).documentElement();
+			for (const auto &def : {symbol, real, desc, table}) {
+				QVERIFY(!def.isNull());
+				QCOMPARE(info(def, QStringLiteral("manufacturer_reference")),
+						 QStringLiteral("EK1322"));
+			}
+
+				// same height as the other cards, one pin per M8 socket
+			const auto ref = load(appearance(QStringLiteral("el1004"),
+				QStringLiteral("_realistic"))).documentElement();
+			QCOMPARE(real.attribute(QStringLiteral("height")),
+					 ref.attribute(QStringLiteral("height")));
+			const auto pins = pinPoints(real.firstChildElement(
+				QStringLiteral("description")));
+			QCOMPARE(pins.size(), 6);
+			for (const QString &name : {QStringLiteral("X1"),
+										QStringLiteral("X2"),
+										QStringLiteral("1"),
+										QStringLiteral("2"),
+										QStringLiteral("3"),
+										QStringLiteral("4")}) {
+				QVERIFY2(pins.contains(name), qPrintable(name));
+			}
+			QCOMPARE(terminalNames(symbol), terminalNames(real));
+			QCOMPARE(terminalNames(desc), terminalNames(real));
+			QCOMPARE(pinPoints(symbol.firstChildElement(
+				QStringLiteral("description"))), pins);
+
+				// Us on pins 1-2, Up on pins 3-4: 24 V then 0 V
+			QCOMPARE(real.elementsByTagName(QStringLiteral("plcIO")).size(),
+					 0);
+			const auto terminals = real.elementsByTagName(
+				QStringLiteral("terminal"));
+			for (int i = 0; i < terminals.size(); ++i) {
+				const auto t = terminals.at(i).toElement();
+				const QString name = t.attribute(QStringLiteral("name"));
+				const QString pot = t.attribute(QStringLiteral("potential"));
+				if (name == QLatin1String("1") || name == QLatin1String("3")) {
+					QCOMPARE(pot, QStringLiteral("24V"));
+				} else if (name == QLatin1String("2")
+						   || name == QLatin1String("4")) {
+					QCOMPARE(pot, QStringLiteral("0V"));
+				} else {
+					QVERIFY(pot.isEmpty());
+				}
+			}
+
+				// the table: pin | label | (empty) TwinCAT ID, 6 rows
+			const auto ios = table.elementsByTagName(QStringLiteral("plcIO"));
+			QCOMPARE(ios.size(), 6);
+			for (int i = 0; i < ios.size(); ++i) {
+				const auto io = ios.at(i).toElement();
+				QVERIFY(io.attribute(QStringLiteral("address")).isEmpty());
+				QVERIFY(!io.attribute(QStringLiteral("functionText"))
+						.isEmpty());
+			}
+			QVERIFY(load(appearance(key, QStringLiteral("_table")))
+					.toString().contains(QStringLiteral(
+						"<columnOrder>5,2,1</columnOrder>")));
+
+				// the description names the LEDs and the terminals
+			QStringList legends;
+			const auto texts = desc.elementsByTagName(QStringLiteral("text"));
+			for (int i = 0; i < texts.size(); ++i) {
+				legends << texts.at(i).toElement()
+					.attribute(QStringLiteral("text"));
+			}
+			for (const QString &text : {QStringLiteral("LED Run"),
+										QStringLiteral("LED L/A X1"),
+										QStringLiteral("LED L/A X2"),
+										QStringLiteral("1: +24 V DC (Us)"),
+										QStringLiteral("4: 0 V (Up)")}) {
 				QVERIFY2(legends.contains(text), qPrintable(text));
 			}
 		}
