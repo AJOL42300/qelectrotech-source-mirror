@@ -8811,6 +8811,21 @@ que vous créez. entrées de texte et nombres sont
 <context>
     <name>GeneralConfigurationPage</name>
     <message>
+        <location filename="../sources/ui/configpage/generalconfigurationpage.ui" line="588"/>
+        <source>In a layout folio, a component which declares itself as fixed on a rail is put on the axis of the nearest rail and against its neighbour, leaving the space it asks for. Hold Alt or Shift while moving to suspend it.</source>
+        <translation type="unfinished">Dans un folio d&apos;implantation, un composant qui se déclare fixé sur un rail est placé sur l&apos;axe du rail le plus proche et contre son voisin, en laissant l&apos;espace demandé. Maintenir Alt ou Maj pendant le déplacement pour le suspendre.</translation>
+    </message>
+    <message>
+        <location filename="../sources/ui/configpage/generalconfigurationpage.ui" line="591"/>
+        <source>Snap components to mounting rails and their neighbours</source>
+        <translation type="unfinished">Aimanter les composants sur les rails de montage et leurs voisins</translation>
+    </message>
+    <message>
+        <location filename="../sources/ui/configpage/generalconfigurationpage.ui" line="600"/>
+        <source>Rail snapping reach:</source>
+        <translation type="unfinished">Portée de l&apos;aimantation sur rail :</translation>
+    </message>
+    <message>
         <location filename="../sources/ui/configpage/generalconfigurationpage.ui" line="562"/>
         <source>Enable chained folio reports for report elements</source>
         <translation>Activer le chaînage des renvois de folio pour les éléments de rapport</translation>

@@ -54,6 +54,7 @@
 #endif
 #include <editor/elementscene.h>
 #include <diagramevent/diagrameventaddpaste.h>
+#include <railsnap.h>
 #include <ElementsCollection/elementslocation.h>
 #include <QCoreApplication>
 #include <QDir>
@@ -150,6 +151,8 @@ GeneralConfigurationPage::GeneralConfigurationPage(QWidget *parent) :
 	ui->m_drag_texts_without_shift_cb->setChecked(DynamicElementTextItem::dragMovesTextAlone());
 	ui->m_drag_places_auto_conductor_cb->setChecked(AutoConnect::dragPlacesWithAutoConductor());
 	ui->m_ctrl_drag_copies_cb->setChecked(DiagramEventAddPaste::ctrlDragCopies());
+	ui->m_rail_snap_cb->setChecked(RailSnap::enabled());
+	ui->m_rail_snap_threshold_dsb->setValue(RailSnap::thresholdMm());
 	ui->m_duplicate_follows_mouse_cb->setChecked(DiagramEventAddPaste::duplicateFollowsMouse());
 	ui->m_junction_replaces_cb->setChecked(ConnectionSymbols::newJunctionReplacesOld());
 	ui->m_structure_box_color_kpb->setColor(StructureBoxItem::newBoxColor());
@@ -567,6 +570,8 @@ void GeneralConfigurationPage::applyConf()
 	DynamicElementTextItem::setDragMovesTextAlone(ui->m_drag_texts_without_shift_cb->isChecked());
 	AutoConnect::setDragPlacesWithAutoConductor(ui->m_drag_places_auto_conductor_cb->isChecked());
 	DiagramEventAddPaste::setCtrlDragCopies(ui->m_ctrl_drag_copies_cb->isChecked());
+	RailSnap::setEnabled(ui->m_rail_snap_cb->isChecked());
+	RailSnap::setThresholdMm(ui->m_rail_snap_threshold_dsb->value());
 	DiagramEventAddPaste::setDuplicateFollowsMouse(ui->m_duplicate_follows_mouse_cb->isChecked());
 	DiagramView::setTerminalHelpLinesShown(ui->m_terminal_help_lines_cb->isChecked());
 	DockFold::setEnabled(ui->m_dock_fold_cb->isChecked());
