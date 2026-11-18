@@ -169,8 +169,9 @@ def m8_sockets(d, detail):
     for cx in M8_X:
         d.circle(cx, M8_Y, 2 * M8_R, RED if detail else WHITE)
         d.circle(cx, M8_Y, 2 * M8_R - 10, DARK)
-    d.terminal(M8_X[0], M8_Y, "IN X50")
-    d.terminal(M8_X[1], M8_Y, "OUT X51")
+    # the M8 sockets send their conductors up, the M12 ones to the right
+    d.terminal(M8_X[0], M8_Y, "IN X50", "n")
+    d.terminal(M8_X[1], M8_Y, "OUT X51", "n")
     d.text(-58, M8_Y - 15, "IN", 5)
     d.text(M8_X[1] + 3, M8_Y - 15, "OUT", 5)
     d.text(-66, -118, "X50", 4)
