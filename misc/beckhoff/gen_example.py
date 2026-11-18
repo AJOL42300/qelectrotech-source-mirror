@@ -135,7 +135,7 @@ def family(name):
     """The folder of a card, such as el1xxx_digital_in/el1004."""
     for entry in sorted(os.listdir(ELMT_DIR)):
         folder = os.path.join(ELMT_DIR, entry)
-        if not os.path.isdir(folder):
+        if not os.path.isdir(folder) or entry == "layout":
             continue
         for card in sorted(os.listdir(folder)):
             if os.path.exists(os.path.join(folder, card, name + ".elmt")):
@@ -441,7 +441,7 @@ def catalogue_folios(first):
     left, top, right, bottom = 40, 30, 1190, 730
     for entry in sorted(os.listdir(ELMT_DIR)):
         folder = os.path.join(ELMT_DIR, entry)
-        if not os.path.isdir(folder):
+        if not os.path.isdir(folder) or entry == "layout":
             continue
         cards = [c for c in sorted(os.listdir(folder))
                  if os.path.exists(os.path.join(folder, c, c + ".elmt"))]
@@ -468,6 +468,42 @@ def catalogue_folios(first):
                 title += f" ({n + 1}/{len(pages)})"
             folios.append(diagram_xml(first + len(folios), title, page, []))
     return folios
+
+
+LAYOUT_ISLAND = ("EK1100", "EL1008", "EL2008", "EL2008", "EL1904",
+                 "EL2904", "EL9410")
+
+
+def layout_element(scale, name, label, x, y):
+    category = f"{CAT}/layout/{scale}"
+    key = (category, name)
+    if key not in ELEMENTS:
+        ELEMENTS[key] = Elmt(category, name, load(category, name))
+    el = ELEMENTS[key]
+    return element_xml(el, label, x, y, f"layout/{scale}/{name}/{label}")
+
+
+def layout_folio(number):
+    """Front views at the three scales: a DIN rail and an island on it, the
+    module widths are the real ones (12 mm, 44 mm) times the scale."""
+    els = []
+    y = 50
+    for k, (scale, px) in enumerate((("1to1", 1.0), ("1to2", 0.5),
+                                     ("1to5", 0.2)), 1):
+        x = 60
+        els.append(layout_element(scale, "din_rail", "RAIL-" + scale, x, y))
+        pitch = {"EK1100": 44}
+        for n, ref in enumerate(LAYOUT_ISLAND):
+            label = f"L{k}.{n:02d}"
+            els.append(layout_element(scale, ref.lower(), label,
+                                      round(x, 3), y))
+            x += pitch.get(ref, 12) * px
+        # the CU1128 junction and the EPP2338-0002 box, 300 and 480 mm away
+        els.append(layout_element(scale, "cu1128", "CU1", 60 + 300 * px, y))
+        els.append(layout_element(scale, "epp2338-0002", "EPP1",
+                                  60 + 480 * px, y))
+        y += 190 if px == 1 else 120
+    return diagram_xml(number, "Layout - real dimensions, 3 scales", els, [])
 
 
 def category_names(path):
@@ -520,6 +556,7 @@ def main():
     folios += island_folios(8, *ISLAND3)
     folios += island_folios(11, *ISLAND4[:2], head=ISLAND4[2])
     folios += catalogue_folios(len(folios) + 1)
+    folios.append(layout_folio(len(folios) + 1))
     xrefs = "".join(
         f'<xref delayprefix="" displayhas="cross" master_label="%f-%l%c" '
         'offset="0" powerprefix="" showallconfiguredslaves="false" '

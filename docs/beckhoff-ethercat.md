@@ -26,6 +26,7 @@ generic symbols have a folder each (`el1xxx_generic`, shown as
 | `epp_box` | EPP2338, `ethercat_box_generic` |
 | `twinsafe` | EL1904, EL1918, EL2904, EL2911, EL6910 (yellow) |
 | `drives_af1000`, `drives_ax5000` | the drives |
+| `layout` | front views at real dimensions, 3 scales (see [Layout views](#layout-views-and-scale)) |
 
 `misc/beckhoff/organize.py <scratch folder> extra-elements` sorts the output
 of the generators into these folders and `misc/beckhoff/split_cards.py
@@ -662,7 +663,8 @@ poorly: this works for line drawings and logos.
 
 `examples/beckhoff_islands_example.qet` has four islands on 13 folios (symbols,
 realistic views, I/O tables for each island, and the description views of the
-cards of `A1`), then 14 "Catalogue" folios, all on A3 folios with the A3 title
+cards of `A1`), then 14 "Catalogue" folios and one "Layout" folio (an island and
+a DIN rail at 1:1, 1:2 and 1:5, see [Layout views](#layout-views-and-scale)), all on A3 folios with the A3 title
 blocks (see below). The folios are named by card category: the title of an
 island folio lists the categories of its cards (`A1 - Coupleurs / Entrées TOR /
 Sorties TOR / Codeurs - symboles`) and the view (symboles, vues réalistes, vues
@@ -754,6 +756,61 @@ INCERTAIN: the positions of the sockets, the LEDs and the labelling areas on
 the front are assumed from the reference picture; check the pin-outs against
 the datasheet of your box.
 
+## Layout views and scale
+
+The `layout` folder holds the *front view* of the modules at their real size,
+for a mounting plan: one plain grey rectangle (no terminals, no logo) with the
+reference written on it, and a DIN rail. Written by
+`misc/beckhoff/gen_layout.py` (63 elements).
+
+**Is the scale adjustable?** Not in QElectroTech: an element has no scale, only
+a mirror. Without changing the C++, the elements exist in three folders, one
+per scale (px per millimetre of the product):
+
+| Folder | Scale | 12 mm terminal | Use |
+| --- | --- | --- | --- |
+| `layout/1to1` | 1:1, 1 px = 1 mm | 12 px | islands, readable labels |
+| `layout/1to2` | 1:2, 1 px = 2 mm (the scale of the IDE cabinet elements) | 6 px | cabinet plans with the IDE elements |
+| `layout/1to5` | 1:5, 1 px = 5 mm | 2.4 px | overview of a whole cabinet |
+
+All the elements of a folder share the same origin (top left corner of the
+module). The rail element draws its 35 mm band 32.5 mm below that origin, so a
+module and the rail placed at the same point are aligned; modules are placed
+side by side at `width x scale` (12 mm = 12 px at 1:1). Sizes (mm, W x H x D):
+
+| Element | W x H x D | Source |
+| --- | --- | --- |
+| EL1004, EL1008, EL1904, EL1918, EL2004, EL2008, EL2522, EL2574, EL2652, EL2904, EL2911, EL5152, EL6910, EL9100, EL9410 | 12 x 100 x 68 | standard EtherCAT Terminal housing; **width not checked card by card** |
+| EK1100 | 44 x 100 x 68 | public data sheet |
+| EK1914 | 44 x 100 x 68 | same housing as the EK1100, **not checked** |
+| EK1322 | 24 x 100 x 68 | width from the public data sheet, **height and depth assumed** |
+| CU1128 | 122 x 100 x 38 | public data sheet |
+| EPP2338-0002 | 30 x 126 x 26.5 | public data sheet (without connectors) |
+| DIN rail | 35 x 7.5, 250 long | EN 60715 |
+
+Not covered: the drives (AF1000, AX5000), the end cap EL9011 and the generic
+cards, whose housing sizes are not known. The depth is not drawn (front view);
+it is in the description of the element.
+
+**Label.** The reference is written on the body: horizontally when the body is
+wide enough, rotated (bottom to top) when it is narrow, and below the body when
+nothing fits, with a point size that follows the scale (7 pt at most, never
+below 4 pt). Consequences: at 1:1 every label is readable; at 1:2 the label of a
+12 mm terminal is 4 pt (readable when zoomed); at 1:5 the labels of the narrow
+terminals are written below the body and **overlap** when the terminals touch:
+use 1:1 or 1:2 for an island and 1:5 only for single modules.
+
+**Proposal for a real scale (not implemented).** Add an `elementScale` property
+(default 1.0) to `Element`, stored in the `<element>` tag of the project
+(`scale="0.5"`, absent for 1.0 so old projects are unchanged), applied with
+`QGraphicsItem::setScale()` around the hotspot, edited in the element
+properties dialog, set through a `QUndoCommand` (merge id to add to
+`dev_doc/ID_of_QUndoCommand.txt`) and behind a setting that is off by default.
+Terminals and conductors must follow the scaled position
+(`Terminal::dockConductor`), dynamic texts keep their own size (so labels stay
+readable at any scale) and the element editor stays at 1:1. The three folders
+above would then reduce to one.
+
 ## Limits
 
 - The generic cards and the couplers are generated from the common model, not
@@ -826,6 +883,7 @@ python misc/beckhoff/simple_tables.py extra-elements/10_electric/20_manufacturer
 python misc/beckhoff/gen_colors.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/gen_table_titles.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/gen_drive_parts.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
+python misc/beckhoff/gen_layout.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/gen_titleblocks.py
 python misc/beckhoff/gen_example.py
 ```

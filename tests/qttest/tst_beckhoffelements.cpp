@@ -103,7 +103,12 @@ class TstBeckhoffElements : public QObject
 							{QStringLiteral("*.elmt")}, QDir::Files,
 							QDirIterator::Subdirectories);
 			while (it.hasNext()) {
-				list << categoryDir().relativeFilePath(it.next());
+				const QString file =
+					categoryDir().relativeFilePath(it.next());
+				// the layout views have no terminals: own test
+				if (!file.startsWith(QLatin1String("layout/"))) {
+					list << file;
+				}
 			}
 			list.sort();
 			return list;
@@ -1941,6 +1946,68 @@ class TstBeckhoffElements : public QObject
 				++drives;
 			}
 			QCOMPARE(drives, 19);
+		}
+		void layoutViewsKeepTheRealDimensionsAtEveryScale()
+		{
+			// public data sheet values in millimetres (width, height)
+			const QMap<QString, QSizeF> real{
+				{QStringLiteral("el1008"), {12, 100}},
+				{QStringLiteral("el2008"), {12, 100}},
+				{QStringLiteral("el9410"), {12, 100}},
+				{QStringLiteral("ek1100"), {44, 100}},
+				{QStringLiteral("ek1914"), {44, 100}},
+				{QStringLiteral("ek1322"), {24, 100}},
+				{QStringLiteral("cu1128"), {122, 100}},
+				{QStringLiteral("epp2338-0002"), {30, 126}}};
+			const QMap<QString, qreal> scales{
+				{QStringLiteral("1to1"), 1.0}, {QStringLiteral("1to2"), 0.5},
+				{QStringLiteral("1to5"), 0.2}};
+			for (auto s = scales.cbegin(); s != scales.cend(); ++s) {
+				for (auto r = real.cbegin(); r != real.cend(); ++r) {
+					const QString file = QStringLiteral("layout/%1/%2.elmt")
+										 .arg(s.key(), r.key());
+					const QByteArray where = file.toUtf8();
+					const auto root = load(elementPath(file)).documentElement();
+					const auto rect = root.firstChildElement(
+						QStringLiteral("description"))
+						.firstChildElement(QStringLiteral("rect"));
+					QVERIFY2(!rect.isNull(), where.constData());
+					QVERIFY2(qAbs(rect.attribute("width").toDouble()
+								  - r.value().width() * s.value()) < 0.01,
+							 where.constData());
+					QVERIFY2(qAbs(rect.attribute("height").toDouble()
+								  - r.value().height() * s.value()) < 0.01,
+							 where.constData());
+					// the reference is written on the view, never cut
+					const QString ref = r.key().toUpper();
+					QCOMPARE(info(root, QStringLiteral("manufacturer_reference")),
+							 ref);
+					bool labelled = false;
+					for (auto e = root.firstChildElement(
+							 QStringLiteral("description"))
+							 .firstChildElement(QStringLiteral("text"));
+						 !e.isNull();
+						 e = e.nextSiblingElement(QStringLiteral("text"))) {
+						labelled |= e.attribute("text") == ref;
+						QVERIFY2(e.attribute("font").section(',', 1, 1).toInt()
+								 >= 4, where.constData());
+					}
+					QVERIFY2(labelled, where.constData());
+				}
+				// the rail is 35 mm high and 250 mm long, 32.5 mm below the
+				// origin
+				const auto rail = load(elementPath(
+					QStringLiteral("layout/%1/din_rail.elmt").arg(s.key())))
+					.documentElement().firstChildElement(
+						QStringLiteral("description"))
+					.firstChildElement(QStringLiteral("rect"));
+				QVERIFY(qAbs(rail.attribute("width").toDouble()
+							 - 250 * s.value()) < 0.01);
+				QVERIFY(qAbs(rail.attribute("height").toDouble()
+							 - 35 * s.value()) < 0.01);
+				QVERIFY(qAbs(rail.attribute("y").toDouble()
+							 - 32.5 * s.value()) < 0.01);
+			}
 		}
 		void supplyLabelsAreColouredByFunction()
 		{
