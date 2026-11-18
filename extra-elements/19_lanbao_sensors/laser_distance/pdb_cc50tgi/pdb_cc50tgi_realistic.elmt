@@ -1,0 +1,29 @@
+<definition version="0.100.0" type="element" link_type="simple" width="110" height="160" hotspot_x="10" hotspot_y="40">
+	<uuid uuid="{3c84fc92-baa8-5c1e-a2b3-c6345df7b1d6}"/>
+	<names>
+		<name lang="en">Lanbao PDB-CC50TGI laser distance sensor, realistic view</name>
+		<name lang="fr">Capteur de distance laser Lanbao PDB-CC50TGI, vue réaliste</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Lanbao</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">PDB-CC50TGI</elementInformation>
+		<elementInformation name="designation" show="1">Capteur de distance laser 80-500 mm, sortie analogique 4-20 mA et sortie tout ou rien, 12-24 V DC, câble blindé 2 m</elementInformation>
+		<elementInformation name="description" show="1">Laser distance measuring sensor (red laser 650 nm, class 2), measuring range 80-500 mm (full scale 420 mm), 4-20 mA analog output (load below 390 ohm) and switch output Q (push-pull, NPN or PNP, NO or NC settable), 12-24 V DC, OLED display and two keys, green power LED and yellow action LED, IP67, 2 m shielded 4-wire cable. Wires: BN +24 V, BU 0 V, BK switch output Q, GY analog output Ia (4-20 mA, the load is wired between Ia and 0 V). Mounting: two holes 4.4 mm (M4 screws), 65x51x23 mm. The cable shield is not drawn. Hole positions are read from the datasheet drawing (about 1 mm).</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors
+Original vector drawing, not copied from a manufacturer drawing. Ratings and terminal names from the public datasheet; layout and symbols are generic, check them against the datasheet.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{333b861d-2c4a-53cc-b36a-101d41a7bc80}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<rect x="25.05" y="7.75" width="29.9" height="84.5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
+		<rect x="27.05" y="9.75" width="25.9" height="42.9" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:black" antialias="false"/>
+		<rect x="27.05" y="54.65" width="25.9" height="25.35" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:black" antialias="false"/>
+		<rect x="33.05" y="88.25" width="13.9" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<line x1="40" y1="92.25" x2="40" y2="100" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:hight;filling:none;color:black" antialias="false"/>
+		<text x="13.05" y="64" rotation="270" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="PDB-CC50TGI"/>
+		<terminal x="40" y="0" name="BN" orientation="n" type="Generic" uuid="{9370f5ff-5bd8-59c3-ad6f-c624751614f3}" potential="24V"/>
+		<terminal x="40" y="100" name="BU" orientation="s" type="Generic" uuid="{e0837233-f5a5-5210-9b9c-67460ad4e17d}" potential="0V"/>
+		<terminal x="80" y="30" name="BK" orientation="e" type="Generic" uuid="{f94f2061-6e2f-5357-8cb8-588ba833b332}"/>
+		<terminal x="80" y="70" name="GY" orientation="e" type="Generic" uuid="{d8c471b2-9612-553d-a079-2802e39f2076}"/>
+	</description>
+</definition>

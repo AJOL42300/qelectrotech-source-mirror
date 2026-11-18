@@ -1,0 +1,22 @@
+<definition version="0.100.0" type="element" link_type="simple" width="60" height="80" hotspot_x="10" hotspot_y="30">
+	<uuid uuid="{73966f82-d792-56af-bbc8-5b9171c08eb1}"/>
+	<names>
+		<name lang="en">Lanbao PDB-CC50TGI laser distance sensor, layout (1 px = 2 mm)</name>
+		<name lang="fr">Capteur de distance laser Lanbao PDB-CC50TGI, implantation (1 px = 2 mm)</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Lanbao</elementInformation>
+		<elementInformation name="designation" show="1">Capteur de distance laser 80-500 mm, sortie analogique 4-20 mA et sortie tout ou rien, 12-24 V DC, câble blindé 2 m (layout)</elementInformation>
+		<elementInformation name="description" show="1">Lanbao PDB-CC50TGI, 51x65x23 mm (width x height x depth)</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors
+Original vector drawing, not copied from a manufacturer drawing. Ratings and terminal names from the public datasheet; layout and symbols are generic, check them against the datasheet.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-14" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{a364ae6c-58bb-5309-bae1-d73fe505e54c}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<rect x="0" y="0" width="25.5" height="32.5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<circle x="1.65" y="1.2" diameter="2.2" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<circle x="22.15" y="22.05" diameter="2.2" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="10.75" y="29.5" rotation="270" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="PDB-CC50TGI"/>
+	</description>
+</definition>

@@ -1,0 +1,43 @@
+<definition version="0.100.0" type="element" link_type="simple" width="110" height="160" hotspot_x="10" hotspot_y="40">
+	<uuid uuid="{f4b408c7-ed43-5835-932b-47f3237c255e}"/>
+	<names>
+		<name lang="en">Lanbao PDB-CC50TGI laser distance sensor</name>
+		<name lang="fr">Capteur de distance laser Lanbao PDB-CC50TGI</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Lanbao</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">PDB-CC50TGI</elementInformation>
+		<elementInformation name="designation" show="1">Capteur de distance laser 80-500 mm, sortie analogique 4-20 mA et sortie tout ou rien, 12-24 V DC, câble blindé 2 m</elementInformation>
+		<elementInformation name="description" show="1">Laser distance measuring sensor (red laser 650 nm, class 2), measuring range 80-500 mm (full scale 420 mm), 4-20 mA analog output (load below 390 ohm) and switch output Q (push-pull, NPN or PNP, NO or NC settable), 12-24 V DC, OLED display and two keys, green power LED and yellow action LED, IP67, 2 m shielded 4-wire cable. Wires: BN +24 V, BU 0 V, BK switch output Q, GY analog output Ia (4-20 mA, the load is wired between Ia and 0 V). Mounting: two holes 4.4 mm (M4 screws), 65x51x23 mm. The cable shield is not drawn. Hole positions are read from the datasheet drawing (about 1 mm).</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors
+Original vector drawing, not copied from a manufacturer drawing. Ratings and terminal names from the public datasheet; layout and symbols are generic, check them against the datasheet.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{fbf801df-82c7-51bd-89e3-eabed25e59f7}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<rect x="10" y="10" width="60" height="80" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="40" y1="0" x2="40" y2="10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:red" antialias="false"/>
+		<line x1="40" y1="90" x2="40" y2="100" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:blue" antialias="false"/>
+		<text x="43" y="1.5" rotation="0" color="#ff0000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="BN +"/>
+		<text x="43" y="91.5" rotation="0" color="#0000ff" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="BU -"/>
+		<text x="25.71" y="12" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="PDB-CC50TGI"/>
+		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="40" y1="24" x2="52" y2="36" x3="40" y3="48" x4="28" y4="36"/>
+		<line x1="33" y1="33" x2="44" y2="33" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<polygon closed="false" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="41.5" y1="31.75" x2="44" y2="33" x3="41.5" y3="34.25"/>
+		<line x1="47" y1="39" x2="36" y2="39" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<polygon closed="false" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="38.5" y1="37.75" x2="36" y2="39" x3="38.5" y3="40.25"/>
+		<circle x="38.5" y="41.5" diameter="3" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false"/>
+		<text x="28.22" y="53" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="Q: switch"/>
+		<text x="25.71" y="61" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="Ia: 4-20 mA"/>
+		<circle x="27.5" y="79.5" diameter="5" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
+		<circle x="47.5" y="79.5" diameter="5" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
+		<line x1="70" y1="30" x2="80" y2="30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="71.5" y="22.5" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="BK Q"/>
+		<line x1="70" y1="70" x2="80" y2="70" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="71.5" y="62.5" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="GY Ia"/>
+		<terminal x="40" y="0" name="BN" orientation="n" type="Generic" uuid="{fe535a6b-cc48-5f05-b2de-a8d50d772bba}" potential="24V"/>
+		<terminal x="40" y="100" name="BU" orientation="s" type="Generic" uuid="{0aaf41ce-2348-5723-923d-23c07237c223}" potential="0V"/>
+		<terminal x="80" y="30" name="BK" orientation="e" type="Generic" uuid="{fa0de686-d120-5adf-b847-845f74824723}"/>
+		<terminal x="80" y="70" name="GY" orientation="e" type="Generic" uuid="{12b518e5-4abd-5c10-8a39-cc148cfdd150}"/>
+	</description>
+</definition>
