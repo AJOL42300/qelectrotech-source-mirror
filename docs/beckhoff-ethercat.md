@@ -65,6 +65,33 @@ each contact depends on the exact type). Each of them also exists as a
 appearances, 16 channels numbered 1 to 16, no signal assumed. The coupler EK1100, the EL6910, the EL9011 and `ethercat_box_generic` only have the
 schematic.
 
+## Power contacts: left and right
+
+In the schematic views the +24 V (red) and 0 V (blue) rails cross the card like
+on the EL9410: a **filled square on the left** when the card has power
+contacts on its left face, a **hollow circle on the right** when it has them
+on its right face (pass-through of Up). The rails carry no text. Per card
+(the table is the `CONTACTS` dictionary of `misc/beckhoff/gen_schematic.py`):
+
+| Card | Left | Right | PE contact | Source / certainty |
+| --- | --- | --- | --- | --- |
+| EL1004, EL1008, EL2004, EL2008, EL4004, EL4008, generic cards | yes | yes | yes (generic, not drawn) | Beckhoff ELxxxx documentation, deduced (standard terminal with 24 V pass-through) |
+| EL3004, EL3008 | yes | yes | deduced | documentation: "the power contacts are connected through" (verified) |
+| EL1904, EL1918, EL2904, EL2522, EL5152 | yes | yes (default) | not stated | right side **not specified** in the public documentation, default kept |
+| EL2574 | yes (verified) | not specified | not stated | default kept |
+| EL2652 | **no** | **no** | no | no power contacts (relay output), verified |
+| EL2911 | **no** | yes | not stated | starts a new potential group, verified |
+| EL6910 | not specified | not specified | not stated | not found, default kept |
+| EL9011 (end cap) | no | no | no | no power contacts, verified; its schematic is an older generic drawing and still shows two generic rails (not redrawn) |
+| EL9100, EL9410 | yes (feed) | yes | yes (terminals 4/8 of the EL9410) | EL9410 verified, EL9100 from the documentation |
+| EK1100 | **no** | yes | yes | three spring contacts on the right face (24 V, 0 V, PE), verified |
+| EK1914 | **no** | yes | yes | three spring contacts, PE contact, verified from search extracts (PDF not read) |
+| EK1322 | not specified | not specified | not stated | not found |
+
+The "default" cases are drawn with both contacts; correct `CONTACTS` when a
+datasheet says otherwise and run `gen_schematic.py` again. The EL6910, EL9011, EK1322 and ethercat_box_generic keep the generic rails of
+their older schematic drawing. The PE contact is
+only drawn on the EL9410 (its PE terminals are drawn), not on the other cards.
 ## What is there
 
 | Symbol | Manufacturer | Designation | Terminals |
