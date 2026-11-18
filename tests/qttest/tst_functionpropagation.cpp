@@ -109,7 +109,7 @@ class tst_functionpropagation : public QObject
 	static const QString epp()
 	{
 		return QStringLiteral(
-			"15_beckhoff_ethercat/epp_box/epp2338.elmt");
+			"10_electric/20_manufacturers_articles/beckhoff/epp_box/epp2338/epp2338.elmt");
 	}
 	static const QString cable()
 	{

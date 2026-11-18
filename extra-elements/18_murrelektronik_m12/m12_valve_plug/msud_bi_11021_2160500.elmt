@@ -10,6 +10,9 @@
 		<elementInformation name="designation" show="1">Connecteur d'électrovanne forme BI, 24 V AC/DC, LED et protection, cable 5 m (assumed from the article number; the cable type was not read)</elementInformation>
 		<elementInformation name="description" show="1">MSUD valve plug form BI (11 mm in the datasheet), 24 V AC +-20 % / DC +-25 %, LED (see datasheet) and suppression (diode, Zener diode), 4 A per contact max., cut-off peak voltage 55 V, cable 5 m (assumed from the article number; the cable type was not read). Source: https://shop.murrelektronik.com/en/Connection-Technology/Valve-Connectors/With-open-ended-wires-oxid/MSUD-valve-plug-BI-11mm-with-cable-7000-11021-2160500.html. The internal circuit drawn (LED and resistor in series, in parallel with two anti-series suppression diodes, between the contacts 1 and 2; PE straight through) follows the diagram of the Y distributor datasheet supplied by the user and is assumed for the plug. Function routing: X1 and X2 are the same channel.</elementInformation>
 	</elementInformations>
+	<kindInformations>
+		<kindInformation name="function_routes">X1:1&gt;X2:1</kindInformation>
+	</kindInformations>
 	<informations>Author: QElectroTech contributors
 Original vector drawing, not copied from a manufacturer drawing. Ratings and terminal names from the public datasheet; layout and symbols are generic, check them against the datasheet.
 License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
