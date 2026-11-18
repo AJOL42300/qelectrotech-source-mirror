@@ -1,0 +1,106 @@
+<definition version="0.100.0" type="element" link_type="master" width="100" height="170" hotspot_x="20" hotspot_y="40">
+	<uuid uuid="{f9cb3c52-3113-539f-9395-43d6af4b0a61}"/>
+	<names>
+		<name lang="en">Murrelektronik MICO Pro 2 channels MICO electronic circuit breaker 2 x 1-10 A</name>
+		<name lang="fr">Disjoncteur électronique MICO Murrelektronik MICO Pro 2 channels 2 x 1-10 A</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Murrelektronik</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">9000-41092-0101000</elementInformation>
+		<elementInformation name="designation" show="1">2-channel electronic circuit breaker, 24 V DC, 2 x 1-10 A</elementInformation>
+		<elementInformation name="description" show="1">one status LED, one push button and one current selector per channel; group alarm output; modular system (power module + channel modules) drawn as one assembly; module layout and LEDs assumed</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="140"/>
+				<column index="2" width="130"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="44"/>
+			</columnWidths>
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="false"/>
+				<column index="2" visible="false"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+				<column index="5" visible="false"/>
+			</columnVisibility>
+			<columnNames>
+				<column index="0"></column>
+				<column index="1">ID</column>
+				<column index="2">Label</column>
+				<column index="3"></column>
+				<column index="4"></column>
+				<column index="5">N° pin</column>
+			</columnNames>
+			<columnOrder>5,2,1</columnOrder>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
+			<plcIOs>
+				<plcIO type="entree_universelle" address="24 V DC supply" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>+24V</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="0 V supply" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>0V</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="On/restart input" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>CTRL</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Group alarm output" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>ALARM</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Channel 1 output 1-10 A" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>OUT1</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Channel 1 0 V" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>0V1</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Channel 2 output 1-10 A" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>OUT2</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Channel 2 0 V" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>0V2</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Original vector drawing, not copied from a manufacturer drawing. Ratings and terminal names from the public datasheet; layout and symbols are generic, check them against the datasheet.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{9dbc1dfa-4d2b-555f-b570-0bf67acdc799}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<rect x="-10" y="0" width="80" height="110" rx="0" ry="0" style="line-style:dotted;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="0" x2="0" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:red" antialias="false"/>
+		<line x1="0" y1="40" x2="30" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:red" antialias="false"/>
+		<line x1="10" y1="40" x2="10" y2="62" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:red" antialias="false"/>
+		<rect x="4" y="62" width="12" height="14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="6.99" y="65" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="I&gt;"/>
+		<line x1="10" y1="76" x2="10" y2="110" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:red" antialias="false"/>
+		<circle x="8.5" y="38.5" diameter="3" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false"/>
+		<line x1="30" y1="40" x2="30" y2="62" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:red" antialias="false"/>
+		<rect x="24" y="62" width="12" height="14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="26.99" y="65" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="I&gt;"/>
+		<line x1="30" y1="76" x2="30" y2="110" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:red" antialias="false"/>
+		<circle x="28.5" y="38.5" diameter="3" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false"/>
+		<line x1="20" y1="0" x2="20" y2="110" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:blue" antialias="false"/>
+		<line x1="20" y1="96" x2="40" y2="96" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:blue" antialias="false"/>
+		<line x1="40" y1="96" x2="40" y2="110" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:blue" antialias="false"/>
+		<circle x="18.5" y="94.5" diameter="3" style="line-style:normal;line-weight:thin;filling:blue;color:blue" antialias="false"/>
+		<line x1="40" y1="0" x2="40" y2="12" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="60" y1="0" x2="60" y2="12" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="32" y="12" width="36" height="16" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="43.23" y="15.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="CTRL"/>
+		<terminal x="0" y="0" name="+24V" orientation="n" type="Generic" uuid="{702c765b-8224-53fa-947a-8b693f660095}" potential="24V"/>
+		<terminal x="20" y="0" name="0V" orientation="n" type="Generic" uuid="{5d5d8220-f99c-5355-8876-740415ee75e2}" potential="0V"/>
+		<terminal x="40" y="0" name="CTRL" orientation="n" type="Generic" uuid="{0c8cef30-14da-5148-b6e3-a2588a7521e3}"/>
+		<terminal x="60" y="0" name="ALARM" orientation="n" type="Generic" uuid="{1d868af9-d5a2-5b4c-8f2c-2993089639cb}"/>
+		<terminal x="10" y="110" name="OUT1" orientation="s" type="Generic" uuid="{22d6d744-5a83-52c7-8ac0-dd65c144fda2}" potential="24V"/>
+		<terminal x="20" y="110" name="0V1" orientation="s" type="Generic" uuid="{33b20f70-dfd6-56b8-8a32-55371ca40327}" potential="0V"/>
+		<terminal x="30" y="110" name="OUT2" orientation="s" type="Generic" uuid="{9fc26369-03f6-5586-9ab6-0e3a0c40ea07}" potential="24V"/>
+		<terminal x="40" y="110" name="0V2" orientation="s" type="Generic" uuid="{21a8bdac-3cd1-5620-a928-3019e5dda858}" potential="0V"/>
+	</description>
+</definition>

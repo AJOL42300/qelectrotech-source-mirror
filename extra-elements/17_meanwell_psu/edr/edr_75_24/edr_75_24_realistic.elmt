@@ -1,0 +1,95 @@
+<definition version="0.100.0" type="element" link_type="master" width="70" height="180" hotspot_x="20" hotspot_y="40">
+	<uuid uuid="{f8b2744c-7e1d-5b06-a9ee-03b3f1c51776}"/>
+	<names>
+		<name lang="en">Mean Well EDR-75-24 DIN-rail power supply 24 V 3.2 A, realistic view</name>
+		<name lang="fr">Alimentation rail DIN Mean Well EDR-75-24 24 V 3.2 A, vue réaliste</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Mean Well</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">EDR-75-24</elementInformation>
+		<elementInformation name="designation" show="1">DIN-rail power supply, 1-phase AC input, 24 V DC 3.2 A, 76.8 W, 32 mm wide</elementInformation>
+		<elementInformation name="description" show="1">DC OK LED and V ADJ output voltage trimmer on the front; terminal order of the symbol is a convention, the physical order depends on the series</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="140"/>
+				<column index="2" width="130"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="44"/>
+			</columnWidths>
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="false"/>
+				<column index="2" visible="false"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+				<column index="5" visible="false"/>
+			</columnVisibility>
+			<columnNames>
+				<column index="0"></column>
+				<column index="1">ID</column>
+				<column index="2">Label</column>
+				<column index="3"></column>
+				<column index="4"></column>
+				<column index="5">N° pin</column>
+			</columnNames>
+			<columnOrder>5,2,1</columnOrder>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
+			<plcIOs>
+				<plcIO type="entree_universelle" address="AC phase" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>L</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="AC neutral" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>N</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Protective earth" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>PE</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="+24 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>+V</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="0 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>-V</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Original vector drawing, not copied from a manufacturer drawing. Ratings and terminal names from the public datasheet; layout and symbols are generic, check them against the datasheet.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{2c4b9285-6779-5029-9bda-c1ab73cfae31}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<rect x="-10" y="0" width="40" height="120" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
+		<rect x="-4" y="0" width="8" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="-2" y="7" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="-1.75" y="21" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="L"/>
+		<rect x="6" y="0" width="8" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="8" y="7" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="8.25" y="21" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="N"/>
+		<rect x="16" y="0" width="8" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="18" y="7" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="16.99" y="21" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="PE"/>
+		<rect x="-4" y="100" width="8" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="-2" y="109" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="-3.01" y="92.5" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="+V"/>
+		<rect x="6" y="100" width="8" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="8" y="109" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="6.99" y="92.5" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="-V"/>
+		<rect x="-6" y="32" width="32" height="56" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<text x="-1.78" y="34" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="EDR-75-24"/>
+		<text x="-3.03" y="42" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="24 V 3.2 A"/>
+		<circle x="2" y="66.4" diameter="4" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
+		<circle x="12" y="65.4" diameter="6" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<line x1="12" y1="69.9" x2="18" y2="66.9" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<terminal x="0" y="0" name="L" orientation="n" type="Generic" uuid="{80d1a6a4-2ac8-561c-8562-29b133a8d56c}"/>
+		<terminal x="10" y="0" name="N" orientation="n" type="Generic" uuid="{a5952f33-f4a5-5e10-a720-5b99e80043bf}"/>
+		<terminal x="20" y="0" name="PE" orientation="n" type="Generic" uuid="{b1c9d7f7-41e6-5b99-9acb-24ff3293b2cd}"/>
+		<terminal x="0" y="120" name="+V" orientation="s" type="Generic" uuid="{203b45d0-fd1c-56a8-8e28-be915691e755}" potential="24V"/>
+		<terminal x="10" y="120" name="-V" orientation="s" type="Generic" uuid="{420cf622-6724-5e8e-98ff-550ffe1ba44e}" potential="0V"/>
+	</description>
+</definition>
