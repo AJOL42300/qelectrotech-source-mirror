@@ -94,14 +94,9 @@
 	<informations>Author: QElectroTech contributors
 Generic card, 16 terminals: made by misc/beckhoff/gen_generic16.py from the 8 terminal card; the signal of each contact depends on the exact type. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{ce52a257-c5d8-562d-97e7-5fdfaa5325d4}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold">
-			<text />
-			<info_name>label</info_name>
-		</dynamic_text>
-		<dynamic_text x="60" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{c65f7a91-de48-5e26-8250-59db2a0e7fb4}" font="Liberation Sans,7,-1,5,50,0,0,0,0,0,Regular">
-			<text />
-			<info_name>designation</info_name>
-		</dynamic_text>
-		<plc_table x="0" y="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<rect x="0" y="-22" width="0" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
+		<dynamic_text x="3" y="-20.1" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{c8b3fc2d-13e9-52cc-bce9-b0f0cc528e96}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>label</info_name></dynamic_text>
+		<dynamic_text x="38.0" y="-21.0" z="25" text_width="-41" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{5fea92cd-9bd4-5ede-8475-96a71935d7bb}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
+		<plc_table x="0" y="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
 	</description>
 </definition>

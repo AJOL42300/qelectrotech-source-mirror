@@ -52,7 +52,12 @@ Every card has up to **four appearances**:
   and the I/O labels;
 - the **description** view (`_description`): the realistic view with the
   descriptions of the I/O on the sides (leader lines, LEDs);
-- the **table** (`_table`): a simple table N° pin | Label | TwinCAT ID.
+- the **table** (`_table`): a simple table N° pin | Label | TwinCAT ID, under a
+  grey title band (filled rectangle) that shows, on one line and centred on the
+  height of the band, the component label (for example A1.10), the card
+  reference (for example EL2008) and the designation
+  (`misc/beckhoff/gen_table_titles.py`, run last). The cells of a QET table
+  cannot be coloured, so the colours of the other views only appear in the band.
 
 There are no plain rectangle symbols any more: the `*_generic` symbols and the
 couplers are schematics in a dotted outline too. The generic cards
@@ -782,6 +787,7 @@ python misc/beckhoff/gen_ek1322.py extra-elements/10_electric/20_manufacturers_a
 python misc/beckhoff/gen_hubs.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/gen_description.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/simple_tables.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
+python misc/beckhoff/gen_table_titles.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/gen_titleblocks.py
 python misc/beckhoff/gen_example.py
 ```

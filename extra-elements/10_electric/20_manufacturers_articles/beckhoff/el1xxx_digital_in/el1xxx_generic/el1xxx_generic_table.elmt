@@ -70,14 +70,9 @@
 	<informations>Author: QElectroTech contributors
 Generic card: the realistic view and the table are made by misc/beckhoff/gen_generic.py from a donor card of the same housing; the signal of each contact depends on the exact type. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{fa2e7cba-8a30-517d-9d95-6d7adf1dd56a}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold">
-			<text />
-			<info_name>label</info_name>
-		</dynamic_text>
-		<dynamic_text x="60" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{4dec4223-7b31-520b-aae6-9ac458cb6f9a}" font="Liberation Sans,7,-1,5,50,0,0,0,0,0,Regular">
-			<text />
-			<info_name>designation</info_name>
-		</dynamic_text>
-		<plc_table x="0" y="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<rect x="0" y="-22" width="240" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
+		<dynamic_text x="3" y="-20.1" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{4a449931-37ef-5ea8-9f7a-6092374689db}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>label</info_name></dynamic_text>
+		<dynamic_text x="38.0" y="-17.4" z="25" text_width="199" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{2639254a-662b-52fe-bf78-45b782b28ea8}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
+		<plc_table x="0" y="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
 	</description>
 </definition>

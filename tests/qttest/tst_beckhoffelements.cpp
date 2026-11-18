@@ -1849,6 +1849,49 @@ class TstBeckhoffElements : public QObject
 			QVERIFY(potentials.contains(QStringLiteral("0V")));
 			QVERIFY(potentials.contains(QStringLiteral("PE")));
 		}
+		void everyTableHasAFilledTitleBandWithAlignedTexts()
+		{
+			int checked = 0;
+			for (const QString &file : allFiles()) {
+				const QString suffix = QStringLiteral("_table.elmt");
+				if (!file.endsWith(suffix)) {
+					continue;
+				}
+				const auto root = load(elementPath(file)).documentElement();
+				const auto desc = root.firstChildElement(
+					QStringLiteral("description"));
+				const auto rect = desc.firstChildElement(
+					QStringLiteral("rect"));
+				QVERIFY2(rect.attribute(QStringLiteral("style"))
+						 .contains(QStringLiteral("filling:lightgray")),
+						 qPrintable(file));
+				QSet<QString> infos;
+				QSet<QString> ys;
+				for (auto n = desc.firstChildElement(
+						 QStringLiteral("dynamic_text"));
+					 !n.isNull();
+					 n = n.nextSiblingElement(
+						 QStringLiteral("dynamic_text"))) {
+					infos << n.firstChildElement(QStringLiteral("info_name"))
+							.text();
+					ys << n.attribute(QStringLiteral("y"));
+				}
+				QVERIFY2(infos.contains(QStringLiteral("label")),
+						 qPrintable(file));
+				QVERIFY2(infos.contains(QStringLiteral("designation")),
+						 qPrintable(file));
+				if (!info(root, QStringLiteral("manufacturer_reference"))
+						 .isEmpty()) {
+					QVERIFY2(infos.contains(
+								 QStringLiteral("manufacturer_reference")),
+							 qPrintable(file));
+				}
+				// the band lies above the table
+				QVERIFY(rect.attribute(QStringLiteral("y")).toDouble() < 0);
+				++checked;
+			}
+			QVERIFY(checked >= 40);
+		}
 		void ek1322HasTwoM8SocketsAndFourFeedPins()
 		{
 			const QString key = QStringLiteral("ek1322");
