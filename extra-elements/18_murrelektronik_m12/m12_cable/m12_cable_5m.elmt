@@ -10,6 +10,9 @@
 		<elementInformation name="designation" show="1">Câble moulé M12 mâle 0° / M12 femelle 0° codé A, PUR 4x0,34, 5 m</elementInformation>
 		<elementInformation name="description" show="1">M12 male 0 deg / M12 female 0 deg, A-coded, PUR 4 x 0.34 mm2, 5 m. The female connector has 5 contacts (the contact 5 is present but not wired) and the cable has 4 conductors: 1 brown, 2 white, 3 blue, 4 black on the pins 1 to 4 of both ends (the free contact 5 is the information of the user, not read in the datasheet). Function routing: X1 and X2 are the same channels (1 = pin 4, 2 = pin 2).</elementInformation>
 	</elementInformations>
+	<kindInformations>
+		<kindInformation name="function_routes">X1:1&gt;X2:1;X1:2&gt;X2:2</kindInformation>
+	</kindInformations>
 	<informations>Author: QElectroTech contributors
 Original vector drawing, not copied from a manufacturer drawing. Ratings and terminal names from the public datasheet; layout and symbols are generic, check them against the datasheet.
 License: see http://qelectrotech.org/wiki/doc/elements_license</informations>

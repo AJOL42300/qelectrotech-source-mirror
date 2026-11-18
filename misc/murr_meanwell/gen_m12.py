@@ -203,12 +203,27 @@ class Product:
                 "fr": f"{self.kind_fr} {MANUFACTURER} {self.order} "
                 f"{self.short_fr}"}
 
+    def kinds(self):
+        """Kind informations the function following reads: the routes
+        of a symbol that passes the channels through (ROUTES), the
+        channels of a symbol that keeps a function (ENDS)."""
+        out = []
+        if self.family in ROUTES:
+            out.append(("function_routes", ";".join(
+                f"{a}:{ca}>{b}:{cb}"
+                for a, ca, b, cb in ROUTES[self.family])))
+        if self.family in ENDS:
+            out.append(("function_ends", ";".join(
+                f"{t}:{c}" for t, c in ENDS[self.family])))
+        return out
+
     def write(self):
         canvas = self.draw()
         write_element(self.path(), self.key, self.names(), self.infos(),
                       AUTHOR, canvas, self.terms, label_at=(0, self.ly),
                       master=False,
-                      extra_texts=getattr(self, "extra_texts", ()))
+                      extra_texts=getattr(self, "extra_texts", ()),
+                      kind_informations=self.kinds())
 
 
 def term(name, x, y, orient):
@@ -595,6 +610,11 @@ ROUTES = {
     "m12_y_distributor": [["X1", 1, "X2", 1], ["X1", 2, "X3", 1]],
     "m12_t_coupler": [["X1", 1, "X2", 1], ["X1", 2, "X3", 1]],
     "m12_valve_plug": [["X1", 1, "X2", 1]],
+}
+# The channels of a symbol that keeps its function in its own "function"
+# information: terminal, channel. They end a chain.
+ENDS = {
+    "m12_valve_coil": [["X1", 1]],
 }
 ROUTES_FILE = "function_routes.json"
 

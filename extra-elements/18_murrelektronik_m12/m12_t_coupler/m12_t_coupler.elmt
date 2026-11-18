@@ -10,6 +10,9 @@
 		<elementInformation name="designation" show="1">Coupleur T M12 mâle (5 pôles) / 2 x M12 femelle (4 contacts câblés) codé A, 3 LED</elementInformation>
 		<elementInformation name="description" show="1">T coupler, M12 male base 5 poles A-coded to two M12 female sockets A-coded, 3 LEDs with resistors. Housing about 32 x 45 mm, M12x1, sockets 16.4 mm apart (dimensions read on the drawing supplied by the user). Internal wiring from the diagram supplied by the user (the order number itself is still to be confirmed on the Murrelektronik site): base pin 1 to the contacts 1 of both sockets, pin 2 to the contact 4 of socket 2 (X3) only, pin 4 to the contact 4 of socket 1 (X2) only, pin 3 to the contacts 3 and pin 5 to the contacts 5 of both; the contact 2 of the sockets is not wired. LEDs, all cathodes on pin 3: GN between pins 1 and 3, WH between pins 2 and 3, YE between pins 4 and 3. Function routing: channel 1 (pin 4) to X2, channel 2 (pin 2) to X3.</elementInformation>
 	</elementInformations>
+	<kindInformations>
+		<kindInformation name="function_routes">X1:1&gt;X2:1;X1:2&gt;X3:1</kindInformation>
+	</kindInformations>
 	<informations>Author: QElectroTech contributors
 Original vector drawing, not copied from a manufacturer drawing. Ratings and terminal names from the public datasheet; layout and symbols are generic, check them against the datasheet.
 License: see http://qelectrotech.org/wiki/doc/elements_license</informations>

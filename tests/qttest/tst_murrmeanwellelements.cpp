@@ -88,6 +88,20 @@ class TstMurrMeanwellElements : public QObject
 			return QString();
 		}
 
+		static QString kind(const QDomElement &definition,
+							const QString &name)
+		{
+			const auto list = definition.elementsByTagName(
+				QStringLiteral("kindInformation"));
+			for (int i = 0; i < list.size(); ++i) {
+				const auto e = list.at(i).toElement();
+				if (e.attribute(QStringLiteral("name")) == name) {
+					return e.text();
+				}
+			}
+			return QString();
+		}
+
 		static QDomNodeList parts(const QDomElement &definition,
 								  const QString &tag)
 		{
@@ -593,6 +607,33 @@ class TstMurrMeanwellElements : public QObject
 								&& x.cb <= 2);
 					}
 				}
+			}
+		}
+
+		void m12ElementsCarryTheirRouteTable()
+		{
+			const Routes r = routes();
+			for (auto it = r.cbegin(); it != r.cend(); ++it) {
+				QStringList expected;
+				for (const Route &x : it.value()) {
+					expected << QStringLiteral("%1:%2>%3:%4")
+						.arg(x.a).arg(x.ca).arg(x.b).arg(x.cb);
+				}
+				const auto files = products(
+					QStringLiteral("18_murrelektronik_m12/") + it.key());
+				for (const QStringList &list : files) {
+					QCOMPARE(kind(load(list.first()),
+								  QStringLiteral("function_routes")),
+							 expected.join(QLatin1Char(';')));
+				}
+			}
+			const auto coils = products(
+				QStringLiteral("18_murrelektronik_m12/m12_valve_coil"));
+			QVERIFY(!coils.isEmpty());
+			for (const QStringList &list : coils) {
+				QCOMPARE(kind(load(list.first()),
+							  QStringLiteral("function_ends")),
+						 QStringLiteral("X1:1"));
 			}
 		}
 

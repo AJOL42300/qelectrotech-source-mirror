@@ -10,6 +10,9 @@
 		<elementInformation name="designation" show="1">Répartiteur Y M12 mâle / 2 connecteurs pour électrovanne forme BI 18 mm, 0,6 m</elementInformation>
 		<elementInformation name="description" show="1">Y distributor, M12 male A-coded to two valve connectors form BI, 0,6 m. Wiring from the diagram of the datasheet supplied by the user: the M12 pins 2, 3, 4 and 5 are wired (pin 1 free), pin 4 to the contact 1 of valve 1 (X2), pin 2 to the contact 1 of valve 2 (X3), pin 3 to the contact 2 and pin 5 to PE of both valves; each valve connector has a yellow LED with a resistor and two suppression diodes in anti-series between the contacts 1 and 2. The datasheet of the 42421 itself was not found (the connector form is the one of the order designation). Function routing: channel 1 (pin 4) to X2, channel 2 (pin 2) to X3.</elementInformation>
 	</elementInformations>
+	<kindInformations>
+		<kindInformation name="function_routes">X1:1&gt;X2:1;X1:2&gt;X3:1</kindInformation>
+	</kindInformations>
 	<informations>Author: QElectroTech contributors
 Original vector drawing, not copied from a manufacturer drawing. Ratings and terminal names from the public datasheet; layout and symbols are generic, check them against the datasheet.
 License: see http://qelectrotech.org/wiki/doc/elements_license</informations>

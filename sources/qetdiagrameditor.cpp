@@ -24,6 +24,7 @@
 #include "symboltextplacement.h"
 #include "ui/textclearancedialog.h"
 #include "autoconnect.h"
+#include "functionpropagation.h"
 #ifdef QET_HAS_SCRIPTING
 #include "scripting/qetscripting.h"
 #include "scripting/scriptlibrary.h"
@@ -366,6 +367,11 @@ QETDiagramEditor::QETDiagramEditor(const QStringList &files, QWidget *parent) :
 		//what stands on its left -- what is visible then, so only once the
 		//window is shown
 	statusBar() -> showMessage(tr("QElectroTech", "status bar message"), 3000);
+	connect(FunctionPropagation::notifier(),
+		&FunctionPropagation::conflictFound, this,
+		[this](const QString &message) {
+			statusBar()->showMessage(message, 10000);
+		});
 	ToolbarSettings::applyTo(this);
 #ifdef QET_HAS_SCRIPTING
 	setUpLiveIndicator();
