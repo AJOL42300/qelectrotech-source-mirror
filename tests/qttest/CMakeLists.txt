@@ -95,6 +95,13 @@ target_compile_definitions(tst_murrmeanwellelements PRIVATE
   QET_EXTRA_ELEMENTS_DIR="${QET_DIR}/extra-elements"
   QET_EXAMPLES_DIR="${QET_DIR}/examples")
 target_link_libraries(tst_murrmeanwellelements PRIVATE Qt::Test Qt::Xml)
+# The Lanbao sensors of extra-elements.
+add_executable(tst_lanbaoelements tst_lanbaoelements.cpp)
+add_test(NAME tst_lanbaoelements COMMAND tst_lanbaoelements)
+target_compile_definitions(tst_lanbaoelements PRIVATE
+  QET_EXTRA_ELEMENTS_DIR="${QET_DIR}/extra-elements"
+  QET_EXAMPLES_DIR="${QET_DIR}/examples")
+target_link_libraries(tst_lanbaoelements PRIVATE Qt::Test Qt::Xml)
 # MSVC's Debug libraries make QElectroTech five to eight times slower than a
 # GCC build, for which the tests' time limits were chosen. Every limit is
 # multiplied by this scale: ctest's below, and the tests' own through
