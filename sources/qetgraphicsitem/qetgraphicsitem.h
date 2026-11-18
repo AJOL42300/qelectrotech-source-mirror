@@ -21,6 +21,7 @@
 #include <qet.h>
 
 #include <QGraphicsObject>
+#include <optional>
 
 class Diagram;
 
@@ -40,6 +41,11 @@ class QetGraphicsItem : public QGraphicsObject
 		Diagram *diagram () const;
 		virtual void setPos (const QPointF &p);
 		virtual void setPos (qreal x, qreal y);
+			/// Where a magnetism wants the item to stand instead of
+			/// @a expected, nothing for an item without any
+		virtual std::optional<QPointF> magneticPosition(
+				const QPointF &expected, Qt::KeyboardModifiers modifiers)
+		{ Q_UNUSED(expected) Q_UNUSED(modifiers) return std::nullopt; }
 
 		virtual bool isMovable () const
 {return is_movable_;}

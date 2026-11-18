@@ -19,6 +19,7 @@
 #define ELEMENTDATA_H
 
 #include "propertiesinterface.h"
+#include "railsnapdata.h"
 #include <diagramcontext.h>
 #include <NameList/nameslist.h>
 
@@ -339,6 +340,9 @@ class ElementData : public PropertiesInterface
 
 		int m_contact_count{1};
 		DiagramContext m_informations;
+			/// What this symbol says about mounting rails: a rail, or a
+			/// component fixed on one (empty for most symbols)
+		RailSnapData m_rail_snap;
 			/// Custom properties this symbol defines (discussion #561):
 			/// every placed copy shows them, filled in or not
 		QStringList m_custom_info_keys;

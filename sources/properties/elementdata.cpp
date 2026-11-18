@@ -90,6 +90,8 @@ bool ElementData::fromXml(const QDomElement &xml_element)
 		m_drawing_information = xml_draw_info.text();
 	}
 
+	m_rail_snap.fromXml(xml_element);
+
 	return true;
 }
 
@@ -767,6 +769,10 @@ bool ElementData::operator==(const ElementData &data) const
 	}
 
 	if(data.m_informations != m_informations) {
+		return false;
+	}
+
+	if (data.m_rail_snap != m_rail_snap) {
 		return false;
 	}
 

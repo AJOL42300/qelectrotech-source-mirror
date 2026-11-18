@@ -184,7 +184,15 @@ void QetGraphicsItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 			m_mouse_to_origin_movement = old_pos - event -> buttonDownScenePos(Qt::LeftButton);
 		}
 		QPointF expected_pos = event->scenePos() + m_mouse_to_origin_movement;
-		setPos(expected_pos); // setPos() will snap the expected position to the grid
+		if (const std::optional<QPointF> magnet =
+				magneticPosition(expected_pos, event->modifiers())) {
+				//Stuck to a rail and its neighbour, not to the grid
+			if (is_movable_) {
+				QGraphicsItem::setPos(*magnet);
+			}
+		} else {
+			setPos(expected_pos); // setPos() will snap the expected position to the grid
+		}
 
 			//we calculate the real movement applied by setPos()
 		QPointF effective_movement = pos() - old_pos;

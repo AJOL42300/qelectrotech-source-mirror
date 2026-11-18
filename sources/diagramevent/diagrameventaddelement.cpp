@@ -123,9 +123,16 @@ void DiagramEventAddElement::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 	if (m_element)
 	{
-		const auto pos_{Diagram::snapToGrid(event->scenePos())};
-		m_element->setPos(pos_);
-
+		QPointF pos_;
+		if (const auto magnet = m_element->magneticPosition(
+				event->scenePos(), event->modifiers())) {
+				//Stuck to a rail and its neighbour, not to the grid
+			pos_ = *magnet;
+			m_element->QGraphicsItem::setPos(pos_);
+		} else {
+			pos_ = Diagram::snapToGrid(event->scenePos());
+			m_element->setPos(pos_);
+		}
 		if (m_status_bar) {
 			m_status_bar->showMessage(QString("x %1 : y %2").arg(QString::number(pos_.x()), QString::number(pos_.y())));
 		}
@@ -366,7 +373,8 @@ void DiagramEventAddElement::addElement()
 
 		//We must add item to scene (even if addItemCommand do this)
 		//for create the autoconnection below
-	element -> setPos(m_element->pos());
+		//(not setPos(): it would take a position stuck to a rail back to the grid)
+	element -> QGraphicsItem::setPos(m_element->pos());
 	element -> setRotation(m_element -> rotation());
 	m_diagram -> addItem(element);
 

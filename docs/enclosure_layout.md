@@ -56,6 +56,7 @@ use a smaller enclosure.
    | warning  | a door or a plate is placed on an enclosure it does not belong to |
    | warning  | footprints but no enclosure on the folio |
    | warning  | the catalog has no usable size for the enclosure: the outer size is used |
+   | warning  | the position of the rail fixing line of a footprint is assumed, or not verified (see `docs/rail-snapping.md`) |
 
 A footprint, a door or a plate belongs to the enclosure that contains its
 centre. A cover lying on its duct and a module sitting on its rail are not
@@ -148,6 +149,15 @@ implantation`, not merged at the time of writing) defines an optional
 `rail_snap` object per footprint and a `railSnap` node in the element. It
 applies to the `rail` and `module` kinds only. Ducts do not take part in it
 and carry no such node.
+
+### Rail snapping data
+
+Each rail and each DIN module footprint carries a `<railSnap>` element read
+by the rail snapping of the application (`docs/rail-snapping.md`). Ducts
+do not. A value can be given per footprint in `catalog.json` with an
+optional `rail_snap` object (`mount`, `mount_offset_mm`, `gap_mm`, `basis`,
+`source`, `verified`). Without it the position of the fixing line is
+`assumed` and `check` warns about it.
 
 ## Cabinets in the schema
 

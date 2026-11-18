@@ -1,4 +1,4 @@
-﻿/*
+/*
 	Copyright 2006-2026 The QElectroTech Team
 	This file is part of QElectroTech.
 
@@ -26,6 +26,7 @@
 #include <qet.h>
 #include "qetgraphicsitem.h"
 #include <properties/elementdata.h>
+#include <railsnap.h>
 
 #include <QHash>
 #include <optional>
@@ -150,7 +151,13 @@ class Element : public QetGraphicsItem
 
 		ElementData elementData() const;
 		void setElementData (ElementData data);
+		const RailSnapData &railSnapData() const {return m_data.m_rail_snap;}
 
+			//Magnetism on a mounting rail (see RailSnap)
+		std::optional<QPointF> magneticPosition(
+				const QPointF &expected,
+				Qt::KeyboardModifiers modifiers) override;
+		void setRailGuide(const std::optional<RailSnap::Guide> &guide);
 		/**
 		 * @brief kindInformations
 		 * @deprecated
@@ -442,6 +449,9 @@ class Element : public QetGraphicsItem
 	QRectF m_drawn_rect;
 	void updateDrawnRect();
 	ElementData m_data;
+		/// What the magnetism on a rail shows while it acts
+	std::optional<RailSnap::Guide> m_rail_guide;
+	void drawRailSnapAids(QPainter *painter) const;
 	QList<QPointF> m_plc_table_positions;  // Positions of plc_table parts in the element definition
 
 	void drawPlcTable(QPainter *painter);

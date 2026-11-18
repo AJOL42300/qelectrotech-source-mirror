@@ -602,6 +602,62 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QCheckBox" name="m_rail_snap_cb">
+            <property name="toolTip">
+             <string>In a layout folio, a component which declares itself as fixed on a rail is put on the axis of the nearest rail and against its neighbour, leaving the space it asks for. Hold Alt or Shift while moving to suspend it.</string>
+            </property>
+            <property name="text">
+             <string>Snap components to mounting rails and their neighbours</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="m_rail_snap_threshold_layout">
+            <item>
+             <widget class="QLabel" name="m_rail_snap_threshold_label">
+              <property name="text">
+               <string>Rail snapping reach:</string>
+              </property>
+              <property name="buddy">
+               <cstring>m_rail_snap_threshold_dsb</cstring>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QDoubleSpinBox" name="m_rail_snap_threshold_dsb">
+              <property name="suffix">
+               <string> mm</string>
+              </property>
+              <property name="decimals">
+               <number>1</number>
+              </property>
+              <property name="minimum">
+               <double>1.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>100.000000000000000</double>
+              </property>
+              <property name="value">
+               <double>10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="m_rail_snap_threshold_spacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
          </layout>
         </widget>
        </item>

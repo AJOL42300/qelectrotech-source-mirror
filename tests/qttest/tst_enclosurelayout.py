@@ -243,6 +243,106 @@ class CheckTest(unittest.TestCase):
         self.assertEqual(findings, [])
 
 
+class RailSnapTest(unittest.TestCase):
+    def setUp(self):
+        self.catalog = el.load_catalog()
+
+    def snap_of(self, stem):
+        text = el.footprint_element(self.catalog,
+                                    self.catalog["_by_stem"][stem][1])
+        node = ET.fromstring(text).find("railSnap")
+        return None if node is None else node.attrib
+
+    def test_rails_and_devices_declare_their_role_and_scale(self):
+        rail = self.snap_of("ide_fp_rail_ts35_7_5")
+        self.assertEqual(rail["role"], "rail")
+        self.assertEqual(rail["axis"], "horizontal")
+        self.assertEqual(rail["mount"], "center")
+        self.assertEqual(float(rail["mm_per_px"]), 2)
+        self.assertEqual(float(rail["width"]), 1000)
+        self.assertEqual(float(rail["height"]), 17.5)
+        device = self.snap_of("ide_fp_din_4m")
+        self.assertEqual(device["role"], "component")
+        self.assertEqual(float(device["gap_mm"]), 2)
+        self.assertEqual(float(device["width"]), 35)
+        self.assertEqual(float(device["height"]), 45)
+
+    def test_ducts_do_not_take_part(self):
+        self.assertIsNone(self.snap_of("ide_fp_duct_efapel_14100"))
+
+    def test_scale_follows_the_catalog(self):
+        catalog = copy.deepcopy(self.catalog)
+        catalog["scale_mm_per_px"] = 1
+        item = catalog["_by_stem"]["ide_fp_din_4m"][1]
+        node = ET.fromstring(el.footprint_element(catalog, item)).find(
+            "railSnap")
+        self.assertEqual(float(node.get("mm_per_px")), 1)
+        self.assertEqual(float(node.get("width")), 70)
+
+    def test_stretched_rail_snaps_over_its_whole_length(self):
+        item = el.at_length(self.catalog["_by_stem"]["ide_fp_rail_ts35_7_5"][1],
+                            300)
+        node = ET.fromstring(el.footprint_element(self.catalog, item)).find(
+            "railSnap")
+        self.assertEqual(float(node.get("width")), 150)
+
+    def test_position_is_assumed_until_recorded(self):
+        device = self.snap_of("ide_fp_din_4m")
+        self.assertEqual(device["basis"], "assumed")
+        self.assertNotIn("verified", device)
+        self.assertEqual(self.snap_of("ide_fp_rail_ts35_7_5")["basis"],
+                         "standard")
+
+    def test_catalog_values_are_written(self):
+        catalog = copy.deepcopy(self.catalog)
+        item = catalog["_by_stem"]["ide_fp_din_4m"][1]
+        item["rail_snap"] = {
+            "mount": "end", "mount_offset_mm": -2.5, "gap_mm": 3,
+            "basis": "datasheet", "source": "https://example.org/d.pdf",
+            "verified": "2026-05-01"}
+        node = ET.fromstring(el.footprint_element(catalog, item)).find(
+            "railSnap")
+        self.assertEqual(node.get("mount"), "end")
+        self.assertEqual(float(node.get("mount_offset_mm")), -2.5)
+        self.assertEqual(float(node.get("gap_mm")), 3)
+        self.assertEqual(node.get("basis"), "datasheet")
+        self.assertEqual(node.get("source"), "https://example.org/d.pdf")
+        self.assertEqual(node.get("verified"), "2026-05-01")
+
+    def test_invalid_catalog_values_are_refused(self):
+        for key, value in (("mount", "left"), ("basis", "guess"),
+                           ("gap_mm", -1)):
+            item = dict(self.catalog["_by_stem"]["ide_fp_din_4m"][1],
+                        rail_snap={key: value})
+            with self.assertRaises(ValueError):
+                el.rail_snap(item)
+
+    def test_assumed_position_is_a_warning_once_per_footprint(self):
+        elements = [placed(ENC % "GN403020", 0, 0),
+                    placed(FP % "din_4m", 50, 50),
+                    placed(FP % "din_4m", 90, 50),
+                    placed(FP % "rail_ts35_7_5_L300", 50, 20)]
+        findings = el.rail_snap_findings(self.catalog, "test", elements)
+        self.assertEqual([f.severity for f in findings], ["warning"])
+        self.assertIn("assumed", findings[0].message)
+
+    def test_recorded_position_gives_no_warning(self):
+        catalog = copy.deepcopy(self.catalog)
+        catalog["_by_stem"]["ide_fp_din_4m"][1]["rail_snap"] = {
+            "basis": "datasheet", "verified": "2026-05-01"}
+        findings = el.rail_snap_findings(
+            catalog, "test", [placed(FP % "din_4m", 50, 50)])
+        self.assertEqual(findings, [])
+
+    def test_unverified_position_from_a_source_is_a_warning(self):
+        catalog = copy.deepcopy(self.catalog)
+        catalog["_by_stem"]["ide_fp_din_4m"][1]["rail_snap"] = {
+            "basis": "image"}
+        findings = el.rail_snap_findings(
+            catalog, "test", [placed(FP % "din_4m", 50, 50)])
+        self.assertIn("not verified", messages(findings)[0])
+
+
 def part(label="", reference="", location="", prefix="", maker="",
          type_="embed://import/10_electric/relay.elmt"):
     """A symbol of the schema with its element information."""
