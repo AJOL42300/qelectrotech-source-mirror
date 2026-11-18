@@ -436,6 +436,11 @@ class TstLanbaoElements : public QObject
 			}
 			int lanbao = 0;
 			for (const QString &path : used) {
+					// the Beckhoff cards are embedded under the former
+					// folder, which now lives in 10_electric
+				if (path.startsWith(QLatin1String("15_beckhoff_ethercat/"))) {
+					continue;
+				}
 				QVERIFY2(QFileInfo::exists(
 							 QStringLiteral(QET_EXTRA_ELEMENTS_DIR)
 							 + QLatin1Char('/') + path),

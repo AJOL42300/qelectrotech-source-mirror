@@ -1485,7 +1485,9 @@ class TstBeckhoffElements : public QObject
 				QStringLiteral("ISO7200_A4_V1.titleblock"),
 				QStringLiteral("MCATECH_ISO7200_A3_landscape.titleblock"),
 				QStringLiteral("MCATECH_ISO7200_A3_portrait.titleblock"),
-				QStringLiteral("MCATECH_ISO7200_A4.titleblock")}));
+				QStringLiteral("MCATECH_ISO7200_A4.titleblock"),
+				QStringLiteral("Page de garde MCATech.titleblock"),
+				QStringLiteral("Page paysage MCATECH.titleblock")}));
 
 			const QStringList iso{QStringLiteral("owner"),
 				QStringLiteral("docnumber"), QStringLiteral("title"),

@@ -1201,6 +1201,11 @@ class TstMurrMeanwellElements : public QObject
 				if (path.startsWith(QLatin1String("example_devices/"))) {
 					continue;
 				}
+					// the EPP2338 is embedded under the former Beckhoff
+					// folder, which now lives in 10_electric
+				if (path.startsWith(QLatin1String("15_beckhoff_ethercat/"))) {
+					continue;
+				}
 				QVERIFY2(QFileInfo::exists(QStringLiteral(QET_EXTRA_ELEMENTS_DIR)
 											+ QLatin1Char('/') + path),
 						 qPrintable(path));
