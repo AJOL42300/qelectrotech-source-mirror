@@ -29,12 +29,13 @@ Usage: python misc/lanbao/gen_sensors.py
 import json
 import math
 import os
+import re
 import shutil
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(os.path.dirname(HERE), "murr_meanwell"))
-from qetlib import (Canvas, Terminal, write_element, write_directory,
+from qetlib import (Canvas, Terminal, write_element, write_directory, num,
                     RED, BLUE, BLACK)
 from gen_elements import EXTRA, AUTHOR
 
@@ -101,6 +102,21 @@ def pin_legend(c, rows, x, y, size=4):
         c.text(x, y + 8 * k, s, size, False, color)
 
 
+def shifted(canvas, dx, dy):
+    """The same drawing with its origin moved: the origin of an element is
+    its insertion point, which the grid check wants on a terminal."""
+    def move(m):
+        d = dx if m.group(1) == "x" else dy
+        return f'{m.group(1)}{m.group(2)}="{num(float(m.group(3)) + d)}"'
+
+    out = Canvas()
+    out.parts = [re.sub(r'\b([xy])(\d*)="(-?[\d.]+)"', move, p)
+                 for p in canvas.parts]
+    b = canvas.box
+    out.box = [b[0] + dx, b[1] + dy, b[2] + dx, b[3] + dy]
+    return out
+
+
 # ----------------------------------------------------------------- sensors
 class Sensor:
     ref = ""
@@ -108,6 +124,8 @@ class Sensor:
     kind_en = kind_fr = ""
     short = short_fr = ""
     designation = description = ""
+    detection = ""        # type and range, shown in the element comment
+    note = ""             # type and range, written under the drawings
     length = height = depth = 0
     leds = ()
     pinout = ()
@@ -133,6 +151,7 @@ class Sensor:
         return {"manufacturer": MANUFACTURER,
                 "manufacturer_reference": self.ref,
                 "designation": self.designation,
+                "comment": self.detection,
                 "description": self.description}
 
     def folder_names(self):
@@ -158,10 +177,13 @@ class Sensor:
             names = {"en": f"{MANUFACTURER} {self.ref} {self.kind_en}" + en,
                      "fr": f"{self.kind_fr} {MANUFACTURER} {self.ref}" + fr}
             canvas, ly = self.drawing(view)
+            # the insertion point is the supply terminal at (40, 0)
+            terms = [Terminal(t.name, t.x - 40, t.y, t.orient, t.plc_type,
+                              t.ident, t.potential) for t in self.terms]
             write_element(self.path(view),
                           self.key + "/" + (view or "schematic"), names,
-                          self.infos(), AUTHOR, canvas, self.terms,
-                          label_at=(0, ly), master=False)
+                          self.infos(), AUTHOR, shifted(canvas, -40, 0),
+                          terms, label_at=(-40, ly), master=False)
         names = {"en": f"{MANUFACTURER} {self.ref} {self.kind_en}, "
                        "layout (1 px = 2 mm)",
                  "fr": f"{self.kind_fr} {MANUFACTURER} {self.ref}, "
@@ -248,7 +270,9 @@ class CylinderSensor(Sensor):
         while k < 80 - 1.0:
             c.line(k, 50 - cw / 2.0 + 0.8, k, 50 + cw / 2.0 - 0.8, "black")
             k += 1.6
-        c.text_c(40, 50 + self.nut_af * s / 2.0 + 3, self.ref, 4, True)
+        y = 50 + self.nut_af * s / 2.0 + 3
+        c.text_c(40, y, self.ref, 4, True)
+        c.text_c(40, y + 7, self.note, 4)
         return c
 
     def rear_parts(self, xc, s):
@@ -291,6 +315,11 @@ class Psm(CylinderSensor):
     designation = ("Capteur photo\u00e9lectrique \u00e0 r\u00e9flexion "
                    "diffuse M18, port\u00e9e 100 cm, PNP NO/NC, "
                    "10-30 V DC, connecteur M12")
+    detection = ("Detection: diffuse reflection (infrared 940 nm), sensing "
+                 "distance 100 cm adjustable with a potentiometer, "
+                 "measured on a 90 % white card of 20 x 20 cm; the real "
+                 "distance depends on the target")
+    note = "Diffuse, 100 cm"
     description = ("Diffuse photoelectric sensor, metal M18x1 housing, "
                    "sensing distance 100 cm (infrared 940 nm), PNP output "
                    "NO/NC selectable with pin 2, 10-30 V DC, 200 mA, "
@@ -312,6 +341,8 @@ class Psm(CylinderSensor):
         arrow(c, 33, 33, 44)
         arrow(c, 47, 39, 36)
         c.text_c(40, 53, "PNP NO/NC", 4)
+        c.text_c(40, 61, "Diffuse", 4)
+        c.text_c(40, 69, "100 cm", 4)
 
     def face(self, c, y0, d, s):
         c.rect(0, y0 + 2, 2 * s, d - 4, "white")
@@ -342,6 +373,10 @@ class Lr18x(CylinderSensor):
     leds = ("yellow",)
     designation = ("Capteur inductif cylindrique M18 quasi noy\u00e9, "
                    "Sn 12 mm, PNP NO, 10-30 V DC, connecteur M12")
+    detection = ("Detection: inductive (metal targets), quasi flush "
+                 "mounting, nominal sensing distance Sn 12 mm, assured "
+                 "0-9.6 mm, standard target Fe 36 x 36 x 1 mm")
+    note = "Inductive, Sn 12 mm"
     description = ("Inductive sensor, M18x1 housing, quasi flush, nominal "
                    "range Sn 12 mm (assured 0-9.6 mm), PNP NO, 10-30 V DC, "
                    "200 mA, 300 Hz, yellow output LED, protected against "
@@ -361,6 +396,8 @@ class Lr18x(CylinderSensor):
         c.poly([(40, 24), (52, 36), (40, 48), (28, 36)])
         coil(c, 34, 38, 3, 2)
         c.text_c(40, 53, "PNP NO", 4)
+        c.text_c(40, 61, "Inductive", 4)
+        c.text_c(40, 69, "Sn 12 mm", 4)
 
     def face(self, c, y0, d, s):
         c.rect(0, y0 + 2, 1.5 * s, d - 4, "black")
@@ -384,6 +421,12 @@ class Pdb(Sensor):
     designation = ("Capteur de distance laser 80-500 mm, sortie analogique "
                    "4-20 mA et sortie tout ou rien, 12-24 V DC, c\u00e2ble "
                    "blind\u00e9 2 m")
+    detection = ("Detection: laser distance measurement (red laser 650 nm, "
+                 "class 2), measuring range 80-500 mm (full scale 420 "
+                 "mm, data given for a 90 % white card), 4-20 mA analog "
+                 "output over the range, switch output Q (single point "
+                 "or window teach on the sensor)")
+    note = "Laser, 80-500 mm"
     description = ("Laser distance measuring sensor (red laser 650 nm, "
                    "class 2), measuring range 80-500 mm (full scale 420 "
                    "mm), 4-20 mA analog output (load below 390 ohm) and "
@@ -411,6 +454,7 @@ class Pdb(Sensor):
         c.disc(40, 43, 3, "red", RED)
         c.text_c(40, 53, "Q: switch", 4)
         c.text_c(40, 61, "Ia: 4-20 mA", 4)
+        c.text_c(40, 69, "Laser 80-500 mm", 4)
 
     def realistic(self):
         c = Canvas()
@@ -423,6 +467,7 @@ class Pdb(Sensor):
         c.rect(x0 + 8, y0 + h - 4, w - 16, 3, "gray")
         c.line(40, y0 + h, 40, 100, BLACK, "hight")
         c.text(x0 - 12, 50 + 14, self.ref, 4, True, rotation=270)
+        c.text(x0 - 20, 50 + 14, self.note, 4, rotation=270)
         return c
 
     def description_view(self):
