@@ -69,13 +69,37 @@ class CatalogTest(unittest.TestCase):
                     self.assertLessEqual(usable[key], enc[key],
                                          enc["reference"])
 
+    def test_every_enclosure_is_verified_and_has_a_door_and_a_plate(self):
+        for enc in self.catalog["enclosures"]:
+            ref = enc["reference"]
+            self.assertTrue(enc["source"].startswith("https://"), ref)
+            self.assertRegex(enc["verified"], r"^\d{4}-\d\d-\d\d$", ref)
+            self.assertIn("ide_door_" + ref, self.catalog["_by_stem"])
+            self.assertIn("ide_plate_" + ref, self.catalog["_by_stem"])
+            self.assertRegex(enc["plate"]["reference"], r"^PL\d+$", ref)
+            self.assertLessEqual(enc["plate"]["width"], enc["width"], ref)
+            self.assertLessEqual(enc["plate"]["height"], enc["height"], ref)
+
+    def test_ducts_and_rails_are_stretchable_with_a_default_length(self):
+        stretch = [f for f in self.catalog["footprints"]
+                   if f.get("stretch")]
+        ducts = [f for f in stretch if f["kind"] == "duct"]
+        self.assertEqual(len(ducts), 10)
+        for duct in ducts:
+            self.assertEqual(duct["manufacturer"], "Efapel")
+            self.assertTrue(duct["reference"].endswith(" CCZ"))
+            self.assertEqual(duct["width"], 2000)
+            self.assertTrue(duct["source"].startswith("https://"))
+        self.assertEqual({f["id"] for f in stretch if f["kind"] == "rail"},
+                         {"rail_ts35_7_5", "rail_ts35_15"})
+
     def test_generated_files_are_up_to_date(self):
         files = el.render_all(self.catalog)
         for name, text in files.items():
             on_disk = ((el.DEFAULT_DIR / name).read_bytes().decode("utf-8")
                        .replace("\r\n", "\n"))
             self.assertEqual(on_disk, text, name + " is stale: run generate")
-        for sub in ("enclosures", "footprints"):
+        for sub in ("enclosures", "footprints", "doors", "plates"):
             for path in (el.DEFAULT_DIR / sub).glob("*.elmt"):
                 self.assertIn("%s/%s" % (sub, path.name), files)
 
@@ -125,11 +149,14 @@ class FitAreaTest(unittest.TestCase):
                "plate": None}
         self.assertEqual(el.fit_area(enc), (25, 25, 275, 375, 179))
 
-    def test_plate_wins_over_usable_space(self):
+    def test_smaller_of_plate_and_usable_space_wins(self):
         enc = {"height": 400, "width": 300, "depth": 200,
                "usable": {"height": 350, "width": 250, "depth": 179},
                "plate": {"height": 300, "width": 200}}
         self.assertEqual(el.fit_area(enc), (50, 50, 250, 350, 179))
+        # A plate taller than the usable space, like PL4030 in GN403020
+        enc["plate"] = {"height": 370, "width": 250}
+        self.assertEqual(el.fit_area(enc), (25, 25, 275, 375, 179))
 
     def test_unknown_when_nothing_is_recorded(self):
         enc = {"height": 300, "width": 300, "depth": 200,
@@ -197,9 +224,13 @@ class CheckTest(unittest.TestCase):
         self.assertEqual([f.severity for f in findings], ["warning"])
 
     def test_unknown_usable_space_checks_the_outer_size(self):
-        findings = self.check(placed(ENC % "GNG303020", 0, 0),
-                              placed(FP % "din_4m", 5, 50),
-                              placed(FP % "din_4m", 125, 50))
+        catalog = copy.deepcopy(self.catalog)
+        item = catalog["_by_stem"]["ide_enc_GNG303020"][1]
+        item["usable"] = item["plate"] = None
+        findings = el.check_diagram(catalog, "test", [
+            placed(ENC % "GNG303020", 0, 0),
+            placed(FP % "din_4m", 5, 50),
+            placed(FP % "din_4m", 125, 50)])
         self.assertEqual(len(messages(findings, "warning")), 1)
         self.assertEqual(len(messages(findings, "error")), 1)
 
@@ -385,6 +416,113 @@ class LinkTest(unittest.TestCase):
             catalog = el.load_catalog(devices_path=Path(tmp) / "d.json")
             with self.assertRaises(ValueError):
                 el.link_device(catalog, "KM1", footprint="nope")
+
+
+DOOR = "embed://import/ide-enclosures/doors/ide_door_%s.elmt"
+PLATE = "embed://import/ide-enclosures/plates/ide_plate_%s.elmt"
+CUSTOM = "embed://import/ide-enclosures/custom/ide_fp_rail_ts35_7_5_L%d.elmt"
+
+
+class PartTest(unittest.TestCase):
+    def setUp(self):
+        self.catalog = el.load_catalog()
+
+    def check(self, *elements):
+        return el.check_diagram(self.catalog, "test", list(elements))
+
+    def test_door_and_plate_elements_carry_their_references(self):
+        files = el.render_all(self.catalog)
+        door = ET.fromstring(files["doors/ide_door_GN403020.elmt"])
+        plate = ET.fromstring(files["plates/ide_plate_GN403020.elmt"])
+        refs = []
+        for root in (door, plate):
+            infos = {i.get("name"): i.text for i in root.iter(
+                "elementInformation")}
+            refs.append(infos["manufacturer_reference"])
+        self.assertEqual(refs, ["GN403020", "PL4030"])
+        outer = plate.find("description/rect")
+        # 370 x 250 mm at 1 px = 2 mm
+        self.assertEqual((float(outer.get("width")),
+                          float(outer.get("height"))), (125, 185))
+
+    def test_parts_on_their_enclosure_pass(self):
+        findings = self.check(placed(ENC % "GN403020", 0, 0),
+                              placed(DOOR % "GN403020", 0, 0),
+                              placed(PLATE % "GN403020", 12, 7))
+        self.assertEqual(findings, [])
+
+    def test_part_of_another_enclosure_is_a_warning(self):
+        findings = self.check(placed(ENC % "GN605020", 0, 0),
+                              placed(PLATE % "GN403020", 10, 10))
+        self.assertEqual([f.severity for f in findings], ["warning"])
+        self.assertIn("belongs to GN403020", findings[0].message)
+
+    def test_part_leaving_the_enclosure_is_an_error(self):
+        findings = self.check(placed(ENC % "GN403020", 0, 0),
+                              placed(PLATE % "GN403020", 40, 10))
+        self.assertEqual(len(messages(findings, "error")), 1)
+        self.assertIn("leaves the outline", messages(findings)[0])
+
+    def test_part_outside_every_enclosure_is_a_warning(self):
+        findings = self.check(placed(ENC % "GN403020", 0, 0),
+                              placed(DOOR % "GN403020", 500, 500))
+        self.assertEqual([f.severity for f in findings], ["warning"])
+
+    def test_parts_are_listed_in_their_cabinet_and_checked(self):
+        door = placed(DOOR % "GN605020", 0, 0)
+        infos = ET.SubElement(door, "elementInformations")
+        ET.SubElement(infos, "elementInformation",
+                      {"name": "label"}).text = "A1"
+        findings, cabinets = el.analyse_project(
+            self.catalog, [("Layout", "", [enclosure("GN403020", "A1"),
+                                           door])])
+        self.assertEqual([p[0] for p in cabinets["A1"]["parts"]], ["door"])
+        self.assertIn("belongs to GN605020", " ".join(
+            messages(findings, "warning")))
+        self.assertIn("door GN605020", el.render_report(cabinets))
+
+
+class LengthTest(unittest.TestCase):
+    def setUp(self):
+        self.catalog = el.load_catalog()
+
+    def test_stem_with_a_length_stands_for_the_stretched_footprint(self):
+        kind, item = el.lookup(self.catalog, "ide_fp_duct_efapel_14040_L1200")
+        self.assertEqual((kind, item["width"], item["height"]),
+                         ("footprint", 1200, 60))
+        self.assertIsNone(el.lookup(self.catalog, "ide_fp_din_4m_L100"))
+        self.assertIsNone(el.lookup(self.catalog, "ide_fp_nope_L100"))
+
+    def test_length_is_drawn_at_the_catalog_scale(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            with contextlib.redirect_stdout(io.StringIO()):
+                code = el.main(["length", "rail_ts35_7_5", "500", "750",
+                                "--out", tmp])
+            self.assertEqual(code, 0)
+            root = ET.parse(Path(tmp) / "ide_fp_rail_ts35_7_5_L750.elmt"
+                            ).getroot()
+            rect = root.find("description/rect")
+            self.assertEqual((float(rect.get("width")),
+                              float(rect.get("height"))), (375, 17.5))
+            self.assertTrue((Path(tmp) / "qet_directory").exists())
+
+    def test_fixed_or_unknown_footprint_is_refused(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            for footprint in ("din_4m", "nope"):
+                with self.assertRaises(ValueError):
+                    el.write_lengths(self.catalog, footprint, [100], tmp)
+            with self.assertRaises(ValueError):
+                el.write_lengths(self.catalog, "rail_ts35_15", [0], tmp)
+
+    def test_custom_length_is_checked_like_any_footprint(self):
+        # 30 px = 60 mm from the left: 200 mm fits in the 250 mm width of
+        # GN403020 but 300 mm does not
+        def check(length):
+            return el.check_diagram(self.catalog, "test", [
+                placed(ENC % "GN403020", 0, 0),
+                placed(CUSTOM % length, 30, 50)])
+        self.assertEqual(check(200), [])
+        self.assertEqual(len(messages(check(300), "error")), 1)
 
 
 PROJECT = """<project version="0.100.0" title="t">
