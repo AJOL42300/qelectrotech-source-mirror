@@ -25,7 +25,7 @@ Dimensions (millimetres, width x height; the depth goes in the description):
   EK1322         24 x 100 x 68   width from the public data sheet; height and
                                  depth assumed like the other couplers
   CU1128        122 x 100 x 38   public data sheet
-  EPP2338-0002   30 x 126 x 26.5 public data sheet (without connectors)
+  EPP2338-1002   30 x 126 x 26.5 public data sheet (without connectors)
 
 The drives are not covered: their housing sizes were not checked.
 
@@ -44,7 +44,7 @@ import xml.etree.ElementTree as ET
 NS = uuid.UUID("6f1c2a5e-8b0f-4d57-9a7e-5b1d0c8e2f10")
 RAIL_Y = 32.5      # mm from the top of a 100 mm module to the rail band
 RAIL_H = 35.0
-SILHOUETTE_W, EPP_H = 30.0, 126.0   # mm, EPP2338-0002 housing
+SILHOUETTE_W, EPP_H = 30.0, 126.0   # mm, EPP2338-1002 housing
 LIGHT = "line-style:normal;line-weight:thin;filling:lightgray;color:black"
 RAIL_LENGTH = 250.0
 
@@ -71,7 +71,7 @@ MODULES = (
     ("EK1322", 24, 100, 68, "EtherCAT P junction"),
     ("EK1914", 44, 100, 68, "EtherCAT coupler with TwinSAFE"),
     ("CU1128", 122, 100, 38, "EtherCAT junction, 8 ports"),
-    ("EPP2338-0002", 30, 126, 26.5, "EtherCAT P box, 8 digital channels"),
+    ("EPP2338-1002", 30, 126, 26.5, "EtherCAT P box, 8 digital channels"),
 )
 
 LANGS = ("en", "fr", "de")
@@ -147,7 +147,7 @@ def definition(key, width, height, names, infos, body, desc):
 
 
 def epp_body(scale):
-    """Silhouette of the EPP2338-0002 (ears with their M3 hole, white label
+    """Silhouette of the EPP2338-1002 (ears with their M3 hole, white label
     holders, M12 and M8 sockets, LEDs), from the geometry of gen_epp.py.
     The details that are smaller than about 1.5 px are left out."""
     import gen_epp as epp
@@ -191,7 +191,7 @@ def epp_body(scale):
 
 def module(ref, w, h, d, designation, scale, tag):
     wpx, hpx = w * scale, h * scale
-    if ref == "EPP2338-0002":
+    if ref == "EPP2338-1002":
         body = epp_body(scale)
         pt, th = 6, 6 * 1.33
         length = len(ref) * pt * 0.75
@@ -213,7 +213,7 @@ def module(ref, w, h, d, designation, scale, tag):
             "(width x height x depth). Generic outline, no logo; check the "
             "dimensions on the data sheet of your exact version."
             % (ref, tag, num(1 / scale), size))
-    if ref == "EPP2338-0002":
+    if ref == "EPP2338-1002":
         desc += (" Silhouette traced by eye on a photo (ears with the two "
                  "M3 fixing holes, 3.5 mm, hole position assumed). Fixing "
                  "(verified, Beckhoff EPP2xxx documentation, Fixing): two "

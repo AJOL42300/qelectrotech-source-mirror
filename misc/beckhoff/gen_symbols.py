@@ -367,7 +367,7 @@ def table_of(src):
 def epp2338():
     e = Elmt("epp2338", "EPP2338 EtherCAT P box, 8 channels",
              "EPP2338 boîtier EtherCAT P, 8 voies",
-             [("manufacturer", "Beckhoff"), ("manufacturer_reference", "EPP2338-0002"),
+             [("manufacturer", "Beckhoff"), ("manufacturer_reference", "EPP2338-1002"),
               ("designation", "EtherCAT P Box, 8-channel digital combi, 24 V DC, 10 us, 0.5 A, M8"),
               ("description", "EtherCAT P box with four M8 sockets X01 to X04, two channels "
                "each, EtherCAT P IN X50 and OUT X51. Schematic view: one block per "

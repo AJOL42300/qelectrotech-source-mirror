@@ -479,9 +479,9 @@ def layout_folio(number):
             els.append(layout_element(scale, ref.lower(), label,
                                       round(x, 3), y))
             x += pitch.get(ref, 12) * px
-        # the CU1128 junction and the EPP2338-0002 box, 300 and 480 mm away
+        # the CU1128 junction and the EPP2338-1002 box, 300 and 480 mm away
         els.append(layout_element(scale, "cu1128", "CU1", 60 + 300 * px, y))
-        els.append(layout_element(scale, "epp2338-0002", "EPP1",
+        els.append(layout_element(scale, "epp2338-1002", "EPP1",
                                   60 + 480 * px, y))
         y += 190 if px == 1 else 120
     return diagram_xml(number, "Layout - real dimensions, 3 scales", els, [])

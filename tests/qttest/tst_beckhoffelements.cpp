@@ -1849,7 +1849,7 @@ class TstBeckhoffElements : public QObject
 			for (int i = 0; i < texts.size(); ++i) {
 				const auto t = texts.at(i).toElement();
 				if (t.attribute(QStringLiteral("text"))
-						== QLatin1String("EPP2338-0002")) {
+						== QLatin1String("EPP2338-1002")) {
 					seen = true;
 					QVERIFY(t.attribute(QStringLiteral("y")).toDouble()
 							> pins.value(QStringLiteral("OUT X51")).y()
@@ -2143,7 +2143,7 @@ class TstBeckhoffElements : public QObject
 				{QStringLiteral("ek1914"), {44, 100}},
 				{QStringLiteral("ek1322"), {24, 100}},
 				{QStringLiteral("cu1128"), {122, 100}},
-				{QStringLiteral("epp2338-0002"), {30, 126}}};
+				{QStringLiteral("epp2338-1002"), {30, 126}}};
 			const QMap<QString, qreal> scales{
 				{QStringLiteral("1to1"), 1.0}, {QStringLiteral("1to2"), 0.5},
 				{QStringLiteral("1to5"), 0.2}};
