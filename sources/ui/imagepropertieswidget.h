@@ -60,6 +60,12 @@ class ImagePropertiesWidget : public PropertiesEditorWidget
 		void on_m_restore_ratio_pb_clicked();
 		void on_m_lock_pos_cb_clicked();
 		void on_m_adapt_to_dark_theme_cb_toggled(bool checked);
+		void on_m_opacity_sb_valueChanged(int value);
+		void on_m_alpha_cb_toggled(bool checked);
+		void on_m_transparent_color_pb_clicked();
+		void on_m_rotate_cw_pb_clicked();
+		void on_m_rotate_ccw_pb_clicked();
+		void applyCropFields();
 
 	private:
 		Ui::ImagePropertiesWidget *ui;
@@ -67,6 +73,9 @@ class ImagePropertiesWidget : public PropertiesEditorWidget
 		bool m_movable;
 		bool m_adapt_to_dark_theme = false;
 		bool m_preview_dark_theme = false;
+		qreal m_opacity = 1.0;
+		bool m_keep_alpha = true;
+		bool m_updating_crop = false;
 		// All tracked independently -- the image may already be
 		// non-uniformly scaled, rotated, and/or skewed via the resize/
 		// rotate/skew handles before this dialog is even opened, and

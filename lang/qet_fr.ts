@@ -4833,6 +4833,22 @@ Continuer ?</translation>
         <source>Crop an image</source>
         <translation>Rogner une image</translation>
     </message>
+    <message>
+        <source>Rotate 90° clockwise</source>
+        <translation type="unfinished">Pivoter de 90° dans le sens horaire</translation>
+    </message>
+    <message>
+        <source>Rotate 90° counterclockwise</source>
+        <translation type="unfinished">Pivoter de 90° dans le sens anti-horaire</translation>
+    </message>
+    <message>
+        <source>Rotate an image 90° clockwise</source>
+        <translation type="unfinished">Pivoter une image de 90° dans le sens horaire</translation>
+    </message>
+    <message>
+        <source>Rotate an image 90° counterclockwise</source>
+        <translation type="unfinished">Pivoter une image de 90° dans le sens anti-horaire</translation>
+    </message>
 </context>
 <context>
     <name>DiagramPropertiesDialog</name>
@@ -9520,6 +9536,22 @@ Vous pouvez spécifier ici la valeur par défaut de ce champ pour les éléments
         <translation>« Enregistrer sous » propose alors .qetdb : tout le projet dans un seul fichier SQLite. Le format peut encore changer ; gardez une copie .qet ou .qetz des projets importants.</translation>
     </message>
     <message>
+        <source>Pictures</source>
+        <translation type="unfinished">Images</translation>
+    </message>
+    <message>
+        <source>Convert inserted pictures to JPEG to keep the project small</source>
+        <translation type="unfinished">Convertir les images insérées en JPEG pour alléger le projet</translation>
+    </message>
+    <message>
+        <source>Pictures with transparency and SVG pictures are not converted, and neither are JPEG pictures. The picture file on disk is never changed.</source>
+        <translation type="unfinished">Les images avec transparence, les images SVG et les images JPEG ne sont pas converties. Le fichier d’origine sur le disque n’est jamais modifié.</translation>
+    </message>
+    <message>
+        <source>JPEG quality</source>
+        <translation type="unfinished">Qualité JPEG</translation>
+    </message>
+    <message>
         <location filename="../sources/ui/configpage/generalconfigurationpage.ui" line="805"/>
         <source>Company collection directory</source>
         <translation>Répertoire de la collection entreprise</translation>
@@ -11051,6 +11083,66 @@ Toutes valeurs autre que ‘Pas d’arrondi’ peut causer des erreurs de rendu 
         <location filename="../sources/ui/imagepropertieswidget.ui" line="182"/>
         <source>Adapts the colors for the dark display only. The original picture, exports and printouts stay unchanged.</source>
         <translation>Adapte les couleurs à l’affichage sombre uniquement. L’image originale, les exports et les impressions restent inchangés.</translation>
+    </message>
+    <message>
+        <source>Opacity</source>
+        <translation type="unfinished">Opacité</translation>
+    </message>
+    <message>
+        <source>Transparency</source>
+        <translation type="unfinished">Transparence</translation>
+    </message>
+    <message>
+        <source>Stores the picture with its transparency (PNG). Unchecked, it is stored as a smaller JPEG without transparency.</source>
+        <translation type="unfinished">Enregistre l’image avec sa transparence (PNG). Décochée, elle est enregistrée en JPEG, plus léger, sans transparence.</translation>
+    </message>
+    <message>
+        <source>Transparent color...</source>
+        <translation type="unfinished">Couleur transparente...</translation>
+    </message>
+    <message>
+        <source>Choose the color made transparent and its tolerance, with a live preview.</source>
+        <translation type="unfinished">Choisit la couleur rendue transparente et sa tolérance, avec aperçu en direct.</translation>
+    </message>
+    <message>
+        <source>-90°</source>
+        <translation type="unfinished">-90°</translation>
+    </message>
+    <message>
+        <source>+90°</source>
+        <translation type="unfinished">+90°</translation>
+    </message>
+    <message>
+        <source>Rotate 90° counterclockwise</source>
+        <translation type="unfinished">Pivoter de 90° dans le sens anti-horaire</translation>
+    </message>
+    <message>
+        <source>Rotate 90° clockwise</source>
+        <translation type="unfinished">Pivoter de 90° dans le sens horaire</translation>
+    </message>
+    <message>
+        <source>Crop left</source>
+        <translation type="unfinished">Rogner à gauche</translation>
+    </message>
+    <message>
+        <source>Crop top</source>
+        <translation type="unfinished">Rogner en haut</translation>
+    </message>
+    <message>
+        <source>Crop right</source>
+        <translation type="unfinished">Rogner à droite</translation>
+    </message>
+    <message>
+        <source>Crop bottom</source>
+        <translation type="unfinished">Rogner en bas</translation>
+    </message>
+    <message>
+        <source>Change the opacity of an image</source>
+        <translation type="unfinished">Modifier l’opacité d’une image</translation>
+    </message>
+    <message>
+        <source>Change the transparency of an image</source>
+        <translation type="unfinished">Modifier la transparence d’une image</translation>
     </message>
     <message>
         <location filename="../sources/ui/imagepropertieswidget.cpp" line="223"/>

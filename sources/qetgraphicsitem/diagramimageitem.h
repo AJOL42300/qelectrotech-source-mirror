@@ -70,6 +70,12 @@ class DiagramImageItem : public QetGraphicsItem {
 	// and kept through a resize. Changes in the same undo step as the
 	// pivot itself, so that Ctrl+Z restores both.
 	Q_PROPERTY(bool pivotIsCustom READ pivotIsCustom WRITE setPivotIsCustom)
+	// Opacity of the whole picture, 0 (invisible) to 1 (opaque). Applied
+	// by paint() itself, so that it also reaches printing and exports.
+	Q_PROPERTY(qreal pictureOpacity READ pictureOpacity WRITE setPictureOpacity NOTIFY pictureOpacityChanged)
+	// Whether the picture keeps its transparency in the project file
+	// (PNG) instead of being stored as JPEG.
+	Q_PROPERTY(bool keepAlpha READ keepAlpha WRITE setKeepAlpha NOTIFY keepAlphaChanged)
 
 	// constructors, destructor
 	public:
@@ -82,8 +88,9 @@ class DiagramImageItem : public QetGraphicsItem {
 		QPixmap base;
 		QRect crop;
 		QList<ImageTransparentColorDialog::PickedColor> colors;
+		bool keepAlpha = true;
 	};
-	ImageSource imageSource() const { return {m_base_pixmap, m_crop_rect, m_transparent_colors}; }
+	ImageSource imageSource() const { return {m_base_pixmap, m_crop_rect, m_transparent_colors, m_keep_alpha}; }
 	void setImageSource(const ImageSource &source);
 	QVariant imageSourceVariant() const;
 	void setImageSourceVariant(const QVariant &source);
@@ -177,9 +184,19 @@ class DiagramImageItem : public QetGraphicsItem {
 	void setLabel(const QString &label);
 	bool adaptToDarkTheme() const { return m_adapt_to_dark_theme; }
 	void setAdaptToDarkTheme(bool adapt);
+	qreal pictureOpacity() const { return m_picture_opacity; }
+	void setPictureOpacity(qreal opacity);
+	bool keepAlpha() const { return m_keep_alpha; }
+	void setKeepAlpha(bool keep);
+	bool hasTransparentColors() const { return !m_transparent_colors.isEmpty(); }
+	void setStoredFormat(bool keepAlpha, const QByteArray &fileBytes = QByteArray());
+	void editTransparentColor() { setTransparentColor(); }
+	void rotateBy(qreal degrees);
 
 	signals:
 	void pixmapChanged();
+	void pictureOpacityChanged();
+	void keepAlphaChanged();
 	void transformChanged();
 	void uuidChanged();
 	void labelChanged();
@@ -209,7 +226,7 @@ class DiagramImageItem : public QetGraphicsItem {
 	void saveOriginalImageAs();
 	void saveImagePixmapAs(const QPixmap &pixmap, const QString &dialogTitle, bool hasTransparency);
 	static bool writeRasterAsSvg(const QPixmap &pixmap, const QString &path);
-	static const QByteArray &encodedPng(const QPixmap &pixmap, QByteArray &cache, qint64 &cacheKey);
+	static const QByteArray &encodedPicture(const QPixmap &pixmap, QByteArray &cache, qint64 &cacheKey, bool keepAlpha);
 	static QPixmap computeDisplayPixmap(const QPixmap &base, const QRect &cropRect, const QList<ImageTransparentColorDialog::PickedColor> &colors);
 
 	void toggleHandleMode();
@@ -265,16 +282,23 @@ class DiagramImageItem : public QetGraphicsItem {
 	QPixmap m_base_pixmap;
 	QRect m_crop_rect;   // relative to m_base_pixmap; equals m_base_pixmap.rect() when nothing has been cropped
 	QList<ImageTransparentColorDialog::PickedColor> m_transparent_colors;
-	// PNG bytes of pixmap_ and m_base_pixmap as last written, reused by
-	// toXml() while the pixmap's cacheKey() still matches. PNG encoding
-	// is the bulk of the time a save spends on a picture, and redoing it
-	// on every save, autosave and copy of an unchanged picture is pure
-	// waste. Filled from the file itself on load, so even the first save
-	// encodes nothing.
+	// PNG or JPEG bytes of pixmap_ and m_base_pixmap as last written,
+	// reused by toXml() while the pixmap's cacheKey() still matches and
+	// the format still suits m_keep_alpha. Encoding is the bulk of the
+	// time a save spends on a picture, and redoing it on every save,
+	// autosave and copy of an unchanged picture is pure waste. Filled
+	// from the file itself on load, so even the first save encodes
+	// nothing.
 	mutable QByteArray m_png_cache;
 	mutable qint64 m_png_cache_key = 0;
 	mutable QByteArray m_base_png_cache;
 	mutable qint64 m_base_png_cache_key = 0;
+	// Stored as PNG, with its transparency, rather than as JPEG. True by
+	// default so that a picture built in code or read from an older file
+	// is never recompressed; only the insertion of a file decides
+	// otherwise. A picture with transparent colours is always PNG.
+	bool m_keep_alpha = true;
+	qreal m_picture_opacity = 1.0;
 
 	// Independent scaleX/scaleY here is the actual point of this whole
 	// member: QGraphicsItem::scale() is a single, uniform float, which

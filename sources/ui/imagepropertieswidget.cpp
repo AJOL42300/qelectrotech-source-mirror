@@ -43,6 +43,10 @@ ImagePropertiesWidget::ImagePropertiesWidget(DiagramImageItem *image, QWidget *p
 	// already starts in, so the icon needs setting explicitly here or
 	// the button would show blank until first clicked.
 	ui->m_lock_ratio_tb->setIcon(QET::Icons::ObjectLocked);
+	for (auto *crop_sb : {ui->m_crop_left_sb, ui->m_crop_top_sb,
+						  ui->m_crop_right_sb, ui->m_crop_bottom_sb})
+		connect(crop_sb, &QSpinBox::editingFinished,
+				this, &ImagePropertiesWidget::applyCropFields);
 	this->setDisabled(true);
 	setImageItem(image);
 }
@@ -84,12 +88,16 @@ void ImagePropertiesWidget::setImageItem(DiagramImageItem *image)
 		disconnect(m_image, &DiagramImageItem::transformChanged, this, &ImagePropertiesWidget::updateUi);
 		disconnect(m_image, &DiagramImageItem::labelChanged, this, &ImagePropertiesWidget::updateUi);
 		disconnect(m_image, &DiagramImageItem::adaptToDarkThemeChanged, this, &ImagePropertiesWidget::updateUi);
+		disconnect(m_image, &DiagramImageItem::pictureOpacityChanged, this, &ImagePropertiesWidget::updateUi);
+		disconnect(m_image, &DiagramImageItem::keepAlphaChanged, this, &ImagePropertiesWidget::updateUi);
 	}
 
 	m_image = image;
 	connect(m_image, &DiagramImageItem::transformChanged, this, &ImagePropertiesWidget::updateUi);
 	connect(m_image, &DiagramImageItem::labelChanged, this, &ImagePropertiesWidget::updateUi);
 	connect(m_image, &DiagramImageItem::adaptToDarkThemeChanged, this, &ImagePropertiesWidget::updateUi);
+	connect(m_image, &DiagramImageItem::pictureOpacityChanged, this, &ImagePropertiesWidget::updateUi);
+	connect(m_image, &DiagramImageItem::keepAlphaChanged, this, &ImagePropertiesWidget::updateUi);
 	m_movable = image->isMovable();
 	m_adapt_to_dark_theme = image->adaptToDarkTheme();
 	m_scaleX = m_image->scaleFactorX();
@@ -98,6 +106,8 @@ void ImagePropertiesWidget::setImageItem(DiagramImageItem *image)
 	m_skewX = m_image->skewX();
 	m_skewY = m_image->skewY();
 	m_label = m_image->label();
+	m_opacity = m_image->pictureOpacity();
+	m_keep_alpha = m_image->keepAlpha();
 	updateUi();
 }
 
@@ -127,6 +137,8 @@ void ImagePropertiesWidget::apply()
 	m_skewY = m_image->skewY();
 	m_label = m_image->label();
 	m_adapt_to_dark_theme = m_image->adaptToDarkTheme();
+	m_opacity = m_image->pictureOpacity();
+	m_keep_alpha = m_image->keepAlpha();
 }
 
 /**
@@ -143,6 +155,8 @@ void ImagePropertiesWidget::reset()
 	m_image->setSkewX(m_skewX);
 	m_image->setSkewY(m_skewY);
 	m_image->setLabel(m_label);
+	m_image->setPictureOpacity(m_opacity);
+	m_image->setKeepAlpha(m_keep_alpha);
 	m_image->setMovable(m_movable);
 	m_preview_dark_theme = true;
 	m_image->setAdaptToDarkTheme(m_adapt_to_dark_theme);
@@ -170,6 +184,8 @@ bool ImagePropertiesWidget::setLiveEdit(bool live_edit)
 		connect (ui->m_skew_y_sb, &QDoubleSpinBox::editingFinished, this, &ImagePropertiesWidget::apply);
 		connect (ui->m_label_le, &QLineEdit::editingFinished, this, &ImagePropertiesWidget::apply);
 		connect (ui->m_adapt_to_dark_theme_cb, &QCheckBox::clicked, this, &ImagePropertiesWidget::apply);
+		connect (ui->m_opacity_sb, &QSpinBox::editingFinished, this, &ImagePropertiesWidget::apply);
+		connect (ui->m_alpha_cb, &QCheckBox::clicked, this, &ImagePropertiesWidget::apply);
 	}
 	else
 	{
@@ -180,6 +196,8 @@ bool ImagePropertiesWidget::setLiveEdit(bool live_edit)
 		disconnect (ui->m_skew_y_sb, &QDoubleSpinBox::editingFinished, this, &ImagePropertiesWidget::apply);
 		disconnect (ui->m_label_le, &QLineEdit::editingFinished, this, &ImagePropertiesWidget::apply);
 		disconnect (ui->m_adapt_to_dark_theme_cb, &QCheckBox::clicked, this, &ImagePropertiesWidget::apply);
+		disconnect (ui->m_opacity_sb, &QSpinBox::editingFinished, this, &ImagePropertiesWidget::apply);
+		disconnect (ui->m_alpha_cb, &QCheckBox::clicked, this, &ImagePropertiesWidget::apply);
 	}
 
 	return true;
@@ -225,6 +243,9 @@ QUndoCommand* ImagePropertiesWidget::associatedUndo() const
 	chain("rotationAngle", m_rotation, newRotation, tr("Change the angle of an image"));
 	chain("skewX", m_skewX, newSkewX, tr("Change the skew of an image"));
 	chain("skewY", m_skewY, newSkewY, tr("Change the skew of an image"));
+	chain("pictureOpacity", m_opacity,
+		  ui->m_opacity_sb->value() / 100.0,
+		  tr("Change the opacity of an image"));
 
 	// Not through chain(): a string cannot be animated.
 	const QString newLabel = ui->m_label_le->text();
@@ -245,6 +266,15 @@ QUndoCommand* ImagePropertiesWidget::associatedUndo() const
 		else {
 			undo = new QUndoCommand(tr("Change a picture's dark theme adaptation"));
 			new QPropertyUndoCommand(m_image, "adaptToDarkTheme", m_adapt_to_dark_theme, adapt, undo);
+		}
+	}
+
+	const bool keep_alpha = ui->m_alpha_cb->isChecked();
+	if (keep_alpha != m_keep_alpha) {
+		if (undo) new QPropertyUndoCommand(m_image, "keepAlpha", m_keep_alpha, keep_alpha, undo);
+		else {
+			undo = new QUndoCommand(tr("Change the transparency of an image"));
+			new QPropertyUndoCommand(m_image, "keepAlpha", m_keep_alpha, keep_alpha, undo);
 		}
 	}
 	return undo;
@@ -282,6 +312,31 @@ void ImagePropertiesWidget::updateUi()
 	ui->m_lock_pos_cb->setChecked(!m_image->isMovable());
 	if (ui->m_label_le->text() != m_image->label())
 		ui->m_label_le->setText(m_image->label());
+
+	{
+		const QSignalBlocker opacityBlocker(ui->m_opacity_sb);
+		ui->m_opacity_sb->setValue(qRound(m_image->pictureOpacity() * 100.0));
+		const QSignalBlocker alphaBlocker(ui->m_alpha_cb);
+		// A picture with transparent colours is always stored as PNG
+		const bool colors = m_image->hasTransparentColors();
+		ui->m_alpha_cb->setChecked(m_image->keepAlpha() || colors);
+		ui->m_alpha_cb->setEnabled(!colors);
+		ui->m_transparent_color_pb->setEnabled(true);
+	}
+
+	// Crop margins, in pixels of the original picture
+	const QSignalBlocker leftBlocker(ui->m_crop_left_sb);
+	const QSignalBlocker topBlocker(ui->m_crop_top_sb);
+	const QSignalBlocker rightBlocker(ui->m_crop_right_sb);
+	const QSignalBlocker bottomBlocker(ui->m_crop_bottom_sb);
+	const QSize base = m_image->imageSource().base.size();
+	QRect crop = m_image->cropRect();
+	if (crop.isNull())
+		crop = QRect(QPoint(), base);
+	ui->m_crop_left_sb->setValue(crop.left());
+	ui->m_crop_top_sb->setValue(crop.top());
+	ui->m_crop_right_sb->setValue(qMax(0, base.width() - crop.right() - 1));
+	ui->m_crop_bottom_sb->setValue(qMax(0, base.height() - crop.bottom() - 1));
 }
 
 /**
@@ -439,4 +494,78 @@ void ImagePropertiesWidget::on_m_adapt_to_dark_theme_cb_toggled(bool checked)
 	m_preview_dark_theme = true;
 	m_image->setAdaptToDarkTheme(checked);
 	m_preview_dark_theme = false;
+}
+
+/**
+	@brief ImagePropertiesWidget::on_m_opacity_sb_valueChanged
+	@param value the new opacity, in percent
+*/
+void ImagePropertiesWidget::on_m_opacity_sb_valueChanged(int value)
+{
+	if (!m_image) return;
+	m_image->setPictureOpacity(value / 100.0);
+}
+
+/**
+	@brief ImagePropertiesWidget::on_m_alpha_cb_toggled
+	@param checked true: store the picture with its transparency (PNG)
+*/
+void ImagePropertiesWidget::on_m_alpha_cb_toggled(bool checked)
+{
+	if (!m_image) return;
+	m_image->setKeepAlpha(checked);
+}
+
+/**
+	@brief ImagePropertiesWidget::on_m_transparent_color_pb_clicked
+	Opens the dialog choosing the transparent colours and their tolerance
+*/
+void ImagePropertiesWidget::on_m_transparent_color_pb_clicked()
+{
+	if (!m_image) return;
+	m_image->editTransparentColor();
+	updateUi();
+}
+
+/**
+	@brief ImagePropertiesWidget::on_m_rotate_cw_pb_clicked
+	Rotates the picture 90° clockwise (own undo step)
+*/
+void ImagePropertiesWidget::on_m_rotate_cw_pb_clicked()
+{
+	if (!m_image) return;
+	m_image->rotateBy(90.0);
+	m_rotation = m_image->rotationAngle();
+}
+
+/**
+	@brief ImagePropertiesWidget::on_m_rotate_ccw_pb_clicked
+	Rotates the picture 90° counterclockwise (own undo step)
+*/
+void ImagePropertiesWidget::on_m_rotate_ccw_pb_clicked()
+{
+	if (!m_image) return;
+	m_image->rotateBy(-90.0);
+	m_rotation = m_image->rotationAngle();
+}
+
+/**
+	@brief ImagePropertiesWidget::applyCropFields
+	Crops the picture to the margins typed in the four crop fields. The
+	original picture is kept; the crop is an undo step of its own.
+*/
+void ImagePropertiesWidget::applyCropFields()
+{
+	if (!m_image) return;
+	const QSize base = m_image->imageSource().base.size();
+	const int left = qMin(ui->m_crop_left_sb->value(), base.width() - 1);
+	const int top = qMin(ui->m_crop_top_sb->value(), base.height() - 1);
+	const int right = qMin(ui->m_crop_right_sb->value(),
+						   base.width() - left - 1);
+	const int bottom = qMin(ui->m_crop_bottom_sb->value(),
+							base.height() - top - 1);
+	const QRect crop(left, top, base.width() - left - right,
+					 base.height() - top - bottom);
+	m_image->applyCrop(crop);
+	updateUi();
 }

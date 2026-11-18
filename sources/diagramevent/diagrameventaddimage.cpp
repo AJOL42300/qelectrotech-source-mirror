@@ -18,6 +18,7 @@
 
 #include "diagrameventaddimage.h"
 #include <imagedrop.h>
+#include <imagestorage.h>
 
 #include <qetapp.h>
 #include <qetdiagrameditor.h>
@@ -350,6 +351,11 @@ void DiagramEventAddImage::openDialog()
 		return;
 	}
 	
-	m_image = new DiagramImageItem (QPixmap::fromImage(image));
+	bool keepAlpha = true;
+	QByteArray fileBytes;
+	ImageStorage::inspectFile(fileName, image, &keepAlpha, &fileBytes);
+	auto *item = new DiagramImageItem(QPixmap::fromImage(image));
+	item->setStoredFormat(keepAlpha, fileBytes);
+	m_image = item;
 	m_running = true;
 }
