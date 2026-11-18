@@ -216,11 +216,6 @@ SubSection "$(Elements)" SEC01
         File /nonfatal /r "./files/elements/10_electric"
     SectionEnd
 
-    Section "$(Logic)"
-        SetOutPath "$INSTDIR\elements"
-        File /nonfatal /r "./files/elements/20_logic"
-    SectionEnd
-
     Section "$(Hydraulic)"
         SetOutPath "$INSTDIR\elements"
         File /nonfatal /r "./files/elements/30_hydraulic"
