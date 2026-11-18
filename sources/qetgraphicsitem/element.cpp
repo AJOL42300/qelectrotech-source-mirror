@@ -45,6 +45,8 @@
 #include <undocommand/changeelementinformationcommand.h>
 #include <undocommand/setautonumcontextcommand.h>
 #include "crossrefitem.h"
+#include "duplicaterefitem.h"
+#include <componentreferences.h>
 #include "terminalelement.h"
 #include <TerminalStrip/terminalstrip.h>
 #include "dynamicelementtextitem.h"
@@ -156,7 +158,8 @@ Element::Element(
 	m_uuid = QUuid::createUuid();
 	setZValue(10);
 	setFlags(QGraphicsItem::ItemIsMovable
-		 | QGraphicsItem::ItemIsSelectable);
+		 | QGraphicsItem::ItemIsSelectable
+		 | QGraphicsItem::ItemSendsGeometryChanges);
 	setAcceptHoverEvents(true);
 
 	/* Keep docked conductors attached whenever this element's
@@ -352,7 +355,15 @@ QString Element::wiringTooltip() const
 	const QString label = actualLabel();
 	const QString title = label.isEmpty() ? name()
 					      : label + QStringLiteral("  ") + name();
-	return ModuleTooltip::moduleText(title, pins, ios);
+	QString text = ModuleTooltip::moduleText(title, pins, ios);
+	if (ComponentReferenceIndex *index = ComponentReferenceIndex::existing(
+			diagram() ? diagram()->project() : nullptr)) {
+		const QString others = index->tooltipText(this);
+		if (!others.isEmpty()) {
+			text += QStringLiteral("<br>") + others;
+		}
+	}
+	return text;
 }
 
 /**
@@ -735,6 +746,7 @@ void Element::keepChildrenReadable() const
 	{
 		if (child->type() == DynamicElementTextItem::Type
 			|| child->type() == CrossRefItem::Type
+			|| child->type() == DuplicateRefItem::Type
 			|| dynamic_cast<ElementTextItemGroup *>(child))
 			keepReadable(child);
 	}
@@ -3286,7 +3298,20 @@ QVariant Element::itemChange(GraphicsItemChange change, const QVariant &value)
 		//Whether the texts of a turned symbol stay horizontal is the
 		//project's setting, known once the element is on one of its folios
 	else if (change == QGraphicsItem::ItemSceneHasChanged)
+	{
 		updateSymbolPictures();
+		if (ComponentReferenceIndex *index = ComponentReferenceIndex::existing(
+				diagram() ? diagram()->project() : nullptr)) {
+			index->positionChanged(this);
+		}
+	}
+	else if (change == QGraphicsItem::ItemPositionHasChanged)
+	{
+		if (ComponentReferenceIndex *index = ComponentReferenceIndex::existing(
+				diagram() ? diagram()->project() : nullptr)) {
+			index->positionChanged(this);
+		}
+	}
 	return QetGraphicsItem::itemChange(change, value);
 }
 

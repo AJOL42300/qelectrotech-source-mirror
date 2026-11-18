@@ -148,6 +148,10 @@ class ProjectMainConfigPage : public ProjectConfigPage {
 	QRadioButton *terminal_label_combined_rb_;
 	QRadioButton *terminal_label_split_rb_;
 	QLabel *terminal_label_help_;
+	QGroupBox *m_references_gb;
+	QComboBox *m_references_style_cb;
+	QComboBox *m_references_placement_cb;
+	QCheckBox *m_sync_information_cb;
 	QGroupBox *wiring_rules_gb_;
 	QCheckBox *use_application_rules_cb_;
 	QLabel *max_wires_label_;

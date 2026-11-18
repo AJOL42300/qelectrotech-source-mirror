@@ -42,6 +42,7 @@
 #include <ui/titleblockpropertieswidget.h>
 #include <ui/xrefpropertieswidget.h>
 #include <projectorigin.h>
+#include <componentreferences.h>
 
 //#include "ui_autonumberingmanagementw.h"
 
@@ -219,6 +220,18 @@ void ProjectMainConfigPage::applyProjectConf()
 		modified_project = true;
 	}
 
+	ComponentReferences::Settings references;
+	references.enabled = m_references_gb -> isChecked();
+	references.style = static_cast<ComponentReferences::Style>(
+				m_references_style_cb -> currentData().toInt());
+	references.placement = static_cast<ComponentReferences::Placement>(
+				m_references_placement_cb -> currentData().toInt());
+	references.sync_information = m_sync_information_cb -> isChecked();
+	if (m_project -> componentReferences() != references) {
+		m_project -> setComponentReferences(references);
+		modified_project = true;
+	}
+
 		//Following the application's rules stores nothing in the project
 	WiringRules::Settings wiring_rules;
 	if (!use_application_rules_cb_ -> isChecked()) {
@@ -337,6 +350,35 @@ void ProjectMainConfigPage::initWidgets()
 										 "informative label"));
 	terminal_label_help_ -> setWordWrap(true);
 
+		//Where else a component is drawn (the same label on other folios)
+	m_references_gb = new QGroupBox(tr("Show where a component is drawn elsewhere", "group box title"));
+	m_references_gb -> setObjectName(QStringLiteral("componentReferences"));
+	m_references_gb -> setCheckable(true);
+	m_references_gb -> setToolTip(tr("Under each symbol, tell on which other folios the component with the same "
+									 "label is drawn (for instance its realistic view or its table), as a "
+									 "reference to follow. Uncheck to draw the folios as before.",
+									 "tooltip"));
+	m_references_style_cb = new QComboBox();
+	m_references_style_cb -> addItem(tr("Compact: one line", "combo box item"),
+									 static_cast<int>(ComponentReferences::Style::Compact));
+	m_references_style_cb -> addItem(tr("Detailed: one line per reference", "combo box item"),
+									 static_cast<int>(ComponentReferences::Style::Detailed));
+	m_references_placement_cb = new QComboBox();
+	m_references_placement_cb -> addItem(tr("Under the symbol", "combo box item"),
+										 static_cast<int>(ComponentReferences::Placement::Below));
+	m_references_placement_cb -> addItem(tr("On the right of the symbol", "combo box item"),
+										 static_cast<int>(ComponentReferences::Placement::Right));
+	m_sync_information_cb = new QCheckBox(tr("Keep the information of the symbols of a component the same", "checkbox label"));
+	m_sync_information_cb -> setObjectName(QStringLiteral("syncComponentInformation"));
+	m_sync_information_cb -> setToolTip(tr("Symbols which have the same label are the same component: "
+										   "the article list (designation, manufacturer, part numbers, "
+										   "quantity, auxiliary articles), the comment... "
+										   "edited on one are given to the others, and an "
+										   "empty field is completed from the others when a label is "
+										   "shared. The label, plant, location and function "
+										   "are not shared.",
+										   "tooltip"));
+
 		//How many wires a terminal may take (discussion #1158)
 	wiring_rules_gb_ = new QGroupBox(tr("Conductors per terminal", "group box title"));
 	use_application_rules_cb_ = new QCheckBox(tr("Use the application settings", "checkbox label"));
@@ -438,6 +480,13 @@ void ProjectMainConfigPage::initLayout()
 	main_layout0 -> addWidget(terminal_label_gb_);
 	main_layout0 -> addSpacing(10);
 
+	QFormLayout *references_layout = new QFormLayout(m_references_gb);
+	references_layout -> addRow(tr("Style:", "label"), m_references_style_cb);
+	references_layout -> addRow(tr("Position:", "label"), m_references_placement_cb);
+	main_layout0 -> addWidget(m_references_gb);
+	main_layout0 -> addWidget(m_sync_information_cb);
+	main_layout0 -> addSpacing(10);
+
 	QVBoxLayout *wiring_rules_layout = new QVBoxLayout(wiring_rules_gb_);
 	wiring_rules_layout -> addWidget(use_application_rules_cb_);
 	QHBoxLayout *max_wires_layout = new QHBoxLayout();
@@ -487,6 +536,15 @@ void ProjectMainConfigPage::readValuesFromProject()
 		terminal_label_split_rb_ -> setChecked(true);
 	} else {
 		terminal_label_combined_rb_ -> setChecked(true);
+	}
+	{
+		const ComponentReferences::Settings references = m_project -> componentReferences();
+		m_references_gb -> setChecked(references.enabled);
+		m_sync_information_cb -> setChecked(references.sync_information);
+		m_references_style_cb -> setCurrentIndex(
+					qMax(0, m_references_style_cb -> findData(static_cast<int>(references.style))));
+		m_references_placement_cb -> setCurrentIndex(
+					qMax(0, m_references_placement_cb -> findData(static_cast<int>(references.placement))));
 	}
 
 	const int project_origin_index = origin_cb_->findData(ProjectOrigin::toString(m_project->origin()));
@@ -551,6 +609,8 @@ void ProjectMainConfigPage::adjustReadOnly()
 	m_follow_device_types_cb -> setDisabled(is_read_only);
 	chained_reports_cb_ -> setDisabled(is_read_only);
 	terminal_label_gb_ -> setDisabled(is_read_only);
+	m_references_gb -> setDisabled(is_read_only);
+	m_sync_information_cb -> setDisabled(is_read_only);
 	wiring_rules_gb_ -> setDisabled(is_read_only);
 	origin_cb_->setDisabled(is_read_only);
 }

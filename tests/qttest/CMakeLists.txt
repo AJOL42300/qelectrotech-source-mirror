@@ -2763,3 +2763,7 @@ qet_add_app_test(tst_titleblockcache tst_titleblockcache.cpp)
 qet_add_app_test(tst_propertieseditordialog tst_propertieseditordialog.cpp)
 # A list table reopens at the width it was saved with
 qet_add_app_test(tst_tablereopen tst_tablereopen.cpp)
+
+# Duplicate component references: the other representations of a symbol, shown
+# beside it, kept up to date when a label changes.
+qet_add_app_test(tst_componentreferences tst_componentreferences.cpp)

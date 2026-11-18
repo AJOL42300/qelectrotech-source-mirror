@@ -231,6 +231,8 @@ set(QET_SRC_FILES
   ${QET_DIR}/sources/conductorautonumerotation.h
   ${QET_DIR}/sources/duplicatelabels.h
   ${QET_DIR}/sources/duplicatelabels.cpp
+  ${QET_DIR}/sources/componentreferences.h
+  ${QET_DIR}/sources/componentreferences.cpp
   ${QET_DIR}/sources/ui/duplicatelabelsdialog.h
   ${QET_DIR}/sources/ui/duplicatelabelsdialog.cpp
   ${QET_DIR}/sources/ui/devicetypecheckdialog.h
@@ -739,6 +741,8 @@ set(QET_SRC_FILES
   ${QET_DIR}/sources/qetgraphicsitem/conductortextitem.h
   ${QET_DIR}/sources/qetgraphicsitem/crossrefitem.cpp
   ${QET_DIR}/sources/qetgraphicsitem/crossrefitem.h
+  ${QET_DIR}/sources/qetgraphicsitem/duplicaterefitem.cpp
+  ${QET_DIR}/sources/qetgraphicsitem/duplicaterefitem.h
   ${QET_DIR}/sources/qetgraphicsitem/diagramimageitem.cpp
   ${QET_DIR}/sources/qetgraphicsitem/diagramimageitem.h
   ${QET_DIR}/sources/qetgraphicsitem/cropgeometry.h

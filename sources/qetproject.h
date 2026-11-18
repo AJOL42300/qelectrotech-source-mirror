@@ -24,6 +24,7 @@
 #include "NameList/nameslist.h"
 #include "project/projectpropertieshandler.h"
 #include "borderproperties.h"
+#include "componentreferences.h"
 #include "conductorproperties.h"
 #include "dataBase/projectdatabase.h"
 #include "dataBase/qetdbfile.h"
@@ -347,6 +348,9 @@ class QETProject : public QObject
 		void setPlantAndLocationInherited(bool inherited);
 		bool followDeviceTypes() const;
 		void setFollowDeviceTypes(bool follow);
+		ComponentReferences::Settings componentReferences() const;
+		void setComponentReferences(
+				const ComponentReferences::Settings &settings);
 		const ProjectLanguages &languages() const {return m_languages;}
 		void setLanguages(const ProjectLanguages &languages);
 		const PotentialTypes &potentialTypes() const {return m_potential_types;}
@@ -551,6 +555,7 @@ class QETProject : public QObject
 		void readConductorPlantCountersXml(QDomDocument &xml_project);
 		void readDeviceTypesXml(QDomDocument &xml_project);
 		void readTerminalLabelSplitXml(QDomDocument &xml_project);
+		void readComponentReferencesXml(QDomDocument &xml_project);
 		void readWiringRulesXml(QDomDocument &xml_project);
 
 		void writeProjectPropertiesXml(QDomElement &);
@@ -566,6 +571,7 @@ class QETProject : public QObject
 		void writeOriginXml(QDomElement&);
 		void writeTwincatXml(QDomElement &);
 		void writeSymbolTextsXml(QDomElement &);
+		void writeComponentReferencesXml(QDomElement &);
 		void writePlantLocationXml(QDomElement &);
 		void writeDeviceTypeRulesXml(QDomElement &);
 		void writeLanguagesXml(QDomElement &);
@@ -702,6 +708,9 @@ class QETProject : public QObject
 			/// Placing and linking follow the device types, see
 			/// followDeviceTypes()
 		bool m_follow_device_types = false;
+			/// How the other representations of a component are shown,
+			/// see componentreferences.h
+		ComponentReferences::Settings m_component_references;
 			/// The texts in other languages, see ProjectLanguages
 		ProjectLanguages m_languages;
 			/// The potential types and whether conductors are drawn from them

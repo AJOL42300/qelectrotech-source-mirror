@@ -2989,6 +2989,7 @@ QDomDocument QETProject::toXml(QHash<int, QByteArray> *kept_folios, QStringList 
 	writePotentialTypesXml(project_root);
 	writeWireProfilesXml(project_root);
 	writeTerminalLabelSplitXml(project_root);
+	writeComponentReferencesXml(project_root);
 	writeWiringRulesXml(project_root);
 	writeChainedReportsXml(project_root);
 	writeConductorPlantCountersXml(project_root);
@@ -4221,6 +4222,7 @@ void QETProject::readProjectXml(QDomDocument &xml_project)
 	readPotentialTypesXml(xml_project);
 	readWireProfilesXml(xml_project);
 	readTerminalLabelSplitXml(xml_project);
+	readComponentReferencesXml(xml_project);
 	readWiringRulesXml(xml_project);
 	readChainedReportsXml(xml_project);
 	readConductorPlantCountersXml(xml_project);
@@ -4912,6 +4914,56 @@ void QETProject::readTerminalLabelSplitXml(QDomDocument &xml_project)
 			.firstChildElement(QStringLiteral("terminal_labelling"));
 	m_terminal_label_split = !labelling.isNull()
 			&& labelling.attribute(QStringLiteral("split")) == QLatin1String("true");
+}
+
+/**
+	@brief QETProject::readComponentReferencesXml
+	Read the <duplicate_references> element of the project, if any. A
+	project without it was saved before the setting existed, or with it
+	off, and shows no reference to the other representations of a symbol.
+	@param xml_project : the xml description of the project
+*/
+void QETProject::readComponentReferencesXml(QDomDocument &xml_project)
+{
+	m_component_references = ComponentReferences::settingsFromXml(
+		xml_project.documentElement());
+}
+
+/**
+	@brief QETProject::writeComponentReferencesXml
+	Export the settings of the references between the representations of
+	a component as a <duplicate_references> child of \a xml_element.
+	Written only when they are not the default ones, so a project which
+	keeps them saves exactly as before.
+*/
+void QETProject::writeComponentReferencesXml(QDomElement &xml_element)
+{
+	ComponentReferences::settingsToXml(m_component_references, xml_element);
+}
+
+/**
+	@return how the references between the representations of a component
+	are shown: off unless the project says otherwise
+*/
+ComponentReferences::Settings QETProject::componentReferences() const
+{
+	return m_component_references;
+}
+
+/**
+	@brief QETProject::setComponentReferences
+	Set how the references between the representations of a component are
+	shown, and draw the folios again.
+*/
+void QETProject::setComponentReferences(
+		const ComponentReferences::Settings &settings)
+{
+	if (settings == m_component_references) {
+		return;
+	}
+	m_component_references = settings;
+	storeSettings();
+	ComponentReferenceIndex::of(this)->settingsChanged();
 }
 
 /**
@@ -5923,6 +5975,7 @@ void QETProject::storeSettings()
 	writePotentialTypesXml(root);
 	writeWireProfilesXml(root);
 	writeTerminalLabelSplitXml(root);
+	writeComponentReferencesXml(root);
 	writeWiringRulesXml(root);
 	writeChainedReportsXml(root);
 	writeConductorPlantCountersXml(root);
