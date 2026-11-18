@@ -553,8 +553,17 @@ poorly: this works for line drawings and logos.
 
 `examples/beckhoff_islands_example.qet` has four islands on 13 folios (symbols,
 realistic views, I/O tables for each island, and the description views of the
-cards of `A1`), all on A3 folios with the A3 title
-blocks (see below):
+cards of `A1`), then 14 "Catalogue" folios, all on A3 folios with the A3 title
+blocks (see below). The folios are named by card category: the title of an
+island folio lists the categories of its cards (`A1 - Coupleurs / Entrées TOR /
+Sorties TOR / Codeurs - symboles`) and the view (symboles, vues réalistes, vues
+descriptives, tableaux d'E/S). The catalogue folios (`Catalogue - Coupleurs`,
+`Entrées TOR`, `Sorties TOR`, `Entrées analogiques`, `Sorties analogiques`,
+`Codeurs`, `Alimentation`, `EtherCAT P (EPP)`, `TwinSAFE`, `Variateurs AF1000
+(VAR)`, `Variateurs AX5000 (VAR)`, split in `(n/m)` pages when full) show the
+schematic symbol of every card of the library once, aligned on a grid, with
+its reference as caption. They are separate from the functional islands
+(no wiring, no label `A1.00`...):
 
 - `A1`: head `A1.00` (EK1100), cards `A1.10` (EL1008), `A1.20` (EL2008),
   `A1.30` (EL5152). Two sensors are wired on pins 1 and 2 of `A1.10` (pin 2 is
@@ -609,7 +618,9 @@ labelling areas, pin-out); no image or manufacturer text is in the repository:
 - `epp2338.elmt` (schematic): dotted module outline with rail clips, the
   EtherCAT P sockets, a +24 V and a 0 V rail, the four M12 sockets, one block
   per channel (LED and phototransistor). Terminals are on the circles, on the
-  5 px grid.
+  5 px grid. The conductors leave by the **top** for the M8 sockets (`IN X50`,
+  `OUT X51`) and to the **right** for the M12 sockets (`X01` to `X04`), in the
+  schematic, realistic and description views.
 - `epp2338_realistic.elmt`: the front of the box at the EK1914 scale, with the
   six sockets, the LEDs (one per channel, L/A, Run, Us/Up) and the reference
   inside, at the bottom. **One terminal per M12 socket**: `X01` to `X04`

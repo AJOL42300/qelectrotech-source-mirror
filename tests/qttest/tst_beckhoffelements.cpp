@@ -1031,8 +1031,14 @@ class TstBeckhoffElements : public QObject
 			int folio = 0;
 			const auto folios = project.elementsByTagName(
 				QStringLiteral("diagram"));
-			QCOMPARE(folios.size(), 13);
+			QSet<QString> catalogue;
+			QStringList titles;
 			for (int i = 0; i < folios.size(); ++i, ++folio) {
+				const bool inCatalogue = folios.at(i).toElement().attribute(
+					QStringLiteral("title")).startsWith(
+					QStringLiteral("Catalogue"));
+				titles << folios.at(i).toElement().attribute(
+					QStringLiteral("title"));
 				const auto els = folios.at(i).toElement()
 					.firstChildElement(QStringLiteral("elements"))
 					.elementsByTagName(QStringLiteral("element"));
@@ -1042,6 +1048,9 @@ class TstBeckhoffElements : public QObject
 						.section(QLatin1Char('/'), -1);
 					QVERIFY2(embedded.contains(file), qPrintable(file));
 					used.insert(e.attribute(QStringLiteral("uuid")));
+					if (inCatalogue) {
+						catalogue.insert(file);
+					}
 					const auto labels = e.firstChildElement(
 						QStringLiteral("elementInformations"))
 						.elementsByTagName(
@@ -1056,6 +1065,30 @@ class TstBeckhoffElements : public QObject
 					}
 				}
 			}
+
+				// the folios are named by card category: the islands
+				// (13 folios) come first, then one catalogue per category
+				// with the symbol of every card of the library
+			QVERIFY(folios.size() > 13);
+			QVERIFY(titles.at(0).contains(QStringLiteral("Coupleurs")));
+			QVERIFY(titles.at(0).contains(QStringLiteral("Entrées TOR")));
+			QVERIFY(titles.at(4).contains(QStringLiteral("TwinSAFE")));
+			QVERIFY(titles.at(4).contains(QStringLiteral("Variateurs")));
+			QVERIFY(titles.at(10).contains(QStringLiteral("EPP")));
+			QVERIFY(titles.at(13).startsWith(QStringLiteral("Catalogue")));
+			QVERIFY(titles.filter(QStringLiteral("Catalogue - Sorties TOR"))
+					.size() == 1);
+			int cards = 0;
+			for (const QString &file : allFiles()) {
+				const QFileInfo info(file);
+				if (info.completeBaseName() == QFileInfo(info.path())
+						.fileName()) {
+					++cards;
+					QVERIFY2(catalogue.contains(info.fileName()),
+							 qPrintable(file));
+				}
+			}
+			QVERIFY(cards >= 40);
 
 			QCOMPARE(appearances.value(QStringLiteral("A1.00")).size(), 1);
 			for (const QString &card : {QStringLiteral("A1.10"),
@@ -1436,6 +1469,26 @@ class TstBeckhoffElements : public QObject
 					 (QStringList{QStringLiteral("X04(1)"),
 								  QStringLiteral("X04(2)")}));
 			QCOMPARE(ioAddresses(real), ioAddresses(symbol));
+
+				// the conductors leave the M8 sockets by the top and the
+				// M12 sockets by the right, in every view
+			for (const QString &suffix : {QString(),
+					QStringLiteral("_realistic"),
+					QStringLiteral("_description")}) {
+				const auto view = suffix.isEmpty() ? symbol
+					: load(appearance(key, suffix)).documentElement();
+				const auto terms = view.firstChildElement(
+					QStringLiteral("description")).elementsByTagName(
+					QStringLiteral("terminal"));
+				QCOMPARE(terms.size(), 6);
+				for (int i = 0; i < terms.size(); ++i) {
+					const auto t = terms.at(i).toElement();
+					const QString name = t.attribute(QStringLiteral("name"));
+					QCOMPARE(t.attribute(QStringLiteral("orientation")),
+							 name.startsWith(QLatin1Char('X'))
+							 ? QStringLiteral("e") : QStringLiteral("n"));
+				}
+			}
 
 				// the reference is inside the box, under the sockets
 			const auto texts = real.firstChildElement(

@@ -158,6 +158,34 @@ def esc(text):
     return quoteattr(text)[1:-1]
 
 
+# Name of the folios by card category (the family folders of the library).
+CATEGORIES = {
+    "ek_couplers": "Coupleurs",
+    "el1xxx_digital_in": "Entrées TOR",
+    "el2xxx_digital_out": "Sorties TOR",
+    "el3xxx_analog_in": "Entrées analogiques",
+    "el4xxx_analog_out": "Sorties analogiques",
+    "el5xxx_encoder": "Codeurs",
+    "el9xxx_system": "Alimentation",
+    "epp_box": "EtherCAT P (EPP)",
+    "twinsafe": "TwinSAFE",
+    "drives_af1000": "Variateurs AF1000 (VAR)",
+    "drives_ax5000": "Variateurs AX5000 (VAR)",
+}
+VIEWS = {"sym": "symboles", "real": "vues réalistes",
+         "desc": "vues descriptives", "table": "tableaux d'E/S"}
+
+
+def island_title(label, names, view):
+    """"A1 - Coupleurs / Entrées TOR / ... - symboles"."""
+    cats = []
+    for name in names:
+        cat = CATEGORIES[family(name).split("/")[-2]]
+        if cat not in cats:
+            cats.append(cat)
+    return f"{label} - {' / '.join(cats)} - {VIEWS[view]}"
+
+
 # Signal given to the wired channels: (card, signal) -> function text.
 # On the EL1008 the contact 2 carries the channel I3 (Beckhoff order).
 USED = {
@@ -176,6 +204,7 @@ CARDS = [
     ("A1.40", "el9410", 900),
 ]
 HEAD = ("A1.00", "ek1100")
+A1_NAMES = [HEAD[1]] + [name for _, name, _ in CARDS]
 CARD_Y = 250
 SAFE = CAT + "/twinsafe"
 AF = CAT + "/drives_af1000"
@@ -325,7 +354,8 @@ def folio_symbols():
     conductors.append(conductor_xml(
         "sym/H1", "sym/A1.20", "A1.20", get(CAT, "el2008"), "1",
         "sym/H1", "H1", lamp, "1"))
-    return diagram_xml(1, "A1 island - symbols", els, conductors)
+    return diagram_xml(1, island_title("A1", A1_NAMES, "sym"), els,
+                       conductors)
 
 
 def folio_realistic():
@@ -333,7 +363,7 @@ def folio_realistic():
     for label, name, x in CARDS:
         els.append(element_xml(get(CAT, name + "_realistic"), label,
                                x - 300, 230, f"real/{label}"))
-    return diagram_xml(2, "A1 island - realistic views", els, [])
+    return diagram_xml(2, island_title("A1", A1_NAMES, "real"), els, [])
 
 
 def folio_description():
@@ -344,7 +374,7 @@ def folio_description():
         hx = int(el.root.get("hotspot_x"))
         els.append(element_xml(el, label, x + hx, 230, f"desc/{label}"))
         x += int(el.root.get("width")) + 40
-    return diagram_xml(3, "A1 island - description views", els, [])
+    return diagram_xml(3, island_title("A1", A1_NAMES, "desc"), els, [])
 
 
 def folio_tables():
@@ -352,7 +382,8 @@ def folio_tables():
     for n, (label, name, x) in enumerate(CARDS):
         els.append(element_xml(get(CAT, name + "_table"), label, 60,
                                60 + 190 * n, f"table/{label}"))
-    return diagram_xml(4, "A1 island - I/O tables", els, [], portrait=True)
+    return diagram_xml(4, island_title("A1", A1_NAMES, "table"), els, [],
+                       portrait=True)
 
 
 def island_folios(first, head_label, cards, head="ek1100"):
@@ -377,7 +408,8 @@ def island_folios(first, head_label, cards, head="ek1100"):
             conductors.append(conductor_xml(
                 f"sym/{label}/{i}", f"sym/{card}", card, el, pin,
                 f"sym/{label}", label, sensor, str(i + 1)))
-    folios = [diagram_xml(first, f"{head_label[:2]} island - symbols",
+    names = [head] + [name for _, _, name in cards]
+    folios = [diagram_xml(first, island_title(head_label[:2], names, "sym"),
                           els, conductors)]
     here = [(label, cat, name) for label, cat, name in cards
             if exists(cat, name + "_realistic")]
@@ -387,16 +419,52 @@ def island_folios(first, head_label, cards, head="ek1100"):
         els = [element_xml(get(cat, name + "_realistic"), label,
                            60 + 230 * n, 220, f"realistic/{label}")
                for n, (label, cat, name) in enumerate(here)]
-        folios.append(diagram_xml(first + len(folios),
-                                  f"{head_label[:2]} island - "
-                                  "realistic views", els, []))
+        folios.append(diagram_xml(
+            first + len(folios),
+            island_title(head_label[:2], names, "real"), els, []))
     els = [element_xml(get(cat, name + "_table"), label,
                        60 + 480 * (n % 2), 60 + 320 * (n // 2),
                        f"table/{label}")
            for n, (label, cat, name) in enumerate(cards)]
-    folios.append(diagram_xml(first + len(folios),
-                              f"{head_label[:2]} island - I/O tables",
-                              els, []))
+    folios.append(diagram_xml(
+        first + len(folios), island_title(head_label[:2], names, "table"),
+        els, []))
+    return folios
+
+
+def catalogue_folios(first):
+    """One or more folios per card category with the symbol of EVERY card
+    of the library, in rows, the reference under each symbol."""
+    folios = []
+    left, top, right, bottom = 40, 30, 1190, 730
+    for entry in sorted(os.listdir(ELMT_DIR)):
+        folder = os.path.join(ELMT_DIR, entry)
+        if not os.path.isdir(folder):
+            continue
+        cards = [c for c in sorted(os.listdir(folder))
+                 if os.path.exists(os.path.join(folder, c, c + ".elmt"))]
+        pages, els = [], []
+        x, y, row = left, top, 0
+        for card in cards:
+            el = get(CAT + "/" + entry + "/" + card, card)
+            w = int(el.root.get("width"))
+            h = int(el.root.get("height"))
+            if x + w > right and x > left:
+                x, y, row = left, y + row + 40, 0
+            if y + h + 20 > bottom and els:
+                pages.append(els)
+                els, x, y, row = [], left, top, 0
+            els.append(element_xml(
+                el, card.upper(), x + int(el.root.get("hotspot_x")),
+                y + int(el.root.get("hotspot_y")), f"catalogue/{card}"))
+            x += w + 30
+            row = max(row, h)
+        pages.append(els)
+        for n, page in enumerate(pages):
+            title = f"Catalogue - {CATEGORIES[entry]}"
+            if len(pages) > 1:
+                title += f" ({n + 1}/{len(pages)})"
+            folios.append(diagram_xml(first + len(folios), title, page, []))
     return folios
 
 
@@ -449,6 +517,7 @@ def main():
     folios += island_folios(5, *ISLAND2)
     folios += island_folios(8, *ISLAND3)
     folios += island_folios(11, *ISLAND4[:2], head=ISLAND4[2])
+    folios += catalogue_folios(len(folios) + 1)
     xrefs = "".join(
         f'<xref delayprefix="" displayhas="cross" master_label="%f-%l%c" '
         'offset="0" powerprefix="" showallconfiguredslaves="false" '
