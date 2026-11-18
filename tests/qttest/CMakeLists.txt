@@ -102,6 +102,13 @@ target_compile_definitions(tst_lanbaoelements PRIVATE
   QET_EXTRA_ELEMENTS_DIR="${QET_DIR}/extra-elements"
   QET_EXAMPLES_DIR="${QET_DIR}/examples")
 target_link_libraries(tst_lanbaoelements PRIVATE Qt::Test Qt::Xml)
+# The Kinco KS105 and HMI Green symbols of extra-elements.
+add_executable(tst_kincoelements tst_kincoelements.cpp)
+add_test(NAME tst_kincoelements COMMAND tst_kincoelements)
+target_compile_definitions(tst_kincoelements PRIVATE
+  QET_EXTRA_ELEMENTS_DIR="${QET_DIR}/extra-elements"
+  QET_EXAMPLES_DIR="${QET_DIR}/examples")
+target_link_libraries(tst_kincoelements PRIVATE Qt::Test Qt::Xml)
 # MSVC's Debug libraries make QElectroTech five to eight times slower than a
 # GCC build, for which the tests' time limits were chosen. Every limit is
 # multiplied by this scale: ctest's below, and the tests' own through

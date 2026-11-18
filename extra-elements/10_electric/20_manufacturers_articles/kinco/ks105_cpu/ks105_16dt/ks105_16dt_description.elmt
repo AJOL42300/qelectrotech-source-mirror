@@ -1,0 +1,232 @@
+<definition version="0.100.0" type="element" link_type="master" width="300" height="430" hotspot_x="70" hotspot_y="210">
+	<uuid uuid="{d7c118c1-7793-5ddf-b10d-6b1e32fa1d13}" />
+	<names>
+		<name lang="en">KS105-16DT Compact PLC, 8 DI, 8 DO, RS232, RS485, description view</name>
+		<name lang="fr">KS105-16DT Automate compact, 8 E TOR, 8 S TOR, RS232, RS485, vue description</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Kinco</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">KS105-16DT</elementInformation>
+		<elementInformation name="designation" show="1">Compact PLC, 8 DI, 8 DO, RS232, RS485</elementInformation>
+		<elementInformation name="description" show="1">Kinco KS105 compact PLC, 8 digital inputs and 8 transistor outputs, RS232 and RS485 ports. Terminal names are the markings of the unit; the I/O table lists the channels. Check the pinout against the datasheet of your unit.</elementInformation>
+		<elementInformation name="quantity" show="0">1</elementInformation>
+		<elementInformation name="unity" show="0">pcs</elementInformation>
+		<elementInformation name="width" show="0">25.4</elementInformation>
+		<elementInformation name="height" show="0">100</elementInformation>
+		<elementInformation name="depth" show="0">84.5</elementInformation>
+		<elementInformation name="auxiliary1" show="0">RJ45 plug</elementInformation>
+		<elementInformation name="description_auxiliary1" show="0">RJ45 plug for the cable of a PORT0, CAN or expansion socket</elementInformation>
+		<elementInformation name="designation_auxiliary1" show="0">RJ45 plug</elementInformation>
+		<elementInformation name="quantity_auxiliary1" show="0">2</elementInformation>
+		<elementInformation name="unity_auxiliary1" show="0">pcs</elementInformation>
+		<elementInformation name="auxiliary2" show="0">Screw terminal blocks</elementInformation>
+		<elementInformation name="description_auxiliary2" show="0">Terminal blocks of the unit: inputs, outputs, power supply and RS485</elementInformation>
+		<elementInformation name="designation_auxiliary2" show="0">Screw terminal blocks</elementInformation>
+		<elementInformation name="quantity_auxiliary2" show="0">1</elementInformation>
+		<elementInformation name="unity_auxiliary2" show="0">pcs</elementInformation>
+		<elementInformation name="auxiliary3" show="0">DIN rail</elementInformation>
+		<elementInformation name="description_auxiliary3" show="0">Symmetrical DIN rail 35 mm</elementInformation>
+		<elementInformation name="designation_auxiliary3" show="0">DIN rail</elementInformation>
+		<elementInformation name="quantity_auxiliary3" show="0">1</elementInformation>
+		<elementInformation name="unity_auxiliary3" show="0">pcs</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="8.00">
+			<columnVisibility>
+				<column index="0" visible="false" />
+				<column index="1" visible="false" />
+				<column index="2" visible="false" />
+				<column index="3" visible="false" />
+				<column index="4" visible="false" />
+			</columnVisibility>
+			<plcIOs>
+				<plcIO type="entree_digitale" address="I0.0" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>I0.0</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="I0.1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>I0.1</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="I0.2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>I0.2</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="I0.3" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>I0.3</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="I0.4" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>I0.4</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="I0.5" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>I0.5</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="I0.6" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>I0.6</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="I0.7" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>I0.7</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Q0.0" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Q0.0</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Q0.1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Q0.1</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Q0.2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Q0.2</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Q0.3" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Q0.3</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Q0.4" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Q0.4</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Q0.5" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Q0.5</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Q0.6" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Q0.6</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Q0.7" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Q0.7</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generated by misc/kinco/gen_kinco.py from public Kinco documents, vector drawing, grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="-60" y="-205" width="110" height="395" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<rect x="-60" y="-205" width="110" height="55" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" />
+		<rect x="-60" y="140" width="110" height="50" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" />
+		<circle x="-44.5" y="-174.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:red" />
+		<text x="-44.05" y="-186" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="1L+" />
+		<circle x="-34.5" y="-174.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-35.1" y="-196" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="I0.0" />
+		<circle x="-24.5" y="-174.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-24.65" y="-186" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="I0.1" />
+		<circle x="-14.5" y="-174.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-15.1" y="-196" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="I0.2" />
+		<circle x="-4.5" y="-174.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-5.1" y="-186" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="I0.3" />
+		<circle x="5.5" y="-174.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="4.9" y="-196" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="I0.4" />
+		<circle x="15.5" y="-174.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="14.9" y="-186" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="I0.5" />
+		<circle x="25.5" y="-174.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="24.9" y="-196" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="I0.6" />
+		<circle x="35.5" y="-174.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="34.9" y="-186" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="I0.7" />
+		<circle x="-54.5" y="155.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:blue" />
+		<text x="-54.5" y="167" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2L-" />
+		<circle x="-44.5" y="155.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:red" />
+		<text x="-44.5" y="177" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2L+" />
+		<circle x="-34.5" y="155.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-35.55" y="167" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Q0.0" />
+		<circle x="-24.5" y="155.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-25.1" y="177" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Q0.1" />
+		<circle x="-14.5" y="155.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-15.55" y="167" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Q0.2" />
+		<circle x="-4.5" y="155.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-5.55" y="177" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Q0.3" />
+		<circle x="5.5" y="155.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="4.45" y="167" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Q0.4" />
+		<circle x="15.5" y="155.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="14.45" y="177" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Q0.5" />
+		<circle x="25.5" y="155.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="24.45" y="167" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Q0.6" />
+		<circle x="35.5" y="155.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="34.45" y="177" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Q0.7" />
+		<circle x="-38" y="-141" diameter="6" antialias="false" style="line-style:normal;line-weight:normal;filling:green;color:black" />
+		<text x="-29" y="-143" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="RUN" />
+		<circle x="2" y="-141" diameter="6" antialias="false" style="line-style:normal;line-weight:normal;filling:red;color:black" />
+		<text x="11" y="-143" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="ERR" />
+		<circle x="-44.5" y="-104.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:orange" />
+		<text x="-43" y="-118" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<circle x="-34.5" y="-104.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:blue" />
+		<text x="-33" y="-118" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V" />
+		<circle x="-24.5" y="-104.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:red" />
+		<text x="-24.5" y="-118" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V" />
+		<text x="-37.12" y="-92" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="24V DC" />
+		<circle x="5.5" y="-104.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="8.5" y="-118" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="B" />
+		<circle x="15.5" y="-104.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="18.5" y="-118" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="A" />
+		<text x="8.75" y="-92" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="RS485" />
+		<text x="-24.65" y="-72" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="RS232 (PORT0)" />
+		<rect x="-48" y="-52" width="86" height="24" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" />
+		<circle x="-44.5" y="-44.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-40.88" y="-44.25" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="1" />
+		<circle x="-34.5" y="-44.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-31.25" y="-44.25" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2" />
+		<circle x="-24.5" y="-44.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-21.25" y="-44.25" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="3" />
+		<circle x="-14.5" y="-44.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-11.25" y="-44.25" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4" />
+		<circle x="-4.5" y="-44.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-1.25" y="-44.25" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="5" />
+		<circle x="5.5" y="-44.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="8.75" y="-44.25" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="6" />
+		<circle x="15.5" y="-44.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="18.75" y="-44.25" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
+		<circle x="25.5" y="-44.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="28.75" y="-44.25" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="8" />
+		<text x="-18.05" y="-12" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Expansion" />
+		<rect x="-48" y="8" width="86" height="24" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" />
+		<circle x="-14.5" y="15.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-3" y="15.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="EXP" />
+		<text x="-23.8" y="90" font="Roboto Condensed,8,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="KS105-16DT" />
+		<text x="62" y="-205" font="Roboto Condensed,8,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="KS105-16DT" />
+		<text x="62" y="-191" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Compact PLC, KincoBuilder programming" />
+		<text x="62" y="-182" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="8 digital inputs 24 V DC (I0.0 to I0.7), sink type only" />
+		<text x="62" y="-173" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="8 transistor outputs 24 V DC, source type (Q0.0 to Q0.7)" />
+		<text x="62" y="-164" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4 high speed counters up to 200 kHz" />
+		<text x="62" y="-155" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4 pulse train / PWM outputs" />
+		<text x="62" y="-146" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Interrupt inputs I0.0 to I0.3, real time clock" />
+		<text x="62" y="-137" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Up to 14 expansion modules" />
+		<text x="62" y="-128" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24 V DC (20.4 to 28.8 V), 5 W, IP20" />
+		<text x="62" y="-119" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DIN 35 rail, 25.4 x 100 x 84.5 mm" />
+		<text x="62" y="-110" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PORT0: RS232, Modbus RTU slave" />
+		<text x="62" y="-101" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PORT1: RS485, Modbus RTU master / slave" />
+		<text x="62" y="-92" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Expansion bus socket (RJ45)" />
+		<text x="62" y="-78" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Dimensions: 25.4 x 100 x 84.5 mm" />
+		<text x="62" y="-64" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Power: PE, 0V, 24V" />
+		<text x="62" y="-55" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="RS485: B, A" />
+		<text x="62" y="-46" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="RS232 (PORT0): 3 RXD, 4 TXD, 6 GND" />
+		<text x="62" y="-37" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Expansion: EXP" />
+		<rect x="62" y="-21" width="8" height="4" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:red;color:red" />
+		<text x="74" y="-23" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="+24 V" />
+		<rect x="62" y="-12" width="8" height="4" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:blue;color:blue" />
+		<text x="74" y="-14" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0 V" />
+		<rect x="62" y="-3" width="8" height="4" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:orange;color:orange" />
+		<text x="74" y="-5" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE / FG" />
+		<terminal x="-40" y="-170" name="1L+" orientation="n" type="Generic" uuid="{f01dd752-84f6-5545-ae2b-6ff4750bf7c0}" />
+		<terminal x="-30" y="-170" name="I0.0" orientation="n" type="Generic" uuid="{86ed3c9f-570a-5b80-86b9-1470015e9d1a}" />
+		<terminal x="-20" y="-170" name="I0.1" orientation="n" type="Generic" uuid="{856e1cc5-4b56-5c1d-90f3-fe86ee20e028}" />
+		<terminal x="-10" y="-170" name="I0.2" orientation="n" type="Generic" uuid="{ff177d21-3721-5e98-a3d8-b477dcdc264a}" />
+		<terminal x="0" y="-170" name="I0.3" orientation="n" type="Generic" uuid="{6a7224ab-8de5-520e-baf0-b4f82c578608}" />
+		<terminal x="10" y="-170" name="I0.4" orientation="n" type="Generic" uuid="{d90ddee8-8e8d-59db-a874-b11b1987564c}" />
+		<terminal x="20" y="-170" name="I0.5" orientation="n" type="Generic" uuid="{ba8a1fde-bb9c-5e40-8d5c-921f3c9f724e}" />
+		<terminal x="30" y="-170" name="I0.6" orientation="n" type="Generic" uuid="{556cb07c-9ad8-567d-951b-6590984d7ca9}" />
+		<terminal x="40" y="-170" name="I0.7" orientation="n" type="Generic" uuid="{9235dbbd-e236-5220-9677-a1415caa79a1}" />
+		<terminal x="-50" y="160" name="2L-" orientation="s" type="Generic" uuid="{109f9cdc-501e-5fd7-bdf1-f5db6b73b750}" potential="0V" />
+		<terminal x="-40" y="160" name="2L+" orientation="s" type="Generic" uuid="{06e5a2b1-280b-5361-935e-4e4ee06c02fa}" />
+		<terminal x="-30" y="160" name="Q0.0" orientation="s" type="Generic" uuid="{72ce49b8-bb81-5e20-8b3e-7e85b6c95c10}" />
+		<terminal x="-20" y="160" name="Q0.1" orientation="s" type="Generic" uuid="{efc2ee03-84ff-5090-b549-59fe9eaa1846}" />
+		<terminal x="-10" y="160" name="Q0.2" orientation="s" type="Generic" uuid="{f13e458f-6dc1-506f-80a4-78e58f2a4e4e}" />
+		<terminal x="0" y="160" name="Q0.3" orientation="s" type="Generic" uuid="{9be5202f-27b6-5361-9324-a9f0a772ed62}" />
+		<terminal x="10" y="160" name="Q0.4" orientation="s" type="Generic" uuid="{e32cee88-26b0-56ea-b604-a0f4d1c9afc9}" />
+		<terminal x="20" y="160" name="Q0.5" orientation="s" type="Generic" uuid="{887b702e-5ce0-50f6-aff8-e8b7f3148a6b}" />
+		<terminal x="30" y="160" name="Q0.6" orientation="s" type="Generic" uuid="{ec5d59ab-884b-5376-a780-45a137dc0b50}" />
+		<terminal x="40" y="160" name="Q0.7" orientation="s" type="Generic" uuid="{963b7500-e929-5dda-8383-3ccea2eedc19}" />
+		<terminal x="-40" y="-100" name="PE" orientation="n" type="Generic" uuid="{bab4f50d-c594-50ac-a142-13930e635f55}" />
+		<terminal x="-30" y="-100" name="0V" orientation="n" type="Generic" uuid="{ff757bbb-f088-5f49-b08d-80981dbdc2e7}" potential="0V" />
+		<terminal x="-20" y="-100" name="24V" orientation="n" type="Generic" uuid="{44103336-b7a5-578d-a401-65fd6f7f6285}" />
+		<terminal x="10" y="-100" name="RS485.B" orientation="n" type="Generic" uuid="{16af8b90-ced5-514b-812b-37ad4099da29}" />
+		<terminal x="20" y="-100" name="RS485.A" orientation="n" type="Generic" uuid="{8bfd6dea-1f2a-5db7-96a5-d96e16687af5}" />
+		<terminal x="-20" y="-40" name="RS232.RXD" orientation="n" type="Generic" uuid="{ebff944b-48a1-52b9-af50-c19b392eac1a}" />
+		<terminal x="-10" y="-40" name="RS232.TXD" orientation="n" type="Generic" uuid="{a85eb697-c4c5-5300-a3a2-746686d17603}" />
+		<terminal x="10" y="-40" name="RS232.GND" orientation="n" type="Generic" uuid="{78ebbb42-416c-5e19-af42-79da9d881f0a}" />
+		<terminal x="-10" y="20" name="EXP" orientation="n" type="Generic" uuid="{1f1d7774-d1f2-55c9-93c2-802a7d8549b9}" />
+		<dynamic_text x="-60" y="196" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{68e96f80-3dbe-5a04-99f0-115d4cd6bb25}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+	</description>
+</definition>
