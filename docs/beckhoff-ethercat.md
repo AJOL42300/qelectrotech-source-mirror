@@ -24,7 +24,7 @@ generic symbols have a folder each (`el1xxx_generic`, shown as
 | `el5xxx_encoder` | EL5152 |
 | `el9xxx_system` | EL9011, EL9100, EL9410 |
 | `epp_box` | EPP2338, `ethercat_box_generic` |
-| `twinsafe` | EL1904, EL1918, EL2904, EL2911, EL6910, EK1960 (yellow) |
+| `twinsafe` | EL1904, EL1918, EL2904, EL2911, EL6910 (yellow) |
 | `drives_af1000`, `drives_ax5000` | the drives |
 
 `misc/beckhoff/organize.py <scratch folder> extra-elements` sorts the output
@@ -58,8 +58,7 @@ couplers are schematics in a dotted outline too. The generic cards
 (`el1xxx_generic`, `el2xxx_generic`, `el3xxx_generic`, `el4xxx_generic`,
 `el2652`) have the four appearances, generated from the common model of the
 EL1008 / EL2008 / EL2004 front with the pin number as label (the signal of
-each contact depends on the exact type). The couplers (EK1100,
-EK1960), the EL6910, the EL9011 and `ethercat_box_generic` only have the
+each contact depends on the exact type). The coupler EK1100, the EL6910, the EL9011 and `ethercat_box_generic` only have the
 schematic.
 
 ## What is there
@@ -89,7 +88,7 @@ schematic.
 | `ethercat_box_generic.elmt` | (empty) | (empty) | EtherCAT IN, EtherCAT OUT |
 | `drives_af1000/af11xx.elmt`, `af12xx.elmt` | Beckhoff | AF1103, AF1107, AF1115, AF1130, AF1155 (1 axis); AF1215, AF1222 (2 axes) | see [Drives](#drives-af1000-and-ax5000) |
 | `drives_ax5000/ax51xx.elmt`, `ax52xx.elmt` | Beckhoff | AX5101 to AX5125 (1 axis); AX5201 to AX5225 (2 axes) | see [Drives](#drives-af1000-and-ax5000) |
-| `twinsafe/*.elmt` | Beckhoff | EL1904, EL1918, EL2904, EL6910, EK1960 | yellow safety cards, see [Safety cards](#safety-cards-twinsafe-yellow) |
+| `twinsafe/*.elmt` | Beckhoff | EL1904, EL1918, EL2904, EL6910 | yellow safety cards, see [Safety cards](#safety-cards-twinsafe-yellow) |
 
 Other terminals are already in the standard collection, under
 `10_electric/20_manufacturers_articles/beckhoff`.
@@ -197,7 +196,7 @@ the picture and has no element.
 ## Safety cards (TwinSAFE, yellow)
 
 `twinsafe/` has EL1904, EL1918, EL2904 and EL2911 (symbol, realistic view and
-table), EL6910 and EK1960 (symbol only),
+table), EL6910 (symbol only),
 drawn with a yellow body. EL1904, EL1918, EL2904 and EL2911 have a
 **realistic** view; the EK1914 coupler (`ek_couplers`) has its lowest block of
 terminals (rows 6 to 8 of both columns, the TwinSAFE part) in yellow.
@@ -218,7 +217,7 @@ position of the terminals on the real front (rows of two, left to right) is
 an assumption; the drawing is a layout made here, in vector, with a pitch of
 15 px between the rows, and nothing is copied from the manufacturer. The
 table lists the two pins of each input. The EL1904 and EL2904 have the
-channels on pins 1, 5, 3, 7 and 0 V on 2, 6, 4, 8. The EL6910 and EK1960 are
+channels on pins 1, 5, 3, 7 and 0 V on 2, 6, 4, 8. The EL6910 is
 not verified and flagged so in the description. `misc/beckhoff/gen_safety.py`
 writes them.
 
@@ -635,7 +634,7 @@ the datasheet of your box.
 - The generic cards and the couplers are generated from the common model, not
   from a drawing of the user. The stage circuits of the schematics (input
   optocoupler, output stage) are generic, not taken from a datasheet. The
-  couplers EK1100 and EK1960, the EL6910, the EL9011 and the generic EtherCAT box
+  coupler EK1100, the EL6910, the EL9011 and the generic EtherCAT box
   have no realistic, description or table view yet (the EK1322 has them).
 
 - The ios of the EK1914 name the channels `I1`..`SO2` and follow the public

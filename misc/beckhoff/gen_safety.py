@@ -161,10 +161,7 @@ def main(root):
         files[c.key + "_table.elmt"] = gs.table_of(sym).xml()
     for key, ref, title, desc, ports in (
             ("el6910", "EL6910", "TwinSAFE Logic Terminal",
-             "TwinSAFE logic terminal, no field terminals.", []),
-            ("ek1960", "EK1960", "TwinSAFE Logic EtherCAT coupler",
-             "TwinSAFE logic coupler with two EtherCAT sockets.",
-             [("EtherCAT IN", "w"), ("EtherCAT OUT", "e")])):
+             "TwinSAFE logic terminal, no field terminals.", []),):
         files[key + ".elmt"] = plain(key, ref, title, desc, ports).xml()
     for n, c in files.items():
         with open(os.path.join(out, n), "w", encoding="utf-8", newline="\n") as f:

@@ -16,7 +16,7 @@
 # along with QElectroTech.  If not, see <http://www.gnu.org/licenses/>.
 """Schematic view of the couplers and system terminals.
 
-EK1100, EK1960, EL6910, EL9011 and the generic EtherCAT box have no
+EK1100, EL6910, EL9011 and the generic EtherCAT box have no
 realistic view: their symbol was a plain rectangle.  This script draws them
 as the other schematic views: dotted outline with the clips of the rail, and
 inside the outline the EtherCAT bus (the E-bus block that links the bus
@@ -37,7 +37,7 @@ from gen_schematic import (Sheet, DOTTED, THIN, CLIP_W, CLIP_H,  # noqa: E402
 from realistic_fixes import num, write  # noqa: E402
 
 CARDS = {
-    "ek1100": "E-bus", "ek1960": "E-bus",
+    "ek1100": "E-bus",
     "ethercat_box_generic": "E-bus", "el6910": "Logic", "el9011": "",
 }
 

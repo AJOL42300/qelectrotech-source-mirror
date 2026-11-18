@@ -919,8 +919,7 @@ class TstBeckhoffElements : public QObject
 			for (const QString &key : {QStringLiteral("el1904"),
 									   QStringLiteral("el1918"),
 									   QStringLiteral("el2904"),
-									   QStringLiteral("el6910"),
-									   QStringLiteral("ek1960")}) {
+									   QStringLiteral("el6910")}) {
 				const QDir dir = dirOf(key);
 				const QString file = key + QStringLiteral(".elmt");
 				QVERIFY2(!info(load(dir.filePath(file)).documentElement(),
@@ -931,8 +930,7 @@ class TstBeckhoffElements : public QObject
 						 qPrintable(key));
 				QFile f(dir.filePath(key + QStringLiteral("_realistic.elmt")));
 				if (!f.exists()) {
-					QVERIFY2(key == QLatin1String("el6910")
-							 || key == QLatin1String("ek1960"),
+					QVERIFY2(key == QLatin1String("el6910"),
 							 qPrintable(f.fileName()));
 					continue;
 				}

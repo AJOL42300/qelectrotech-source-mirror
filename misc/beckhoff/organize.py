@@ -57,7 +57,7 @@ FAMILIES = {
     "epp_box": ("EtherCAT P boxes", "Boîtiers EtherCAT P",
                 ("epp2338", "ethercat_box_generic")),
     "twinsafe": ("TwinSAFE (yellow)", "TwinSAFE (jaunes)",
-                 ("ek1960", "el1904", "el1918", "el2904", "el2911", "el6910")),
+                 ("el1904", "el1918", "el2904", "el2911", "el6910")),
 }
 # folders written as they are by gen_drives.py
 KEPT = ("drives_af1000", "drives_ax5000")
