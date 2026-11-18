@@ -51,7 +51,7 @@ import xml.etree.ElementTree as ET
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gen_schematic import (DOTTED, POT_FILLED, POT_STYLE, POT_TEXT,  # noqa
                            POT_WHITE, THIN, WHITE, Sheet, Frame, EL60_BODY,
-                           CLIP_H, CLIP_W)
+                           CLIP_H, CLIP_W, POWER_Y)
 from realistic_fixes import num, text_width, write  # noqa: E402
 import simple_tables  # noqa: E402
 
@@ -227,17 +227,27 @@ def schematic(real, path):
         x, y, _o = PINS[name]
         s.line(x, y - r, x, by1, style[pot][0])
         s.junction(x, by1, pot)
-    # the links between the two pins of a row and the power contacts
+    # the links between the two pins of a row, and from there up to the
+    # power contacts, which are at the common heights of all the cards
+    mx = (LEFT_X + RIGHT_X) / 2
     for row, pot in ((1, "24V"), (2, "0V"), (3, "PE")):
         y = ROWS[row]
+        yc = POWER_Y[pot]
         st, filled, white, _t = style[pot]
         s.line(LEFT_X + r, y, RIGHT_X - r, y, st)
-        mx = (LEFT_X + RIGHT_X) / 2
         s.circle(mx, y, 2.4, filled)
-        s.line(x0 - 1.5, y, LEFT_X - r, y, st)
-        s.rect(x0 - 9.5, y - 1.75, 8, 3.5, white)
-        s.line(RIGHT_X + r, y, x1, y, st)
-        s.arc(x1, y - 4, 8, 8, 90, 180, st)
+        s.line(x0 - 1.5, yc, x1, yc, st)
+        s.rect(x0 - 9.5, yc - 1.75, 8, 3.5, white)
+        s.arc(x1, yc - 4, 8, 8, 90, 180, st)
+        if pot == "PE":
+            # on the left side: the vertical of the 0 V crosses the contact
+            # of the PE without touching it
+            bx = x0 + 2.5
+            s.poly([(LEFT_X - r, y), (bx, y), (bx, yc)], st, closed=False)
+            s.circle(bx, yc, 2.4, filled)
+        else:
+            s.line(mx, y, mx, yc, st)
+            s.circle(mx, yc, 2.4, filled)
     # earth symbol of the PE link (up from the link, ochre)
     f = Frame((LEFT_X + RIGHT_X) / 2, ROWS[3], 0, -1)
     s.line(*f.p(0), *f.p(9), PE_STYLE)

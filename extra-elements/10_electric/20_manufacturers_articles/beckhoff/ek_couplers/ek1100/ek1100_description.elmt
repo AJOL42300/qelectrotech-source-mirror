@@ -68,9 +68,9 @@ Description view made by misc/beckhoff/gen_description.py from the realistic vie
 		<text x="40.38" y="87.4" rotation="0" color="#0000ff" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="0V" />
 		<text x="-39.67" y="22" rotation="0" color="#ff0000" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="Us" />
 		<text x="40.33" y="22" rotation="0" color="#ff0000" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="Up" />
-		<rect x="68.5" y="60" width="6" height="4" antialias="false" style="line-style:none;line-weight:thin;filling:red;color:red" rx="0" ry="0" />
-		<rect x="68.5" y="70" width="6" height="4" antialias="false" style="line-style:none;line-weight:thin;filling:blue;color:blue" rx="0" ry="0" />
-		<rect x="68.5" y="80" width="6" height="4" antialias="false" style="line-style:none;line-weight:thin;filling:orange;color:orange" rx="0" ry="0" />
+		<rect x="68.5" y="13" width="6" height="4" antialias="false" style="line-style:none;line-weight:thin;filling:red;color:red" rx="0" ry="0" />
+		<rect x="68.5" y="23" width="6" height="4" antialias="false" style="line-style:none;line-weight:thin;filling:blue;color:blue" rx="0" ry="0" />
+		<rect x="68.5" y="33" width="6" height="4" antialias="false" style="line-style:none;line-weight:thin;filling:orange;color:orange" rx="0" ry="0" />
 		<text x="-9.08" y="130" rotation="0" color="#000000" font="Roboto Condensed,8,-1,5,75,0,0,0,0,0,Bold" text="EK1100" />
 		<line end1="none" end2="none" y1="-122" antialias="false" y2="-122" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-43.5" length1="4.5" x2="-71" length2="4.5" />
 		<text x="-152.12" y="-119.16" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED Us (system supply)" />
@@ -92,11 +92,11 @@ Description view made by misc/beckhoff/gen_description.py from the realistic vie
 		<line end1="none" end2="none" y1="-28" antialias="false" y2="-28" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="30.25" length1="4.5" x2="82.5" length2="4.5" />
 		<text x="84.5" y="-29.66" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="EtherCAT OUT: RJ45 socket" />
 		<text x="84.5" y="-20.66" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="EtherCAT output" />
+		<line end1="none" end2="none" y1="25" antialias="false" y2="25" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="76" length1="4.5" x2="82.5" length2="4.5" />
+		<text x="84.5" y="23.34" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Power contacts" />
+		<text x="84.5" y="32.34" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24 V / 0 V / PE" />
 		<line end1="none" end2="none" y1="45" antialias="false" y2="45" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="54.6" length1="4.5" x2="82.5" length2="4.5" />
 		<text x="84.5" y="48.31" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="3: +24 V DC (Up)" />
-		<line end1="none" end2="none" y1="72" antialias="false" y2="72" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="76" length1="4.5" x2="82.5" length2="4.5" />
-		<text x="84.5" y="70.34" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Power contacts" />
-		<text x="84.5" y="79.34" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24 V / 0 V / PE" />
 		<line end1="none" end2="none" y1="100" antialias="false" y2="100" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="54.6" length1="4.5" x2="82.5" length2="4.5" />
 		<text x="84.5" y="103.31" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4: 0 V (Up)" />
 		<terminal x="5.75" y="-78" name="EtherCAT IN" orientation="w" type="Generic" uuid="{c7da6c72-b7f6-588c-a40d-0f8a134541d0}" />

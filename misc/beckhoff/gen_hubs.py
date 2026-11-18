@@ -55,7 +55,7 @@ import xml.etree.ElementTree as ET
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gen_schematic import (DOTTED, POT_FILLED, POT_STYLE, POT_TEXT,  # noqa
-                           THIN, WHITE, Sheet, CLIP_H, CLIP_W)
+                           THIN, WHITE, Sheet, CLIP_H, CLIP_W, POWER_Y)
 from gen_ek1322 import (BLACK, DARK, FONT, FONT_BOLD, LED_STYLE,  # noqa
                         Draw, INFO)
 from gen_el9410 import PE_FILL_REAL, PE_FILLED, PE_STYLE, PE_TEXT  # noqa
@@ -154,7 +154,8 @@ class EK1100(Hub):
                 ("1", "+24 V DC (Us)"), ("2", "0 V (Us)"),
                 ("3", "+24 V DC (Up)"), ("4", "0 V (Up)"))
     root_size = (150, 330, 70, 160)
-    contacts_y = (60, 70, 80)      # 24 V, 0 V, PE spring contacts (right)
+    contacts_y = (POWER_Y["24V"] - 2, POWER_Y["0V"] - 2,
+                  POWER_Y["PE"] - 2)   # 24 V, 0 V, PE contacts (right)
 
     def front(self, d):
         x, y, w, h = self.body
@@ -206,7 +207,7 @@ class EK1100(Hub):
         s.text(bx1 + 3, (by0 + by1) / 2 - 2, "E-bus", 4)
         # power contacts: rails stopping on the right face (Up), the
         # coupler has no contact on its left face
-        y24, y0v = -2.0, 10.0
+        y24, y0v = POWER_Y["24V"], POWER_Y["0V"]
         s.power_rails(x0, x0 + w, y24, y0v, left=False, right=True)
         # Us: straight into the coupler; Up: onto the rails
         wires = {"1": ("24V", -35), "2": ("0V", -60),

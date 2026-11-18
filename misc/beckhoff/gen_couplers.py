@@ -38,7 +38,7 @@ from realistic_fixes import num, write  # noqa: E402
 
 CARDS = {
     "ek1100": "E-bus",
-    "ethercat_box_generic": "E-bus", "el6910": "Logic", "el9011": "",
+    "ethercat_box_generic": "E-bus", "el9011": "",
 }
 
 

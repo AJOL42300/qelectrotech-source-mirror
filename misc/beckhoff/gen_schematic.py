@@ -91,6 +91,10 @@ EK1914_PINS = {"I1": "2", "I2": "10", "I3": "3", "I4": "11", "O1": "4",
 # power contacts of the cards (left, right): see the table of the doc
 CONTACTS = {"el2652": (False, False), "el2911": (False, True),
             "ek1914": (False, True)}
+# Common height (y of the element origin, shared by all the cards) of the
+# power contacts: on an island the cards touch, so the right contact of a
+# card faces the left contact of the next one.
+POWER_Y = {"24V": 15, "0V": 25, "PE": 35}
 CLIP_W = 16.0
 CLIP_H = 7.0
 SAFETY = ("el1904", "el2904", "el2911", "el1918", "ek1914")
@@ -302,6 +306,7 @@ class Card:
         self.dyn = rdesc.find("dynamic_text")
         self.sheet = Sheet()
         self.outlines = []      # (x0, y0, x1, y1)
+        self.rail_ys = []       # heights of the power rails drawn
 
     def remap(self, table):
         """Rename the terminals of the I/O table to the pins of the view."""
@@ -339,6 +344,13 @@ class Card:
                 else:
                     d = pin.y - y0
                 best = min(best, d - r - margin)
+                # a stage stops before the power rails, which stay at the
+                # common heights
+                if dy:
+                    for ry in self.rail_ys:
+                        if (ry - pin.y) * dy > 0:
+                            best = min(best,
+                                       abs(ry - pin.y) - r - margin + 1.0)
         return best
 
     def circle_of(self, pin):
@@ -378,72 +390,31 @@ class Card:
         if pin.role == "sup":
             self.sheet.bar(f, length)
 
+    def crosses_rails(self, upper, lower):
+        """A stage between the two pins would cross a power rail."""
+        return any(upper.y - 1 < ry < lower.y + 1 for ry in self.rail_ys)
+
     def pair(self, upper, lower, kind=None):
         gap = lower.y - upper.y
         length = gap - (upper.d + lower.d) / 2
         f = self.stage_from(upper, 0, 1, kind or upper.role, length)
         return f
 
-    def middle_gap(self, body):
-        """Height of the power contacts: as near as possible to the middle
-        of the housing (the contacts of the real terminals are half way
-        up), in a band that no stage crosses: between two rows of
-        terminals, above the stages (22 high) of the lower row and not
-        where a stage joins two rows."""
-        x0, y0, x1, y1 = body
-        pins = [p for p in self.pins if x0 <= p.x <= x1]
-        mid = (y0 + y1) / 2
-        rows = sorted({round(p.y) for p in pins})
-        if not rows:
-            return mid, 6
-        blocked = []
-        cols = {}
-        for p in pins:
-            cols.setdefault(p.x, []).append(p)
-        for col in cols.values():
-            col.sort(key=lambda p: p.y)
-            used = set()
-            for up, low in zip(col, col[1:]):
-                if up.name in used:
-                    continue
-                if low.y - up.y >= 30 and up.role in ("in", "out") \
-                        and low.role not in ("in", "sup", "eth") \
-                        and not (low.role == "out" and up.role != "out"):
-                    blocked.append((up.y, low.y))
-                    used.update((up.name, low.name))
-        bands = [(y0 + 8, rows[0] - 24)]
-        bands += [(a + 9, b - 24) for a, b in zip(rows, rows[1:])
-                  if not any(u <= a and b <= l for u, l in blocked)]
-        bands.append((rows[-1] + 9, y1 - 6))
-        best = None
-        for lo, hi in bands:
-            if hi - lo < 14:
-                continue
-            y = min(max(mid, lo + 7), hi - 7)
-            if best is None or abs(y - mid) < abs(best - mid):
-                best = y
-        # dense housing: half way between the two rows nearest to the middle
-        # that no stage joins, the two rails closer together
-        gaps = [((a + b) / 2, abs((a + b) / 2 - mid))
-                for a, b in zip(rows, rows[1:])
-                if not any(u <= a and b <= l for u, l in blocked)]
-        near = min(gaps, key=lambda g: g[1]) if gaps else None
-        if best is not None and (near is None
-                                 or abs(best - mid) <= 30
-                                 or abs(best - mid) <= near[1]):
-            return best, 6
-        return (near[0], 4) if near else (mid, 6)
-
-    def power(self, body):
+    def power(self, body, zone=None):
         """The power contacts of a housing: +24 V and 0 V rails from edge
-        to edge, and a branch along the left and the right side for the
-        terminals that are on 24 V or 0 V. Returns the linked pins."""
-        x0, y0, x1, y1 = body
-        ym, half = self.middle_gap(body)
-        rails = {"24V": round(ym - half), "0V": round(ym + half)}
+        to edge, at the common heights POWER_Y, and a branch along the
+        left and the right side for the terminals that are on 24 V or 0 V.
+        With a zone (x0, y0, x1, y1) only the branches of the terminals
+        of that zone are drawn, inside the rails of the housing.
+        Returns the linked pins."""
+        x0, y0, x1, y1 = zone or body
+        rails = POWER_Y
         left, right = CONTACTS.get(self.stem, (True, True))
-        self.sheet.power_rails(x0, x1, rails["24V"], rails["0V"], left,
-                               right)
+        if zone is None:
+            if left or right:
+                self.rail_ys += [rails["24V"], rails["0V"]]
+            self.sheet.power_rails(body[0], body[2], rails["24V"],
+                                   rails["0V"], left, right)
         branch_x = {"left": x0 + 2.5, "right": x1 - 2.5}
         linked = set()
         inside = [p for p in self.pins
@@ -513,15 +484,28 @@ class Card:
 
     # builders -------------------------------------------------------------------
     def build_el60(self):
-        bodies = [EL60_BODY]
-        if self.stem == "el2911":
-            bodies.append(EL2911_BODY2)
-        linked = set()
-        for b in bodies:
-            self.outline(*b)
-            linked |= self.power(b)
+        single = self.stem == "el2911"
+        if single:
+            # one housing for the two groups of terminals of the card:
+            # a single outline, the groups separated by a thin line
+            body = (EL60_BODY[0], EL60_BODY[1], EL2911_BODY2[2],
+                    EL2911_BODY2[3])
+            self.outline(*body)
+            linked = self.power(body)
+            half = (EL2911_BODY2[0], body[1], EL2911_BODY2[2], body[3])
+            linked |= self.power(body, half)
+            sx = (EL60_BODY[2] + EL2911_BODY2[0]) / 2
+            self.sheet.line(sx, body[1], sx, body[3], DOTTED)
+            self.sheet.text_centered((EL60_BODY[0] + EL60_BODY[2]) / 2,
+                                     body[1] + 9, "IN 1-4", 5)
+            self.sheet.text_centered((half[0] + half[2]) / 2, body[1] + 9,
+                                     "OUT 1", 5)
+        else:
+            body = EL60_BODY
+            self.outline(*body)
+            linked = self.power(body)
         paired = set()
-        if self.stem == "el2911":
+        if single:
             # clock output (S+) above its safe input (SI), as in the manual
             by_name = {p.name: p for p in self.pins}
             for a, b in (("1", "2"), ("3", "4"), ("5", "6"), ("7", "8")):
@@ -539,6 +523,8 @@ class Card:
                 if gap < 30 or lower.role in ("in", "sup", "eth"):
                     continue
                 if lower.role == "out" and upper.role != "out":
+                    continue
+                if self.crosses_rails(upper, lower):
                     continue
                 self.pair(upper, lower)
                 paired.add(upper.name)
@@ -580,7 +566,11 @@ class Card:
         for col in by_x.values():
             col.sort(key=lambda p: p.y)
             for upper, lower in zip(col[::2], col[1::2]):
-                self.pair(upper, lower, "in")
+                if self.crosses_rails(upper, lower):
+                    self.stub(upper, ("up",), 22.0)
+                    self.stub(lower, ("down",), 22.0)
+                else:
+                    self.pair(upper, lower, "in")
         self.copy_reference()
 
     def build_rows(self, left_x, body):
