@@ -1,0 +1,32 @@
+<definition version="0.100.0" type="element" link_type="simple" width="47" height="320" hotspot_x="20" hotspot_y="149">
+	<uuid uuid="{c2e3fe9f-8233-55be-896c-1e6f3320f9ef}" />
+	<names>
+		<name lang="en">EL6910 TwinSAFE Logic Terminal</name>
+		<name lang="fr">EL6910 TwinSAFE Logic Terminal</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">EL6910</elementInformation>
+		<elementInformation name="designation" show="1">TwinSAFE Logic Terminal</elementInformation>
+		<elementInformation name="description" show="1">TwinSAFE logic terminal, no field terminals and no terminal drawn. Power contacts not drawn: the datasheet gives no power contact connection (current consumption power contacts: -).</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Schematic view made by misc/beckhoff/gen_el6910.py from the datasheet. License: see http://qelectrotech.org/wiki/doc/elements_license
+No power contact drawn: the datasheet gives "current consumption power contacts: -" (not verified), source https://www.beckhoff.com/en-en/products/i-o/ethercat-terminals/el-ed6xxx-communication/el6910.html</informations>
+	<description>
+		<rect x="-14.5" y="-136.7" width="36.5" height="277.2" rx="0" ry="0" style="line-style:none;line-weight:thin;filling:yellow;color:black" antialias="false" />
+		<rect x="-14.5" y="-136.7" width="36.5" height="277.2" rx="0" ry="0" style="line-style:dotted;line-weight:normal;filling:none;color:black" antialias="false" />
+		<rect x="-6.25" y="-143.7" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-3.25" y1="-141.7" x2="6.75" y2="-141.7" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<rect x="-6.25" y="140.5" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-3.25" y1="145.5" x2="6.75" y2="145.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<rect x="-7.25" y="-22" width="22" height="44" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="-3.75" y="-4.33" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="Logic" />
+		<text x="-11.25" y="126.5" rotation="0" color="#000000" font="Roboto Condensed,9,-1,5,75,0,0,0,0,0,Bold" text="EL6910" />
+		<dynamic_text x="-20.5" y="153.5" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{8a45a06d-b797-57ff-bb8d-a078dd48d9cc}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

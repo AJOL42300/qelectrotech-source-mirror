@@ -70,6 +70,8 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QFontDatabase>
+#include <QPainter>
+#include <QPixmap>
 #include <QLabel>
 #include <QProcessEnvironment>
 #include <QRegularExpression>
@@ -2966,7 +2968,20 @@ void QETApp::parseArguments()
 void QETApp::initSplashScreen()
 {
 	if (non_interactive_execution_) return;
-	m_splash_screen = new QSplashScreen(QPixmap(":/ico/app/splash.png"));
+	QPixmap splash(QStringLiteral(":/ico/app/splash.png"));
+	{
+		QPainter painter(&splash);
+		painter.setRenderHint(QPainter::TextAntialiasing);
+		QFont font = painter.font();
+		font.setPixelSize(17);
+		font.setItalic(true);
+		painter.setFont(font);
+		painter.setPen(QColor(230, 244, 255));
+		painter.drawText(QRect(0, 168, splash.width() - 12, 26),
+						 Qt::AlignRight | Qt::AlignVCenter,
+						 QetVersion::forkNotice());
+	}
+	m_splash_screen = new QSplashScreen(splash);
 	m_splash_screen -> show();
 	setSplashScreenStep(tr("Loading...", "splash screen caption"));
 }

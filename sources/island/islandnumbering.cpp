@@ -62,12 +62,12 @@ QString islandOf(const QString &label)
 /**
 	@brief appearancePaths
 	A card can be drawn in four ways, kept in four elements of the same
-	folder: the symbol "name.elmt", the generic view "name_generic.elmt",
-	the realistic view "name_realistic.elmt" and the table of its channels
+	folder: the symbol "name.elmt", the realistic view "name_realistic.elmt",
+	the annotated view "name_description.elmt" and the table of its channels
 	"name_table.elmt".
 	@param path : path of one of them, in a collection
-	@return the paths of the three others, in the order symbol, generic view,
-	realistic view, table; they may not exist
+	@return the paths of the three others, in the order symbol, realistic view,
+	description, table; they may not exist
 */
 QStringList appearancePaths(const QString &path)
 {
@@ -76,8 +76,8 @@ QStringList appearancePaths(const QString &path)
 		return QStringList();
 	}
 	QString base = path.left(path.length() - extension.length());
-	for (const QString &suffix : {QStringLiteral("_generic"),
-								  QStringLiteral("_realistic"),
+	for (const QString &suffix : {QStringLiteral("_realistic"),
+								  QStringLiteral("_description"),
 								  QStringLiteral("_table")}) {
 		if (base.endsWith(suffix)) {
 			base.chop(suffix.length());
@@ -86,8 +86,8 @@ QStringList appearancePaths(const QString &path)
 	}
 	QStringList all;
 	all << base + extension
-		<< base + QStringLiteral("_generic") + extension
 		<< base + QStringLiteral("_realistic") + extension
+		<< base + QStringLiteral("_description") + extension
 		<< base + QStringLiteral("_table") + extension;
 	all.removeAll(path);
 	return all;

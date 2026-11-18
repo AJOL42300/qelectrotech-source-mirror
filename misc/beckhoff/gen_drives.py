@@ -19,7 +19,7 @@
 Usage: python misc/beckhoff/gen_drives.py <extra-elements> [--report]
 
 Every reference gets three appearances: <ref>.elmt (symbol),
-<ref>_generic.elmt (vector redraw of the front of the drive, in colour) and
+<ref>_realistic.elmt (vector redraw of the front of the drive, in colour) and
 <ref>_table.elmt (I/O table). The drawings are redrawn by hand from the
 user's project pictures, which are NOT in the repository: only plain lines,
 rectangles, circles and the names of the connectors. Positions were
@@ -102,20 +102,22 @@ def af_blocks(axes):
         if axis > axes:
             continue
         blocks.append(Block(title, "e", "strip", [
-            Pin("M%d-%s" % (axis, l), l, x, 340 + 20 * i, orient,
-                (tx * s, (360 + 22 * i) * s))
+            Pin("M%d-%s" % (axis, l), l, x, 250 + 20 * i, orient,
+                (tx * s, (360 + 22 * i) * s - 90))
             for i, l in enumerate(("U", "V", "W", "PE"))]))
     blocks.append(Block("X01", "w", "strip", [
-        Pin(l, l, 50, 470 + 20 * i, "w", (55 * s, (498 + 22 * i) * s))
+        Pin(l, l, 50, 350 + 20 * i, "w",
+            (55 * s, (498 + 22 * i) * s - 120))
         for i, l in enumerate(("L1", "L2", "L3", "PE", "RB+", "RB-"))]))
-    return blocks, (170, 630)
+    return blocks, (150, 490)
 
 
 def ax_blocks(axes):
     s = AX_SCALE
     blocks = [Block("X04 X05", "n", "rj45", [
-        Pin("EtherCAT IN", "X04 IN", 60, 250, "n", (210 * s, 810 * s)),
-        Pin("EtherCAT OUT", "X05 OUT", 100, 250, "n", (320 * s, 810 * s))])]
+        Pin("EtherCAT IN", "X04 IN", 60, 230, "n", (210 * s, 810 * s - 20)),
+        Pin("EtherCAT OUT", "X05 OUT", 100, 230, "n",
+            (320 * s, 810 * s - 20))])]
     dsubs = [("X11", 30, 103), ("X12", 60, 200), ("X21", 100, 327),
              ("X22", 130, 425)][:2 * axes]
     blocks.append(Block("X11 X12 X21 X22", "e", "dsub", [
@@ -126,24 +128,24 @@ def ax_blocks(axes):
         Pin("X06-" + l, l, 40 + 10 * i, 170, "s",
             ((168 + 21.8 * i) * s, 548 * s)) for i, l in enumerate(x06)], io))
     blocks.append(Block("X02", "w", "strip", [
-        Pin("DC+", "DC+", 30, 360, "w", (115 * s, 1170 * s)),
-        Pin("DC-", "DC-", 30, 380, "w", (115 * s, 1220 * s))]))
+        Pin("DC+", "DC+", 30, 300, "w", (115 * s, 1170 * s - 60)),
+        Pin("DC-", "DC-", 30, 320, "w", (115 * s, 1220 * s - 60))]))
     blocks.append(Block("X01", "w", "strip", [
-        Pin(l, l, 30, 480 + 20 * i, "w", (100 * s, y * s))
+        Pin(l, l, 30, 350 + 20 * i, "w", (100 * s, y * s - 130))
         for i, (l, y) in enumerate((("L1", 1537), ("L2", 1586),
                                     ("L3N", 1631), ("PE", 1672)))]))
     blocks.append(Block("Up Us GND", "w", "strip", [
-        Pin(l, l, 130, 320 + 20 * i, "e", (400 * s, y * s))
+        Pin(l, l, 130, 280 + 20 * i, "e", (400 * s, y * s - 40))
         for i, (l, y) in enumerate((("Up", 1028), ("Us", 1070),
                                     ("GND", 1113)))]))
     # the motor connectors are not visible on the pictures: generic block
     # below the body, 20 px between the contacts
     for axis in range(1, axes + 1):
         blocks.append(Block("Motor %d" % axis, "e", "motor", [
-            Pin("M%d-%s" % (axis, l), l, 20 + 80 * (axis - 1) + 20 * i, 640,
+            Pin("M%d-%s" % (axis, l), l, 20 + 80 * (axis - 1) + 20 * i, 450,
                 "s")
             for i, l in enumerate(("U", "V", "W", "PE"))]))
-    return blocks, (170, 610)
+    return blocks, (180, 490)
 
 
 def infos_of(ref, axes, family, rating, extra):
@@ -216,11 +218,11 @@ def symbol(ref, axes, family, rating, blocks):
     return e
 
 
-def generic(ref, axes, family, rating, blocks, size):
+def realistic(ref, axes, family, rating, blocks, size):
     note = AF_NOTE if family == "AF" else AX_NOTE
-    e = Elmt(ref.lower() + "_generic",
-             "%s servo drive, %d axis - generic" % (ref, axes),
-             "%s variateur, %d axe(s) - générique" % (ref, axes),
+    e = Elmt(ref.lower() + "_realistic",
+             "%s servo drive, %d axis - realistic view" % (ref, axes),
+             "%s variateur, %d axe(s) - vue réaliste" % (ref, axes),
              infos_of(ref, axes, family, rating, note), NOTE)
     add_io(e, blocks)
     w, h = size
@@ -247,9 +249,9 @@ def generic(ref, axes, family, rating, blocks, size):
                 e.rect(p.x - 10, p.y - 30, 20, 60, "normal", "gray")
                 e.text(p.x - 8, p.y - 40, p.label, 5)
         elif b.shape == "motor":
-            e.rect(min(xs) - 12, 620, max(xs) - min(xs) + 24, 40, "normal",
+            e.rect(min(xs) - 8, min(ys) - 20, max(xs) - min(xs) + 16, 40, "normal",
                    "orange")
-            e.text(min(xs) - 12, 662, b.title, 5)
+            e.text(min(xs) - 8, min(ys) + 22, b.title, 5)
         else:
             if b.shape == "row":
                 rx, ry = min(xs) - 10, min(ys) - 16
@@ -293,7 +295,7 @@ def write_family(root, folder, title_en, title_fr, family, refs, build,
         blocks, size = build(axes)
         sym = symbol(ref, axes, family, rating, blocks)
         files[ref.lower() + ".elmt"] = sym.xml()
-        files[ref.lower() + "_generic.elmt"] = generic(
+        files[ref.lower() + "_realistic.elmt"] = realistic(
             ref, axes, family, rating, blocks, size).xml()
         files[ref.lower() + "_table.elmt"] = gs.table_of(sym).xml()
         if do_report:

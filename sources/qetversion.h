@@ -34,6 +34,9 @@ namespace QetVersion
 	QVersionNumber currentVersion();
 	QString displayedVersion();
 
+	// Shown next to the version in the splash screen and the About box. It
+	// is not part of displayedVersion(), which is written in project files.
+	QString forkNotice();
 	QVersionNumber versionZeroDotSix();
 
 	void toXmlAttribute(QDomElement &xml);

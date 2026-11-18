@@ -1,0 +1,66 @@
+<definition version="0.100.0" type="element" link_type="simple" width="85" height="302" hotspot_x="37" hotspot_y="149">
+	<uuid uuid="{66742bba-40c4-5832-b8ef-8e4756067f9a}" />
+	<names>
+		<name lang="en">EK1322 EtherCAT P junction with feed-in</name>
+		<name lang="fr">EK1322 jonction EtherCAT P avec alimentation</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">EK1322</elementInformation>
+		<elementInformation name="designation" show="1">EtherCAT P junction, 2 ports, with feed-in</elementInformation>
+		<elementInformation name="description" show="1">EtherCAT P coupler with feed-in: two P-coded M8 sockets, X1 (previous strand) and X2 (next strand), and four feed-in terminals: 1 Us +24 V DC (system and sensor supply), 2 Us 0 V, 3 Up +24 V DC (peripheral voltage), 4 Up 0 V. Each socket is one terminal. The position of the terminals and of the LEDs (Run, L/A X1, L/A X2, Us, Up) is assumed.</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, drawn from the public description of the product, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Schematic view made by misc/beckhoff/gen_ek1322.py: the junction between the ports and the feed-in is generic. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="-32" y="-136.7" width="75" height="277.2" rx="0" ry="0" style="line-style:dotted;line-weight:normal;filling:none;color:black" antialias="false" />
+		<rect x="-3" y="-143.7" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="0" y1="-141.7" x2="10" y2="-141.7" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<rect x="-3" y="140.5" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="0" y1="145.5" x2="10" y2="145.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<rect x="-30" y="-62" width="70" height="14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="-10.73" y="-59.33" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="EtherCAT P" />
+		<line x1="5" y1="-73" x2="5" y2="-62" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="5" y1="-37" x2="5" y2="-48" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-15" y1="40.5" x2="-15" y2="-48" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
+		<circle x="-16.2" y="-49.2" diameter="2.4" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<line x1="-19.5" y1="100" x2="-27" y2="100" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
+		<line x1="-27" y1="100" x2="-27" y2="-48" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
+		<circle x="-28.2" y="-49.2" diameter="2.4" style="line-style:normal;line-weight:thin;filling:blue;color:blue" antialias="false" />
+		<line x1="25" y1="40.5" x2="25" y2="-48" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
+		<circle x="23.8" y="-49.2" diameter="2.4" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<line x1="29.5" y1="100" x2="35" y2="100" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
+		<line x1="35" y1="100" x2="35" y2="-48" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
+		<circle x="33.8" y="-49.2" diameter="2.4" style="line-style:normal;line-weight:thin;filling:blue;color:blue" antialias="false" />
+		<text x="-13" y="-10" rotation="0" color="#ff0000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="+24 V" />
+		<text x="-25" y="15" rotation="0" color="#0000ff" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="0 V" />
+		<text x="27" y="-10" rotation="0" color="#ff0000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="+24 V" />
+		<text x="28" y="15" rotation="0" color="#0000ff" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="0 V" />
+		<text x="-9.5" y="47" rotation="0" color="#ff0000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="Us" />
+		<text x="10.5" y="47" rotation="0" color="#ff0000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="Up" />
+		<circle x="-2" y="-87" diameter="14" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="2" y="-84.33" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="X1" />
+		<circle x="-2" y="-37" diameter="14" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="1.7" y="-34.33" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="X2" />
+		<circle x="-19.5" y="40.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="-16.33" y="40.67" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="1" />
+		<circle x="-19.5" y="95.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="-16.63" y="95.67" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="2" />
+		<circle x="20.5" y="40.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="23.37" y="40.67" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="3" />
+		<circle x="20.5" y="95.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="23.37" y="95.67" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="4" />
+		<text x="-10.31" y="123.67" rotation="0" color="#000000" font="Roboto Condensed,8,-1,5,75,0,0,0,0,0,Bold" text="EK1322" />
+		<terminal x="5" y="-80" name="X1" orientation="n" type="Generic" uuid="{bbe8e5f3-b5ed-5142-a3ff-4c0dbbf169b0}" />
+		<terminal x="5" y="-30" name="X2" orientation="s" type="Generic" uuid="{67a9fbde-c278-5758-a1a6-4e9e704bc280}" />
+		<terminal x="-15" y="45" name="1" orientation="s" type="Generic" uuid="{3a76cff5-176d-5a51-8951-3911b59f49c2}" potential="24V" />
+		<terminal x="-15" y="100" name="2" orientation="s" type="Generic" uuid="{d8276dfd-9cfa-52b6-aa6c-10e519b564cb}" potential="0V" />
+		<terminal x="25" y="45" name="3" orientation="s" type="Generic" uuid="{b104b381-acbe-5a49-aa72-df3ce64980e5}" potential="24V" />
+		<terminal x="25" y="100" name="4" orientation="s" type="Generic" uuid="{f84ec9eb-233e-596b-ab0c-79ab7b452f8d}" potential="0V" />
+		<dynamic_text x="-32" y="155.89" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{ea864faf-a19a-52a3-bb12-5b8b0a67d816}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

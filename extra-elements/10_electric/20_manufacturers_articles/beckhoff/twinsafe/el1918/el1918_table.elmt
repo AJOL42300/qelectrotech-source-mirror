@@ -1,0 +1,80 @@
+<definition version="0.100.0" type="element" link_type="master" width="250" height="154" hotspot_x="5" hotspot_y="29">
+	<uuid uuid="{ea18e5d2-def7-58ed-a34b-71e982f7bb14}"/>
+	<names>
+		<name lang="en">EL1918 EtherCAT Terminal, 8 fail-safe digital inputs, 24 V DC - I/O table</name>
+		<name lang="fr">EL1918 EtherCAT Terminal, 8 fail-safe digital inputs, 24 V DC - tableau d'E/S</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">EL1918</elementInformation>
+		<elementInformation name="designation" show="1">EtherCAT Terminal, 8 fail-safe digital inputs, 24 V DC</elementInformation>
+		<elementInformation name="description" show="1">TwinSAFE input terminal with 16 terminals: for each input n, a clock output Sn+ and a safe input SIn (terminal Sn-). The order is 1, 3, 5, 7, 2, 4, 6, 8 (terminals 1 to 16). 16 terminals (user request, public Beckhoff list). The terminal order is documented, the physical arrangement (rows of two) is an assumption: check it before use.</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="66"/>
+				<column index="2" width="130"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="44"/>
+			</columnWidths>
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="true"/>
+				<column index="2" visible="true"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+				<column index="5" visible="true"/>
+			</columnVisibility>
+			<columnNames>
+				<column index="0"></column>
+				<column index="1">ID TwinCAT</column>
+				<column index="2">Label</column>
+				<column index="3"></column>
+				<column index="4"></column>
+				<column index="5">N° pin</column>
+			</columnNames>
+			<columnOrder>5,2,1</columnOrder>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
+			<plcIOs>
+				<plcIO type="entree_digitale" address="SI1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>2</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>10</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI3" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>4</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI4" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>12</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI5" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>6</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI6" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>14</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI7" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>8</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI8" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>16</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="0" y="-22" width="240" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
+		<dynamic_text x="3" y="-20.1" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{716f062e-e444-55c7-8b51-b67716bf68c9}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>label</info_name></dynamic_text>
+		<dynamic_text x="38.0" y="-19.2" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{85436ada-3aba-5181-8193-1811a4505eb0}" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>manufacturer_reference</info_name></dynamic_text>
+		<dynamic_text x="75.7" y="-16.5" z="25" text_width="161" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{ed83804b-3aec-593c-80ef-d2847a6b045c}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
+		<plc_table x="0" y="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+	</description>
+</definition>

@@ -75,21 +75,32 @@ void tst_IslandNumbering::copyOfAnIslandKeepsTheConvention()
 
 void tst_IslandNumbering::appearancesAreSiblingsOfTheSymbol()
 {
-	const QString dir = "embed://import/15_beckhoff_ethercat/";
-	const QStringList symbol_others{dir + "el1008_generic.elmt",
-									dir + "el1008_realistic.elmt",
-									dir + "el1008_table.elmt"};
-	QCOMPARE(IslandNumbering::appearancePaths(dir + "el1008.elmt"),
+	const QString dir = "embed://import/10_electric/20_manufacturers_articles/"
+						"beckhoff/el1xxx_digital_in/";
+	const QString dir8 = dir + "el1008/";
+	const QString gen = dir + "el1xxx_generic/";
+	const QStringList symbol_others{dir8 + "el1008_realistic.elmt",
+									dir8 + "el1008_description.elmt",
+									dir8 + "el1008_table.elmt"};
+	QCOMPARE(IslandNumbering::appearancePaths(dir8 + "el1008.elmt"),
 			 symbol_others);
-	QCOMPARE(IslandNumbering::appearancePaths(dir + "el1008_realistic.elmt"),
-			 (QStringList{dir + "el1008.elmt", dir + "el1008_generic.elmt",
-						  dir + "el1008_table.elmt"}));
-	QCOMPARE(IslandNumbering::appearancePaths(dir + "el1008_generic.elmt"),
-			 (QStringList{dir + "el1008.elmt", dir + "el1008_realistic.elmt",
-						  dir + "el1008_table.elmt"}));
-	QCOMPARE(IslandNumbering::appearancePaths(dir + "el1008_table.elmt"),
-			 (QStringList{dir + "el1008.elmt", dir + "el1008_generic.elmt",
-						  dir + "el1008_realistic.elmt"}));
+	QCOMPARE(IslandNumbering::appearancePaths(dir8 + "el1008_realistic.elmt"),
+			 (QStringList{dir8 + "el1008.elmt",
+						  dir8 + "el1008_description.elmt",
+						  dir8 + "el1008_table.elmt"}));
+	QCOMPARE(IslandNumbering::appearancePaths(
+				 dir8 + "el1008_description.elmt"),
+			 (QStringList{dir8 + "el1008.elmt",
+						  dir8 + "el1008_realistic.elmt",
+						  dir8 + "el1008_table.elmt"}));
+	QCOMPARE(IslandNumbering::appearancePaths(dir8 + "el1008_table.elmt"),
+			 (QStringList{dir8 + "el1008.elmt",
+						  dir8 + "el1008_realistic.elmt",
+						  dir8 + "el1008_description.elmt"}));
+	QCOMPARE(IslandNumbering::appearancePaths(gen + "el1xxx_generic.elmt"),
+			 (QStringList{gen + "el1xxx_generic_realistic.elmt",
+						  gen + "el1xxx_generic_description.elmt",
+						  gen + "el1xxx_generic_table.elmt"}));
 	QVERIFY(IslandNumbering::appearancePaths("no_extension").isEmpty());
 }
 

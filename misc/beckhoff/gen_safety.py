@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with QElectroTech.  If not, see <http://www.gnu.org/licenses/>.
-"""Write the generic Beckhoff TwinSAFE ("yellow") elements.
+"""Write the Beckhoff TwinSAFE ("yellow") symbols and I/O tables.
 
 Usage: python misc/beckhoff/gen_safety.py <extra-elements>
 
@@ -33,20 +33,30 @@ YELLOW = "yellow"
 GENERIC = ("Terminal numbering follows the user's own drawing and is NOT "
            "verified against the datasheet: check it before use.")
 
+# EL1918 terminal order from the public Beckhoff documentation (factual list
+# only): input n -> (clock output terminal, safe input terminal)
+EL1918_ORDER = (1, 3, 5, 7, 2, 4, 6, 8)
+EL1918_TERMINALS = {n: (2 * k + 1, 2 * k + 2)
+                    for k, n in enumerate(EL1918_ORDER)}
+EL1918_NOTE = ("16 terminals (user request, public Beckhoff list). The "
+               "terminal order is documented, the physical arrangement "
+               "(rows of two) is an assumption: check it before use.")
+
 
 class Safety:
     def __init__(self, key, ref, title, desc, pins, ios, rest=None,
-                 tabled=True):
+                 tabled=True, note=GENERIC):
         self.key, self.ref, self.title, self.desc = key, ref, title, desc
         self.pins = pins      # terminal numbers, in physical order
         self.ios = ios        # (kind, signal, [terminals])
         self.rest = rest or {}  # terminal -> label of the terminals without channel
         self.tabled = tabled
+        self.note = note
 
     def infos(self):
         return [("manufacturer", "Beckhoff"), ("manufacturer_reference", self.ref),
                 ("designation", self.title),
-                ("description", "%s %s" % (self.desc, GENERIC))]
+                ("description", "%s %s" % (self.desc, self.note))]
 
     def label_of(self, pin):
         if pin in self.rest:
@@ -89,30 +99,9 @@ class Safety:
         e.dyn(-50, h + 16, "designation", 6)
         return e
 
-    def generic(self):
-        e = Elmt(self.key + "_generic",
-                 "%s %s - generic" % (self.ref, self.title),
-                 "%s %s - générique" % (self.ref, self.title), self.infos(), NOTE)
-        self.add_io(e)
-        left, right = self.split()
-        rows = max(len(left), len(right), 1)
-        h = 40 + 10 * rows + 20
-        e.rect(0, 0, 70, h, fill=YELLOW)
-        e.text(4, 4, "BECKHOFF", 4, True)
-        e.text(4, 14, self.ref, 8, True)
-        for column, x in ((left, 20), (right, 50)):
-            for i, pin in enumerate(column):
-                y = 40 + 10 * i
-                e.circle(x, y, 6)
-                e.terminal(x, y, pin, "w" if x < 35 else "e")
-                e.text(4 if x < 35 else 58, y - 4, pin, 4)
-        e.dyn(0, h + 4, "label")
-        return e
-
 
 def plain(key, ref, title, desc, ports):
     """Safety module without field terminals (logic): only bus sockets."""
-    out = {}
     e = Elmt(key, "%s %s" % (ref, title), "%s %s" % (ref, title),
              [("manufacturer", "Beckhoff"), ("manufacturer_reference", ref),
               ("designation", title), ("description", "%s %s" % (desc, GENERIC))],
@@ -128,18 +117,7 @@ def plain(key, ref, title, desc, ports):
         e.line(x, y, x + (10 if side == "w" else -10), y)
         e.text(-44 if side == "w" else 44 - 4.2 * len(name), y - 6, name, 6)
     e.dyn(-50, h + 4, "label")
-    r = Elmt(key + "_generic", "%s %s - generic" % (ref, title),
-             "%s %s - générique" % (ref, title), list(e.infos), NOTE)
-    r.rect(0, 0, 70, 60 + 20 * len(ports), fill=YELLOW)
-    r.text(4, 4, "BECKHOFF", 4, True)
-    r.text(4, 14, ref, 8, True)
-    for i, (name, side) in enumerate(ports):
-        y = 40 + 20 * i
-        x = 0 if side == "w" else 70
-        r.terminal(x, y, name, side)
-        r.rect(x - 10 if side == "w" else x - 4, y - 8, 14, 16)
-    r.dyn(0, 66 + 20 * len(ports), "label")
-    return e, r
+    return e
 
 
 def cards():
@@ -154,11 +132,14 @@ def cards():
                [("entree_digitale", "SI%d" % i, [rows[i]]) for i in range(1, 5)],
                {"2": "0V1", "6": "0V2", "4": "0V3", "8": "0V4"}),
         Safety("el1918", "EL1918", "EtherCAT Terminal, 8 fail-safe digital inputs, 24 V DC",
-               "TwinSAFE input terminal, 8 terminals as drawn by the user (S1 to S8): "
-               "SI1 to SI8 on the terminals 1, 5, 2, 6, 3, 7, 4 and 8.",
-               [str(i) for i in range(1, 9)],
-               [("entree_digitale", "SI%d" % (i + 1), [str(p)])
-                for i, p in enumerate(gs.EL8_PINS)]),
+               "TwinSAFE input terminal with 16 terminals: for each input n, "
+               "a clock output Sn+ and a safe input SIn (terminal Sn-). The "
+               "order is 1, 3, 5, 7, 2, 4, 6, 8 (terminals 1 to 16).",
+               [str(i) for i in range(1, 17)],
+               [("entree_digitale", "SI%d" % n, [str(EL1918_TERMINALS[n][1])])
+                for n in range(1, 9)],
+               {str(EL1918_TERMINALS[n][0]): "S%d+" % n for n in range(1, 9)},
+               note=EL1918_NOTE),
         Safety("el2904", "EL2904", "EtherCAT Terminal, 4 fail-safe digital outputs, 24 V DC",
                "TwinSAFE output terminal: SO1 to SO4 on the terminals 1, 5, 3 and 7; "
                "the terminals 2, 6, 4 and 8 are 0 V.",
@@ -177,17 +158,11 @@ def main(root):
     for c in cards():
         sym = c.symbol()
         files[c.key + ".elmt"] = sym.xml()
-        files[c.key + "_generic.elmt"] = c.generic().xml()
         files[c.key + "_table.elmt"] = gs.table_of(sym).xml()
     for key, ref, title, desc, ports in (
             ("el6910", "EL6910", "TwinSAFE Logic Terminal",
-             "TwinSAFE logic terminal, no field terminals.", []),
-            ("ek1960", "EK1960", "TwinSAFE Logic EtherCAT coupler",
-             "TwinSAFE logic coupler with two EtherCAT sockets.",
-             [("EtherCAT IN", "w"), ("EtherCAT OUT", "e")])):
-        sym, real = plain(key, ref, title, desc, ports)
-        files[key + ".elmt"] = sym.xml()
-        files[key + "_generic.elmt"] = real.xml()
+             "TwinSAFE logic terminal, no field terminals.", []),):
+        files[key + ".elmt"] = plain(key, ref, title, desc, ports).xml()
     for n, c in files.items():
         with open(os.path.join(out, n), "w", encoding="utf-8", newline="\n") as f:
             f.write(c)

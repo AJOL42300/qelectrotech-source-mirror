@@ -1,0 +1,80 @@
+<definition version="0.100.0" type="element" link_type="master" width="250" height="154" hotspot_x="5" hotspot_y="29">
+	<uuid uuid="{74bbed86-1156-59e0-bf72-1e0e7ded74be}" />
+	<names>
+		<name lang="en">EPP2338 EtherCAT P box, 8 channels - I/O table</name>
+		<name lang="fr">EPP2338 boîtier EtherCAT P, 8 voies - tableau d'E/S</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">EPP2338-0002</elementInformation>
+		<elementInformation name="designation" show="1">EtherCAT P Box, 8-channel digital input/output, 24 V DC, M12</elementInformation>
+		<elementInformation name="description" show="1">EPP2338-0002 is the M12 variant (the -0001 is the M8 one). EtherCAT P box, IP65/66/67, 30 x 126 x 26.5 mm, about 165 g, 2 fixing holes: four M12 sockets X01 to X04, 5-pin A-coded, two channels each (pin 4 = channel A, pin 2 = channel B, pin 1 = +24 V DC Up, pin 3 = GND P, pin 5 not connected), and two M8 EtherCAT P sockets, 4-pin P-coded, X50 IN and X51 OUT (pin 1 Tx+/GNDs, 2 Rx+/GNDp, 3 Rx-/Up, 4 Tx-/Us). Us and Up 24 V DC, 3 A each; 0.5 A per channel (verified on the public Beckhoff data of the EPP2338-0002). Each M12 socket is ONE terminal (X01 to X04) shared by its two channels (X01(1), X01(2)...), the channel is the signal of the I/O table, not the pin. ASSUMED (not stated in text by the data sheet): the positions of the sockets and LEDs on the housing and the number of channel LEDs. FIXING (verified, Beckhoff EPP2xxx documentation, chapter Mounting, Fixing, infosys.beckhoff.com/content/1033/epp2xxx/1072587019.html): narrow housing, two M3 bolts, bolts longer than 15 mm, holes not threaded; the documentation gives no tightening torque for the bolts. The label of the box is the card id (A1.10).</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="66"/>
+				<column index="2" width="130"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="44"/>
+			</columnWidths>
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="true"/>
+				<column index="2" visible="true"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+				<column index="5" visible="true"/>
+			</columnVisibility>
+			<columnNames>
+				<column index="0"></column>
+				<column index="1">ID TwinCAT</column>
+				<column index="2">Label</column>
+				<column index="3"></column>
+				<column index="4"></column>
+				<column index="5">N° pin</column>
+			</columnNames>
+			<columnOrder>5,2,1</columnOrder>
+			<headerFont family="Roboto Condensed" size="7" bold="true" />
+			<cellFont family="Roboto Condensed" size="7" bold="false" />
+			<plcIOs>
+				<plcIO type="entree_universelle" address="X01(1)" functionText="In-/Output A" comment="" crossRef="" terminalCount="1">
+					<terminal>X01</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X01(2)" functionText="In-/Output B" comment="" crossRef="" terminalCount="1">
+					<terminal>X01</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X02(1)" functionText="In-/Output A" comment="" crossRef="" terminalCount="1">
+					<terminal>X02</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X02(2)" functionText="In-/Output B" comment="" crossRef="" terminalCount="1">
+					<terminal>X02</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X03(1)" functionText="In-/Output A" comment="" crossRef="" terminalCount="1">
+					<terminal>X03</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X03(2)" functionText="In-/Output B" comment="" crossRef="" terminalCount="1">
+					<terminal>X03</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X04(1)" functionText="In-/Output A" comment="" crossRef="" terminalCount="1">
+					<terminal>X04</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X04(2)" functionText="In-/Output B" comment="" crossRef="" terminalCount="1">
+					<terminal>X04</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="0" y="-22" width="240" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
+		<dynamic_text x="3" y="-20.1" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{c7e3a469-de3b-52aa-b8e2-57c326f3bb47}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>label</info_name></dynamic_text>
+		<dynamic_text x="38.0" y="-19.2" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{cb270b2c-c15d-5e06-8739-1523e15a6e9b}" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>manufacturer_reference</info_name></dynamic_text>
+		<dynamic_text x="107.0" y="-21.0" z="25" text_width="130" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{1b12af48-e3c0-5495-838c-a2184cf3fdce}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
+		<plc_table x="0" y="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+	</description>
+</definition>

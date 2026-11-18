@@ -1,0 +1,92 @@
+<definition version="0.100.0" type="element" link_type="master" width="47" height="302" hotspot_x="20" hotspot_y="149">
+	<uuid uuid="{26cfd6ec-0818-5f65-9e7c-4c90ede44aa6}" />
+	<names>
+		<name lang="en">EL2652 relay output terminal (generic)</name>
+		<name lang="fr">EL2652 borne de sortie relais (générique)</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">EL2652</elementInformation>
+		<elementInformation name="designation" show="1">EL2652 EtherCAT Terminal, relay output</elementInformation>
+		<elementInformation name="description" show="1">EtherCAT Terminal, relay output terminal. Generic layout: contacts 1 to 4; the signal on each contact depends on the exact type, see its datasheet. The I/O table lists the 4 contacts: edit it in the element properties.</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="8.00">
+			<columnVisibility>
+				<column index="0" visible="false" />
+				<column index="1" visible="false" />
+				<column index="2" visible="false" />
+				<column index="3" visible="false" />
+				<column index="4" visible="false" />
+			</columnVisibility>
+			<plcIOs>
+				<plcIO type="sortie_digitale" address="1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>1</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>2</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="3" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>3</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="4" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>4</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: the stages are generic, check them against the datasheet. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="-14.5" y="-136.7" width="36.5" height="277.2" rx="0" ry="0" style="line-style:dotted;line-weight:normal;filling:none;color:black" antialias="false" />
+		<rect x="-6.25" y="-143.7" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-3.25" y1="-141.7" x2="6.75" y2="-141.7" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<rect x="-6.25" y="140.5" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-3.25" y1="145.5" x2="6.75" y2="145.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-5" y1="-40.5" x2="-5" y2="-24.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<circle x="-9.5" y="-24.5" diameter="9" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-5" y1="-23.3" x2="-5" y2="-20.3" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-3.5" y1="-21.8" x2="-6.5" y2="-21.8" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-5" y1="-15.5" x2="-5" y2="0.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-5" y1="64.5" x2="-5" y2="83" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<circle x="-9.5" y="83" diameter="9" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-5" y1="84.2" x2="-5" y2="87.2" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-3.5" y1="85.7" x2="-6.5" y2="85.7" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-5" y1="92" x2="-5" y2="110.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<circle x="-9.5" y="-49.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="-6.33" y="-49.33" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="1" />
+		<circle x="-9.5" y="0.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="-6.63" y="0.67" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="2" />
+		<circle x="-9.5" y="55.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="-6.63" y="55.67" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="3" />
+		<circle x="-9.5" y="110.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="-6.63" y="110.67" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="4" />
+		<circle x="5.5" y="-49.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="8.37" y="-49.33" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="5" />
+		<circle x="5.5" y="0.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="8.37" y="0.67" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="6" />
+		<circle x="5.5" y="55.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="8.37" y="55.67" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="7" />
+		<circle x="5.5" y="110.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="8.37" y="110.67" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="8" />
+		<text x="-7.29" y="-7" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2" />
+		<text x="-7.29" y="103" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4" />
+		<text x="-7.29" y="48" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="3" />
+		<text x="-6.87" y="-57" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="1" />
+		<text x="-10.7" y="135.74" font="Roboto Condensed,8,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="EL2652" />
+		<terminal x="-5" y="-45" name="1" orientation="w" type="Generic" uuid="{afc8eb95-8ab9-5287-949e-616bc97c11d3}" />
+		<terminal x="-5" y="5" name="2" orientation="w" type="Generic" uuid="{ce8c310f-d21e-5c82-bd3a-6c3f1e70b955}" />
+		<terminal x="-5" y="60" name="3" orientation="w" type="Generic" uuid="{bfc30913-d494-504e-9baa-23c159902063}" />
+		<terminal x="-5" y="115" name="4" orientation="w" type="Generic" uuid="{335185ab-e972-5a12-9cec-0883ef60c0d9}" />
+		<terminal x="10" y="-45" name="5" orientation="e" type="Generic" uuid="{2af8454c-7e2f-5d74-9c28-0cfdd11b5e9b}" />
+		<terminal x="10" y="5" name="6" orientation="e" type="Generic" uuid="{baae0495-ce3c-5300-8752-4a2088c53052}" />
+		<terminal x="10" y="60" name="7" orientation="e" type="Generic" uuid="{c18358cb-b811-5f85-8c06-cadfe4234d3d}" />
+		<terminal x="10" y="115" name="8" orientation="e" type="Generic" uuid="{b1d7659c-7221-5694-9dac-3669e95f0773}" />
+		<dynamic_text x="-20.96" y="155.89" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{34d2490b-19a7-50d4-ad82-9f4a6e0404ab}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

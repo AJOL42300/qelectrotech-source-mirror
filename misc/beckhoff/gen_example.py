@@ -16,29 +16,41 @@
 # along with QElectroTech.  If not, see <http://www.gnu.org/licenses/>.
 """Write examples/beckhoff_islands_example.qet.
 
-The project shows one EtherCAT island: its head A1.00 and three child cards
-A1.10, A1.20 and A1.30. Each card is drawn three times (symbol, realistic
-view, I/O table) with the same label, on three folios, and a few card pins
-are wired so that they show as used. The generic Beckhoff elements of
-extra-elements/15_beckhoff_ethercat are embedded in the project; nothing
-comes from a manufacturer.
+The project shows four EtherCAT islands (A1 to A4). Each island has four
+folios: symbols, realistic views, description views (on two pages when
+wider than a folio) and I/O tables. The head comes first, then the cards in
+the same order, at the same position on the symbol and realistic folios, and
+with the same label (A1.00, A1.10...) in every view. A few card pins are
+wired so that they show as used. The generator then checks that the
+terminals of a folio never overlap and that a card has the same terminals in
+all its views. The Beckhoff elements of
+extra-elements/10_electric/20_manufacturers_articles/beckhoff (family folders) are embedded in the
+project; nothing comes from a manufacturer.
 
 Usage: python misc/beckhoff/gen_example.py
 The output is deterministic (all uuids are derived from fixed names).
 """
 import copy
 import os
+import sys
 import uuid
 import xml.etree.ElementTree as ET
 from xml.sax.saxutils import quoteattr
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import gen_titleblocks  # noqa: E402
+
 ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", ".."))
-ELMT_DIR = os.path.join(ROOT, "extra-elements", "15_beckhoff_ethercat")
+TB_DIR = os.path.join(ROOT, "titleblocks")
+TITLEBLOCKS = {"A3 landscape": "A3_landscape", "A3 portrait": "A3_portrait"}
+ELMT_DIR = os.path.join(ROOT, "extra-elements", "10_electric",
+                        "20_manufacturers_articles", "beckhoff")
 OUT = os.path.join(ROOT, "examples", "beckhoff_islands_example.qet")
 NS = uuid.UUID("0b0d4f0e-6f1b-4c58-9a3e-5d1c9f5b7a10")
-CAT = "15_beckhoff_ethercat"
+CAT = "10_electric/20_manufacturers_articles/beckhoff"
 DEV = "example_devices"
 VERSION = "0.200.1"
+MIN_GAP = 7   # terminals closer than this (in px) are drawn on each other
 
 
 def uid(*parts):
@@ -99,7 +111,7 @@ class Elmt:
         self.terminals = {}
         if root is None:
             root = ET.fromstring(DEVICES[name])
-        for t in root.iter("terminal"):
+        for t in root.find("description").iter("terminal"):
             self.terminals[t.get("name")] = t
         self.infos = {}
         info = root.find("elementInformations")
@@ -115,12 +127,28 @@ ELEMENTS = {}
 
 
 def exists(category, name):
-    sub = category[len(CAT):].strip("/")
-    return os.path.exists(os.path.join(
-        ELMT_DIR, *(sub.split("/") if sub else []), name + ".elmt"))
+    try:
+        family(name)
+    except KeyError:
+        return False
+    return True
+
+
+def family(name):
+    """The folder of a card, such as el1xxx_digital_in/el1004."""
+    for entry in sorted(os.listdir(ELMT_DIR)):
+        folder = os.path.join(ELMT_DIR, entry)
+        if not os.path.isdir(folder) or entry == "layout":
+            continue
+        for card in sorted(os.listdir(folder)):
+            if os.path.exists(os.path.join(folder, card, name + ".elmt")):
+                return CAT + "/" + entry + "/" + card
+    raise KeyError(name)
 
 
 def get(category, name):
+    if category.startswith(CAT):
+        category = family(name)
     key = (category, name)
     if key not in ELEMENTS:
         ELEMENTS[key] = Elmt(category, name,
@@ -133,6 +161,34 @@ def esc(text):
     return quoteattr(text)[1:-1]
 
 
+# Name of the folios by card category (the family folders of the library).
+CATEGORIES = {
+    "ek_couplers": "Coupleurs",
+    "el1xxx_digital_in": "Entrées TOR",
+    "el2xxx_digital_out": "Sorties TOR",
+    "el3xxx_analog_in": "Entrées analogiques",
+    "el4xxx_analog_out": "Sorties analogiques",
+    "el5xxx_encoder": "Codeurs",
+    "el9xxx_system": "Alimentation",
+    "epp_box": "EtherCAT P (EPP)",
+    "twinsafe": "TwinSAFE",
+    "drives_af1000": "Variateurs AF1000 (VAR)",
+    "drives_ax5000": "Variateurs AX5000 (VAR)",
+}
+VIEWS = {"sym": "symboles", "real": "vues réalistes",
+         "desc": "vues descriptives", "table": "tableaux d'E/S"}
+
+
+def island_title(label, names, view):
+    """"A1 - Coupleurs / Entrées TOR / ... - symboles"."""
+    cats = []
+    for name in names:
+        cat = CATEGORIES[family(name).split("/")[-2]]
+        if cat not in cats:
+            cats.append(cat)
+    return f"{label} - {' / '.join(cats)} - {VIEWS[view]}"
+
+
 # Signal given to the wired channels: (card, signal) -> function text.
 # On the EL1008 the contact 2 carries the channel I3 (Beckhoff order).
 USED = {
@@ -140,16 +196,11 @@ USED = {
     ("A1.10", "I3"): "Presence sensor 2",
     ("A1.20", "O1"): "Run lamp",
     ("A2.10", "SI1"): "Emergency stop, channel 1",
+    ("A2.10", "SI3"): "Emergency stop, channel 2",
     ("A2.20", "IN1"): "Drive enable",
 }
-CARDS = [
-    # label, element base name, x on the folio
-    ("A1.10", "el1008", 450),
-    ("A1.20", "el2008", 600),
-    ("A1.30", "el5152", 750),
-]
-HEAD = ("A1.00", "ek1100")
-CARD_Y = 250
+ISLAND1 = ("A1.00", [("A1.10", CAT, "el1008"), ("A1.20", CAT, "el2008"),
+                     ("A1.30", CAT, "el5152"), ("A1.40", CAT, "el9410")])
 SAFE = CAT + "/twinsafe"
 AF = CAT + "/drives_af1000"
 AX = CAT + "/drives_ax5000"
@@ -157,6 +208,15 @@ AX = CAT + "/drives_ax5000"
 ISLAND2 = ("A2.00", [("A2.10", SAFE, "el1918"), ("A2.20", AF, "af1103"),
                      ("A2.30", AF, "af1215")])
 ISLAND3 = ("A3.00", [("A3.10", AX, "ax5103"), ("A3.20", AX, "ax5203")])
+# EtherCAT P island: the EK1322 junction heads an EPP box
+EPP = CAT + "/epp_box"
+ISLAND4 = ("A4.00", [("A4.10", EPP, "epp2338")], "ek1322")
+# Wired sensors and lamps: label, symbol, card, pins, distance left of it
+WIRES1 = (("B1", "sensor", "A1.10", ("1",), 51),
+          ("B2", "sensor", "A1.10", ("2",), 91),
+          ("H1", "lamp", "A1.20", ("1",), 45))
+WIRES2 = (("B3", "sensor", "A2.10", ("2", "4"), 81),
+          ("B4", "sensor", "A2.20", ("IN1",), 55))
 
 
 def plc_xml(el, label):
@@ -200,7 +260,9 @@ def element_xml(el, label, x, y, key, prefix=""):
     tags.append("</terminals><inputs/>")
     infos = [f'<elementInformation name="label" show="1">{esc(label)}'
              "</elementInformation>"]
-    for name in ("manufacturer", "manufacturer_reference", "designation"):
+    names = ["manufacturer", "manufacturer_reference", "designation"]
+    names += [n for n in el.infos if "auxiliary" in n]
+    for name in names:
         if el.infos.get(name):
             infos.append(
                 f'<elementInformation name="{name}" show="0">'
@@ -243,103 +305,186 @@ DEFCOND = (
     'vertical-alignment="AlignRight" vertirotatetext="270"')
 
 
-def diagram_xml(order, title, elements, conductors, rows=8):
+def titleblock_templates():
+    """The A3 title block templates of the titleblocks folder, embedded so
+    that the example does not depend on an installed library."""
+    xml = ""
+    for name in TITLEBLOCKS.values():
+        with open(os.path.join(TB_DIR, name + ".titleblock"),
+                  encoding="utf-8") as f:
+            root = ET.fromstring(f.read())
+        xml += ET.tostring(root, encoding="unicode")
+    return "<titleblocktemplates>" + xml + "</titleblocktemplates>"
+
+
+def diagram_xml(order, title, elements, conductors, portrait=False):
+    size = "A3 portrait" if portrait else "A3 landscape"
+    cols, colsize, rows, rowsize = gen_titleblocks.FOLIO_SIZES[size]
     return (
-        '<diagram author="" auto_page_num="" cols="17" colsize="60" '
+        f'<diagram author="" auto_page_num="" cols="{cols}" '
+        f'colsize="{colsize}" '
         'date="null" displayAt="bottom" displaycols="true" '
         'displayrows="true" filename="" folio="%id/%total" '
         f'freezeNewConductor="false" freezeNewElement="false" '
-        f'height="{rows * 80 + 20}" '
+        f'height="{rows * rowsize + 20}" '
         f'indexrev="" locmach="" order="{order}" plant="" rows="{rows}" '
-        f'rowsize="80" title="{esc(title)}" uuid="{uid("d", str(order))}" '
+        f'rowsize="{rowsize}" title="{esc(title)}" '
+        f'titleblocktemplate="{size}" '
+        'titleblocktemplateCollection="embedded" '
+        f'uuid="{uid("d", str(order))}" '
         f'version="{VERSION}-dev"><defaultconductor {DEFCOND}/>'
         "<elements>" + "".join(elements) + "</elements><conductors>" +
         "".join(conductors) + "</conductors><inputs/></diagram>")
 
 
-def folio_symbols():
-    els = []
-    head = get(CAT, HEAD[1])
-    els.append(element_xml(head, HEAD[0], 200, CARD_Y,
-                           f"sym/{HEAD[0]}"))
-    conductors = []
-    for label, name, x in CARDS:
-        els.append(element_xml(get(CAT, name), label, x, CARD_Y,
+TOP = 65      # same top edge of every view of a card, on every folio
+GAP = 130     # free space between two cards (the wired sensors sit in it)
+FOLIO_W = 1140
+
+
+def size(el, key):
+    return int(el.root.get(key))
+
+
+def placed(el, label, left, key):
+    """The element whose top-left corner is (left, TOP)."""
+    return element_xml(el, label, left + size(el, "hotspot_x"),
+                       TOP + size(el, "hotspot_y"), key)
+
+
+def island_folios(first, head_label, cards, head="ek1100", wires=()):
+    """The four folios of an island: symbols, realistic views, description
+    views and I/O tables. The head comes first, then the cards in the same
+    order; the symbol and the realistic view of a card are in the same
+    column, so the three modes can be compared at a glance. wires:
+    (label, card label, pins, distance of the sensor left of the card)."""
+    prefix = head_label[:2]
+    items = [(head_label, CAT, head)] + list(cards)
+    names = [name for _, _, name in items]
+    left, lefts = 100, {}
+    for label, cat, name in items:
+        lefts[label] = left
+        left += max(size(get(cat, name), "width"),
+                    size(get(cat, name + "_realistic"), "width")) + GAP
+    # symbols, with the wired sensors and lamps
+    els, conductors = [], []
+    for label, cat, name in items:
+        els.append(placed(get(cat, name), label, lefts[label],
+                          f"sym/{label}"))
+    for label, shape, card, pins, dx in wires:
+        dev = get(DEV, shape)
+        els.append(element_xml(dev, label, lefts[card] - dx, 340,
                                f"sym/{label}"))
-    sensor, lamp = get(DEV, "sensor"), get(DEV, "lamp")
-    for n, (label, dx) in enumerate((("B1", -80), ("B2", -120))):
-        els.append(element_xml(sensor, label, 450 + dx, 340,
-                               f"sym/{label}"))
-        conductors.append(conductor_xml(
-            f"sym/{label}", "sym/A1.10", "A1.10", get(CAT, "el1008"),
-            str(n + 1), f"sym/{label}", label, sensor, "1"))
-    els.append(element_xml(lamp, "H1", 560, 340, "sym/H1"))
-    conductors.append(conductor_xml(
-        "sym/H1", "sym/A1.20", "A1.20", get(CAT, "el2008"), "1",
-        "sym/H1", "H1", lamp, "1"))
-    return diagram_xml(1, "A1 island - symbols", els, conductors)
-
-
-def folio_realistic():
-    els = []
-    for label, name, x in CARDS:
-        els.append(element_xml(get(CAT, name + "_realistic"), label,
-                               x - 300, 230, f"real/{label}"))
-    return diagram_xml(2, "A1 island - realistic views", els, [])
-
-
-def folio_tables():
-    els = []
-    for n, (label, name, x) in enumerate(CARDS):
-        els.append(element_xml(get(CAT, name + "_table"), label, 60,
-                               60 + 190 * n, f"table/{label}"))
-    return diagram_xml(3, "A1 island - I/O tables", els, [])
-
-
-def island_folios(first, head_label, cards):
-    """Symbols, realistic views and I/O tables of an island of drives or
-    safety cards; first is the order of its first folio."""
-    els = [element_xml(get(CAT, "ek1100"), head_label, 120, 320,
-                       f"sym/{head_label}")]
-    conductors = []
-    for n, (label, cat, name) in enumerate(cards):
-        els.append(element_xml(get(cat, name), label, 360 + 230 * n, 70,
-                               f"sym/{label}"))
-    sensor = get(DEV, "sensor")
-    wired = []
-    if cards[0][2] == "el1918":
-        wired = [("B3", 250, "A2.10", get(SAFE, "el1918"), ("1", "5"))]
-    if cards[1:] and cards[1][2] == "af1103":
-        wired.append(("B4", 450, "A2.20", get(AF, "af1103"), ("IN1",)))
-    for label, x, card, el, pins in wired:
-        els.append(element_xml(sensor, label, x, 400, f"sym/{label}"))
+        el = next(get(cat, name) for lbl, cat, name in items if lbl == card)
         for i, pin in enumerate(pins):
             conductors.append(conductor_xml(
                 f"sym/{label}/{i}", f"sym/{card}", card, el, pin,
-                f"sym/{label}", label, sensor, str(i + 1)))
-    folios = [diagram_xml(first, f"{head_label[:2]} island - symbols",
-                          els, conductors, 9)]
-    for suffix, title in (("generic", "generic views"),
-                          ("realistic", "realistic views")):
-        here = [(label, cat, name) for label, cat, name in cards
-                if exists(cat, name + "_" + suffix)]
-        if not here:
-            continue
-        els = [element_xml(get(cat, name + "_" + suffix), label,
-                           60 + 230 * n, 220 if suffix == "realistic" else 20,
-                           f"{suffix}/{label}")
-               for n, (label, cat, name) in enumerate(here)]
-        folios.append(diagram_xml(first + len(folios),
-                                  f"{head_label[:2]} island - {title}",
-                                  els, [], 9))
-    els = [element_xml(get(cat, name + "_table"), label,
-                       60 + 480 * (n % 2), 60 + 320 * (n // 2),
-                       f"table/{label}")
-           for n, (label, cat, name) in enumerate(cards)]
+                f"sym/{label}", label, dev, str(i + 1)))
+    folios = [diagram_xml(first, island_title(prefix, names, "sym"), els,
+                          conductors)]
+    # realistic views, same columns
+    els = [placed(get(cat, name + "_realistic"), label, lefts[label],
+                  f"real/{label}") for label, cat, name in items]
+    folios.append(diagram_xml(first + 1, island_title(prefix, names, "real"),
+                              els, []))
+    # description views: as wide as needed, so one page when they fit
+    pages, page, x = [], [], 60
+    for label, cat, name in items:
+        el = get(cat, name + "_description")
+        if page and x + size(el, "width") > FOLIO_W + 60:
+            pages.append(page)
+            page, x = [], 60
+        page.append(placed(el, label, x, f"desc/{label}"))
+        x += size(el, "width") + 40
+    pages.append(page)
+    for n, page in enumerate(pages):
+        title = island_title(prefix, names, "desc")
+        if len(pages) > 1:
+            title += f" ({n + 1}/{len(pages)})"
+        folios.append(diagram_xml(first + len(folios), title, page, []))
+    # I/O tables, one column
+    els, y = [], 60
+    for label, cat, name in items:
+        el = get(cat, name + "_table")
+        els.append(element_xml(el, label, 60 + size(el, "hotspot_x"),
+                               y + size(el, "hotspot_y"), f"table/{label}"))
+        y += size(el, "height") + 40
     folios.append(diagram_xml(first + len(folios),
-                              f"{head_label[:2]} island - I/O tables",
-                              els, [], 9))
+                              island_title(prefix, names, "table"), els,
+                              [], portrait=True))
     return folios
+
+
+def catalogue_folios(first):
+    """One or more folios per card category with the symbol of EVERY card
+    of the library, in rows, the reference under each symbol."""
+    folios = []
+    left, top, right, bottom = 40, 30, 1190, 730
+    for entry in sorted(os.listdir(ELMT_DIR)):
+        folder = os.path.join(ELMT_DIR, entry)
+        if not os.path.isdir(folder) or entry == "layout":
+            continue
+        cards = [c for c in sorted(os.listdir(folder))
+                 if os.path.exists(os.path.join(folder, c, c + ".elmt"))]
+        pages, els = [], []
+        x, y, row = left, top, 0
+        for card in cards:
+            el = get(CAT + "/" + entry + "/" + card, card)
+            w = int(el.root.get("width"))
+            h = int(el.root.get("height"))
+            if x + w > right and x > left:
+                x, y, row = left, y + row + 40, 0
+            if y + h + 20 > bottom and els:
+                pages.append(els)
+                els, x, y, row = [], left, top, 0
+            els.append(element_xml(
+                el, card.upper(), x + int(el.root.get("hotspot_x")),
+                y + int(el.root.get("hotspot_y")), f"catalogue/{card}"))
+            x += w + 30
+            row = max(row, h)
+        pages.append(els)
+        for n, page in enumerate(pages):
+            title = f"Catalogue - {CATEGORIES[entry]}"
+            if len(pages) > 1:
+                title += f" ({n + 1}/{len(pages)})"
+            folios.append(diagram_xml(first + len(folios), title, page, []))
+    return folios
+
+
+LAYOUT_ISLAND = ("EK1100", "EL1008", "EL2008", "EL2008", "EL1904",
+                 "EL2904", "EL9410")
+
+
+def layout_element(scale, name, label, x, y):
+    category = f"{CAT}/layout/{scale}"
+    key = (category, name)
+    if key not in ELEMENTS:
+        ELEMENTS[key] = Elmt(category, name, load(category, name))
+    el = ELEMENTS[key]
+    return element_xml(el, label, x, y, f"layout/{scale}/{name}/{label}")
+
+
+def layout_folio(number):
+    """Front views at the three scales: a DIN rail and an island on it, the
+    module widths are the real ones (12 mm, 44 mm) times the scale."""
+    els = []
+    y = 50
+    for k, (scale, px) in enumerate((("1to1", 1.0), ("1to2", 0.5),
+                                     ("1to5", 0.2)), 1):
+        x = 60
+        els.append(layout_element(scale, "din_rail", "RAIL-" + scale, x, y))
+        pitch = {"EK1100": 44}
+        for n, ref in enumerate(LAYOUT_ISLAND):
+            label = f"L{k}.{n:02d}"
+            els.append(layout_element(scale, ref.lower(), label,
+                                      round(x, 3), y))
+            x += pitch.get(ref, 12) * px
+        # the CU1128 junction and the EPP2338-0002 box, 300 and 480 mm away
+        els.append(layout_element(scale, "cu1128", "CU1", 60 + 300 * px, y))
+        els.append(layout_element(scale, "epp2338-0002", "EPP1",
+                                  60 + 480 * px, y))
+        y += 190 if px == 1 else 120
+    return diagram_xml(number, "Layout - real dimensions, 3 scales", els, [])
 
 
 def category_names(path):
@@ -370,7 +515,12 @@ def category_xml(name, names, inner):
 
 
 def collection_xml():
-    beckhoff = tree_xml(CAT)
+    beckhoff = category_xml(
+        "20_manufacturers_articles",
+        [("en", "Manufacturers articles"), ("fr", "Articles constructeurs")],
+        tree_xml(CAT))
+    beckhoff = category_xml(
+        "10_electric", [("en", "Electric"), ("fr", "Electrique")], beckhoff)
     inner = ""
     for name in sorted(DEVICES):
         inner += f'<element name="{name}.elmt">{DEVICES[name]}</element>'
@@ -380,10 +530,59 @@ def collection_xml():
             "</category></collection>")
 
 
+def check_example(root):
+    """Raise if two terminals of a folio are closer than MIN_GAP, or if a
+    card shows other terminals in its symbol, realistic and description
+    views (a terminal hidden or missing in one mode)."""
+    defs = {}
+
+    def walk(node, path):
+        for child in node:
+            if child.tag == "category":
+                walk(child, path + child.get("name") + "/")
+            elif child.tag == "element":
+                defs[path + child.get("name")] = [
+                    t.get("name") for t in child.find(
+                        "definition/description").iter("terminal")]
+
+    walk(root.find("collection"), "embed://")
+    modes = {}
+    for d in root.iter("diagram"):
+        title = d.get("title")
+        pts = []
+        for e in d.find("elements"):
+            label = next((i.text for i in e.iter("elementInformation")
+                          if i.get("name") == "label"), "")
+            file = e.get("type")
+            names = defs[file]
+            for t in e.find("terminals"):
+                pts.append((float(e.get("x")) + float(t.get("x")),
+                            float(e.get("y")) + float(t.get("y")), label,
+                            names[int(t.get("id"))]))
+            for view in ("symboles", "vues réalistes", "vues descriptives"):
+                if title.startswith(label[:2] + " - ") and view in title:
+                    modes.setdefault(label, {}).setdefault(
+                        view, set()).update(names)
+        for i, a in enumerate(pts):
+            for b in pts[i + 1:]:
+                if abs(a[0] - b[0]) < MIN_GAP and abs(a[1] - b[1]) < MIN_GAP:
+                    raise SystemExit(
+                        f"terminals {a[2]}:{a[3]} and {b[2]}:{b[3]} overlap "
+                        f"on folio '{title}'")
+    for label, views in modes.items():
+        if len(views) == 3 and len({frozenset(v) for v in views.values()}) \
+                > 1:
+            raise SystemExit(f"card {label}: the terminals differ between "
+                             f"its views {sorted(views)}")
+
+
 def main():
-    folios = [folio_symbols(), folio_realistic(), folio_tables()]
-    folios += island_folios(4, *ISLAND2)
-    folios += island_folios(7, *ISLAND3)
+    folios = island_folios(1, ISLAND1[0], ISLAND1[1], wires=WIRES1)
+    folios += island_folios(len(folios) + 1, *ISLAND2, wires=WIRES2)
+    folios += island_folios(len(folios) + 1, *ISLAND3)
+    folios += island_folios(len(folios) + 1, *ISLAND4[:2], head=ISLAND4[2])
+    folios += catalogue_folios(len(folios) + 1)
+    folios.append(layout_folio(len(folios) + 1))
     xrefs = "".join(
         f'<xref delayprefix="" displayhas="cross" master_label="%f-%l%c" '
         'offset="0" powerprefix="" showallconfiguredslaves="false" '
@@ -395,12 +594,14 @@ def main():
     head = (
         f'<project title="Beckhoff EtherCAT island example" '
         f'uuid="{uid("project")}" version="{VERSION}"><properties/>'
+        + titleblock_templates() +
         '<usage enabled="true" time_spent="0"/><newdiagrams>'
-        '<border cols="17" colsize="60" displaycols="true" '
-        'displayrows="true" rows="8" rowsize="80"/>'
+        '<border cols="20" colsize="61" displaycols="true" '
+        'displayrows="true" rows="10" rowsize="80"/>'
         '<inset author="" auto_page_num="" date="null" displayAt="bottom" '
         'filename="" folio="" indexrev="" locmach="" plant="" title="" '
-        'version=""/>'
+        'titleblocktemplate="A3 landscape" '
+        'titleblocktemplateCollection="embedded" version=""/>'
         f"<conductors {DEFCOND}/><report label=\"%f-%l%c\"/>"
         f"<xrefs>{xrefs}</xrefs>"
         '<conductors_autonums auto_break_conductors="false" '
@@ -410,6 +611,7 @@ def main():
     text = ('<?xml version="1.0" encoding="UTF-8"?>\n' + head +
             "".join(folios) + collection_xml() + "</project>\n")
     ET.fromstring(text.encode("utf-8"))
+    check_example(ET.fromstring(text.encode("utf-8")))
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8", newline="\n") as f:
         f.write(text)

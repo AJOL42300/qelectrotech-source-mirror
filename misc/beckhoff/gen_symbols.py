@@ -97,11 +97,13 @@ class Elmt:
             self.xs.append(xy[i])
             self.ys.append(xy[i + 1])
 
-    def rect(self, x, y, w, h, weight="normal", fill="none"):
+    def rect(self, x, y, w, h, weight="normal", fill="none", dash="normal"):
         self._b(x, y, x + w, y + h)
         self.parts.append(
             '<rect x="%g" y="%g" width="%g" height="%g" rx="0" ry="0" '
-            'style="%s" antialias="false"/>' % (x, y, w, h, STYLE % (weight, fill)))
+            'style="%s" antialias="false"/>'
+            % (x, y, w, h,
+               (STYLE % (weight, fill)).replace("style:normal", "style:" + dash)))
 
     def circle(self, cx, cy, d, fill="white"):
         """Circle of diameter d centred on (cx, cy)."""
@@ -110,19 +112,21 @@ class Elmt:
             '<circle x="%g" y="%g" diameter="%g" style="%s" antialias="false"/>'
             % (cx - d / 2, cy - d / 2, d, STYLE % ("normal", fill)))
 
-    def line(self, x1, y1, x2, y2, weight="thin"):
+    def line(self, x1, y1, x2, y2, weight="thin", dash="normal"):
         self._b(x1, y1, x2, y2)
         self.parts.append(
             '<line x1="%g" y1="%g" x2="%g" y2="%g" end1="none" end2="none" '
             'length1="1.5" length2="1.5" style="%s" antialias="false"/>'
-            % (x1, y1, x2, y2, STYLE % (weight, "none")))
+            % (x1, y1, x2, y2,
+               (STYLE % (weight, "none")).replace("style:normal", "style:" + dash)))
 
-    def text(self, x, y, s, size=7, bold=False, color="#000000"):
+    def text(self, x, y, s, size=7, bold=False, color="#000000",
+             family="Liberation Sans"):
         self._b(x, y)
         self.parts.append(
             '<text x="%g" y="%g" font="%s" rotation="0" color="%s" text="%s"/>'
-            % (x, y, FONT % (size, 75 if bold else 50, "Bold" if bold else "Regular"),
-               color, esc(s)))
+            % (x, y, (FONT % (size, 75 if bold else 50, "Bold" if bold else "Regular"))
+               .replace("Liberation Sans", family, 1), color, esc(s)))
 
     def dyn(self, x, y, info, size=9, bold=False):
         self._b(x, y)
@@ -200,7 +204,7 @@ def card(key, designation, kind_en, kind_fr, short, io_kind, ref="", title="",
                "The I/O table lists the %d contacts: edit it in the element properties."
                % (kind_en, channels, channels))]
     e = Elmt(key, "%s %s (generic)" % (designation, kind_en),
-             "%s %s (gÃ©nÃ©rique)" % (designation, kind_fr), infos, NOTE)
+             "%s %s (générique)" % (designation, kind_fr), infos, NOTE)
     for i in range(channels):
         signal = signals[i] if signals else str(i + 1)
         pin = pin_map[i] if pin_map else i + 1
@@ -240,12 +244,12 @@ def potential_of(label):
 #   key: (reference, kind, English, French, short text, designation, rows,
 #         channel names {label: signal}, I/O type)
 MODEL_CARDS = {
-    "el1004": ("EL1004", "digital input terminal", "borne d'entrÃ©e numÃ©rique",
+    "el1004": ("EL1004", "digital input terminal", "borne d'entrée numérique",
                "4 x DI 24 V DC",
                "EtherCAT Terminal, 4-channel digital input, 24 V DC, 3 ms",
                [("I1", "I2"), ("0V1", "0V2"), ("I3", "I4"), ("0V3", "0V4")],
                "entree_digitale"),
-    "el2004": ("EL2004", "digital output terminal", "borne de sortie numÃ©rique",
+    "el2004": ("EL2004", "digital output terminal", "borne de sortie numérique",
                "4 x DO 24 V DC",
                "EtherCAT Terminal, 4-channel digital output, 24 V DC, 0.5 A",
                [("Q1", "Q2"), ("0V1", "0V2"), ("Q3", "Q4"), ("0V3", "0V4")],
@@ -260,17 +264,18 @@ MODEL_CARDS = {
                "EtherCAT Terminal, 4-channel output, labels as drawn",
                [("P1+", "P1-"), ("P2+", "P2-"), ("P3+", "P3-"),
                 ("P4+", "P4-")], "sortie_digitale"),
-    "el5152": ("EL5152", "encoder input terminal", "borne d'entrÃ©e codeur",
+    "el5152": ("EL5152", "encoder input terminal", "borne d'entrée codeur",
                "Encoder A/B", "EtherCAT Terminal, 2-channel incremental "
                "encoder input", [("A1", "A2"), ("B1", "B2"),
                                  ("24V1", "0V1"), ("24V2", "0V2")],
                "entree_digitale"),
-    "el2911": ("EL2911", "safety terminal", "borne de sÃ©curitÃ©",
+    "el2911": ("EL2911", "safety terminal", "borne de sécurité",
                "IN1-4 / OUT",
-               "EtherCAT Terminal, labels as drawn (drawing doubled)",
-               [("IN1", "IN2"), ("OUT", "24V_UP"), ("GND_UP", "24V"),
-                ("IN3", "IN4"), ("IN1", "IN2"), ("OUT", "24V_UP"),
-                ("GND_UP", "24V"), ("IN3", "IN4")], "entree_digitale"),
+               "EtherCAT Terminal, TwinSAFE potential supply terminal, "
+               "4 safe inputs and 1 safe output",
+               [("S1+", "S2+"), ("SI1", "SI2"), ("S3+", "S4+"),
+                ("SI3", "SI4"), ("NC", "NC"), ("SO1", "SO1"),
+                ("0V", "0V"), ("24V", "24V")], "entree_digitale"),
     "el9100": ("EL9100", "potential feed terminal",
                "borne d'alimentation de potentiel", "END / NC",
                "EtherCAT Terminal, labels as drawn",
@@ -278,7 +283,14 @@ MODEL_CARDS = {
                 ("NC5", "NC6")], None),
 }
 # the channel is the label itself unless named here
-CHANNELS_ONLY = {"el2911": ("IN1", "IN2", "IN3", "IN4", "OUT")}
+CHANNELS_ONLY = {}
+# I/O table of the cards whose channels are not named by the labels:
+# (type, signal, terminals). EL2911: Beckhoff manual v2.2.0, "Connection":
+# the safe output 1 is on the points 2' and 6' (pins 10 and 14).
+IO_TABLES = {"el2911": [
+    ("entree_digitale", "SI1", ["2"]), ("entree_digitale", "SI2", ["6"]),
+    ("entree_digitale", "SI3", ["4"]), ("entree_digitale", "SI4", ["8"]),
+    ("sortie_digitale", "SO1", ["10", "14"])]}
 FUNCTIONS = {"el5152": {"A1": "Encoder 1, A", "A2": "Encoder 2, A",
                         "B1": "Encoder 1, B", "B2": "Encoder 2, B"}}
 
@@ -301,12 +313,21 @@ def model_card(key, uncertain=True):
             "%s. The channel is the signal in the I/O table, not the pin "
             "number. Check this against the datasheet of your terminal."
             % ", ".join("%d %s" % (p, l) for p, l, _, _ in sorted(pins)))
+    if key in IO_TABLES:
+        note = ("Pin assignment from the public Beckhoff manual of the "
+                "EL2911 (v2.2.0, section Connection): %s; pins 9 and 13 "
+                "are not used, the safe output 1 is on the pins 10 and 14, "
+                "the supply UP (0 V and 24 V) on 11, 15 and 12, 16. The "
+                "channel is the signal in the I/O table, not the pin number."
+                % ", ".join("%d %s" % (p, l) for p, l, _, _ in sorted(pins)))
     infos = [("manufacturer", "Beckhoff"), ("manufacturer_reference", ref),
              ("designation", title),
              ("description", "EtherCAT Terminal, %s. %s" % (en, note))]
     e = Elmt(key, "%s %s" % (ref, en), "%s %s" % (ref, fr), infos, NOTE)
     only = CHANNELS_ONLY.get(key)
-    for pin, label, _, _ in sorted(pins):
+    for io_kind, signal, io_pins in IO_TABLES.get(key, ()):
+        e.io(io_kind, signal, pins=list(io_pins))
+    for pin, label, _, _ in sorted(pins) if key not in IO_TABLES else ():
         if kind and not potential_of(label) and not label.startswith(
                 ("END", "NC")) and (only is None or (label in only
                                                       and pin <= 8)):
@@ -345,33 +366,104 @@ def table_of(src):
 
 def epp2338():
     e = Elmt("epp2338", "EPP2338 EtherCAT P box, 8 channels",
-             "EPP2338 boÃ®tier EtherCAT P, 8 voies",
-             [("manufacturer", "Beckhoff"), ("manufacturer_reference", "EPP2338-0001"),
+             "EPP2338 boîtier EtherCAT P, 8 voies",
+             [("manufacturer", "Beckhoff"), ("manufacturer_reference", "EPP2338-0002"),
               ("designation", "EtherCAT P Box, 8-channel digital combi, 24 V DC, 10 us, 0.5 A, M8"),
               ("description", "EtherCAT P box with four M8 sockets X01 to X04, two channels "
-               "each, EtherCAT P IN X50 and OUT X51. Generic layout, not the manufacturer "
-               "drawing: put the picture under it. Fill in the function of each channel "
-               "in the I/O table; the label of the box is the card id (A1.10).")], NOTE)
-    e.rect(-60, -50, 120, 110)
-    e.text(-54, -46, "EPP2338", 9, True)
-    e.text(-54, -34, "EtherCAT P box", 5)
-    e.terminal(-60, -20, "IN X50", "w")
-    e.terminal(60, -20, "OUT X51", "e")
-    e.line(-60, -20, -50, -20)
-    e.line(50, -20, 60, -20)
-    e.text(-54, -16, "IN X50", 5)
-    e.text(30, -16, "OUT X51", 5)
+               "each, EtherCAT P IN X50 and OUT X51. Schematic view: one block per "
+               "socket, pins named after the socket (X01.1 to X04.4, the pin order "
+               "assumed for a 4-pin M8 socket: 1 +24 V, 2 channel 2, 3 0 V, "
+               "4 channel 1; check it in the datasheet). The channel (X01(1)...) is "
+               "the signal in the I/O table, not the pin. The label of the box is "
+               "the card id (A1.10).")], NOTE)
     for i in range(4):
-        y = 0 + 15 * i
         port = "X%02d" % (i + 1)
-        e.terminal(60, y, port, "e")
-        e.line(50, y, 60, y)
-        e.text(30, y - 4, port, 5)
-        e.io("entree_universelle", "%s(1)" % port, term=False)
-        e.io("entree_universelle", "%s(2)" % port, term=False)
-    e.dyn(-54, -4, "label", 10, True)
-    e.dyn(-60, 64, "designation", 6)
+        e.io("entree_universelle", "%s(1)" % port, pins=["%s.4" % port])
+        e.io("entree_universelle", "%s(2)" % port, pins=["%s.2" % port])
+    # dotted outline of the module, with the clips of the rail
+    e.rect(-70, -120, 140, 220, dash="dotted")
+    e.rect(-12, -128, 24, 8, "thin")
+    e.rect(-12, 100, 24, 8, "thin")
+    # EtherCAT P: IN above OUT, passing through the module
+    for y, name, text in ((-100, "IN X50", "IN X50"), (-50, "OUT X51", "OUT X51")):
+        e.terminal(-70, y, name, "w")
+        e.circle(-70, y, 6)
+        e.line(-67, y, -66, y)
+        e.rect(-66, y - 7, 30, 14, "thin")
+        e.text(-63, y - 5, text, 5)
+    e.line(-51, -93, -51, -57, dash="dotted")
+    # supply rails: 24 V and 0 V, shared by the four sockets
+    e.line(-10, -100, -10, 80)
+    e.line(-20, -100, -20, 80)
+    e.text(-14, -112, "+24 V", 5)
+    e.text(-34, -112, "0 V", 5)
+    for i in range(4):
+        y0 = -100 + 50 * i
+        port = "X%02d" % (i + 1)
+        e.text(2, y0 - 11, port, 6, True)
+        for pin in range(1, 5):
+            y = y0 + 10 * (pin - 1)
+            e.terminal(70, y, "%s.%d" % (port, pin), "e")
+            e.circle(70, y, 6)
+            e.text(60, y - 9, str(pin), 5)
+            if pin == 1:  # +24 V
+                e.line(-10, y, 67, y)
+                e.circle(-10, y, 2, "black")
+            elif pin == 3:  # 0 V
+                e.line(-20, y, 67, y)
+                e.circle(-20, y, 2, "black")
+            else:  # channel: LED and phototransistor of the stage
+                e.rect(0, y - 6, 36, 12, "thin")
+                e.circle(7, y, 5)
+                e.circle(29, y, 5)
+                e.line(11, y, 25, y, dash="dotted")
+                e.line(36, y, 67, y)
+    e.text(-66, -30, "EPP2338", 8, True)
+    e.dyn(-66, -18, "label", 9, True)
+    e.dyn(-66, 104, "designation", 6)
     return e
+
+
+def epp2338_realistic():
+    """Realistic view of the EPP2338: scale of the EK1914, grid of 5 px.
+
+    The layout of the box (two columns of M8 sockets, EtherCAT P at the
+    bottom) and the position of the pins in a socket are assumed; the
+    drawing is original.
+    """
+    src = ALL["epp2338"]
+    e = Elmt("epp2338_realistic", src.name_en + ", realistic view",
+             src.name_fr + ", vue réaliste", list(src.infos),
+             "Author: QElectroTech contributors\n"
+             "Realistic view drawn by misc/beckhoff/gen_symbols.py, layout "
+             "assumed: scale 1.00, grid 5 px. License: see "
+             "http://qelectrotech.org/wiki/doc/elements_license")
+    e.ios = list(src.ios)
+    f = "Roboto Condensed"
+    e.rect(-60, -105, 120, 210, "thin")
+    e.rect(-55, -100, 110, 200, "thin")
+    for x in (-50, 50):
+        for y in (-92, 92):
+            e.circle(x, y, 6)
+    sockets = ((-30, -50, "X01"), (30, -50, "X02"), (-30, 10, "X03"),
+               (30, 10, "X04"), (-30, 60, "IN X50"), (30, 60, "OUT X51"))
+    for cx, cy, name in sockets:
+        e.circle(cx, cy, 30)
+        e.circle(cx, cy, 22)
+        e.text(cx - len(name) * 2, cy + 16, name, 6, family=f)
+        for dx in (-5, 5):  # state LEDs of the two channels
+            e.circle(cx + dx * 2, cy - 22, 4)
+        if name.startswith("X0"):
+            for pin, (dx, dy) in enumerate(((-5, -5), (5, -5), (5, 5), (-5, 5)), 1):
+                e.circle(cx + dx, cy + dy, 7)
+                e.terminal(cx + dx, cy + dy, "%s.%d" % (name, pin), "e")
+        else:
+            e.circle(cx, cy, 8)
+            e.terminal(cx, cy, name, "e")
+    e.text(-40, 88, "EPP2338", 8, True, family=f)
+    e.dyn(-40, -100, "label", 9, True)
+    return e
+
 
 
 def end_cap():
@@ -387,7 +479,7 @@ def end_cap():
 
 
 def box():
-    e = Elmt("ethercat_box", "EtherCAT box (generic)", "BoÃ®tier EtherCAT (gÃ©nÃ©rique)",
+    e = Elmt("ethercat_box", "EtherCAT box (generic)", "Boîtier EtherCAT (générique)",
              [("description", "EtherCAT box, generic: one EtherCAT IN and one EtherCAT OUT "
                "for the daisy chain. Fill in manufacturer and reference.")], NOTE)
     e.rect(-60, -30, 120, 60)
@@ -431,13 +523,13 @@ def dir_entries():
     out = {}
     out["el1008.elmt"] = card(
         "el1008", "EL1008", "digital input terminal",
-        "borne d'entrÃ©e numÃ©rique", "8 x DI 24 V DC", "entree_digitale",
+        "borne d'entrée numérique", "8 x DI 24 V DC", "entree_digitale",
         ref="EL1008",
         title="EtherCAT Terminal, 8-channel digital input, 24 V DC, 3 ms",
         signals=["I%d" % i for i in range(1, 9)], pin_map=EL8_PINS).xml()
     out["el2008.elmt"] = card(
         "el2008", "EL2008", "digital output terminal",
-        "borne de sortie numÃ©rique", "8 x DO 24 V DC", "sortie_digitale",
+        "borne de sortie numérique", "8 x DO 24 V DC", "sortie_digitale",
         ref="EL2008",
         title="EtherCAT Terminal, 8-channel digital output, 24 V DC, 0.5 A",
         signals=["O%d" % i for i in range(1, 9)], pin_map=EL8_PINS).xml()
@@ -489,20 +581,21 @@ def main(root):
     os.makedirs(cat, exist_ok=True)
     files = {
         "qet_directory": directory([("en", "Beckhoff EtherCAT (generic)"),
-                                    ("fr", "Beckhoff EtherCAT (gÃ©nÃ©rique)")]),
+                                    ("fr", "Beckhoff EtherCAT (générique)")]),
         "el1xxx_generic.elmt": card("el1xxx", "EL1xxx", "digital input terminal",
-                                    "borne d'entrÃ©e numÃ©rique", "Digital input",
+                                    "borne d'entrée numérique", "Digital input",
                                     "entree_digitale").xml(),
         "el2xxx_generic.elmt": card("el2xxx", "EL2xxx", "digital output terminal",
-                                    "borne de sortie numÃ©rique", "Digital output",
+                                    "borne de sortie numérique", "Digital output",
                                     "sortie_digitale").xml(),
         "el3xxx_generic.elmt": card("el3xxx", "EL3xxx", "analog input terminal",
-                                    "borne d'entrÃ©e analogique", "Analog input",
+                                    "borne d'entrée analogique", "Analog input",
                                     "entree_analogique").xml(),
         "el4xxx_generic.elmt": card("el4xxx", "EL4xxx", "analog output terminal",
                                     "borne de sortie analogique", "Analog output",
                                     "sortie_analogique").xml(),
         "epp2338.elmt": epp2338().xml(),
+        "epp2338_realistic.elmt": epp2338_realistic().xml(),
         "el9011.elmt": end_cap().xml(),
         "ethercat_box_generic.elmt": box().xml(),
     }

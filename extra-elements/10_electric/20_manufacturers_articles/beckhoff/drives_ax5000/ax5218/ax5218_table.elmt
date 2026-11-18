@@ -1,0 +1,108 @@
+<definition version="0.100.0" type="element" link_type="master" width="250" height="154" hotspot_x="5" hotspot_y="29">
+	<uuid uuid="{31507269-e581-5103-b2b5-8437fd91ad92}"/>
+	<names>
+		<name lang="en">AX5218 servo drive, 2 axis - I/O table</name>
+		<name lang="fr">AX5218 variateur, 2 axe(s) - tableau d'E/S</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">AX5218</elementInformation>
+		<elementInformation name="designation" show="1">AX5218 digital compact servo drive, 2 axes</elementInformation>
+		<elementInformation name="description" show="1">AX 2-axes drive (the second digit of the reference is the number of axes). Rating from the project nomenclature: 2 x 18 A. Redrawn in vector from a picture of the project, terminals snapped to the 10 px grid. The motor and brake connectors are not on the pictures: the Motor terminals are generic, under the body. X06 function names are generic (0..7).</elementInformation>
+		<elementInformation name="auxiliary1" show="1">Mains plug X01</elementInformation>
+		<elementInformation name="description_auxiliary1" show="1">4-pin socket, pitch 7.62 mm, max. 6 mm2, for 1.5 to 25 A. Included in the scope of supply of the drive, also in the connector set ZS4500-2010.</elementInformation>
+		<elementInformation name="manufacturer_auxiliary1" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary1" show="1">ZS4500-2001</elementInformation>
+		<elementInformation name="designation_auxiliary1" show="1">X01 mains input connector</elementInformation>
+		<elementInformation name="quantity_auxiliary1" show="1">1</elementInformation>
+		<elementInformation name="unity_auxiliary1" show="1">1</elementInformation>
+		<elementInformation name="auxiliary2" show="1">DC link plug X02</elementInformation>
+		<elementInformation name="description_auxiliary2" show="1">2-pin socket, max. 6 mm2, for 1.5 to 25 A. Included in the scope of supply of the drive, also in the connector set ZS4500-2010.</elementInformation>
+		<elementInformation name="manufacturer_auxiliary2" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary2" show="1">ZS4500-2002</elementInformation>
+		<elementInformation name="designation_auxiliary2" show="1">X02 DC link connector</elementInformation>
+		<elementInformation name="quantity_auxiliary2" show="1">1</elementInformation>
+		<elementInformation name="unity_auxiliary2" show="1">1</elementInformation>
+		<elementInformation name="auxiliary3" show="1">24 V supply plug X03</elementInformation>
+		<elementInformation name="description_auxiliary3" show="1">3-pin socket (Up, Us, GND), max. 6 mm2. Included in the scope of supply of the drive, also in the connector set ZS4500-2010.</elementInformation>
+		<elementInformation name="manufacturer_auxiliary3" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary3" show="1">ZS4500-2003</elementInformation>
+		<elementInformation name="designation_auxiliary3" show="1">X03 24 V DC supply connector</elementInformation>
+		<elementInformation name="quantity_auxiliary3" show="1">1</elementInformation>
+		<elementInformation name="unity_auxiliary3" show="1">1</elementInformation>
+		<elementInformation name="auxiliary4" show="1">I/O plug X06</elementInformation>
+		<elementInformation name="description_auxiliary4" show="1">BLFZ connector, single row without LED, max. 1.5 mm2, for the terminals 24, 0..7, 0V. Included in the scope of supply of the drive, also in the connector set ZS4500-2010.</elementInformation>
+		<elementInformation name="manufacturer_auxiliary4" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary4" show="1">ZS4500-2006</elementInformation>
+		<elementInformation name="designation_auxiliary4" show="1">X06 BLFZ connector</elementInformation>
+		<elementInformation name="quantity_auxiliary4" show="1">1</elementInformation>
+		<elementInformation name="unity_auxiliary4" show="1">1</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="66"/>
+				<column index="2" width="130"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="44"/>
+			</columnWidths>
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="true"/>
+				<column index="2" visible="true"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+				<column index="5" visible="true"/>
+			</columnVisibility>
+			<columnNames>
+				<column index="0"></column>
+				<column index="1">ID TwinCAT</column>
+				<column index="2">Label</column>
+				<column index="3"></column>
+				<column index="4"></column>
+				<column index="5">N° pin</column>
+			</columnNames>
+			<columnOrder>5,2,1</columnOrder>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
+			<plcIOs>
+				<plcIO type="entree_universelle" address="X06-0" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-0</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X06-1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-1</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X06-2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-2</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X06-3" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-3</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X06-4" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-4</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X06-5" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-5</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X06-6" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-6</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="X06-7" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>X06-7</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="0" y="-22" width="240" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
+		<dynamic_text x="3" y="-20.1" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{88aff322-5075-5822-a963-4854adecbaff}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>label</info_name></dynamic_text>
+		<dynamic_text x="38.0" y="-19.2" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{8ac37fbc-724a-56e3-9b32-e5d01d5f4dfc}" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>manufacturer_reference</info_name></dynamic_text>
+		<dynamic_text x="76.6" y="-17.4" z="25" text_width="160" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{e556b329-01c9-5c1b-a9d6-11ca9836b16e}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
+		<plc_table x="0" y="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+	</description>
+</definition>

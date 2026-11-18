@@ -1,0 +1,72 @@
+<definition version="0.100.0" type="element" link_type="master" width="250" height="118" hotspot_x="5" hotspot_y="29">
+	<uuid uuid="{1f33342d-0108-5da6-8ee6-9fe74a0b43ed}"/>
+	<names>
+		<name lang="en">EL2911 safety terminal - I/O table</name>
+		<name lang="fr">EL2911 borne de sécurité - tableau d'E/S</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">EL2911</elementInformation>
+		<elementInformation name="designation" show="1">EtherCAT Terminal, TwinSAFE potential supply terminal, 4 safe inputs and 1 safe output</elementInformation>
+		<elementInformation name="description" show="1">EtherCAT Terminal, safety terminal. Pin assignment from the public Beckhoff manual of the EL2911 (v2.2.0, section Connection): 1 S1+, 2 SI1, 3 S3+, 4 SI3, 5 S2+, 6 SI2, 7 S4+, 8 SI4, 9 NC, 10 SO1, 11 0V, 12 24V, 13 NC, 14 SO1, 15 0V, 16 24V; pins 9 and 13 are not used, the safe output 1 is on the pins 10 and 14, the supply UP (0 V and 24 V) on 11, 15 and 12, 16. The channel is the signal in the I/O table, not the pin number.</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="66"/>
+				<column index="2" width="130"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="44"/>
+			</columnWidths>
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="true"/>
+				<column index="2" visible="true"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+				<column index="5" visible="true"/>
+			</columnVisibility>
+			<columnNames>
+				<column index="0"></column>
+				<column index="1">ID TwinCAT</column>
+				<column index="2">Label</column>
+				<column index="3"></column>
+				<column index="4"></column>
+				<column index="5">N° pin</column>
+			</columnNames>
+			<columnOrder>5,2,1</columnOrder>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
+			<plcIOs>
+				<plcIO type="entree_digitale" address="SI1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>2</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>6</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI3" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>4</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI4" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>8</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="SO1" functionText="" comment="" crossRef="" terminalCount="2">
+					<terminal>10</terminal>
+					<terminal>14</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="0" y="-22" width="240" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
+		<dynamic_text x="3" y="-20.1" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{a8d05e8a-d8ff-5ad6-81a2-51cca62093c7}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>label</info_name></dynamic_text>
+		<dynamic_text x="38.0" y="-19.2" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{4ea0ae62-d302-5151-b5f1-92594531901a}" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>manufacturer_reference</info_name></dynamic_text>
+		<dynamic_text x="75.7" y="-21.0" z="25" text_width="161" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{8a3f90f5-ae5a-5171-ac9c-34dd911b0e58}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
+		<plc_table x="0" y="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+	</description>
+</definition>

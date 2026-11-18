@@ -454,8 +454,10 @@ install(DIRECTORY ico/app/hicolor/48x48   DESTINATION ${QET_ICONS_PATH})
 install(DIRECTORY ico/app/hicolor/64x64   DESTINATION ${QET_ICONS_PATH})
 install(DIRECTORY ico/app/hicolor/128x128 DESTINATION ${QET_ICONS_PATH})
 install(DIRECTORY ico/app/hicolor/256x256 DESTINATION ${QET_ICONS_PATH})
-install(DIRECTORY elements    DESTINATION ${QET_DATA_PATH})
-# Extra symbols kept in this repository, merged into the common collection.
+install(DIRECTORY elements    DESTINATION ${QET_DATA_PATH}
+        REGEX "/20_manufacturers_articles/beckhoff$" EXCLUDE)
+# Extra symbols kept in this repository, merged into the common collection:
+# the Beckhoff library replaces the Beckhoff folder of the elements above.
 install(DIRECTORY extra-elements/ DESTINATION ${QET_DATA_PATH}elements)
 install(DIRECTORY examples    DESTINATION ${QET_DATA_PATH})
 install(DIRECTORY titleblocks DESTINATION ${QET_DATA_PATH})

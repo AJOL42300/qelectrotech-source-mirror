@@ -22,7 +22,12 @@ modified and never copied into the repository. This script reads them and
 writes new elements, <key>_realistic.elmt, next to the symbol of the card:
 
   * the drawing is kept as drawn (geometry, colours, yellow of the safety
-    cards) and scaled by ONE uniform factor, with an origin offset;
+    cards) and scaled by ONE uniform factor, the same for every card (the
+    scale of the EK1914 drawing, 1.00), with an origin offset;
+  * the reference of the card (EL1004, EL2911...) is always inside the card,
+    at the bottom; the bottom terminals of the EK1914 are yellow (TwinSAFE);
+  * the EL1918 (16 terminals) is built from the terminal block of the
+    EK1914 drawing, with a yellow body, because no drawing of it is used;
   * the circles of the drawing (screw circles, drawn as arcs or circles) are
     detected: a terminal is created exactly at the centre of each of them,
     and the centres are on the 10 px grid of the diagram (5 px when 10 px
@@ -38,7 +43,7 @@ Usage:
   realistic_from_model.py <drawings dir> <elements dir>
 
 <drawings dir> holds the Beckhoff_<REF>.elmt files, <elements dir> is
-extra-elements/15_beckhoff_ethercat (made by gen_symbols.py and
+extra-elements/10_electric/20_manufacturers_articles/beckhoff (made by gen_symbols.py and
 gen_safety.py). The report (scale, offset, residual) goes to the standard
 output.
 """
@@ -54,12 +59,20 @@ NS = uuid.UUID("6f1c2a5e-8b0f-4d57-9a7e-5b1d0c8e2f10")
 CARDS = {
     "ek1914": ("EK1914", "."), "el1004": ("EL1004", "."),
     "el1008": ("EL1008", "."), "el1904": ("EL1904", "twinsafe"),
-    "el1918": ("EL1918", "twinsafe"), "el2004": ("EL2004", "."),
+    "el2004": ("EL2004", "."),
     "el2008": ("EL2008", "."), "el2522": ("EL2522", "."),
     "el2574": ("EL2574", "."), "el2904": ("EL2904", "twinsafe"),
     "el2911": ("EL2911", "."), "el5152": ("EL5152", "."),
     "el9100": ("EL9100", "."),
+    "el1918": ("EK1914", "twinsafe"),
 }
+
+SCALE = (0.95, 1.05)   # every realistic view is at the scale of the EK1914
+YELLOW_FROM = 50.0     # EK1914: circles below this y (drawing units) are yellow
+# reference text moved inside the card: key -> (x, y) in drawing units
+REFERENCE_AT = {"ek1914": (-40.0, 84.0), "el2911": (-12.95, 134.24)}
+# terminal block of the EK1914, kept for the EL1918 (x in drawing units)
+BLOCK_X = 12.0
 
 MIN_ARC = 10           # arcs smaller than this are not screw circles
 MIN_CIRCLE = 7         # same for <circle> parts
@@ -138,7 +151,7 @@ def fit(points, grid):
     xs = [p[0] for p in points]
     ys = [p[1] for p in points]
     candidates = []
-    for k in range(60, 141):
+    for k in range(int(SCALE[0] * 100), int(SCALE[1] * 100) + 1):
         s = k / 100.0
         rx, ox = best_offset(xs, s, grid)
         ry, oy = best_offset(ys, s, grid)
@@ -260,6 +273,70 @@ def indent(elem, level=0):
         elem.tail = pad
 
 
+STYLE = "line-style:normal;line-weight:%s;filling:%s;color:black"
+
+
+def part_style(name, weight="thin", filling="none"):
+    return {"antialias": "false", "style": STYLE % (weight, filling)}
+
+
+def text_part(desc, x, y, text, size=7, bold=False):
+    font = "Roboto Condensed,%d,-1,5,%d,0,0,0,0,0,%s" % (
+        size, 75 if bold else 50, "Bold" if bold else "Regular")
+    ET.SubElement(desc, "text", {"x": num(x), "y": num(y), "font": font,
+                                 "rotation": "0", "color": "#000000",
+                                 "text": text})
+
+
+def mark_yellow_bottom(desc):
+    """EK1914: the outer circles of the bottom terminals are yellow."""
+    for p in desc.findall("circle"):
+        if abs(f(p, "diameter") - 8.5) < 0.1 and \
+                f(p, "y") + 4.25 >= YELLOW_FROM:
+            p.set("style", STYLE % ("thin", "yellow"))
+
+
+def move_reference(desc, key, ref):
+    """The reference of the card is drawn inside the card, at the bottom."""
+    for p in desc.findall("text"):
+        if p.get("text") == ref:
+            p.set("x", num(REFERENCE_AT[key][0]))
+            p.set("y", num(REFERENCE_AT[key][1]))
+
+
+def prepare_el1918(desc, signals):
+    """Keep only the screw circles of the EK1914 terminal block, add a
+    yellow body, the signal of every terminal and the reference."""
+    for p in list(desc):
+        if p.tag == "circle" and f(p, "x") >= BLOCK_X and \
+                f(p, "diameter") >= MIN_CIRCLE:
+            continue
+        desc.remove(p)
+    # even pitch of 15 between the rows (the source rows are not regular)
+    rows = sorted({round(c[1]) for c in circles_of(desc)})
+    for p in desc.findall("circle"):
+        cy = f(p, "y") + f(p, "diameter") / 2
+        k = min(range(len(rows)), key=lambda i: abs(rows[i] - cy))
+        p.set("y", num(f(p, "y") + rows[0] + 15 * k - rows[k]))
+    circles = circles_of(desc)
+    xs = sorted({round(c[0]) for c in circles})
+    ys = sorted({round(c[1]) for c in circles})
+    left, right = xs[0] - 33, xs[-1] + 33
+    top, bottom = ys[0] - 14, ys[-1] + 26
+    body = ET.Element("rect", dict(
+        part_style("body", "normal", "yellow"), x=num(left), y=num(top),
+        width=num(right - left), height=num(bottom - top), rx="0", ry="0"))
+    desc.insert(0, body)
+    for cx, cy, _ in circles:
+        pin = 2 * ys.index(round(cy)) + xs.index(round(cx)) + 1
+        name = signals.get(str(pin), "")
+        if xs.index(round(cx)) == 0:
+            text_part(desc, left + 4, cy - 5, name, 7)
+        else:
+            text_part(desc, cx + 12, cy - 5, name, 7)
+    text_part(desc, left + 6, bottom - 14, "EL1918", 8, True)
+
+
 def pin_names(key, grid_pts):
     """Physical pin number of each circle (same order as grid_pts).
 
@@ -270,11 +347,22 @@ def pin_names(key, grid_pts):
     names = []
     for x, y in grid_pts:
         c, r = xs.index(round(x)), ys.index(round(y))
-        if key == "ek1914":
+        if key in ("ek1914", "el1918"):
             names.append(str(2 * r + c + 1))
         else:
             names.append(str(8 * (c // 2) + 4 * (c % 2) + r + 1))
     return names
+
+
+def el1918_signals(symbol):
+    """terminal number -> signal: clock output Sn+, safe input SIn."""
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import gen_safety
+    out = {}
+    for n, (clock, safe) in gen_safety.EL1918_TERMINALS.items():
+        out[str(clock)] = "S%d+" % n
+        out[str(safe)] = "SI%d" % n
+    return out
 
 
 def build(key, drawings, elements):
@@ -286,6 +374,12 @@ def build(key, drawings, elements):
                   for t in symbol.find("description").iter("terminal")
                   if t.get("potential")}
     desc = root.find("description")
+    if key == "ek1914":
+        mark_yellow_bottom(desc)
+    if key in REFERENCE_AT:
+        move_reference(desc, key, ref)
+    if key == "el1918":
+        prepare_el1918(desc, el1918_signals(symbol))
 
     centres = circles_of(desc)
     points = [(c[0], c[1]) for c in centres]

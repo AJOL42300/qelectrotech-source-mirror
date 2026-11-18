@@ -1,0 +1,12 @@
+<titleblocktemplate name="A3 portrait">
+<information>Two-row strip for an A3 portrait folio. The first cell is left empty for a logo.</information>
+<logos/>
+<grid cols="100px;r30%;r40%;r30%;" rows="25;25;">
+<field valign="center" hadjust="true" name="author" displaylabel="true" align="left" col="1" row="0"><value><translation lang="en">%author</translation></value><label><translation lang="en">Author</translation><translation lang="fr">Auteur</translation><translation lang="de">Autor</translation><translation lang="es">Autor</translation><translation lang="it">Autore</translation></label></field>
+<field valign="center" hadjust="true" name="title" displaylabel="false" align="center" col="2" row="0"><value><translation lang="en">%projecttitle</translation></value><label><translation lang="en">Title</translation><translation lang="fr">Titre</translation><translation lang="de">Titel</translation><translation lang="es">Título</translation><translation lang="it">Titolo</translation></label></field>
+<field valign="center" hadjust="true" name="file" displaylabel="true" align="left" col="3" row="0"><value><translation lang="en">%savedfilename</translation></value><label><translation lang="en">File</translation><translation lang="fr">Fichier</translation><translation lang="de">Datei</translation><translation lang="es">Archivo</translation><translation lang="it">File</translation></label></field>
+<field valign="center" hadjust="true" name="date" displaylabel="true" align="left" col="1" row="1"><value><translation lang="en">%date</translation></value><label><translation lang="en">Date</translation><translation lang="fr">Date</translation><translation lang="de">Datum</translation><translation lang="es">Fecha</translation><translation lang="it">Data</translation></label></field>
+<field valign="center" hadjust="true" name="" displaylabel="false" align="center" col="2" row="1" fontsize="9"><value><translation lang="en">%title</translation></value><label></label></field>
+<field valign="center" hadjust="true" name="folio" displaylabel="true" align="left" col="3" row="1"><value><translation lang="en">%{folio-id} of %{folio-total}</translation><translation lang="fr">%{folio-id} sur %{folio-total}</translation></value><label><translation lang="en">Folio</translation><translation lang="fr">Folio</translation><translation lang="de">Blatt</translation><translation lang="es">Hoja</translation><translation lang="it">Foglio</translation></label></field>
+</grid>
+</titleblocktemplate>

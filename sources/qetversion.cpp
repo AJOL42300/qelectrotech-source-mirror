@@ -50,6 +50,11 @@ namespace QetVersion
 		return str;
 	}
 
+	QString forkNotice()
+	{
+		return QStringLiteral("Fork by MCATech.fr");
+	}
+
 	/**
 	 * @brief toXmlAttribute
 	 * Write @a version as an attribute of @a xml
