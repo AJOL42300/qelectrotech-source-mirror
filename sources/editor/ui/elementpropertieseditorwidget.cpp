@@ -253,7 +253,7 @@ void ElementPropertiesEditorWidget::upDateInterface()
 	
 	if (m_data.m_type == ElementData::Slave)
 	{
-		// If PLC Slave, select "Esclave PLC" in state combo (not in type combo)
+		// If PLC Slave, select "Enfant PLC" in state combo (not in type combo)
 		if (m_data.m_slave_type == ElementData::PLCSlave) {
 			ui->m_state_cb->setCurrentIndex(
 						ui->m_state_cb->findData(
@@ -422,7 +422,7 @@ void ElementPropertiesEditorWidget::setUpInterface()
 		}
 	});
 
-	// When "Esclave PLC" is selected in state combo, disable type combo
+	// When "Enfant PLC" is selected in state combo, disable type combo
 	connect(ui->m_state_cb, QOverload<int>::of(&QComboBox::currentIndexChanged), [this](int index) {
 		bool is_plc = (ui->m_state_cb->itemData(index) == ElementData::PLCSlave);
 		ui->m_type_cb->setEnabled(!is_plc);

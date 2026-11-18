@@ -3418,7 +3418,7 @@ Verrouillé par l&apos;option « Afficher un texte de potentiel par folio » de 
     <message>
         <location filename="../sources/ui/contactgroupselectiondialog.cpp" line="43"/>
         <source>Select the contact group to assign to this slave element :</source>
-        <translation>Sélectionnez le groupe de contacts à assigner à cet élément esclave :</translation>
+        <translation>Sélectionnez le groupe de contacts à assigner à cet élément enfant :</translation>
     </message>
     <message>
         <location filename="../sources/ui/contactgroupselectiondialog.cpp" line="55"/>
@@ -3721,7 +3721,7 @@ Continuer ?</translation>
         <location filename="../sources/ui/devicenavigatordockwidget.cpp" line="591"/>
         <location filename="../sources/ui/devicenavigatordockwidget.cpp" line="1082"/>
         <source>Master</source>
-        <translation>Maître</translation>
+        <translation>Parent</translation>
     </message>
     <message>
         <location filename="../sources/ui/devicenavigatordockwidget.cpp" line="294"/>
@@ -3820,7 +3820,7 @@ Continuer ?</translation>
     <message>
         <location filename="../sources/ui/devicenavigatordockwidget.cpp" line="1083"/>
         <source>Slave</source>
-        <translation>Esclave</translation>
+        <translation>Enfant</translation>
     </message>
     <message>
         <location filename="../sources/ui/devicenavigatordockwidget.cpp" line="1086"/>
@@ -3938,12 +3938,12 @@ Continuer ?</translation>
     <message>
         <location filename="../sources/ui/devicenavigatorfilterdialog.ui" line="178"/>
         <source>Master symbols / Coils / Main functions</source>
-        <translation>Symboles maîtres / Bobines / Fonctions principales</translation>
+        <translation>Symboles parents / Bobines / Fonctions principales</translation>
     </message>
     <message>
         <location filename="../sources/ui/devicenavigatorfilterdialog.ui" line="185"/>
         <source>Slave symbols / Contacts / Auxiliary functions</source>
-        <translation>Symboles esclaves / Contacts / Fonctions auxiliaires</translation>
+        <translation>Symboles enfants / Contacts / Fonctions auxiliaires</translation>
     </message>
     <message>
         <location filename="../sources/ui/devicenavigatorfilterdialog.ui" line="192"/>
@@ -6669,7 +6669,7 @@ Continuer ?</translation>
     <message>
         <location filename="../sources/editor/ui/elementpropertieseditorwidget.ui" line="70"/>
         <source>Slave element</source>
-        <translation>Élément esclave</translation>
+        <translation>Élément enfant</translation>
     </message>
     <message>
         <location filename="../sources/editor/ui/elementpropertieseditorwidget.ui" line="85"/>
@@ -6689,7 +6689,7 @@ Continuer ?</translation>
     <message>
         <location filename="../sources/editor/ui/elementpropertieseditorwidget.ui" line="117"/>
         <source>Master element</source>
-        <translation>Élément maître</translation>
+        <translation>Élément parent</translation>
     </message>
     <message>
         <location filename="../sources/editor/ui/elementpropertieseditorwidget.ui" line="125"/>
@@ -6699,12 +6699,12 @@ Continuer ?</translation>
     <message>
         <location filename="../sources/editor/ui/elementpropertieseditorwidget.ui" line="150"/>
         <source>Set the maximum number of slaves</source>
-        <translation>Définir le nombre maximal d&apos;esclaves</translation>
+        <translation>Définir le nombre maximal d&apos;enfants</translation>
     </message>
     <message>
         <location filename="../sources/editor/ui/elementpropertieseditorwidget.ui" line="167"/>
         <source>Define the slave elements</source>
-        <translation>Définir les éléments esclave</translation>
+        <translation>Définir les éléments enfants</translation>
     </message>
     <message>
         <location filename="../sources/editor/ui/elementpropertieseditorwidget.ui" line="198"/>
@@ -6787,12 +6787,12 @@ Continuer ?</translation>
     <message>
         <location filename="../sources/editor/ui/elementpropertieseditorwidget.cpp" line="347"/>
         <source>Master</source>
-        <translation>Maître</translation>
+        <translation>Parent</translation>
     </message>
     <message>
         <location filename="../sources/editor/ui/elementpropertieseditorwidget.cpp" line="348"/>
         <source>Slave</source>
-        <translation>Esclave</translation>
+        <translation>Enfant</translation>
     </message>
     <message>
         <location filename="../sources/editor/ui/elementpropertieseditorwidget.cpp" line="349"/>
@@ -6845,7 +6845,7 @@ Continuer ?</translation>
     <message>
         <location filename="../sources/editor/ui/elementpropertieseditorwidget.cpp" line="360"/>
         <source>PLC slave</source>
-        <translation>Esclave PLC</translation>
+        <translation>Enfant PLC</translation>
     </message>
     <message>
         <location filename="../sources/editor/ui/elementpropertieseditorwidget.cpp" line="362"/>
@@ -7240,21 +7240,21 @@ Continuer ?</translation>
         <location filename="../sources/ui/elementpropertieswidget.cpp" line="448"/>
         <source>Maximum number of slave contacts defined:  not defined
 </source>
-        <translation>Nombre maximum de contacts esclaves définis : non défini
+        <translation>Nombre maximum de contacts enfants définis : non défini
 </translation>
     </message>
     <message>
         <location filename="../sources/ui/elementpropertieswidget.cpp" line="449"/>
         <source>Maximum number of slave contacts defined:  %1
 </source>
-        <translation>Nombre maximum de contacts esclaves définis : %1
+        <translation>Nombre maximum de contacts enfants définis : %1
 </translation>
     </message>
     <message>
         <location filename="../sources/ui/elementpropertieswidget.cpp" line="454"/>
         <source>Number of slave contacts used : %1
 </source>
-        <translation>Nombre de contacts esclaves utilisés : %1
+        <translation>Nombre de contacts enfants utilisés : %1
 </translation>
     </message>
     <message>
@@ -7432,7 +7432,7 @@ Continuer ?</translation>
     <message>
         <location filename="../sources/dataBase/ui/elementquerywidget.ui" line="324"/>
         <source>Slave contacts</source>
-        <translation>Contacts esclaves</translation>
+        <translation>Contacts enfants</translation>
     </message>
     <message>
         <location filename="../sources/dataBase/ui/elementquerywidget.ui" line="347"/>
@@ -11270,12 +11270,12 @@ Veuillez utiliser l&apos;éditeur avancé pour cela.</translation>
     <message>
         <location filename="../sources/itemdescription.cpp" line="46"/>
         <source>Master symbol</source>
-        <translation>Symbole maître</translation>
+        <translation>Symbole parent</translation>
     </message>
     <message>
         <location filename="../sources/itemdescription.cpp" line="47"/>
         <source>Slave symbol</source>
-        <translation>Symbole esclave</translation>
+        <translation>Symbole enfant</translation>
     </message>
     <message>
         <location filename="../sources/itemdescription.cpp" line="49"/>
@@ -11525,7 +11525,7 @@ Veuillez utiliser l&apos;éditeur avancé pour cela.</translation>
     <message>
         <location filename="../sources/ui/linksingleelementwidget.ui" line="70"/>
         <source>Hide full master elements</source>
-        <translation>Masquer les éléments maîtres pleins</translation>
+        <translation>Masquer les éléments parents pleins</translation>
     </message>
     <message>
         <location filename="../sources/ui/linksingleelementwidget.cpp" line="569"/>
@@ -11664,7 +11664,7 @@ Regroupez-les d&apos;abord dans un même bornier.</translation>
     <message>
         <location filename="../sources/ui/linksingleelementwidget.cpp" line="60"/>
         <source>Show slave element</source>
-        <translation>Montrer l&apos;élément esclave</translation>
+        <translation>Montrer l&apos;élément enfant</translation>
     </message>
     <message>
         <location filename="../sources/ui/linksingleelementwidget.cpp" line="61"/>
@@ -11679,7 +11679,7 @@ Regroupez-les d&apos;abord dans un même bornier.</translation>
     <message>
         <location filename="../sources/ui/linksingleelementwidget.cpp" line="291"/>
         <source>Cross-reference (slave)</source>
-        <translation>Référence croisée (esclave)</translation>
+        <translation>Référence croisée (enfant)</translation>
     </message>
 </context>
 <context>
@@ -11956,7 +11956,7 @@ Avec le serveur MCP qet : lis-la avec qet_recording_read, écris un script qui f
     <message>
         <location filename="../sources/ui/masterpropertieswidget.cpp" line="81"/>
         <source>Show master element</source>
-        <translation>Montrer l&apos;élément maître</translation>
+        <translation>Montrer l&apos;élément parent</translation>
     </message>
     <message>
         <location filename="../sources/ui/masterpropertieswidget.cpp" line="82"/>
@@ -11966,16 +11966,16 @@ Avec le serveur MCP qet : lis-la avec qet_recording_read, écris un script qui f
     <message>
         <location filename="../sources/ui/masterpropertieswidget.cpp" line="320"/>
         <source>Maximum number of slaves reached.</source>
-        <translation>Nombre maximal d&apos;esclaves atteint.</translation>
+        <translation>Nombre maximal d&apos;enfants atteint.</translation>
     </message>
     <message>
         <location filename="../sources/ui/masterpropertieswidget.cpp" line="321"/>
         <source>The limit set for this master element has been reached (Limit: %1).
 
 Do you still want to link this slave contact?</source>
-        <translation>La limite fixée pour cet élément maître est atteinte (Limite: %1).
+        <translation>La limite fixée pour cet élément parent est atteinte (Limite: %1).
 
-Voulez-vous tout de même lier ce contact esclave ?</translation>
+Voulez-vous tout de même lier ce contact enfant ?</translation>
     </message>
     <message>
         <location filename="../sources/ui/masterpropertieswidget.cpp" line="540"/>
@@ -12015,7 +12015,7 @@ Voulez-vous tout de même lier ce contact esclave ?</translation>
     <message>
         <location filename="../sources/ui/masterpropertieswidget.h" line="67"/>
         <source>Cross-reference (master)</source>
-        <translation>Référence croisée (maître)</translation>
+        <translation>Référence croisée (parent)</translation>
     </message>
 </context>
 <context>
@@ -12949,7 +12949,7 @@ Les importer ? Les éléments recevront alors les prochains numéros, à partir 
     <message>
         <location filename="../sources/ui/plclinkwidget.cpp" line="91"/>
         <source>Note: Master elements that have reached their maximum number of slaves are hidden.</source>
-        <translation>Remarque : les éléments maîtres ayant atteint leur nombre maximal d&apos;esclaves sont masqués.</translation>
+        <translation>Remarque : les éléments parents ayant atteint leur nombre maximal d&apos;enfants sont masqués.</translation>
     </message>
     <message>
         <location filename="../sources/ui/plclinkwidget.cpp" line="156"/>
@@ -19317,8 +19317,8 @@ Souhaitez-vous activer les renvois de folio chaînés pour ce projet ?
 Existing slave elements will not be automatically assigned. You will need to link the slaves manually and assign the contact groups.
 
 Do you wish to continue?</source>
-        <translation>Le nouvel élément définit des groupes de contacts esclaves.
-Les éléments esclaves existants ne seront pas automatiquement assignés. Vous devrez relier manuellement les esclaves et assigner les groupes de contacts.
+        <translation>Le nouvel élément définit des groupes de contacts enfants.
+Les éléments enfants existants ne seront pas automatiquement assignés. Vous devrez relier manuellement les enfants et assigner les groupes de contacts.
 
 Voulez-vous continuer ?</translation>
     </message>
@@ -24343,12 +24343,12 @@ qet.addText(f, &quot;Texte&quot;, 40, 40);
     <message>
         <location filename="../sources/SearchAndReplace/ui/searchandreplacewidget.cpp" line="189"/>
         <source>Master elements</source>
-        <translation>Eléments maître</translation>
+        <translation>Éléments parents</translation>
     </message>
     <message>
         <location filename="../sources/SearchAndReplace/ui/searchandreplacewidget.cpp" line="195"/>
         <source>Slave elements</source>
-        <translation>Eléments esclave</translation>
+        <translation>Éléments enfants</translation>
     </message>
     <message>
         <location filename="../sources/SearchAndReplace/ui/searchandreplacewidget.cpp" line="201"/>
@@ -27356,7 +27356,7 @@ Les autres champs ne sont pas utilisés.</translation>
     <message>
         <location filename="../sources/editor/ui/terminaleditor.cpp" line="536"/>
         <source>Edit the master label</source>
-        <translation>Modifier l&apos;étiquette du maître</translation>
+        <translation>Modifier l&apos;étiquette du parent</translation>
     </message>
     <message>
         <location filename="../sources/editor/ui/terminaleditor.cpp" line="548"/>
@@ -27368,7 +27368,7 @@ Les autres champs ne sont pas utilisés.</translation>
     <message>
         <location filename="../sources/editor/ui/terminaleditor.cpp" line="575"/>
         <source>Change the master label index</source>
-        <translation>Modifier l&apos;index de l&apos;étiquette du maître</translation>
+        <translation>Modifier l&apos;index de l&apos;étiquette du parent</translation>
     </message>
     <message>
         <location filename="../sources/editor/ui/terminaleditor.ui" line="14"/>
@@ -27472,12 +27472,12 @@ Les autres champs ne sont pas utilisés.</translation>
     <message>
         <location filename="../sources/editor/ui/terminaleditor.ui" line="234"/>
         <source>Master’s label</source>
-        <translation>Étiquette du maître</translation>
+        <translation>Étiquette du parent</translation>
     </message>
     <message>
         <location filename="../sources/editor/ui/terminaleditor.ui" line="243"/>
         <source>Learning from the master</source>
-        <translation>Reprendre du maître</translation>
+        <translation>Reprendre du parent</translation>
     </message>
 </context>
 <context>
@@ -29994,17 +29994,17 @@ associer le nom &quot;volta&quot; et la valeur &quot;1745&quot; remplacera %{vol
     <message>
         <location filename="../sources/ui/xrefpropertieswidget.ui" line="108"/>
         <source>XRef slave position</source>
-        <translation>Position XRef de l&apos;esclave</translation>
+        <translation>Position XRef de l&apos;enfant</translation>
     </message>
     <message>
         <location filename="../sources/ui/xrefpropertieswidget.ui" line="122"/>
         <source>Distance label - slave :</source>
-        <translation>Distance label - slave :</translation>
+        <translation>Distance étiquette - enfant :</translation>
     </message>
     <message>
         <location filename="../sources/ui/xrefpropertieswidget.ui" line="129"/>
         <source>Distance in pixels between the label and the slave cross reference</source>
-        <translation>Distance in pixels between the label and the slave cross reference</translation>
+        <translation>Distance en pixels entre l&apos;étiquette et la référence croisée de l&apos;enfant</translation>
     </message>
     <message>
         <location filename="../sources/ui/xrefpropertieswidget.ui" line="160"/>
@@ -30014,12 +30014,12 @@ associer le nom &quot;volta&quot; et la valeur &quot;1745&quot; remplacera %{vol
     <message>
         <location filename="../sources/ui/xrefpropertieswidget.ui" line="167"/>
         <source>Show in the contact comb all slave contacts defined by the master, even those not yet connected, in the order defined by the master</source>
-        <translation>Afficher dans le peigne de contacts tous les contacts esclaves définis par le maître, même ceux qui ne sont pas encore reliés, dans l&apos;ordre défini par le maître</translation>
+        <translation>Afficher dans le peigne de contacts tous les contacts enfants définis par le parent, même ceux qui ne sont pas encore reliés, dans l&apos;ordre défini par le parent</translation>
     </message>
     <message>
         <location filename="../sources/ui/xrefpropertieswidget.ui" line="170"/>
         <source>Show all slaves defined by the master</source>
-        <translation>Afficher tous les esclaves définis par le maître</translation>
+        <translation>Afficher tous les enfants définis par le parent</translation>
     </message>
     <message>
         <location filename="../sources/ui/xrefpropertieswidget.ui" line="177"/>
@@ -30039,7 +30039,7 @@ associer le nom &quot;volta&quot; et la valeur &quot;1745&quot; remplacera %{vol
     <message>
         <location filename="../sources/ui/xrefpropertieswidget.ui" line="220"/>
         <source>Master</source>
-        <translation>Maitre</translation>
+        <translation>Parent</translation>
     </message>
     <message>
         <location filename="../sources/ui/xrefpropertieswidget.ui" line="230"/>
@@ -30059,7 +30059,7 @@ associer le nom &quot;volta&quot; et la valeur &quot;1745&quot; remplacera %{vol
     <message>
         <location filename="../sources/ui/xrefpropertieswidget.ui" line="263"/>
         <source>Slave</source>
-        <translation>Esclave</translation>
+        <translation>Enfant</translation>
     </message>
     <message>
         <location filename="../sources/ui/xrefpropertieswidget.ui" line="273"/>
