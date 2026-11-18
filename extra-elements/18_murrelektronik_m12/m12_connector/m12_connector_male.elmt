@@ -1,0 +1,34 @@
+<definition version="0.100.0" type="element" link_type="simple" width="100" height="100" hotspot_x="20" hotspot_y="50">
+	<uuid uuid="{d8cc40c2-bf32-5b3a-84a6-7cf11960a29f}"/>
+	<names>
+		<name lang="en">Murrelektronik 7000-12481-0000000 M12 field-wireable connector male 0° A-coded IDC</name>
+		<name lang="fr">Connecteur M12 à câbler Murrelektronik 7000-12481-0000000 mâle 0° codé A, bornes guillotines</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Murrelektronik</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">7000-12481-0000000</elementInformation>
+		<elementInformation name="designation" show="1">Connecteur M12 mâle 0° codé A, 4 pôles, bornes guillotines (IDC)</elementInformation>
+		<elementInformation name="description" show="1">M12 male 0 deg, A-coded, 4 poles, IDC terminals, field-wireable.</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors
+Original vector drawing, not copied from a manufacturer drawing. Ratings and terminal names from the public datasheet; layout and symbols are generic, check them against the datasheet.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-40" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{53eb3eea-bb88-5012-8438-a74433194186}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<line x1="0" y1="0" x2="10" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<circle x="10" y="-20" diameter="40" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
+		<circle x="15" y="-15" diameter="30" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="20.5" y="-9.5" diameter="3" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<text x="15.49" y="-11.2" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="1"/>
+		<circle x="36.5" y="-9.5" diameter="3" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<text x="41" y="-11.2" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="2"/>
+		<circle x="36.5" y="6.5" diameter="3" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<text x="41" y="4.8" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="3"/>
+		<circle x="20.5" y="6.5" diameter="3" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<text x="15.49" y="4.8" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="4"/>
+		<rect x="50" y="-8" width="20" height="16" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
+		<text x="54.8" y="12" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="IDC"/>
+		<text x="11.3" y="26" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="7000-12481-0000000"/>
+		<terminal x="0" y="0" name="X1" orientation="w" type="Generic" uuid="{8de5de81-16b5-5772-901c-02a923de2269}"/>
+	</description>
+</definition>

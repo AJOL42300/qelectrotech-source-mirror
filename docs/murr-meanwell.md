@@ -56,6 +56,76 @@ as for the Beckhoff cards. The element data hold the figures:
 - MICO: "N-channel electronic circuit breaker" with the current per channel
   (adjustable range such as 1-4 A, or fixed such as 6 A) and the order number.
 
+## M12 cables, distributors and connectors
+
+`extra-elements/18_murrelektronik_m12` holds the Murrelektronik M12 parts,
+one appearance per product (a plain schematic symbol, no realistic, description
+or table view), one sub-folder per family:
+
+| Folder | Products |
+| --- | --- |
+| `m12_cable` | Moulded cable M12 male / M12 female, A-coded, PUR 4 x 0.34: `7000-40021-6340050`, `-6340100`, `-6340200`, `-6340300`, `-6340500`, `-6341000` (0.5, 1, 2, 3, 5, 10 m) |
+| `m12_y_distributor` | Y distributor M12 male / valve connector form BI 18 mm: `7000-42421-6260060` (0.6 m), `-6260030` (0.3 m) |
+| `m12_connector` | Free M12 A-coded connector, IDC terminals: male `7000-12481-0000000`, female `7000-12601-0000000` |
+| `m12_t_coupler` | T coupler, M12 male 5-pole input and 2 x M12 female 4-pole, LEDs: `7000-41135-0000000` |
+| `m12_valve_coil` | Generic solenoid valve coil form BI 18 mm, 24 V DC (no manufacturer reference) |
+
+Principles:
+
+- **one terminal per M12 connector** (`X1` for a free connector or a coil,
+  `X1` / `X2` for the two ends of a cable, `X1` / `X2` / `X3` for the Y
+  distributor and the T coupler), like the EPP2338-0002 which has one terminal
+  per M12 socket. The pins are only drawn (circle with pins numbered 1 to 5:
+  four corners and the centre), never terminals;
+- **male = solid pins, female = hollow sockets**, the female drawing being the
+  mirror of the male one; the cable is male on the left (EPP side) and female
+  on the right; the wires inside the cable are not drawn, the length and the
+  order number are written on the cable;
+- the data of each element are the manufacturer, the exact order number
+  (`manufacturer_reference`), the designation in French, and a description
+  with the poles, the coding, the length and the colour code of the conductors
+  (1 brown, 2 white, 3 blue, 4 black);
+- the links are drawn with a **dashed conductor** (the existing conductor
+  line style, `line-style: dashed;` in the conductor `style` attribute, shown
+  with the pattern of `conductordashpattern.h`). In the example the dashed
+  conductors are set in the project; in the application, choose the dashed
+  style in the conductor properties (or in the default conductor of the
+  folio / project).
+
+Folio 7 of the example links, with dashed conductors, the M12 sockets `X01`
+and `X02` of an EPP2338-0002 to a 1 m cable, then a Y distributor feeding two
+valve coils, and a 2 m cable, then a T coupler and a free connector; a MICO
+Basic output feeds a 5 m cable and a valve coil. Folio 8 shows every M12
+product.
+
+Dependency: these cables are elements (symbols). The branch
+`ajol42300-network-cables-ethercat` (not merged here) offers another way of
+describing a cable, as conductor properties with a built-in catalogue (it
+already knows `7000-40021-6340500` and a Y distributor `7000-42401-6360060`)
+and a user catalogue `cable_catalog.json`. Nothing of that branch is used or
+duplicated here; after its merge the other 40021 lengths and the 42421
+distributors can be added to its catalogue without any change to the
+elements.
+
+Assumed, to check against the datasheets:
+
+- the cable 7000-40021 is 4-pole in the datasheet (only 4 pins are drawn); the
+  free connectors are 4-pole (12481 from the datasheet, 12601 by analogy);
+  only the T coupler input is 5-pole;
+- the position of the pins (1 top left, 2 top right, 3 bottom right,
+  4 bottom left, 5 centre, seen from the front of the male connector) and the
+  colours of the conductors follow the usual M12 A-coded convention and the
+  wire order given in the datasheet;
+- Y distributor 7000-42421: the M12 is drawn male (EPP side) and the two valve
+  connectors as sockets with contacts 1, 2 and PE; the datasheet of the 42421
+  was not found (only the 42401 family), so the contact assignment is assumed;
+- the LEDs of the T coupler are drawn without function and its internal wiring
+  (distribution function) is not drawn;
+- the symbols are schematic, the drawn length of a cable does not depend on
+  its real length;
+- the valve coil is a generic symbol (A1 / A2, 24 V DC, connector form BI
+  18 mm); it has no manufacturer reference.
+
 ## Example
 
 `examples/murr_meanwell_example.qet` shows an NDR-240-24 feeding a
@@ -63,7 +133,8 @@ MICO Basic 4.4 with three lamps, and an SDR-120-24 feeding a MICO Pro with
 two channels (the DC OK contact of the power supply enables the breaker). The
 same four devices are drawn as realistic views, description views and pin
 tables (same labels), then every product of the two libraries is shown on a
-folio. The elements are embedded in the project.
+folio; folios 7 and 8 show the M12 links and products (see above). The
+elements are embedded in the project.
 
 ## Sources and assumptions
 
@@ -89,20 +160,24 @@ datasheet of the exact reference before use:**
 ## Regenerating the library
 
 ```sh
-python misc/murr_meanwell/gen_elements.py   # both libraries
+python misc/murr_meanwell/gen_elements.py   # MICO and Mean Well libraries
+python misc/murr_meanwell/gen_m12.py        # M12 library (18_murrelektronik_m12)
 python misc/murr_meanwell/gen_example.py    # examples/murr_meanwell_example.qet
 ```
 
 `gen_elements.py` holds the data of the products (`PSUS`, `MICOS`) and the
-drawings, `qetlib.py` the writer of the element files. The output is
+drawings, `gen_m12.py` those of the M12 products, `qetlib.py` the writer of
+the element files. The output is
 deterministic (uuids derived from the product names). To add a product, add a
-`Psu(...)` or `Mico(...)` line and run both scripts.
+`Psu(...)` or `Mico(...)` line (or a length in `gen_m12.py`) and run the
+scripts.
 
 ## Tests
 
 ```sh
 qelectrotech --check-elements extra-elements/16_murrelektronik_mico --grid
 qelectrotech --check-elements extra-elements/17_meanwell_psu --grid
+qelectrotech --check-elements extra-elements/18_murrelektronik_m12 --grid
 ctest --test-dir build -R tst_murrmeanwellelements -j1
 ```
 
@@ -111,4 +186,6 @@ terminal" ones of the table views. `tst_murrmeanwellelements` checks the
 names of the directories, the four appearances of each product, identical
 terminals in the four views, that the drawings stay inside the frame with the
 hotspot and the terminals on the grid, the rail colours, the ratings in the
-data, and that the example uses elements of the library.
+data, that the example uses elements of the library, and for the M12 library
+the order numbers, one terminal per connector, the data and the dashed
+conductors of the example.

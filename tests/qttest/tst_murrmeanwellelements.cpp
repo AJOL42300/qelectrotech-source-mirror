@@ -470,6 +470,107 @@ class TstMurrMeanwellElements : public QObject
 			}
 		}
 
+		void m12ElementsAreConsistent()
+		{
+			const QString cat = QStringLiteral("18_murrelektronik_m12");
+			const QMap<QString, int> terminals{
+				{QStringLiteral("m12_cable"), 2},
+				{QStringLiteral("m12_y_distributor"), 3},
+				{QStringLiteral("m12_connector"), 1},
+				{QStringLiteral("m12_t_coupler"), 3},
+				{QStringLiteral("m12_valve_coil"), 1}};
+			QSet<QString> references;
+			int files = 0;
+			QDir dir(root(cat));
+			QVERIFY(QFileInfo::exists(dir.filePath(QStringLiteral("qet_directory"))));
+			for (auto f = terminals.cbegin(); f != terminals.cend(); ++f) {
+				QVERIFY2(QFileInfo::exists(dir.filePath(
+					f.key() + QStringLiteral("/qet_directory"))),
+					qPrintable(f.key()));
+			}
+			QDirIterator it(root(cat), {QStringLiteral("*.elmt")},
+							QDir::Files, QDirIterator::Subdirectories);
+			while (it.hasNext()) {
+				const QFileInfo f(it.next());
+				const QString family = f.dir().dirName();
+				QVERIFY2(terminals.contains(family), qPrintable(f.filePath()));
+				const auto def = load(f.filePath());
+				QCOMPARE(def.attribute(QStringLiteral("link_type")),
+						 QStringLiteral("simple"));
+				++files;
+					// one terminal per M12 connector, unique names
+				const auto p = pins(def);
+				QCOMPARE(p.size(), terminals.value(family));
+				QCOMPARE(parts(def, QStringLiteral("terminal")).size(),
+						 p.size());
+				const double w = def.attribute(QStringLiteral("width"))
+					.toDouble();
+				const double h = def.attribute(QStringLiteral("height"))
+					.toDouble();
+				const double hx = def.attribute(QStringLiteral("hotspot_x"))
+					.toDouble();
+				const double hy = def.attribute(QStringLiteral("hotspot_y"))
+					.toDouble();
+				for (auto t = p.cbegin(); t != p.cend(); ++t) {
+					QVERIFY2(std::fmod(t->x, 10) == 0
+							 && std::fmod(t->y, 10) == 0,
+							 qPrintable(f.filePath()));
+					QVERIFY2(t->x >= -hx && t->x <= w - hx
+							 && t->y >= -hy && t->y <= h - hy,
+							 qPrintable(f.filePath()));
+				}
+				QVERIFY2(!info(def, QStringLiteral("designation")).isEmpty(),
+						 qPrintable(f.filePath()));
+				const QString ref = info(
+					def, QStringLiteral("manufacturer_reference"));
+				if (family == QLatin1String("m12_valve_coil")) {
+						// generic coil: no invented order number
+					QVERIFY(ref.isEmpty());
+					QVERIFY(info(def, QStringLiteral("designation"))
+							.contains(QLatin1String("forme BI 18 mm")));
+				} else {
+					QCOMPARE(info(def, QStringLiteral("manufacturer")),
+							 QStringLiteral("Murrelektronik"));
+					QVERIFY2(!references.contains(ref), qPrintable(ref));
+					references << ref;
+				}
+			}
+			QCOMPARE(files, 12);
+			QSet<QString> expected{
+				QStringLiteral("7000-41135-0000000"),
+				QStringLiteral("7000-12481-0000000"),
+				QStringLiteral("7000-12601-0000000"),
+				QStringLiteral("7000-42421-6260060"),
+				QStringLiteral("7000-42421-6260030")};
+			for (const char *code : {"6340050", "6340100", "6340200",
+									 "6340300", "6340500", "6341000"}) {
+				expected << QStringLiteral("7000-40021-") + QLatin1String(code);
+			}
+			QCOMPARE(references, expected);
+		}
+
+		void m12ExampleFolioUsesDashedLinks()
+		{
+			QFile file(QStringLiteral(QET_EXAMPLES_DIR)
+					   + QStringLiteral("/murr_meanwell_example.qet"));
+			QVERIFY(file.open(QIODevice::ReadOnly));
+			QDomDocument doc;
+			QVERIFY(doc.setContent(&file));
+			const auto diagrams =
+				doc.elementsByTagName(QStringLiteral("diagram"));
+			int dashed = 0;
+			for (int i = 0; i < diagrams.size(); ++i) {
+				const auto conductors = diagrams.at(i).toElement()
+					.elementsByTagName(QStringLiteral("conductor"));
+				for (int j = 0; j < conductors.size(); ++j) {
+					dashed += conductors.at(j).toElement().attribute(
+						QStringLiteral("style")).contains(
+						QLatin1String("line-style: dashed"));
+				}
+			}
+			QVERIFY(dashed >= 8);
+		}
+
 		void exampleProjectUsesLibrarySymbols()
 		{
 			QFile file(QStringLiteral(QET_EXAMPLES_DIR)

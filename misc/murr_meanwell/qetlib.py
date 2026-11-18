@@ -177,10 +177,11 @@ def plc_xml(terminals, table):
 
 
 def write_element(path, key, names, infos, informations, canvas, terminals,
-                  table=False, label_at=(0, -24), margin=10):
+                  table=False, label_at=(0, -24), margin=10, master=True):
     """Write one .elmt file. names: lang -> text; infos: ordered name ->
     text. The terminals are in the local coordinates of the canvas; the
-    bounding box of the parts gives the size and the hotspot."""
+    bounding box of the parts gives the size and the hotspot. With
+    master=False the element is a plain simple element (no pin table)."""
     lx, ly = label_at
     if table:
         width = sum(TABLE_WIDTHS[i] for i in TABLE_COLUMNS) + 10
@@ -201,7 +202,8 @@ def write_element(path, key, names, infos, informations, canvas, terminals,
         width = -(-int(x2 + margin + hx) // 10) * 10
         height = -(-int(y2 + margin + hy) // 10) * 10
     out = [f'<definition version="0.100.0" type="element" '
-           f'link_type="master" width="{width}" height="{height}" '
+           f'link_type="{"master" if master else "simple"}" '
+           f'width="{width}" height="{height}" '
            f'hotspot_x="{hx}" hotspot_y="{hy}">',
            f'\t<uuid uuid="{{{uid(key)}}}"/>', "\t<names>"]
     for lang, text in names.items():
@@ -210,10 +212,12 @@ def write_element(path, key, names, infos, informations, canvas, terminals,
     for name, text in infos.items():
         out.append(f'\t\t<elementInformation name="{name}" show="1">'
                    f"{esc(text)}</elementInformation>")
-    out += ["\t</elementInformations>", "\t<kindInformations>",
-            '\t\t<kindInformation name="type">plc</kindInformation>',
-            plc_xml(terminals, table), "\t</kindInformations>",
-            f"\t<informations>{informations}\n{LICENCE}</informations>",
+    out.append("\t</elementInformations>")
+    if master:
+        out += ["\t<kindInformations>",
+                '\t\t<kindInformation name="type">plc</kindInformation>',
+                plc_xml(terminals, table), "\t</kindInformations>"]
+    out += [f"\t<informations>{informations}\n{LICENCE}</informations>",
             "\t<description>"]
     out.append("\t\t" + dyn_text(key, lx, ly, "label", 9, True))
     if table:

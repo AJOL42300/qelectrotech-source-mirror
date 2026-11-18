@@ -20,8 +20,12 @@ that protects three lamps and a Mean Well SDR-120-24 feeds a MICO Pro with
 two channels, its DC OK relay enabling the breaker. Folios 2 to 4 show the
 same four devices as realistic views, description views and pin tables,
 with the same labels; folios 5 and 6 show the schematic of every product
-of the two libraries. The elements of extra-elements/16_murrelektronik_mico
-and 17_meanwell_psu are embedded in the project.
+of the two libraries. Folio 7 links an EPP2338-0002 and a MICO output by
+dashed conductors to M12 moulded cables, a Y distributor, a T coupler and
+valve coils; folio 8 shows every M12 product. The elements of
+extra-elements/16_murrelektronik_mico, 17_meanwell_psu,
+18_murrelektronik_m12 and the EPP2338 of 15_beckhoff_ethercat are embedded
+in the project.
 
 Usage: python misc/murr_meanwell/gen_example.py
 The output is deterministic (all uuids are derived from fixed names). The
@@ -39,9 +43,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(HERE, "..", "beckhoff"))
 import gen_elements  # noqa: E402
+import gen_m12  # noqa: E402
 import gen_titleblocks  # noqa: E402
 
 ROOT = os.path.normpath(os.path.join(HERE, "..", ".."))
+EXTRA_ROOTS = ["15_beckhoff_ethercat", "18_murrelektronik_m12"]
 TB_DIR = os.path.join(ROOT, "titleblocks")
 TITLEBLOCKS = {"A3 landscape": "A3_landscape", "A3 portrait": "A3_portrait"}
 EXTRA = gen_elements.EXTRA
@@ -110,6 +116,17 @@ def get(device, view=""):
     if key not in ELEMENTS:
         ELEMENTS[key] = Elmt(category, name,
                              ET.parse(device.path(view)).getroot())
+    return ELEMENTS[key]
+
+
+def get_file(path):
+    """The element stored in a .elmt file under extra-elements."""
+    rel = os.path.relpath(path, EXTRA).replace(os.sep, "/")
+    category, name = rel.rsplit("/", 1)
+    name = name[:-len(".elmt")]
+    key = (category, name)
+    if key not in ELEMENTS:
+        ELEMENTS[key] = Elmt(category, name, ET.parse(path).getroot())
     return ELEMENTS[key]
 
 
@@ -182,11 +199,13 @@ def element_xml(el, label, x, y, key):
         "<texts_groups/></element>")
 
 
-def conductor_xml(key, e1, l1, el1, t1, e2, l2, el2, t2):
+def conductor_xml(key, e1, l1, el1, t1, e2, l2, el2, t2, dashed=False):
     tu1 = el1.terminals[t1].get("uuid")
     tu2 = el2.terminals[t2].get("uuid")
+    style = 'style="line-style: dashed;" ' if dashed else ""
     return (
-        '<conductor bicolor="false" bus="" cable="" color2="#000000" '
+        f'<conductor {style}'
+        'bicolor="false" bus="" cable="" color2="#000000" '
         'condsize="1" conductor_color="" conductor_section="" '
         'dash-size="1" displaytext="1" '
         f'element1="{uid("e", e1)}" element1_label="{esc(l1)}" '
@@ -299,6 +318,63 @@ def folio_tables():
     return diagram_xml(4, "Example - pin tables", els, [])
 
 
+def folio_m12():
+    """EPP2338 and MICO outputs linked by dotted lines to M12 products."""
+    epp = get_file(os.path.join(EXTRA, "15_beckhoff_ethercat", "epp_box",
+                                "epp2338.elmt"))
+    mico = get(by_ref("MICO Basic 4.4"))
+    m12 = {p.file: get_file(p.path()) for p in gen_m12.products()}
+    els, cond = [], []
+
+    def put(el, label, x, y):
+        els.append(element_xml(el, label, x, y, f"m12/{label}"))
+
+    def link(a, ea, ta, b, eb, tb):
+        cond.append(conductor_xml(f"m12/{a}{ta}{b}{tb}", f"m12/{a}", a, ea,
+                                  ta, f"m12/{b}", b, eb, tb, dashed=True))
+
+    put(epp, "A3", 100, 250)
+    put(m12["m12_cable_1m"], "W1", 250, 180)
+    put(m12["m12_y_0_6m"], "X1", 550, 180)
+    put(m12["valve_coil_bi_18"], "Y1", 850, 120)
+    put(m12["valve_coil_bi_18"], "Y2", 850, 240)
+    link("A3", epp, "X01", "W1", m12["m12_cable_1m"], "X1")
+    link("W1", m12["m12_cable_1m"], "X2", "X1", m12["m12_y_0_6m"], "X1")
+    link("X1", m12["m12_y_0_6m"], "X2", "Y1", m12["valve_coil_bi_18"], "X1")
+    link("X1", m12["m12_y_0_6m"], "X3", "Y2", m12["valve_coil_bi_18"], "X1")
+    put(m12["m12_cable_2m"], "W2", 250, 320)
+    put(m12["m12_t_coupler"], "X2", 550, 320)
+    put(m12["m12_connector_male"], "X3", 850, 320)
+    link("A3", epp, "X02", "W2", m12["m12_cable_2m"], "X1")
+    link("W2", m12["m12_cable_2m"], "X2", "X2", m12["m12_t_coupler"], "X1")
+    link("X2", m12["m12_t_coupler"], "X2", "X3",
+         m12["m12_connector_male"], "X1")
+    put(mico, "F1", 100, 560)
+    put(m12["m12_cable_5m"], "W3", 250, 730)
+    put(m12["valve_coil_bi_18"], "Y3", 550, 730)
+    link("F1", mico, "OUT1", "W3", m12["m12_cable_5m"], "X1")
+    link("W3", m12["m12_cable_5m"], "X2", "Y3", m12["valve_coil_bi_18"],
+         "X1")
+    return diagram_xml(7, "M12 links - dotted conductors between EPP2338, "
+                       "MICO, moulded cables and valve coils", els, cond)
+
+
+def folio_m12_range(order, title):
+    els = []
+    x, y, rowh = 60, 60, 0
+    for p in gen_m12.products():
+        el = get_file(p.path())
+        w, h = int(el.root.get("width")), int(el.root.get("height"))
+        if x + w > 1180:
+            x, y, rowh = 60, y + rowh + 20, 0
+        els.append(element_xml(
+            el, p.order or "coil", x + int(el.root.get("hotspot_x")),
+            y + int(el.root.get("hotspot_y")), f"m12range/{p.file}"))
+        x += w + 20
+        rowh = max(rowh, h)
+    return diagram_xml(order, title, els, [])
+
+
 def folio_range(order, title, devices):
     els = []
     x, y, rowh = 60, 60, 0
@@ -342,7 +418,8 @@ def tree_xml(path):
 
 
 def collection_xml():
-    libs = "".join(tree_xml(r) for r in gen_elements.ROOTS)
+    libs = "".join(tree_xml(r) for r in
+                   list(gen_elements.ROOTS) + EXTRA_ROOTS)
     devices = category_xml(
         DEV, [("en", "Example devices")],
         f'<element name="lamp.elmt">{LAMP}</element>')
@@ -359,7 +436,9 @@ def main():
               folio_range(5, "Range - MICO circuit breakers",
                           gen_elements.MICOS),
               folio_range(6, "Range - Mean Well power supplies",
-                          gen_elements.PSUS)]
+                          gen_elements.PSUS),
+              folio_m12(),
+              folio_m12_range(8, "Range - Murrelektronik M12 products")]
     xrefs = "".join(
         f'<xref delayprefix="" displayhas="cross" master_label="%f-%l%c" '
         'offset="0" powerprefix="" showallconfiguredslaves="false" '

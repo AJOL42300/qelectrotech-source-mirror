@@ -1,0 +1,31 @@
+<definition version="0.100.0" type="element" link_type="simple" width="180" height="70" hotspot_x="20" hotspot_y="40">
+	<uuid uuid="{fc5cd3d6-abab-54fc-a844-c72961a32aab}"/>
+	<names>
+		<name lang="en">Solenoid valve coil form BI 18 mm, 24 V DC</name>
+		<name lang="fr">Bobine d'électrovanne forme BI 18 mm, 24 V DC</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="designation" show="1">Bobine d'électrovanne forme BI 18 mm</elementInformation>
+		<elementInformation name="description" show="1">Solenoid valve coil, valve connector form BI 18 mm, 24 V DC (contacts 1, 2 and PE assumed).</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors
+Original vector drawing, not copied from a manufacturer drawing. Ratings and terminal names from the public datasheet; layout and symbols are generic, check them against the datasheet.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-30" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{e3f1326b-c69c-5edd-b059-c938779734c4}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<line x1="0" y1="0" x2="10" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="10" y="-12" width="40" height="24" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
+		<circle x="16.5" y="-3.5" diameter="3" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<text x="16.25" y="3" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="1"/>
+		<circle x="28.5" y="-3.5" diameter="3" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<text x="28.25" y="3" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="2"/>
+		<circle x="40.5" y="-3.5" diameter="3" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<text x="38.99" y="3" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="PE"/>
+		<line x1="50" y1="0" x2="90" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="90" y="-15" width="60" height="30" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<text x="93" y="-14" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="A1"/>
+		<text x="93" y="8" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="A2"/>
+		<text x="113.53" y="-3" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="24 V DC"/>
+		<terminal x="0" y="0" name="X1" orientation="w" type="Generic" uuid="{12ee16fa-dbd8-5291-af70-717323fb8dee}"/>
+	</description>
+</definition>
