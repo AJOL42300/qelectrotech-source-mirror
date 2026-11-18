@@ -867,7 +867,7 @@ been re-read for the `-1002` alone (**not re-verified**). The input filter
 | Tightening torque of the M3 bolts | **not stated** (the torque table of the chapter is for plug connectors only) | same chapter |
 | Mounting rail ZS5300-0001: 500 x 129 mm, stainless steel 1.5 mm, M3 threads ready-made; up to 15 narrow modules, 2 mm apart | verified | same page |
 | Silhouette (ears, corner radii, hole 2.55 mm from the edges) | **assumed**: traced by eye on a photo, scaled to 30 x 126 mm; only the size and the 3.5 mm holes are data-sheet values | |
-| 5-digit I/O identifier in the label holders | **not available** in this repository (see below) | |
+| 5-digit I/O identifier in the label holders | corresponds to the Function column (`plcIO.functionText`) of the PLC table (user's answer); **not linked** to the holders (needs C++, see below) | |
 
 **M3 screw length.** Beckhoff states "longer than 15 mm" for the narrow EPP
 housings; no exact length is given. A calculated value would be the 1.5 mm
@@ -883,9 +883,24 @@ channel, lower = even channel) and one by the Us/Up LEDs. QElectroTech has no
 an empty, user-editable text and a dynamic text cannot read a value per
 channel. Each channel holder therefore holds an editable `UserText` dynamic
 text with the placeholder `00000`: double-click it on the placed element and
-type the identifier. The simplest real link would be a dynamic text bound to
-the `plcIO.crossRef` of the channel (not done: it needs C++). The EPP views are
-the only ones changed for this (EL, EK and drives are not).
+type the identifier. The EPP views are the only ones changed for this (EL, EK
+and drives are not).
+
+*Which field the identifier is* (user's answer): the **Function** column of the
+cross-reference table, that is `plcIO.functionText` of the channel in the
+card's own PLC table (the field the function propagation of the
+`ajol42300-function-propagation` branch reads and writes per channel). Not
+linked yet, because no existing variable gives a text the `functionText` of one
+channel of its own element: `%{plc_function}` (`AssignVariables`,
+`autoNum/assignvariables.cpp`) is filled only on a *slave* element linked to a
+master row (`LinkElementCommand`, `Element::setData`), and one slave holds one
+row, while the EPP is one element with eight rows. The smallest link needs C++
+(not done, waiting for agreement): fill per-channel keys `plc_function_1` to
+`plc_function_8` in the element's own information from `plcMasterData().ios`
+(in `Element::setData`, where `old_plc` is already compared) and replace them
+in `AssignVariables::replaceVariable`; the holders then become `CompositeText`
+`%{plc_function_N}` texts. Until then the value is typed by hand in the holder
+and, separately, in the Function column of the PLC table (it is not shared).
 
 In the layout views (EPP2338-1002 only) the silhouette has the two ears with
 their 3.5 mm holes; the white holders and the M12/M8 sockets are drawn at 1:1
