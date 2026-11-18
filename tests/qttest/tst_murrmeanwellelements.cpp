@@ -27,6 +27,9 @@
 #include <QDomDocument>
 #include <QFile>
 #include <QFileInfo>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QMap>
 #include <QSet>
 #include <QtTest>
@@ -132,7 +135,313 @@ class TstMurrMeanwellElements : public QObject
 			return list;
 		}
 
+		struct Route
+		{
+			QString a;
+			int ca;
+			QString b;
+			int cb;
+		};
+		using Routes = QMap<QString, QList<Route>>;
+
+			// the folio of the M12 links: labels, families and conductors
+		struct Folio
+		{
+			QMap<QString, QString> family;		// label -> family folder
+			QMap<QString, QDomElement> element;	// label -> element
+			QList<QPair<QString, QString>> links;	// "label/terminal"
+		};
+
+		static Routes routes()
+		{
+			Routes map;
+			QFile file(root(QStringLiteral("18_murrelektronik_m12"))
+					   + QStringLiteral("/function_routes.json"));
+			if (!file.open(QIODevice::ReadOnly)) {
+				return map;
+			}
+			const auto obj = QJsonDocument::fromJson(file.readAll()).object();
+			for (auto it = obj.begin(); it != obj.end(); ++it) {
+				const auto list = it.value().toArray();
+				for (const auto &v : list) {
+					const auto a = v.toArray();
+					map[it.key()] << Route{a.at(0).toString(),
+										   a.at(1).toInt(),
+										   a.at(2).toString(),
+										   a.at(3).toInt()};
+				}
+			}
+			return map;
+		}
+
+		static QString labelOf(const QDomElement &element)
+		{
+			const auto list = element.firstChildElement(
+				QStringLiteral("elementInformations"))
+				.elementsByTagName(QStringLiteral("elementInformation"));
+			for (int i = 0; i < list.size(); ++i) {
+				if (list.at(i).toElement().attribute(QStringLiteral("name"))
+					== QLatin1String("label")) {
+					return list.at(i).toElement().text();
+				}
+			}
+			return QString();
+		}
+
+		static Folio m12Folio(const QDomDocument &doc)
+		{
+			Folio folio;
+			QMap<QString, QString> labels;
+			const auto diagrams =
+				doc.elementsByTagName(QStringLiteral("diagram"));
+			for (int i = 0; i < diagrams.size(); ++i) {
+				const auto d = diagrams.at(i).toElement();
+				if (d.attribute(QStringLiteral("order"))
+					!= QLatin1String("7")) {
+					continue;
+				}
+				const auto elements =
+					d.elementsByTagName(QStringLiteral("element"));
+				for (int j = 0; j < elements.size(); ++j) {
+					const auto e = elements.at(j).toElement();
+					const QString label = labelOf(e);
+					labels[e.attribute(QStringLiteral("uuid"))] = label;
+					folio.element[label] = e;
+					const QStringList path = e.attribute(
+						QStringLiteral("type")).split(QLatin1Char('/'));
+					folio.family[label] = path.value(path.size() - 2);
+				}
+				const auto conductors =
+					d.elementsByTagName(QStringLiteral("conductor"));
+				for (int j = 0; j < conductors.size(); ++j) {
+					const auto c = conductors.at(j).toElement();
+					folio.links << qMakePair(
+						labels.value(c.attribute(QStringLiteral("element1")))
+						+ QLatin1Char('/')
+						+ c.attribute(QStringLiteral("terminalname1")),
+						labels.value(c.attribute(QStringLiteral("element2")))
+						+ QLatin1Char('/')
+						+ c.attribute(QStringLiteral("terminalname2")));
+				}
+			}
+			return folio;
+		}
+
+			// where a function ends: "label/terminal/channel", sorted. The
+			// passive families pass the channels on, the others end a walk
+		static QStringList walk(const Folio &folio, const Routes &r,
+								const QString &label,
+								const QString &terminal, int channel)
+		{
+			QStringList ends;
+			QSet<QString> seen;
+			QList<std::tuple<QString, QString, int>> todo{
+				{label, terminal, channel}};
+			while (!todo.isEmpty()) {
+				const auto [l, t, ch] = todo.takeLast();
+				const QString here = l + QLatin1Char('/') + t;
+				if (seen.contains(here + QLatin1Char('#')
+								  + QString::number(ch))) {
+					continue;
+				}
+				seen << here + QLatin1Char('#') + QString::number(ch);
+				for (const auto &link : folio.links) {
+					QString other;
+					if (link.first == here) {
+						other = link.second;
+					} else if (link.second == here) {
+						other = link.first;
+					} else {
+						continue;
+					}
+					const QString l2 = other.section(QLatin1Char('/'), 0, 0);
+					const QString t2 = other.section(QLatin1Char('/'), 1, 1);
+					const QString family = folio.family.value(l2);
+					if (!r.contains(family)) {
+						ends << other + QLatin1Char('/')
+							+ QString::number(ch);
+						continue;
+					}
+					for (const Route &x : r.value(family)) {
+						if (t2 == x.a && ch == x.ca) {
+							todo.append({l2, x.b, x.cb});
+						} else if (t2 == x.b && ch == x.cb) {
+							todo.append({l2, x.a, x.ca});
+						}
+					}
+				}
+			}
+			ends.sort();
+			return ends;
+		}
+
+			// the function text of an output of an EPP or MICO
+		static QString functionOf(const Folio &folio, const QString &label,
+								  const QString &terminal, int channel)
+		{
+			const auto ios = folio.element.value(label).elementsByTagName(
+				QStringLiteral("plcIO"));
+			const QString address = terminal + QLatin1Char('(')
+				+ QString::number(channel) + QLatin1Char(')');
+			for (int i = 0; i < ios.size(); ++i) {
+				const auto io = ios.at(i).toElement();
+				const QString a = io.attribute(QStringLiteral("address"));
+				if (io.firstChildElement(QStringLiteral("terminal")).text()
+					== terminal
+					&& (a == address || !a.endsWith(QLatin1Char(')')))) {
+					return io.attribute(QStringLiteral("functionText"));
+				}
+			}
+			return QString();
+		}
+
+			// what a valve coil shows: the function of the output it is
+			// reached from, nothing when no output reaches it
+		static QString resolved(const Folio &folio, const Routes &r,
+								const QString &coil)
+		{
+			const QStringList ends =
+				walk(folio, r, coil, QStringLiteral("X1"), 1);
+			if (ends.size() != 1) {
+				return QString();
+			}
+			const QStringList end = ends.first().split(QLatin1Char('/'));
+			return functionOf(folio, end.at(0), end.at(1), end.at(2).toInt());
+		}
+
+		static QString shownOn(const Folio &folio, const QString &label)
+		{
+			const auto list = folio.element.value(label).firstChildElement(
+				QStringLiteral("elementInformations"))
+				.elementsByTagName(QStringLiteral("elementInformation"));
+			for (int i = 0; i < list.size(); ++i) {
+				if (list.at(i).toElement().attribute(QStringLiteral("name"))
+					== QLatin1String("function")) {
+					return list.at(i).toElement().text();
+				}
+			}
+			return QString();
+		}
+
 	private slots:
+		void m12FunctionFollowsTheChain()
+		{
+			QFile file(QStringLiteral(QET_EXAMPLES_DIR)
+					   + QStringLiteral("/murr_meanwell_example.qet"));
+			QVERIFY(file.open(QIODevice::ReadOnly));
+			QDomDocument doc;
+			QVERIFY(doc.setContent(&file));
+			const Folio folio = m12Folio(doc);
+			const Routes r = routes();
+			QVERIFY(r.contains(QStringLiteral("m12_cable")));
+			QVERIFY(!folio.links.isEmpty());
+
+				// T coupler: channel 1 to the first branch, 2 to the second
+			QCOMPARE(walk(folio, r, QStringLiteral("A3"),
+						  QStringLiteral("X02"), 1),
+					 QStringList{QStringLiteral("Y4/X1/1")});
+			QCOMPARE(walk(folio, r, QStringLiteral("A3"),
+						  QStringLiteral("X02"), 2),
+					 QStringList{QStringLiteral("Y5/X1/1")});
+				// Y distributor with two valves
+			QCOMPARE(walk(folio, r, QStringLiteral("A3"),
+						  QStringLiteral("X01"), 1),
+					 QStringList{QStringLiteral("Y1/X1/1")});
+			QCOMPARE(walk(folio, r, QStringLiteral("A3"),
+						  QStringLiteral("X01"), 2),
+					 QStringList{QStringLiteral("Y2/X1/1")});
+				// and back, to the right channel of the right socket
+			QCOMPARE(walk(folio, r, QStringLiteral("Y5"),
+						  QStringLiteral("X1"), 1),
+					 QStringList{QStringLiteral("A3/X02/2")});
+			QCOMPARE(walk(folio, r, QStringLiteral("Y2"),
+						  QStringLiteral("X1"), 1),
+					 QStringList{QStringLiteral("A3/X01/2")});
+				// a cable only: the output of the MICO
+			QCOMPARE(walk(folio, r, QStringLiteral("Y3"),
+						  QStringLiteral("X1"), 1),
+					 QStringList{QStringLiteral("F1/OUT1/1")});
+
+				// every valve shows the function of its own output
+			const QMap<QString, QString> expected{
+				{QStringLiteral("Y1"), QStringLiteral("EV12")},
+				{QStringLiteral("Y2"), QStringLiteral("EV13")},
+				{QStringLiteral("Y4"), QStringLiteral("EV14")},
+				{QStringLiteral("Y5"), QStringLiteral("EV15")},
+				{QStringLiteral("Y3"), QStringLiteral("EV16")}};
+			for (auto it = expected.cbegin(); it != expected.cend(); ++it) {
+				QCOMPARE(resolved(folio, r, it.key()), it.value());
+				QCOMPARE(shownOn(folio, it.key()), it.value());
+			}
+
+				// the function changes at the source: only its valve follows
+			Folio changed = m12Folio(doc);
+			auto ios = changed.element.value(QStringLiteral("A3"))
+				.elementsByTagName(QStringLiteral("plcIO"));
+			for (int i = 0; i < ios.size(); ++i) {
+				auto io = ios.at(i).toElement();
+				if (io.attribute(QStringLiteral("address"))
+					== QLatin1String("X01(1)")) {
+					io.setAttribute(QStringLiteral("functionText"),
+									QStringLiteral("EV99"));
+				}
+			}
+			QCOMPARE(resolved(changed, r, QStringLiteral("Y1")),
+					 QStringLiteral("EV99"));
+			QCOMPARE(resolved(changed, r, QStringLiteral("Y2")),
+					 QStringLiteral("EV13"));
+				// the DOM is shared: put the original text back
+			for (int i = 0; i < ios.size(); ++i) {
+				auto io = ios.at(i).toElement();
+				if (io.attribute(QStringLiteral("address"))
+					== QLatin1String("X01(1)")) {
+					io.setAttribute(QStringLiteral("functionText"),
+									QStringLiteral("EV12"));
+				}
+			}
+
+				// a link is missing: the chain is broken on both sides
+			Folio broken = m12Folio(doc);
+			for (int i = broken.links.size() - 1; i >= 0; --i) {
+				if (broken.links.at(i).first.startsWith(QLatin1String("W2/"))
+					&& broken.links.at(i).second.startsWith(
+						QLatin1String("X2/"))) {
+					broken.links.removeAt(i);
+				}
+			}
+			QVERIFY(broken.links.size() == folio.links.size() - 1);
+			QVERIFY(walk(broken, r, QStringLiteral("A3"),
+						 QStringLiteral("X02"), 1).isEmpty());
+			QVERIFY(walk(broken, r, QStringLiteral("Y4"),
+						 QStringLiteral("X1"), 1).isEmpty());
+			QVERIFY(resolved(broken, r, QStringLiteral("Y5")).isEmpty());
+			QCOMPARE(resolved(broken, r, QStringLiteral("Y1")),
+					 QStringLiteral("EV12"));
+				// a channel the T coupler does not route stops there
+			QVERIFY(walk(folio, r, QStringLiteral("A3"),
+						 QStringLiteral("X02"), 3).isEmpty());
+		}
+
+		void m12RoutesUseExistingTerminals()
+		{
+			const Routes r = routes();
+			QCOMPARE(r.size(), 3);
+			for (auto it = r.cbegin(); it != r.cend(); ++it) {
+				const auto files = products(
+					QStringLiteral("18_murrelektronik_m12/") + it.key());
+				QVERIFY2(!files.isEmpty(), qPrintable(it.key()));
+				for (const QStringList &list : files) {
+					const auto p = pins(load(list.first()));
+					for (const Route &x : it.value()) {
+						QVERIFY2(p.contains(x.a) && p.contains(x.b),
+								 qPrintable(list.first()));
+						QVERIFY(x.ca >= 1 && x.ca <= 2 && x.cb >= 1
+								&& x.cb <= 2);
+					}
+				}
+			}
+		}
+
 		void directoriesHaveAnEnglishName()
 		{
 			int count = 0;

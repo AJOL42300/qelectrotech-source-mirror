@@ -94,7 +94,7 @@ Principles:
 
 Folio 7 of the example links, with dashed conductors, the M12 sockets `X01`
 and `X02` of an EPP2338-0002 to a 1 m cable, then a Y distributor feeding two
-valve coils, and a 2 m cable, then a T coupler and a free connector; a MICO
+valve coils, and a 2 m cable, then a T coupler and two valve coils; a MICO
 Basic output feeds a 5 m cable and a valve coil. Folio 8 shows every M12
 product.
 
@@ -125,6 +125,49 @@ Assumed, to check against the datasheets:
   its real length;
 - the valve coil is a generic symbol (A1 / A2, 24 V DC, connector form BI
   18 mm); it has no manufacturer reference.
+
+## Function following the chain (EPP to valve)
+
+The function written on an output of the EPP2338-0002 (for example `EV12`) is
+shown on the valve coil that the output drives, through the moulded cables,
+the T coupler and the Y distributor, and the output shows where it goes.
+
+What QElectroTech already has: potentials and the "function" of a terminal
+are followed by `Terminal::relatedPotentialTerminal`, but only through folio
+reports and terminal-type elements; "simple" elements (cables, couplers, coils)
+stop the search. The PLC data (`functionText`, comment, terminal of a channel)
+are stored in the `PlcIO` of the master and pushed to the linked slaves
+(`Element::setElementData`, `LinkElementCommand`), which is a master / slave
+link, not a terminal to terminal chain. `ModuleTooltip::entriesOf` and
+`PinUsage` show the channels of a module but do not follow conductors.
+
+Approach without C++ (nothing in the application changes):
+
+- the cables, the Y distributor and the T coupler are passive transit
+  elements. `function_routes.json` (written by `gen_m12.py` from its `ROUTES`
+  table) tells, for each family, which channel of which connector comes out
+  on which connector: cable `X1` <-> `X2` (channel 1 and 2 kept); T coupler
+  and Y distributor: trunk `X1` channel 1 <-> `X2`, trunk channel 2 <-> `X3`.
+  A branch carries one channel, seen as its channel 1. The two channels
+  never mix, and a channel with no route (for example channel 3) ends the
+  chain, as does a missing conductor;
+- `misc/murr_meanwell/chain.py` follows the conductors with these routes;
+  `gen_example.py` uses it to write the function of the source on each valve
+  (the `function` element information, shown as a dynamic text next to the
+  coil) and the destination (`-> Y1`) in the comment of the output;
+- folio 7 of the example: EPP output X01 channel 1 -> 1 m cable -> Y
+  distributor -> coils `Y1` (`EV12`) and `Y2` (`EV13`); X02 -> 2 m cable ->
+  T coupler -> coils `Y4` (`EV14`) and `Y5` (`EV15`); the MICO output 1 ->
+  5 m cable -> coil `Y3` (`EV16`).
+
+Limits: the texts are computed when the example is generated. They do not
+change by themselves when the function of an output is edited in the
+application, and the intermediate parts show nothing. Making it live needs a
+small C++ change, proposed here and not done: a generic pass-through step in
+`Terminal::relatedPotentialTerminal` that, for an element with a per-terminal
+channel map, continues through its other connector; the coil `function`
+text and the EPP tooltip would read the result. It must be an option of the
+settings dialog, off by default, and does not change the `.qet` format.
 
 ## Example
 
@@ -188,4 +231,6 @@ terminals in the four views, that the drawings stay inside the frame with the
 hotspot and the terminals on the grid, the rail colours, the ratings in the
 data, that the example uses elements of the library, and for the M12 library
 the order numbers, one terminal per connector, the data and the dashed
-conductors of the example.
+conductors of the example, and that the function follows the chain: the
+channel routes, EPP -> T -> two valves, Y with two valves, a change at the
+source, and a broken chain.

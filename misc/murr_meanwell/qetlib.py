@@ -177,11 +177,13 @@ def plc_xml(terminals, table):
 
 
 def write_element(path, key, names, infos, informations, canvas, terminals,
-                  table=False, label_at=(0, -24), margin=10, master=True):
+                  table=False, label_at=(0, -24), margin=10, master=True,
+                  extra_texts=()):
     """Write one .elmt file. names: lang -> text; infos: ordered name ->
     text. The terminals are in the local coordinates of the canvas; the
     bounding box of the parts gives the size and the hotspot. With
-    master=False the element is a plain simple element (no pin table)."""
+    master=False the element is a plain simple element (no pin table).
+    extra_texts: (info, x, y, size) dynamic texts shown next to the label."""
     lx, ly = label_at
     if table:
         width = sum(TABLE_WIDTHS[i] for i in TABLE_COLUMNS) + 10
@@ -197,6 +199,8 @@ def write_element(path, key, names, infos, informations, canvas, terminals,
             x2, y2 = max(x2, t.x + dx), max(y2, t.y + dy)
         x1, y1 = min(x1, lx), min(y1, ly)
         x2, y2 = max(x2, lx + 40), max(y2, ly + 14)
+        for _info, tx, ty, _size in extra_texts:
+            x2, y2 = max(x2, tx + 40), max(y2, ty + 14)
         hx = -(-int(-x1 + margin) // 10) * 10
         hy = -(-int(-y1 + margin) // 10) * 10
         width = -(-int(x2 + margin + hx) // 10) * 10
@@ -220,6 +224,8 @@ def write_element(path, key, names, infos, informations, canvas, terminals,
     out += [f"\t<informations>{informations}\n{LICENCE}</informations>",
             "\t<description>"]
     out.append("\t\t" + dyn_text(key, lx, ly, "label", 9, True))
+    for info, tx, ty, size in extra_texts:
+        out.append("\t\t" + dyn_text(key, tx, ty, info, size, False))
     if table:
         out.append("\t\t" + dyn_text(key, 60, -24, "designation", 7, False))
         out.append('\t\t<plc_table x="0" y="0" style="line-style:normal;'

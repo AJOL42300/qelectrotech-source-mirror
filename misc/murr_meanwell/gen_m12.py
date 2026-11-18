@@ -26,6 +26,7 @@ number, poles, coding, length, cable type) comes from public datasheets.
 
 Usage: python misc/murr_meanwell/gen_m12.py
 """
+import json
 import os
 import shutil
 import sys
@@ -142,7 +143,8 @@ class Product:
         canvas = self.draw()
         write_element(self.path(), self.key, self.names(), self.infos(),
                       AUTHOR, canvas, self.terms, label_at=(0, self.ly),
-                      master=False)
+                      master=False,
+                      extra_texts=getattr(self, "extra_texts", ()))
 
 
 def term(name, x, y, orient):
@@ -169,7 +171,8 @@ class Cable(Product):
             f"cod\u00e9 A, PUR 4x0,34, {metres(length)} m",
             "M12 male 0 deg / M12 female 0 deg, A-coded, 4 poles, "
             f"PUR 4 x 0.34 mm2, {metres(length)} m. "
-            "Pins 1 brown, 2 white, 3 blue, 4 black.", 4)
+            "Pins 1 brown, 2 white, 3 blue, 4 black. Function routing: "
+            "X1 and X2 are the same channels (1 = pin 4, 2 = pin 2).", 4)
         self.terms = (term("X1", 0, 0, "w"), term("X2", 200, 0, "e"))
 
     def draw(self):
@@ -202,7 +205,8 @@ class YDistributor(Product):
             f"\u00e9lectrovanne forme BI 18 mm, {metres(length)} m",
             "Y distributor, M12 male A-coded, 4 poles, to two valve "
             f"connectors form BI 18 mm, {metres(length)} m. The contacts "
-            "of the valve connectors are assumed (1, 2, PE).", 4)
+            "of the valve connectors are assumed (1, 2, PE). Function "
+            "routing: channel 1 (pin 4) to X2, channel 2 (pin 2) to X3.", 4)
         self.length = length
         self.terms = (term("X1", 0, 0, "w"), term("X2", 200, -30, "e"),
                       term("X3", 200, 30, "e"))
@@ -272,7 +276,8 @@ class TCoupler(Product):
             "Coupleur T M12 m\u00e2le (5 p\u00f4les) / 2 x M12 femelle "
             "(4 p\u00f4les) cod\u00e9 A, LED",
             "T coupler (Slim Line), M12 male 5 poles A-coded to two M12 "
-            "female 4 poles A-coded, LEDs, distribution function.", 5)
+            "female 4 poles A-coded, LEDs, distribution function. Function "
+            "routing: channel 1 (pin 4) to X2, channel 2 (pin 2) to X3.", 5)
         self.terms = (term("X1", 0, 0, "w"), term("X2", 200, -30, "e"),
                       term("X3", 200, 30, "e"))
 
@@ -316,7 +321,9 @@ class ValveCoil(Product):
 
     def infos(self):
         return {"designation": self.designation,
-                "description": self.description}
+                "description": self.description, "function": ""}
+
+    extra_texts = (("function", 90, 18, 6),)
 
     def names(self):
         return {"en": "Solenoid valve coil form BI 18 mm, 24 V DC",
@@ -337,6 +344,18 @@ class ValveCoil(Product):
 CABLE_LENGTHS = ((0.5, "6340050"), (1, "6340100"), (2, "6340200"),
                  (3, "6340300"), (5, "6340500"), (10, "6341000"))
 Y_LENGTHS = ((0.6, "6260060"), (0.3, "6260030"))
+
+# How a function (signal) travels through the passive elements. A link is
+# (terminal, channel, terminal, channel) and works both ways. An EPP M12
+# socket carries two channels (1 = pin 4, 2 = pin 2); a branch of a T
+# coupler or Y distributor carries one channel, seen as channel 1. The
+# families without links (coil, free connector) end a chain.
+ROUTES = {
+    "m12_cable": [["X1", 1, "X2", 1], ["X1", 2, "X2", 2]],
+    "m12_y_distributor": [["X1", 1, "X2", 1], ["X1", 2, "X3", 1]],
+    "m12_t_coupler": [["X1", 1, "X2", 1], ["X1", 2, "X3", 1]],
+}
+ROUTES_FILE = "function_routes.json"
 
 
 def products():
@@ -361,6 +380,10 @@ def main():
     items = products()
     for p in items:
         p.write()
+    with open(os.path.join(root, ROUTES_FILE), "w", encoding="utf-8",
+              newline="\n") as f:
+        json.dump(ROUTES, f, indent="\t")
+        f.write("\n")
     print(f"{len(items)} M12 products written")
 
 

@@ -43,6 +43,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(HERE, "..", "beckhoff"))
 import gen_elements  # noqa: E402
+import chain  # noqa: E402
 import gen_m12  # noqa: E402
 import gen_titleblocks  # noqa: E402
 
@@ -146,18 +147,27 @@ USED = {
 }
 
 
-def plc_xml(el, label):
+def plc_xml(el, label, used=None, comments=None):
+    """used and comments: (label, address or terminal) -> text, over USED."""
     if el.plc is None:
         return ""
+    texts = dict(USED)
+    texts.update(used or {})
     node = copy.deepcopy(el.plc)
     for io in node.iter("plcIO"):
-        text = USED.get((label, io.findtext("terminal")))
+        terminal = io.findtext("terminal")
+        text = texts.get((label, io.get("address"))) or texts.get(
+            (label, terminal))
         if text:
             io.set("functionText", text)
+        note = (comments or {}).get((label, io.get("address"))) or (
+            comments or {}).get((label, terminal))
+        if note:
+            io.set("comment", note)
     return ET.tostring(node, encoding="unicode")
 
 
-def texts_xml(el, label, key):
+def texts_xml(el, label, key, shown=None):
     out = ["<dynamic_texts>"]
     for n, dt in enumerate(el.texts):
         keep = ("Halignment", "Valignment", "font", "frame",
@@ -167,6 +177,8 @@ def texts_xml(el, label, key):
                          if dt.get(k) is not None)
         info = dt.findtext("info_name") or ""
         text = label if info == "label" else (dt.findtext("text") or "")
+        if info in (shown or {}):
+            text = shown[info]
         out.append(
             f'<dynamic_elmt_text {attrs} rotation_point_center="false" '
             f'uuid="{uid("t", key, str(n))}"><text>{esc(text)}</text>' +
@@ -176,7 +188,8 @@ def texts_xml(el, label, key):
     return "".join(out)
 
 
-def element_xml(el, label, x, y, key):
+def element_xml(el, label, x, y, key, used=None, comments=None,
+                function=None):
     tags = ["<terminals>"]
     for i, t in enumerate(el.terminals.values()):
         tags.append(
@@ -190,13 +203,18 @@ def element_xml(el, label, x, y, key):
             infos.append(
                 f'<elementInformation name="{name}" show="0">'
                 f"{esc(el.infos[name])}</elementInformation>")
+    shown = None
+    if function is not None:
+        infos.append(f'<elementInformation name="function" show="1">'
+                     f"{esc(function)}</elementInformation>")
+        shown = {"function": function}
     return (
         f'<element freezeLabel="false" is_movable="1" orientation="0" '
         f'prefix="" type="{el.path}" uuid="{uid("e", key)}" '
         f'x="{x}" y="{y}" z="10">' + "".join(tags) +
         "<elementInformations>" + "".join(infos) + "</elementInformations>"
-        + plc_xml(el, label) + texts_xml(el, label, key) +
-        "<texts_groups/></element>")
+        + plc_xml(el, label, used, comments) +
+        texts_xml(el, label, key, shown) + "<texts_groups/></element>")
 
 
 def conductor_xml(key, e1, l1, el1, t1, e2, l2, el2, t2, dashed=False):
@@ -318,43 +336,78 @@ def folio_tables():
     return diagram_xml(4, "Example - pin tables", els, [])
 
 
+M12_SOURCES = {("A3", "X01(1)"): "EV12", ("A3", "X01(2)"): "EV13",
+               ("A3", "X02(1)"): "EV14", ("A3", "X02(2)"): "EV15",
+               ("F1", "OUT1"): "EV16"}
+
+
 def folio_m12():
-    """EPP2338 and MICO outputs linked by dotted lines to M12 products."""
+    """EPP2338 and MICO outputs linked by dotted lines to M12 products.
+    The function of an output is shown on the valve coil it reaches
+    through the moulded cables, T coupler and Y distributor, and the
+    destination is shown in the comment of the output."""
     epp = get_file(os.path.join(EXTRA, "15_beckhoff_ethercat", "epp_box",
                                 "epp2338.elmt"))
     mico = get(by_ref("MICO Basic 4.4"))
     m12 = {p.file: get_file(p.path()) for p in gen_m12.products()}
-    els, cond = [], []
+    coil = m12["valve_coil_bi_18"]
+    placed, links = [], []
 
     def put(el, label, x, y):
-        els.append(element_xml(el, label, x, y, f"m12/{label}"))
+        placed.append((el, label, x, y))
 
     def link(a, ea, ta, b, eb, tb):
-        cond.append(conductor_xml(f"m12/{a}{ta}{b}{tb}", f"m12/{a}", a, ea,
-                                  ta, f"m12/{b}", b, eb, tb, dashed=True))
+        links.append((a, ea, ta, b, eb, tb))
 
     put(epp, "A3", 100, 250)
     put(m12["m12_cable_1m"], "W1", 250, 180)
     put(m12["m12_y_0_6m"], "X1", 550, 180)
-    put(m12["valve_coil_bi_18"], "Y1", 850, 120)
-    put(m12["valve_coil_bi_18"], "Y2", 850, 240)
+    put(coil, "Y1", 850, 120)
+    put(coil, "Y2", 850, 240)
     link("A3", epp, "X01", "W1", m12["m12_cable_1m"], "X1")
     link("W1", m12["m12_cable_1m"], "X2", "X1", m12["m12_y_0_6m"], "X1")
-    link("X1", m12["m12_y_0_6m"], "X2", "Y1", m12["valve_coil_bi_18"], "X1")
-    link("X1", m12["m12_y_0_6m"], "X3", "Y2", m12["valve_coil_bi_18"], "X1")
-    put(m12["m12_cable_2m"], "W2", 250, 320)
-    put(m12["m12_t_coupler"], "X2", 550, 320)
-    put(m12["m12_connector_male"], "X3", 850, 320)
+    link("X1", m12["m12_y_0_6m"], "X2", "Y1", coil, "X1")
+    link("X1", m12["m12_y_0_6m"], "X3", "Y2", coil, "X1")
+    put(m12["m12_cable_2m"], "W2", 250, 340)
+    put(m12["m12_t_coupler"], "X2", 550, 340)
+    put(coil, "Y4", 850, 340)
+    put(coil, "Y5", 850, 450)
     link("A3", epp, "X02", "W2", m12["m12_cable_2m"], "X1")
     link("W2", m12["m12_cable_2m"], "X2", "X2", m12["m12_t_coupler"], "X1")
-    link("X2", m12["m12_t_coupler"], "X2", "X3",
-         m12["m12_connector_male"], "X1")
+    link("X2", m12["m12_t_coupler"], "X2", "Y4", coil, "X1")
+    link("X2", m12["m12_t_coupler"], "X3", "Y5", coil, "X1")
     put(mico, "F1", 100, 560)
     put(m12["m12_cable_5m"], "W3", 250, 730)
-    put(m12["valve_coil_bi_18"], "Y3", 550, 730)
+    put(coil, "Y3", 550, 730)
     link("F1", mico, "OUT1", "W3", m12["m12_cable_5m"], "X1")
-    link("W3", m12["m12_cable_5m"], "X2", "Y3", m12["valve_coil_bi_18"],
-         "X1")
+    link("W3", m12["m12_cable_5m"], "X2", "Y3", coil, "X1")
+
+    routes = gen_m12.ROUTES
+    family = {label: el.category.split("/")[-1] for el, label, _, _ in placed
+              if el.category.split("/")[-1] in routes}
+    pairs = [((a, ta), (b, tb)) for a, _, ta, b, _, tb in links]
+    sources = {}
+    for (label, address), text in M12_SOURCES.items():
+        terminal, ch = address.split("(")[0], 1
+        if "(" in address:
+            ch = int(address.split("(")[1].rstrip(")"))
+        sources[(label, terminal, ch)] = (address, text)
+    functions, comments = {}, {}
+    for (label, terminal, ch), (address, text) in sources.items():
+        ends = chain.walk((label, terminal, ch), pairs, family, routes)
+        for end_label, _, _ in ends:
+            functions[end_label] = text
+        if ends:
+            comments[(label, address)] = "-> " + ", ".join(
+                e[0] for e in ends)
+    els = [element_xml(el, label, x, y, f"m12/{label}",
+                       used=M12_SOURCES, comments=comments,
+                       function=functions.get(label, "")
+                       if el is coil else None)
+           for el, label, x, y in placed]
+    cond = [conductor_xml(f"m12/{a}{ta}{b}{tb}", f"m12/{a}", a, ea, ta,
+                          f"m12/{b}", b, eb, tb, dashed=True)
+            for a, ea, ta, b, eb, tb in links]
     return diagram_xml(7, "M12 links - dotted conductors between EPP2338, "
                        "MICO, moulded cables and valve coils", els, cond)
 
