@@ -475,24 +475,44 @@ class tst_componentreferences : public QObject
 		QVERIFY(info(c, "comment").isEmpty());
 	}
 
-	void labelFunctionAndQuantityAreNotShared()
+	void articleListIsShared()
+	{
+		QETProject project;
+		enableSync(&project);
+		auto* a = symbol(project.addNewDiagram(), "A1.10");
+		auto* b = symbol(project.addNewDiagram(), "A1.20");
+		setInformation(a, "designation", "EL1008");
+		setInformation(a, "quantity", "2");
+		setInformation(a, "unity", "pcs");
+		setInformation(a, "auxiliary1", "Bus clip");
+		setInformation(a, "designation_auxiliary1", "ZS-01");
+		setInformation(a, "quantity_auxiliary1", "4");
+		relabel(&project, b, "A1.10");
+		QCOMPARE(info(b, "designation"), QString("EL1008"));
+		QCOMPARE(info(b, "quantity"), QString("2"));
+		QCOMPARE(info(b, "unity"), QString("pcs"));
+		QCOMPARE(info(b, "auxiliary1"), QString("Bus clip"));
+		QCOMPARE(info(b, "designation_auxiliary1"), QString("ZS-01"));
+		QCOMPARE(info(b, "quantity_auxiliary1"), QString("4"));
+	}
+
+	void labelAndFunctionAreNotShared()
 	{
 		QETProject project;
 		enableSync(&project);
 		auto* a = symbol(project.addNewDiagram(), "A1.10");
 		auto* b = symbol(project.addNewDiagram(), "A1.20");
 		setInformation(a, "function", "Valve");
-		setInformation(a, "quantity", "2");
 		setInformation(a, "formula", "");
 		relabel(&project, b, "A1.10");
 		QVERIFY(info(b, "function").isEmpty());
-		QVERIFY(info(b, "quantity").isEmpty());
 		QCOMPARE(info(a, "function"), QString("Valve"));
 		QVERIFY(isSyncedKey("designation"));
 		QVERIFY(isSyncedKey("auxiliary1"));
+		QVERIFY(isSyncedKey("quantity"));
+		QVERIFY(isSyncedKey("quantity_auxiliary2"));
 		QVERIFY(! isSyncedKey("label"));
 		QVERIFY(! isSyncedKey("function"));
-		QVERIFY(! isSyncedKey("quantity"));
 		QVERIFY(! isSyncedKey("formula"));
 		QVERIFY(! isSyncedKey("plant"));
 		QVERIFY(! isSyncedKey("location"));

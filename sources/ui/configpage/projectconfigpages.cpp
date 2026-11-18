@@ -371,10 +371,11 @@ void ProjectMainConfigPage::initWidgets()
 	m_sync_information_cb = new QCheckBox(tr("Keep the information of the symbols of a component the same", "checkbox label"));
 	m_sync_information_cb -> setObjectName(QStringLiteral("syncComponentInformation"));
 	m_sync_information_cb -> setToolTip(tr("Symbols which have the same label are the same component: "
-										   "the designation, manufacturer, part numbers, comment... "
+										   "the article list (designation, manufacturer, part numbers, "
+										   "quantity, auxiliary articles), the comment... "
 										   "edited on one are given to the others, and an "
 										   "empty field is completed from the others when a label is "
-										   "shared. The label, plant, location, function and quantity "
+										   "shared. The label, plant, location and function "
 										   "are not shared.",
 										   "tooltip"));
 

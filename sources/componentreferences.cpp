@@ -173,6 +173,7 @@ bool ComponentReferences::isSyncedKey(const QString &key)
 		QStringLiteral("machine_manufacturer_reference"),
 		QStringLiteral("supplier"),
 		QStringLiteral("unity"),
+		QStringLiteral("quantity"),
 		QStringLiteral("comment"),
 		QStringLiteral("notes"),
 		QStringLiteral("model"),

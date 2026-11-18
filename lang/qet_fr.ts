@@ -14185,9 +14185,9 @@ Donnez-leur une autre numérotation d&apos;abord.</numerusform>
     </message>
     <message>
         <location filename="../sources/ui/configpage/projectconfigpages.cpp" line="319"/>
-        <source>Symbols which have the same label are the same component: the designation, manufacturer, part numbers, comment... edited on one are given to the others, and an empty field is completed from the others when a label is shared. The label, plant, location, function and quantity are not shared.</source>
+        <source>Symbols which have the same label are the same component: the article list (designation, manufacturer, part numbers, quantity, auxiliary articles), the comment... edited on one are given to the others, and an empty field is completed from the others when a label is shared. The label, plant, location and function are not shared.</source>
         <comment>tooltip</comment>
-        <translation type="unfinished">Les éléments qui ont le même repère sont le même composant : la désignation, le fabricant, les références, le commentaire... modifiés sur l&apos;un sont donnés aux autres, et un champ vide est complété à partir des autres quand un repère est partagé. Le repère, l&apos;installation, la localisation, la fonction et la quantité ne sont pas partagés.</translation>
+        <translation type="unfinished">Les éléments qui ont le même repère sont le même composant : la liste d&apos;articles (désignation, fabricant, références, quantité, articles auxiliaires), le commentaire... modifiés sur l&apos;un sont donnés aux autres, et un champ vide est complété à partir des autres quand un repère est partagé. Le repère, l&apos;installation, la localisation et la fonction ne sont pas partagés.</translation>
     </message>
     <message>
         <location filename="../sources/ui/configpage/projectconfigpages.cpp" line="440"/>

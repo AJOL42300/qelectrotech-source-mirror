@@ -90,12 +90,13 @@ namespace ComponentReferences
 	};
 
 	/// true if the information @p key is the same for all the
-	/// representations of a component: the designation, the manufacturer
-	/// and part numbers, the supplier, the comment, the auxiliary parts...
+	/// representations of a component: the article list (designation,
+	/// manufacturer and part numbers, supplier, quantity, unity and the
+	/// auxiliary articles), the comment...
 	/// Not the label itself, its formula, the plant and the location (they
 	/// tell which component a label is: see DuplicateLabels::place()), the
 	/// function (followed through the wiring), the device type, the
-	/// quantity, the terminal data nor the custom properties.
+	/// terminal data nor the custom properties.
 	bool isSyncedKey(const QString &key);
 
 	/// What the information of the representations of a component become

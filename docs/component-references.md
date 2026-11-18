@@ -77,20 +77,25 @@ share their information fields, in both directions:
 * all of it is one undo step (`ChangeElementInformationCommand` over all
   the symbols, or a macro when a numbering or a freeze is applied too).
 
-Shared: designation, description, manufacturer, part number
-(`manufacturer_reference`), internal number, supplier, unity, comment,
-notes, model, category, voltage and current ratings, dimensions, unit
-price, labour time and the auxiliary parts (`auxiliary*`, `*_auxiliary*`).
+Shared (the article list): designation (article number), description,
+manufacturer, order number (`manufacturer_reference`), internal number,
+supplier, quantity, unity, and the same fields of the auxiliary articles
+(`auxiliary*`, `*_auxiliary*`); also the comment, notes, model, category,
+voltage and current ratings, dimensions, unit price and labour time.
 
 Not shared: the label, its formula and its identifier; the plant (`=`) and
 the location (`+`), which tell which component a label is (the same label
 in another plant or location is another component, as for the duplicate
 labels detection); the function (it is followed through the wiring), the
-device type, the quantity (including that of the auxiliary parts), the
-terminal and conductor texts, the PLC data, the custom properties, the
-options (hide, exclude from the bill of materials, freeze). The position,
-the folio and the title block are not information fields: they are never
-touched.
+device type, the terminal and conductor texts, the PLC data, the custom
+properties, the options (hide, exclude from the bill of materials,
+freeze). The position, the folio and the title block are not information
+fields: they are never touched.
+
+Limit: the article list being shared, the bill of materials still counts the
+quantity of every symbol of a component (a card drawn four times is counted
+four times). A symbol with "exclude from the bill of materials" is not a
+component for the references, so it is neither linked nor synchronised.
 
 Children (slaves) of a parent are not representations of it and keep their
 own information; the function stays managed by its own propagation.
