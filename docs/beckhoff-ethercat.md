@@ -300,7 +300,7 @@ the example project does not embed it.
 | Element | Scale | Grid | Largest remaining gap | Size, hotspot |
 | --- | --- | --- | --- | --- |
 | single-width cards (EL1004, EL1008, EL1904, EL2004, EL2008, EL2522, EL2574, EL2904, EL5152, EL9100) | 1.00 | 5 px | about 1 px | 60x330, (30,160) |
-| `ek1914_realistic` | 1.00 | 5 px | about 1.3 px | 130x330, (60,160) |
+| `ek1914_realistic` | 1.00 | 5 px | about 1.3 px | 160x330, (80,160) |
 | `el2911_realistic` | 1.00 | 5 px | about 0.8 px | see the element |
 | `el1918_realistic` | 1.00 | 5 px | 0 | 60x330, (30,160) |
 
@@ -337,6 +337,11 @@ two layouts below, to the generated views.
   distorted). The numbers 1 to 16 are outside the block of terminals, next to
   their circle (1 to 8 on the left, 9 to 16 on the right), and the lowest block
   (rows 6 to 8 of both columns, TwinSAFE) is yellow, as the TwinSAFE cards.
+  The housing is 44 mm wide (public data sheet, like the EK1100), so the drawing
+  was widened to about 143 px (misc/beckhoff/widen_ek1914.py: the head with the
+  RJ45 sockets and the block of terminals are stretched in x, the circles keep
+  their size, the columns of terminals are 20 px apart) and the schematic view
+  was regenerated on the new pins.
 - **EL1918**: the same housing as the other cards (60x330, one yellow body),
   with 16 pins instead of 8: two columns of 8 rows, pins 1 to 8 in the left
   column and 9 to 16 in the right one, the rows 25 px apart (estimated from

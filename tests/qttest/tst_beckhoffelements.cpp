@@ -481,6 +481,51 @@ class TstBeckhoffElements : public QObject
 			}
 		}
 
+		void ek1914HasTheProportionsOfItsHousing()
+		{
+				// 44 mm x 100 mm housing (public data sheet), like the
+				// EK1100: the drawing was too narrow
+			const auto def = load(appearance(QStringLiteral("ek1914"),
+				QStringLiteral("_realistic"))).documentElement();
+			QCOMPARE(def.attribute(QStringLiteral("height")).toInt(), 330);
+			const auto parts = def.firstChildElement(
+				QStringLiteral("description"));
+			qreal x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
+			for (const QString &tag : {QStringLiteral("line"),
+										QStringLiteral("rect")}) {
+				const auto list = parts.elementsByTagName(tag);
+				for (int i = 0; i < list.size(); ++i) {
+					const auto e = list.at(i).toElement();
+					const qreal ax = tag == QLatin1String("line")
+						? e.attribute(QStringLiteral("x1")).toDouble()
+						: e.attribute(QStringLiteral("x")).toDouble();
+					const qreal bx = tag == QLatin1String("line")
+						? e.attribute(QStringLiteral("x2")).toDouble()
+						: ax + e.attribute(QStringLiteral("width"))
+						.toDouble();
+					const qreal ay = tag == QLatin1String("line")
+						? e.attribute(QStringLiteral("y1")).toDouble()
+						: e.attribute(QStringLiteral("y")).toDouble();
+					const qreal by = tag == QLatin1String("line")
+						? e.attribute(QStringLiteral("y2")).toDouble()
+						: ay + e.attribute(QStringLiteral("height"))
+						.toDouble();
+					x0 = qMin(x0, qMin(ax, bx));
+					x1 = qMax(x1, qMax(ax, bx));
+					y0 = qMin(y0, qMin(ay, by));
+					y1 = qMax(y1, qMax(ay, by));
+				}
+			}
+			const qreal ratio = (x1 - x0) / (y1 - y0);
+			QVERIFY2(ratio > 0.42 && ratio < 0.52,
+					 qPrintable(QString::number(ratio)));
+			const auto pins = pinPoints(parts);
+			for (auto it = pins.constBegin(); it != pins.constEnd(); ++it) {
+				QVERIFY2(it.value().x() > x0 && it.value().x() < x1,
+						 qPrintable(it.key()));
+			}
+		}
+
 		void ek1914NumbersAreOutsideTheBlockNextToTheirTerminal()
 		{
 			const auto parts = load(appearance(QStringLiteral("ek1914"),

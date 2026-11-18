@@ -569,7 +569,7 @@ def run(card):
         card.build_el60()
     elif card.stem == "ek1914":
         card.remap(EK1914_PINS)
-        card.build_rows(20.0, (-48.7, -136.7, 85.0, 140.5))
+        card.build_rows(35.0, (-68.7, -136.7, 110.0, 140.5))
     elif card.stem == "el1918":
         card.build_el1918()
     else:
