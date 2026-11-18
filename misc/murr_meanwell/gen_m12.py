@@ -117,19 +117,29 @@ def connector(c, cx, cy, male, poles):
 EV_COLOURS = {"1": "red", "2": "blue", "PE": "orange"}
 
 
+def blade(c, x, y, w, h, colour, male, hole=False):
+    """A flat blade contact (flat tab with rounded corners): solid colour
+    for a pin of the coil side, white with a coloured outline for a socket
+    slot; the PE blade has a round hole."""
+    r = 1.2
+    pts = [(x + r, y), (x + w - r, y), (x + w, y + r), (x + w, y + h - r),
+           (x + w - r, y + h), (x + r, y + h), (x, y + h - r), (x, y + r)]
+    c.poly(pts, True, colour if male else "white", colour)
+    if hole:
+        c.disc(x + w / 2, y + h / 2, 2.4, "white", colour)
+
+
 def valve_connector(c, cx, cy, male=False):
-    """A valve connector form BI with two contacts and PE (assumed): socket
-    contacts on the cable side, pins on the valve coil side. Contact 1 is
-    red, 2 blue and PE orange, as the colours of the library."""
+    """A valve connector form BI: two flat blades side by side for contacts
+    1 and 2 and a lower, wider flat blade with a hole for PE (assumed).
+    Contact 1 is red, 2 blue and PE orange, as the colours of the library."""
     c.rect(cx - 22, cy - 15, 44, 30, LIGHT)
-    for k, name in enumerate(("1", "2", "PE")):
-        x = cx - 14 + 14 * k
-        colour = EV_COLOURS[name]
-        if male:
-            c.disc(x, cy - 5, 5, colour, colour)
-        else:
-            c.disc(x, cy - 5, 6, "white", colour)
-        c.text_c(x, cy + 3, name, 4)
+    blade(c, cx - 12, cy - 12, 4, 12, EV_COLOURS["1"], male)
+    blade(c, cx + 8, cy - 12, 4, 12, EV_COLOURS["2"], male)
+    blade(c, cx - 8, cy + 3, 16, 7, EV_COLOURS["PE"], male, True)
+    c.text(cx - 19, cy - 8, "1", 4)
+    c.text(cx + 15, cy - 8, "2", 4)
+    c.text(cx + 11, cy + 4.5, "PE", 4)
 
 
 def cable_line(c, x1, y1, x2, y2):
@@ -375,7 +385,7 @@ class ValveCoil(Product):
         return {"designation": self.designation,
                 "description": self.description, "function": ""}
 
-    extra_texts = (("function", 90, 18, 6),)
+    extra_texts = (("function", 78, 33, 6),)
 
     def names(self):
         return {"en": "Solenoid valve coil form BI 18 mm, 24 V DC",
@@ -385,15 +395,27 @@ class ValveCoil(Product):
         c = Canvas()
         c.line(0, 0, 10, 0)
         valve_connector(c, 32, 0, True)
-        # coil body with the winding, the valve core and the markings
-        c.rect(54, -20, 76, 40, "white")
-        c.text(58, -18, "A1", 4)
-        c.text(58, 11.7, "A2", 4)
-        for k in range(4):
-            c.circle(84 + 8 * k, -9, 8)
-        c.text_c(104, 3, "24 V DC", 5)
-        c.rect(130, -8, 18, 16, LIGHT)
-        c.text_c(110, 24, "BI 18", 4)
+        c.line(54, 0, 60, 0, BLACK, "hight")
+        # square body with rounded corners, seen from the front
+        x0, y0, x1, y1, r = 60, -28, 120, 28, 8
+        pts = []
+        for cx, cy, a0 in ((x1 - r, y0 + r, -90), (x1 - r, y1 - r, 0),
+                           (x0 + r, y1 - r, 90), (x0 + r, y0 + r, 180)):
+            for k in range(5):
+                a = math.radians(a0 + 22.5 * k)
+                pts.append((cx + r * math.cos(a), cy + r * math.sin(a)))
+        c.poly(pts, True, LIGHT)
+        c.text_c(90, -25, "BI 18", 4)
+        # centre bore for the valve core
+        c.disc(90, -3, 22, "white")
+        c.disc(90, -3, 12, "gray")
+        # rating plate
+        c.rect(66, 13, 48, 11, "white")
+        c.text_c(90, 15.5, "24 V DC", 5)
+        # flat blade terminals on the side, markings outside the drawing
+        for y, name in ((-17, "A1"), (6, "A2")):
+            c.rect(120, y, 9, 5, "gray")
+            c.text(132, y - 0.5, name, 4)
         return c
 
 
