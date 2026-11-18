@@ -40,6 +40,7 @@
 #include <devicetype/devicetype.h>
 #include "customelementinfopartwidget.h"
 #include "elementinfopartwidget.h"
+#include <componentreferences.h>
 
 /**
 	@brief ElementInfoWidget::ElementInfoWidget
@@ -118,8 +119,205 @@ void ElementInfoWidget::setElement(Element *element)
 */
 void ElementInfoWidget::apply()
 {
-	if (auto undo = associatedUndo())
-		m_element -> diagram() -> undoStack().push(undo);
+		//A label already given to another symbol of another part
+		//number: the user says whether it is meant. Not in the live
+		//edit, which applies after each key.
+	if (!m_live_edit && !confirmSharedLabel()) {
+		updateUi();
+		return;
+	}
+	if (auto undo = associatedUndo()) {
+		if (!pushSynchronised(undo)) updateUi();
+	}
+}
+
+/**
+	@brief ElementInfoWidget::pushSynchronised
+	Push @p undo, the edit of the symbol, with the changes it implies for
+	the other symbols of the same component when the project synchronises
+	their information (see ComponentReferences::SyncPlan): in one undo.
+	When the label joins a component whose symbols have other values,
+	ask which ones to keep (not in the live edit: nothing then is
+	changed on the others).
+	@return false if the user cancelled (@p undo is deleted)
+*/
+bool ElementInfoWidget::pushSynchronised(QUndoCommand *undo)
+{
+	Diagram *diagram = m_element->diagram();
+	QETProject *project = diagram ? diagram->project() : nullptr;
+	QUndoStack &stack = diagram->undoStack();
+	if (!ComponentReferences::isSyncEnabled(project)) {
+		stack.push(undo);
+		return true;
+	}
+
+	ComponentReferenceIndex *index = ComponentReferenceIndex::of(project);
+	const DiagramContext old_info = m_element->elementInformations();
+	const DiagramContext now = currentInfo();
+	auto prefer = ComponentReferences::SyncPrefer::Mine;
+	ComponentReferences::SyncPlan plan =
+		index->planSync(m_element, old_info, now, prefer);
+	if (!plan.conflicts.isEmpty()) {
+		if (m_live_edit) {
+			plan = ComponentReferences::SyncPlan();
+		} else {
+			QMessageBox box(this);
+			box.setIcon(QMessageBox::Question);
+			box.setWindowTitle(tr("Different information"));
+			box.setText(tr("Other symbols of this component have other "
+				       "values for: %1").arg(plan.conflicts.join(
+					       QStringLiteral(", "))));
+			box.setInformativeText(tr("Keep the values of this symbol "
+						  "and give them to the others, or "
+						  "take the values of the others?"));
+			QPushButton *keep = box.addButton(
+				tr("Keep these values"), QMessageBox::AcceptRole);
+			QPushButton *take = box.addButton(
+				tr("Take the others' values"),
+				QMessageBox::DestructiveRole);
+			box.addButton(QMessageBox::Cancel);
+			if (QET::QetMessageBox::isNonInteractive()) {
+				box.setDefaultButton(keep);
+			} else {
+				box.exec();
+			}
+			if (box.clickedButton() == take) {
+				prefer = ComponentReferences::SyncPrefer::Theirs;
+			} else if (box.clickedButton() != keep
+				   && !QET::QetMessageBox::isNonInteractive()) {
+				delete undo;
+				return false;
+			}
+			plan = index->planSync(m_element, old_info, now, prefer);
+		}
+	}
+
+		//Edit of the symbol alone: one command which also changes the others
+	if (dynamic_cast<ChangeElementInformationCommand *>(undo)) {
+		if (plan.isEmpty()) {
+			stack.push(undo);
+			return true;
+		}
+		delete undo;
+		auto map = plan.others;
+		map.insert(QPointer<Element>(m_element),
+			   qMakePair(old_info,
+				     plan.mine_changed ? plan.mine : now));
+		stack.push(new ChangeElementInformationCommand(map));
+		return true;
+	}
+
+		//Numbering, freeze... : the label is only known once it is applied
+	stack.beginMacro(undo->text());
+	stack.push(undo);
+	const DiagramContext done = m_element->elementInformations();
+	const auto after = index->planSync(m_element, old_info, done, prefer);
+	if (auto *sync = index->syncCommand(m_element, done, after))
+		stack.push(sync);
+	stack.endMacro();
+	return true;
+}
+
+/**
+	@brief ElementInfoWidget::confirmSharedLabel
+	A symbol is the same component as the others which have its label
+	(see ComponentReferences). If the part number the edited one will
+	have disagrees with theirs, they probably are two components: ask
+	before giving the label, when the project shows the references.
+	@return false if the user cancels
+*/
+bool ElementInfoWidget::confirmSharedLabel() const
+{
+	if (!m_element || !m_element->diagram()) return true;
+	QETProject *project = m_element->diagram()->project();
+	if (!ComponentReferences::isEnabled(project)) return true;
+		//The synchronisation asks about all the fields, this part number too
+	if (ComponentReferences::isSyncEnabled(project)) return true;
+	const DiagramContext now = currentInfo();
+	const DiagramContext old = m_element->elementInformations();
+	const QString label = now.value(QETInformation::ELMT_LABEL).toString();
+	const QString part = now.value(
+		QStringLiteral("manufacturer_reference")).toString();
+	if (label == old.value(QETInformation::ELMT_LABEL).toString()
+		&& part == old.value(
+			QStringLiteral("manufacturer_reference")).toString()) {
+		return true;
+	}
+	const auto verdict = ComponentReferenceIndex::of(project)->check(
+		m_element, label, part);
+	if (!verdict.conflict) return true;
+	return QET::QetMessageBox::question(
+		const_cast<ElementInfoWidget *>(this),
+		tr("Label already used"),
+		verdict.message() + QStringLiteral("\n\n")
+			+ tr("Give this label anyway?"),
+		QMessageBox::Yes | QMessageBox::No,
+		QMessageBox::No) == QMessageBox::Yes;
+}
+
+/**
+	@brief ElementInfoWidget::setupReferencesRow
+	Under the label, the hint which tells whether it is already used
+	by another symbol, and the box to hide the references of this one.
+*/
+void ElementInfoWidget::setupReferencesRow()
+{
+	if (!m_element || m_element->isDrawingAid()) return;
+	ElementInfoPartWidget *label = infoPartWidgetForKey(QETInformation::ELMT_LABEL);
+	m_reference_hint = new QLabel(this);
+	m_reference_hint->setObjectName(QStringLiteral("m_reference_hint"));
+	m_reference_hint->setWordWrap(true);
+	m_reference_hint->hide();
+	const int row = label ? ui->scroll_vlayout->indexOf(label) : -1;
+	if (row >= 0) {
+		ui->scroll_vlayout->insertWidget(row + 1, m_reference_hint);
+	} else {
+		ui->scroll_vlayout->addWidget(m_reference_hint);
+	}
+
+	m_hide_references_cb = new QCheckBox(
+		tr("Hide the references to the other representations"), this);
+	m_hide_references_cb->setObjectName(QStringLiteral("m_hide_references_cb"));
+	m_hide_references_cb->setToolTip(
+		tr("Tick to not show, under this symbol, where the same component "
+		   "is drawn elsewhere in the project (see the project properties)."));
+	ui->scroll_vlayout->addWidget(m_hide_references_cb);
+
+	for (const QString &key : {QETInformation::ELMT_LABEL,
+				   QStringLiteral("manufacturer_reference")}) {
+		if (ElementInfoPartWidget *part = infoPartWidgetForKey(key)) {
+			connect(part, &ElementInfoPartWidget::textChanged,
+				this, &ElementInfoWidget::updateReferenceHint);
+		}
+	}
+}
+
+/**
+	@brief ElementInfoWidget::updateReferenceHint
+	Tell what the label being typed means: free, or already used, in
+	which case the symbols will refer to each other; or used with another
+	part number, probably another component.
+*/
+void ElementInfoWidget::updateReferenceHint()
+{
+	if (!m_reference_hint) return;
+	QString text;
+	bool conflict = false;
+	ElementInfoPartWidget *label = infoPartWidgetForKey(QETInformation::ELMT_LABEL);
+	ElementInfoPartWidget *formula = infoPartWidgetForKey(QETInformation::ELMT_FORMULA);
+	ElementInfoPartWidget *part = infoPartWidgetForKey(QStringLiteral("manufacturer_reference"));
+	if (m_element && m_element->diagram() && label
+		&& (!formula || formula->text().isEmpty())) {
+		const auto verdict = ComponentReferenceIndex::of(
+			m_element->diagram()->project())->check(
+				m_element, label->text(), part ? part->text() : QString());
+		text = verdict.message();
+		conflict = verdict.conflict;
+	}
+	m_reference_hint->setText(text);
+	m_reference_hint->setStyleSheet(conflict
+		? QStringLiteral("color: #b35900;") : QStringLiteral("color: gray;"));
+	m_reference_hint->setVisible(!text.isEmpty());
 }
 
 /**
@@ -270,6 +468,9 @@ void ElementInfoWidget::enableLiveEdit()
 	if (m_exclude_from_bom_cb) {
 		connect(m_exclude_from_bom_cb, &QCheckBox::clicked, this, &ElementInfoWidget::apply);
 	}
+	if (m_hide_references_cb) {
+		connect(m_hide_references_cb, &QCheckBox::clicked, this, &ElementInfoWidget::apply);
+	}
 	if (m_freeze_cb) {
 		connect(m_freeze_cb, &QCheckBox::clicked, this, &ElementInfoWidget::apply);
 	}
@@ -305,6 +506,9 @@ void ElementInfoWidget::disableLiveEdit()
 	}
 	if (m_exclude_from_bom_cb) {
 		disconnect(m_exclude_from_bom_cb, &QCheckBox::clicked, this, &ElementInfoWidget::apply);
+	}
+	if (m_hide_references_cb) {
+		disconnect(m_hide_references_cb, &QCheckBox::clicked, this, &ElementInfoWidget::apply);
 	}
 }
 
@@ -364,6 +568,7 @@ void ElementInfoWidget::buildInterface()
 	setupNumberRow();
 	setupFreezeRow();
 	setupLabelShownRow();
+	setupReferencesRow();
 
 	m_add_custom_property_btn = new QPushButton(tr("Add a custom property"), this);
 	connect(m_add_custom_property_btn, &QPushButton::clicked, this, [this]() { addCustomProperty(); });
@@ -581,6 +786,10 @@ void ElementInfoWidget::updateUi()
 		QString exclude_bom_value = element_info.value(QStringLiteral("exclude_from_bom")).toString();
 		m_exclude_from_bom_cb->setChecked(QET::infoFlagIsTrue(exclude_bom_value));
 	}
+	if (m_hide_references_cb) {
+		m_hide_references_cb->setChecked(ComponentReferenceIndex::isHidden(m_element));
+	}
+	updateReferenceHint();
 
 	if (m_live_edit) {
 		enableLiveEdit();
@@ -642,6 +851,14 @@ DiagramContext ElementInfoWidget::currentInfo() const
 
 	if (m_exclude_from_bom_cb) {
 		info_.addValue(QStringLiteral("exclude_from_bom"), m_exclude_from_bom_cb->isChecked() ? QStringLiteral("true") : QStringLiteral("false"));
+	}
+
+	if (m_hide_references_cb) {
+		if (m_hide_references_cb->isChecked()) {
+			info_.addValue(ComponentReferences::hideKey(), QStringLiteral("true"));
+		} else {
+			info_.remove(ComponentReferences::hideKey());
+		}
 	}
 
 	// The name is drawn unless the element says otherwise: only a name

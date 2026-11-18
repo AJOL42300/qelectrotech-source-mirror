@@ -20,6 +20,7 @@
 #include "bomexport.h"
 
 #include "bordertitleblock.h"
+#include "componentreferences.h"
 #include "conductornumexport.h"
 #include "conductorproperties.h"
 #include "dataBase/projectdatabase.h"
@@ -1586,6 +1587,14 @@ int run(const QStringList &args)
 		err << "Usage: qelectrotech " << flag
 			<< " <project.qet> <output>\n";
 		return 2;
+	}
+	// no event loop here: draw the references between the representations
+	// of a component before the folios are rendered
+	if (ComponentReferences::isEnabled(&project)
+			&& (format == "pdf" || format == "png" || format == "svg"
+				|| format == "jpg" || format == "bmp")) {
+		project.diagrams();
+		ComponentReferenceIndex::of(&project)->flushNow();
 	}
 	if (format == "pdf")
 		return exportPdf(project, output, showTerminals);

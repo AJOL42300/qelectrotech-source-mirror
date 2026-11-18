@@ -6409,6 +6409,51 @@ Le nom affiché de l&apos;élément se modifie séparément dans les propriété
         <translation>Ajouter une propriété personnalisée</translation>
     </message>
     <message>
+        <location filename="../sources/ui/elementinfowidget.cpp" line="161"/>
+        <source>Label already used</source>
+        <translation type="unfinished">Repère déjà utilisé</translation>
+    </message>
+    <message>
+        <location filename="../sources/ui/elementinfowidget.cpp" line="163"/>
+        <source>Give this label anyway?</source>
+        <translation type="unfinished">Donner ce repère malgré tout ?</translation>
+    </message>
+    <message>
+        <location filename="../sources/ui/elementinfowidget.cpp" line="190"/>
+        <source>Different information</source>
+        <translation type="unfinished">Informations différentes</translation>
+    </message>
+    <message>
+        <location filename="../sources/ui/elementinfowidget.cpp" line="192"/>
+        <source>Other symbols of this component have other values for: %1</source>
+        <translation type="unfinished">D&apos;autres représentations de ce composant ont d&apos;autres valeurs pour : %1</translation>
+    </message>
+    <message>
+        <location filename="../sources/ui/elementinfowidget.cpp" line="195"/>
+        <source>Keep the values of this symbol and give them to the others, or take the values of the others?</source>
+        <translation type="unfinished">Garder les valeurs de cet élément et les donner aux autres, ou prendre les valeurs des autres ?</translation>
+    </message>
+    <message>
+        <location filename="../sources/ui/elementinfowidget.cpp" line="198"/>
+        <source>Keep these values</source>
+        <translation type="unfinished">Garder ces valeurs</translation>
+    </message>
+    <message>
+        <location filename="../sources/ui/elementinfowidget.cpp" line="200"/>
+        <source>Take the others&apos; values</source>
+        <translation type="unfinished">Prendre les valeurs des autres</translation>
+    </message>
+    <message>
+        <location filename="../sources/ui/elementinfowidget.cpp" line="189"/>
+        <source>Hide the references to the other representations</source>
+        <translation type="unfinished">Masquer les renvois vers les autres représentations</translation>
+    </message>
+    <message>
+        <location filename="../sources/ui/elementinfowidget.cpp" line="192"/>
+        <source>Tick to not show, under this symbol, where the same component is drawn elsewhere in the project (see the project properties).</source>
+        <translation type="unfinished">Cochez pour ne pas afficher, sous cet élément, où le même composant est dessiné ailleurs dans le projet (voir les propriétés du projet).</translation>
+    </message>
+    <message>
         <source>Potential separation</source>
         <translation type="vanished">Séparation de potentiel</translation>
     </message>
@@ -14095,6 +14140,66 @@ Donnez-leur une autre numérotation d&apos;abord.</numerusform>
         <source>Display of the terminal labelling</source>
         <comment>group box title</comment>
         <translation>Affichage du repérage des bornes</translation>
+    </message>
+    <message>
+        <location filename="../sources/ui/configpage/projectconfigpages.cpp" line="300"/>
+        <source>Show where a component is drawn elsewhere</source>
+        <comment>group box title</comment>
+        <translation type="unfinished">Afficher où un composant est dessiné ailleurs</translation>
+    </message>
+    <message>
+        <location filename="../sources/ui/configpage/projectconfigpages.cpp" line="301"/>
+        <source>Under each symbol, tell on which other folios the component with the same label is drawn (for instance its realistic view or its table), as a reference to follow. Uncheck to draw the folios as before.</source>
+        <comment>tooltip</comment>
+        <translation type="unfinished">Sous chaque élément, indique sur quels autres folios le composant de même repère est dessiné (par exemple sa vue réaliste ou son tableau), sous forme de renvoi cliquable. Décochez pour dessiner les folios comme avant.</translation>
+    </message>
+    <message>
+        <location filename="../sources/ui/configpage/projectconfigpages.cpp" line="305"/>
+        <source>Compact: one line</source>
+        <comment>combo box item</comment>
+        <translation type="unfinished">Compact : une seule ligne</translation>
+    </message>
+    <message>
+        <location filename="../sources/ui/configpage/projectconfigpages.cpp" line="306"/>
+        <source>Detailed: one line per reference</source>
+        <comment>combo box item</comment>
+        <translation type="unfinished">Détaillé : une ligne par renvoi</translation>
+    </message>
+    <message>
+        <location filename="../sources/ui/configpage/projectconfigpages.cpp" line="309"/>
+        <source>Under the symbol</source>
+        <comment>combo box item</comment>
+        <translation type="unfinished">Sous l&apos;élément</translation>
+    </message>
+    <message>
+        <location filename="../sources/ui/configpage/projectconfigpages.cpp" line="310"/>
+        <source>On the right of the symbol</source>
+        <comment>combo box item</comment>
+        <translation type="unfinished">À droite de l&apos;élément</translation>
+    </message>
+    <message>
+        <location filename="../sources/ui/configpage/projectconfigpages.cpp" line="318"/>
+        <source>Keep the information of the symbols of a component the same</source>
+        <comment>checkbox label</comment>
+        <translation type="unfinished">Garder identiques les informations des représentations d&apos;un composant</translation>
+    </message>
+    <message>
+        <location filename="../sources/ui/configpage/projectconfigpages.cpp" line="319"/>
+        <source>Symbols which have the same label are the same component: the designation, manufacturer, part numbers, comment... edited on one are given to the others, and an empty field is completed from the others when a label is shared. The label, plant, location, function and quantity are not shared.</source>
+        <comment>tooltip</comment>
+        <translation type="unfinished">Les éléments qui ont le même repère sont le même composant : la désignation, le fabricant, les références, le commentaire... modifiés sur l&apos;un sont donnés aux autres, et un champ vide est complété à partir des autres quand un repère est partagé. Le repère, l&apos;installation, la localisation, la fonction et la quantité ne sont pas partagés.</translation>
+    </message>
+    <message>
+        <location filename="../sources/ui/configpage/projectconfigpages.cpp" line="440"/>
+        <source>Style:</source>
+        <comment>label</comment>
+        <translation type="unfinished">Style :</translation>
+    </message>
+    <message>
+        <location filename="../sources/ui/configpage/projectconfigpages.cpp" line="441"/>
+        <source>Position:</source>
+        <comment>label</comment>
+        <translation type="unfinished">Position :</translation>
     </message>
     <message>
         <location filename="../sources/ui/configpage/projectconfigpages.cpp" line="295"/>
@@ -30441,6 +30546,67 @@ associer le nom &quot;volta&quot; et la valeur &quot;1745&quot; remplacera %{vol
         <location filename="../sources/SearchAndReplace/ui/replaceadvanceddialog.ui" line="92"/>
         <source>What:</source>
         <translation>Quoi :</translation>
+    </message>
+</context>
+<context>
+    <name>ComponentReferences</name>
+    <message>
+        <location filename="../sources/componentreferences.cpp" line="640"/>
+        <source>Synchronise the information of the same component</source>
+        <translation type="unfinished">Synchroniser les informations du même composant</translation>
+    </message>
+    <message>
+        <location filename="../sources/componentreferences.cpp" line="50"/>
+        <source>folio %1</source>
+        <translation type="unfinished">folio %1</translation>
+    </message>
+    <message>
+        <location filename="../sources/componentreferences.cpp" line="127"/>
+        <source>realistic</source>
+        <translation type="unfinished">réaliste</translation>
+    </message>
+    <message>
+        <location filename="../sources/componentreferences.cpp" line="130"/>
+        <source>description</source>
+        <translation type="unfinished">description</translation>
+    </message>
+    <message>
+        <location filename="../sources/componentreferences.cpp" line="133"/>
+        <source>table</source>
+        <translation type="unfinished">tableau</translation>
+    </message>
+    <message>
+        <location filename="../sources/componentreferences.cpp" line="137"/>
+        <source>schematic</source>
+        <translation type="unfinished">schématique</translation>
+    </message>
+    <message>
+        <location filename="../sources/componentreferences.cpp" line="160"/>
+        <source>This label is already used (%1) with another part number (%2): it may be another component.</source>
+        <translation type="unfinished">Ce repère est déjà utilisé (%1) avec une autre référence constructeur (%2) : il peut s&apos;agir d&apos;un autre composant.</translation>
+    </message>
+    <message>
+        <location filename="../sources/componentreferences.cpp" line="168"/>
+        <source>This label is already used (%1): the symbols will refer to each other as representations of the same component.</source>
+        <translation type="unfinished">Ce repère est déjà utilisé (%1) : les éléments renverront les uns aux autres comme représentations du même composant.</translation>
+    </message>
+    <message>
+        <location filename="../sources/componentreferences.cpp" line="519"/>
+        <source>Also drawn: %1</source>
+        <translation type="unfinished">Dessiné aussi : %1</translation>
+    </message>
+</context>
+<context>
+    <name>DuplicateRefItem</name>
+    <message>
+        <location filename="../sources/qetgraphicsitem/duplicaterefitem.cpp" line="125"/>
+        <source>folio %1</source>
+        <translation type="unfinished">folio %1</translation>
+    </message>
+    <message>
+        <location filename="../sources/qetgraphicsitem/duplicaterefitem.cpp" line="135"/>
+        <source>folio %1, %2</source>
+        <translation type="unfinished">folio %1, %2</translation>
     </message>
 </context>
 </TS>

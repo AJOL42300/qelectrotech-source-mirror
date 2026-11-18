@@ -498,7 +498,8 @@ QStringList QETInformation::elementCustomInfoKeys(const QStringList &keys)
 			<< ELMT_FORMULA_ID
 			<< QStringLiteral("auto_num_locked")
 			<< QStringLiteral("potential_isolating")
-			<< QStringLiteral("label_shown");
+			<< QStringLiteral("label_shown")
+			<< QStringLiteral("hide_duplicate_references");
 
 	QStringList custom;
 	for (const QString &key : keys) {

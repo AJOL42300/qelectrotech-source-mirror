@@ -21,6 +21,7 @@
 #include "diagram.h"
 #include "qetgraphicsitem/crossrefitem.h"
 #include "qetgraphicsitem/dynamicelementtextitem.h"
+#include "qetgraphicsitem/duplicaterefitem.h"
 #include "qetgraphicsitem/element.h"
 #include "qetgraphicsitem/elementtextitemgroup.h"
 #include "qetgraphicsitem/independenttextitem.h"
@@ -140,6 +141,16 @@ void injectCrossRefLinks(QPdfEngine *engine, Diagram *diagram,
 				if (!targetElmt || !targetElmt->diagram()) continue;
 				// it.value() is in the CrossRefItem's LOCAL coords -> scene
 				injectLink(xref->mapRectToScene(it.value()), targetElmt);
+			}
+			continue;
+		}
+
+		// --- Where else the same component is drawn ---
+		if (auto *dup = dynamic_cast<DuplicateRefItem*>(item)) {
+			if (!dup->isVisible()) continue;
+			for (const DuplicateRefItem::Piece &piece : dup->pieces()) {
+				if (!piece.target) continue;
+				injectLink(dup->mapRectToScene(piece.rect), piece.target);
 			}
 			continue;
 		}

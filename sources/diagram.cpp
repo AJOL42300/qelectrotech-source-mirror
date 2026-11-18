@@ -3059,6 +3059,10 @@ void Diagram::addItem(QGraphicsItem *item)
 		{
 			Element *elmt = static_cast<Element *>(item);
 			m_project->dataBase()->addElement(elmt);
+			if (ComponentReferenceIndex *index =
+					ComponentReferenceIndex::existing(m_project)) {
+				index->watch(elmt);
+			}
 			if ((elmt->linkType() & Element::AllReport) && m_project->chainedReports()) {
 				m_project->scheduleAutoLink();
 			}
@@ -3106,6 +3110,10 @@ void Diagram::removeItem(QGraphicsItem *item)
 		{
 			auto elmt = static_cast<Element*>(item);
 			elmt->unlinkAllElements();
+			if (ComponentReferenceIndex *index =
+					ComponentReferenceIndex::existing(m_project)) {
+				index->forget(elmt);
+			}
 			m_project->dataBase()->removeElement(elmt);
 			if ((elmt->linkType() & Element::AllReport) && m_project->chainedReports()) {
 				m_project->scheduleAutoLink();

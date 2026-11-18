@@ -30,6 +30,7 @@ class CustomElementInfoPartWidget;
 class ChangeElementInformationCommand;
 class QCheckBox;
 class QComboBox;
+class QLabel;
 class QPushButton;
 class QWidget;
 
@@ -74,6 +75,10 @@ class ElementInfoWidget : public AbstractElementPropertiesEditorWidget
 		void setupSchemeRow();
 		void setupFreezeRow();
 		void setupLabelShownRow();
+		void setupReferencesRow();
+		void updateReferenceHint();
+		bool confirmSharedLabel() const;
+		bool pushSynchronised(QUndoCommand *undo);
 		void setupNumberRow();
 		void refreshNumberRow();
 		void updateNumberRow();
@@ -102,6 +107,8 @@ class ElementInfoWidget : public AbstractElementPropertiesEditorWidget
 		QComboBox                        *m_scheme_cb = nullptr;
 		QCheckBox                        *m_freeze_cb = nullptr;
 		QCheckBox                        *m_label_shown_cb = nullptr;
+		QCheckBox                        *m_hide_references_cb = nullptr;
+		QLabel                           *m_reference_hint = nullptr;
 		QWidget                          *m_number_row = nullptr;
 		QComboBox                        *m_number_cb = nullptr;
 		int                               m_number_current = -1;   ///< the number the element has, -1 if unknown
