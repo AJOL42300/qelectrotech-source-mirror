@@ -244,6 +244,30 @@ connectors of the AX are not on the pictures, so `M1-*`/`M2-*` are generic
 and the brake is not modelled; the AX5805 (TwinSAFE option) is a rectangle on
 the picture and has no element.
 
+### Connectors of the drives as articles
+
+Each AF1000 and AX5000 carries its connectors as extra articles (tab "Parts" of
+the element properties, `Article 2..5`), written by
+`misc/beckhoff/gen_drive_parts.py` (idempotent, all views). QET offers four
+extra articles per element, so the list is a choice:
+
+| Drive | Article | Reference (Beckhoff) | Quantity |
+| --- | --- | --- | --- |
+| AF1000 | EtherCAT cable X04/X05 | `ZK1090-9191-0xxx` (`xxx` = length code, to choose) | 1 |
+| AF1000 | Motor plug X13/X23 (3-phase version, 7.62 mm) | `ZS4100-3113` | number of axes |
+| AF1000 | I/O plug X03 | not identified | 1 |
+| AF1000 | Mains plug X01 | not identified | 1 |
+| AX5000 | Mains plug X01 | `ZS4500-2001` | 1 |
+| AX5000 | DC link plug X02 | `ZS4500-2002` | 1 |
+| AX5000 | 24 V plug X03 (Up, Us, GND) | `ZS4500-2003` | 1 |
+| AX5000 | Plug X06 | `ZS4500-2006` | 1 |
+
+References come from the public Beckhoff pages. Where none could be verified
+the article has a factual description and **no** manufacturer or reference:
+fill it in. Not covered (no free slot or not identified): the AX EtherCAT
+cables, the D-sub feedback plugs X11/X12/X21/X22 and the AX motor plugs. The
+AF single-phase version uses `ZS4100-1113` (5.08 mm) instead of `ZS4100-3113`.
+
 ## Safety cards (TwinSAFE, yellow)
 
 `twinsafe/` has EL1904, EL1918, EL2904 and EL2911 (symbol, realistic view and
@@ -801,6 +825,7 @@ python misc/beckhoff/gen_description.py extra-elements/10_electric/20_manufactur
 python misc/beckhoff/simple_tables.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/gen_colors.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/gen_table_titles.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
+python misc/beckhoff/gen_drive_parts.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/gen_titleblocks.py
 python misc/beckhoff/gen_example.py
 ```

@@ -1892,6 +1892,56 @@ class TstBeckhoffElements : public QObject
 			}
 			QVERIFY(checked >= 40);
 		}
+		void everyDriveCarriesItsConnectorsAsArticles()
+		{
+			// verified on the public Beckhoff pages; an empty reference means
+			// "not identified", never a guess
+			const QStringList known{
+				QStringLiteral("ZK1090-9191-0xxx"), QStringLiteral("ZS4100-3113"),
+				QStringLiteral("ZS4500-2001"), QStringLiteral("ZS4500-2002"),
+				QStringLiteral("ZS4500-2003"), QStringLiteral("ZS4500-2006")};
+			int drives = 0;
+			for (const QString &file : allFiles()) {
+				const QString name = QFileInfo(file).fileName();
+				if (!QRegularExpression(QStringLiteral("^a[fx]\\d{4}\\.elmt$"))
+						.match(name).hasMatch()) {
+					continue;
+				}
+				const auto root = load(elementPath(file)).documentElement();
+				const bool af = name.startsWith(QLatin1String("af"));
+				const int axes = name.at(3).digitValue();
+				int withReference = 0;
+				for (int n = 1; n <= 4; ++n) {
+					const QString suffix = QStringLiteral("_auxiliary%1").arg(n);
+					const QByteArray where = (file + suffix).toUtf8();
+					QVERIFY2(!info(root, QStringLiteral("auxiliary%1").arg(n))
+								 .isEmpty(), where.constData());
+					QVERIFY2(!info(root, QStringLiteral("description") + suffix)
+								 .isEmpty(), where.constData());
+					QVERIFY2(info(root, QStringLiteral("quantity") + suffix)
+								 .toInt() >= 1, where.constData());
+					const QString ref = info(
+						root, QStringLiteral("manufacturer_reference") + suffix);
+					if (!ref.isEmpty()) {
+						QVERIFY2(known.contains(ref), where.constData());
+						QCOMPARE(info(root, QStringLiteral("manufacturer")
+											  + suffix),
+								 QStringLiteral("Beckhoff"));
+						++withReference;
+					}
+				}
+				// the AX5000 plugs are all identified, the AF1000 mains and I/O
+				// plugs are not
+				QCOMPARE(withReference, af ? 2 : 4);
+				if (af) {
+					// one X13/X23 motor plug per axis
+					QCOMPARE(info(root, QStringLiteral("quantity_auxiliary2"))
+							 .toInt(), axes);
+				}
+				++drives;
+			}
+			QCOMPARE(drives, 19);
+		}
 		void supplyLabelsAreColouredByFunction()
 		{
 			const QRegularExpression positive(QStringLiteral(

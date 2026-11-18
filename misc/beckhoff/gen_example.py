@@ -259,7 +259,9 @@ def element_xml(el, label, x, y, key, prefix=""):
     tags.append("</terminals><inputs/>")
     infos = [f'<elementInformation name="label" show="1">{esc(label)}'
              "</elementInformation>"]
-    for name in ("manufacturer", "manufacturer_reference", "designation"):
+    names = ["manufacturer", "manufacturer_reference", "designation"]
+    names += [n for n in el.infos if "auxiliary" in n]
+    for name in names:
         if el.infos.get(name):
             infos.append(
                 f'<elementInformation name="{name}" show="0">'

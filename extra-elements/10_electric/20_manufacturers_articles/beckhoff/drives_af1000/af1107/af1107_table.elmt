@@ -9,6 +9,30 @@
 		<elementInformation name="manufacturer_reference" show="1">AF1107</elementInformation>
 		<elementInformation name="designation" show="1">AF1107 servo drive, 1 axis</elementInformation>
 		<elementInformation name="description" show="1">AF 1-axis drive (the second digit of the reference is the number of axes). Rating from the project nomenclature: 0.75 kW, 2 A. Redrawn in vector from a picture of the project, terminals snapped to the 10 px grid. Mains terminals drawn as 3-phase L1 L2 L3 PE RB+ RB-; the 1-phase version (L N PE RB+ RB-) is not drawn. 24V_A..C are the '25 Vdc' of a blurry picture, read as 24 V. Check against the datasheet.</elementInformation>
+		<elementInformation name="auxiliary1" show="1">EtherCAT cable X04/X05</elementInformation>
+		<elementInformation name="description_auxiliary1" show="1">EtherCAT patch cable, RJ45 to RJ45, green PUR, Cat.5. The last digits of the reference give the length (for example 0010 = 1 m). One cable counted for the IN port; the cable of the OUT port belongs to the next device.</elementInformation>
+		<elementInformation name="manufacturer_auxiliary1" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary1" show="1">ZK1090-9191-0xxx</elementInformation>
+		<elementInformation name="designation_auxiliary1" show="1">EtherCAT patch cable</elementInformation>
+		<elementInformation name="quantity_auxiliary1" show="1">1</elementInformation>
+		<elementInformation name="unity_auxiliary1" show="1">1</elementInformation>
+		<elementInformation name="auxiliary2" show="1">Motor plug X13</elementInformation>
+		<elementInformation name="description_auxiliary2" show="1">4-pin plug U V W PE, pitch 7.62 mm, push-in, for the slot X13/X23, three-phase supply version, sold by 10 (PU 10); one plug per axis. The single-phase supply version is ZS4100-1113 (pitch 5.08 mm).</elementInformation>
+		<elementInformation name="manufacturer_auxiliary2" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary2" show="1">ZS4100-3113</elementInformation>
+		<elementInformation name="designation_auxiliary2" show="1">Motor connector AF1000</elementInformation>
+		<elementInformation name="quantity_auxiliary2" show="1">1</elementInformation>
+		<elementInformation name="unity_auxiliary2" show="1">1</elementInformation>
+		<elementInformation name="auxiliary3" show="1">I/O plug X03</elementInformation>
+		<elementInformation name="description_auxiliary3" show="1">Plug of the X03 terminal strip (IN1..IN6, GND, TH, OUT, FGND, 24V). Reference NOT identified on the public Beckhoff pages: to be completed from the AF1000 documentation.</elementInformation>
+		<elementInformation name="designation_auxiliary3" show="1">X03 connector</elementInformation>
+		<elementInformation name="quantity_auxiliary3" show="1">1</elementInformation>
+		<elementInformation name="unity_auxiliary3" show="1">1</elementInformation>
+		<elementInformation name="auxiliary4" show="1">Mains plug X01</elementInformation>
+		<elementInformation name="description_auxiliary4" show="1">Plug of the X01 terminal strip (L1 L2 L3 PE RB+ RB-). Reference NOT identified on the public Beckhoff pages: to be completed from the AF1000 documentation.</elementInformation>
+		<elementInformation name="designation_auxiliary4" show="1">X01 connector</elementInformation>
+		<elementInformation name="quantity_auxiliary4" show="1">1</elementInformation>
+		<elementInformation name="unity_auxiliary4" show="1">1</elementInformation>
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>

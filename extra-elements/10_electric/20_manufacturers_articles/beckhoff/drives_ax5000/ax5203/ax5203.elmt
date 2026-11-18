@@ -9,6 +9,34 @@
 		<elementInformation name="manufacturer_reference" show="1">AX5203</elementInformation>
 		<elementInformation name="designation" show="1">AX5203 digital compact servo drive, 2 axes</elementInformation>
 		<elementInformation name="description" show="1">AX 2-axes drive (the second digit of the reference is the number of axes). Rating from the project nomenclature: 2 x 3 A. Redrawn in vector from a picture of the project, terminals snapped to the 10 px grid. The motor and brake connectors are not on the pictures: the Motor terminals are generic, under the body. X06 function names are generic (0..7).</elementInformation>
+		<elementInformation name="auxiliary1" show="1">Mains plug X01</elementInformation>
+		<elementInformation name="description_auxiliary1" show="1">4-pin socket, pitch 7.62 mm, max. 6 mm2, for 1.5 to 25 A. Included in the scope of supply of the drive, also in the connector set ZS4500-2010.</elementInformation>
+		<elementInformation name="manufacturer_auxiliary1" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary1" show="1">ZS4500-2001</elementInformation>
+		<elementInformation name="designation_auxiliary1" show="1">X01 mains input connector</elementInformation>
+		<elementInformation name="quantity_auxiliary1" show="1">1</elementInformation>
+		<elementInformation name="unity_auxiliary1" show="1">1</elementInformation>
+		<elementInformation name="auxiliary2" show="1">DC link plug X02</elementInformation>
+		<elementInformation name="description_auxiliary2" show="1">2-pin socket, max. 6 mm2, for 1.5 to 25 A. Included in the scope of supply of the drive, also in the connector set ZS4500-2010.</elementInformation>
+		<elementInformation name="manufacturer_auxiliary2" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary2" show="1">ZS4500-2002</elementInformation>
+		<elementInformation name="designation_auxiliary2" show="1">X02 DC link connector</elementInformation>
+		<elementInformation name="quantity_auxiliary2" show="1">1</elementInformation>
+		<elementInformation name="unity_auxiliary2" show="1">1</elementInformation>
+		<elementInformation name="auxiliary3" show="1">24 V supply plug X03</elementInformation>
+		<elementInformation name="description_auxiliary3" show="1">3-pin socket (Up, Us, GND), max. 6 mm2. Included in the scope of supply of the drive, also in the connector set ZS4500-2010.</elementInformation>
+		<elementInformation name="manufacturer_auxiliary3" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary3" show="1">ZS4500-2003</elementInformation>
+		<elementInformation name="designation_auxiliary3" show="1">X03 24 V DC supply connector</elementInformation>
+		<elementInformation name="quantity_auxiliary3" show="1">1</elementInformation>
+		<elementInformation name="unity_auxiliary3" show="1">1</elementInformation>
+		<elementInformation name="auxiliary4" show="1">I/O plug X06</elementInformation>
+		<elementInformation name="description_auxiliary4" show="1">BLFZ connector, single row without LED, max. 1.5 mm2, for the terminals 24, 0..7, 0V. Included in the scope of supply of the drive, also in the connector set ZS4500-2010.</elementInformation>
+		<elementInformation name="manufacturer_auxiliary4" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary4" show="1">ZS4500-2006</elementInformation>
+		<elementInformation name="designation_auxiliary4" show="1">X06 BLFZ connector</elementInformation>
+		<elementInformation name="quantity_auxiliary4" show="1">1</elementInformation>
+		<elementInformation name="unity_auxiliary4" show="1">1</elementInformation>
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
