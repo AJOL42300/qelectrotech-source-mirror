@@ -1,0 +1,29 @@
+<definition version="0.100.0" type="element" link_type="simple" width="60" height="80" hotspot_x="20" hotspot_y="10">
+	<uuid uuid="{52bb5054-2184-5965-b1d1-86e24f6614d5}" />
+	<names>
+		<name lang="en">iOF auxiliary contact A9A26924</name>
+		<name lang="fr">Contact auxiliaire iOF A9A26924</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">A9A26924</elementInformation>
+		<elementInformation name="designation" show="1">iOF auxiliary contact, Acti9, 1 changeover, AC/DC</elementInformation>
+		<elementInformation name="description" show="1">Acti9 iOF open/close auxiliary contact (also fault indication), 1 changeover (1 NO + 1 NC), 6 A at 240 V AC, 9 mm wide, for iC60, iID, iDPN Vigi and iSW 40-125 (public compatibility list). Terminals C, NC, NO ASSUMED.</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.43 px/mm (pole pitch 35 mm = 120 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<line end1="none" end2="none" y1="0" antialias="false" y2="12" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="12" antialias="false" y2="36" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="-8" length2="1.5" />
+		<line end1="none" end2="none" y1="60" antialias="false" y2="48" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="60" antialias="false" y2="48" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="30" length2="1.5" />
+		<line end1="none" end2="none" y1="48" antialias="false" y2="24" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="22" length2="1.5" />
+		<terminal x="0" y="0" name="C" orientation="n" type="Generic" uuid="{3b1824e6-0ab0-5ec0-a6ac-f02b62074f2e}" />
+		<terminal x="0" y="60" name="NC" orientation="s" type="Generic" uuid="{179667b7-5054-5eec-98e0-0874686559e8}" />
+		<terminal x="30" y="60" name="NO" orientation="s" type="Generic" uuid="{cfb2d616-2e2a-5de9-89ad-b16a2c7f78f5}" />
+		<dynamic_text x="-15" y="73" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{b1b84cf5-6128-5e64-9eb6-4a9e882e7546}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

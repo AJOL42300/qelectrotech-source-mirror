@@ -1,0 +1,26 @@
+<definition version="0.100.0" type="element" link_type="simple" width="60" height="90" hotspot_x="50" hotspot_y="0">
+	<uuid uuid="{a7bcfecb-81dc-5172-8681-904033b3bce5}" />
+	<names>
+		<name lang="en">OF/SD/SDE/SDV auxiliary contact 29450, front view</name>
+		<name lang="fr">Contact auxiliaire OF/SD/SDE/SDV 29450, vue de face</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">29450</elementInformation>
+		<elementInformation name="designation" show="1">Auxiliary contact OF/SD/SDE/SDV, 1 changeover, spring terminals</elementInformation>
+		<elementInformation name="description" show="1">Standard auxiliary contact for ComPacT NSX, NS, PowerPact and EasyPact CVS: ON/OFF (OF), trip (SD), fault trip (SDE) and earth-fault trip (SDV) indication depending on its slot. One changeover contact (1 NO + 1 NC on a common point), 6 A, spring terminals. Terminals C, NC, NO.</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.43 px/mm (pole pitch 35 mm = 120 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="-50" y="58" width="60" height="26" antialias="false" style="line-style:normal;line-weight:normal;filling:green;color:black" rx="0" ry="0" />
+		<text x="-27.75" y="73.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Bold" text="OF/SD" />
+		<terminal x="-40" y="80" name="C" orientation="s" type="Generic" uuid="{3d4b735e-0ff8-5cb4-8425-293cd32609f6}" />
+		<terminal x="-20" y="80" name="NC" orientation="s" type="Generic" uuid="{d9c20132-9058-5c5a-b11e-258443d4fbbb}" />
+		<terminal x="0" y="80" name="NO" orientation="s" type="Generic" uuid="{54b42ff4-4a17-5a5f-a101-9449cb061b7d}" />
+		<dynamic_text x="-45" y="93" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{bf5f78c8-94c0-50c9-964a-4cdd6fe96d73}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

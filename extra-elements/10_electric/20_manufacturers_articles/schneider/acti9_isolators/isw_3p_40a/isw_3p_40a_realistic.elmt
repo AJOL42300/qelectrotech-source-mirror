@@ -1,0 +1,55 @@
+<definition version="0.100.0" type="element" link_type="simple" width="180" height="280" hotspot_x="30" hotspot_y="20">
+	<uuid uuid="{7816ab28-3042-51ba-a709-8d4e86ccd7ea}" />
+	<names>
+		<name lang="en">iSW switch-disconnector 3P 40 A, front view</name>
+		<name lang="fr">Interrupteur-sectionneur iSW 3P 40 A, vue de face</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">A9S65340</elementInformation>
+		<elementInformation name="designation" show="1">iSW switch-disconnector, 3P, 40 A, 415 V</elementInformation>
+		<elementInformation name="description" show="1">Switch-disconnector iSW, 3P, 40 A at 415 V AC (AC-22A), EN/IEC 60947-3, 6 x 9 mm (54 mm) wide, 85 mm high, 73 mm deep. Can be fitted with an OF auxiliary contact.</elementInformation>
+		<elementInformation name="auxiliary1" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary1" show="0">Acti9 iOF open/close auxiliary contact (also fault indication), 1 changeover (1 NO + 1 NC), 6 A at 240 V AC, 9 mm wide, for iC60, iID, iDPN Vigi and iSW 40-125 (public compatibility list). Terminals C, NC, NO ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary1" show="0">iOF auxiliary contact, Acti9, 1 changeover, AC/DC</elementInformation>
+		<elementInformation name="manufacturer_auxiliary1" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary1" show="0">A9A26924</elementInformation>
+		<elementInformation name="quantity_auxiliary1" show="0">0</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.33 px/mm (1 module of 9 mm = 30 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="-30" y="-20" width="180" height="280" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
+		<rect x="-30" y="-20" width="180" height="30" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" rx="0" ry="0" />
+		<rect x="-30" y="230" width="180" height="30" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" rx="0" ry="0" />
+		<circle x="-8" y="-8" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-6" length1="1.5" x2="6" length2="1.5" />
+		<circle x="-8" y="232" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="240" antialias="false" y2="240" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-6" length1="1.5" x2="6" length2="1.5" />
+		<circle x="52" y="-8" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="54" length1="1.5" x2="66" length2="1.5" />
+		<circle x="52" y="232" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="240" antialias="false" y2="240" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="54" length1="1.5" x2="66" length2="1.5" />
+		<circle x="112" y="-8" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="114" length1="1.5" x2="126" length2="1.5" />
+		<circle x="112" y="232" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="240" antialias="false" y2="240" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="114" length1="1.5" x2="126" length2="1.5" />
+		<rect x="-24" y="50" width="168" height="100" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" rx="0" ry="0" />
+		<rect x="-20" y="56" width="160" height="52" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="-20" y="56" width="160" height="8" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
+		<rect x="-20" y="34" width="160" height="10" antialias="false" style="line-style:normal;line-weight:thin;filling:red;color:black" rx="0" ry="0" />
+		<rect x="-22" y="175" width="44" height="28" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
+		<text x="-7.44" y="193.4" rotation="0" color="#000000" font="Roboto Condensed,8,-1,5,75,0,0,0,0,0,Bold" text="40A" />
+		<text x="54.42" y="228.3" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="iSW" />
+		<terminal x="0" y="0" name="1" orientation="n" type="Generic" uuid="{a58d4df4-0e17-5d6a-81d8-cf51fd1d8484}" />
+		<terminal x="0" y="240" name="2" orientation="s" type="Generic" uuid="{ff94fbcb-8581-583b-8b69-cd4d2b13f3c2}" />
+		<terminal x="60" y="0" name="3" orientation="n" type="Generic" uuid="{e04a549f-3473-5ccb-a866-ce82b7ba8243}" />
+		<terminal x="60" y="240" name="4" orientation="s" type="Generic" uuid="{371b1bc5-9739-59e2-a78d-bd489488a8bc}" />
+		<terminal x="120" y="0" name="5" orientation="n" type="Generic" uuid="{d727d957-b641-5f9d-8cae-59ca3d089e39}" />
+		<terminal x="120" y="240" name="6" orientation="s" type="Generic" uuid="{ccc16154-8f67-5c6c-8750-12607b4e7976}" />
+		<dynamic_text x="-25" y="263" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{a87317cd-7f10-5ac5-9873-84dbe8ac2be6}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

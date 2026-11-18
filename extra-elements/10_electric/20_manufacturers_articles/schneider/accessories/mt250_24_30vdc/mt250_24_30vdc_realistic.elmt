@@ -1,0 +1,32 @@
+<definition version="0.100.0" type="element" link_type="simple" width="340" height="260" hotspot_x="50" hotspot_y="0">
+	<uuid uuid="{05b76665-9f64-58e7-8d0e-2285d6f8160f}" />
+	<names>
+		<name lang="en">MT250 motor mechanism 24/30 V DC, front view</name>
+		<name lang="fr">Commande motorisée MT250 24/30 V CC, vue de face</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">LV431543</elementInformation>
+		<elementInformation name="designation" show="1">Motor mechanism module MT250, ComPacT NSX250, 24/30 V DC</elementInformation>
+		<elementInformation name="description" show="1">Standard motor mechanism module MT250 for ComPacT NSX250, control voltage 24/30 V DC, consumption below 500 W, supplied with an SDE adapter. Motor terminals M1-M2 ASSUMED.</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.43 px/mm (pole pitch 35 mm = 120 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="-50" y="40" width="340" height="215" antialias="false" style="line-style:normal;line-weight:normal;filling:lightgray;color:black" rx="0" ry="0" />
+		<rect x="65" y="60" width="110" height="170" antialias="false" style="line-style:normal;line-weight:normal;filling:gray;color:black" rx="0" ry="0" />
+		<rect x="98" y="75" width="44" height="110" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="98" y="75" width="44" height="14" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
+		<circle x="-8" y="197" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" diameter="36" />
+		<line end1="none" end2="none" y1="215" antialias="false" y2="199" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="10" length1="1.5" x2="26" length2="1.5" />
+		<text x="5.88" y="247.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="A/M" />
+		<text x="225.7" y="218.3" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="MT250" />
+		<text x="103.5" y="153.3" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" text="24/30 V DC" />
+		<terminal x="100" y="250" name="M1" orientation="s" type="Generic" uuid="{cc1e0cf2-9264-540a-a76e-8731db16a4b7}" />
+		<terminal x="140" y="250" name="M2" orientation="s" type="Generic" uuid="{fdf96182-b050-5d39-abca-e9472135ee22}" />
+		<dynamic_text x="-45" y="263" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{c955e2cf-b589-55c1-8c25-285d2e46a768}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

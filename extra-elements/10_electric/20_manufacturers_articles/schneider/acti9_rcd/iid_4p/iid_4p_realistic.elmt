@@ -1,0 +1,65 @@
+<definition version="0.100.0" type="element" link_type="simple" width="240" height="300" hotspot_x="30" hotspot_y="20">
+	<uuid uuid="{d98d29dc-9475-5874-810a-6d9eee697eae}" />
+	<names>
+		<name lang="en">iID RCCB 4P 40 A 30 mA AC, front view</name>
+		<name lang="fr">Interrupteur différentiel iID 4P 40 A 30 mA AC, vue de face</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">A9R41440</elementInformation>
+		<elementInformation name="designation" show="1">iID residual current circuit breaker, 4P, 40 A, 30 mA, type AC</elementInformation>
+		<elementInformation name="description" show="1">RCCB iID, 4P, 40 A, 30 mA, type AC, instantaneous. Neutral on the left (N1-N2). Width 8 x 9 mm (72 mm), height 85-91 mm, depth 69-73.5 mm.</elementInformation>
+		<elementInformation name="auxiliary1" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary1" show="0">Acti9 iOF open/close auxiliary contact (also fault indication), 1 changeover (1 NO + 1 NC), 6 A at 240 V AC, 9 mm wide, for iC60, iID, iDPN Vigi and iSW 40-125 (public compatibility list). Terminals C, NC, NO ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary1" show="0">iOF auxiliary contact, Acti9, 1 changeover, AC/DC</elementInformation>
+		<elementInformation name="manufacturer_auxiliary1" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary1" show="0">A9A26924</elementInformation>
+		<elementInformation name="quantity_auxiliary1" show="0">0</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.33 px/mm (1 module of 9 mm = 30 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="-30" y="-20" width="240" height="300" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
+		<rect x="-30" y="-20" width="240" height="30" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" rx="0" ry="0" />
+		<rect x="-30" y="250" width="240" height="30" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" rx="0" ry="0" />
+		<circle x="-8" y="-8" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-6" length1="1.5" x2="6" length2="1.5" />
+		<circle x="-8" y="252" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="260" antialias="false" y2="260" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-6" length1="1.5" x2="6" length2="1.5" />
+		<circle x="52" y="-8" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="54" length1="1.5" x2="66" length2="1.5" />
+		<circle x="52" y="252" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="260" antialias="false" y2="260" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="54" length1="1.5" x2="66" length2="1.5" />
+		<circle x="112" y="-8" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="114" length1="1.5" x2="126" length2="1.5" />
+		<circle x="112" y="252" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="260" antialias="false" y2="260" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="114" length1="1.5" x2="126" length2="1.5" />
+		<circle x="172" y="-8" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="174" length1="1.5" x2="186" length2="1.5" />
+		<circle x="172" y="252" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="260" antialias="false" y2="260" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="174" length1="1.5" x2="186" length2="1.5" />
+		<rect x="-24" y="50" width="228" height="100" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" rx="0" ry="0" />
+		<rect x="-20" y="56" width="220" height="52" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="-20" y="56" width="220" height="8" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
+		<rect x="-20" y="34" width="220" height="10" antialias="false" style="line-style:normal;line-weight:thin;filling:red;color:black" rx="0" ry="0" />
+		<rect x="-26" y="150" width="232" height="70" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
+		<circle x="-9" y="163" antialias="false" style="line-style:normal;line-weight:normal;filling:yellow;color:black" diameter="18" />
+		<text x="-2.17" y="175.85" rotation="0" color="#000000" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="T" />
+		<rect x="172" y="160" width="16" height="8" antialias="false" style="line-style:normal;line-weight:thin;filling:red;color:black" rx="0" ry="0" />
+		<text x="79.15" y="199.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Bold" text="30mA AC" />
+		<text x="85.88" y="211.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="40A" />
+		<text x="84.42" y="241.3" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="iID" />
+		<terminal x="0" y="0" name="N1" orientation="n" type="Generic" uuid="{de2a7bc5-23b7-52d8-b0a5-c93224015eec}" />
+		<terminal x="0" y="260" name="N2" orientation="s" type="Generic" uuid="{3bef4bfb-cbda-5def-9be3-7afc162d10f8}" />
+		<terminal x="60" y="0" name="1" orientation="n" type="Generic" uuid="{89499554-e6be-5feb-b79b-a7ec43364a42}" />
+		<terminal x="60" y="260" name="2" orientation="s" type="Generic" uuid="{2d1fe1f8-b79b-5261-a1b3-dd3feb6f8ae8}" />
+		<terminal x="120" y="0" name="3" orientation="n" type="Generic" uuid="{d14e9b60-ee3e-5cbe-9552-5b3fc3c69e41}" />
+		<terminal x="120" y="260" name="4" orientation="s" type="Generic" uuid="{d48783fe-9b8e-5cf3-a4d7-55e412717423}" />
+		<terminal x="180" y="0" name="5" orientation="n" type="Generic" uuid="{c1e927a5-f04b-597b-bb51-c133824a89c6}" />
+		<terminal x="180" y="260" name="6" orientation="s" type="Generic" uuid="{e0d96ccf-1e7d-5030-b8cc-afb75893d1e1}" />
+		<dynamic_text x="-25" y="283" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{7fd202a9-81a2-5227-a5b8-084973ff0681}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

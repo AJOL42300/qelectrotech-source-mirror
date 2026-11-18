@@ -1,0 +1,38 @@
+<definition version="0.100.0" type="element" link_type="simple" width="70" height="80" hotspot_x="20" hotspot_y="10">
+	<uuid uuid="{1417820c-eef8-520b-b00f-8f74b2c711e9}" />
+	<names>
+		<name lang="en">STI fuse-disconnector 2P 25 A</name>
+		<name lang="fr">Sectionneur fusible STI 2P 25 A</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">A9N15651</elementInformation>
+		<elementInformation name="designation" show="1">STI fuse-disconnector, 2P, 25 A, for 10.3 x 38 fuses</elementInformation>
+		<elementInformation name="description" show="1">Fuse-disconnector STI, 2P, 25 A, for 10.3 x 38 mm fuses, 4 x 9 mm (36 mm) wide, 81 mm high, 75 mm deep.</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.33 px/mm (1 module of 9 mm = 30 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="-8" length2="1.5" />
+		<rect x="-5" y="0" width="10" height="14" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="11" antialias="false" y2="17" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-13" length1="1.5" x2="-3" length2="1.5" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="30" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="30" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="22" length2="1.5" />
+		<rect x="25" y="0" width="10" height="14" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="30" length1="1.5" x2="30" length2="1.5" />
+		<line end1="none" end2="none" y1="11" antialias="false" y2="17" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="17" length1="1.5" x2="27" length2="1.5" />
+		<line end1="none" end2="none" y1="27" antialias="false" y2="27" style="line-style:dashed;line-weight:thin;filling:none;color:black" x1="-8" length1="1.5" x2="22" length2="1.5" />
+		<terminal x="0" y="0" name="1" orientation="n" type="Generic" uuid="{dc20e06d-55dc-557c-b498-13ab45b94ece}" />
+		<terminal x="0" y="60" name="2" orientation="s" type="Generic" uuid="{fe69719a-45d4-55ef-939d-835839e499df}" />
+		<terminal x="30" y="0" name="3" orientation="n" type="Generic" uuid="{4978a5b5-cd96-5869-8c9d-c9e47940a235}" />
+		<terminal x="30" y="60" name="4" orientation="s" type="Generic" uuid="{061e08eb-9f9c-56de-93d4-e37a291d6dfe}" />
+		<dynamic_text x="-15" y="73" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{385ac515-f31a-5409-8652-eab4f7abf852}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

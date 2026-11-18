@@ -1,0 +1,53 @@
+<definition version="0.100.0" type="element" link_type="simple" width="120" height="300" hotspot_x="30" hotspot_y="20">
+	<uuid uuid="{e7067adb-4d83-506c-902d-e2c8ff9deb32}" />
+	<names>
+		<name lang="en">iID RCCB 2P 25 A 30 mA AC, front view</name>
+		<name lang="fr">Interrupteur différentiel iID 2P 25 A 30 mA AC, vue de face</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">A9R41225</elementInformation>
+		<elementInformation name="designation" show="1">iID residual current circuit breaker, 2P, 25 A, 30 mA, type AC</elementInformation>
+		<elementInformation name="description" show="1">RCCB iID, 2P, 25 A, 30 mA, type AC, instantaneous. Neutral on the left (N1-N2). Width 4 x 9 mm (36 mm) ASSUMED from the pole pitch.</elementInformation>
+		<elementInformation name="auxiliary1" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary1" show="0">Acti9 iOF open/close auxiliary contact (also fault indication), 1 changeover (1 NO + 1 NC), 6 A at 240 V AC, 9 mm wide, for iC60, iID, iDPN Vigi and iSW 40-125 (public compatibility list). Terminals C, NC, NO ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary1" show="0">iOF auxiliary contact, Acti9, 1 changeover, AC/DC</elementInformation>
+		<elementInformation name="manufacturer_auxiliary1" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary1" show="0">A9A26924</elementInformation>
+		<elementInformation name="quantity_auxiliary1" show="0">0</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.33 px/mm (1 module of 9 mm = 30 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="-30" y="-20" width="120" height="300" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
+		<rect x="-30" y="-20" width="120" height="30" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" rx="0" ry="0" />
+		<rect x="-30" y="250" width="120" height="30" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" rx="0" ry="0" />
+		<circle x="-8" y="-8" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-6" length1="1.5" x2="6" length2="1.5" />
+		<circle x="-8" y="252" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="260" antialias="false" y2="260" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-6" length1="1.5" x2="6" length2="1.5" />
+		<circle x="52" y="-8" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="54" length1="1.5" x2="66" length2="1.5" />
+		<circle x="52" y="252" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="260" antialias="false" y2="260" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="54" length1="1.5" x2="66" length2="1.5" />
+		<rect x="-24" y="50" width="108" height="100" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" rx="0" ry="0" />
+		<rect x="-20" y="56" width="100" height="52" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="-20" y="56" width="100" height="8" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
+		<rect x="-20" y="34" width="100" height="10" antialias="false" style="line-style:normal;line-weight:thin;filling:red;color:black" rx="0" ry="0" />
+		<rect x="-26" y="150" width="112" height="70" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
+		<circle x="-9" y="163" antialias="false" style="line-style:normal;line-weight:normal;filling:yellow;color:black" diameter="18" />
+		<text x="-2.17" y="175.85" rotation="0" color="#000000" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="T" />
+		<rect x="52" y="160" width="16" height="8" antialias="false" style="line-style:normal;line-weight:thin;filling:red;color:black" rx="0" ry="0" />
+		<text x="19.15" y="199.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Bold" text="30mA AC" />
+		<text x="25.88" y="211.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="25A" />
+		<text x="24.42" y="241.3" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="iID" />
+		<terminal x="0" y="0" name="N1" orientation="n" type="Generic" uuid="{b3d677f5-8500-5901-a13b-86fc8baa46a3}" />
+		<terminal x="0" y="260" name="N2" orientation="s" type="Generic" uuid="{231134fa-9149-5910-bd5f-6b11ab5684ec}" />
+		<terminal x="60" y="0" name="1" orientation="n" type="Generic" uuid="{3b8080d6-fa9e-5e58-b782-7c8e8a063903}" />
+		<terminal x="60" y="260" name="2" orientation="s" type="Generic" uuid="{31d6ecee-e567-5cbc-8076-c910c418fc9e}" />
+		<dynamic_text x="-25" y="283" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{2f15fbe1-58f9-5138-80d7-91181ae5f52e}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

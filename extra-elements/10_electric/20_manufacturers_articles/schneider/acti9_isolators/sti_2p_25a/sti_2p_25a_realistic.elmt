@@ -1,0 +1,45 @@
+<definition version="0.100.0" type="element" link_type="simple" width="120" height="270" hotspot_x="30" hotspot_y="20">
+	<uuid uuid="{c47c55d3-ef47-5bff-9775-2aab35ce87d0}" />
+	<names>
+		<name lang="en">STI fuse-disconnector 2P 25 A, front view</name>
+		<name lang="fr">Sectionneur fusible STI 2P 25 A, vue de face</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">A9N15651</elementInformation>
+		<elementInformation name="designation" show="1">STI fuse-disconnector, 2P, 25 A, for 10.3 x 38 fuses</elementInformation>
+		<elementInformation name="description" show="1">Fuse-disconnector STI, 2P, 25 A, for 10.3 x 38 mm fuses, 4 x 9 mm (36 mm) wide, 81 mm high, 75 mm deep.</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.33 px/mm (1 module of 9 mm = 30 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="-30" y="-20" width="120" height="270" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
+		<rect x="-30" y="-20" width="120" height="30" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" rx="0" ry="0" />
+		<rect x="-30" y="220" width="120" height="30" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" rx="0" ry="0" />
+		<circle x="-8" y="-8" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-6" length1="1.5" x2="6" length2="1.5" />
+		<circle x="-8" y="222" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="230" antialias="false" y2="230" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-6" length1="1.5" x2="6" length2="1.5" />
+		<circle x="52" y="-8" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="54" length1="1.5" x2="66" length2="1.5" />
+		<circle x="52" y="222" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" diameter="16" />
+		<line end1="none" end2="none" y1="230" antialias="false" y2="230" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="54" length1="1.5" x2="66" length2="1.5" />
+		<rect x="-22" y="40" width="44" height="150" antialias="false" style="line-style:normal;line-weight:normal;filling:gray;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="90" antialias="false" y2="90" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-22" length1="1.5" x2="22" length2="1.5" />
+		<rect x="-8" y="40" width="16" height="20" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" rx="0" ry="0" />
+		<text x="-6.51" y="143.85" rotation="0" color="#000000" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="25A" />
+		<rect x="38" y="40" width="44" height="150" antialias="false" style="line-style:normal;line-weight:normal;filling:gray;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="90" antialias="false" y2="90" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="38" length1="1.5" x2="82" length2="1.5" />
+		<rect x="52" y="40" width="16" height="20" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" rx="0" ry="0" />
+		<text x="53.49" y="143.85" rotation="0" color="#000000" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="25A" />
+		<text x="20.38" y="217.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="10.3x38" />
+		<terminal x="0" y="0" name="1" orientation="n" type="Generic" uuid="{db0af329-f38c-5de1-affc-ae58a6624292}" />
+		<terminal x="0" y="230" name="2" orientation="s" type="Generic" uuid="{b31274a0-24db-5aa0-ab72-c5916f16a1c4}" />
+		<terminal x="60" y="0" name="3" orientation="n" type="Generic" uuid="{22e4fd8c-b2f0-5c54-9c33-67a35f69bdaf}" />
+		<terminal x="60" y="230" name="4" orientation="s" type="Generic" uuid="{8c3ae7b5-3355-5069-bc41-cfbd9fa635a5}" />
+		<dynamic_text x="-25" y="253" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{d0970125-a604-533c-baff-dfbcd14c89c0}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

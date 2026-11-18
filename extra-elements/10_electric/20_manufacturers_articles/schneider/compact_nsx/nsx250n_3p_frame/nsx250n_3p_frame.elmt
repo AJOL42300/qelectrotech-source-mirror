@@ -1,0 +1,70 @@
+<definition version="0.100.0" type="element" link_type="simple" width="100" height="80" hotspot_x="20" hotspot_y="10">
+	<uuid uuid="{104c788d-7ac1-5f99-b79b-13994b3e38e8}" />
+	<names>
+		<name lang="en">ComPacT NSX250N 3P frame, no trip unit</name>
+		<name lang="fr">ComPacT NSX250N 3P châssis sans déclencheur</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">C25N3</elementInformation>
+		<elementInformation name="designation" show="1">ComPacT NSX250N basic frame, 3P, 250 A, 50 kA, without trip unit</elementInformation>
+		<elementInformation name="description" show="1">Basic frame ComPacT NSX250N, 3P, 250 A, 50 kA at 415 V, without trip unit. 105 x 161 x 86 mm.</elementInformation>
+		<elementInformation name="auxiliary1" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary1" show="0">Standard motor mechanism module MT250 for ComPacT NSX250, control voltage 220-240 V AC 50/60 Hz (208-277 V AC 60 Hz), consumption below 500 VA, automatic spring charging, padlocking still possible, supplied with an SDE adapter. Motor terminals M1-M2 ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary1" show="0">Motor mechanism module MT250, ComPacT NSX250, 220/240 V AC</elementInformation>
+		<elementInformation name="manufacturer_auxiliary1" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary1" show="0">LV431541</elementInformation>
+		<elementInformation name="quantity_auxiliary1" show="0">0</elementInformation>
+		<elementInformation name="auxiliary2" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary2" show="0">Standard auxiliary contact for ComPacT NSX, NS, PowerPact and EasyPact CVS: ON/OFF (OF), trip (SD), fault trip (SDE) and earth-fault trip (SDV) indication depending on its slot. One changeover contact (1 NO + 1 NC on a common point), 6 A, spring terminals. Terminals C, NC, NO.</elementInformation>
+		<elementInformation name="designation_auxiliary2" show="0">Auxiliary contact OF/SD/SDE/SDV, 1 changeover, spring terminals</elementInformation>
+		<elementInformation name="manufacturer_auxiliary2" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary2" show="0">29450</elementInformation>
+		<elementInformation name="quantity_auxiliary2" show="0">0</elementInformation>
+		<elementInformation name="auxiliary3" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary3" show="0">Instantaneous undervoltage release MN for ComPacT NSX, 24 V DC, spring terminals. Coil terminals D1-D2 ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary3" show="0">MN undervoltage release, ComPacT NSX, 24 V DC, spring terminals</elementInformation>
+		<elementInformation name="manufacturer_auxiliary3" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary3" show="0">LV429410</elementInformation>
+		<elementInformation name="quantity_auxiliary3" show="0">0</elementInformation>
+		<elementInformation name="auxiliary4" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary4" show="0">Long terminal shield for ComPacT NSX100/160/250, 3P, pole pitch 35 mm, degree of protection IP40. Mechanical accessory, no terminal.</elementInformation>
+		<elementInformation name="designation_auxiliary4" show="0">Long terminal shield, ComPacT NSX100/160/250, 3P</elementInformation>
+		<elementInformation name="manufacturer_auxiliary4" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary4" show="0">LV429517</elementInformation>
+		<elementInformation name="quantity_auxiliary4" show="0">0</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.43 px/mm (pole pitch 35 mm = 120 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="-8" length2="1.5" />
+		<line end1="none" end2="none" y1="10" antialias="false" y2="18" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-12" length1="1.5" x2="-4" length2="1.5" />
+		<line end1="none" end2="none" y1="18" antialias="false" y2="10" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-12" length1="1.5" x2="-4" length2="1.5" />
+		<rect x="-4" y="0" width="8" height="14" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="30" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="30" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="22" length2="1.5" />
+		<line end1="none" end2="none" y1="10" antialias="false" y2="18" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="18" length1="1.5" x2="26" length2="1.5" />
+		<line end1="none" end2="none" y1="18" antialias="false" y2="10" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="18" length1="1.5" x2="26" length2="1.5" />
+		<rect x="26" y="0" width="8" height="14" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="60" length1="1.5" x2="60" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="60" length1="1.5" x2="60" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="60" length1="1.5" x2="52" length2="1.5" />
+		<line end1="none" end2="none" y1="10" antialias="false" y2="18" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="48" length1="1.5" x2="56" length2="1.5" />
+		<line end1="none" end2="none" y1="18" antialias="false" y2="10" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="48" length1="1.5" x2="56" length2="1.5" />
+		<rect x="56" y="0" width="8" height="14" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="27" antialias="false" y2="27" style="line-style:dashed;line-weight:thin;filling:none;color:black" x1="-8" length1="1.5" x2="52" length2="1.5" />
+		<terminal x="0" y="0" name="1" orientation="n" type="Generic" uuid="{d993307b-13a3-5688-9bf6-5eab2bb2e0fd}" />
+		<terminal x="0" y="60" name="2" orientation="s" type="Generic" uuid="{bfb9c9bc-3695-55ab-9a9e-35988b44af37}" />
+		<terminal x="30" y="0" name="3" orientation="n" type="Generic" uuid="{9965202b-86f7-5c59-bd84-205fed307637}" />
+		<terminal x="30" y="60" name="4" orientation="s" type="Generic" uuid="{2a8d7502-66d3-502d-91a6-7a932ddd6b16}" />
+		<terminal x="60" y="0" name="5" orientation="n" type="Generic" uuid="{4bc68f15-fcc7-5313-920d-916c585c52f1}" />
+		<terminal x="60" y="60" name="6" orientation="s" type="Generic" uuid="{a51ae598-14a0-5910-a299-ca329717825a}" />
+		<dynamic_text x="-15" y="73" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{6f6952a4-3573-5289-bec3-8b668a3ef329}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

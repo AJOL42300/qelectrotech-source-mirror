@@ -1,0 +1,40 @@
+<definition version="0.100.0" type="element" link_type="simple" width="100" height="80" hotspot_x="20" hotspot_y="10">
+	<uuid uuid="{451da105-7271-5dfe-b2c7-3157a908ff4e}" />
+	<names>
+		<name lang="en">ComPacT INS250 3P 250 A switch-disconnector</name>
+		<name lang="fr">Interrupteur-sectionneur ComPacT INS250 3P 250 A</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">31106</elementInformation>
+		<elementInformation name="designation" show="1">ComPacT INS250 switch-disconnector, 3P, 250 A, black rotary handle</elementInformation>
+		<elementInformation name="description" show="1">Non-automatic switch-disconnector ComPacT INS250, 3 poles, 250 A at 415 V AC (AC-22A, AC-23A), 690 V AC / 250 V DC, standard version with black rotary handle, isolation with positive contact indication. Outside dimensions ASSUMED equal to the NSX250 (105 x 161 x 86 mm).</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.43 px/mm (pole pitch 35 mm = 120 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="-8" length2="1.5" />
+		<line end1="none" end2="none" y1="11" antialias="false" y2="17" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-13" length1="1.5" x2="-3" length2="1.5" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="30" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="30" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="22" length2="1.5" />
+		<line end1="none" end2="none" y1="11" antialias="false" y2="17" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="17" length1="1.5" x2="27" length2="1.5" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="60" length1="1.5" x2="60" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="60" length1="1.5" x2="60" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="60" length1="1.5" x2="52" length2="1.5" />
+		<line end1="none" end2="none" y1="11" antialias="false" y2="17" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="47" length1="1.5" x2="57" length2="1.5" />
+		<line end1="none" end2="none" y1="27" antialias="false" y2="27" style="line-style:dashed;line-weight:thin;filling:none;color:black" x1="-8" length1="1.5" x2="52" length2="1.5" />
+		<terminal x="0" y="0" name="1" orientation="n" type="Generic" uuid="{5ad582f4-3e82-54ba-aaf6-534620156a99}" />
+		<terminal x="0" y="60" name="2" orientation="s" type="Generic" uuid="{c4c5269e-6ccd-5672-9ec6-26fb93ec746e}" />
+		<terminal x="30" y="0" name="3" orientation="n" type="Generic" uuid="{d4b97f0c-1164-5b9c-b751-cf4410cefc02}" />
+		<terminal x="30" y="60" name="4" orientation="s" type="Generic" uuid="{6111de2f-68f7-5f66-a0d3-00c14d62910b}" />
+		<terminal x="60" y="0" name="5" orientation="n" type="Generic" uuid="{240a6821-72ed-5e07-9c3e-ae69c7c6dc7c}" />
+		<terminal x="60" y="60" name="6" orientation="s" type="Generic" uuid="{ee95ec28-2888-54a8-90f9-ed61bbd84ab6}" />
+		<dynamic_text x="-15" y="73" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{00091e43-fdc9-5dcc-b611-e333f084c6cc}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

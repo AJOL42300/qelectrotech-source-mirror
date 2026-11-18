@@ -1,0 +1,60 @@
+<definition version="0.100.0" type="element" link_type="simple" width="130" height="80" hotspot_x="20" hotspot_y="10">
+	<uuid uuid="{88d5b6c2-e5eb-5f39-b579-a9b95e2f5920}" />
+	<names>
+		<name lang="en">iC60N circuit breaker 4P 10 A C</name>
+		<name lang="fr">Disjoncteur iC60N 4P 10 A C</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">A9F74410</elementInformation>
+		<elementInformation name="designation" show="1">iC60N miniature circuit breaker, 4P, 10 A, C curve</elementInformation>
+		<elementInformation name="description" show="1">Miniature circuit breaker iC60N, 4 poles, 10 A, C curve, thermal-magnetic, 10 kA (IEC/EN 60947-2). Width 8 x 9 mm (72 mm), height 85 mm. One terminal per pole, top and bottom (1-2, 3-4...).</elementInformation>
+		<elementInformation name="auxiliary1" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary1" show="0">Acti9 iOF open/close auxiliary contact (also fault indication), 1 changeover (1 NO + 1 NC), 6 A at 240 V AC, 9 mm wide, for iC60, iID, iDPN Vigi and iSW 40-125 (public compatibility list). Terminals C, NC, NO ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary1" show="0">iOF auxiliary contact, Acti9, 1 changeover, AC/DC</elementInformation>
+		<elementInformation name="manufacturer_auxiliary1" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary1" show="0">A9A26924</elementInformation>
+		<elementInformation name="quantity_auxiliary1" show="0">0</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.33 px/mm (1 module of 9 mm = 30 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="-8" length2="1.5" />
+		<line end1="none" end2="none" y1="10" antialias="false" y2="18" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-12" length1="1.5" x2="-4" length2="1.5" />
+		<line end1="none" end2="none" y1="18" antialias="false" y2="10" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-12" length1="1.5" x2="-4" length2="1.5" />
+		<rect x="-4" y="0" width="8" height="14" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="30" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="30" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="22" length2="1.5" />
+		<line end1="none" end2="none" y1="10" antialias="false" y2="18" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="18" length1="1.5" x2="26" length2="1.5" />
+		<line end1="none" end2="none" y1="18" antialias="false" y2="10" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="18" length1="1.5" x2="26" length2="1.5" />
+		<rect x="26" y="0" width="8" height="14" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="60" length1="1.5" x2="60" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="60" length1="1.5" x2="60" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="60" length1="1.5" x2="52" length2="1.5" />
+		<line end1="none" end2="none" y1="10" antialias="false" y2="18" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="48" length1="1.5" x2="56" length2="1.5" />
+		<line end1="none" end2="none" y1="18" antialias="false" y2="10" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="48" length1="1.5" x2="56" length2="1.5" />
+		<rect x="56" y="0" width="8" height="14" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="90" length1="1.5" x2="90" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="90" length1="1.5" x2="90" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="90" length1="1.5" x2="82" length2="1.5" />
+		<line end1="none" end2="none" y1="10" antialias="false" y2="18" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="78" length1="1.5" x2="86" length2="1.5" />
+		<line end1="none" end2="none" y1="18" antialias="false" y2="10" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="78" length1="1.5" x2="86" length2="1.5" />
+		<rect x="86" y="0" width="8" height="14" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="27" antialias="false" y2="27" style="line-style:dashed;line-weight:thin;filling:none;color:black" x1="-8" length1="1.5" x2="82" length2="1.5" />
+		<terminal x="0" y="0" name="1" orientation="n" type="Generic" uuid="{aa1f90ce-2f84-5073-b415-acb77ff9f6db}" />
+		<terminal x="0" y="60" name="2" orientation="s" type="Generic" uuid="{3f79894c-de92-5496-b378-c517283ddae7}" />
+		<terminal x="30" y="0" name="3" orientation="n" type="Generic" uuid="{ba3ad4fb-bff7-53a3-a5eb-07c473df8f22}" />
+		<terminal x="30" y="60" name="4" orientation="s" type="Generic" uuid="{8826f199-f4a5-5bd0-8aaf-ea4eda55e92f}" />
+		<terminal x="60" y="0" name="5" orientation="n" type="Generic" uuid="{33d72d88-355d-5916-ab71-ff9590e935fb}" />
+		<terminal x="60" y="60" name="6" orientation="s" type="Generic" uuid="{9f9d1c53-7baa-5fcb-818e-16af7307be0a}" />
+		<terminal x="90" y="0" name="7" orientation="n" type="Generic" uuid="{ffaf27bb-a02f-549e-bfd2-963c7a0c429c}" />
+		<terminal x="90" y="60" name="8" orientation="s" type="Generic" uuid="{2d8784f5-0a75-5132-9348-9b8efb971123}" />
+		<dynamic_text x="-15" y="73" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{d8976510-7622-593f-b3b5-5248cbe32a44}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

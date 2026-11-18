@@ -1,0 +1,27 @@
+<definition version="0.100.0" type="element" link_type="simple" width="40" height="80" hotspot_x="20" hotspot_y="10">
+	<uuid uuid="{96f37ec1-5972-5a10-9dc7-2dc81d161dc2}" />
+	<names>
+		<name lang="en">MN undervoltage release 24 V DC</name>
+		<name lang="fr">Déclencheur MN à minimum de tension 24 V CC</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">LV429410</elementInformation>
+		<elementInformation name="designation" show="1">MN undervoltage release, ComPacT NSX, 24 V DC, spring terminals</elementInformation>
+		<elementInformation name="description" show="1">Instantaneous undervoltage release MN for ComPacT NSX, 24 V DC, spring terminals. Coil terminals D1-D2 ASSUMED.</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.43 px/mm (pole pitch 35 mm = 120 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<line end1="none" end2="none" y1="0" antialias="false" y2="20" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<rect x="-10" y="20" width="20" height="20" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
+		<text x="-3.72" y="33.3" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="U&lt;" />
+		<terminal x="0" y="0" name="D1" orientation="n" type="Generic" uuid="{0416623e-ac12-5790-b330-e3fc5125dc17}" />
+		<terminal x="0" y="60" name="D2" orientation="s" type="Generic" uuid="{c3b7efe2-1213-54b6-8279-07a0d17621bf}" />
+		<dynamic_text x="-15" y="73" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{b486e7d1-4574-5553-b70a-859c16693117}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

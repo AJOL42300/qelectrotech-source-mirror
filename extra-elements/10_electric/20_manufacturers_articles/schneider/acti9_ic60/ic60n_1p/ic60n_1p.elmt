@@ -1,0 +1,35 @@
+<definition version="0.100.0" type="element" link_type="simple" width="40" height="80" hotspot_x="20" hotspot_y="10">
+	<uuid uuid="{ed6fa8ff-6ad1-5535-8374-1cd88752a343}" />
+	<names>
+		<name lang="en">iC60N circuit breaker 1P 10 A C</name>
+		<name lang="fr">Disjoncteur iC60N 1P 10 A C</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">A9F74110</elementInformation>
+		<elementInformation name="designation" show="1">iC60N miniature circuit breaker, 1P, 10 A, C curve</elementInformation>
+		<elementInformation name="description" show="1">Miniature circuit breaker iC60N, 1 pole, 10 A, C curve, thermal-magnetic, 10 kA (IEC/EN 60947-2). Width 2 x 9 mm (18 mm), height 85 mm. One terminal per pole, top and bottom (1-2, 3-4...).</elementInformation>
+		<elementInformation name="auxiliary1" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary1" show="0">Acti9 iOF open/close auxiliary contact (also fault indication), 1 changeover (1 NO + 1 NC), 6 A at 240 V AC, 9 mm wide, for iC60, iID, iDPN Vigi and iSW 40-125 (public compatibility list). Terminals C, NC, NO ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary1" show="0">iOF auxiliary contact, Acti9, 1 changeover, AC/DC</elementInformation>
+		<elementInformation name="manufacturer_auxiliary1" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary1" show="0">A9A26924</elementInformation>
+		<elementInformation name="quantity_auxiliary1" show="0">0</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.33 px/mm (1 module of 9 mm = 30 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="-8" length2="1.5" />
+		<line end1="none" end2="none" y1="10" antialias="false" y2="18" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-12" length1="1.5" x2="-4" length2="1.5" />
+		<line end1="none" end2="none" y1="18" antialias="false" y2="10" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-12" length1="1.5" x2="-4" length2="1.5" />
+		<rect x="-4" y="0" width="8" height="14" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" rx="0" ry="0" />
+		<terminal x="0" y="0" name="1" orientation="n" type="Generic" uuid="{3f65d5a7-9d54-56dc-9a97-0a46b5ba4435}" />
+		<terminal x="0" y="60" name="2" orientation="s" type="Generic" uuid="{7ffd4498-130a-5fe9-ad5e-4dfdd23c269e}" />
+		<dynamic_text x="-15" y="73" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{8c1ab8c9-a36d-56b4-93d4-287c1330e0a3}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

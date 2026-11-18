@@ -1,0 +1,46 @@
+<definition version="0.100.0" type="element" link_type="simple" width="70" height="80" hotspot_x="20" hotspot_y="10">
+	<uuid uuid="{50ee877a-dbbf-5912-a8a8-c3e63ddea0c7}" />
+	<names>
+		<name lang="en">iDPNa Vigi RCBO 1P+N 16 A C 30 mA AC</name>
+		<name lang="fr">Disjoncteur différentiel iDPNa Vigi 1P+N 16 A C 30 mA AC</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">A9D34616</elementInformation>
+		<elementInformation name="designation" show="1">iDPNa Vigi residual current circuit breaker, 1P+N, 16 A, C curve, 30 mA, type AC</elementInformation>
+		<elementInformation name="description" show="1">RCBO iDPNa Vigi, 1P+N, 16 A, C curve, 4.5 kA, type AC, 30 mA. Width 2 x 9 mm (18 mm). Terminals: phase 1-2, neutral N1-N2. Replaced by iCV40 in the catalogue.</elementInformation>
+		<elementInformation name="auxiliary1" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary1" show="0">Acti9 iOF open/close auxiliary contact (also fault indication), 1 changeover (1 NO + 1 NC), 6 A at 240 V AC, 9 mm wide, for iC60, iID, iDPN Vigi and iSW 40-125 (public compatibility list). Terminals C, NC, NO ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary1" show="0">iOF auxiliary contact, Acti9, 1 changeover, AC/DC</elementInformation>
+		<elementInformation name="manufacturer_auxiliary1" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary1" show="0">A9A26924</elementInformation>
+		<elementInformation name="quantity_auxiliary1" show="0">0</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.33 px/mm (1 module of 9 mm = 30 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="-8" length2="1.5" />
+		<line end1="none" end2="none" y1="10" antialias="false" y2="18" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-12" length1="1.5" x2="-4" length2="1.5" />
+		<line end1="none" end2="none" y1="18" antialias="false" y2="10" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-12" length1="1.5" x2="-4" length2="1.5" />
+		<rect x="-4" y="0" width="8" height="14" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="30" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="30" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="22" length2="1.5" />
+		<line end1="none" end2="none" y1="10" antialias="false" y2="18" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="18" length1="1.5" x2="26" length2="1.5" />
+		<line end1="none" end2="none" y1="18" antialias="false" y2="10" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="18" length1="1.5" x2="26" length2="1.5" />
+		<rect x="26" y="0" width="8" height="14" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="27" antialias="false" y2="27" style="line-style:dashed;line-weight:thin;filling:none;color:black" x1="-8" length1="1.5" x2="22" length2="1.5" />
+		<circle x="9" y="44" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" diameter="12" />
+		<line end1="none" end2="none" y1="50" antialias="false" y2="50" style="line-style:dashed;line-weight:thin;filling:none;color:black" x1="0" length1="1.5" x2="44" length2="1.5" />
+		<terminal x="0" y="0" name="1" orientation="n" type="Generic" uuid="{ed4e9558-80f1-5c0e-b7a2-82fa917b45f1}" />
+		<terminal x="0" y="60" name="2" orientation="s" type="Generic" uuid="{1ebe941f-a2f9-58ae-a831-b3ecd98f088f}" />
+		<terminal x="30" y="0" name="N1" orientation="n" type="Generic" uuid="{f32d43a3-5339-5f0b-9c72-79764045cea5}" />
+		<terminal x="30" y="60" name="N2" orientation="s" type="Generic" uuid="{cbf1ef12-92c8-56ff-9066-d58ca8db1233}" />
+		<dynamic_text x="-15" y="73" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{c1f99dd8-a9c0-57aa-9923-6f11d55b6a99}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>
