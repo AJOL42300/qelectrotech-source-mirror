@@ -379,6 +379,40 @@ class TstLanbaoElements : public QObject
 			QCOMPARE(count, 3);
 		}
 
+		void sensorsStateTheirDetectionTypeAndRange()
+		{
+			const QMap<QString, QStringList> expected{
+				{QStringLiteral("psm_bc100dpb_e2"),
+				 {QStringLiteral("diffuse"), QStringLiteral("100 cm")}},
+				{QStringLiteral("lr18xcf12dpoy_e2"),
+				 {QStringLiteral("inductive"), QStringLiteral("12 mm")}},
+				{QStringLiteral("pdb_cc50tgi"),
+				 {QStringLiteral("laser"), QStringLiteral("80-500 mm")}}};
+			const auto map = products();
+			int count = 0;
+			for (const QStringList &files : map) {
+				for (const QString &file : files) {
+					if (isLayout(file)) {
+						continue;
+					}
+					const QByteArray f = file.toUtf8();
+					const auto def = load(file);
+					const QString name = QFileInfo(file).dir().dirName();
+					QVERIFY2(expected.contains(name), f.constData());
+					for (const QString &word : expected.value(name)) {
+						QVERIFY2(info(def, QStringLiteral("comment"))
+								 .contains(word, Qt::CaseInsensitive),
+								 f.constData());
+						QVERIFY2(info(def, QStringLiteral("description"))
+								 .contains(word, Qt::CaseInsensitive),
+								 f.constData());
+					}
+					++count;
+				}
+			}
+			QCOMPARE(count, 9);
+		}
+
 		void exampleProjectUsesLibrarySymbols()
 		{
 			QFile file(QStringLiteral(QET_EXAMPLES_DIR)
