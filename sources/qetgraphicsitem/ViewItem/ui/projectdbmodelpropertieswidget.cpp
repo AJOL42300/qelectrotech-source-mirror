@@ -17,12 +17,14 @@
 */
 #include "projectdbmodelpropertieswidget.h"
 
+#include <bomexport.h>
 #include <dataBase/ui/elementquerywidget.h>
 #include <dataBase/ui/summaryquerywidget.h>
 #include <qetproject.h>
 #include <qetgraphicsitem/ViewItem/projectdbmodel.h>
 #include "ui_projectdbmodelpropertieswidget.h"
 
+#include <QCheckBox>
 #include <QDialogButtonBox>
 
 /**
@@ -70,11 +72,31 @@ void ProjectDBModelPropertiesWidget::on_m_edit_query_pb_clicked()
 
 	ElementQueryWidget *nom_w = nullptr;
 	SummaryQueryWidget *sum_w = nullptr;
+	QCheckBox *hierarchical_cb = nullptr;
 	if (m_model->identifier() == "nomenclature")
 	{
+		const auto hierarchical = BomExport::isHierarchicalQuery(
+					m_model->queryString());
 		nom_w = new ElementQueryWidget(&d);
-		nom_w->setQuery(m_model->queryString());
+			//The fields cannot show a hierarchical query
+		nom_w->setQuery(hierarchical ? BomExport::defaultQuery()
+									 : m_model->queryString());
+		nom_w->setEnabled(!hierarchical);
 		l->addWidget(nom_w);
+
+		hierarchical_cb = new QCheckBox(
+					tr("Hierarchical list (device, then its accessories)"), &d);
+		hierarchical_cb->setToolTip(
+					tr("Each device, then its accessories indented below it. "
+					   "An accessory is an element whose label starts with the "
+					   "label of the device followed by \".\" \"-\" or \"_\" "
+					   "(-QS1.1, -QS1-MC for -QS1), or an auxiliary article of "
+					   "the device. Quantity 0 is listed but not counted in the "
+					   "total quantity. Replaces the choices of the fields above."));
+		hierarchical_cb->setChecked(hierarchical);
+		connect(hierarchical_cb, &QCheckBox::toggled, nom_w,
+				[nom_w](bool checked) { nom_w->setEnabled(!checked); });
+		l->addWidget(hierarchical_cb);
 	}
 	else if (m_model->identifier() == "summary")
 	{
@@ -91,7 +113,9 @@ void ProjectDBModelPropertiesWidget::on_m_edit_query_pb_clicked()
 	if (d.exec())
 	{
 		if (nom_w) {
-			m_model->setQuery(nom_w->queryStr());
+			m_model->setQuery(hierarchical_cb && hierarchical_cb->isChecked()
+							  ? BomExport::hierarchicalQuery()
+							  : nom_w->queryStr());
 		} else if (sum_w) {
 			m_model->setQuery(sum_w->queryStr());
 		}

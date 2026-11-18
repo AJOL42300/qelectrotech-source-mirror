@@ -86,6 +86,14 @@ int BOMExportDialog::exec()
 						this, tr("Error"),
 						tr("Unable to save the parts list to %1.\n%2")
 								.arg(file_path, error));
+			} else if (ui->m_hierarchical->isChecked()) {
+				const auto orphans = orphanLabels();
+				if (!orphans.isEmpty()) {
+					QMessageBox::warning(
+							this, tr("Accessories without a parent"),
+							tr("These elements look like accessories, but no element has the beginning of their label:\n%1")
+									.arg(orphans.join(QStringLiteral(", "))));
+				}
 			}
 		}
 	}
@@ -129,6 +137,8 @@ QByteArray BOMExportDialog::getBom(QString *error)
 				header_names << tr("Sheet position");
 			} else if (field_name == QLatin1String("designation_qty")) {
 				header_names << tr("Designation quantity", "Special field with name : designation quantity");
+			} else if (ui->m_hierarchical->isChecked()) {
+				header_names << BomExport::hierarchicalHeader(field_name);
 			} else if (ui->m_group_parts->isChecked() && groupedHeader(field_name) != field_name) {
 				header_names << groupedHeader(field_name);
 			} else {
@@ -157,16 +167,69 @@ void BOMExportDialog::on_m_format_as_bom_clicked(bool checked) {
 */
 void BOMExportDialog::on_m_group_parts_clicked(bool checked)
 {
-	m_query_widget->setEnabled(!checked);
-	ui->m_format_as_bom->setEnabled(!checked);
-	ui->m_no_junctions->setEnabled(!checked);
+	if (checked) {
+		ui->m_hierarchical->setChecked(false);
+	}
+	updateQueryControls();
 }
 
 /**
-	@return the query to run: the grouped parts list, or what the fields say
+	@brief BOMExportDialog::on_m_hierarchical_clicked
+	@param checked : true replaces the query of the fields with the
+	hierarchical parts list, see BomExport::hierarchicalQuery()
+*/
+void BOMExportDialog::on_m_hierarchical_clicked(bool checked)
+{
+	if (checked) {
+		ui->m_group_parts->setChecked(false);
+	}
+	updateQueryControls();
+}
+
+/**
+	The fields below are used only when neither parts list is chosen
+*/
+void BOMExportDialog::updateQueryControls()
+{
+	const bool fields = !ui->m_group_parts->isChecked()
+			&& !ui->m_hierarchical->isChecked();
+	m_query_widget->setEnabled(fields);
+	ui->m_format_as_bom->setEnabled(fields);
+	ui->m_no_junctions->setEnabled(fields);
+}
+
+/**
+	@return the labels of the lines of the hierarchical parts list which
+	look like accessories but have no parent, see BomExport::hierarchicalQuery()
+*/
+QStringList BOMExportDialog::orphanLabels()
+{
+	QStringList labels;
+	QString rejection;
+	auto query_ = m_project->dataBase()->newQuery(currentQuery(), &rejection);
+	if (!rejection.isEmpty() || !query_.exec()) {
+		return labels;
+	}
+	const auto orphan = query_.record().indexOf(QStringLiteral("orphan"));
+	const auto label = query_.record().indexOf(QStringLiteral("label"));
+	while (orphan >= 0 && label >= 0 && query_.next())
+	{
+		if (query_.value(orphan).toInt() == 1
+				&& !labels.contains(query_.value(label).toString())) {
+			labels << query_.value(label).toString();
+		}
+	}
+	return labels;
+}
+
+/**
+	@return the query to run: one of the parts lists, or what the fields say
 */
 QString BOMExportDialog::currentQuery() const
 {
+	if (ui->m_hierarchical->isChecked()) {
+		return BomExport::hierarchicalQuery();
+	}
 	return ui->m_group_parts->isChecked()
 			? BomExport::groupedQuery()
 			: m_query_widget->queryStr();
@@ -225,7 +288,9 @@ void BOMExportDialog::on_m_preview_pb_clicked()
 	for (int i = 0; i < m_preview_model->columnCount(); ++i)
 	{
 		const auto field_name = m_preview_model->record().fieldName(i);
-		const auto translated = ui->m_group_parts->isChecked()
+		const auto translated = ui->m_hierarchical->isChecked()
+				? BomExport::hierarchicalHeader(field_name)
+				: ui->m_group_parts->isChecked()
 				? groupedHeader(field_name)
 				: QETInformation::translatedInfoKey(field_name);
 		if (!translated.isEmpty() && translated != field_name) {

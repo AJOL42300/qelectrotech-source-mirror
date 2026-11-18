@@ -54,6 +54,19 @@
        </widget>
       </item>
       <item>
+       <widget class="QCheckBox" name="m_hierarchical">
+        <property name="toolTip">
+         <string>Each device, then its accessories indented below it. An accessory is an element whose label starts with the label of the device followed by "." "-" or "_" (-QS1.1, -QS1-MC for -QS1), or an auxiliary article of the device. Quantity 0 is listed but not counted in the total quantity. Replaces the choices of the fields below.</string>
+        </property>
+        <property name="text">
+         <string>Hierarchical list (device, then its accessories)</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QCheckBox" name="m_no_junctions">
         <property name="toolTip">
          <string>Terminals with no label, designation, manufacturer or manufacturer reference</string>
