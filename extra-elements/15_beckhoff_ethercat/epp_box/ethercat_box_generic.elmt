@@ -13,14 +13,15 @@ Schematic view made by misc/beckhoff/gen_couplers.py from the realistic view: th
 The +24 V and 0 V rails stand for the power contacts (generic).</informations>
 	<description>
 		<rect x="-60" y="-30" width="120" height="106" rx="0" ry="0" style="line-style:dotted;line-weight:normal;filling:none;color:black" antialias="false" />
-		<text x="-56" y="58" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="0 V" />
-		<circle x="57.5" y="63.5" diameter="5" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
-		<line x1="-57.5" y1="66" x2="57.5" y2="66" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<rect x="-62.5" y="63.5" width="5" height="5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false" />
+		<text x="-56" y="58" rotation="0" color="#0000ff" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="0 V" />
+		<circle x="57.5" y="63.5" diameter="5" style="line-style:normal;line-weight:normal;filling:white;color:blue" antialias="false" />
+		<line x1="-57.5" y1="66" x2="57.5" y2="66" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
+		<rect x="-62.5" y="63.5" width="5" height="5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:blue" antialias="false" />
+		<text x="-56" y="46" rotation="0" color="#ff0000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="+24 V" />
+		<circle x="57.5" y="51.5" diameter="5" style="line-style:normal;line-weight:normal;filling:white;color:red" antialias="false" />
+		<line x1="-57.5" y1="54" x2="57.5" y2="54" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
+		<rect x="-62.5" y="51.5" width="5" height="5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
 		<text x="-56" y="46" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="+24 V" />
-		<circle x="57.5" y="51.5" diameter="5" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
-		<line x1="-57.5" y1="54" x2="57.5" y2="54" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<rect x="-62.5" y="51.5" width="5" height="5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false" />
 		<text x="-11" y="24" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="E-bus" />
 		<polygon closed="false" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="40" y1="0" x2="40" y2="22" x3="22" y3="22" />
 		<polygon closed="false" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="-40" y1="0" x2="-40" y2="22" x3="-26" y3="22" />

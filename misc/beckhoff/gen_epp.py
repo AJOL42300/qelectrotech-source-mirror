@@ -23,8 +23,11 @@ X50 (IN) and X51 (OUT).  Pin of a M12 socket: 1 +24 V DC Up, 2 channel B,
 2 Rx+ / GNDp, 3 Rx- / Up, 4 Tx- / Us.  In QET each M12 socket is ONE terminal
 (X01 to X04) shared by its two channels (their plcIO name the same terminal).
 The positions of the sockets, of the pins in a socket and of the LEDs on the
-housing are ASSUMED (the drawing is
-original, redrawn from the structure of the box).
+housing are ASSUMED (the drawing is original and vector only, traced by eye on
+the layout of the box: dark housing with a lighter lower band, chamfered top,
+two fixing holes, red M8 sockets, grey M12 sockets, two LEDs and two label
+holders per M12 socket, L/A and Run LEDs between the M8 sockets, Us and Up LEDs
+under the last socket).
 
 The script patches the files of the box folder in place: it keeps their
 header and dynamic text, replaces the drawing, the terminals and the I/O
@@ -33,6 +36,7 @@ gen_description.py and simple_tables.py.
 
 Usage: python gen_epp.py <extra-elements>/15_beckhoff_ethercat
 """
+import math
 import os
 import sys
 import uuid
@@ -49,19 +53,35 @@ NORMAL = "line-style:normal;line-weight:normal;filling:none;color:black"
 DOTTED = "line-style:dotted;line-weight:normal;filling:none;color:black"
 WHITE = "line-style:normal;line-weight:thin;filling:white;color:black"
 BLACK = "line-style:normal;line-weight:thin;filling:black;color:black"
+RAIL_24 = "line-style:normal;line-weight:normal;filling:none;color:red"
+RAIL_0 = "line-style:normal;line-weight:normal;filling:none;color:blue"
+DOT_24 = "line-style:normal;line-weight:thin;filling:red;color:red"
+DOT_0 = "line-style:normal;line-weight:thin;filling:blue;color:blue"
 DARK = "line-style:normal;line-weight:normal;filling:gray;color:black"
+BAND = "line-style:normal;line-weight:thin;filling:lightgray;color:black"
+RED = "line-style:normal;line-weight:thin;filling:red;color:black"
+METAL = "line-style:normal;line-weight:thin;filling:lightgray;color:black"
 LED = "line-style:normal;line-weight:thin;filling:green;color:black"
 REFERENCE = "EPP2338-0002"
 
-BODY = (-40.0, -175.0, 80.0, 380.0)        # x, y, width, height
+# Layout traced (by eye, at 0.71 of the photo scale) on the structure of the
+# box: the M12 sockets are on the right of the housing, the LEDs and the label
+# holders on their left.  The M12 axis is x = 0.
+BODY = (-70.0, -160.0, 100.0, 417.0)       # x, y, width, height
 SOCKET_Y = (-70, 0, 70, 140)               # centres of X01 to X04
-SOCKET_R = 25.0                            # M12 socket
-PIN_D = 9.0
-PIN = 15.0                                 # offset of the pins
-M8_X = (-20, 20)
+SOCKET_R = 22.0                            # M12 socket
+PIN_D = 8.0                                # insert of the M12 socket
+PIN = 15.0                                 # offset of the pins (schematic)
+SCH_R = 20.0                               # M12 socket (schematic)
+M8_X = (-50, 5)
 M8_Y = -135
 M8_R = 13.0
 LED_D = 5.0
+CHANNEL_LED_X = (-57, -38)                 # the two LEDs of a M12 socket
+HOLDER = (-67.0, 33.0, 18.0)               # label holder: x, width, height
+RUN_LED = (-20, -115)
+LA_LEDS = ((-30, -142), (-15, -142))       # L/A IN, L/A OUT
+POWER_LEDS = ((-4, 185), (11, 185))        # Us, Up
 FUNCTION = {"A": "In-/Output A", "B": "In-/Output B"}
 M8_PINOUT = ("Tx+ / GNDs", "Rx+ / GNDp", "Rx- / Up", "Tx- / Us")
 # A is on the pin 4, B on the pin 2 of every M12 socket
@@ -95,9 +115,16 @@ class Drawing:
             "x": num(cx - d / 2), "y": num(cy - d / 2), "antialias": "false",
             "style": style, "diameter": num(d)}))
 
-    def text(self, x, y, s, size=5, bold=False):
+    def polygon(self, points, style=THIN):
+        a = {"closed": "true", "style": style, "antialias": "false"}
+        for k, (x, y) in enumerate(points, 1):
+            a["x%d" % k], a["y%d" % k] = num(x), num(y)
+        self.parts.append(ET.Element("polygon", a))
+
+    def text(self, x, y, s, size=5, bold=False, color="#000000"):
+        """y is the baseline of the text (QET draws it so)."""
         self.parts.append(ET.Element("text", {
-            "x": num(x), "y": num(y), "rotation": "0", "color": "#000000",
+            "x": num(x), "y": num(y), "rotation": "0", "color": color,
             "font": (FONT_BOLD if bold else FONT) % size, "text": s}))
 
     def terminal(self, x, y, name, orientation="e"):
@@ -107,84 +134,123 @@ class Drawing:
             "uuid": uid(self.tag, name)}))
 
 
+def body_outline(d, style):
+    x, y, w, h = BODY
+    c_top, c_bottom = 10.0, 7.0
+    d.polygon([(x + c_top, y), (x + w - c_top, y), (x + w, y + c_top),
+               (x + w, y + h - c_bottom), (x + w - c_bottom, y + h),
+               (x + c_bottom, y + h), (x, y + h - c_bottom),
+               (x, y + c_top)], style)
+
+
 def housing(d, dotted):
     x, y, w, h = BODY
     if dotted:
         d.rect(x, y, w, h, DOTTED)
-        for cx in (-20, 20):
+        for cx in (-40, 0):
             d.rect(cx - 8, y - 7, 16, 7)
             d.rect(cx - 8, y + h, 16, 7)
     else:
-        d.rect(x, y, w, h, DARK)
-        d.rect(x + 3, y + 3, w - 6, h - 6)
+        body_outline(d, DARK)
+        # inclined lower band, a little lighter than the body
+        d.polygon([(x, y + h - 62), (x + w, y + h - 67),
+                   (x + w, y + h - 7), (x + w - 7, y + h),
+                   (x + 7, y + h), (x, y + h - 7)], BAND)
+        # fixing holes: top right and bottom left
+        d.circle(23, -155, 7, WHITE)
+        d.circle(-61, 246, 7, WHITE)
+
+
+def reference_text(d, bottom=False):
+    d.text(-43, 245 if bottom else 241, REFERENCE, 7, True)
+
+
+def m8_sockets(d, detail):
+    for cx in M8_X:
+        d.circle(cx, M8_Y, 2 * M8_R, RED if detail else WHITE)
+        d.circle(cx, M8_Y, 2 * M8_R - 10, DARK)
+    d.terminal(M8_X[0], M8_Y, "IN X50")
+    d.terminal(M8_X[1], M8_Y, "OUT X51")
+    d.text(-58, M8_Y - 15, "IN", 5)
+    d.text(M8_X[1] + 3, M8_Y - 15, "OUT", 5)
+    d.text(-66, -118, "X50", 4)
+    d.text(M8_X[1] + 10, -118, "X51", 4)
+    if detail:
+        # IN / OUT arrows under the sockets
+        for x0, x1 in ((-45, -30), (-12, 3)):
+            d.line(x0, -104, x1, -104)
+            d.line(x1, -104, x1 - 3, -106.5)
+            d.line(x1, -104, x1 - 3, -101.5)
 
 
 def realistic():
     d = Drawing("epp2338-realistic")
     housing(d, False)
-    for cx in M8_X:
-        d.circle(cx, M8_Y, 2 * M8_R, WHITE)
-    d.terminal(M8_X[0], M8_Y, "IN X50")
-    d.terminal(M8_X[1], M8_Y, "OUT X51")
-    d.text(-31, M8_Y + 14, "IN X50", 5)
-    d.text(9, M8_Y + 14, "OUT X51", 5)
-    # L/A of IN and OUT, Run
-    for cx in (-25, 25, 0):
-        d.circle(cx, -163, LED_D, LED)
+    m8_sockets(d, True)
+    d.text(-29, -150, "L/A", 5)
+    for cx, cy in LA_LEDS + (RUN_LED,):
+        d.circle(cx, cy, LED_D, LED)
+    d.text(-30, -108.5, "Run", 4)
     for n, cy in enumerate(SOCKET_Y):
         name = "X%02d" % (n + 1)
-        d.circle(0, cy, 2 * SOCKET_R, WHITE)
-        d.circle(0, cy, 2 * SOCKET_R - 6, WHITE)
-        d.circle(0, cy, 2 * PIN_D, WHITE)
+        # M12 socket: metal ring, insert and five pins
+        d.circle(0, cy, 2 * SOCKET_R, METAL)
+        d.circle(0, cy, 2 * SOCKET_R - 8, WHITE)
+        d.circle(0, cy, 2 * PIN_D, DARK)
+        for k in range(5):
+            a = math.radians(90 + 72 * k)
+            d.circle(5.5 * math.cos(a), cy - 5.5 * math.sin(a), 2.2, BLACK)
         d.terminal(0, cy, name)
-        d.text(-38, cy - 4, name, 6, True)
-        # status LEDs of the two channels, on the right of the socket
-        d.circle(33, cy - 8, LED_D, LED)
-        d.circle(33, cy + 8, LED_D, LED)
-        # channel labels, outside of the socket ring
-        d.text(3, cy - 33, "%s(2)" % name, 5)
-        d.text(-30, cy + 28, "%s(1)" % name, 5)
-    for cx in (-10, 10):
-        d.circle(cx, 173, LED_D, LED)
-    d.text(-19, 187, REFERENCE.split("-")[0], 8, True)
+        d.text(-26, cy + 25, name, 4)
+        # the two channel LEDs, numbered, between two label holders
+        for k, lx in enumerate(CHANNEL_LED_X):
+            d.circle(lx, cy, LED_D, LED)
+            d.text(lx - 8 if k == 0 else lx + 4, cy - 3, str(2 * n + k + 1),
+                   4)
+        hx, hw, hh = HOLDER
+        d.rect(hx, cy - 25, hw, hh)
+        d.rect(hx, cy + 9, hw, hh)
+    hx, hw, hh = HOLDER
+    d.rect(hx, SOCKET_Y[-1] + 33, hw, hh)
+    for (lx, ly), s in zip(POWER_LEDS, ("Us", "Up")):
+        d.circle(lx, ly, LED_D, LED)
+        d.text(lx - 4, ly - 5, s, 4)
+    d.text(-59, 220, "EtherCAT P", 6)
+    reference_text(d)
     return d
 
 
 def schematic():
     d = Drawing("epp2338")
     housing(d, True)
-    for cx in M8_X:
-        d.circle(cx, M8_Y, 2 * M8_R, WHITE)
-    d.terminal(M8_X[0], M8_Y, "IN X50")
-    d.terminal(M8_X[1], M8_Y, "OUT X51")
-    d.text(-31, M8_Y + 14, "IN X50", 5)
-    d.text(9, M8_Y + 14, "OUT X51", 5)
-    d.line(-7, M8_Y, 7, M8_Y, DOTTED)
-    rail_l, rail_r = -36, 36
+    m8_sockets(d, False)
+    d.line(M8_X[0] + M8_R, M8_Y, M8_X[1] - M8_R, M8_Y, DOTTED)
+    rail_l, rail_r = -27, 27
     first, last = SOCKET_Y[0] - PIN, SOCKET_Y[-1] + PIN
-    d.line(rail_l, first, rail_l, last - 2 * PIN)
-    d.line(rail_r, first + 2 * PIN, rail_r, last)
-    d.text(rail_l - 2, first - 11, "+24 V Up", 5)
-    d.text(rail_r - 12, last + 6, "GND P", 5)
+    d.line(rail_l, first, rail_l, last - 2 * PIN, RAIL_24)
+    d.line(rail_r, first + 2 * PIN, rail_r, last, RAIL_0)
+    d.text(rail_l - 18, first - 6, "+24 V Up", 5, color="#ff0000")
+    d.text(rail_r - 12, last + 13, "GND P", 5, color="#0000ff")
     for n, cy in enumerate(SOCKET_Y):
         name = "X%02d" % (n + 1)
         # the socket is one terminal; its pins 1 (+24 V Up) and 3 (GND P) go
         # to the rails, the pins 4 (A) and 2 (B) to the channel LEDs
-        edge = (SOCKET_R ** 2 - PIN ** 2) ** 0.5
-        for sign, dy, rail in ((-1, -PIN, rail_l), (1, PIN, rail_r)):
-            d.line(sign * edge, cy + dy, rail, cy + dy)
-            d.circle(rail, cy + dy, 2, BLACK)
+        edge = (SCH_R ** 2 - PIN ** 2) ** 0.5
+        for sign, dy, rail, wire, dot in ((-1, -PIN, rail_l, RAIL_24, DOT_24),
+                                          (1, PIN, rail_r, RAIL_0, DOT_0)):
+            d.line(sign * edge, cy + dy, rail, cy + dy, wire)
+            d.circle(rail, cy + dy, 2, dot)
         for sign, dy in ((-1, PIN), (1, -PIN)):
-            d.line(sign * edge, cy + dy, sign * 30, cy + dy)
-            d.circle(sign * 25, cy + dy, LED_D, LED)
-            d.circle(sign * 30, cy + dy, 2, BLACK)
-        d.circle(0, cy, 2 * SOCKET_R, WHITE)
+            d.line(sign * edge, cy + dy, sign * 21, cy + dy)
+            d.circle(sign * 17.5, cy + dy, LED_D, LED)
+            d.circle(sign * 21, cy + dy, 2, BLACK)
+        d.circle(0, cy, 2 * SCH_R, WHITE)
         d.circle(0, cy, 2 * PIN_D, WHITE)
         d.terminal(0, cy, name)
-        d.text(-38, cy - 4, name, 6, True)
-        d.text(3, cy - 33, "%s(2)" % name, 5)
-        d.text(-30, cy + 28, "%s(1)" % name, 5)
-    d.text(-19, 187, REFERENCE.split("-")[0], 8, True)
+        d.text(-47, cy + 2, name, 6, True)
+        d.text(3, cy - 25, "%s(2)" % name, 5)
+        d.text(-24, cy + 33, "%s(1)" % name, 5)
+    reference_text(d, True)
     return d
 
 
@@ -195,7 +261,7 @@ def bounds(parts, terms):
             size = int(p.get("font").split(",")[1])
             x, y = float(p.get("x")), float(p.get("y"))
             xs += [x, x + len(p.get("text")) * size * 0.7]
-            ys += [y, y + size * 1.4]
+            ys += [y - size * 1.3, y + size * 0.4]
         else:
             b = box(p)
             xs += [b[0], b[2]]
@@ -253,7 +319,7 @@ def patch(path, drawing, rename=None):
     for k in keep:
         below = k.findtext("info_name") != "label"
         k.set("x", num(BODY[0]))
-        k.set("y", num(BODY[1] + BODY[3] + 12 if below else BODY[1] - 20))
+        k.set("y", num(BODY[1] + BODY[3] + 12 if below else BODY[1] - 40))
         desc.append(k)
     patch_io(root)
     write(root, path)

@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="master" width="181" height="330" hotspot_x="60" hotspot_y="160">
+<definition version="0.100.0" type="element" link_type="master" width="210" height="330" hotspot_x="60" hotspot_y="160">
 	<uuid uuid="{877744f7-9aa7-5b47-8c54-8391737e67d8}" />
 	<names>
 		<name lang="en">EK1914 EtherCAT Coupler, 4 standard inputs, 4 standard outputs, 2 safe inputs, 2 safe outputs, description view</name>
@@ -487,54 +487,64 @@ Description view made by misc/beckhoff/gen_description.py from the realistic vie
 		<arc x="-29.31" y="-10.69" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" start="0" width="0.4" height="0.61" angle="90" />
 		<text x="-39" y="125.34" font="Roboto Condensed,8,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="EK1914" />
 		<text x="9.27" y="-55.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="1" />
-		<text x="42" y="-55.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2" />
-		<text x="8.43" y="-30.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="3" />
-		<text x="42" y="-30.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4" />
-		<text x="8.43" y="-5.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="5" />
-		<text x="42" y="-5.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="6" />
-		<text x="8.43" y="19.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
-		<text x="42" y="19.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="8" />
-		<text x="8.43" y="44.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="9" />
-		<text x="42" y="44.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="10" />
-		<text x="5.53" y="69.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="11" />
-		<text x="42" y="69.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="12" />
-		<text x="4.69" y="94.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="13" />
-		<text x="42" y="94.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="14" />
-		<text x="4.69" y="119.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="15" />
+		<text x="42" y="-55.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="9" />
+		<text x="8.43" y="-30.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2" />
+		<text x="42" y="-30.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="10" />
+		<text x="8.43" y="-5.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="3" />
+		<text x="42" y="-5.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="11" />
+		<text x="8.43" y="19.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4" />
+		<text x="42" y="19.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="12" />
+		<text x="8.43" y="44.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="5" />
+		<text x="42" y="44.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="13" />
+		<text x="8.43" y="69.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="6" />
+		<text x="42" y="69.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="14" />
+		<text x="8.43" y="94.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
+		<text x="42" y="94.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="15" />
+		<text x="8.43" y="119.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="8" />
 		<text x="42" y="119.5" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="16" />
 		<circle x="26" y="-114" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="4" />
-		<circle x="26" y="-105" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="4" />
-		<circle x="26" y="-96" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="4" />
-		<circle x="26" y="-87" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="4" />
+		<circle x="26" y="-103" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="4" />
+		<circle x="26" y="-92" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="4" />
+		<circle x="26" y="-81" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="4" />
 		<line end1="none" end2="none" y1="-112" antialias="false" y2="-112" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="31.5" length1="4.5" x2="58.31" length2="4.5" />
-		<text x="60.31" y="-116" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Status LED 1" />
-		<line end1="none" end2="none" y1="-103" antialias="false" y2="-103" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="31.5" length1="4.5" x2="58.31" length2="4.5" />
-		<text x="60.31" y="-107" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Status LED 2" />
-		<line end1="none" end2="none" y1="-94" antialias="false" y2="-94" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="31.5" length1="4.5" x2="58.31" length2="4.5" />
-		<text x="60.31" y="-98" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Status LED 3" />
-		<line end1="none" end2="none" y1="-85" antialias="false" y2="-85" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="31.5" length1="4.5" x2="58.31" length2="4.5" />
-		<text x="60.31" y="-89" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Status LED 4" />
-		<line end1="none" end2="none" y1="12.5" antialias="false" y2="12.5" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="41" length1="4.5" x2="58.31" length2="4.5" />
-		<text x="60.31" y="4" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Terminals 1 to 10" />
-		<text x="60.31" y="13" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="standard I/O" />
-		<line end1="none" end2="none" y1="100" antialias="false" y2="100" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="41" length1="4.5" x2="58.31" length2="4.5" />
-		<text x="60.31" y="91.5" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Terminals 11 to 16" />
-		<text x="60.31" y="100.5" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="TwinSAFE I/O" />
-		<terminal x="20" y="-50" name="1" orientation="w" type="Generic" uuid="{a058823b-3ad5-5f63-ae4e-f6d7ac2deec0}" />
-		<terminal x="30" y="-50" name="2" orientation="e" type="Generic" uuid="{6524966b-c1a6-5991-9202-07b5fff43973}" />
-		<terminal x="20" y="-25" name="3" orientation="w" type="Generic" uuid="{f55f66ba-898b-5cdc-bcae-43ce6a7a2f26}" />
-		<terminal x="30" y="-25" name="4" orientation="e" type="Generic" uuid="{72f91bbe-de76-5aff-9688-b88c97b7cb94}" />
-		<terminal x="20" y="0" name="5" orientation="w" type="Generic" uuid="{dfbc7d39-8344-563e-91bd-7d4173081867}" />
-		<terminal x="30" y="0" name="6" orientation="e" type="Generic" uuid="{a175a048-7c87-5969-86c2-80d27c3dd09a}" />
-		<terminal x="20" y="25" name="7" orientation="w" type="Generic" uuid="{45e1514b-e998-5648-a61f-5a630a748f57}" />
-		<terminal x="30" y="25" name="8" orientation="e" type="Generic" uuid="{a2598296-1e47-596e-8230-3002161b49b1}" />
-		<terminal x="20" y="50" name="9" orientation="w" type="Generic" uuid="{3d618faa-f9a0-5806-bfa0-2fcad730cbf6}" />
-		<terminal x="30" y="50" name="10" orientation="e" type="Generic" uuid="{2eb1259c-8382-5762-9e51-e6d7464c8b10}" />
-		<terminal x="20" y="75" name="11" orientation="w" type="Generic" uuid="{707fb6cf-65d1-5d71-b2c2-e91cd179dd38}" />
-		<terminal x="30" y="75" name="12" orientation="e" type="Generic" uuid="{2590bc01-1635-5adb-aabc-c5c20254014d}" />
-		<terminal x="20" y="100" name="13" orientation="w" type="Generic" uuid="{ddfb6547-5833-5690-9b95-24ac52a6b338}" />
-		<terminal x="30" y="100" name="14" orientation="e" type="Generic" uuid="{1a1e1173-f2b1-5b2f-88e4-6591add58e47}" />
-		<terminal x="20" y="125" name="15" orientation="w" type="Generic" uuid="{dae92f8f-704e-51ad-b538-94b8ba2fdca9}" />
+		<text x="60.31" y="-109.16" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Status LED 1" />
+		<line end1="none" end2="none" y1="-101" antialias="false" y2="-101" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="31.5" length1="4.5" x2="58.31" length2="4.5" />
+		<text x="60.31" y="-98.16" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Status LED 2" />
+		<line end1="none" end2="none" y1="-90" antialias="false" y2="-90" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="31.5" length1="4.5" x2="58.31" length2="4.5" />
+		<text x="60.31" y="-87.16" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Status LED 3" />
+		<line end1="none" end2="none" y1="-79" antialias="false" y2="-79" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="31.5" length1="4.5" x2="58.31" length2="4.5" />
+		<text x="60.31" y="-76.16" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Status LED 4" />
+		<line end1="none" end2="none" y1="-50" antialias="false" y2="-50" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="47" length1="4.5" x2="58.31" length2="4.5" />
+		<text x="60.31" y="-47.16" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="1 / 9: +24 V (Us) / 0 V" />
+		<line end1="none" end2="none" y1="-25" antialias="false" y2="-25" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="47" length1="4.5" x2="58.31" length2="4.5" />
+		<text x="60.31" y="-22.16" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2 / 10: Input 1 / Input 2" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="47" length1="4.5" x2="58.31" length2="4.5" />
+		<text x="60.31" y="2.84" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="3 / 11: Input 3 / Input 4" />
+		<line end1="none" end2="none" y1="25" antialias="false" y2="25" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="47" length1="4.5" x2="58.31" length2="4.5" />
+		<text x="60.31" y="27.84" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4 / 12: Output 1 / Output 2" />
+		<line end1="none" end2="none" y1="50" antialias="false" y2="50" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="47" length1="4.5" x2="58.31" length2="4.5" />
+		<text x="60.31" y="52.84" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="5 / 13: Output 3 / Output 4" />
+		<line end1="none" end2="none" y1="75" antialias="false" y2="75" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="47" length1="4.5" x2="58.31" length2="4.5" />
+		<text x="60.31" y="77.84" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="6 / 14: Clock 1 / Clock 2" />
+		<line end1="none" end2="none" y1="100" antialias="false" y2="100" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="47" length1="4.5" x2="58.31" length2="4.5" />
+		<text x="60.31" y="102.84" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7 / 15: Safe input 1 / 2" />
+		<line end1="none" end2="none" y1="125" antialias="false" y2="125" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="47" length1="4.5" x2="58.31" length2="4.5" />
+		<text x="60.31" y="127.84" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="8 / 16: Safe output 1 / 2" />
+		<terminal x="20" y="-50" name="1" orientation="w" type="Generic" uuid="{a058823b-3ad5-5f63-ae4e-f6d7ac2deec0}" potential="24V" />
+		<terminal x="30" y="-50" name="9" orientation="e" type="Generic" uuid="{3d618faa-f9a0-5806-bfa0-2fcad730cbf6}" potential="0V" />
+		<terminal x="20" y="-25" name="2" orientation="w" type="Generic" uuid="{6524966b-c1a6-5991-9202-07b5fff43973}" />
+		<terminal x="30" y="-25" name="10" orientation="e" type="Generic" uuid="{2eb1259c-8382-5762-9e51-e6d7464c8b10}" />
+		<terminal x="20" y="0" name="3" orientation="w" type="Generic" uuid="{f55f66ba-898b-5cdc-bcae-43ce6a7a2f26}" />
+		<terminal x="30" y="0" name="11" orientation="e" type="Generic" uuid="{707fb6cf-65d1-5d71-b2c2-e91cd179dd38}" />
+		<terminal x="20" y="25" name="4" orientation="w" type="Generic" uuid="{72f91bbe-de76-5aff-9688-b88c97b7cb94}" />
+		<terminal x="30" y="25" name="12" orientation="e" type="Generic" uuid="{2590bc01-1635-5adb-aabc-c5c20254014d}" />
+		<terminal x="20" y="50" name="5" orientation="w" type="Generic" uuid="{dfbc7d39-8344-563e-91bd-7d4173081867}" />
+		<terminal x="30" y="50" name="13" orientation="e" type="Generic" uuid="{ddfb6547-5833-5690-9b95-24ac52a6b338}" />
+		<terminal x="20" y="75" name="6" orientation="w" type="Generic" uuid="{a175a048-7c87-5969-86c2-80d27c3dd09a}" />
+		<terminal x="30" y="75" name="14" orientation="e" type="Generic" uuid="{1a1e1173-f2b1-5b2f-88e4-6591add58e47}" />
+		<terminal x="20" y="100" name="7" orientation="w" type="Generic" uuid="{45e1514b-e998-5648-a61f-5a630a748f57}" />
+		<terminal x="30" y="100" name="15" orientation="e" type="Generic" uuid="{dae92f8f-704e-51ad-b538-94b8ba2fdca9}" />
+		<terminal x="20" y="125" name="8" orientation="w" type="Generic" uuid="{a2598296-1e47-596e-8230-3002161b49b1}" />
 		<terminal x="30" y="125" name="16" orientation="e" type="Generic" uuid="{919d91ce-64c0-54ed-b6e3-0d68eea34e8a}" />
 		<terminal x="-20" y="-75" name="EtherCAT IN" orientation="w" type="Generic" uuid="{3362dc06-498a-56bd-bfb7-77e569b71b40}" />
 		<terminal x="-20" y="10" name="EtherCAT OUT" orientation="w" type="Generic" uuid="{5a770708-1b2d-598f-8029-ddb6efca748e}" />

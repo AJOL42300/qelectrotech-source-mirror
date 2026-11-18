@@ -23,7 +23,7 @@ terminals at the same places, same reference) plus:
   * a legend with a leader line for each terminal (or for each group of
     terminals when they are too close): the pin, the signal of the I/O table
     and its function (Input n, Output n, +24 V DC, 0 V, Motor 1 phase U...);
-  * the status LEDs, one per channel with a "Signal n" legend, and the
+  * the status LEDs, one per channel with a typed legend ("Input n"...), and the
     diagnostic LED of the TwinSAFE cards;
   * the power contacts (+24 V DC / 0 V) of the terminals that have them.
 
@@ -56,7 +56,7 @@ YELLOW = "line-style:normal;line-weight:normal;filling:yellow;color:black"
 GAP = 8.0           # between the drawing and the legends
 LEAD_GAP = 1.5      # between a circle and the start of its leader
 LED_D = 4.0
-LED_PITCH = 9.0
+LED_PITCH = 11.0
 NOTE = ("Description view made by misc/beckhoff/gen_description.py from the "
         "realistic view: legends, LEDs and power contacts are generic, check "
         "them against the datasheet. License: see "
@@ -84,6 +84,13 @@ def uid(*parts):
 
 def line_height(size):
     return size * 4.0 / 3.0 + 1.0
+
+
+def baseline_of(size, top):
+    """y of the baseline of a text whose line box starts at top: QET draws
+    a <text> with its baseline at y (the box is shifted up by the ascent)
+    and a line is centred on the cap height."""
+    return top + line_height(size) / 2.0 + 0.355 * size * 4.0 / 3.0
 
 
 def twidth(text, size):
@@ -371,14 +378,34 @@ def add_leds(card, positions, legends, size=6):
         card.legends.append(Legend(side, cy, x0, [text], size))
 
 
+def led_word(stem):
+    """What the channel LEDs of a card are called."""
+    if stem in ("el1904", "el1918"):
+        return "Safe input"
+    if stem == "el2904":
+        return "Safe output"
+    if stem.startswith("el1"):
+        return "Input"
+    if stem.startswith("el2"):
+        return "Output"
+    if stem.startswith("el3"):
+        return "Analog input"
+    if stem.startswith("el4"):
+        return "Analog output"
+    if stem == "el5152":
+        return "Encoder"
+    return "Channel"
+
+
 def el60_leds(card, x_left, x_right, y0):
     count, diag = EL_LEDS[card.stem]
     n = count + (1 if diag else 0)
     positions, legends = [], []
+    word = led_word(card.stem)
     for k in range(n):
         cx = x_left if k % 2 == 0 else x_right
         positions.append((cx, y0 + LED_PITCH * (k // 2)))
-        text = "Signal %d" % (k + 1) if k < count else "Diagnostic"
+        text = "%s %d" % (word, k + 1) if k < count else "Diagnostic"
         legends.append((k, "L" if k % 2 == 0 else "R", text))
     add_leds(card, positions, legends)
 
@@ -398,28 +425,59 @@ def build_el60(card):
 
 
 def build_el2911(card):
-    terminal_legends(card, 32.5, 7,
-                     lambda t: t.x in (-5.0, 70.0))
-    count, diag = EL_LEDS["el2911"]
-    positions, legends = [], []
-    for k in range(count + 1):
-        positions.append((-5, -118 + LED_PITCH * k))
-        legends.append((k, "L", "Signal %d" % (k + 1) if k < count
-                        else "Diagnostic"))
-    add_leds(card, positions, legends)
-    for k in range(count + 1):
-        card.circle(55, -118 + LED_PITCH * k, LED_D)
+    """Two modules. LEDs of the manual: Input 1 to 4 and Diag 1 to 4 on the
+    first one, Output 1 and Diag Out on the second one (the column of the
+    last two is assumed). A legend names the two LEDs of a row."""
+    terminal_legends(card, 32.5, 7)
+    rows = ((-5, 10, "Safe input 1, 2"), (-5, 10, "Safe input 3, 4"),
+            (-5, 10, "Diag 1, 2"), (-5, 10, "Diag 3, 4"))
+    for k, (xa, xb, text) in enumerate(rows):
+        y = -118 + LED_PITCH * k
+        add_leds(card, [(xa, y), (xb, y)], [(0, "L", text)])
+    y = -118
+    add_leds(card, [(55, y), (70, y)], [(1, "R", "Safe output 1, Diag Out")])
     power_contacts(card, card.maxx_body(), 140)
+
+
+ROW_Y = (-45, 5, 60, 115)    # the rows of the EL9410
+
+
+def build_el9410(card):
+    """EL9410 (power feed): the function of each terminal point, the three
+    power contacts on the right (24 V, 0 V, PE) and the LEDs of the E-bus
+    (left) and of the power contacts (right)."""
+    legends = {"1": "1: +24 V DC", "5": "5: 0 V",
+               "2": "2: Infeed 24 V", "6": "6: Infeed 24 V",
+               "3": "3: Infeed 0 V", "7": "7: Infeed 0 V",
+               "4": "4: PE", "8": "8: PE"}
+    for t in card.terms:
+        side = "L" if t.x < 2.5 else "R"
+        card.legends.append(Legend(side, t.y, obstacle(card, t, side),
+                                   [legends[t.name]], 7))
+    y0 = -118
+    add_leds(card, [(-5, y0 + LED_PITCH * k) for k in range(3)],
+             [(0, "L", "Power (E-bus)"), (1, "L", "Diag. (E-bus)"),
+              (2, "L", "Run")])
+    add_leds(card, [(10, y0), (10, y0 + LED_PITCH)],
+             [(0, "R", "Power (power contacts)"),
+              (1, "R", "Diagnostic (power contacts)")])
+    right = card.maxx_body()
+    for y in ROW_Y[1:]:
+        card.rect(right, y + 9.25, 3.5, 3.5, BLACK)
+    card.legends.append(Legend("R", ROW_Y[1] + 11, right + 3.5 + LEAD_GAP,
+                               ["Power contacts", "24 V / 0 V / PE"], 6))
 
 
 def build_ek1914(card):
     positions = [(28, -112 + LED_PITCH * k) for k in range(4)]
     add_leds(card, positions,
              [(k, "R", "Status LED %d" % (k + 1)) for k in range(4)])
-    card.legends.append(Legend("R", 12.5, 39.5 + LEAD_GAP,
-                               ["Terminals 1 to 10", "standard I/O"], 6))
-    card.legends.append(Legend("R", 100, 39.5 + LEAD_GAP,
-                               ["Terminals 11 to 16", "TwinSAFE I/O"], 6))
+    rows = ("+24 V (Us) / 0 V", "Input 1 / Input 2", "Input 3 / Input 4",
+            "Output 1 / Output 2", "Output 3 / Output 4",
+            "Clock 1 / Clock 2", "Safe input 1 / 2", "Safe output 1 / 2")
+    for k, text in enumerate(rows):
+        card.legends.append(Legend("R", -50 + 25 * k, 47.0,
+                                   ["%d / %d: %s" % (k + 1, k + 9, text)], 6))
 
 
 def build_drive(card):
@@ -439,39 +497,45 @@ def build_drive(card):
 
 def build_epp(card):
     """EPP2338: M12 sockets X01 to X04 and M8 EtherCAT P sockets (see
-    gen_epp.py for the pinout)."""
+    gen_epp.py for the pinout and the layout)."""
     import gen_epp as epp
     for n, cy in enumerate(epp.SOCKET_Y):
         name = "X%02d" % (n + 1)
         sock = next(t for t in card.terms if t.name == name)
         card.legends.append(Legend(
-            "L", sock.y, sock.x - sock.r - LEAD_GAP,
-            ["%s: M12 socket" % name, "Pin 1: +24 V DC Up",
-             "Pin 3: GND P"], 6))
-        card.legends.append(Legend(
             "R", sock.y, sock.x + sock.r + LEAD_GAP,
-            ["Pin 2: In-/Output B", "Pin 4: In-/Output A"], 6))
-        for dy, text in ((-8, "LED channel B"), (8, "LED channel A")):
-            card.legends.append(Legend(
-                "R", cy + dy, 33 + epp.LED_D / 2 + LEAD_GAP, [text], 6))
+            ["%s: M12 socket" % name, "Pin 1: +24 V DC Up",
+             "Pin 2: In-/Output B", "Pin 3: GND P",
+             "Pin 4: In-/Output A"], 6))
+        # the leader runs between the two label holders of the socket
+        card.legends.append(Legend(
+            "L", cy, epp.CHANNEL_LED_X[0] - epp.LED_D / 2 - LEAD_GAP,
+            ["LEDs %d, %d" % (2 * n + 1, 2 * n + 2)], 6))
     pinout = ["Pin %d: %s" % (i + 1, p)
               for i, p in enumerate(epp.M8_PINOUT)]
     for t in card.terms:
         if t.name in ("IN X50", "OUT X51"):
-            side = "L" if t.x < 0 else "R"
+            side = "L" if t.x < -20 else "R"
             word = "IN" if t.name.startswith("IN") else "OUT"
             card.legends.append(Legend(
-                side, t.y, t.x + (-1 if side == "L" else 1) * (t.r + LEAD_GAP),
+                side, t.y + (-6 if side == "R" else 6),
+                t.x + (-1 if side == "L" else 1) * (t.r + LEAD_GAP),
                 ["%s: M8, EtherCAT P %s" % (t.name.split()[1], word)]
                 + pinout, 6))
-    card.legends.append(Legend("L", -163, -25 - epp.LED_D / 2 - LEAD_GAP,
-                               ["LED L/A (IN)"], 6))
-    card.legends.append(Legend("R", -163, 25 + epp.LED_D / 2 + LEAD_GAP,
-                               ["LED L/A (OUT)"], 6))
-    card.legends.append(Legend("L", 173, -10 - epp.LED_D / 2 - LEAD_GAP,
-                               ["LED Us"], 6))
-    card.legends.append(Legend("R", 173, 10 + epp.LED_D / 2 + LEAD_GAP,
-                               ["LED Up"], 6))
+    # L/A LEDs: leader going up, text above the housing
+    top = epp.BODY[1]
+    for (lx, ly), word, side in zip(epp.LA_LEDS, ("IN", "OUT"), "LR"):
+        card.line(lx, ly - epp.LED_D / 2 - LEAD_GAP, lx, top - 6)
+        text = "LED L/A " + word
+        x = lx - 2 - twidth(text, 6) if side == "L" else lx + 2
+        card.text(x, top - 7, text, 6)
+    card.legends.append(Legend(
+        "L", epp.RUN_LED[1], epp.RUN_LED[0] - epp.LED_D / 2 - LEAD_GAP,
+        ["LED Run"], 6))
+    card.legends.append(Legend(
+        "R", epp.POWER_LEDS[1][1],
+        epp.POWER_LEDS[1][0] + epp.LED_D / 2 + LEAD_GAP,
+        ["LED Us (left)", "LED Up (right)"], 6))
 
 
 def maxx_body(self):
@@ -510,7 +574,7 @@ def resolve(card):
             for i, text in enumerate(lg.lines):
                 w = twidth(text, lg.size)
                 x = left_x - 2 - w if side == "L" else right_x + 2
-                card.text(x, top + i * lh + 0.5, text, lg.size)
+                card.text(x, baseline_of(lg.size, top + i * lh), text, lg.size)
 
 
 def finish(card):
@@ -521,7 +585,7 @@ def finish(card):
             size = int(p.get("font").split(",")[1])
             x, y = float(p.get("x")), float(p.get("y"))
             xs += [x - 1, x + twidth(p.get("text"), size) + 1]
-            ys += [y - 1, y + line_height(size) + 1]
+            ys += [y - 0.93 * size * 4 / 3 - 1, y + 0.25 * size * 4 / 3 + 1]
         else:
             b = box(p)
             xs += [b[0] - 1, b[2] + 1]
@@ -561,7 +625,9 @@ def retag(card):
 
 def build(card):
     s = card.stem
-    if s in EL60:
+    if s == "el9410":
+        build_el9410(card)
+    elif s in EL60:
         build_el60(card)
     elif s == "el2911":
         build_el2911(card)
@@ -582,8 +648,9 @@ def check_overlaps(card):
             continue
         size = int(p.get("font").split(",")[1])
         x, y = float(p.get("x")), float(p.get("y"))
-        boxes.append((x, y, x + twidth(p.get("text"), size),
-                      y + line_height(size) - 1, p.get("text")))
+        boxes.append((x, y - 0.93 * size * 4 / 3,
+                      x + twidth(p.get("text"), size),
+                      y + 0.25 * size * 4 / 3, p.get("text")))
     for i, a in enumerate(boxes):
         for b in boxes[i + 1:]:
             if a[0] < b[2] and b[0] < a[2] and a[1] < b[3] and b[1] < a[3]:

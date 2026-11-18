@@ -7,8 +7,8 @@
 	<elementInformations>
 		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
 		<elementInformation name="manufacturer_reference" show="1">EL2911</elementInformation>
-		<elementInformation name="designation" show="1">EtherCAT Terminal, labels as drawn (drawing doubled)</elementInformation>
-		<elementInformation name="description" show="1">EtherCAT Terminal, safety terminal. Pin names are the Beckhoff terminal points in the order of the user's own drawing (left column 1 to 4, right column 5 to 8): 1 IN1, 2 OUT, 3 GND_UP, 4 IN3, 5 IN2, 6 24V_UP, 7 24V, 8 IN4, 9 IN1, 10 OUT, 11 GND_UP, 12 IN3, 13 IN2, 14 24V_UP, 15 24V, 16 IN4. The channel is the signal in the I/O table, not the pin number. Check this against the datasheet of your terminal.</elementInformation>
+		<elementInformation name="designation" show="1">EtherCAT Terminal, TwinSAFE potential supply terminal, 4 safe inputs and 1 safe output</elementInformation>
+		<elementInformation name="description" show="1">EtherCAT Terminal, safety terminal. Pin assignment from the public Beckhoff manual of the EL2911 (v2.2.0, section Connection): 1 S1+, 2 SI1, 3 S3+, 4 SI3, 5 S2+, 6 SI2, 7 S4+, 8 SI4, 9 NC, 10 SO1, 11 0V, 12 24V, 13 NC, 14 SO1, 15 0V, 16 24V; pins 9 and 13 are not used, the safe output 1 is on the pins 10 and 14, the supply UP (0 V and 24 V) on 11, 15 and 12, 16. The channel is the signal in the I/O table, not the pin number.</elementInformation>
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
@@ -41,20 +41,21 @@
 			<headerFont family="Roboto Condensed" size="7" bold="true"/>
 			<cellFont family="Roboto Condensed" size="7" bold="false"/>
 			<plcIOs>
-				<plcIO type="entree_digitale" address="IN1" functionText="" comment="" crossRef="" terminalCount="1">
-					<terminal>1</terminal>
-				</plcIO>
-				<plcIO type="entree_digitale" address="OUT" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="entree_digitale" address="SI1" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>2</terminal>
 				</plcIO>
-				<plcIO type="entree_digitale" address="IN3" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="entree_digitale" address="SI2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>6</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI3" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>4</terminal>
 				</plcIO>
-				<plcIO type="entree_digitale" address="IN2" functionText="" comment="" crossRef="" terminalCount="1">
-					<terminal>5</terminal>
-				</plcIO>
-				<plcIO type="entree_digitale" address="IN4" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="entree_digitale" address="SI4" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>8</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="SO1" functionText="" comment="" crossRef="" terminalCount="2">
+					<terminal>10</terminal>
+					<terminal>14</terminal>
 				</plcIO>
 			</plcIOs>
 		</plcMasterData>

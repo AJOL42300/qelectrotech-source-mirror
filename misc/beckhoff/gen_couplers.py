@@ -116,25 +116,40 @@ def add_power(path):
     is 32 px taller, the rails run from edge to edge."""
     root = ET.parse(path).getroot()
     desc = root.find("description")
-    if any(t.get("text") == "+24 V" for t in desc.findall("text")):
-        return False
     x, y, w, h, rect = outline_of(desc)
     more = 32
-    bottom = y + h
-    for e in desc:
-        if e.tag == "rect" and float(e.get("y")) >= bottom - 0.5:
-            e.set("y", num(float(e.get("y")) + more))
-        elif e.tag == "line" and float(e.get("y1")) >= bottom - 0.5:
-            e.set("y1", num(float(e.get("y1")) + more))
-            e.set("y2", num(float(e.get("y2")) + more))
-        elif e.tag == "dynamic_text" and float(e.get("y")) >= bottom - 0.5:
-            e.set("y", num(float(e.get("y")) + more))
-    rect.set("height", num(h + more))
+    done = any(t.get("text") == "+24 V" for t in desc.findall("text"))
+    if done:
+        # drawn by an earlier version: redraw the rails in colour
+        band = y + h - more + 5, y + h - more + 27
+        old = []
+        for e in desc:
+            if e is rect or e.tag not in ("line", "rect", "circle", "text"):
+                continue
+            ys = [float(e.get(k)) for k in ("y", "y1", "y2") if e.get(k)]
+            if ys and all(band[0] <= v <= band[1] for v in ys):
+                old.append(e)
+        if not old or any(e.get("style", "").count("color:red") for e in old):
+            return False
+        for e in old:
+            desc.remove(e)
+        bottom = y + h - more
+    else:
+        bottom = y + h
+        for e in desc:
+            if e.tag == "rect" and float(e.get("y")) >= bottom - 0.5:
+                e.set("y", num(float(e.get("y")) + more))
+            elif e.tag == "line" and float(e.get("y1")) >= bottom - 0.5:
+                e.set("y1", num(float(e.get("y1")) + more))
+                e.set("y2", num(float(e.get("y2")) + more))
+            elif e.tag == "dynamic_text" and float(e.get("y")) >= bottom - 0.5:
+                e.set("y", num(float(e.get("y")) + more))
+        rect.set("height", num(h + more))
+        root.set("height", str(int(root.get("height")) + more))
     s = Sheet()
     s.power_rails(x, x + w, bottom + 10, bottom + 22)
     for e in s.parts:
         desc.insert(1, e)
-    root.set("height", str(int(root.get("height")) + more))
     info = root.find("informations")
     if info is not None and "power contacts" not in (info.text or ""):
         info.text = (info.text or "").rstrip("\n") + \

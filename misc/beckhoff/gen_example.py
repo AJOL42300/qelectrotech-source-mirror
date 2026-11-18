@@ -16,8 +16,8 @@
 # along with QElectroTech.  If not, see <http://www.gnu.org/licenses/>.
 """Write examples/beckhoff_islands_example.qet.
 
-The project shows one EtherCAT island: its head A1.00 and three child cards
-A1.10, A1.20 and A1.30. Each card is drawn four times (symbol, realistic
+The project shows one EtherCAT island: its head A1.00 and four child cards
+A1.10, A1.20, A1.30 and A1.40 (a power feed terminal). Each card is drawn four times (symbol, realistic
 view, description view, I/O table) with the same label, on four folios, and
 a few card pins
 are wired so that they show as used. A2 has a safety card and two drives, A3
@@ -173,6 +173,7 @@ CARDS = [
     ("A1.10", "el1008", 450),
     ("A1.20", "el2008", 600),
     ("A1.30", "el5152", 750),
+    ("A1.40", "el9410", 900),
 ]
 HEAD = ("A1.00", "ek1100")
 CARD_Y = 250

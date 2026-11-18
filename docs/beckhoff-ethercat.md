@@ -15,7 +15,7 @@ family:
 | `el3xxx_analog_in` | `el3xxx_generic` |
 | `el4xxx_analog_out` | `el4xxx_generic` |
 | `el5xxx_encoder` | EL5152 |
-| `el9xxx_system` | EL9011, EL9100 |
+| `el9xxx_system` | EL9011, EL9100, EL9410 |
 | `epp_box` | EPP2338, `ethercat_box_generic` |
 | `twinsafe` | EL1904, EL1918, EL2904, EL2911, EL6910, EK1960 (yellow) |
 | `drives_af1000`, `drives_ax5000` | the drives |
@@ -65,17 +65,18 @@ schematic.
 | `el2008.elmt` | Beckhoff | EL2008 | contacts 1 to 8 |
 | `el1004.elmt`, `el2004.elmt` | Beckhoff | EL1004, EL2004 | pins 1 to 8 (channels on 1, 5, 3, 7; 0 V on 2, 6, 4, 8) |
 | `el2522.elmt`, `el2574.elmt` | Beckhoff | EL2522, EL2574 | pins 1 to 8 (channels as printed on the drawing) |
-| `el2911.elmt`, `el9100.elmt` | Beckhoff | EL2911, EL9100 | 16 pins (doubled drawing) / 8 pins |
+| `el2911.elmt`, `el9100.elmt` | Beckhoff | EL2911, EL9100 | 16 pins (two modules of 4 rows x 2 columns) / 8 pins |
+| `el9410.elmt` | Beckhoff | EL9410 | pins 1 to 8: +24 V DC (1), 0 V (5), infeed 24 V (2, 6), infeed 0 V (3, 7), PE (4, 8); power feed with diagnostics, no I/O channel |
 | `el2652.elmt` | Beckhoff | EL2652 | contacts 1 to 4 (relay output, generic) |
 | `el5152.elmt` | Beckhoff | EL5152 | contacts 1 to 8 (generic layout) |
-| `*_realistic.elmt` | as the symbol | as the symbol | terminals on the screw circles of the drawing (EL1004, EL1008, EL1904, EL1918, EL2004, EL2008, EL2522, EL2574, EL2904, EL2911, EL5152, EL9100, EK1914, EPP2338), and the vector view of the drives |
-| `*_description.elmt` | as the symbol | as the symbol | the realistic view (same terminals, same scale) with annotated legends and the status LEDs, for every card that has a realistic view (38 cards, see "Description appearance") |
+| `*_realistic.elmt` | as the symbol | as the symbol | terminals on the screw circles of the drawing (EL1004, EL1008, EL1904, EL1918, EL2004, EL2008, EL2522, EL2574, EL2904, EL2911, EL5152, EL9100, EL9410, EK1914, EPP2338), and the vector view of the drives |
+| `*_description.elmt` | as the symbol | as the symbol | the realistic view (same terminals, same scale) with annotated legends and the status LEDs, for every card that has a realistic view (39 cards, see "Description appearance") |
 | `*_table.elmt` | as the symbol | as the symbol | none: the simple I/O table only (every card with a realistic view) |
 | `ek1100.elmt` | Beckhoff | EK1100 | EtherCAT IN, EtherCAT OUT |
 | `ek1322.elmt` | Beckhoff | EK1322 | IN X50, OUT X51, OUT X52 |
-| `ek1914.elmt` | Beckhoff | EK1914 | EtherCAT IN/OUT, I1 to I4, SI1, SI2, O1 to O4, SO1, SO2 |
+| `ek1914.elmt` | Beckhoff | EK1914 | EtherCAT IN/OUT, I1 to I4, SI1, SI2, O1 to O4, SO1, SO2 (pins 2, 10, 3, 11 / 7, 15 / 4, 12, 5, 13 / 8, 16) |
 | `el9011.elmt` | Beckhoff | EL9011 | none (end cap) |
-| `epp2338.elmt` | Beckhoff | EPP2338-0001 | IN X50, OUT X51, X01 to X04 |
+| `epp2338.elmt` | Beckhoff | EPP2338-0002 | IN X50, OUT X51, X01 to X04 |
 | `ethercat_box_generic.elmt` | (empty) | (empty) | EtherCAT IN, EtherCAT OUT |
 | `drives_af1000/af11xx.elmt`, `af12xx.elmt` | Beckhoff | AF1103, AF1107, AF1115, AF1130, AF1155 (1 axis); AF1215, AF1222 (2 axes) | see [Drives](#drives-af1000-and-ax5000) |
 | `drives_ax5000/ax51xx.elmt`, `ax52xx.elmt` | Beckhoff | AX5101 to AX5125 (1 axis); AX5201 to AX5225 (2 axes) | see [Drives](#drives-af1000-and-ax5000) |
@@ -138,14 +139,14 @@ Beckhoff pin, and each channel of the I/O table lists its pin(s) in the entry
 | EL5152 | pins 1 A1, 2 +, 3 -, 4 A2, 5 B1, 6 +, 7 -, 8 B2; 2 and 6 are 24 V, 3 and 7 are 0 V | the user's drawing, the supply is inferred from the labels |
 | EL1004, EL2004, EL1904, EL2904 | channels 1 to 4 on pins 1, 5, 3, 7; 0 V on 2, 6, 4, 8 | the user's drawing (the yellow cards print S1..S4; the I/O table calls them SI1..SI4 / SO1..SO4) |
 | EL1918 | 16 pins in 8 rows of 2: SIn on the "-" pin, the clock output Sn+ on the other one; pins 1/2 for SI1, 3/4 for SI3, 5/6 for SI5, 7/8 for SI7, 9/10 for SI2, ... 15/16 for SI8 | the user: **16 terminals**; the order of the inputs 1, 3, 5, 7, 2, 4, 6, 8 follows the public terminal list of the card (see [Safety cards](#safety-cards-twinsafe-yellow)) |
+| EK1914 | 1 +24 V (Us), 2 In1, 3 In3, 4 Out1, 5 Out3, 6 clock of safe input 1, 7 Safe In1, 8 Safe Out1, 9 0 V, 10 In2, 11 In4, 12 Out2, 13 Out4, 14 clock of safe input 2, 15 Safe In2, 16 Safe Out2 | public manual of the coupler (terminal list: numbers, signals, functions; no text copied). **Deduced**: the physical numbering is column by column (1 to 8 left, 9 to 16 right) |
+| EL2911 | two modules of 4 rows x 2 columns: 1 Input 1+ (clock), 2 Input 1-, 3 Input 3+, 4 Input 3-, 5 Input 2+, 6 Input 2-, 7 Input 4+, 8 Input 4-; 9 and 13 not used; 10 and 14 Safe output 1; 11 and 15 GND Up; 12 and 16 24 V Up | public manual of the card (v2.2.0); the Output 1 / Diag Out column of the LEDs is **assumed** |
 | other cards | pin = channel | generic |
 
 The tooltip writes `5 → I2`, the I/O table has an optional **Terminal**
 column (in the table properties, hidden by default; the `_table` elements show
-it), and the greyed pins use the pin. When the pin-out is unknown (EK1914:
-the drawing names no channel, so the pin of each channel is not listed; the
-realistic view then has numbered pins and no channel) it is flagged in the
-description of the element.
+it), and the greyed pins use the pin. When the pin-out is unknown it is flagged
+in the description of the element.
 
 ## Drives (AF1000 and AX5000)
 
@@ -190,7 +191,12 @@ the picture and has no element.
 table), EL6910 and EK1960 (symbol only),
 drawn with a yellow body. EL1904, EL1918, EL2904 and EL2911 have a
 **realistic** view; the EK1914 coupler (`ek_couplers`) has its lowest block of
-terminals (pins 11 to 16, the TwinSAFE part) in yellow.
+terminals (rows 6 to 8 of both columns, the TwinSAFE part) in yellow.
+
+In the **schematic** views of the safety cards the outline has the same yellow
+background as the realistic view; the wires, the rails and the texts stay
+readable on it. The +24 V wires and rails are red, the 0 V ones are blue, in
+every schematic (cards and couplers).
 
 **EL1918: 16 terminals.** The user says that the card has 16 terminals (this
 replaces the earlier 8-terminal drawing). The factual layout comes from the
@@ -319,8 +325,8 @@ two layouts below, to the generated views.
 - **EK1914**: same height as the other cards (330, the rows are 25 px apart,
   stretched from the traced drawing, so the traced parts are a little
   distorted). The numbers 1 to 16 are outside the block of terminals, next to
-  their circle (odd pins on the left, even pins on the right), and the whole
-  lower block (pins 11 to 16, TwinSAFE) is yellow, as the TwinSAFE cards.
+  their circle (1 to 8 on the left, 9 to 16 on the right), and the lowest block
+  (rows 6 to 8 of both columns, TwinSAFE) is yellow, as the TwinSAFE cards.
 - **EL1918**: the same housing as the other cards (60x330, one yellow body),
   with 16 pins instead of 8: two columns of 8 rows, pins 1 to 8 in the left
   column and 9 to 16 in the right one, the rows 25 px apart (estimated from
@@ -340,10 +346,11 @@ scale and the same position of the reference, and in addition
   signal is the address of the I/O table, the pin is shown when it differs
   from the signal, the function is the text of the table or a factual generic
   one (Input n, Output n, Safe input n, +24 V DC, 0 V...);
-- the **status LEDs**: one LED per channel at the top of the front, with a
-  "Signal n" legend, and a "Diagnostic" LED for the TwinSAFE cards; four
-  status LEDs for the EK1914; the header LEDs of the drives, which a "Status
-  LEDs" legend points to;
+- the **status LEDs**: one LED per channel at the top of the front, named after
+  the type of the channel ("Input n", "Output n", "Safe input n", "Safe output
+  n", "Analog input n", "Analog output n", "Encoder n"), and a "Diagnostic" LED
+  for the TwinSAFE cards; two generic status LEDs for the EK1914; the header
+  LEDs of the drives, which a "Status LEDs" legend points to;
 - the power contacts (+24 V DC / 0 V) as two black marks on the side of the
   card, with a legend;
 - for the drives, the connectors are summarised by one legend per connector
@@ -355,21 +362,23 @@ coordinates) so the legends fit and the terminals stay on the grid. The
 files are written by `python misc/beckhoff/gen_description.py
 <15_beckhoff_ethercat>` from the realistic views and their I/O tables (no
 duplicated data; a second run gives identical files). There is one for each
-of the 33 cards that have a realistic view: AF1103, AF1107, AF1115, AF1130,
+of the 39 cards that have a realistic view: AF1103, AF1107, AF1115, AF1130,
 AF1155, AF1215, AF1222, AX5101, AX5103, AX5106, AX5112, AX5118, AX5125,
 AX5201, AX5203, AX5206, AX5212, AX5218, AX5225, EK1914, EL1004, EL1008,
 EL1904, EL1918, EL2004, EL2008, EL2522, EL2574, EL2904, EL2911, EL5152,
-EL9100 and EPP2338.
+EL9100, EL9410 and EPP2338.
 
-INCERTAIN: the number and the position of the LEDs, the "Signal n" and
-"Diagnostic" legends, the power contacts and the generic functions (for
+INCERTAIN: the number and the position of the LEDs, the "Diagnostic" legends,
+the power contacts and the generic functions (for
 example "Functional ground", "Analog input") are generic, not taken from a
-datasheet; the LEDs are drawn neutral (green); the EL2911 legends only cover
-the outer columns (pins 1 to 4 and 13 to 16); the EK1914 legends assume
-terminals 1 to 10 standard and 11 to 16 TwinSAFE. The layout (LED area at the
-top, "Signal n" legends, power contacts) follows an annotated front of an
+datasheet; the LEDs are drawn neutral (green); the Output 1 / Diag Out
+column of the EL2911 LEDs is assumed (its pins and its ten LEDs follow the
+public manual); the EK1914 legends follow the public terminal list, with a
+column-by-column numbering that is deduced. The layout (LED area at the
+top, legends, power contacts) follows an annotated front of an
 EL1004 given as a reference, redrawn in vector; no image or text of the
-manufacturer is in the repository.
+manufacturer is in the repository. The EL1918 legends are on the left for the
+pins 1 to 8 and on the right for the pins 9 to 16, aligned on the terminals.
 
 ### I/O table appearance
 
@@ -595,10 +604,16 @@ the datasheet of your box.
   couplers, the EL6910, the EL9011 and the generic EtherCAT box have no
   realistic, description or table view yet.
 
-- The ios of the EK1914 name the channels `I1`..`SO2`, but the pin of each
-  channel is unknown (the user's drawing has no channel names), so they are
-  not listed and the tooltip of its realistic view, with numbered pins,
-  cannot tell the channels.
+- The ios of the EK1914 name the channels `I1`..`SO2` and follow the public
+  terminal list; the column-by-column numbering of its pins is deduced, and
+  its two status LEDs are generic.
+- **EL9410** (power feed with diagnostics, no channel): drawn from a reference
+  picture given by the user (redrawn in vector, no logo): 8 pins in two
+  columns (1 +24 V DC, 5 0 V, 2/6 infeed 24 V, 3/7 infeed 0 V, 4/8 PE) and
+  three power contacts. The pin numbering and the LEDs are generic, to be
+  checked against the datasheet; its table has 8 rows (label = function, no
+  TwinCAT ID) which use a stand-in channel type only because the table needs
+  an I/O entry to be drawn.
 - The designation of the EL5152 is generic and was not checked against a
   datasheet.
 - No table is added automatically on the nomenclature folio: choose the folio
@@ -644,6 +659,7 @@ python misc/beckhoff/fix_boxes.py extra-elements/15_beckhoff_ethercat
 python misc/beckhoff/gen_generic.py extra-elements/15_beckhoff_ethercat
 python misc/beckhoff/gen_schematic.py <absolute path of extra-elements/15_beckhoff_ethercat>
 python misc/beckhoff/gen_couplers.py extra-elements/15_beckhoff_ethercat
+python misc/beckhoff/gen_el9410.py extra-elements/15_beckhoff_ethercat
 python misc/beckhoff/gen_description.py extra-elements/15_beckhoff_ethercat
 python misc/beckhoff/simple_tables.py extra-elements/15_beckhoff_ethercat
 python misc/beckhoff/gen_titleblocks.py

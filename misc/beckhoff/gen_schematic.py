@@ -52,6 +52,22 @@ NORMAL = "line-style:normal;line-weight:normal;filling:none;color:black"
 DOTTED = "line-style:dotted;line-weight:normal;filling:none;color:black"
 FILLED = "line-style:normal;line-weight:thin;filling:black;color:black"
 WHITE = "line-style:normal;line-weight:thin;filling:white;color:black"
+# +24 V in red, 0 V in blue
+POT_STYLE = {"24V": "line-style:normal;line-weight:normal;filling:none;"
+                    "color:red",
+             "0V": "line-style:normal;line-weight:normal;filling:none;"
+                   "color:blue"}
+POT_FILLED = {"24V": "line-style:normal;line-weight:thin;filling:red;"
+                     "color:red",
+              "0V": "line-style:normal;line-weight:thin;filling:blue;"
+                    "color:blue"}
+POT_WHITE = {"24V": "line-style:normal;line-weight:normal;filling:white;"
+                    "color:red",
+             "0V": "line-style:normal;line-weight:normal;filling:white;"
+                   "color:blue"}
+POT_TEXT = {"24V": "#ff0000", "0V": "#0000ff"}
+# the yellow of the TwinSAFE housings, as in the realistic views
+YELLOW_FILL = "line-style:none;line-weight:thin;filling:yellow;color:black"
 NOTE = ("Schematic view made by misc/beckhoff/gen_schematic.py from the "
         "realistic view: the stages are generic, check them against the "
         "datasheet. License: see "
@@ -66,11 +82,12 @@ EL60_BODY = (-14.5, -136.7, 22.0, 140.5)
 EL2911_BODY2 = (45.5, -136.7, 81.5, 140.5)
 # EK1914: generic assumption of the channel on each terminal (the symbol
 # named the terminals after the channels); check it in the datasheet
-EK1914_PINS = {"I1": "1", "I2": "3", "I3": "5", "I4": "7", "O1": "2",
-               "O2": "4", "O3": "6", "O4": "8", "SI1": "11", "SI2": "13",
-               "SO1": "12", "SO2": "14"}
+EK1914_PINS = {"I1": "2", "I2": "10", "I3": "3", "I4": "11", "O1": "4",
+               "O2": "12", "O3": "5", "O4": "13", "SI1": "7", "SI2": "15",
+               "SO1": "8", "SO2": "16"}
 CLIP_W = 16.0
 CLIP_H = 7.0
+SAFETY = ("el1904", "el2904", "el2911", "el1918", "ek1914")
 
 
 def uid(*parts):
@@ -127,10 +144,10 @@ class Sheet:
             "x": num(cx - d / 2), "y": num(cy - d / 2), "diameter": num(d),
             "style": style, "antialias": "false"}))
 
-    def text(self, x, y, s, size=5, bold=False):
+    def text(self, x, y, s, size=5, bold=False, color="#000000"):
         self._b(x, y)
         self.parts.append(ET.Element("text", {
-            "x": num(x), "y": num(y), "rotation": "0", "color": "#000000",
+            "x": num(x), "y": num(y), "rotation": "0", "color": color,
             "font": (FONT_BOLD if bold else FONT) % size, "text": s}))
 
     def text_centered(self, cx, cy, s, size=5):
@@ -138,17 +155,18 @@ class Sheet:
         self.text(cx - w / 2, cy - (size * 4 / 3.0 + 1) / 2 - 0.5, s, size)
 
     def power_rails(self, x0, x1, y24, y0):
-        """+24 V and 0 V of the power contacts, which run through the
-        housing: a filled square at the left edge (blade) and a circle at
-        the right edge (spring), a rail between them and its legend."""
-        for y, label in ((y24, "+24 V"), (y0, "0 V")):
-            self.rect(x0 - 2.5, y - 2.5, 5, 5, FILLED)
-            self.line(x0 + 2.5, y, x1 - 2.5, y)
-            self.circle(x1, y, 5, WHITE)
-            self.text(x0 + 4, y - 8, label, 4)
+        """+24 V (red) and 0 V (blue) of the power contacts, which run
+        through the housing: a filled square at the left edge (blade) and
+        a circle at the right edge (spring), a rail between them and its
+        legend."""
+        for y, pot, label in ((y24, "24V", "+24 V"), (y0, "0V", "0 V")):
+            self.rect(x0 - 2.5, y - 2.5, 5, 5, POT_FILLED[pot])
+            self.line(x0 + 2.5, y, x1 - 2.5, y, POT_STYLE[pot])
+            self.circle(x1, y, 5, POT_WHITE[pot])
+            self.text(x0 + 4, y - 8, label, 4, color=POT_TEXT[pot])
 
-    def junction(self, x, y):
-        self.circle(x, y, 2.4, FILLED)
+    def junction(self, x, y, pot=""):
+        self.circle(x, y, 2.4, POT_FILLED.get(pot, FILLED))
 
     # stages -------------------------------------------------------------
     def wire(self, f, u0, u1, v=0.0):
@@ -358,21 +376,43 @@ class Card:
         self.sheet.power_rails(x0, x1, rails["24V"], rails["0V"])
         branch_x = {"left": x0 + 2.5, "right": x1 - 2.5}
         linked = set()
-        for side in ("left", "right"):
-            pins = [p for p in self.pins
-                    if p.role in ("gnd", "sup") and x0 <= p.x <= x1 and
-                    (p.x < (x0 + x1) / 2) == (side == "left")]
+        inside = [p for p in self.pins
+                  if p.role in ("gnd", "sup") and x0 <= p.x <= x1]
+        mid = (min(p.x for p in inside) + max(p.x for p in inside)) / 2 \
+            if inside else (x0 + x1) / 2
+        by_side = {"left": [p for p in inside if p.x < mid],
+                   "right": [p for p in inside if p.x >= mid]}
+        # one potential per side (the housing edge has room for one
+        # branch): 24 V on the left, 0 V on the right when a side carries
+        # both; the other pins are joined to the pin of the same potential
+        # in the same row
+        wanted = {"left": "24V", "right": "0V"}
+        for side, pins in by_side.items():
             if not pins:
                 continue
-            pot = pins[0].pot
-            pins = [p for p in pins if p.pot == pot]
+            pots = {p.pot for p in pins}
+            pot = wanted[side] if len(pots) > 1 else pins[0].pot
+            kept = [p for p in pins if p.pot == pot]
             bx, top = branch_x[side], rails[pot]
-            self.sheet.line(bx, top, bx, max(p.y for p in pins))
-            self.sheet.junction(bx, top)
-            for p in pins:
+            style = POT_STYLE[pot]
+            self.sheet.line(bx, top, bx, max(p.y for p in kept), style)
+            self.sheet.junction(bx, top, pot)
+            for p in kept:
                 edge = p.x + (-1 if side == "left" else 1) * p.d / 2
-                self.sheet.line(edge, p.y, bx, p.y)
-                self.sheet.junction(bx, p.y)
+                self.sheet.line(edge, p.y, bx, p.y, style)
+                self.sheet.junction(bx, p.y, pot)
+                linked.add(p.name)
+            for p in pins:
+                if p in kept:
+                    continue
+                mate = [o for o in inside if o.pot == p.pot and
+                        abs(o.y - p.y) < 1 and o is not p]
+                if not mate:
+                    continue
+                o = mate[0]
+                sign = 1 if o.x > p.x else -1
+                self.sheet.line(p.x + sign * p.d / 2, p.y,
+                                o.x - sign * o.d / 2, p.y, POT_STYLE[p.pot])
                 linked.add(p.name)
         return linked
 
@@ -380,6 +420,8 @@ class Card:
     def outline(self, x0, y0, x1, y1, clips=True):
         self.outlines.append((x0, y0, x1, y1))
         s = self.sheet
+        if self.stem in SAFETY:
+            s.rect(x0, y0, x1 - x0, y1 - y0, YELLOW_FILL)
         s.rect(x0, y0, x1 - x0, y1 - y0, DOTTED)
         if clips:
             cx = (x0 + x1) / 2 - 2.0
@@ -408,6 +450,12 @@ class Card:
             self.outline(*b)
             linked |= self.power(b)
         paired = set()
+        if self.stem == "el2911":
+            # clock output (S+) above its safe input (SI), as in the manual
+            by_name = {p.name: p for p in self.pins}
+            for a, b in (("1", "2"), ("3", "4"), ("5", "6"), ("7", "8")):
+                self.pair(by_name[a], by_name[b], "in")
+                paired.update((a, b))
         cols = {}
         for p in self.pins:
             cols.setdefault(p.x, []).append(p)
@@ -439,6 +487,9 @@ class Card:
             ty = float(t.get("y"))
             tx = float(t.get("x")) + text_width(t.get("text")) / 2
             for p in self.pins:
+                if self.stem == "el2911" and p.name in paired and \
+                        p.role == "in":
+                    continue    # the stage sits where the label would be
                 if p.name in paired and p.role in ("in", "out") and \
                         abs(tx - p.x) < 12 and -16 < ty - p.y < -6:
                     self.sheet.parts.append(ET.fromstring(ET.tostring(t)))
@@ -465,7 +516,7 @@ class Card:
         """EK1914: two columns of terminals, one stage each:
         the left column leads to the left, the right one to the right."""
         self.outline(*body)
-        self.power(body)
+        linked = self.power(body)
         eth = [p for p in self.pins if p.role == "eth"]
         for p in self.pins:
             p.d = 8.5
@@ -480,7 +531,7 @@ class Card:
             a, b = sorted(eth, key=lambda p: p.y)
             self.sheet.line(a.x, a.y + 5, b.x, b.y - 5, DOTTED)
         for p in self.pins:
-            if p.role == "eth":
+            if p.role == "eth" or p.name in linked:
                 continue
             side = ("left", "right") if p.x <= left_x else ("right", "left")
             self.stub(p, side, 22.0)

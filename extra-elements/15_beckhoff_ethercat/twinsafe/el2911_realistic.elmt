@@ -7,8 +7,8 @@
 	<elementInformations>
 		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
 		<elementInformation name="manufacturer_reference" show="1">EL2911</elementInformation>
-		<elementInformation name="designation" show="1">EtherCAT Terminal, labels as drawn (drawing doubled)</elementInformation>
-		<elementInformation name="description" show="1">EtherCAT Terminal, safety terminal. Pin names are the Beckhoff terminal points in the order of the user's own drawing (left column 1 to 4, right column 5 to 8): 1 IN1, 2 OUT, 3 GND_UP, 4 IN3, 5 IN2, 6 24V_UP, 7 24V, 8 IN4, 9 IN1, 10 OUT, 11 GND_UP, 12 IN3, 13 IN2, 14 24V_UP, 15 24V, 16 IN4. The channel is the signal in the I/O table, not the pin number. Check this against the datasheet of your terminal.</elementInformation>
+		<elementInformation name="designation" show="1">EtherCAT Terminal, TwinSAFE potential supply terminal, 4 safe inputs and 1 safe output</elementInformation>
+		<elementInformation name="description" show="1">EtherCAT Terminal, safety terminal. Pin assignment from the public Beckhoff manual of the EL2911 (v2.2.0, section Connection): 1 S1+, 2 SI1, 3 S3+, 4 SI3, 5 S2+, 6 SI2, 7 S4+, 8 SI4, 9 NC, 10 SO1, 11 0V, 12 24V, 13 NC, 14 SO1, 15 0V, 16 24V; pins 9 and 13 are not used, the safe output 1 is on the pins 10 and 14, the supply UP (0 V and 24 V) on 11, 15 and 12, 16. The channel is the signal in the I/O table, not the pin number.</elementInformation>
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
@@ -21,20 +21,21 @@
 				<column index="4" visible="false" />
 			</columnVisibility>
 			<plcIOs>
-				<plcIO type="entree_digitale" address="IN1" functionText="" comment="" crossRef="" terminalCount="1">
-					<terminal>1</terminal>
-				</plcIO>
-				<plcIO type="entree_digitale" address="OUT" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="entree_digitale" address="SI1" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>2</terminal>
 				</plcIO>
-				<plcIO type="entree_digitale" address="IN3" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="entree_digitale" address="SI2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>6</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="SI3" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>4</terminal>
 				</plcIO>
-				<plcIO type="entree_digitale" address="IN2" functionText="" comment="" crossRef="" terminalCount="1">
-					<terminal>5</terminal>
-				</plcIO>
-				<plcIO type="entree_digitale" address="IN4" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="entree_digitale" address="SI4" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>8</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="SO1" functionText="" comment="" crossRef="" terminalCount="2">
+					<terminal>10</terminal>
+					<terminal>14</terminal>
 				</plcIO>
 			</plcIOs>
 		</plcMasterData>
@@ -45,20 +46,20 @@ Realistic view made by misc/beckhoff/realistic_from_model.py from a drawing supp
 		<rect ry="0" x="48.05" y="-118.7" antialias="false" style="line-style:normal;line-weight:thin;filling:yellow;color:black" width="35" height="259" rx="0" />
 		<rect ry="0" x="-11.95" y="-118.7" antialias="false" style="line-style:normal;line-weight:thin;filling:yellow;color:black" width="35" height="259" rx="0" />
 		<text x="-10.7" y="135.74" font="Roboto Condensed,8,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="EL2911" />
-		<text x="4.21" y="103" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="IN4" />
-		<text x="64.21" y="103" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="IN4" />
-		<text x="-3.86" y="-17.33" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V_UP" />
-		<text x="56.14" y="-17.33" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V_UP" />
-		<text x="-12" y="-7" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="OUT" />
-		<text x="48" y="-7" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="OUT" />
-		<text x="4.21" y="-57" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="IN2" />
-		<text x="64.21" y="-57" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="IN2" />
-		<text x="49.21" y="103" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="IN3" />
-		<text x="-10.79" y="103" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="IN3" />
-		<text x="41.05" y="48" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="GND_UP" />
-		<text x="-13.1" y="48" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="GND_UP" />
-		<text x="3.09" y="37.67" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V" />
-		<text x="63.09" y="37.67" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V" />
+		<text x="-10.56" y="-57" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="S1+" />
+		<text x="-9.6" y="-7" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="SI1" />
+		<text x="-10.92" y="48" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="S3+" />
+		<text x="-9.96" y="103" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="SI3" />
+		<text x="4.08" y="-57" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="S2+" />
+		<text x="5.04" y="-7" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="SI2" />
+		<text x="4.08" y="48" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="S4+" />
+		<text x="5.04" y="103" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="SI4" />
+		<text x="49.4" y="-7" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="SO1" />
+		<text x="51.04" y="48" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V" />
+		<text x="49.08" y="103" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V" />
+		<text x="64.4" y="-7" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="SO1" />
+		<text x="66.04" y="48" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V" />
+		<text x="64.08" y="103" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V" />
 		<line end1="none" end2="none" y1="117.45" antialias="false" y2="139.29" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="47.44" length1="4.5" x2="47.44" length2="4.5" />
 		<line end1="none" end2="none" y1="117.45" antialias="false" y2="139.29" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-12.56" length1="4.5" x2="-12.56" length2="4.5" />
 		<line end1="none" end2="none" y1="139.29" antialias="false" y2="139.29" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="47.44" length1="4.5" x2="83.45" length2="4.5" />
@@ -575,24 +576,22 @@ Realistic view made by misc/beckhoff/realistic_from_model.py from a drawing supp
 		<line end1="none" end2="none" y1="-120.09" antialias="false" y2="-118.71" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="23.45" length1="4.5" x2="23.45" length2="4.5" />
 		<line end1="none" end2="none" y1="-129.32" antialias="false" y2="-129.32" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="23.45" length1="4.5" x2="21.95" length2="4.5" />
 		<line end1="none" end2="none" y1="-129.32" antialias="false" y2="-129.32" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="83.45" length1="4.5" x2="81.95" length2="4.5" />
-		<text x="-10.37" y="-57" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="IN1" />
-		<text x="49.63" y="-57" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="IN1" />
 		<terminal x="-5" y="-45" name="1" orientation="w" type="Generic" uuid="{9130ea02-5dee-5eac-8694-d6ec74dbd3f1}" />
 		<terminal x="-5" y="5" name="2" orientation="w" type="Generic" uuid="{72893a39-5c52-5ee9-90ed-0c2820ea6993}" />
-		<terminal x="-5" y="60" name="3" orientation="w" type="Generic" uuid="{702d01fb-c965-5ee7-be47-7fdd4f2e260c}" potential="0V" />
+		<terminal x="-5" y="60" name="3" orientation="w" type="Generic" uuid="{702d01fb-c965-5ee7-be47-7fdd4f2e260c}" />
 		<terminal x="-5" y="115" name="4" orientation="w" type="Generic" uuid="{8e4bd3b4-33bc-53a8-b03a-148312e0b4c2}" />
 		<terminal x="10" y="-45" name="5" orientation="w" type="Generic" uuid="{443d2b80-e786-5e38-a342-179c7349efcb}" />
-		<terminal x="10" y="5" name="6" orientation="w" type="Generic" uuid="{507c77d5-5494-50a3-b62a-a6cf11fcd9c8}" potential="24V" />
-		<terminal x="10" y="60" name="7" orientation="w" type="Generic" uuid="{4c9a2eb9-fdd7-5d5d-a804-216d4158f03a}" potential="24V" />
+		<terminal x="10" y="5" name="6" orientation="w" type="Generic" uuid="{507c77d5-5494-50a3-b62a-a6cf11fcd9c8}" />
+		<terminal x="10" y="60" name="7" orientation="w" type="Generic" uuid="{4c9a2eb9-fdd7-5d5d-a804-216d4158f03a}" />
 		<terminal x="10" y="115" name="8" orientation="w" type="Generic" uuid="{a2b48bb0-3a39-5a5c-9c6e-e23b452af0d2}" />
 		<terminal x="55" y="-45" name="9" orientation="e" type="Generic" uuid="{253c3ec8-ea68-501b-a8a4-bcf0f63ff0ba}" />
 		<terminal x="55" y="5" name="10" orientation="e" type="Generic" uuid="{9e5aaef9-0efc-5a98-8a9a-7e213b8b9e7b}" />
 		<terminal x="55" y="60" name="11" orientation="e" type="Generic" uuid="{c0279b61-009f-534d-bed9-6a8c71a86180}" potential="0V" />
-		<terminal x="55" y="115" name="12" orientation="e" type="Generic" uuid="{6fdfe6b4-7c4d-5b08-ae13-63fc3814f4b7}" />
+		<terminal x="55" y="115" name="12" orientation="e" type="Generic" uuid="{6fdfe6b4-7c4d-5b08-ae13-63fc3814f4b7}" potential="24V" />
 		<terminal x="70" y="-45" name="13" orientation="e" type="Generic" uuid="{51aa2b11-d1bf-50a7-98e1-3ef855a8bec6}" />
-		<terminal x="70" y="5" name="14" orientation="e" type="Generic" uuid="{b14ba949-f74f-54e8-9343-af8098c096e8}" potential="24V" />
-		<terminal x="70" y="60" name="15" orientation="e" type="Generic" uuid="{671e418b-c213-52ad-a40f-a67b8811ea8e}" potential="24V" />
-		<terminal x="70" y="115" name="16" orientation="e" type="Generic" uuid="{ccf85c9f-c5e7-57ad-bbe5-fcd7195a6671}" />
+		<terminal x="70" y="5" name="14" orientation="e" type="Generic" uuid="{b14ba949-f74f-54e8-9343-af8098c096e8}" />
+		<terminal x="70" y="60" name="15" orientation="e" type="Generic" uuid="{671e418b-c213-52ad-a40f-a67b8811ea8e}" potential="0V" />
+		<terminal x="70" y="115" name="16" orientation="e" type="Generic" uuid="{ccf85c9f-c5e7-57ad-bbe5-fcd7195a6671}" potential="24V" />
 		<dynamic_text x="-20.96" y="155.89" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{e260c40c-83b0-5375-99bf-d2568fb2065b}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>

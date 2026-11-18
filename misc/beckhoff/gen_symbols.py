@@ -271,10 +271,11 @@ MODEL_CARDS = {
                "entree_digitale"),
     "el2911": ("EL2911", "safety terminal", "borne de sécurité",
                "IN1-4 / OUT",
-               "EtherCAT Terminal, labels as drawn (drawing doubled)",
-               [("IN1", "IN2"), ("OUT", "24V_UP"), ("GND_UP", "24V"),
-                ("IN3", "IN4"), ("IN1", "IN2"), ("OUT", "24V_UP"),
-                ("GND_UP", "24V"), ("IN3", "IN4")], "entree_digitale"),
+               "EtherCAT Terminal, TwinSAFE potential supply terminal, "
+               "4 safe inputs and 1 safe output",
+               [("S1+", "S2+"), ("SI1", "SI2"), ("S3+", "S4+"),
+                ("SI3", "SI4"), ("NC", "NC"), ("SO1", "SO1"),
+                ("0V", "0V"), ("24V", "24V")], "entree_digitale"),
     "el9100": ("EL9100", "potential feed terminal",
                "borne d'alimentation de potentiel", "END / NC",
                "EtherCAT Terminal, labels as drawn",
@@ -282,7 +283,14 @@ MODEL_CARDS = {
                 ("NC5", "NC6")], None),
 }
 # the channel is the label itself unless named here
-CHANNELS_ONLY = {"el2911": ("IN1", "IN2", "IN3", "IN4", "OUT")}
+CHANNELS_ONLY = {}
+# I/O table of the cards whose channels are not named by the labels:
+# (type, signal, terminals). EL2911: Beckhoff manual v2.2.0, "Connection":
+# the safe output 1 is on the points 2' and 6' (pins 10 and 14).
+IO_TABLES = {"el2911": [
+    ("entree_digitale", "SI1", ["2"]), ("entree_digitale", "SI2", ["6"]),
+    ("entree_digitale", "SI3", ["4"]), ("entree_digitale", "SI4", ["8"]),
+    ("sortie_digitale", "SO1", ["10", "14"])]}
 FUNCTIONS = {"el5152": {"A1": "Encoder 1, A", "A2": "Encoder 2, A",
                         "B1": "Encoder 1, B", "B2": "Encoder 2, B"}}
 
@@ -305,12 +313,21 @@ def model_card(key, uncertain=True):
             "%s. The channel is the signal in the I/O table, not the pin "
             "number. Check this against the datasheet of your terminal."
             % ", ".join("%d %s" % (p, l) for p, l, _, _ in sorted(pins)))
+    if key in IO_TABLES:
+        note = ("Pin assignment from the public Beckhoff manual of the "
+                "EL2911 (v2.2.0, section Connection): %s; pins 9 and 13 "
+                "are not used, the safe output 1 is on the pins 10 and 14, "
+                "the supply UP (0 V and 24 V) on 11, 15 and 12, 16. The "
+                "channel is the signal in the I/O table, not the pin number."
+                % ", ".join("%d %s" % (p, l) for p, l, _, _ in sorted(pins)))
     infos = [("manufacturer", "Beckhoff"), ("manufacturer_reference", ref),
              ("designation", title),
              ("description", "EtherCAT Terminal, %s. %s" % (en, note))]
     e = Elmt(key, "%s %s" % (ref, en), "%s %s" % (ref, fr), infos, NOTE)
     only = CHANNELS_ONLY.get(key)
-    for pin, label, _, _ in sorted(pins):
+    for io_kind, signal, io_pins in IO_TABLES.get(key, ()):
+        e.io(io_kind, signal, pins=list(io_pins))
+    for pin, label, _, _ in sorted(pins) if key not in IO_TABLES else ():
         if kind and not potential_of(label) and not label.startswith(
                 ("END", "NC")) and (only is None or (label in only
                                                       and pin <= 8)):
@@ -350,7 +367,7 @@ def table_of(src):
 def epp2338():
     e = Elmt("epp2338", "EPP2338 EtherCAT P box, 8 channels",
              "EPP2338 boîtier EtherCAT P, 8 voies",
-             [("manufacturer", "Beckhoff"), ("manufacturer_reference", "EPP2338-0001"),
+             [("manufacturer", "Beckhoff"), ("manufacturer_reference", "EPP2338-0002"),
               ("designation", "EtherCAT P Box, 8-channel digital combi, 24 V DC, 10 us, 0.5 A, M8"),
               ("description", "EtherCAT P box with four M8 sockets X01 to X04, two channels "
                "each, EtherCAT P IN X50 and OUT X51. Schematic view: one block per "

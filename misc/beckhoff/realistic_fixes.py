@@ -48,11 +48,15 @@ NUM_GAP = 2.5       # between the terminal block and a number
 NUM_TOP = 5.5       # a number is drawn this far above its row
 BLOCK = (15.5, 39.5)         # terminal block of the EK1914 (x)
 BLOCK_TOP = -39.8            # top of the first row of terminals
-YELLOW_RECT = (15.5, 45.4, 39.5, 89.6)   # the TwinSAFE rows, pins 11 to 16
+YELLOW_RECT = (15.5, 63.0, 39.5, 131.21)   # the TwinSAFE rows, pins 6-8, 14-16
 FONT_PX = 7 * 4.0 / 3.0      # label font, 7 pt
 CIRCLE_STYLE = "line-style:normal;line-weight:thin;filling:none;color:black"
 YELLOW_STYLE = "line-style:normal;line-weight:normal;filling:yellow;color:black"
 RING_D = 16.2
+# EK1914 manual, table of the terminal points: the channel of each pin
+EK1914_CHANNEL_PINS = {"I1": "2", "I2": "10", "I3": "3", "I4": "11",
+                       "O1": "4", "O2": "12", "O3": "5", "O4": "13",
+                       "SI1": "7", "SI2": "15", "SO1": "8", "SO2": "16"}
 INNER_D = 12.6
 PARTS = ("line", "arc", "circle", "rect", "polygon", "ellipse")
 
@@ -217,7 +221,7 @@ def fix_ek1914(path):
             continue
         pin = int(name)
         yc = float(terminals[name].get("y"))
-        if pin % 2:
+        if pin <= 8:
             x = BLOCK[0] - NUM_GAP - text_width(name)
         else:
             x = BLOCK[1] + NUM_GAP
@@ -233,6 +237,44 @@ def fix_ek1914(path):
             wanted, antialias="false", style=YELLOW_STYLE, rx="0", ry="0"))
         desc.insert(0, rect)
     write(root, path)
+
+
+def renumber_ek1914(path, symbol_path):
+    """The terminals of the EK1914 are numbered down the left column (1 to
+    8) and then down the right one (9 to 16), as in the manual of the
+    coupler; the drawing had them row by row. Renames the terminals and the
+    numbers, puts +24 V on pin 1 and 0 V on pin 9, and moves the channels of
+    the symbol to the pins of the manual."""
+    root = ET.parse(path).getroot()
+    desc = root.find("description")
+    terminals = {t.get("name"): t for t in desc.findall("terminal")}
+    if terminals["1"].get("potential"):
+        return False
+
+    def new(name):
+        k = int(name) - 1
+        return str(k % 2 * 8 + k // 2 + 1)
+
+    for t in desc.findall("text"):
+        if t.get("text").isdigit() and t.get("text") in terminals:
+            t.set("text", new(t.get("text")))
+    names = {n: new(n) for n in terminals if n.isdigit()}
+    for old, t in list(terminals.items()):
+        if old in names:
+            t.set("name", names[old])
+    for t in desc.findall("terminal"):
+        if t.get("name") == "1":
+            t.set("potential", "24V")
+        elif t.get("name") == "9":
+            t.set("potential", "0V")
+    write(root, path)
+    sym = ET.parse(symbol_path).getroot()
+    for io in sym.iter("plcIO"):
+        for t in io.findall("terminal"):
+            if t.text in names:
+                t.text = EK1914_CHANNEL_PINS[io.get("address")]
+    write(sym, symbol_path)
+    return True
 
 
 def terminal_rows(desc):
@@ -285,6 +327,87 @@ def fix_el1918(path, ek_path):
     write(root, path)
 
 
+def label_font(size):
+    return "Roboto Condensed,%d,-1,5,50,0,0,0,0,0,Regular" % size
+
+
+def set_label(t, text, tx, ty, size, up):
+    """Label centred on the terminal column, baseline `up` above it."""
+    t.set("text", text)
+    t.set("font", label_font(size))
+    t.set("x", num(tx - text_width(text) * size / 7.0 / 2))
+    t.set("y", num(ty - up))
+
+
+def tight_labels(path):
+    """EL1918: the rows are only 25 apart, the labels of the usual size
+    would touch the circle of the row above. 6 pt labels, baseline 10 px
+    above the terminal (idempotent)."""
+    root = ET.parse(path).getroot()
+    desc = root.find("description")
+    terminals = [(float(t.get("x")), float(t.get("y")))
+                 for t in desc.findall("terminal")]
+    for lab in desc.findall("text"):
+        if lab.get("text") == "EL1918":
+            continue
+        size = int(lab.get("font").split(",")[1])
+        cx = float(lab.get("x")) + text_width(lab.get("text")) * size / 7.0 / 2
+        ly = float(lab.get("y"))
+        near = [(ty - ly, tx, ty) for tx, ty in terminals
+                if abs(cx - tx) < 8 and 0 < ty - ly < 20]
+        if not near:
+            continue
+        _, tx, ty = min(near)
+        set_label(lab, lab.get("text"), tx, ty, 6, 10)
+    write(root, path)
+
+
+# EL2911, Beckhoff manual v2.2.0 (Connection): pins 1 to 8 are the inputs
+# (+ = clock output, - = safe input), 2' and 6' the safe output 1, 3' and
+# 7' GND UP, 4' and 8' 24 V UP; 1' and 5' are not used.
+EL2911_LABELS = {1: "S1+", 2: "SI1", 3: "S3+", 4: "SI3", 5: "S2+", 6: "SI2",
+                 7: "S4+", 8: "SI4", 10: "SO1", 14: "SO1", 11: "0V",
+                 15: "0V", 12: "24V", 16: "24V"}
+
+
+def fix_el2911(path, symbol_path):
+    """Labels and potentials of the EL2911 from the manual; the drawing's
+    own legends are removed. The data are those of the symbol."""
+    root = ET.parse(path).getroot()
+    symbol = ET.parse(symbol_path).getroot()
+    for tag in ("elementInformations", "kindInformations"):
+        old, new = root.find(tag), symbol.find(tag)
+        if old is not None and new is not None:
+            root[list(root).index(old)] = ET.fromstring(ET.tostring(new))
+    desc = root.find("description")
+    sym_pot = {t.get("name"): t.get("potential")
+               for t in symbol.find("description").iter("terminal")}
+    terminals = {}
+    for t in desc.findall("terminal"):
+        name = t.get("name")
+        terminals[int(name)] = t
+        if sym_pot.get(name):
+            t.set("potential", sym_pot[name])
+        else:
+            t.attrib.pop("potential", None)
+    model = None
+    for lab in list(desc.findall("text")):
+        if lab.get("text") == "EL2911":
+            continue
+        if model is None:
+            model = lab
+        desc.remove(lab)
+    index = max(list(desc).index(t) for t in desc.findall("text")) + 1 \
+        if desc.findall("text") else 0
+    for pin, text in sorted(EL2911_LABELS.items()):
+        t = ET.Element("text", dict(model.attrib))
+        set_label(t, text, float(terminals[pin].get("x")),
+                  float(terminals[pin].get("y")), 6, 12)
+        desc.insert(index, t)
+        index += 1
+    write(root, path)
+
+
 LABEL_SHIFT = 10.0   # labels end 3 px above the circle instead of 13
 
 
@@ -321,6 +444,7 @@ def main():
         raise SystemExit(__doc__)
     base = sys.argv[1]
     ek = os.path.join(base, "ek_couplers", "ek1914_realistic.elmt")
+    renumber_ek1914(ek, os.path.join(base, "ek_couplers", "ek1914.elmt"))
     fix_ek1914(ek)
     fix_el1918(os.path.join(base, "twinsafe", "el1918_realistic.elmt"), ek)
     for f in sorted(glob.glob(os.path.join(base, "*", "*_realistic.elmt"))):
@@ -328,6 +452,9 @@ def main():
             print("simplified", os.path.relpath(f, base))
         if closer_labels(f):
             print("labels closer", os.path.relpath(f, base))
+    tight_labels(os.path.join(base, "twinsafe", "el1918_realistic.elmt"))
+    fix_el2911(os.path.join(base, "twinsafe", "el2911_realistic.elmt"),
+               os.path.join(base, "twinsafe", "el2911.elmt"))
 
 
 if __name__ == "__main__":

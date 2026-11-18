@@ -476,8 +476,8 @@ class TstBeckhoffElements : public QObject
 					}
 				}
 				QVERIFY2(found, qPrintable(QString::number(n)));
-					// the lowest block, the terminals 11 to 16
-				QCOMPARE(yellow, n >= 11);
+					// the lowest block, rows 6 to 8 of both columns
+				QCOMPARE(yellow, (n - 1) % 8 >= 5);
 			}
 		}
 
@@ -499,9 +499,9 @@ class TstBeckhoffElements : public QObject
 								 .toDouble());
 				if (r.attribute(QStringLiteral("style"))
 						.contains(QLatin1String("filling:yellow"))
-						&& box.contains(pins.value(QStringLiteral("11")))
+						&& box.contains(pins.value(QStringLiteral("6")))
 						&& box.contains(pins.value(QStringLiteral("16")))
-						&& !box.contains(pins.value(QStringLiteral("10")))) {
+						&& !box.contains(pins.value(QStringLiteral("5")))) {
 					yellowBlock = true;
 				}
 			}
@@ -524,7 +524,7 @@ class TstBeckhoffElements : public QObject
 				const qreal y = t.attribute(QStringLiteral("y")).toDouble();
 					// 7 pt digits: outside the circles (radius 4.25), a
 					// small gap from the circle, on the line of the terminal
-				if (pin % 2) {
+				if (pin <= 8) {
 					QVERIFY2(x + 4 * name.size() < p.x() - 4.25,
 							 qPrintable(name));
 					QVERIFY2(p.x() - x < 25, qPrintable(name));
@@ -593,9 +593,14 @@ class TstBeckhoffElements : public QObject
 						 qPrintable(key));
 				QVERIFY2(xml.contains(QStringLiteral("text=\"0 V\"")),
 						 qPrintable(key));
-					// the contacts: a filled square and a circle
+					// the contacts: a filled square (red or blue wire)
 				QVERIFY2(xml.contains(QStringLiteral("<rect"))
-						 && xml.contains(QStringLiteral("filling:black")),
+						 && xml.contains(QStringLiteral("filling:red"))
+						 && xml.contains(QStringLiteral("filling:blue")),
+						 qPrintable(key));
+					// +24 V wire in red, 0 V in blue
+				QVERIFY2(xml.contains(QStringLiteral("color:red"))
+						 && xml.contains(QStringLiteral("color:blue")),
 						 qPrintable(key));
 				++checked;
 			}
@@ -621,6 +626,12 @@ class TstBeckhoffElements : public QObject
 				const auto texts = parts.elementsByTagName(
 					QStringLiteral("text"));
 				for (auto it = pins.cbegin(); it != pins.cend(); ++it) {
+					// the terminals 9 and 13 of the EL2911 are not used
+					if (key == QLatin1String("el2911")
+							&& (it.key() == QLatin1String("9")
+								|| it.key() == QLatin1String("13"))) {
+						continue;
+					}
 					const QPointF p = it.value();
 						// no frame left above the circle
 					for (int i = 0; i < lines.size(); ++i) {
@@ -1233,7 +1244,7 @@ class TstBeckhoffElements : public QObject
 				}
 				++checked;
 			}
-			QCOMPARE(checked, 38);
+			QCOMPARE(checked, 39);
 		}
 
 		void schematicViewsAreDrawnInADottedOutlineAtTheRealisticPins()
@@ -1305,10 +1316,11 @@ class TstBeckhoffElements : public QObject
 				legends << texts.at(i).toElement()
 					.attribute(QStringLiteral("text"));
 			}
+				// the LEDs are named after the channel type, not "Signal"
 			for (int n = 1; n <= 4; ++n) {
-				QVERIFY(legends.contains(
-					QStringLiteral("Signal %1").arg(n)));
+				QVERIFY(legends.contains(QStringLiteral("Input %1").arg(n)));
 			}
+			QVERIFY(!legends.contains(QStringLiteral("Signal 1")));
 			QVERIFY(legends.contains(QStringLiteral("1: I1 - Input 1")));
 			QVERIFY(legends.contains(QStringLiteral("5: I2 - Input 2")));
 				// one green LED per channel on top of the realistic view
@@ -1415,7 +1427,7 @@ class TstBeckhoffElements : public QObject
 			for (int i = 0; i < texts.size(); ++i) {
 				const auto t = texts.at(i).toElement();
 				if (t.attribute(QStringLiteral("text"))
-						== QLatin1String("EPP2338")) {
+						== QLatin1String("EPP2338-0002")) {
 					seen = true;
 					QVERIFY(t.attribute(QStringLiteral("y")).toDouble()
 							> pins.value(QStringLiteral("OUT X51")).y()
@@ -1437,6 +1449,88 @@ class TstBeckhoffElements : public QObject
 					.contains(QLatin1String("line-style:dotted"));
 			}
 			QVERIFY(dotted);
+		}
+
+		void el9410PowerFeedHasEightTerminalsAndNoChannel()
+		{
+			const QString key = QStringLiteral("el9410");
+			const auto symbol = load(elementPath(
+				key + QStringLiteral(".elmt"))).documentElement();
+			const auto real = load(appearance(
+				key, QStringLiteral("_realistic"))).documentElement();
+			const auto desc = load(appearance(
+				key, QStringLiteral("_description"))).documentElement();
+			const auto table = load(appearance(
+				key, QStringLiteral("_table"))).documentElement();
+			for (const auto &def : {symbol, real, desc, table}) {
+				QVERIFY(!def.isNull());
+				QCOMPARE(info(def, QStringLiteral("manufacturer_reference")),
+						 QStringLiteral("EL9410"));
+			}
+
+				// the housing of the other terminals, 2 columns of 4
+			const auto ref = load(appearance(QStringLiteral("el1004"),
+				QStringLiteral("_realistic"))).documentElement();
+			QCOMPARE(real.attribute(QStringLiteral("height")),
+					 ref.attribute(QStringLiteral("height")));
+			const auto pins = pinPoints(real.firstChildElement(
+				QStringLiteral("description")));
+			QCOMPARE(pins.size(), 8);
+			for (int n = 1; n <= 8; ++n) {
+				const QString name = QString::number(n);
+				QVERIFY2(pins.contains(name), qPrintable(name));
+				QCOMPARE(pins.value(name).x(), n <= 4 ? -5.0 : 10.0);
+			}
+			QCOMPARE(terminalNames(symbol), terminalNames(real));
+			QCOMPARE(terminalNames(desc), terminalNames(real));
+			QCOMPARE(pinPoints(symbol.firstChildElement(
+				QStringLiteral("description"))), pins);
+
+				// the feed pins carry the potentials, the PE none
+			QCOMPARE(real.elementsByTagName(QStringLiteral("plcIO")).size(),
+					 0);
+			QCOMPARE(symbol.elementsByTagName(QStringLiteral("plcIO")).size(),
+					 0);
+			int red = 0, blue = 0;
+			const auto terminals = real.elementsByTagName(
+				QStringLiteral("terminal"));
+			for (int i = 0; i < terminals.size(); ++i) {
+				const QString pot = terminals.at(i).toElement().attribute(
+					QStringLiteral("potential"));
+				red += pot == QLatin1String("24V");
+				blue += pot == QLatin1String("0V");
+			}
+			QCOMPARE(red, 3);
+			QCOMPARE(blue, 3);
+
+				// the table: pin | label | (empty) TwinCAT ID, 8 rows
+			const auto ios = table.elementsByTagName(QStringLiteral("plcIO"));
+			QCOMPARE(ios.size(), 8);
+			for (int i = 0; i < ios.size(); ++i) {
+				const auto io = ios.at(i).toElement();
+				QVERIFY(io.attribute(QStringLiteral("address")).isEmpty());
+				QVERIFY(!io.attribute(QStringLiteral("functionText"))
+						.isEmpty());
+			}
+			QVERIFY(load(appearance(key, QStringLiteral("_table")))
+					.toString().contains(QStringLiteral(
+						"<columnOrder>5,2,1</columnOrder>")));
+
+				// the description names the LEDs and the legends
+			QStringList legends;
+			const auto texts = desc.elementsByTagName(QStringLiteral("text"));
+			for (int i = 0; i < texts.size(); ++i) {
+				legends << texts.at(i).toElement()
+					.attribute(QStringLiteral("text"));
+			}
+			for (const QString &text : {QStringLiteral("Power (E-bus)"),
+										QStringLiteral("Diag. (E-bus)"),
+										QStringLiteral("Run"),
+										QStringLiteral("2: Infeed 24 V"),
+										QStringLiteral("3: Infeed 0 V"),
+										QStringLiteral("4: PE")}) {
+				QVERIFY2(legends.contains(text), qPrintable(text));
+			}
 		}
 };
 
