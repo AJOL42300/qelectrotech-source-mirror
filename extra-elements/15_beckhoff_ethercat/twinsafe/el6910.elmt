@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="110" height="108" hotspot_x="55" hotspot_y="12">
+<definition version="0.100.0" type="element" link_type="simple" width="110" height="140" hotspot_x="55" hotspot_y="12">
 	<uuid uuid="{c2e3fe9f-8233-55be-896c-1e6f3320f9ef}" />
 	<names>
 		<name lang="en">EL6910 TwinSAFE Logic Terminal</name>
@@ -12,18 +12,27 @@
 	</elementInformations>
 	<informations>Author: QElectroTech contributors
 Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
-Schematic view made by misc/beckhoff/gen_couplers.py from the realistic view: the stages are generic, check them against the datasheet. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+Schematic view made by misc/beckhoff/gen_couplers.py from the realistic view: the stages are generic, check them against the datasheet. License: see http://qelectrotech.org/wiki/doc/elements_license
+The +24 V and 0 V rails stand for the power contacts (generic).</informations>
 	<description>
-		<rect x="-50" y="0" width="100" height="80" rx="0" ry="0" style="line-style:dotted;line-weight:normal;filling:yellow;color:black" antialias="false" />
+		<rect x="-50" y="0" width="100" height="112" rx="0" ry="0" style="line-style:dotted;line-weight:normal;filling:yellow;color:black" antialias="false" />
+		<text x="-46" y="94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="0 V" />
+		<circle x="47.5" y="99.5" diameter="5" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<line x1="-47.5" y1="102" x2="47.5" y2="102" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<rect x="-52.5" y="99.5" width="5" height="5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false" />
+		<text x="-46" y="82" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="+24 V" />
+		<circle x="47.5" y="87.5" diameter="5" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<line x1="-47.5" y1="90" x2="47.5" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<rect x="-52.5" y="87.5" width="5" height="5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false" />
 		<text x="-11" y="36" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="Logic" />
 		<rect x="-26" y="28" width="48" height="24" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="-7" y1="85" x2="3" y2="85" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<rect x="-10" y="80" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-7" y1="117" x2="3" y2="117" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<rect x="-10" y="112" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="-7" y1="-5" x2="3" y2="-5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<rect x="-10" y="-7" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-44" y="6" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="BECKHOFF" />
 		<text x="-44" y="18" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="EL6910" />
-		<dynamic_text x="-50" y="91" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{8a45a06d-b797-57ff-bb8d-a078dd48d9cc}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+		<dynamic_text x="-50" y="123" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{8a45a06d-b797-57ff-bb8d-a078dd48d9cc}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
 		</dynamic_text>

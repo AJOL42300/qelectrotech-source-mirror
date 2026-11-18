@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="110" height="128" hotspot_x="55" hotspot_y="62">
+<definition version="0.100.0" type="element" link_type="simple" width="110" height="160" hotspot_x="55" hotspot_y="62">
 	<uuid uuid="{cb3f0523-fa4d-532a-8dbc-999c8968444f}" />
 	<names>
 		<name lang="en">EK1100 EtherCAT Coupler, 2 x RJ45</name>
@@ -12,15 +12,24 @@
 	</elementInformations>
 	<informations>Author: QElectroTech contributors
 Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
-Schematic view made by misc/beckhoff/gen_couplers.py from the realistic view: the stages are generic, check them against the datasheet. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+Schematic view made by misc/beckhoff/gen_couplers.py from the realistic view: the stages are generic, check them against the datasheet. License: see http://qelectrotech.org/wiki/doc/elements_license
+The +24 V and 0 V rails stand for the power contacts (generic).</informations>
 	<description>
-		<rect x="-50" y="-50" width="100" height="100" rx="0" ry="0" style="line-style:dotted;line-weight:normal;filling:none;color:black" antialias="false" />
+		<rect x="-50" y="-50" width="100" height="132" rx="0" ry="0" style="line-style:dotted;line-weight:normal;filling:none;color:black" antialias="false" />
+		<text x="-46" y="64" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="0 V" />
+		<circle x="47.5" y="69.5" diameter="5" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<line x1="-47.5" y1="72" x2="47.5" y2="72" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<rect x="-52.5" y="69.5" width="5" height="5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false" />
+		<text x="-46" y="52" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="+24 V" />
+		<circle x="47.5" y="57.5" diameter="5" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<line x1="-47.5" y1="60" x2="47.5" y2="60" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<rect x="-52.5" y="57.5" width="5" height="5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false" />
 		<text x="-11" y="4" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="E-bus" />
 		<polygon closed="false" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="30" y1="-10" x2="30" y2="2" x3="22" y3="2" />
 		<polygon closed="false" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="-30" y1="-10" x2="-30" y2="2" x3="-26" y3="2" />
 		<rect x="-26" y="-4" width="48" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="-7" y1="55" x2="3" y2="55" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<rect x="-10" y="50" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-7" y1="87" x2="3" y2="87" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<rect x="-10" y="82" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="-7" y1="-55" x2="3" y2="-55" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<rect x="-10" y="-57" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-44" y="-46" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="BECKHOFF" />
@@ -31,7 +40,7 @@ Schematic view made by misc/beckhoff/gen_couplers.py from the realistic view: th
 		<terminal x="50" y="-10" name="EtherCAT OUT" orientation="e" type="Generic" uuid="{cc52a1ed-a2f4-5536-8227-fb32f567a821}" />
 		<line x1="50" y1="-10" x2="40" y2="-10" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="6" y="-18" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="EtherCAT OUT" />
-		<dynamic_text x="-50" y="61" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{0d7a2e43-47d8-52be-9f2d-228d5a6e4b97}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+		<dynamic_text x="-50" y="93" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{0d7a2e43-47d8-52be-9f2d-228d5a6e4b97}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
 		</dynamic_text>

@@ -20,8 +20,10 @@ The EPP2338 is an EtherCAT P box with a dark housing, not a terminal: four
 M12 sockets X01 to X04 (two channels each) and two M8 EtherCAT P sockets
 X50 (IN) and X51 (OUT).  Pin of a M12 socket: 1 +24 V DC Up, 2 channel B,
 3 GND P, 4 channel A, 5 not connected.  Pin of a M8 socket: 1 Tx+ / GNDs,
-2 Rx+ / GNDp, 3 Rx- / Up, 4 Tx- / Us.  The positions of the sockets, of the
-pins in a socket and of the LEDs on the housing are ASSUMED (the drawing is
+2 Rx+ / GNDp, 3 Rx- / Up, 4 Tx- / Us.  In QET each M12 socket is ONE terminal
+(X01 to X04) shared by its two channels (their plcIO name the same terminal).
+The positions of the sockets, of the pins in a socket and of the LEDs on the
+housing are ASSUMED (the drawing is
 original, redrawn from the structure of the box).
 
 The script patches the files of the box folder in place: it keeps their
@@ -61,8 +63,6 @@ M8_Y = -135
 M8_R = 13.0
 LED_D = 5.0
 FUNCTION = {"A": "In-/Output A", "B": "In-/Output B"}
-# pin of the M12 sockets: number -> (dx, dy), then the use of each pin
-M12_PINS = {1: (-PIN, -PIN), 2: (PIN, -PIN), 3: (PIN, PIN), 4: (-PIN, PIN)}
 M8_PINOUT = ("Tx+ / GNDs", "Rx+ / GNDp", "Rx- / Up", "Tx- / Us")
 # A is on the pin 4, B on the pin 2 of every M12 socket
 CHANNELS = ((1, "A", 4), (2, "B", 2))
@@ -107,11 +107,6 @@ class Drawing:
             "uuid": uid(self.tag, name)}))
 
 
-def pins_of(n):
-    cy = SOCKET_Y[n]
-    return {k: (cx_off, cy + dy) for k, (cx_off, dy) in M12_PINS.items()}
-
-
 def housing(d, dotted):
     x, y, w, h = BODY
     if dotted:
@@ -140,11 +135,8 @@ def realistic():
         name = "X%02d" % (n + 1)
         d.circle(0, cy, 2 * SOCKET_R, WHITE)
         d.circle(0, cy, 2 * SOCKET_R - 6, WHITE)
-        for k, (dx, dy) in M12_PINS.items():
-            d.circle(dx, cy + dy, PIN_D, WHITE)
-            d.terminal(dx, cy + dy, "%s.%d" % (name, k))
-            d.text(dx - 1.5, cy + dy - 3.5, str(k), 5)
-        d.circle(0, cy, 6, WHITE)
+        d.circle(0, cy, 2 * PIN_D, WHITE)
+        d.terminal(0, cy, name)
         d.text(-38, cy - 4, name, 6, True)
         # status LEDs of the two channels, on the right of the socket
         d.circle(33, cy - 8, LED_D, LED)
@@ -176,24 +168,19 @@ def schematic():
     d.text(rail_r - 12, last + 6, "GND P", 5)
     for n, cy in enumerate(SOCKET_Y):
         name = "X%02d" % (n + 1)
-        for k, (dx, dy) in M12_PINS.items():
-            px, py = dx, cy + dy
-            d.terminal(px, py, "%s.%d" % (name, k))
-            if k == 1:
-                d.line(px - PIN_D / 2, py, rail_l, py)
-                d.circle(rail_l, py, 2, BLACK)
-            elif k == 3:
-                d.line(px + PIN_D / 2, py, rail_r, py)
-                d.circle(rail_r, py, 2, BLACK)
-            else:
-                # channel: LED of the input stage, then the load or sensor
-                sign = -1 if k == 4 else 1
-                d.line(px + sign * PIN_D / 2, py, sign * 30, py)
-                d.circle(sign * 25, py, LED_D, LED)
-                d.circle(sign * 30, py, 2, BLACK)
-        for k, (dx, dy) in M12_PINS.items():
-            d.circle(dx, cy + dy, PIN_D, WHITE)
-            d.text(dx - 1.5, cy + dy - 3.5, str(k), 5)
+        # the socket is one terminal; its pins 1 (+24 V Up) and 3 (GND P) go
+        # to the rails, the pins 4 (A) and 2 (B) to the channel LEDs
+        edge = (SOCKET_R ** 2 - PIN ** 2) ** 0.5
+        for sign, dy, rail in ((-1, -PIN, rail_l), (1, PIN, rail_r)):
+            d.line(sign * edge, cy + dy, rail, cy + dy)
+            d.circle(rail, cy + dy, 2, BLACK)
+        for sign, dy in ((-1, PIN), (1, -PIN)):
+            d.line(sign * edge, cy + dy, sign * 30, cy + dy)
+            d.circle(sign * 25, cy + dy, LED_D, LED)
+            d.circle(sign * 30, cy + dy, 2, BLACK)
+        d.circle(0, cy, 2 * SOCKET_R, WHITE)
+        d.circle(0, cy, 2 * PIN_D, WHITE)
+        d.terminal(0, cy, name)
         d.text(-38, cy - 4, name, 6, True)
         d.text(3, cy - 33, "%s(2)" % name, 5)
         d.text(-30, cy + 28, "%s(1)" % name, 5)
@@ -220,11 +207,14 @@ def bounds(parts, terms):
 
 
 def patch_io(root):
-    """Pin of the M12 sockets and a function for each channel."""
+    """Each M12 socket is one terminal carrying its two channels: the
+    function of a channel follows its number (1 = A on pin 4, 2 = B on
+    pin 2)."""
     for io in root.iter("plcIO"):
         term = io.find("terminal")
-        pin = term.text
-        io.set("functionText", FUNCTION["A" if pin.endswith(".4") else "B"])
+        term.text = term.text.split(".")[0]
+        io.set("functionText",
+               FUNCTION["A" if io.get("address").endswith("(1)") else "B"])
     info = {
         "manufacturer_reference": REFERENCE,
         "designation": "EtherCAT P Box, 8-channel digital input/output, "
@@ -233,11 +223,12 @@ def patch_io(root):
                        "X01 to X04, two channels each (pin 4 = channel A, "
                        "pin 2 = channel B, pin 1 = +24 V DC Up, pin 3 = "
                        "GND P, pin 5 not connected), and two M8 EtherCAT P "
-                       "sockets, X50 IN and X51 OUT. The pins X01.1 to "
-                       "X04.4 are drawn on the sockets; the channel "
-                       "(X01(1)...) is the signal of the I/O table, not the "
-                       "pin. The positions on the housing are assumed. The "
-                       "label of the box is the card id (A1.10).",
+                       "sockets, X50 IN and X51 OUT. Each M12 socket is ONE "
+                       "terminal (X01 to X04) shared by its two channels "
+                       "(X01(1), X01(2)...), the channel is the signal of "
+                       "the I/O table, not the pin. The positions on the "
+                       "housing are assumed. The label of the box is the "
+                       "card id (A1.10).",
     }
     for e in root.iter("elementInformation"):
         if e.get("name") in info:

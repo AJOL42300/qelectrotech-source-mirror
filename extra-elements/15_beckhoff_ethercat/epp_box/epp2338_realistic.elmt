@@ -8,7 +8,7 @@
 		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
 		<elementInformation name="manufacturer_reference" show="1">EPP2338-0002</elementInformation>
 		<elementInformation name="designation" show="1">EtherCAT P Box, 8-channel digital input/output, 24 V DC, M12</elementInformation>
-		<elementInformation name="description" show="1">EtherCAT P box with a dark housing: four M12 sockets X01 to X04, two channels each (pin 4 = channel A, pin 2 = channel B, pin 1 = +24 V DC Up, pin 3 = GND P, pin 5 not connected), and two M8 EtherCAT P sockets, X50 IN and X51 OUT. The pins X01.1 to X04.4 are drawn on the sockets; the channel (X01(1)...) is the signal of the I/O table, not the pin. The positions on the housing are assumed. The label of the box is the card id (A1.10).</elementInformation>
+		<elementInformation name="description" show="1">EtherCAT P box with a dark housing: four M12 sockets X01 to X04, two channels each (pin 4 = channel A, pin 2 = channel B, pin 1 = +24 V DC Up, pin 3 = GND P, pin 5 not connected), and two M8 EtherCAT P sockets, X50 IN and X51 OUT. Each M12 socket is ONE terminal (X01 to X04) shared by its two channels (X01(1), X01(2)...), the channel is the signal of the I/O table, not the pin. The positions on the housing are assumed. The label of the box is the card id (A1.10).</elementInformation>
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
@@ -22,28 +22,28 @@
 			</columnVisibility>
 			<plcIOs>
 				<plcIO type="entree_universelle" address="X01(1)" functionText="In-/Output A" comment="" crossRef="" terminalCount="1">
-					<terminal>X01.4</terminal>
+					<terminal>X01</terminal>
 				</plcIO>
 				<plcIO type="entree_universelle" address="X01(2)" functionText="In-/Output B" comment="" crossRef="" terminalCount="1">
-					<terminal>X01.2</terminal>
+					<terminal>X01</terminal>
 				</plcIO>
 				<plcIO type="entree_universelle" address="X02(1)" functionText="In-/Output A" comment="" crossRef="" terminalCount="1">
-					<terminal>X02.4</terminal>
+					<terminal>X02</terminal>
 				</plcIO>
 				<plcIO type="entree_universelle" address="X02(2)" functionText="In-/Output B" comment="" crossRef="" terminalCount="1">
-					<terminal>X02.2</terminal>
+					<terminal>X02</terminal>
 				</plcIO>
 				<plcIO type="entree_universelle" address="X03(1)" functionText="In-/Output A" comment="" crossRef="" terminalCount="1">
-					<terminal>X03.4</terminal>
+					<terminal>X03</terminal>
 				</plcIO>
 				<plcIO type="entree_universelle" address="X03(2)" functionText="In-/Output B" comment="" crossRef="" terminalCount="1">
-					<terminal>X03.2</terminal>
+					<terminal>X03</terminal>
 				</plcIO>
 				<plcIO type="entree_universelle" address="X04(1)" functionText="In-/Output A" comment="" crossRef="" terminalCount="1">
-					<terminal>X04.4</terminal>
+					<terminal>X04</terminal>
 				</plcIO>
 				<plcIO type="entree_universelle" address="X04(2)" functionText="In-/Output B" comment="" crossRef="" terminalCount="1">
-					<terminal>X04.2</terminal>
+					<terminal>X04</terminal>
 				</plcIO>
 			</plcIOs>
 		</plcMasterData>
@@ -62,15 +62,7 @@ Realistic view drawn by misc/beckhoff/gen_symbols.py, layout assumed: scale 1.00
 		<circle x="-2.5" y="-165.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
 		<circle x="-25" y="-95" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="50" />
 		<circle x="-22" y="-92" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="44" />
-		<circle x="-19.5" y="-89.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="-16.5" y="-88.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="1" />
-		<circle x="10.5" y="-89.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="13.5" y="-88.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="2" />
-		<circle x="10.5" y="-59.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="13.5" y="-58.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="3" />
-		<circle x="-19.5" y="-59.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="-16.5" y="-58.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="4" />
-		<circle x="-3" y="-73" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="6" />
+		<circle x="-9" y="-79" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="18" />
 		<text x="-38" y="-74" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="X01" />
 		<circle x="30.5" y="-80.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
 		<circle x="30.5" y="-64.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
@@ -78,15 +70,7 @@ Realistic view drawn by misc/beckhoff/gen_symbols.py, layout assumed: scale 1.00
 		<text x="-30" y="-42" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="X01(1)" />
 		<circle x="-25" y="-25" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="50" />
 		<circle x="-22" y="-22" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="44" />
-		<circle x="-19.5" y="-19.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="-16.5" y="-18.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="1" />
-		<circle x="10.5" y="-19.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="13.5" y="-18.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="2" />
-		<circle x="10.5" y="10.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="13.5" y="11.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="3" />
-		<circle x="-19.5" y="10.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="-16.5" y="11.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="4" />
-		<circle x="-3" y="-3" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="6" />
+		<circle x="-9" y="-9" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="18" />
 		<text x="-38" y="-4" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="X02" />
 		<circle x="30.5" y="-10.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
 		<circle x="30.5" y="5.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
@@ -94,15 +78,7 @@ Realistic view drawn by misc/beckhoff/gen_symbols.py, layout assumed: scale 1.00
 		<text x="-30" y="28" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="X02(1)" />
 		<circle x="-25" y="45" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="50" />
 		<circle x="-22" y="48" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="44" />
-		<circle x="-19.5" y="50.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="-16.5" y="51.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="1" />
-		<circle x="10.5" y="50.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="13.5" y="51.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="2" />
-		<circle x="10.5" y="80.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="13.5" y="81.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="3" />
-		<circle x="-19.5" y="80.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="-16.5" y="81.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="4" />
-		<circle x="-3" y="67" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="6" />
+		<circle x="-9" y="61" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="18" />
 		<text x="-38" y="66" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="X03" />
 		<circle x="30.5" y="59.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
 		<circle x="30.5" y="75.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
@@ -110,15 +86,7 @@ Realistic view drawn by misc/beckhoff/gen_symbols.py, layout assumed: scale 1.00
 		<text x="-30" y="98" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="X03(1)" />
 		<circle x="-25" y="115" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="50" />
 		<circle x="-22" y="118" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="44" />
-		<circle x="-19.5" y="120.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="-16.5" y="121.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="1" />
-		<circle x="10.5" y="120.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="13.5" y="121.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="2" />
-		<circle x="10.5" y="150.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="13.5" y="151.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="3" />
-		<circle x="-19.5" y="150.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="-16.5" y="151.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="4" />
-		<circle x="-3" y="137" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="6" />
+		<circle x="-9" y="131" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="18" />
 		<text x="-38" y="136" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="X04" />
 		<circle x="30.5" y="129.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
 		<circle x="30.5" y="145.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
@@ -129,22 +97,10 @@ Realistic view drawn by misc/beckhoff/gen_symbols.py, layout assumed: scale 1.00
 		<text x="-19" y="187" rotation="0" color="#000000" font="Roboto Condensed,8,-1,5,75,0,0,0,0,0,Bold" text="EPP2338" />
 		<terminal x="-20" y="-135" name="IN X50" orientation="e" type="Generic" uuid="{d5816a82-72e6-5d23-97f4-7703c2eb9bbb}" />
 		<terminal x="20" y="-135" name="OUT X51" orientation="e" type="Generic" uuid="{b7e491ef-129f-51ca-8792-879d1365d9d7}" />
-		<terminal x="-15" y="-85" name="X01.1" orientation="e" type="Generic" uuid="{4114316e-767a-5f8a-893f-745aa34b58d3}" />
-		<terminal x="15" y="-85" name="X01.2" orientation="e" type="Generic" uuid="{531e4272-654b-5fe9-ad2a-287ac02f0f3b}" />
-		<terminal x="15" y="-55" name="X01.3" orientation="e" type="Generic" uuid="{b398556b-7cbb-5dd9-ab2d-82b193d49867}" />
-		<terminal x="-15" y="-55" name="X01.4" orientation="e" type="Generic" uuid="{ae03e64d-6a85-5b9c-89a8-65d9506a3445}" />
-		<terminal x="-15" y="-15" name="X02.1" orientation="e" type="Generic" uuid="{04c29153-bc40-5ae4-94cf-fbc66fa530f7}" />
-		<terminal x="15" y="-15" name="X02.2" orientation="e" type="Generic" uuid="{4acbf920-cf0b-5640-a1fc-5ae0b4313cb4}" />
-		<terminal x="15" y="15" name="X02.3" orientation="e" type="Generic" uuid="{98c0aea6-8203-5373-b089-5431094e6a12}" />
-		<terminal x="-15" y="15" name="X02.4" orientation="e" type="Generic" uuid="{72dadc1a-169f-590a-a167-05f4b4d49f0f}" />
-		<terminal x="-15" y="55" name="X03.1" orientation="e" type="Generic" uuid="{d64db51e-f128-5460-a717-6c11fb640204}" />
-		<terminal x="15" y="55" name="X03.2" orientation="e" type="Generic" uuid="{6c2abec3-6566-518d-86ff-c7a18b964c19}" />
-		<terminal x="15" y="85" name="X03.3" orientation="e" type="Generic" uuid="{b1e0a48a-49c0-576b-82d1-6a01024121ce}" />
-		<terminal x="-15" y="85" name="X03.4" orientation="e" type="Generic" uuid="{fe2b7f82-3505-50d7-9453-5f9c275a0449}" />
-		<terminal x="-15" y="125" name="X04.1" orientation="e" type="Generic" uuid="{4486850c-7b6f-5583-961b-5d40498cfb8c}" />
-		<terminal x="15" y="125" name="X04.2" orientation="e" type="Generic" uuid="{7c2160a1-c863-5627-835a-32a3e37731dd}" />
-		<terminal x="15" y="155" name="X04.3" orientation="e" type="Generic" uuid="{07e82508-5cbe-597e-9dc3-ea77496c6bf4}" />
-		<terminal x="-15" y="155" name="X04.4" orientation="e" type="Generic" uuid="{7679bafe-a46d-5cda-9bdd-aa9057076fa4}" />
+		<terminal x="0" y="-70" name="X01" orientation="e" type="Generic" uuid="{4cb17d98-2831-5105-a2d1-4087a8d96034}" />
+		<terminal x="0" y="0" name="X02" orientation="e" type="Generic" uuid="{4e333239-4108-5bae-b72f-77b9143bd2df}" />
+		<terminal x="0" y="70" name="X03" orientation="e" type="Generic" uuid="{58dbf859-3fdd-5b6b-a038-58024deccdaa}" />
+		<terminal x="0" y="140" name="X04" orientation="e" type="Generic" uuid="{bab8768d-2a46-502c-aec9-6e3357bc7efa}" />
 		<dynamic_text x="-40" y="-195" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{4ee22e6b-7dbd-5e12-b4b4-53bd1adf4532}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold">
 			<text />
 			<info_name>label</info_name>

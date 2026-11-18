@@ -537,23 +537,69 @@ class TstBeckhoffElements : public QObject
 			QCOMPARE(seen, 16);
 		}
 
-		void el1918HasTheTerminalsOfTheRightPartOfTheEk1914()
+		void el1918HasTheHousingOfTheOtherCardsWithSixteenPins()
 		{
-			const auto ek = pinPoints(load(appearance(
-				QStringLiteral("ek1914"), QStringLiteral("_realistic")))
-				.documentElement().firstChildElement(
+			const auto def = load(appearance(QStringLiteral("el1918"),
+				QStringLiteral("_realistic"))).documentElement();
+			const auto el = pinPoints(def.firstChildElement(
 				QStringLiteral("description")));
-			const auto el = pinPoints(load(appearance(
-				QStringLiteral("el1918"), QStringLiteral("_realistic")))
-				.documentElement().firstChildElement(
-				QStringLiteral("description")));
+				// same housing as the EL1004
+			const auto ref = load(appearance(QStringLiteral("el1004"),
+				QStringLiteral("_realistic"))).documentElement();
+			QCOMPARE(def.attribute(QStringLiteral("width")),
+					 ref.attribute(QStringLiteral("width")));
+			QCOMPARE(def.attribute(QStringLiteral("height")),
+					 ref.attribute(QStringLiteral("height")));
+			QCOMPARE(el.size(), 16);
 			for (int n = 1; n <= 16; ++n) {
 				const QString name = QString::number(n);
 				QVERIFY2(el.contains(name), qPrintable(name));
-					// two columns, odd on the left, row by row
-				QCOMPARE(el.value(name).x(), ek.value(name).x());
-				QCOMPARE(el.value(name).y(), ek.value(name).y());
+					// 1..8 in the left column, 9..16 in the right one
+				QCOMPARE(el.value(name).x(), n <= 8 ? -5.0 : 10.0);
+				const int row = (n - 1) % 8;
+				QCOMPARE(el.value(name).y(),
+						 el.value(QStringLiteral("1")).y() + 25.0 * row);
 			}
+		}
+
+		void everyCardWithTerminalsHasTheSameHeight()
+		{
+			for (const QString &key : {QStringLiteral("el1004"),
+									   QStringLiteral("el1008"),
+									   QStringLiteral("el1904"),
+									   QStringLiteral("el1918"),
+									   QStringLiteral("el2911"),
+									   QStringLiteral("ek1914"),
+									   QStringLiteral("el5152")}) {
+				const auto def = load(appearance(key,
+					QStringLiteral("_realistic"))).documentElement();
+				QCOMPARE(def.attribute(QStringLiteral("height")),
+						 QStringLiteral("330"));
+				QCOMPARE(def.attribute(QStringLiteral("hotspot_y")),
+						 QStringLiteral("160"));
+			}
+		}
+
+		void schematicViewsShowThePowerSupplyAndTheContacts()
+		{
+			int checked = 0;
+			for (const QString &key : cardKeys()) {
+				const QString path = elementPath(key + QStringLiteral(".elmt"));
+				if (!QFile::exists(path)) {
+					continue;
+				}
+				const QString xml = load(path).toString();
+				QVERIFY2(xml.contains(QStringLiteral("text=\"+24 V\"")),
+						 qPrintable(key));
+				QVERIFY2(xml.contains(QStringLiteral("text=\"0 V\"")),
+						 qPrintable(key));
+					// the contacts: a filled square and a circle
+				QVERIFY2(xml.contains(QStringLiteral("<rect"))
+						 && xml.contains(QStringLiteral("filling:black")),
+						 qPrintable(key));
+				++checked;
+			}
+			QCOMPARE(checked, cardKeys().size());
 		}
 
 		void realisticTerminalsAreOnlyACircleWithTheLabelAbove()
@@ -1290,8 +1336,8 @@ class TstBeckhoffElements : public QObject
 			QVERIFY(!symbol.isNull());
 			QVERIFY(!real.isNull());
 
-				// the socket pins carry the Beckhoff pin number (X01.4 is
-				// the channel 1 of X01), not the channel number
+				// each M12 socket is one terminal (X01.4 was the channel 1
+				// of X01 before): 4 sockets + 2 EtherCAT P sockets
 			QMap<QString, QPointF> pins;
 			const auto terminals = real.firstChildElement(
 				QStringLiteral("description")).elementsByTagName(
@@ -1307,9 +1353,7 @@ class TstBeckhoffElements : public QObject
 			QStringList expected{QStringLiteral("IN X50"),
 								 QStringLiteral("OUT X51")};
 			for (int s = 1; s <= 4; ++s) {
-				for (int p = 1; p <= 4; ++p) {
-					expected << QStringLiteral("X0%1.%2").arg(s).arg(p);
-				}
+				expected << QStringLiteral("X0%1").arg(s);
 			}
 			QCOMPARE(QStringList(pins.keys()).size(), expected.size());
 			for (const QString &name : expected) {
@@ -1343,15 +1387,24 @@ class TstBeckhoffElements : public QObject
 						 && qFuzzyIsNull(std::fmod(it.value().y(), 5)),
 						 qPrintable(it.key()));
 			}
-				// the channel is not the pin: X01(1) is on the pin 4
+				// two channels share the terminal of their M12 socket:
+				// X01(1) (pin 4) and X01(2) (pin 2) are on the terminal X01
 			const auto ios = real.elementsByTagName(
 				QStringLiteral("plcIO"));
 			QVERIFY(ios.size() == 8);
-			const auto first = ios.at(0).toElement();
-			QCOMPARE(first.attribute(QStringLiteral("address")),
-					 QStringLiteral("X01(1)"));
-			QCOMPARE(first.firstChildElement(QStringLiteral("terminal"))
-					 .text(), QStringLiteral("X01.4"));
+			QMap<QString, QStringList> byPin;
+			for (int i = 0; i < ios.size(); ++i) {
+				const auto io = ios.at(i).toElement();
+				byPin[io.firstChildElement(QStringLiteral("terminal"))
+					  .text()] << io.attribute(QStringLiteral("address"));
+			}
+			QCOMPARE(byPin.size(), 4);
+			QCOMPARE(byPin.value(QStringLiteral("X01")),
+					 (QStringList{QStringLiteral("X01(1)"),
+								  QStringLiteral("X01(2)")}));
+			QCOMPARE(byPin.value(QStringLiteral("X04")),
+					 (QStringList{QStringLiteral("X04(1)"),
+								  QStringLiteral("X04(2)")}));
 			QCOMPARE(ioAddresses(real), ioAddresses(symbol));
 
 				// the reference is inside the box, under the sockets

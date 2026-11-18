@@ -71,11 +71,11 @@ EL_LEDS = {
     "el2904": (4, True), "el2911": (5, True),
     "el1xxx_generic": (8, False), "el2xxx_generic": (8, False),
     "el3xxx_generic": (8, False), "el4xxx_generic": (8, False),
-    "el2652": (4, False),
+    "el2652": (4, False), "el1918": (8, True),
 }
 EL60 = ("el1004", "el1008", "el2004", "el2008", "el2522", "el2574", "el5152",
         "el9100", "el1904", "el2904", "el1xxx_generic", "el2xxx_generic",
-        "el3xxx_generic", "el4xxx_generic", "el2652")
+        "el3xxx_generic", "el4xxx_generic", "el2652", "el1918")
 
 
 def uid(*parts):
@@ -393,7 +393,7 @@ def power_contacts(card, right, bottom):
 
 def build_el60(card):
     terminal_legends(card, 2.5, 7)
-    el60_leds(card, -5, 10, -112)
+    el60_leds(card, -5, 10, -118 if card.stem == "el1918" else -112)
     power_contacts(card, card.maxx_body(), 140)
 
 
@@ -412,26 +412,13 @@ def build_el2911(card):
     power_contacts(card, card.maxx_body(), 140)
 
 
-def build_el1918(card):
-    terminal_legends(card, 25, 7)
-    card.rect(-13, -58, 76, 14, YELLOW)
-    positions = [(-7 + 8 * k, -51) for k in range(9)]
-    for cx, cy in positions:
-        card.circle(cx, cy, LED_D)
-    card.legends.append(Legend("L", -51, -7 - LED_D / 2 - LEAD_GAP,
-                               ["Signal 1 to 8"], 6))
-    card.legends.append(Legend("R", -51, 57 + LED_D / 2 + LEAD_GAP,
-                               ["Diagnostic"], 6))
-    power_contacts(card, card.maxx_body(), 111)
-
-
 def build_ek1914(card):
-    positions = [(28, -79 + LED_PITCH * k) for k in range(4)]
+    positions = [(28, -112 + LED_PITCH * k) for k in range(4)]
     add_leds(card, positions,
              [(k, "R", "Status LED %d" % (k + 1)) for k in range(4)])
-    card.legends.append(Legend("R", 10, 39.5 + LEAD_GAP,
+    card.legends.append(Legend("R", 12.5, 39.5 + LEAD_GAP,
                                ["Terminals 1 to 10", "standard I/O"], 6))
-    card.legends.append(Legend("R", 61, 39.5 + LEAD_GAP,
+    card.legends.append(Legend("R", 100, 39.5 + LEAD_GAP,
                                ["Terminals 11 to 16", "TwinSAFE I/O"], 6))
 
 
@@ -456,15 +443,13 @@ def build_epp(card):
     import gen_epp as epp
     for n, cy in enumerate(epp.SOCKET_Y):
         name = "X%02d" % (n + 1)
-        pins = {t.name: t for t in card.terms
-                if t.name.startswith(name + ".")}
-        left, right = pins[name + ".1"], pins[name + ".2"]
+        sock = next(t for t in card.terms if t.name == name)
         card.legends.append(Legend(
-            "L", left.y, left.x - left.r - LEAD_GAP,
+            "L", sock.y, sock.x - sock.r - LEAD_GAP,
             ["%s: M12 socket" % name, "Pin 1: +24 V DC Up",
              "Pin 3: GND P"], 6))
         card.legends.append(Legend(
-            "R", right.y, right.x + right.r + LEAD_GAP,
+            "R", sock.y, sock.x + sock.r + LEAD_GAP,
             ["Pin 2: In-/Output B", "Pin 4: In-/Output A"], 6))
         for dy, text in ((-8, "LED channel B"), (8, "LED channel A")):
             card.legends.append(Legend(
@@ -580,8 +565,6 @@ def build(card):
         build_el60(card)
     elif s == "el2911":
         build_el2911(card)
-    elif s == "el1918":
-        build_el1918(card)
     elif s == "ek1914":
         build_ek1914(card)
     elif s.startswith("af") or s.startswith("ax"):

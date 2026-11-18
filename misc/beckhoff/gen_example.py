@@ -358,7 +358,8 @@ def island_folios(first, head_label, cards):
                        f"sym/{head_label}")]
     conductors = []
     for n, (label, cat, name) in enumerate(cards):
-        els.append(element_xml(get(cat, name), label, 360 + 230 * n, 70,
+        els.append(element_xml(get(cat, name), label, 360 + 230 * n,
+                               175 if name == "el1918" else 70,
                                f"sym/{label}"))
     sensor = get(DEV, "sensor")
     wired = []

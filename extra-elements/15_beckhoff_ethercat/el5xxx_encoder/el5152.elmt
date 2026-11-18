@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="master" width="47" height="302" hotspot_x="20" hotspot_y="149">
+<definition version="0.100.0" type="element" link_type="master" width="52" height="302" hotspot_x="22" hotspot_y="149">
 	<uuid uuid="{79387da7-d69b-5660-b09a-393009c72d1b}" />
 	<names>
 		<name lang="en">EL5152 encoder input terminal</name>
@@ -45,6 +45,26 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<line x1="-3.25" y1="-141.7" x2="6.75" y2="-141.7" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<rect x="-6.25" y="140.5" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="-3.25" y1="145.5" x2="6.75" y2="145.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<rect x="-17" y="-125.5" width="5" height="5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false" />
+		<line x1="-12" y1="-123" x2="19.5" y2="-123" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<circle x="19.5" y="-125.5" diameter="5" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="-10.5" y="-131" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="+24 V" />
+		<rect x="-17" y="-113.5" width="5" height="5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false" />
+		<line x1="-12" y1="-111" x2="19.5" y2="-111" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<circle x="19.5" y="-113.5" diameter="5" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
+		<text x="-10.5" y="-119" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="0 V" />
+		<line x1="-12" y1="-123" x2="-12" y2="115" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<circle x="-13.2" y="-124.2" diameter="2.4" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false" />
+		<line x1="-9.5" y1="60" x2="-12" y2="60" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<circle x="-13.2" y="58.8" diameter="2.4" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false" />
+		<line x1="-9.5" y1="115" x2="-12" y2="115" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<circle x="-13.2" y="113.8" diameter="2.4" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false" />
+		<line x1="19.5" y1="-111" x2="19.5" y2="115" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<circle x="18.3" y="-112.2" diameter="2.4" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false" />
+		<line x1="14.5" y1="60" x2="19.5" y2="60" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<circle x="18.3" y="58.8" diameter="2.4" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false" />
+		<line x1="14.5" y1="115" x2="19.5" y2="115" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<circle x="18.3" y="113.8" diameter="2.4" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false" />
 		<line x1="10" y1="9.5" x2="10" y2="19.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="12" y1="19.5" x2="12" y2="28.5" x3="8" y3="28.5" x4="8" y4="19.5" />
 		<line x1="10" y1="28.5" x2="10" y2="38.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
@@ -83,12 +103,6 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<line x1="1.6" y1="-10.2" x2="4.1" y2="-7.2" end1="none" end2="simple" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="-5" y1="-14" x2="-5" y2="-21.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="-8.5" y1="-21.5" x2="-1.5" y2="-21.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false" />
-		<line x1="-5" y1="55.5" x2="-5" y2="47.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="-8.5" y1="47.5" x2="-1.5" y2="47.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false" />
-		<line x1="-8.5" y1="47.5" x2="-1.5" y2="47.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false" />
-		<line x1="-5" y1="110.5" x2="-5" y2="102.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="-8.5" y1="102.5" x2="-1.5" y2="102.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false" />
-		<line x1="-8.5" y1="102.5" x2="-1.5" y2="102.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false" />
 		<line x1="10" y1="-49.5" x2="10" y2="-57" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="7" y1="-57" x2="13" y2="-57" x3="10" y3="-62.5" />
 		<line x1="7" y1="-62.5" x2="13" y2="-62.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
@@ -96,10 +110,6 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<line x1="16.6" y1="-60.2" x2="19.1" y2="-57.2" end1="none" end2="simple" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="10" y1="-64" x2="10" y2="-71.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="6.5" y1="-71.5" x2="13.5" y2="-71.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false" />
-		<line x1="10" y1="110.5" x2="10" y2="104.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="6" y1="104.5" x2="14" y2="104.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="7.3" y1="102.5" x2="12.7" y2="102.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="8.6" y1="100.5" x2="11.4" y2="100.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="5.38" y="-7" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="B2" />
 		<text x="-10.7" y="135.74" font="Roboto Condensed,8,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="EL5152" />
 		<terminal x="-5" y="-45" name="1" orientation="w" type="Generic" uuid="{cbe6b856-0a10-5f4f-b0e0-621eb63804b8}" />

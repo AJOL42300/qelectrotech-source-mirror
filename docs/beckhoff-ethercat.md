@@ -31,7 +31,13 @@ Every card has up to **four appearances**:
 - the **schematic** (the symbol, `X.elmt`): the wiring diagram of the card
   drawn inside its dotted outline (rail clips, optocouplers or output stages,
   numbered terminals, +24 V / 0 V, power contacts), with the terminals at the
-  same positions as the realistic view, so the views are interchangeable;
+  same positions as the realistic view, so the views are interchangeable.
+  The +24 V and 0 V rails run from a filled square (contact on the left) to a
+  circle (contact on the right) and are joined by black dots to the 0 V / +24 V
+  pins of the card; the couplers only show the two rails of the power
+  contacts. The cards without 24 V / 0 V terminals (EL1008, EL2008, generic
+  cards...) show the rails and the contacts only: the links are generic, not
+  from a datasheet;
 - the **realistic** view (`_realistic`): the front with only the pin numbers
   and the I/O labels;
 - the **description** view (`_description`): the realistic view with the
@@ -278,9 +284,9 @@ the example project does not embed it.
 | Element | Scale | Grid | Largest remaining gap | Size, hotspot |
 | --- | --- | --- | --- | --- |
 | single-width cards (EL1004, EL1008, EL1904, EL2004, EL2008, EL2522, EL2574, EL2904, EL5152, EL9100) | 1.00 | 5 px | about 1 px | 60x330, (30,160) |
-| `ek1914_realistic` | 1.00 | 5 px | about 1.3 px | 130x220, (60,110) |
+| `ek1914_realistic` | 1.00 | 5 px | about 1.3 px | 130x330, (60,160) |
 | `el2911_realistic` | 1.00 | 5 px | about 0.8 px | see the element |
-| `el1918_realistic` | 1.00 | 5 px | 0.4 px | 90x160, (20,50) |
+| `el1918_realistic` | 1.00 | 5 px | 0 | 60x330, (30,160) |
 
 The row pitch of the drawings is not uniform, so a single scale cannot bring
 all the circles to the grid: the gap above is what is left, and the circles
@@ -310,13 +316,18 @@ drives) a terminal is drawn as its circle, with the label of the terminal
 slot) is not drawn. `misc/beckhoff/realistic_fixes.py` applies this, and the
 two layouts below, to the generated views.
 
-- **EK1914**: the numbers 1 to 16 are outside the block of terminals, next to
+- **EK1914**: same height as the other cards (330, the rows are 25 px apart,
+  stretched from the traced drawing, so the traced parts are a little
+  distorted). The numbers 1 to 16 are outside the block of terminals, next to
   their circle (odd pins on the left, even pins on the right), and the whole
   lower block (pins 11 to 16, TwinSAFE) is yellow, as the TwinSAFE cards.
-- **EL1918**: its 16 terminals are laid out as the right part of the EK1914:
-  two columns, rows 1-2, 3-4, ... 15-16, on a yellow body. The signals follow
-  the Beckhoff order, not the channel order (Sn+ on the odd pins, SIn on the
-  even ones, channels 1, 3, 5, 7 first, then 2, 4, 6, 8).
+- **EL1918**: the same housing as the other cards (60x330, one yellow body),
+  with 16 pins instead of 8: two columns of 8 rows, pins 1 to 8 in the left
+  column and 9 to 16 in the right one, the rows 25 px apart (estimated from
+  the front picture). The signals follow the Beckhoff order, not the channel
+  order (Sn+ on the odd pins, SIn on the even ones, channels 1, 3, 5, 7 first,
+  then 2, 4, 6, 8).
+  `misc/beckhoff/fix_boxes.py` applies the two layouts.
 
 ### Description appearance
 
@@ -559,12 +570,18 @@ labelling areas, pin-out); no image or manufacturer text is in the repository:
   5 px grid.
 - `epp2338_realistic.elmt`: the front of the box at the EK1914 scale, with the
   six sockets, the LEDs (one per channel, L/A, Run, Us/Up) and the reference
-  inside, at the bottom. The terminals are named `X0n.1` to `X0n.5` (pin of
-  the socket); the two extra terminals are `IN X50` and `OUT X51`.
+  inside, at the bottom. **One terminal per M12 socket**: `X01` to `X04`
+  (the other pins of the socket are drawn, not terminals); the two EtherCAT P
+  sockets keep their terminals `IN X50` and `OUT X51`.
 - `epp2338_description.elmt` and `epp2338_table.elmt`.
 
-Each channel has its pin: on an M12 socket, pin 4 is In-/Output A, pin 2 is
-In-/Output B, pin 1 is +24 V DC Up, pin 3 is GND P and pin 5 is not connected.
+Each socket carries two channels, so two I/Os share the same terminal (A:
+pin 4, B: pin 2 of the socket): the table has two rows per pin (`X01(1)`,
+`X01(2)`, ...). The model of QET already allows several I/Os on one terminal
+(the tooltip lists them by terminal, the TwinCAT match uses the sense and the
+trailing number of the address, the cross reference goes by the index of the
+I/O), so nothing changes in the program. The other pins of the socket are
++24 V DC Up (1), GND P (3), not connected (5).
 
 INCERTAIN: the positions of the sockets, the LEDs and the labelling areas on
 the front are assumed from the reference picture; check the pin-outs against
@@ -594,6 +611,15 @@ the datasheet of your box.
   (menus, dialogs, tooltip) was not tried by hand.
 
 - No E-bus or power contact terminals are drawn between the I/O terminals.
+- The +24 V / 0 V rails, the junction dots and the power contacts of the
+  schematic views are generic drawings (decoration, no terminal): cards
+  without 24 V / 0 V terminals only show the rails and the contacts, the
+  couplers only show the two power contact rails, and the drives have no new
+  marker (their mains and DC link are already drawn). They are not taken from
+  a datasheet.
+- The channel-to-pin mapping and the vertical pitch of the EK1914 (stretched
+  to the common card height) and the row pitch of the EL1918 (16 pins in the
+  standard housing) are estimated from the reference images.
 - A SVG conversion only keeps the colours of the symbol palette, no text,
   clipping or filter, and does not detect the terminals.
 - The I/O folios use the "island" table: it is not editable with the
@@ -614,6 +640,7 @@ python misc/beckhoff/realistic_from_model.py <drawings> <scratch>/15_beckhoff_et
 python misc/beckhoff/organize.py <scratch> extra-elements
 python misc/beckhoff/realistic_fixes.py extra-elements/15_beckhoff_ethercat
 python misc/beckhoff/gen_epp.py extra-elements/15_beckhoff_ethercat
+python misc/beckhoff/fix_boxes.py extra-elements/15_beckhoff_ethercat
 python misc/beckhoff/gen_generic.py extra-elements/15_beckhoff_ethercat
 python misc/beckhoff/gen_schematic.py <absolute path of extra-elements/15_beckhoff_ethercat>
 python misc/beckhoff/gen_couplers.py extra-elements/15_beckhoff_ethercat

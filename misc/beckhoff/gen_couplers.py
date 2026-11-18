@@ -111,11 +111,46 @@ def patch(path, label):
     return True
 
 
+def add_power(path):
+    """+24 V and 0 V of the power contacts under the drawing: the housing
+    is 32 px taller, the rails run from edge to edge."""
+    root = ET.parse(path).getroot()
+    desc = root.find("description")
+    if any(t.get("text") == "+24 V" for t in desc.findall("text")):
+        return False
+    x, y, w, h, rect = outline_of(desc)
+    more = 32
+    bottom = y + h
+    for e in desc:
+        if e.tag == "rect" and float(e.get("y")) >= bottom - 0.5:
+            e.set("y", num(float(e.get("y")) + more))
+        elif e.tag == "line" and float(e.get("y1")) >= bottom - 0.5:
+            e.set("y1", num(float(e.get("y1")) + more))
+            e.set("y2", num(float(e.get("y2")) + more))
+        elif e.tag == "dynamic_text" and float(e.get("y")) >= bottom - 0.5:
+            e.set("y", num(float(e.get("y")) + more))
+    rect.set("height", num(h + more))
+    s = Sheet()
+    s.power_rails(x, x + w, bottom + 10, bottom + 22)
+    for e in s.parts:
+        desc.insert(1, e)
+    root.set("height", str(int(root.get("height")) + more))
+    info = root.find("informations")
+    if info is not None and "power contacts" not in (info.text or ""):
+        info.text = (info.text or "").rstrip("\n") + \
+            "\nThe +24 V and 0 V rails stand for the power contacts " \
+            "(generic)."
+    write(root, path)
+    return True
+
+
 def main(base):
     for stem, label in CARDS.items():
         hits = glob.glob(os.path.join(base, "*", stem + ".elmt"))
         if hits and patch(hits[0], label):
             print("coupler schematic", stem)
+        if hits and add_power(hits[0]):
+            print("power contacts", stem)
 
 
 if __name__ == "__main__":

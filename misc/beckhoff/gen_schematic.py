@@ -137,6 +137,19 @@ class Sheet:
         w = text_width(s) * size / 7.0
         self.text(cx - w / 2, cy - (size * 4 / 3.0 + 1) / 2 - 0.5, s, size)
 
+    def power_rails(self, x0, x1, y24, y0):
+        """+24 V and 0 V of the power contacts, which run through the
+        housing: a filled square at the left edge (blade) and a circle at
+        the right edge (spring), a rail between them and its legend."""
+        for y, label in ((y24, "+24 V"), (y0, "0 V")):
+            self.rect(x0 - 2.5, y - 2.5, 5, 5, FILLED)
+            self.line(x0 + 2.5, y, x1 - 2.5, y)
+            self.circle(x1, y, 5, WHITE)
+            self.text(x0 + 4, y - 8, label, 4)
+
+    def junction(self, x, y):
+        self.circle(x, y, 2.4, FILLED)
+
     # stages -------------------------------------------------------------
     def wire(self, f, u0, u1, v=0.0):
         self.line(*f.p(u0, v), *f.p(u1, v))
@@ -330,11 +343,38 @@ class Card:
         if pin.role == "sup":
             self.sheet.bar(f, length)
 
-    def pair(self, upper, lower):
+    def pair(self, upper, lower, kind=None):
         gap = lower.y - upper.y
         length = gap - (upper.d + lower.d) / 2
-        f = self.stage_from(upper, 0, 1, upper.role, length)
+        f = self.stage_from(upper, 0, 1, kind or upper.role, length)
         return f
+
+    def power(self, body):
+        """The power contacts of a housing: +24 V and 0 V rails from edge
+        to edge, and a branch along the left and the right side for the
+        terminals that are on 24 V or 0 V. Returns the linked pins."""
+        x0, y0, x1, y1 = body
+        rails = {"24V": round(y0 + 14), "0V": round(y0 + 26)}
+        self.sheet.power_rails(x0, x1, rails["24V"], rails["0V"])
+        branch_x = {"left": x0 + 2.5, "right": x1 - 2.5}
+        linked = set()
+        for side in ("left", "right"):
+            pins = [p for p in self.pins
+                    if p.role in ("gnd", "sup") and x0 <= p.x <= x1 and
+                    (p.x < (x0 + x1) / 2) == (side == "left")]
+            if not pins:
+                continue
+            pot = pins[0].pot
+            pins = [p for p in pins if p.pot == pot]
+            bx, top = branch_x[side], rails[pot]
+            self.sheet.line(bx, top, bx, max(p.y for p in pins))
+            self.sheet.junction(bx, top)
+            for p in pins:
+                edge = p.x + (-1 if side == "left" else 1) * p.d / 2
+                self.sheet.line(edge, p.y, bx, p.y)
+                self.sheet.junction(bx, p.y)
+                linked.add(p.name)
+        return linked
 
     # outline and clips --------------------------------------------------------
     def outline(self, x0, y0, x1, y1, clips=True):
@@ -363,8 +403,10 @@ class Card:
         bodies = [EL60_BODY]
         if self.stem == "el2911":
             bodies.append(EL2911_BODY2)
+        linked = set()
         for b in bodies:
             self.outline(*b)
+            linked |= self.power(b)
         paired = set()
         cols = {}
         for p in self.pins:
@@ -385,13 +427,9 @@ class Card:
         for p in self.pins:
             self.circle_of(p)
         for p in self.pins:
-            if p.name in paired:
+            if p.name in paired or p.name in linked:
                 continue
-            if p.role == "gnd":
-                self.stub(p, ("up", "down"), 12.0)
-            elif p.role == "sup":
-                self.stub(p, ("up", "down"), 8.0)
-            elif p.role in ("in", "out"):
+            if p.role in ("in", "out"):
                 self.stub(p, ("up", "down"), 22.0)
         # the labels of the channels sit above their circle, as in the
         # realistic view, when the stage does not use that room
@@ -406,10 +444,28 @@ class Card:
                     self.sheet.parts.append(ET.fromstring(ET.tostring(t)))
         self.copy_reference()
 
+    def build_el1918(self):
+        """16 terminals in the housing of the other cards: S+ (test pulse)
+        above its input SI, the stage between them."""
+        self.outline(*EL60_BODY)
+        self.power(EL60_BODY)
+        for p in self.pins:
+            p.d = 9.0
+            self.circle_of(p)
+        by_x = {}
+        for p in self.pins:
+            by_x.setdefault(p.x, []).append(p)
+        for col in by_x.values():
+            col.sort(key=lambda p: p.y)
+            for upper, lower in zip(col[::2], col[1::2]):
+                self.pair(upper, lower, "in")
+        self.copy_reference()
+
     def build_rows(self, left_x, body):
-        """EK1914 and EL1918: two columns of terminals, one stage each:
+        """EK1914: two columns of terminals, one stage each:
         the left column leads to the left, the right one to the right."""
         self.outline(*body)
+        self.power(body)
         eth = [p for p in self.pins if p.role == "eth"]
         for p in self.pins:
             p.d = 8.5
@@ -462,9 +518,9 @@ def run(card):
         card.build_el60()
     elif card.stem == "ek1914":
         card.remap(EK1914_PINS)
-        card.build_rows(20.0, (-48.7, -102.8, 85.0, 97.2))
+        card.build_rows(20.0, (-48.7, -136.7, 85.0, 140.5))
     elif card.stem == "el1918":
-        card.build_rows(20.0, (-13.0, -44.0, 63.0, 111.0))
+        card.build_el1918()
     else:
         return False
     new = make_description(card)

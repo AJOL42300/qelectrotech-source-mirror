@@ -8,7 +8,7 @@
 		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
 		<elementInformation name="manufacturer_reference" show="1">EPP2338-0002</elementInformation>
 		<elementInformation name="designation" show="1">EtherCAT P Box, 8-channel digital input/output, 24 V DC, M12</elementInformation>
-		<elementInformation name="description" show="1">EtherCAT P box with a dark housing: four M12 sockets X01 to X04, two channels each (pin 4 = channel A, pin 2 = channel B, pin 1 = +24 V DC Up, pin 3 = GND P, pin 5 not connected), and two M8 EtherCAT P sockets, X50 IN and X51 OUT. The pins X01.1 to X04.4 are drawn on the sockets; the channel (X01(1)...) is the signal of the I/O table, not the pin. The positions on the housing are assumed. The label of the box is the card id (A1.10).</elementInformation>
+		<elementInformation name="description" show="1">EtherCAT P box with a dark housing: four M12 sockets X01 to X04, two channels each (pin 4 = channel A, pin 2 = channel B, pin 1 = +24 V DC Up, pin 3 = GND P, pin 5 not connected), and two M8 EtherCAT P sockets, X50 IN and X51 OUT. Each M12 socket is ONE terminal (X01 to X04) shared by its two channels (X01(1), X01(2)...), the channel is the signal of the I/O table, not the pin. The positions on the housing are assumed. The label of the box is the card id (A1.10).</elementInformation>
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
@@ -22,28 +22,28 @@
 			</columnVisibility>
 			<plcIOs>
 				<plcIO type="entree_universelle" address="X01(1)" functionText="In-/Output A" comment="" crossRef="" terminalCount="1">
-					<terminal>X01.4</terminal>
+					<terminal>X01</terminal>
 				</plcIO>
 				<plcIO type="entree_universelle" address="X01(2)" functionText="In-/Output B" comment="" crossRef="" terminalCount="1">
-					<terminal>X01.2</terminal>
+					<terminal>X01</terminal>
 				</plcIO>
 				<plcIO type="entree_universelle" address="X02(1)" functionText="In-/Output A" comment="" crossRef="" terminalCount="1">
-					<terminal>X02.4</terminal>
+					<terminal>X02</terminal>
 				</plcIO>
 				<plcIO type="entree_universelle" address="X02(2)" functionText="In-/Output B" comment="" crossRef="" terminalCount="1">
-					<terminal>X02.2</terminal>
+					<terminal>X02</terminal>
 				</plcIO>
 				<plcIO type="entree_universelle" address="X03(1)" functionText="In-/Output A" comment="" crossRef="" terminalCount="1">
-					<terminal>X03.4</terminal>
+					<terminal>X03</terminal>
 				</plcIO>
 				<plcIO type="entree_universelle" address="X03(2)" functionText="In-/Output B" comment="" crossRef="" terminalCount="1">
-					<terminal>X03.2</terminal>
+					<terminal>X03</terminal>
 				</plcIO>
 				<plcIO type="entree_universelle" address="X04(1)" functionText="In-/Output A" comment="" crossRef="" terminalCount="1">
-					<terminal>X04.4</terminal>
+					<terminal>X04</terminal>
 				</plcIO>
 				<plcIO type="entree_universelle" address="X04(2)" functionText="In-/Output B" comment="" crossRef="" terminalCount="1">
-					<terminal>X04.2</terminal>
+					<terminal>X04</terminal>
 				</plcIO>
 			</plcIOs>
 		</plcMasterData>
@@ -62,15 +62,7 @@ Description view made by misc/beckhoff/gen_description.py from the realistic vie
 		<circle x="-2.5" y="-165.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
 		<circle x="-25" y="-95" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="50" />
 		<circle x="-22" y="-92" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="44" />
-		<circle x="-19.5" y="-89.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="-16.5" y="-88.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="1" />
-		<circle x="10.5" y="-89.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="13.5" y="-88.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="2" />
-		<circle x="10.5" y="-59.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="13.5" y="-58.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="3" />
-		<circle x="-19.5" y="-59.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="-16.5" y="-58.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="4" />
-		<circle x="-3" y="-73" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="6" />
+		<circle x="-9" y="-79" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="18" />
 		<text x="-38" y="-74" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="X01" />
 		<circle x="30.5" y="-80.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
 		<circle x="30.5" y="-64.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
@@ -78,15 +70,7 @@ Description view made by misc/beckhoff/gen_description.py from the realistic vie
 		<text x="-30" y="-42" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="X01(1)" />
 		<circle x="-25" y="-25" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="50" />
 		<circle x="-22" y="-22" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="44" />
-		<circle x="-19.5" y="-19.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="-16.5" y="-18.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="1" />
-		<circle x="10.5" y="-19.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="13.5" y="-18.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="2" />
-		<circle x="10.5" y="10.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="13.5" y="11.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="3" />
-		<circle x="-19.5" y="10.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="-16.5" y="11.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="4" />
-		<circle x="-3" y="-3" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="6" />
+		<circle x="-9" y="-9" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="18" />
 		<text x="-38" y="-4" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="X02" />
 		<circle x="30.5" y="-10.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
 		<circle x="30.5" y="5.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
@@ -94,15 +78,7 @@ Description view made by misc/beckhoff/gen_description.py from the realistic vie
 		<text x="-30" y="28" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="X02(1)" />
 		<circle x="-25" y="45" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="50" />
 		<circle x="-22" y="48" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="44" />
-		<circle x="-19.5" y="50.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="-16.5" y="51.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="1" />
-		<circle x="10.5" y="50.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="13.5" y="51.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="2" />
-		<circle x="10.5" y="80.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="13.5" y="81.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="3" />
-		<circle x="-19.5" y="80.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="-16.5" y="81.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="4" />
-		<circle x="-3" y="67" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="6" />
+		<circle x="-9" y="61" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="18" />
 		<text x="-38" y="66" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="X03" />
 		<circle x="30.5" y="59.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
 		<circle x="30.5" y="75.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
@@ -110,15 +86,7 @@ Description view made by misc/beckhoff/gen_description.py from the realistic vie
 		<text x="-30" y="98" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="X03(1)" />
 		<circle x="-25" y="115" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="50" />
 		<circle x="-22" y="118" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="44" />
-		<circle x="-19.5" y="120.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="-16.5" y="121.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="1" />
-		<circle x="10.5" y="120.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="13.5" y="121.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="2" />
-		<circle x="10.5" y="150.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="13.5" y="151.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="3" />
-		<circle x="-19.5" y="150.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="9" />
-		<text x="-16.5" y="151.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="4" />
-		<circle x="-3" y="137" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="6" />
+		<circle x="-9" y="131" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="18" />
 		<text x="-38" y="136" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="X04" />
 		<circle x="30.5" y="129.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
 		<circle x="30.5" y="145.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
@@ -135,22 +103,22 @@ Description view made by misc/beckhoff/gen_description.py from the realistic vie
 		<text x="-105.2" y="-139" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 2: Rx+ / GNDp" />
 		<text x="-95.68" y="-130" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 3: Rx- / Up" />
 		<text x="-95.68" y="-121" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 4: Tx- / Us" />
-		<line end1="none" end2="none" y1="-85" antialias="false" y2="-85" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-21" length1="4.5" x2="-48" length2="4.5" />
-		<text x="-103.68" y="-98" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X01: M12 socket" />
-		<text x="-107.68" y="-89" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 1: +24 V DC Up" />
-		<text x="-89.12" y="-80" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 3: GND P" />
-		<line end1="none" end2="none" y1="-15" antialias="false" y2="-15" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-21" length1="4.5" x2="-48" length2="4.5" />
-		<text x="-104.4" y="-28" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X02: M12 socket" />
-		<text x="-107.68" y="-19" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 1: +24 V DC Up" />
-		<text x="-89.12" y="-10" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 3: GND P" />
-		<line end1="none" end2="none" y1="55" antialias="false" y2="55" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-21" length1="4.5" x2="-48" length2="4.5" />
-		<text x="-104.4" y="42" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X03: M12 socket" />
-		<text x="-107.68" y="51" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 1: +24 V DC Up" />
-		<text x="-89.12" y="60" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 3: GND P" />
-		<line end1="none" end2="none" y1="125" antialias="false" y2="125" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-21" length1="4.5" x2="-48" length2="4.5" />
-		<text x="-104.4" y="112" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X04: M12 socket" />
-		<text x="-107.68" y="121" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 1: +24 V DC Up" />
-		<text x="-89.12" y="130" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 3: GND P" />
+		<line end1="none" end2="none" y1="-70" antialias="false" y2="-70" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-26.5" length1="4.5" x2="-48" length2="4.5" />
+		<text x="-103.68" y="-83" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X01: M12 socket" />
+		<text x="-107.68" y="-74" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 1: +24 V DC Up" />
+		<text x="-89.12" y="-65" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 3: GND P" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-26.5" length1="4.5" x2="-48" length2="4.5" />
+		<text x="-104.4" y="-13" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X02: M12 socket" />
+		<text x="-107.68" y="-4" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 1: +24 V DC Up" />
+		<text x="-89.12" y="5" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 3: GND P" />
+		<line end1="none" end2="none" y1="70" antialias="false" y2="70" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-26.5" length1="4.5" x2="-48" length2="4.5" />
+		<text x="-104.4" y="57" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X03: M12 socket" />
+		<text x="-107.68" y="66" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 1: +24 V DC Up" />
+		<text x="-89.12" y="75" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 3: GND P" />
+		<line end1="none" end2="none" y1="140" antialias="false" y2="140" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-26.5" length1="4.5" x2="-48" length2="4.5" />
+		<text x="-104.4" y="127" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X04: M12 socket" />
+		<text x="-107.68" y="136" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 1: +24 V DC Up" />
+		<text x="-89.12" y="145" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 3: GND P" />
 		<line end1="none" end2="none" y1="173" antialias="false" y2="173" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-14" length1="4.5" x2="-48" length2="4.5" />
 		<text x="-71.76" y="169" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED Us" />
 		<line end1="none" end2="none" y1="-163" antialias="false" y2="-163" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="29" length1="4.5" x2="48" length2="4.5" />
@@ -161,54 +129,42 @@ Description view made by misc/beckhoff/gen_description.py from the realistic vie
 		<text x="50" y="-139" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 2: Rx+ / GNDp" />
 		<text x="50" y="-130" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 3: Rx- / Up" />
 		<text x="50" y="-121" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 4: Tx- / Us" />
-		<line end1="none" end2="none" y1="-85" antialias="false" y2="-85" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="21" length1="4.5" x2="48" length2="4.5" />
-		<text x="50" y="-93.5" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 2: In-/Output B" />
-		<text x="50" y="-84.5" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 4: In-/Output A" />
-		<line end1="none" end2="none" y1="-78" antialias="false" y2="-71.5" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="37" length1="4.5" x2="48" length2="4.5" />
-		<text x="50" y="-75.5" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED channel B" />
-		<line end1="none" end2="none" y1="-62" antialias="false" y2="-62" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="37" length1="4.5" x2="48" length2="4.5" />
-		<text x="50" y="-66" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED channel A" />
-		<line end1="none" end2="none" y1="-15" antialias="false" y2="-15" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="21" length1="4.5" x2="48" length2="4.5" />
-		<text x="50" y="-23.5" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 2: In-/Output B" />
-		<text x="50" y="-14.5" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 4: In-/Output A" />
-		<line end1="none" end2="none" y1="-8" antialias="false" y2="-1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="37" length1="4.5" x2="48" length2="4.5" />
-		<text x="50" y="-5.5" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED channel B" />
-		<line end1="none" end2="none" y1="8" antialias="false" y2="8" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="37" length1="4.5" x2="48" length2="4.5" />
-		<text x="50" y="4" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED channel A" />
-		<line end1="none" end2="none" y1="55" antialias="false" y2="55" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="21" length1="4.5" x2="48" length2="4.5" />
-		<text x="50" y="46.5" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 2: In-/Output B" />
-		<text x="50" y="55.5" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 4: In-/Output A" />
-		<line end1="none" end2="none" y1="62" antialias="false" y2="68.5" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="37" length1="4.5" x2="48" length2="4.5" />
-		<text x="50" y="64.5" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED channel B" />
-		<line end1="none" end2="none" y1="78" antialias="false" y2="78" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="37" length1="4.5" x2="48" length2="4.5" />
-		<text x="50" y="74" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED channel A" />
-		<line end1="none" end2="none" y1="125" antialias="false" y2="125" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="21" length1="4.5" x2="48" length2="4.5" />
-		<text x="50" y="116.5" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 2: In-/Output B" />
-		<text x="50" y="125.5" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 4: In-/Output A" />
-		<line end1="none" end2="none" y1="132" antialias="false" y2="138.5" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="37" length1="4.5" x2="48" length2="4.5" />
-		<text x="50" y="134.5" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED channel B" />
-		<line end1="none" end2="none" y1="148" antialias="false" y2="148" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="37" length1="4.5" x2="48" length2="4.5" />
-		<text x="50" y="144" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED channel A" />
+		<line end1="none" end2="none" y1="-78" antialias="false" y2="-78" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="37" length1="4.5" x2="48" length2="4.5" />
+		<text x="50" y="-82" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED channel B" />
+		<line end1="none" end2="none" y1="-70" antialias="false" y2="-64.5" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="26.5" length1="4.5" x2="48" length2="4.5" />
+		<text x="50" y="-73" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 2: In-/Output B" />
+		<text x="50" y="-64" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 4: In-/Output A" />
+		<line end1="none" end2="none" y1="-62" antialias="false" y2="-51" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="37" length1="4.5" x2="48" length2="4.5" />
+		<text x="50" y="-55" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED channel A" />
+		<line end1="none" end2="none" y1="-8" antialias="false" y2="-8" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="37" length1="4.5" x2="48" length2="4.5" />
+		<text x="50" y="-12" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED channel B" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="5.5" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="26.5" length1="4.5" x2="48" length2="4.5" />
+		<text x="50" y="-3" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 2: In-/Output B" />
+		<text x="50" y="6" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 4: In-/Output A" />
+		<line end1="none" end2="none" y1="8" antialias="false" y2="19" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="37" length1="4.5" x2="48" length2="4.5" />
+		<text x="50" y="15" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED channel A" />
+		<line end1="none" end2="none" y1="62" antialias="false" y2="62" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="37" length1="4.5" x2="48" length2="4.5" />
+		<text x="50" y="58" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED channel B" />
+		<line end1="none" end2="none" y1="70" antialias="false" y2="75.5" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="26.5" length1="4.5" x2="48" length2="4.5" />
+		<text x="50" y="67" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 2: In-/Output B" />
+		<text x="50" y="76" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 4: In-/Output A" />
+		<line end1="none" end2="none" y1="78" antialias="false" y2="89" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="37" length1="4.5" x2="48" length2="4.5" />
+		<text x="50" y="85" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED channel A" />
+		<line end1="none" end2="none" y1="132" antialias="false" y2="132" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="37" length1="4.5" x2="48" length2="4.5" />
+		<text x="50" y="128" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED channel B" />
+		<line end1="none" end2="none" y1="140" antialias="false" y2="145.5" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="26.5" length1="4.5" x2="48" length2="4.5" />
+		<text x="50" y="137" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 2: In-/Output B" />
+		<text x="50" y="146" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Pin 4: In-/Output A" />
+		<line end1="none" end2="none" y1="148" antialias="false" y2="159" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="37" length1="4.5" x2="48" length2="4.5" />
+		<text x="50" y="155" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED channel A" />
 		<line end1="none" end2="none" y1="173" antialias="false" y2="173" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="14" length1="4.5" x2="48" length2="4.5" />
 		<text x="50" y="169" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED Up" />
 		<terminal x="-20" y="-135" name="IN X50" orientation="e" type="Generic" uuid="{58495144-2edd-5a40-8d3b-235bed4d0748}" />
 		<terminal x="20" y="-135" name="OUT X51" orientation="e" type="Generic" uuid="{ce3cc88a-e178-539d-927c-a37572f2c83d}" />
-		<terminal x="-15" y="-85" name="X01.1" orientation="e" type="Generic" uuid="{0e90dead-acad-5d90-882a-2149d9bc1a4c}" />
-		<terminal x="15" y="-85" name="X01.2" orientation="e" type="Generic" uuid="{20ec0a30-1b98-5603-8215-4fe4359f764e}" />
-		<terminal x="15" y="-55" name="X01.3" orientation="e" type="Generic" uuid="{b1162da7-0972-53cf-86b1-20e78ad3699f}" />
-		<terminal x="-15" y="-55" name="X01.4" orientation="e" type="Generic" uuid="{13a84973-7592-59f4-807a-576d7df11d68}" />
-		<terminal x="-15" y="-15" name="X02.1" orientation="e" type="Generic" uuid="{b9bbde2f-af9d-5d5d-9792-24e93916ce46}" />
-		<terminal x="15" y="-15" name="X02.2" orientation="e" type="Generic" uuid="{e38549b8-c5de-5111-853d-1d198b69b1b3}" />
-		<terminal x="15" y="15" name="X02.3" orientation="e" type="Generic" uuid="{0cdf9eb4-a549-5587-961d-7bb296f648d2}" />
-		<terminal x="-15" y="15" name="X02.4" orientation="e" type="Generic" uuid="{88a1e6e5-59e1-51b9-9202-fed19ebaf00f}" />
-		<terminal x="-15" y="55" name="X03.1" orientation="e" type="Generic" uuid="{04df32ca-59c1-5424-8986-967b700807e9}" />
-		<terminal x="15" y="55" name="X03.2" orientation="e" type="Generic" uuid="{d350bf32-421d-5386-9992-37488eb47ea0}" />
-		<terminal x="15" y="85" name="X03.3" orientation="e" type="Generic" uuid="{2e905428-e233-5c8a-9182-e1497f3aebaf}" />
-		<terminal x="-15" y="85" name="X03.4" orientation="e" type="Generic" uuid="{7ecbbb47-4a0e-57e5-b327-26c2eef987ec}" />
-		<terminal x="-15" y="125" name="X04.1" orientation="e" type="Generic" uuid="{ddcfd995-bb29-5801-ba80-8db98bc134ce}" />
-		<terminal x="15" y="125" name="X04.2" orientation="e" type="Generic" uuid="{e50e173a-e841-58f2-ae4f-9844dec267c8}" />
-		<terminal x="15" y="155" name="X04.3" orientation="e" type="Generic" uuid="{77b350d5-b144-5e18-885c-6e2d6b901c0c}" />
-		<terminal x="-15" y="155" name="X04.4" orientation="e" type="Generic" uuid="{956f5fce-4620-5d68-a525-9e7c1ba63ff7}" />
+		<terminal x="0" y="-70" name="X01" orientation="e" type="Generic" uuid="{b521c022-9049-5674-b63d-6b3bfc870ace}" />
+		<terminal x="0" y="0" name="X02" orientation="e" type="Generic" uuid="{342f7609-5949-5bd0-aef2-db85fe8cd1c4}" />
+		<terminal x="0" y="70" name="X03" orientation="e" type="Generic" uuid="{fe7fd7eb-15e2-50e0-a375-6dc5433cb4eb}" />
+		<terminal x="0" y="140" name="X04" orientation="e" type="Generic" uuid="{3a981ca8-60e3-5983-ad0d-3337ce7c8fd5}" />
 		<dynamic_text x="-40" y="-195" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{afe11594-a8c3-57b0-bb4b-64354eb08b15}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold">
 			<text />
 			<info_name>label</info_name>
