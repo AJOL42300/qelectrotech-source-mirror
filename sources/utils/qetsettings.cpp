@@ -313,6 +313,18 @@ namespace QetSettings
 		settings.setValue("diagrameditor/ask_labels_placing_macro", ask);
 	}
 
+	bool autoLabelOnPlacement()
+	{
+		QSettings settings;
+		return settings.value("diagrameditor/auto_label_on_placement", true).toBool();
+	}
+
+	void setAutoLabelOnPlacement(bool enabled)
+	{
+		QSettings settings;
+		settings.setValue("diagrameditor/auto_label_on_placement", enabled);
+	}
+
 	/**
 	* @brief stripWiresShown
 	* @return whether a terminal strip draws the wires which end at it

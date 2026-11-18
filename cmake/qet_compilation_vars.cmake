@@ -416,6 +416,8 @@ set(QET_SRC_FILES
 
   ${QET_DIR}/sources/autoNum/assignvariables.cpp
   ${QET_DIR}/sources/autoNum/assignvariables.h
+  ${QET_DIR}/sources/autoNum/autolabel.cpp
+  ${QET_DIR}/sources/autoNum/autolabel.h
   ${QET_DIR}/sources/autoNum/numerotationcontextcommands.cpp
   ${QET_DIR}/sources/autoNum/numerotationcontextcommands.h
   ${QET_DIR}/sources/autoNum/numerotationcontext.cpp

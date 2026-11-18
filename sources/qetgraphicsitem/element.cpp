@@ -24,6 +24,8 @@
 #include <ElementsCollection/terminaluuids.h>
 #include <PropertiesEditor/propertieseditordialog.h>
 #include <autoNum/assignvariables.h>
+#include <autoNum/autolabel.h>
+#include <utils/qetsettings.h>
 #include <autoNum/elementautonumschemecommand.h>
 #include <autoNum/numerotationcontextcommands.h>
 #include <diagram.h>
@@ -3418,7 +3420,53 @@ void Element::setUpFormula(bool code_letter, QUndoCommand *parent_undo)
 			storeInformation();
 			emit elementInfoChange(dc, m_data.m_informations);
 		}
+		else if (formula.isEmpty())
+			giveAutoLabel();
 	}
+}
+
+/**
+	@brief Element::giveAutoLabel
+	Give this element its prefix and the first number which no other element
+	of the project has ("K1", "K2"...), for a project which numbers its
+	elements with no scheme. Nothing is done when the setting is off, when
+	the element has a label already (given by hand or by its definition),
+	when it is frozen, when its definition says it has no prefix, or when no
+	prefix is known for it. The label is part of the element's information,
+	so undoing the placement removes it with the element.
+	@return true when a label was given
+*/
+bool Element::giveAutoLabel()
+{
+	if (!takesSchemeNumber() || m_freeze_label || !diagram()
+		|| !QetSettings::autoLabelOnPlacement())
+		return false;
+
+	const QString current =
+		m_data.m_informations.value(QStringLiteral("label")).toString().trimmed();
+	if (!current.isEmpty() && current != QLatin1String("_"))
+		return false;
+
+		//A prefix the collection describes as empty means its author wants
+		//no automatic label for this element
+	QString prefix = m_prefix;
+	if (prefix.isNull())
+		prefix = autolabel::fallbackPrefix(
+			m_data.m_type,
+			m_data.m_master_type,
+			autolabel::collectionFolder(m_location.path()));
+	const QString label = autolabel::nextFreeLabel(
+		prefix,
+		ElementAutoNumSchemeCommand::labelsHeldBesides(
+			diagram()->project(), this));
+	if (label.isEmpty())
+		return false;
+
+	DiagramContext dc = m_data.m_informations;
+	m_data.m_informations.addValue(QStringLiteral("label"), label);
+	storeInformation();
+	emit elementInfoChange(dc, m_data.m_informations);
+	return true;
 }
 
 /**

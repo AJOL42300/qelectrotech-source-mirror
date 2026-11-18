@@ -211,6 +211,7 @@ GeneralConfigurationPage::GeneralConfigurationPage(QWidget *parent) :
 		QetSettings::stripCableCoreTargetsShown());
 	ui->m_strip_sort_by_label->setChecked(QetSettings::stripSortedByLabel());
 	ui->m_new_folio_group_cb->setChecked(QetSettings::newFolioTakesPreviousGroup());
+	ui->m_auto_label_cb->setChecked(QetSettings::autoLabelOnPlacement());
 	ui->m_macro_ask_labels_cb->setChecked(QetSettings::askLabelsPlacingMacro());
 	ui->m_conductor_properties_panel->setChecked(settings.value("diagrameditor/conductor_properties_panel", false).toBool());
 	ui->m_wiring_rules_cb->setChecked(WiringRules::masterEnabled());
@@ -527,6 +528,7 @@ void GeneralConfigurationPage::applyConf()
 	DiagramView::setJumpZoom(ui->m_jump_zoom_sb->value());
 	settings.setValue("diagrameditor/conductor_properties_panel", ui->m_conductor_properties_panel->isChecked());
 	QetSettings::setNewFolioTakesPreviousGroup(ui->m_new_folio_group_cb->isChecked());
+	QetSettings::setAutoLabelOnPlacement(ui->m_auto_label_cb->isChecked());
 	QetSettings::setAskLabelsPlacingMacro(ui->m_macro_ask_labels_cb->isChecked());
 	if (ui->m_terminal_conductor_color->isChecked() != Terminal::takesConductorColor()) {
 		Terminal::setTakesConductorColor(ui->m_terminal_conductor_color->isChecked());
