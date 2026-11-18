@@ -85,10 +85,27 @@ table cells: in the table views the colour code only appears in the title band.
 
 ## Power contacts: left and right
 
-In the schematic views the +24 V (red) and 0 V (blue) rails cross the card like
-on the EL9410: a **filled square on the left** when the card has power
-contacts on its left face, a **hollow circle on the right** when it has them
-on its right face (pass-through of Up). The rails carry no text. Per card
+In the schematic views the +24 V (red) and 0 V (blue) rails cross the card
+horizontally. The contact of a rail has the shape of the datasheet principle
+diagram, redrawn in vector form: on the left face a **small filled rectangle**
+(the blade) joined by a horizontal line to the rail, on the right face an
+**open arc** (the spring) at the end of the rail. They are drawn only where
+the card has power contacts on that face (pass-through of Up) and they take
+the colour of their function: red for +24 V / Us / Up+, blue for 0 V, orange
+for PE (junction dots, lines, rectangle and arc). The rails carry no text.
+
+Height: the contacts of the real terminals are half way up the housing, so
+the generator (`Card.middle_gap`) puts the two rails as near as possible to
+the vertical middle of the card, in a free band between two rows of terminals
+that no stage (diode, driver, coil) crosses; on a dense card (EL1918) they
+are closer together. The vertical branches along the sides join the
+terminals marked 24 V / 0 V in the I/O table. The supply of each individual
+channel is **not** drawn: the public documentation does not state it channel
+by channel. The height is deduced from the user's request ("the contacts are
+in the middle") and the datasheet principle diagram; no datasheet gives it in
+millimetres.
+
+Per card
 (the table is the `CONTACTS` dictionary of `misc/beckhoff/gen_schematic.py`):
 
 | Card | Left | Right | PE contact | Source / certainty |
@@ -111,6 +128,18 @@ The "default" cases are drawn with both contacts; correct `CONTACTS` when a
 datasheet says otherwise and run `gen_schematic.py` again. The EL6910, EL9011, EK1322 and ethercat_box_generic keep the generic rails of
 their older schematic drawing. The PE contact is
 only drawn on the EL9410 (its PE terminals are drawn), not on the other cards.
+The datasheets of the cards marked "deduced" or "not specified" were not read
+one by one: mark such a card "not verified" here until its datasheet is
+checked.
+
+## Generators: the plus sign
+
+In the round generators (output stages Q1 to Q8) the "+" is on the terminal
+side of the circle, not at the centre. The side is deduced from the
+convention "the output terminal is the positive one"; for the stages that join
+two terminals the plus stays on the side of the upper terminal. This was not
+checked against a datasheet.
+
 ## What is there
 
 | Symbol | Manufacturer | Designation | Terminals |

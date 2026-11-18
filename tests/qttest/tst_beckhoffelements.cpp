@@ -686,7 +686,12 @@ class TstBeckhoffElements : public QObject
 					const QRegularExpression square(
 						QStringLiteral("<rect[^>]*filling:red"));
 					QCOMPARE(xml.contains(square), left);
-				}				++checked;
+					// the right contact is an arc, the left one a small
+					// rectangle (blade)
+					QVERIFY2(xml.contains(QStringLiteral("<arc ")),
+							 qPrintable(key));
+				}
+				++checked;
 			}
 			QCOMPARE(checked, cardKeys().size());
 		}

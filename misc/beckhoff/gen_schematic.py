@@ -150,6 +150,13 @@ class Sheet:
             "x": num(cx - d / 2), "y": num(cy - d / 2), "diameter": num(d),
             "style": style, "antialias": "false"}))
 
+    def arc(self, x, y, w, h, start, angle, style=THIN):
+        self._b(x, y, x + w, y + h)
+        self.parts.append(ET.Element("arc", {
+            "x": num(x), "y": num(y), "width": num(w), "height": num(h),
+            "start": str(start), "angle": str(angle), "style": style,
+            "antialias": "false"}))
+
     def text(self, x, y, s, size=5, bold=False, color="#000000"):
         self._b(x, y)
         self.parts.append(ET.Element("text", {
@@ -162,19 +169,19 @@ class Sheet:
 
     def power_rails(self, x0, x1, y24, y0, left=True, right=True):
         """+24 V (red) and 0 V (blue) of the power contacts, which run
-        through the housing like the rails of the EL9410: a filled square
-        at the left edge when the card has contacts on its left (blades),
-        a hollow circle at the right edge when it has them on its right
-        (springs), and the rail between them. No text: the colour tells
-        the potential."""
+        through the housing at mid height: a small filled rectangle at the
+        left edge when the card has contacts on its left (blades), an open
+        arc "(" at the right edge when it has them on its right (springs),
+        and a straight line between them. No text: the colour tells the
+        potential."""
         if not (left or right):
             return
         for y, pot in ((y24, "24V"), (y0, "0V")):
             if left:
-                self.rect(x0 - 2.5, y - 2.5, 5, 5, POT_FILLED[pot])
+                self.rect(x0 - 3, y - 1.5, 5, 3, POT_FILLED[pot])
             if right:
-                self.circle(x1, y, 5, POT_WHITE[pot])
-            self.line(x0 + 2.5 if left else x0, y,
+                self.arc(x1 - 2.5, y - 2.5, 5, 5, 90, 180, POT_STYLE[pot])
+            self.line(x0 + 2 if left else x0, y,
                       x1 - 2.5 if right else x1, y, POT_STYLE[pot])
 
     def junction(self, x, y, pot=""):
@@ -200,12 +207,14 @@ class Sheet:
             self.line(*a, *b, end2="simple")
 
     def driver(self, f, u, length=9.0, width=6.0):
-        """Generator: a circle with a "+" inside."""
+        """Generator: a circle with a "+" inside, on the side of the
+        terminal (u = 0 is the terminal end of the stage), not at the
+        centre."""
         cx, cy = f.p(u + length / 2)
         self.circle(cx, cy, length, THIN)
-        r = length / 2 - 2.0
-        self.line(cx - r, cy, cx + r, cy)
-        self.line(cx, cy - r, cx, cy + r)
+        r = 1.5
+        self.line(*f.p(u + length * 0.3 - r), *f.p(u + length * 0.3 + r))
+        self.line(*f.p(u + length * 0.3, -r), *f.p(u + length * 0.3, r))
 
     def rect_f(self, f, u, length, width):
         self.poly([f.p(u, -width / 2), f.p(u + length, -width / 2),
@@ -375,12 +384,63 @@ class Card:
         f = self.stage_from(upper, 0, 1, kind or upper.role, length)
         return f
 
+    def middle_gap(self, body):
+        """Height of the power contacts: as near as possible to the middle
+        of the housing (the contacts of the real terminals are half way
+        up), in a band that no stage crosses: between two rows of
+        terminals, above the stages (22 high) of the lower row and not
+        where a stage joins two rows."""
+        x0, y0, x1, y1 = body
+        pins = [p for p in self.pins if x0 <= p.x <= x1]
+        mid = (y0 + y1) / 2
+        rows = sorted({round(p.y) for p in pins})
+        if not rows:
+            return mid, 6
+        blocked = []
+        cols = {}
+        for p in pins:
+            cols.setdefault(p.x, []).append(p)
+        for col in cols.values():
+            col.sort(key=lambda p: p.y)
+            used = set()
+            for up, low in zip(col, col[1:]):
+                if up.name in used:
+                    continue
+                if low.y - up.y >= 30 and up.role in ("in", "out") \
+                        and low.role not in ("in", "sup", "eth") \
+                        and not (low.role == "out" and up.role != "out"):
+                    blocked.append((up.y, low.y))
+                    used.update((up.name, low.name))
+        bands = [(y0 + 8, rows[0] - 24)]
+        bands += [(a + 9, b - 24) for a, b in zip(rows, rows[1:])
+                  if not any(u <= a and b <= l for u, l in blocked)]
+        bands.append((rows[-1] + 9, y1 - 6))
+        best = None
+        for lo, hi in bands:
+            if hi - lo < 14:
+                continue
+            y = min(max(mid, lo + 7), hi - 7)
+            if best is None or abs(y - mid) < abs(best - mid):
+                best = y
+        # dense housing: half way between the two rows nearest to the middle
+        # that no stage joins, the two rails closer together
+        gaps = [((a + b) / 2, abs((a + b) / 2 - mid))
+                for a, b in zip(rows, rows[1:])
+                if not any(u <= a and b <= l for u, l in blocked)]
+        near = min(gaps, key=lambda g: g[1]) if gaps else None
+        if best is not None and (near is None
+                                 or abs(best - mid) <= 30
+                                 or abs(best - mid) <= near[1]):
+            return best, 6
+        return (near[0], 4) if near else (mid, 6)
+
     def power(self, body):
         """The power contacts of a housing: +24 V and 0 V rails from edge
         to edge, and a branch along the left and the right side for the
         terminals that are on 24 V or 0 V. Returns the linked pins."""
         x0, y0, x1, y1 = body
-        rails = {"24V": round(y0 + 14), "0V": round(y0 + 26)}
+        ym, half = self.middle_gap(body)
+        rails = {"24V": round(ym - half), "0V": round(ym + half)}
         left, right = CONTACTS.get(self.stem, (True, True))
         self.sheet.power_rails(x0, x1, rails["24V"], rails["0V"], left,
                                right)
@@ -405,7 +465,8 @@ class Card:
             kept = [p for p in pins if p.pot == pot]
             bx, top = branch_x[side], rails[pot]
             style = POT_STYLE[pot]
-            self.sheet.line(bx, top, bx, max(p.y for p in kept), style)
+            self.sheet.line(bx, min(top, min(p.y for p in kept)), bx,
+                            max(top, max(p.y for p in kept)), style)
             self.sheet.junction(bx, top, pot)
             for p in kept:
                 edge = p.x + (-1 if side == "left" else 1) * p.d / 2

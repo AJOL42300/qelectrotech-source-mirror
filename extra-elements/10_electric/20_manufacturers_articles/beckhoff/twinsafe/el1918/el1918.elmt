@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="master" width="52" height="302" hotspot_x="22" hotspot_y="149">
+<definition version="0.100.0" type="element" link_type="master" width="52" height="302" hotspot_x="23" hotspot_y="149">
 	<uuid uuid="{45a24996-2a5c-5554-953a-61ee3c6450fc}" />
 	<names>
 		<name lang="en">EL1918 EtherCAT Terminal, 8 fail-safe digital inputs, 24 V DC</name>
@@ -58,12 +58,12 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<line x1="-3.25" y1="-141.7" x2="6.75" y2="-141.7" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<rect x="-6.25" y="140.5" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="-3.25" y1="145.5" x2="6.75" y2="145.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<rect x="-17" y="-125.5" width="5" height="5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
-		<circle x="19.5" y="-125.5" diameter="5" style="line-style:normal;line-weight:normal;filling:white;color:red" antialias="false" />
-		<line x1="-12" y1="-123" x2="19.5" y2="-123" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
-		<rect x="-17" y="-113.5" width="5" height="5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:blue" antialias="false" />
-		<circle x="19.5" y="-113.5" diameter="5" style="line-style:normal;line-weight:normal;filling:white;color:blue" antialias="false" />
-		<line x1="-12" y1="-111" x2="19.5" y2="-111" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
+		<rect x="-17.5" y="2.5" width="5" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<arc x="19.5" y="1.5" width="5" height="5" start="90" angle="180" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
+		<line x1="-12.5" y1="4" x2="19.5" y2="4" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
+		<rect x="-17.5" y="10.5" width="5" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:blue" antialias="false" />
+		<arc x="19.5" y="9.5" width="5" height="5" start="90" angle="180" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
+		<line x1="-12.5" y1="12" x2="19.5" y2="12" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
 		<circle x="-9.5" y="-59.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
 		<text x="-6.33" y="-59.33" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="1" />
 		<circle x="-9.5" y="-34.5" diameter="9" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />

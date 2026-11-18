@@ -234,10 +234,10 @@ def schematic(real, path):
         s.line(LEFT_X + r, y, RIGHT_X - r, y, st)
         mx = (LEFT_X + RIGHT_X) / 2
         s.circle(mx, y, 2.4, filled)
-        s.line(x0 + 2.5, y, LEFT_X - r, y, st)
-        s.rect(x0 - 2.5, y - 2.5, 5, 5, filled)
+        s.line(x0 + 2, y, LEFT_X - r, y, st)
+        s.rect(x0 - 3, y - 1.5, 5, 3, filled)
         s.line(RIGHT_X + r, y, x1 - 2.5, y, st)
-        s.circle(x1, y, 5, white)
+        s.arc(x1 - 2.5, y - 2.5, 5, 5, 90, 180, st)
     # earth symbol of the PE link (up from the link, ochre)
     f = Frame((LEFT_X + RIGHT_X) / 2, ROWS[3], 0, -1)
     s.line(*f.p(0), *f.p(9), PE_STYLE)

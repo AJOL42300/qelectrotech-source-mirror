@@ -70,16 +70,16 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<line x1="13.65" y1="-141.7" x2="23.65" y2="-141.7" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<rect x="10.65" y="140.5" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="13.65" y1="145.5" x2="23.65" y2="145.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<circle x="107.5" y="-125.5" diameter="5" style="line-style:normal;line-weight:normal;filling:white;color:red" antialias="false" />
-		<line x1="-68.7" y1="-123" x2="107.5" y2="-123" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
-		<circle x="107.5" y="-113.5" diameter="5" style="line-style:normal;line-weight:normal;filling:white;color:blue" antialias="false" />
-		<line x1="-68.7" y1="-111" x2="107.5" y2="-111" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
-		<line x1="-66.2" y1="-123" x2="-66.2" y2="-50" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
-		<circle x="-67.4" y="-124.2" diameter="2.4" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<arc x="107.5" y="-1.5" width="5" height="5" start="90" angle="180" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
+		<line x1="-68.7" y1="1" x2="107.5" y2="1" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
+		<arc x="107.5" y="6.5" width="5" height="5" start="90" angle="180" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
+		<line x1="-68.7" y1="9" x2="107.5" y2="9" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
+		<line x1="-66.2" y1="-50" x2="-66.2" y2="1" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
+		<circle x="-67.4" y="-0.2" diameter="2.4" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
 		<line x1="30.5" y1="-50" x2="-66.2" y2="-50" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
 		<circle x="-67.4" y="-51.2" diameter="2.4" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
-		<line x1="107.5" y1="-111" x2="107.5" y2="-50" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
-		<circle x="106.3" y="-112.2" diameter="2.4" style="line-style:normal;line-weight:thin;filling:blue;color:blue" antialias="false" />
+		<line x1="107.5" y1="-50" x2="107.5" y2="9" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
+		<circle x="106.3" y="7.8" diameter="2.4" style="line-style:normal;line-weight:thin;filling:blue;color:blue" antialias="false" />
 		<line x1="59.5" y1="-50" x2="107.5" y2="-50" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
 		<circle x="106.3" y="-51.2" diameter="2.4" style="line-style:normal;line-weight:thin;filling:blue;color:blue" antialias="false" />
 		<circle x="30.75" y="-54.25" diameter="8.5" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
@@ -149,26 +149,26 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<line x1="81.25" y1="-3.5" x2="81.25" y2="3.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false" />
 		<line x1="30.75" y1="25" x2="24.25" y2="25" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<circle x="15.25" y="20.5" diameter="9" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="17.25" y1="25" x2="22.25" y2="25" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="19.75" y1="22.5" x2="19.75" y2="27.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="23.05" y1="25" x2="20.05" y2="25" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="21.55" y1="26.5" x2="21.55" y2="23.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="15.25" y1="25" x2="8.75" y2="25" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="8.75" y1="28.5" x2="8.75" y2="21.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false" />
 		<line x1="59.25" y1="25" x2="65.75" y2="25" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<circle x="65.75" y="20.5" diameter="9" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="67.75" y1="25" x2="72.75" y2="25" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="70.25" y1="22.5" x2="70.25" y2="27.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="66.95" y1="25" x2="69.95" y2="25" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="68.45" y1="23.5" x2="68.45" y2="26.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="74.75" y1="25" x2="81.25" y2="25" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="81.25" y1="21.5" x2="81.25" y2="28.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false" />
 		<line x1="30.75" y1="50" x2="24.25" y2="50" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<circle x="15.25" y="45.5" diameter="9" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="17.25" y1="50" x2="22.25" y2="50" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="19.75" y1="47.5" x2="19.75" y2="52.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="23.05" y1="50" x2="20.05" y2="50" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="21.55" y1="51.5" x2="21.55" y2="48.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="15.25" y1="50" x2="8.75" y2="50" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="8.75" y1="53.5" x2="8.75" y2="46.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false" />
 		<line x1="59.25" y1="50" x2="65.75" y2="50" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<circle x="65.75" y="45.5" diameter="9" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="67.75" y1="50" x2="72.75" y2="50" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="70.25" y1="47.5" x2="70.25" y2="52.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="66.95" y1="50" x2="69.95" y2="50" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="68.45" y1="48.5" x2="68.45" y2="51.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="74.75" y1="50" x2="81.25" y2="50" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="81.25" y1="46.5" x2="81.25" y2="53.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false" />
 		<line x1="30.75" y1="75" x2="8.75" y2="75" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
@@ -191,14 +191,14 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<line x1="81.25" y1="96.5" x2="81.25" y2="103.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false" />
 		<line x1="30.75" y1="125" x2="24.25" y2="125" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<circle x="15.25" y="120.5" diameter="9" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="17.25" y1="125" x2="22.25" y2="125" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="19.75" y1="122.5" x2="19.75" y2="127.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="23.05" y1="125" x2="20.05" y2="125" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="21.55" y1="126.5" x2="21.55" y2="123.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="15.25" y1="125" x2="8.75" y2="125" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="8.75" y1="128.5" x2="8.75" y2="121.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false" />
 		<line x1="59.25" y1="125" x2="65.75" y2="125" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<circle x="65.75" y="120.5" diameter="9" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="67.75" y1="125" x2="72.75" y2="125" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="70.25" y1="122.5" x2="70.25" y2="127.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="66.95" y1="125" x2="69.95" y2="125" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="68.45" y1="123.5" x2="68.45" y2="126.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="74.75" y1="125" x2="81.25" y2="125" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="81.25" y1="121.5" x2="81.25" y2="128.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false" />
 		<text x="-54.5" y="125.34" font="Roboto Condensed,8,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="EK1914" />
