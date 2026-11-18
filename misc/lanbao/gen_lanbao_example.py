@@ -57,9 +57,9 @@ SENSORS = {s.ref: s for s in gen_sensors.SENSORS}
 PSU_REF = "HDR-60-24"
 
 # Function text of the wired inputs: (label, address) -> text.
-USED = {("A1", "I1"): "B2 PSM-BC100DPB-E2 output",
-        ("A1", "I2"): "B3 LR18XCF12DPOY-E2 output",
-        ("A2", "1"): "B1 PDB-CC50TGI distance 4-20 mA"}
+USED = {("A1", "I1"): "B2 PSM diffuse 100 cm, PNP output",
+        ("A1", "I2"): "B3 LR18X inductive Sn 12 mm, PNP NO",
+        ("A2", "1"): "B1 PDB laser 80-500 mm, 4-20 mA"}
 
 
 def get_clean(path):
