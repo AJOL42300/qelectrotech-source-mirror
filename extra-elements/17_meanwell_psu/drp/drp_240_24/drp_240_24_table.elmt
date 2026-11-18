@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="master" width="324" height="118" hotspot_x="5" hotspot_y="29">
+<definition version="0.100.0" type="element" link_type="master" width="324" height="142" hotspot_x="5" hotspot_y="29">
 	<uuid uuid="{0b0d99eb-2c61-5c8e-98f5-19226032d758}"/>
 	<names>
 		<name lang="en">Mean Well DRP-240-24 DIN-rail power supply 24 V 10 A - pin table</name>
@@ -7,8 +7,8 @@
 	<elementInformations>
 		<elementInformation name="manufacturer" show="1">Mean Well</elementInformation>
 		<elementInformation name="manufacturer_reference" show="1">DRP-240-24</elementInformation>
-		<elementInformation name="designation" show="1">DIN-rail power supply, 1-phase AC input, 24 V DC 10 A, 240 W, 125.5 mm wide</elementInformation>
-		<elementInformation name="description" show="1">DC OK LED and V ADJ output voltage trimmer on the front; terminal order of the symbol is a convention, the physical order depends on the series</elementInformation>
+		<elementInformation name="designation" show="1">DIN-rail power supply, AC input, 24 V DC 10 A, 240 W, 125.5 mm wide</elementInformation>
+		<elementInformation name="description" show="1">DC OK LED and V ADJ output voltage trimmer on the front; 2 +V and 2 -V output terminals as on the datasheet (parallel screws); terminal order of the symbol is a convention, the physical order depends on the series</elementInformation>
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
@@ -47,14 +47,20 @@
 				<plcIO type="entree_universelle" address="AC neutral" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>N</terminal>
 				</plcIO>
-				<plcIO type="entree_universelle" address="Protective earth" functionText="" comment="" crossRef="" terminalCount="1">
-					<terminal>PE</terminal>
-				</plcIO>
 				<plcIO type="sortie_digitale" address="+24 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>+V</terminal>
 				</plcIO>
+				<plcIO type="sortie_digitale" address="+24 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>+V2</terminal>
+				</plcIO>
 				<plcIO type="sortie_digitale" address="0 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>-V</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="0 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>-V2</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Protective earth (FG)" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>PE</terminal>
 				</plcIO>
 			</plcIOs>
 		</plcMasterData>

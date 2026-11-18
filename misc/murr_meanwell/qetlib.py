@@ -65,6 +65,35 @@ class Canvas:
     def __init__(self):
         self.parts = []
         self.box = [1e9, 1e9, -1e9, -1e9]
+        self.text_boxes, self.rect_boxes, self.circle_shapes = [], [], []
+
+    def layout_problems(self, margin=0.3):
+        """Texts that touch another text or cross the outline of a
+        rectangle or a circle (a text fully inside a shape is fine)."""
+        found = []
+        boxes = self.text_boxes
+        for i, a in enumerate(boxes):
+            for b in boxes[i + 1:]:
+                if (a[0] < b[2] + margin and b[0] < a[2] + margin
+                        and a[1] < b[3] + margin and b[1] < a[3] + margin):
+                    found.append(f"texts {a[4]!r} and {b[4]!r} overlap")
+            for r in self.rect_boxes:
+                inter = (a[0] < r[2] and r[0] < a[2]
+                         and a[1] < r[3] and r[1] < a[3])
+                inside = (a[0] >= r[0] + margin and a[2] <= r[2] - margin
+                          and a[1] >= r[1] + margin
+                          and a[3] <= r[3] - margin)
+                if inter and not inside:
+                    found.append(f"text {a[4]!r} crosses a rectangle")
+            for cx, cy, rad in self.circle_shapes:
+                nx = min(max(cx, a[0]), a[2])
+                ny = min(max(cy, a[1]), a[3])
+                near = ((nx - cx) ** 2 + (ny - cy) ** 2) ** 0.5
+                far = max(((x - cx) ** 2 + (y - cy) ** 2) ** 0.5
+                          for x in (a[0], a[2]) for y in (a[1], a[3]))
+                if near < rad + margin and far > rad - margin:
+                    found.append(f"text {a[4]!r} crosses a circle")
+        return found
 
     def grow(self, x1, y1, x2, y2):
         b = self.box
@@ -83,6 +112,7 @@ class Canvas:
     def rect(self, x, y, w, h, fill="none", color=BLACK, weight="thin",
              dash="normal"):
         self.grow(x, y, x + w, y + h)
+        self.rect_boxes.append((x, y, x + w, y + h))
         self.parts.append(
             f'<rect x="{num(x)}" y="{num(y)}" width="{num(w)}" '
             f'height="{num(h)}" rx="0" ry="0" '
@@ -92,6 +122,7 @@ class Canvas:
     def circle(self, x, y, d, fill="none", color=BLACK, weight="thin"):
         """x, y is the top left corner of the bounding square."""
         self.grow(x, y, x + d, y + d)
+        self.circle_shapes.append((x + d / 2.0, y + d / 2.0, d / 2.0))
         self.parts.append(
             f'<circle x="{num(x)}" y="{num(y)}" diameter="{num(d)}" '
             f'style="{style(weight, fill, color)}" antialias="false"/>')
@@ -110,12 +141,20 @@ class Canvas:
             f'style="{style(weight, fill, color)}" antialias="false" '
             f"{coords}/>")
 
-    def text(self, x, y, s, size=5, bold=False, color="#000000"):
-        """x, y is the top left corner of the text."""
+    def text(self, x, y, s, size=5, bold=False, color="#000000",
+             rotation=0):
+        """x, y is the top left corner of the text. With rotation=270 the
+        text reads upwards from x, y (the box is then above and to the
+        right of that point)."""
         w, h = text_size(s, size)
-        self.grow(x, y, x + w, y + h)
+        if rotation == 270:
+            box = (x, y - w, x + h, y)
+        else:
+            box = (x, y, x + w, y + h)
+        self.grow(box[0], box[1], box[2], box[3])
+        self.text_boxes.append(box + (s,))
         self.parts.append(
-            f'<text x="{num(x)}" y="{num(y)}" rotation="0" '
+            f'<text x="{num(x)}" y="{num(y)}" rotation="{rotation}" '
             f'color="{color}" font="{FONT},{size},-1,5,'
             f'{75 if bold else 50},0,0,0,0,0,Regular" text="{esc(s)}"/>')
 

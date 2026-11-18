@@ -1,0 +1,82 @@
+<definition version="0.100.0" type="element" link_type="master" width="324" height="166" hotspot_x="5" hotspot_y="29">
+	<uuid uuid="{6d3c9d03-1785-5dee-a852-c25f2273303c}"/>
+	<names>
+		<name lang="en">Mean Well WDR-480-24 DIN-rail power supply 24 V 20 A - pin table</name>
+		<name lang="fr">Alimentation rail DIN Mean Well WDR-480-24 24 V 20 A - tableau des bornes</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Mean Well</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">WDR-480-24</elementInformation>
+		<elementInformation name="designation" show="1">DIN-rail power supply, AC input, 24 V DC 20 A, 480 W, 85.5 mm wide</elementInformation>
+		<elementInformation name="description" show="1">DC OK LED and V ADJ output voltage trimmer on the front; 2 +V and 2 -V output terminals as on the datasheet (parallel screws); DC OK relay contact on terminals 13 and 14 (the datasheet numbers the two relay screws differently; 13/14 is a convention); terminal order of the symbol is a convention, the physical order depends on the series</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="140"/>
+				<column index="2" width="130"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="44"/>
+			</columnWidths>
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="true"/>
+				<column index="2" visible="true"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+				<column index="5" visible="true"/>
+			</columnVisibility>
+			<columnNames>
+				<column index="0"></column>
+				<column index="1">ID</column>
+				<column index="2">Label</column>
+				<column index="3"></column>
+				<column index="4"></column>
+				<column index="5">N° pin</column>
+			</columnNames>
+			<columnOrder>5,2,1</columnOrder>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
+			<plcIOs>
+				<plcIO type="entree_universelle" address="AC line L1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>L1</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="AC line L2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>L2</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="+24 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>+V</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="+24 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>+V2</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="0 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>-V</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="0 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>-V2</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="DC OK relay contact" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>13</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="DC OK relay contact" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>14</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Protective earth (FG)" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>PE</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Original vector drawing, not copied from a manufacturer drawing. Ratings and terminal names from the public datasheet; layout and symbols are generic, check them against the datasheet.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{fc17565b-b934-5528-b846-fdd6fdd4cc9d}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<dynamic_text x="60" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{35ad5244-31ef-51cd-9639-db9f6eed1c25}" font="Liberation Sans,7,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
+		<plc_table x="0" y="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+	</description>
+</definition>

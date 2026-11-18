@@ -457,6 +457,24 @@ def folio_range(order, title, devices):
     return diagram_xml(order, title, els, [])
 
 
+def folio_layout(order, title):
+    """The layout (implantation) footprints of every power supply at
+    1 px = 2 mm, in rows as on a DIN rail."""
+    els = []
+    x, y, rowh = 60, 80, 0
+    for n, dev in enumerate(gen_elements.PSUS):
+        el = get(dev, "_layout")
+        w, h = int(el.root.get("width")), int(el.root.get("height"))
+        if x + w > 1180:
+            x, y, rowh = 60, y + rowh + 20, 0
+        els.append(element_xml(
+            el, f"PS{n + 1}", x + int(el.root.get("hotspot_x")),
+            y + int(el.root.get("hotspot_y")), f"layout/{dev.ref}"))
+        x += w + 10
+        rowh = max(rowh, h)
+    return diagram_xml(order, title, els, [])
+
+
 def category_names(path):
     names = ET.parse(os.path.join(EXTRA, *path.split("/"),
                                   "qet_directory")).getroot()
@@ -502,9 +520,15 @@ def main():
               folio_range(5, "Range - MICO circuit breakers",
                           gen_elements.MICOS),
               folio_range(6, "Range - Mean Well power supplies",
-                          gen_elements.PSUS),
+                          [d for d in gen_elements.PSUS
+                           if d.series != "WDR"]),
               folio_m12(),
-              folio_m12_range(8, "Range - Murrelektronik M12 products")]
+              folio_m12_range(8, "Range - Murrelektronik M12 products"),
+              folio_layout(9, "Layout - Mean Well power supplies, "
+                           "1 px = 2 mm"),
+              folio_range(10, "Range - Mean Well WDR power supplies",
+                          [d for d in gen_elements.PSUS
+                           if d.series == "WDR"])]
     xrefs = "".join(
         f'<xref delayprefix="" displayhas="cross" master_label="%f-%l%c" '
         'offset="0" powerprefix="" showallconfiguredslaves="false" '

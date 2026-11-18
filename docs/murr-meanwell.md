@@ -6,7 +6,7 @@ built on the same principle as the [Beckhoff library](beckhoff-ethercat.md).
 The symbols are in `extra-elements/16_murrelektronik_mico` and
 `extra-elements/17_meanwell_psu`, installed into the common collection as the
 categories **Murrelektronik MICO electronic circuit breakers** and
-**Mean Well DIN-rail power supplies 24 V** (translated in `qet_directory`:
+**Mean Well DIN-rail power supplies** (translated in `qet_directory`:
 English, French, German).
 
 Each product has its own folder, below a folder for its family:
@@ -20,30 +20,63 @@ Each product has its own folder, below a folder for its family:
 | `17_meanwell_psu/sdr` | SDR-75, 120, 240, 480, 960 |
 | `17_meanwell_psu/edr` | EDR-75, 120, 150 |
 | `17_meanwell_psu/drp` | DRP-240, 480 |
+| `17_meanwell_psu/wdr` | WDR-60 (5, 12, 24, 48 V), WDR-120 (12, 24, 48 V), WDR-240 (24, 48 V), WDR-480 (24, 48 V) |
 
-All are 24 V versions. A product folder holds four **appearances**, named like
+All are 24 V versions except the WDR series, which is included for every
+voltage of the public data sheet (5, 12, 24 and 48 V). A product folder
+holds four **appearances**, named like
 the folder: `X.elmt` (schematic), `X_realistic`, `X_description` and
 `X_table`. As for Beckhoff, the four are masters with the **terminals at the
 same positions and with the same names**, so the views can be swapped on a
-folio without redrawing the wires.
+folio without redrawing the wires. Each power supply also has a fifth,
+non-electrical element, `X_layout`, for the cabinet layout (see below).
 
-- **schematic**: the internal wiring inside a dotted outline. The +24 V rail
+- **schematic**: the internal wiring inside a dotted outline. The +V rail
   is red, the 0 V rail blue, PE yellow-green (dashed). A power supply shows
-  the AC/DC converter and, for the SDR-120 and above, the normally open
+  the AC/DC converter and, for the models that have one, the normally open
   "DC OK" relay contact. A MICO shows the +24 V bus, one current-limited
   channel (I>) per output and the control logic;
 - **realistic**: stylised front view with the terminal markings, the LED, the
   adjustment potentiometer (power supplies) or the push button and current
-  selector of each channel (MICO);
+  selector of each channel (MICO). It is a redrawn vector view of the front
+  face (screw terminal blocks, LED, trimmer, housing outline), not a photo;
 - **description**: the realistic view with legends and leader lines for the
   terminals and the LED;
-- **table**: a simple table `N° pin | Label | ID`.
+- **table**: a simple table `N° pin | Label | ID`;
+- **layout** (power supplies only, `X_layout`): a front-view footprint at
+  **1 px = 2 mm** for the cabinet layout, drawn to the width and height of the
+  data sheet, with the 35 mm DIN rail (two dashed lines behind the body), the
+  terminal screws on the top and bottom strips and the reference as a
+  readable label (rotated on narrow housings). It is a simple element without
+  terminals, so it never takes part in the wiring. The depth is in the
+  description ("... 110x125.2x150 mm (width x height x depth)").
+  The same figures are written to
+  `extra-elements/17_meanwell_psu/devices_layout.json` to be merged into the
+  device list of the enclosure layout (`ide-enclosures/devices.json`) when the
+  implantation branch (`ajol42300-rail-snapping-implantation`) is merged:
+  nothing of that branch is included here.
 
 ## Terminals
 
+The number of terminals follows the public data sheets: every `+V` and `-V`
+screw of the output is a terminal of its own (`+V`, `+V2`, `+V3`, `-V`,
+`-V2`, `-V3`).
+
+| Series / model | Terminals |
+| --- | --- |
+| HDR-15, 30 | L, N, +V, -V (no PE) |
+| HDR-60, 100, 150 | L, N, +V, +V2, -V, -V2 (no PE) |
+| NDR-120, 240, 480; EDR-75, 120, 150; DRP-240, 480 | L, N, PE, +V, +V2, -V, -V2 |
+| SDR-75 | L, N, PE, +V, +V2, -V, -V2 |
+| SDR-120 | L, N, PE, +V, -V, 13, 14 |
+| SDR-240, 480 | L, N, PE, +V, +V2, -V, -V2, 13, 14 |
+| SDR-960 | L, N, PE, +V, +V2, +V3, -V, -V2, -V3, P-, P+ (current sharing), 13, 14 |
+| WDR-60, 120 | L1, L2, PE, +V, -V, 13, 14 |
+| WDR-240, 480 | L1, L2, PE, +V, +V2, -V, -V2, 13, 14 |
+
 | Product | Terminals |
 | --- | --- |
-| Power supply | top: L, N, PE (no PE on the HDR); bottom: +V, -V; 13 and 14 (relay, SDR-120 to SDR-960) |
+| Power supply | see above; 13 and 14 are the DC OK relay contact |
 | MICO Basic | +24V, 0V, ON (enable input), ALARM (group alarm output), OUT1...OUTn |
 | MICO Pro | +24V, 0V, CTRL (control input), ALARM, OUT1...OUTn and 0V1...0Vn |
 
@@ -188,28 +221,43 @@ MICO Basic 4.4 with three lamps, and an SDR-120-24 feeding a MICO Pro with
 two channels (the DC OK contact of the power supply enables the breaker). The
 same four devices are drawn as realistic views, description views and pin
 tables (same labels), then every product of the two libraries is shown on a
-folio; folios 7 and 8 show the M12 links and products (see above). The
+folio; folios 7 and 8 show the M12 links and products (see above). Folio 9
+shows the layout footprints of all the power supplies at 1 px = 2 mm and
+folio 10 the WDR series (the other power supplies are on folio 6). The
 elements are embedded in the project.
 
 ## Sources and assumptions
 
 Only facts are used (reference, voltage, current, number of channels,
-terminal and LED names), taken from the public datasheets of the
-manufacturers: Mean Well (HDR, NDR, SDR, EDR, DRP series) and Murrelektronik
+dimensions, terminal and LED names), taken from the public datasheets of the
+manufacturers: Mean Well (HDR, NDR, SDR, EDR, DRP, WDR series) and
+Murrelektronik
 (MICO Basic and MICO Pro). All the drawings are original vector drawings; no
 photo, logo or text of a datasheet is copied. **Assumed, to check against the
 datasheet of the exact reference before use:**
 
 - the order of the terminals in the symbols is a convention (the physical
-  order varies with the series);
+  order varies with the series, and several models have the outputs on top);
+- the terminal counts and numbering come from the pin tables of the public
+  data sheets. They were read for the HDR-15/30/60/100, NDR-120/480,
+  EDR-75/150, DRP-480, SDR and WDR models; the HDR-150, NDR-240, EDR-120,
+  DRP-240 and WDR-60 layouts were deduced from the neighbouring models;
+- the SDR-960 current sharing connector (P-, P+) and its relay contact pins
+  are read from the text and the picture of the data sheet; the NC contact
+  (pins 7 and 8) of the SDR-480 is not drawn;
+- the dimensions are those of the data sheet (width x height x depth, +/- 1
+  mm); the screws of the layout footprints are evenly spread, not at their
+  exact positions, and the LED and trimmer positions are generic;
+- the WDR models for 5, 12 and 48 V come from the public data sheet; their
+  availability on the market is not known;
+- the layout scale (1 px = 2 mm) is that of the enclosure layout branch; the
+  Beckhoff cards use another scale (about 2.9 px/mm);
 - MICO Basic: no individual 0 V terminal per channel; the assignment of the
   channels of the 4.4.10 (2 x 1-4 A, 2 x 4-10 A) is assumed;
 - MICO Pro: the terminal layout, the LED and the marking `+n` / `-n` of the
   channels are assumed; there is no 8-channel Pro here;
 - the numbers 13 / 14 of the "DC OK" relay contact are assumed;
-- the current sharing terminals of the SDR-960 are not modelled;
-- the realistic views are stylised, not dimensionally exact (only the width
-  of the power supplies follows the datasheet);
+- the realistic views are stylised vector drawings, not photographs;
 - the input voltage range is not stated in the elements.
 
 ## Regenerating the library
@@ -237,9 +285,11 @@ ctest --test-dir build -R tst_murrmeanwellelements -j1
 ```
 
 `--check-elements` must report 0 failures; the only warnings are the "no
-terminal" ones of the table views. `tst_murrmeanwellelements` checks the
-names of the directories, the four appearances of each product, identical
-terminals in the four views, that the drawings stay inside the frame with the
+terminal" ones of the table and layout elements. `tst_murrmeanwellelements` checks the
+names of the directories, the four appearances of each product (and the
+layout footprint of the power supplies), identical
+terminals in the four views, the exact terminal lists of sample models, the
+complete WDR series, the layout dimensions against the data sheet figures, that the drawings stay inside the frame with the
 hotspot and the terminals on the grid, the rail colours, the ratings in the
 data, that the example uses elements of the library, and for the M12 library
 the order numbers, one terminal per connector, the data and the dashed

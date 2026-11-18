@@ -7,8 +7,8 @@
 	<elementInformations>
 		<elementInformation name="manufacturer" show="1">Mean Well</elementInformation>
 		<elementInformation name="manufacturer_reference" show="1">SDR-120-24</elementInformation>
-		<elementInformation name="designation" show="1">DIN-rail power supply, 1-phase AC input, 24 V DC 5 A, 120 W, 40 mm wide</elementInformation>
-		<elementInformation name="description" show="1">DC OK LED and V ADJ output voltage trimmer on the front; DC OK relay contact on terminals 13 and 14 (contact numbering assumed); terminal order of the symbol is a convention, the physical order depends on the series</elementInformation>
+		<elementInformation name="designation" show="1">DIN-rail power supply, AC input, 24 V DC 5 A, 120 W, 40 mm wide</elementInformation>
+		<elementInformation name="description" show="1">DC OK LED and V ADJ output voltage trimmer on the front; 1 +V and 1 -V output terminals as on the datasheet (parallel screws); DC OK relay contact on terminals 13 and 14 (the datasheet numbers the two relay screws differently; 13/14 is a convention); terminal order of the symbol is a convention, the physical order depends on the series</elementInformation>
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
@@ -47,9 +47,6 @@
 				<plcIO type="entree_universelle" address="AC neutral" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>N</terminal>
 				</plcIO>
-				<plcIO type="entree_universelle" address="Protective earth" functionText="" comment="" crossRef="" terminalCount="1">
-					<terminal>PE</terminal>
-				</plcIO>
 				<plcIO type="sortie_digitale" address="+24 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>+V</terminal>
 				</plcIO>
@@ -61,6 +58,9 @@
 				</plcIO>
 				<plcIO type="sortie_digitale" address="DC OK relay contact" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>14</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Protective earth (FG)" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>PE</terminal>
 				</plcIO>
 			</plcIOs>
 		</plcMasterData>

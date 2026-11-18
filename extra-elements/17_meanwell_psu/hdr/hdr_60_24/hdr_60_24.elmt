@@ -7,8 +7,8 @@
 	<elementInformations>
 		<elementInformation name="manufacturer" show="1">Mean Well</elementInformation>
 		<elementInformation name="manufacturer_reference" show="1">HDR-60-24</elementInformation>
-		<elementInformation name="designation" show="1">DIN-rail power supply, 1-phase AC input, 24 V DC 2.5 A, 60 W, 52.5 mm wide</elementInformation>
-		<elementInformation name="description" show="1">Power LED and V ADJ output voltage trimmer on the front; terminal order of the symbol is a convention, the physical order depends on the series</elementInformation>
+		<elementInformation name="designation" show="1">DIN-rail power supply, AC input, 24 V DC 2.5 A, 60 W, 52.5 mm wide</elementInformation>
+		<elementInformation name="description" show="1">Power LED and V ADJ output voltage trimmer on the front; 2 +V and 2 -V output terminals as on the datasheet (parallel screws); terminal order of the symbol is a convention, the physical order depends on the series</elementInformation>
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
@@ -50,8 +50,14 @@
 				<plcIO type="sortie_digitale" address="+24 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>+V</terminal>
 				</plcIO>
+				<plcIO type="sortie_digitale" address="+24 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>+V2</terminal>
+				</plcIO>
 				<plcIO type="sortie_digitale" address="0 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>-V</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="0 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>-V2</terminal>
 				</plcIO>
 			</plcIOs>
 		</plcMasterData>
@@ -62,19 +68,23 @@ License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
 		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{9a093b9f-202a-57e6-909a-185af031aad3}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
 		<rect x="-10" y="0" width="50" height="90" rx="0" ry="0" style="line-style:dotted;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<rect x="-6" y="26" width="22" height="34" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<line x1="16" y1="26" x2="-6" y2="60" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="-6" y="26" width="42" height="34" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="36" y1="26" x2="-6" y2="60" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
 		<text x="-4" y="27" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" text="~"/>
-		<text x="7" y="51" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" text="="/>
+		<text x="27" y="51" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" text="="/>
 		<line x1="0" y1="0" x2="0" y2="26" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
 		<line x1="10" y1="0" x2="10" y2="26" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
 		<line x1="0" y1="60" x2="0" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:red" antialias="false"/>
-		<line x1="10" y1="60" x2="10" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:blue" antialias="false"/>
 		<text x="3" y="70" rotation="0" color="#ff0000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="+"/>
-		<text x="13" y="70" rotation="0" color="#0000ff" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="-"/>
+		<line x1="10" y1="60" x2="10" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:red" antialias="false"/>
+		<line x1="20" y1="60" x2="20" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:blue" antialias="false"/>
+		<text x="23" y="70" rotation="0" color="#0000ff" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="-"/>
+		<line x1="30" y1="60" x2="30" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:blue" antialias="false"/>
 		<terminal x="0" y="0" name="L" orientation="n" type="Generic" uuid="{67c1bc87-3e78-5a5e-abb4-3acf5a80cfa9}"/>
 		<terminal x="10" y="0" name="N" orientation="n" type="Generic" uuid="{39d70996-d87c-53bf-9bf8-500fbe071136}"/>
 		<terminal x="0" y="90" name="+V" orientation="s" type="Generic" uuid="{1e09198c-9dae-5f75-b719-8ab68445e102}" potential="24V"/>
-		<terminal x="10" y="90" name="-V" orientation="s" type="Generic" uuid="{656068bc-39f7-5750-b84b-583682750d37}" potential="0V"/>
+		<terminal x="10" y="90" name="+V2" orientation="s" type="Generic" uuid="{98662f5b-4ce5-5be5-8daa-c1d2b61d51e8}" potential="24V"/>
+		<terminal x="20" y="90" name="-V" orientation="s" type="Generic" uuid="{656068bc-39f7-5750-b84b-583682750d37}" potential="0V"/>
+		<terminal x="30" y="90" name="-V2" orientation="s" type="Generic" uuid="{fe321926-fec4-5820-929a-f2255b6bf75d}" potential="0V"/>
 	</description>
 </definition>

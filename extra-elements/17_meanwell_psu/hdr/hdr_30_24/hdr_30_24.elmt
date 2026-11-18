@@ -7,8 +7,8 @@
 	<elementInformations>
 		<elementInformation name="manufacturer" show="1">Mean Well</elementInformation>
 		<elementInformation name="manufacturer_reference" show="1">HDR-30-24</elementInformation>
-		<elementInformation name="designation" show="1">DIN-rail power supply, 1-phase AC input, 24 V DC 1.5 A, 36 W, 35 mm wide</elementInformation>
-		<elementInformation name="description" show="1">Power LED and V ADJ output voltage trimmer on the front; terminal order of the symbol is a convention, the physical order depends on the series</elementInformation>
+		<elementInformation name="designation" show="1">DIN-rail power supply, AC input, 24 V DC 1.5 A, 36 W, 35 mm wide</elementInformation>
+		<elementInformation name="description" show="1">Power LED and V ADJ output voltage trimmer on the front; 1 +V and 1 -V output terminals as on the datasheet (parallel screws); terminal order of the symbol is a convention, the physical order depends on the series</elementInformation>
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
@@ -69,8 +69,8 @@ License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 		<line x1="0" y1="0" x2="0" y2="26" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
 		<line x1="10" y1="0" x2="10" y2="26" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
 		<line x1="0" y1="60" x2="0" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:red" antialias="false"/>
-		<line x1="10" y1="60" x2="10" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:blue" antialias="false"/>
 		<text x="3" y="70" rotation="0" color="#ff0000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="+"/>
+		<line x1="10" y1="60" x2="10" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:blue" antialias="false"/>
 		<text x="13" y="70" rotation="0" color="#0000ff" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="-"/>
 		<terminal x="0" y="0" name="L" orientation="n" type="Generic" uuid="{6eeb74b0-6a21-50f5-99ab-1c81a09690c4}"/>
 		<terminal x="10" y="0" name="N" orientation="n" type="Generic" uuid="{ec1d396b-c529-52c8-87b2-0589dc0716b9}"/>

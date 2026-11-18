@@ -7,8 +7,8 @@
 	<elementInformations>
 		<elementInformation name="manufacturer" show="1">Mean Well</elementInformation>
 		<elementInformation name="manufacturer_reference" show="1">NDR-480-24</elementInformation>
-		<elementInformation name="designation" show="1">DIN-rail power supply, 1-phase AC input, 24 V DC 20 A, 480 W, 85.5 mm wide</elementInformation>
-		<elementInformation name="description" show="1">DC OK LED and V ADJ output voltage trimmer on the front; terminal order of the symbol is a convention, the physical order depends on the series</elementInformation>
+		<elementInformation name="designation" show="1">DIN-rail power supply, AC input, 24 V DC 20 A, 480 W, 85.5 mm wide</elementInformation>
+		<elementInformation name="description" show="1">DC OK LED and V ADJ output voltage trimmer on the front; 2 +V and 2 -V output terminals as on the datasheet (parallel screws); terminal order of the symbol is a convention, the physical order depends on the series</elementInformation>
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
@@ -47,14 +47,20 @@
 				<plcIO type="entree_universelle" address="AC neutral" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>N</terminal>
 				</plcIO>
-				<plcIO type="entree_universelle" address="Protective earth" functionText="" comment="" crossRef="" terminalCount="1">
-					<terminal>PE</terminal>
-				</plcIO>
 				<plcIO type="sortie_digitale" address="+24 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>+V</terminal>
 				</plcIO>
+				<plcIO type="sortie_digitale" address="+24 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>+V2</terminal>
+				</plcIO>
 				<plcIO type="sortie_digitale" address="0 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>-V</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="0 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>-V2</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Protective earth (FG)" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>PE</terminal>
 				</plcIO>
 			</plcIOs>
 		</plcMasterData>
@@ -65,21 +71,27 @@ License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
 		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{334ae8c3-7512-599f-918d-e89cfe7b771e}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
 		<rect x="-10" y="0" width="90" height="120" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
-		<rect x="-9" y="0" width="18" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<rect x="-4" y="0" width="8" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
 		<circle x="-2" y="7" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
 		<text x="-1.75" y="21" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="L"/>
-		<rect x="11" y="0" width="18" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
-		<circle x="18" y="7" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<text x="18.25" y="21" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="N"/>
-		<rect x="31" y="0" width="18" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
-		<circle x="38" y="7" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<text x="36.99" y="21" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="PE"/>
-		<rect x="-9" y="100" width="18" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<rect x="6" y="0" width="8" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="8" y="7" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="8.25" y="21" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="N"/>
+		<rect x="-4" y="100" width="8" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
 		<circle x="-2" y="109" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
 		<text x="-3.01" y="92.5" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="+V"/>
-		<rect x="11" y="100" width="18" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<rect x="6" y="100" width="8" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="8" y="109" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="6.99" y="92.5" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="+V"/>
+		<rect x="16" y="100" width="8" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
 		<circle x="18" y="109" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
 		<text x="16.99" y="92.5" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="-V"/>
+		<rect x="26" y="100" width="8" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="28" y="109" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="26.99" y="92.5" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="-V"/>
+		<rect x="36" y="0" width="8" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="38" y="7" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="36.99" y="21" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="PE"/>
 		<rect x="-6" y="32" width="82" height="56" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
 		<text x="18.83" y="34" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="NDR-480-24"/>
 		<text x="23.22" y="42" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="24 V 20 A"/>
@@ -87,9 +99,11 @@ License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 		<circle x="37" y="65.4" diameter="6" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
 		<line x1="37" y1="69.9" x2="43" y2="66.9" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
 		<terminal x="0" y="0" name="L" orientation="n" type="Generic" uuid="{7996177a-a177-5e14-b5df-8869c27f77e4}"/>
-		<terminal x="20" y="0" name="N" orientation="n" type="Generic" uuid="{c24a4514-4451-54d0-bd85-51507eb00a0b}"/>
-		<terminal x="40" y="0" name="PE" orientation="n" type="Generic" uuid="{0e6a2313-4985-570b-b151-708aabd4deb2}"/>
+		<terminal x="10" y="0" name="N" orientation="n" type="Generic" uuid="{c24a4514-4451-54d0-bd85-51507eb00a0b}"/>
 		<terminal x="0" y="120" name="+V" orientation="s" type="Generic" uuid="{9a2dcd70-fc56-5c3b-9b9d-07920a10e206}" potential="24V"/>
+		<terminal x="10" y="120" name="+V2" orientation="s" type="Generic" uuid="{93cd092f-19a8-5413-9c15-7226a90828f7}" potential="24V"/>
 		<terminal x="20" y="120" name="-V" orientation="s" type="Generic" uuid="{ab4f81ef-1b2d-5cd9-81e6-e2efcc7946eb}" potential="0V"/>
+		<terminal x="30" y="120" name="-V2" orientation="s" type="Generic" uuid="{1dc8aa88-ed78-5716-8d53-303ecc85cd5d}" potential="0V"/>
+		<terminal x="40" y="0" name="PE" orientation="n" type="Generic" uuid="{0e6a2313-4985-570b-b151-708aabd4deb2}"/>
 	</description>
 </definition>

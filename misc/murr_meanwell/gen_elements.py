@@ -23,13 +23,14 @@ reference, ratings, terminal names, LEDs) comes from public datasheets.
 
 Usage: python misc/murr_meanwell/gen_elements.py
 """
+import json
 import os
 import shutil
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from qetlib import (Canvas, Terminal, write_element, write_directory,
-                    RED, BLUE, YELLOW, GREEN, BLACK)
+                    text_size, RED, BLUE, YELLOW, GREEN, BLACK)
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(
     os.path.abspath(__file__))))
@@ -166,82 +167,156 @@ class Psu(Device):
     kind_en = "DIN-rail power supply"
     kind_fr = "Alimentation rail DIN"
 
-    def __init__(self, series, model, watts, amps, mm, relay=False,
-                 pe=True, led="DC OK", depth=0):
+    def __init__(self, series, model, volts, watts, amps, dims, outs,
+                 ins="LNPE", relay=False, share=False, led="DC OK"):
+        """dims: (width, height, depth) in mm of the datasheet outline.
+        outs: (number of +V terminals, number of -V terminals). ins: the
+        input terminals (letters of L N PE, or L1 L2 PE for the WDR)."""
         self.series, self.ref, self.watts, self.amps = (series, model,
                                                          watts, amps)
-        self.mm, self.relay, self.pe, self.led = mm, relay, pe, led
+        self.volts = volts
+        self.mm, self.depth_mm = dims[0], dims[2]
+        self.height_mm = dims[1]
+        self.nplus, self.nminus = outs
+        self.relay, self.share, self.led = relay, share, led
+        self.ins = {"LNPE": ["L", "N", "PE"], "LN": ["L", "N"],
+                    "L1L2PE": ["L1", "L2", "PE"]}[ins]
+        self.pe = "PE" in self.ins
         self.family = series.lower()
         self.folder = model.lower().replace("-", "_")
-        self.W = max(round10(mm), 50 if relay else 40)
-        self.pitch = 10 if self.W <= 80 else 20
-        self.cols = (self.W - 20) // self.pitch + 1
-        self.H = 90 if series == "HDR" else 120
         a = ("%g" % amps)
-        self.rating = f"24 V {a} A"
-        self.short = f"24 V, {a} A, {watts:g} W"
+        v = ("%g" % volts)
+        self.rating = f"{v} V {a} A"
+        self.short = f"{v} V, {a} A, {watts:g} W"
         self.short_fr = self.short
-        self.designation = (f"DIN-rail power supply, 1-phase AC input, "
-                            f"24 V DC {a} A, {watts:g} W, {mm:g} mm wide")
+        self.designation = (f"DIN-rail power supply, AC input, "
+                            f"{v} V DC {a} A, {watts:g} W, "
+                            f"{self.mm:g} mm wide")
+        self.dims_text = (f"{self.mm:g}x{self.height_mm:g}x"
+                          f"{self.depth_mm:g} mm (width x height x depth)")
         notes = [f"{led} LED and V ADJ output voltage trimmer on the front"
                  if led else ""]
+        notes.append(f"{self.nplus} +V and {self.nminus} -V output "
+                     "terminals as on the datasheet (parallel screws)")
         if relay:
             notes.append("DC OK relay contact on terminals 13 and 14 "
-                         "(contact numbering assumed)")
+                         "(the datasheet numbers the two relay screws "
+                         "differently; 13/14 is a convention)")
+        if share:
+            notes.append("current share terminals P- and P+ (control "
+                         "connector)")
         notes.append("terminal order of the symbol is a convention, the "
                      "physical order depends on the series")
         self.description = "; ".join(n for n in notes if n)
-        p = self.pitch
-        t = [Terminal("L", 0, 0, "n", "entree_universelle", "AC phase",
-                      ""),
-             Terminal("N", p, 0, "n", "entree_universelle", "AC neutral",
-                      "")]
-        if pe:
-            t.append(Terminal("PE", 2 * p, 0, "n", "entree_universelle",
-                              "Protective earth", ""))
-        t.append(Terminal("+V", 0, self.H, "s", "sortie_digitale",
-                          "+24 V DC output", "24V"))
-        t.append(Terminal("-V", p, self.H, "s", "sortie_digitale",
-                          "0 V DC output", "0V"))
-        if relay:
-            t.append(Terminal("13", (self.cols - 2) * p, self.H, "s",
-                              "sortie_digitale", "DC OK relay contact",
-                              ""))
-            t.append(Terminal("14", (self.cols - 1) * p, self.H, "s",
-                              "sortie_digitale", "DC OK relay contact",
-                              ""))
+        self.build_terminals()
+
+    def build_terminals(self):
+        base = max(round10(self.mm), 40)
+        for p in (10 if base <= 80 else 20, 10):
+            xs = self.positions(p)
+            if 20 + max(x for _, x, _ in xs) <= base or p == 10:
+                break
+        self.pitch = p
+        self.W = max(base, 20 + max(x for _, x, _ in xs))
+        self.H = 90 if self.series == "HDR" else 120
+        self.cols = (self.W - 20) // p + 1
+        v = ("%g" % self.volts)
+        t = []
+        for name, x, top in xs:
+            y = 0 if top else self.H
+            if top:
+                ident = {"L": "AC phase", "N": "AC neutral",
+                         "L1": "AC line L1", "L2": "AC line L2",
+                         "PE": "Protective earth (FG)"}[name]
+                t.append(Terminal(name, x, y, "n", "entree_universelle",
+                                  ident, ""))
+            elif name[0] in "+-" and name[1] == "V":
+                plus = name[0] == "+"
+                t.append(Terminal(
+                    name, x, y, "s", "sortie_digitale",
+                    f"+{v} V DC output" if plus else "0 V DC output",
+                    f"{v}V" if plus else "0V"))
+            elif name in ("P-", "P+"):
+                t.append(Terminal(name, x, y, "s", "sortie_digitale",
+                                  "Current share " + name, ""))
+            else:
+                t.append(Terminal(name, x, y, "s", "sortie_digitale",
+                                  "DC OK relay contact", ""))
         self.terms = t
+        self.out_x = [tt.x for tt in t if tt.y and tt.name[1:2] == "V"]
+
+    def positions(self, p):
+        """(name, x, on top) of every terminal for a pitch p."""
+        out = [(n, i * p, True) for i, n in enumerate(self.ins[:2])]
+        names = ([f"+V{'' if i == 0 else i + 1}" for i in range(self.nplus)]
+                 + [f"-V{'' if i == 0 else i + 1}"
+                    for i in range(self.nminus)])
+        last = (len(names) - 1) * p
+        out += [(n, i * p, False) for i, n in enumerate(names)]
+        x = last + 2 * p
+        if self.share:
+            out += [("P-", x, False), ("P+", x + p, False)]
+            x += 2 * p
+        if self.relay:
+            out += [("13", x, False), ("14", x + p, False)]
+        if self.pe:
+            out.append(("PE", max(2 * p, last + p), True))
+        return out
+
+    def label(self, name):
+        """The marking printed next to a terminal (+V2 is printed +V)."""
+        return name[:2] if name[1:2] == "V" and len(name) > 2 else name
+
+    def dc_right(self):
+        return max(self.out_x + [self.pitch])
 
     def schematic(self):
         c = Canvas()
         W, H, p = self.W, self.H, self.pitch
         y0 = 30 if H >= 120 else 26
         y1 = y0 + (40 if H >= 120 else 34)
+        right = self.dc_right() + 6
         c.rect(-10, 0, W, H, dash="dotted")
-        c.rect(-6, y0, p + 12, y1 - y0)
-        c.line(p + 6, y0, -6, y1)
+        c.rect(-6, y0, right + 6, y1 - y0)
+        c.line(right, y0, -6, y1)
         c.text(-4, y0 + 1, "~", 6)
-        c.text(p - 3, y1 - 9, "=", 6)
-        c.line(0, 0, 0, y0)
-        c.line(p, 0, p, y0)
-        c.line(0, y1, 0, H, RED)
-        c.line(p, y1, p, H, BLUE)
-        c.text(3, H - 20, "+", 5, True, HEX_RED)
-        c.text(p + 3, H - 20, "-", 5, True, HEX_BLUE)
+        c.text(right - 9, y1 - 9, "=", 6)
+        for t in self.terms:
+            if t.y == 0 and t.name != "PE":
+                c.line(t.x, 0, t.x, y0)
+        marked = set()
+        for t in self.terms:
+            if t.y and t.name[1:2] == "V":
+                color = RED if t.name[0] == "+" else BLUE
+                c.line(t.x, y1, t.x, H, color)
+                if t.name[0] not in marked:
+                    marked.add(t.name[0])
+                    c.text(t.x + 3, H - 20, t.name[0], 5, True,
+                           HEX_RED if t.name[0] == "+" else HEX_BLUE)
         if self.pe:
-            xpe, ye = 2 * p, y0 + 22
+            xpe = next(t.x for t in self.terms if t.name == "PE")
+            ye = y0 + 22
             c.line(xpe, 0, xpe, ye, YELLOW)
             c.line(xpe, 0, xpe, ye, GREEN, dash="dashed")
             for i, w in enumerate((12, 8, 4)):
                 c.line(xpe - w / 2.0, ye + 4 * i, xpe + w / 2.0,
                        ye + 4 * i)
+        if self.share:
+            for n in ("P-", "P+"):
+                x = self.pos(n)
+                c.line(x, H, x, H - 12)
+            c.text_c((self.pos("P-") + self.pos("P+")) / 2.0, H - 24,
+                     "CS", 4)
         if self.relay:
-            xa, xb = (self.cols - 2) * p, (self.cols - 1) * p
+            xa, xb = self.pos("13"), self.pos("14")
             c.line(xa, H, xa, H - 12)
             c.line(xa, H - 12, xb - 4, H - 28)
             c.line(xb, H, xb, H - 28)
             c.text_c((xa + xb) / 2.0, H - 44, "DC OK", 4)
         return c
+
+    def pos(self, name):
+        return next(t.x for t in self.terms if t.name == name)
 
     def panel(self):
         H = self.H
@@ -260,7 +335,7 @@ class Psu(Device):
             block(c, t.x, y, bw, bh, y + bh * 0.45 if top
                   else y + bh * 0.55)
             c.text_c(t.x, bh + 1 if top else H - bh - 7.5,
-                     t.name, size, True)
+                     self.label(t.name), size, True)
         px1, px2 = -6, W - 14
         cx = (px1 + px2) / 2.0
         c.rect(px1, py0, px2 - px1, py1 - py0, "white")
@@ -275,22 +350,28 @@ class Psu(Device):
         self.front = (cx, cy, px1, px2)
         return c
 
+    def legend_text(self, t):
+        v = "%g" % self.volts
+        name = t.name
+        if t.y == 0:
+            return {"L": "L: AC phase input", "N": "N: AC neutral input",
+                    "L1": "L1: AC line input", "L2": "L2: AC line input",
+                    "PE": "PE: protective earth (FG)"}[name]
+        if name[0] == "+" and name[1:2] == "V":
+            return f"{name}: +{v} V DC output"
+        if name[0] == "-" and name[1:2] == "V":
+            return f"{name}: 0 V DC output"
+        if name in ("P-", "P+"):
+            return f"{name}: current share"
+        return f"{name}: DC OK relay contact"
+
     def description_view(self):
         c = self.realistic()
         H = self.H
         x1, x2 = -10, self.W - 10
         cx, cy = self.front[0], self.front[1]
-        top = [(0, "L: AC phase input"), (self.pitch, "N: AC neutral "
-                                          "input")]
-        if self.pe:
-            top.append((2 * self.pitch, "PE: protective earth (FG)"))
-        bottom = [(0, "+V: +24 V DC output"),
-                  (self.pitch, "-V: 0 V DC output")]
-        if self.relay:
-            bottom.append(((self.cols - 2) * self.pitch,
-                           "13: DC OK relay contact"))
-            bottom.append(((self.cols - 1) * self.pitch,
-                           "14: DC OK relay contact"))
+        top = [(t.x, self.legend_text(t)) for t in self.terms if t.y == 0]
+        bottom = [(t.x, self.legend_text(t)) for t in self.terms if t.y]
         nt = legend_vertical(c, top, x1, x2, 0, False)
         legend_vertical(c, bottom, x1, x2, H, True)
         if self.led:
@@ -300,31 +381,127 @@ class Psu(Device):
                     x1, x2)
         return c, min(-24, -LEVEL * nt - 22)
 
+    def layout_label(self, wpx, hpx):
+        """Size, rotation and left of the reference text: horizontal and
+        centred between the DIN rail edges when it fits the width,
+        otherwise rotated by 270 degrees."""
+        s = self.ref
+        for size in (5, 4):
+            w, h = text_size(s, size)
+            if w <= wpx - 2 and h <= 15:
+                return size, 0, (wpx - w) / 2.0
+        for size in (5, 4, 3):
+            w, h = text_size(s, size)
+            if h <= wpx - 2 and w <= hpx - 22:
+                return size, 270, (wpx - h) / 2.0
+        raise ValueError("no room for the layout label of " + s)
+
+    def layout(self):
+        """Front view for a cabinet layout, 1 px = 2 mm, DIN rail behind
+        the body and terminal screws at the top and at the bottom."""
+        c = Canvas()
+        w, h = self.mm / 2.0, self.height_mm / 2.0
+        c.rect(0, 0, w, h, "none")
+        strip = 8
+        c.line(0, strip, w, strip)
+        c.line(0, h - strip, w, h - strip)
+        top = [t for t in self.terms if t.y == 0]
+        bottom = [t for t in self.terms if t.y]
+        d = min(4.0, w / max(len(top), len(bottom)) - 1.0)
+        for row, y in ((top, strip / 2.0), (bottom, h - strip / 2.0)):
+            for i in range(len(row)):
+                c.disc((i + 0.5) * w / len(row), y, d, "gray")
+        size, rot, tx = self.layout_label(w, h)
+        rail_y = h / 2.0
+        rail = (rail_y - 8.75, rail_y + 8.75)
+        tw, th = text_size(self.ref, size)
+        gap = None
+        if rot:
+            gap = (tx - 1, tx + th + 1)
+            ty = h - strip - 3
+        else:
+            ty = rail_y - th / 2.0
+        for y in rail:
+            if gap:
+                if gap[0] > 0:
+                    c.line(0, y, gap[0], y, dash="dashed")
+                if gap[1] < w:
+                    c.line(gap[1], y, w, y, dash="dashed")
+            else:
+                c.line(0, y, w, y, dash="dashed")
+        c.text(tx, ty, self.ref, size, True, rotation=rot)
+        space = rail[0] - strip
+        if not rot and space >= 8:
+            cx, cy = w / 2.0, strip + space / 2.0
+            if self.led:
+                c.disc(cx - 5, cy, 3, "green")
+            c.disc(cx + 4, cy, 4, "white")
+        return c
+
+    def layout_infos(self):
+        return {"manufacturer": self.manufacturer,
+                "designation": self.designation + " (layout)",
+                "description": f"{self.manufacturer} {self.ref}, "
+                               f"{self.dims_text}"}
+
+    def write(self):
+        super().write()
+        names = {"en": f"{self.manufacturer} {self.ref} {self.kind_en} "
+                       f"{self.rating}, layout (1 px = 2 mm)",
+                 "fr": f"{self.kind_fr} {self.manufacturer} {self.ref} "
+                       f"{self.rating}, implantation (1 px = 2 mm)"}
+        write_element(self.path("_layout"), self.key + "/layout", names,
+                      self.layout_infos(), AUTHOR, self.layout(), (),
+                      label_at=(0, -14), master=False)
+
+    def layout_entry(self):
+        return {"manufacturer": self.manufacturer, "reference": self.ref,
+                "width": self.mm, "height": self.height_mm,
+                "depth": self.depth_mm}
+
 
 PSUS = (
-    [Psu("HDR", n, w, a, mm, pe=False, led="Power")
-     for n, w, a, mm in (("HDR-15-24", 15, 0.63, 17.5),
-                         ("HDR-30-24", 36, 1.5, 35),
-                         ("HDR-60-24", 60, 2.5, 52.5),
-                         ("HDR-100-24N", 92, 3.83, 70),
-                         ("HDR-150-24", 150, 6.25, 105))]
-    + [Psu("NDR", n, w, a, mm)
-       for n, w, a, mm in (("NDR-120-24", 120, 5, 40),
-                           ("NDR-240-24", 240, 10, 63),
-                           ("NDR-480-24", 480, 20, 85.5))]
-    + [Psu("SDR", "SDR-75-24", 76.8, 3.2, 32)]
-    + [Psu("SDR", n, w, a, mm, relay=True)
-       for n, w, a, mm in (("SDR-120-24", 120, 5, 40),
-                           ("SDR-240-24", 240, 10, 63),
-                           ("SDR-480-24", 480, 20, 85.5),
-                           ("SDR-960-24", 960, 40, 110))]
-    + [Psu("EDR", n, w, a, mm)
-       for n, w, a, mm in (("EDR-75-24", 76.8, 3.2, 32),
-                           ("EDR-120-24", 120, 5, 40),
-                           ("EDR-150-24", 156, 6.5, 40))]
-    + [Psu("DRP", n, w, a, mm)
+    [Psu("HDR", n, 24, w, a, (mm, 90, 54.5), outs,
+         "LN", led="Power")
+     for n, w, a, mm, outs in (("HDR-15-24", 15, 0.63, 17.5, (1, 1)),
+                               ("HDR-30-24", 36, 1.5, 35, (1, 1)),
+                               ("HDR-60-24", 60, 2.5, 52.5, (2, 2)),
+                               ("HDR-100-24N", 92, 3.83, 70, (2, 2)),
+                               ("HDR-150-24", 150, 6.25, 105, (2, 2)))]
+    + [Psu("NDR", n, 24, w, a, (mm, 125.2, d), (2, 2))
+       for n, w, a, mm, d in (("NDR-120-24", 120, 5, 40, 113.5),
+                              ("NDR-240-24", 240, 10, 63, 113.5),
+                              ("NDR-480-24", 480, 20, 85.5, 128.5))]
+    + [Psu("SDR", "SDR-75-24", 24, 76.8, 3.2, (32, 125.2, 102), (2, 2))]
+    + [Psu("SDR", "SDR-120-24", 24, 120, 5, (40, 125.2, 113.5), (1, 1),
+           relay=True),
+       Psu("SDR", "SDR-240-24", 24, 240, 10, (63, 125.2, 113.5), (2, 2),
+           relay=True),
+       Psu("SDR", "SDR-480-24", 24, 480, 20, (85.5, 125.2, 128.5), (2, 2),
+           relay=True),
+       Psu("SDR", "SDR-960-24", 24, 960, 40, (110, 125.2, 150), (3, 3),
+           relay=True, share=True)]
+    + [Psu("EDR", n, 24, w, a, (mm, 125.2, d), (2, 2))
+       for n, w, a, mm, d in (("EDR-75-24", 76.8, 3.2, 32, 102),
+                              ("EDR-120-24", 120, 5, 40, 113.5),
+                              ("EDR-150-24", 156, 6.5, 40, 113.5))]
+    + [Psu("DRP", n, 24, w, a, (mm, 125.2, 100), (2, 2))
        for n, w, a, mm in (("DRP-240-24", 240, 10, 125.5),
-                           ("DRP-480-24", 480, 20, 227))])
+                           ("DRP-480-24", 480, 20, 227))]
+    + [Psu("WDR", f"WDR-{n}-{v}", v, w, a, (mm, 125.2, d), outs,
+           "L1L2PE", relay=True)
+       for n, v, w, a, mm, d, outs in (
+           (60, 5, 50, 10, 32, 102, (1, 1)),
+           (60, 12, 60, 5, 32, 102, (1, 1)),
+           (60, 24, 60, 2.5, 32, 102, (1, 1)),
+           (60, 48, 60, 1.25, 32, 102, (1, 1)),
+           (120, 12, 120, 10, 40, 113.5, (1, 1)),
+           (120, 24, 120, 5, 40, 113.5, (1, 1)),
+           (120, 48, 120, 2.5, 40, 113.5, (1, 1)),
+           (240, 24, 240, 10, 63, 113.5, (2, 2)),
+           (240, 48, 240, 5, 63, 113.5, (2, 2)),
+           (480, 24, 480, 20, 85.5, 128.5, (2, 2)),
+           (480, 48, 480, 10, 85.5, 128.5, (2, 2)))])
 
 PSU_FAMILIES = {
     "hdr": ("HDR series (slim, 15-150 W)",
@@ -341,6 +518,9 @@ PSU_FAMILIES = {
     "drp": ("DRP series (with PFC, 240-480 W)",
             "S\u00e9rie DRP (avec PFC, 240-480 W)",
             "Serie DRP (mit PFC, 240-480 W)"),
+    "wdr": ("WDR series (wide input 180-550 V AC, 60-480 W)",
+            "S\u00e9rie WDR (entr\u00e9e large 180-550 V AC, 60-480 W)",
+            "Serie WDR (Weitbereichseingang 180-550 V AC, 60-480 W)"),
 }
 
 
@@ -519,9 +699,9 @@ ROOTS = {
     MICO_DIR: ("Murrelektronik MICO electronic circuit breakers",
                "Disjoncteurs \u00e9lectroniques Murrelektronik MICO",
                "Murrelektronik MICO elektronische Sicherungsmodule"),
-    PSU_DIR: ("Mean Well DIN-rail power supplies 24 V",
-              "Alimentations rail DIN Mean Well 24 V",
-              "Mean Well Hutschienen-Netzteile 24 V"),
+    PSU_DIR: ("Mean Well DIN-rail power supplies",
+              "Alimentations rail DIN Mean Well",
+              "Mean Well Hutschienen-Netzteile"),
 }
 
 
@@ -543,8 +723,21 @@ def main():
                         dict(zip(("en", "fr", "de"), n)))
     for d in all_devices():
         d.write()
+    with open(os.path.join(EXTRA, PSU_DIR, "devices_layout.json"), "w",
+              encoding="utf-8", newline="\n") as f:
+        json.dump({"devices": [d.layout_entry() for d in PSUS]}, f,
+                  indent=2)
+        f.write("\n")
+    problems = 0
+    for d in PSUS:
+        for name, canvas in (("layout", d.layout()),
+                             ("realistic", d.realistic())):
+            for p in canvas.layout_problems():
+                problems += 1
+                print(f"{d.ref} {name}: {p}")
     print(f"{len(all_devices())} products, "
-          f"{len(all_devices()) * len(VIEWS)} elements written")
+          f"{len(MICOS) * len(VIEWS) + len(PSUS) * (len(VIEWS) + 1)} "
+          f"elements written, {problems} drawing problems")
 
 
 if __name__ == "__main__":

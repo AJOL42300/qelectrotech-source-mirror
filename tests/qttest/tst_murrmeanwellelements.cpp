@@ -31,6 +31,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QMap>
+#include <QRegularExpression>
 #include <QSet>
 #include <QtTest>
 #include <cmath>
@@ -92,6 +93,11 @@ class TstMurrMeanwellElements : public QObject
 		{
 			return definition.firstChildElement(
 				QStringLiteral("description")).elementsByTagName(tag);
+		}
+
+		static bool isLayout(const QString &file)
+		{
+			return file.endsWith(QLatin1String("_layout.elmt"));
 		}
 
 			// the product folders of a category: path -> its .elmt files
@@ -627,10 +633,14 @@ class TstMurrMeanwellElements : public QObject
 								 it.key() + QStringLiteral("/qet_directory")),
 							 qPrintable(it.key()));
 					QStringList expected;
-					for (const QString &suffix :
-						 {QString(), QStringLiteral("_realistic"),
-						  QStringLiteral("_description"),
-						  QStringLiteral("_table")}) {
+					QStringList suffixes{QString(), QStringLiteral("_realistic"),
+										 QStringLiteral("_description"),
+										 QStringLiteral("_table")};
+						// the power supplies also have a layout footprint
+					if (category.startsWith(QLatin1String("17"))) {
+						suffixes << QStringLiteral("_layout");
+					}
+					for (const QString &suffix : suffixes) {
 						expected << it.key() + QLatin1Char('/') + stem
 							+ suffix + QStringLiteral(".elmt");
 					}
@@ -658,8 +668,6 @@ class TstMurrMeanwellElements : public QObject
 						const QByteArray f = file.toUtf8();
 						QVERIFY2(def.tagName() == QLatin1String("definition"),
 								 f.constData());
-						QCOMPARE(def.attribute(QStringLiteral("link_type")),
-								 QStringLiteral("master"));
 						const QString uuid = def.firstChildElement(
 							QStringLiteral("uuid")).attribute(
 							QStringLiteral("uuid"));
@@ -669,6 +677,15 @@ class TstMurrMeanwellElements : public QObject
 						element_uuids.insert(uuid);
 						QCOMPARE(info(def, QStringLiteral("manufacturer")),
 								 maker);
+						if (isLayout(file)) {
+							QCOMPARE(def.attribute(QStringLiteral("link_type")),
+									 QStringLiteral("simple"));
+							QVERIFY2(parts(def, QStringLiteral("terminal"))
+									 .isEmpty(), f.constData());
+							continue;
+						}
+						QCOMPARE(def.attribute(QStringLiteral("link_type")),
+								 QStringLiteral("master"));
 						QVERIFY2(!info(def, QStringLiteral(
 									 "manufacturer_reference")).isEmpty(),
 								 f.constData());
@@ -753,6 +770,9 @@ class TstMurrMeanwellElements : public QObject
 				const auto map = products(category);
 				for (const QStringList &files : map) {
 					for (const QString &file : files) {
+						if (isLayout(file)) {
+							continue;
+						}
 						const auto def = load(file);
 						const bool table =
 							file.endsWith(QLatin1String("_table.elmt"));
@@ -888,19 +908,25 @@ class TstMurrMeanwellElements : public QObject
 		void ratingsAreInTheElementData()
 		{
 			const auto psus = products(QStringLiteral("17_meanwell_psu"));
-			QVERIFY(psus.size() >= 18);
+			QCOMPARE(psus.size(), 29);
 			for (auto it = psus.cbegin(); it != psus.cend(); ++it) {
 				const QString base = it.key() + QLatin1Char('/')
 					+ QFileInfo(it.key()).fileName();
 				const auto def = load(base + QStringLiteral(".elmt"));
 				const auto p = pins(def);
-				for (const QString &n : {QStringLiteral("L"), QStringLiteral("N"),
+				const bool wide =
+					QFileInfo(it.key()).fileName().startsWith(
+						QLatin1String("wdr"));
+				for (const QString &n : {wide ? QStringLiteral("L1")
+												: QStringLiteral("L"),
+										 wide ? QStringLiteral("L2")
+											  : QStringLiteral("N"),
 										 QStringLiteral("+V"),
 										 QStringLiteral("-V")}) {
 					QVERIFY2(p.contains(n), qPrintable(base + n));
 				}
 				const QString d = info(def, QStringLiteral("designation"));
-				QVERIFY2(d.contains(QLatin1String("24 V DC"))
+				QVERIFY2(d.contains(QLatin1String(" V DC"))
 						 && d.contains(QLatin1String(" A, "))
 						 && d.contains(QLatin1String(" W")), qPrintable(base));
 			}
@@ -925,6 +951,88 @@ class TstMurrMeanwellElements : public QObject
 						 && p.contains(QStringLiteral("ALARM")),
 						 qPrintable(base));
 			}
+		}
+
+		void psuOutputTerminalsMatchTheDatasheetCounts()
+		{
+			const QMap<QString, QStringList> expected{
+				{"hdr/hdr_15_24", {"L", "N", "+V", "-V"}},
+				{"hdr/hdr_60_24", {"L", "N", "+V", "+V2", "-V", "-V2"}},
+				{"sdr/sdr_120_24",
+				 {"L", "N", "+V", "-V", "13", "14", "PE"}},
+				{"sdr/sdr_960_24",
+				 {"L", "N", "+V", "+V2", "+V3", "-V", "-V2", "-V3", "P-",
+				  "P+", "13", "14", "PE"}},
+				{"ndr/ndr_240_24",
+				 {"L", "N", "+V", "+V2", "-V", "-V2", "PE"}},
+				{"wdr/wdr_60_24", {"L1", "L2", "+V", "-V", "13", "14", "PE"}},
+				{"wdr/wdr_480_24",
+				 {"L1", "L2", "+V", "+V2", "-V", "-V2", "13", "14", "PE"}}};
+			const QString base = root(QStringLiteral("17_meanwell_psu"));
+			for (auto it = expected.cbegin(); it != expected.cend(); ++it) {
+				const QString stem = it.key().section(QLatin1Char('/'), 1);
+				const auto def = load(base + QLatin1Char('/') + it.key()
+									  + QLatin1Char('/') + stem
+									  + QStringLiteral(".elmt"));
+				QStringList got = pins(def).keys();
+				QStringList want = it.value();
+				got.sort();
+				want.sort();
+				QCOMPARE(got, want);
+			}
+		}
+
+		void wdrSeriesIsComplete()
+		{
+			const QString dir =
+				root(QStringLiteral("17_meanwell_psu")) + QStringLiteral("/wdr");
+			QStringList names = QDir(dir).entryList(QDir::Dirs
+													| QDir::NoDotAndDotDot);
+			names.sort();
+			QCOMPARE(names.size(), 11);
+			for (const QString &n : QStringList{
+					 "wdr_60_5", "wdr_60_12", "wdr_60_24", "wdr_60_48",
+					 "wdr_120_12", "wdr_120_24", "wdr_120_48", "wdr_240_24",
+					 "wdr_240_48", "wdr_480_24", "wdr_480_48"}) {
+				QVERIFY2(names.contains(n), qPrintable(n));
+				QVERIFY2(QFileInfo::exists(QStringLiteral("%1/%2/%2_layout.elmt")
+							 .arg(dir, n)), qPrintable(n));
+			}
+			QVERIFY(QFileInfo::exists(dir + QStringLiteral("/qet_directory")));
+		}
+
+		void layoutFootprintsFollowTheDatasheetDimensions()
+		{
+			QRegularExpression re(QStringLiteral(
+				"^Mean Well [^,]+, ([0-9.]+)x([0-9.]+)x([0-9.]+) mm "
+				"\\(width x height x depth\\)$"));
+			int count = 0;
+			QDirIterator it(root(QStringLiteral("17_meanwell_psu")),
+							{QStringLiteral("*_layout.elmt")}, QDir::Files,
+							QDirIterator::Subdirectories);
+			while (it.hasNext()) {
+				const QString file = it.next();
+				const QByteArray f = file.toUtf8();
+				const auto def = load(file);
+				const auto m = re.match(
+					info(def, QStringLiteral("description")));
+				QVERIFY2(m.hasMatch(), f.constData());
+				const auto rects = parts(def, QStringLiteral("rect"));
+				QVERIFY2(rects.size() >= 1, f.constData());
+					// 1 px = 2 mm; the first rectangle is the housing front
+				const auto body = rects.at(0).toElement();
+				QVERIFY2(qAbs(body.attribute(QStringLiteral("width"))
+							  .toDouble() * 2 - m.captured(1).toDouble())
+						 < 1.0, f.constData());
+				QVERIFY2(qAbs(body.attribute(QStringLiteral("height"))
+							  .toDouble() * 2 - m.captured(2).toDouble())
+						 < 1.0, f.constData());
+				QVERIFY2(m.captured(3).toDouble() > 50.0, f.constData());
+				QVERIFY2(info(def, QStringLiteral("manufacturer_reference"))
+						 .isEmpty(), f.constData());
+				++count;
+			}
+			QCOMPARE(count, 29);
 		}
 
 		void m12ElementsAreConsistent()

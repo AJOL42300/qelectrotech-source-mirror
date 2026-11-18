@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="master" width="240" height="180" hotspot_x="90" hotspot_y="50">
+<definition version="0.100.0" type="element" link_type="master" width="250" height="180" hotspot_x="100" hotspot_y="50">
 	<uuid uuid="{6b7a2e05-9bc0-5f3c-b15f-e713df1e3289}"/>
 	<names>
 		<name lang="en">Mean Well HDR-60-24 DIN-rail power supply 24 V 2.5 A, description view</name>
@@ -7,8 +7,8 @@
 	<elementInformations>
 		<elementInformation name="manufacturer" show="1">Mean Well</elementInformation>
 		<elementInformation name="manufacturer_reference" show="1">HDR-60-24</elementInformation>
-		<elementInformation name="designation" show="1">DIN-rail power supply, 1-phase AC input, 24 V DC 2.5 A, 60 W, 52.5 mm wide</elementInformation>
-		<elementInformation name="description" show="1">Power LED and V ADJ output voltage trimmer on the front; terminal order of the symbol is a convention, the physical order depends on the series</elementInformation>
+		<elementInformation name="designation" show="1">DIN-rail power supply, AC input, 24 V DC 2.5 A, 60 W, 52.5 mm wide</elementInformation>
+		<elementInformation name="description" show="1">Power LED and V ADJ output voltage trimmer on the front; 2 +V and 2 -V output terminals as on the datasheet (parallel screws); terminal order of the symbol is a convention, the physical order depends on the series</elementInformation>
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
@@ -50,8 +50,14 @@
 				<plcIO type="sortie_digitale" address="+24 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>+V</terminal>
 				</plcIO>
+				<plcIO type="sortie_digitale" address="+24 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>+V2</terminal>
+				</plcIO>
 				<plcIO type="sortie_digitale" address="0 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>-V</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="0 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>-V2</terminal>
 				</plcIO>
 			</plcIOs>
 		</plcMasterData>
@@ -73,7 +79,13 @@ License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 		<text x="-3.01" y="66.5" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="+V"/>
 		<rect x="6" y="74" width="8" height="16" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
 		<circle x="8" y="80.8" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<text x="6.99" y="66.5" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="-V"/>
+		<text x="6.99" y="66.5" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="+V"/>
+		<rect x="16" y="74" width="8" height="16" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="18" y="80.8" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="16.99" y="66.5" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="-V"/>
+		<rect x="26" y="74" width="8" height="16" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="28" y="80.8" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="26.99" y="66.5" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="-V"/>
 		<rect x="-6" y="28" width="42" height="34" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
 		<text x="0.4" y="30" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="HDR-60-24"/>
 		<text x="1.97" y="38" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="24 V 2.5 A"/>
@@ -95,7 +107,15 @@ License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 		<circle x="9" y="85" diameter="2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
 		<line x1="10" y1="86" x2="10" y2="112" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
 		<line x1="10" y1="112" x2="-16" y2="112" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="-72.27" y="108.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="-V: 0 V DC output"/>
+		<text x="-81.67" y="108.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="+V2: +24 V DC output"/>
+		<circle x="29" y="85" diameter="2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<line x1="30" y1="86" x2="30" y2="103" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="30" y1="103" x2="46" y2="103" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="48" y="99.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="-V2: 0 V DC output"/>
+		<circle x="19" y="85" diameter="2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<line x1="20" y1="86" x2="20" y2="112" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="20" y1="112" x2="46" y2="112" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="48" y="108.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="-V: 0 V DC output"/>
 		<circle x="6" y="49.1" diameter="2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
 		<line x1="7" y1="50.1" x2="-16" y2="50.1" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
 		<text x="-72.27" y="46.3" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="Power LED (green)"/>
@@ -105,6 +125,8 @@ License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 		<terminal x="0" y="0" name="L" orientation="n" type="Generic" uuid="{41f3f6a7-0254-52e9-87fd-766936743b95}"/>
 		<terminal x="10" y="0" name="N" orientation="n" type="Generic" uuid="{5222d2d4-2c38-54d2-adf9-0d7e0af8c55e}"/>
 		<terminal x="0" y="90" name="+V" orientation="s" type="Generic" uuid="{bf7dd410-279f-5267-9e47-4e04dbaf0486}" potential="24V"/>
-		<terminal x="10" y="90" name="-V" orientation="s" type="Generic" uuid="{222aee5e-aefd-5328-99f2-e8cff8db28fe}" potential="0V"/>
+		<terminal x="10" y="90" name="+V2" orientation="s" type="Generic" uuid="{a404758b-b1d8-546a-bf97-ef7d4840219d}" potential="24V"/>
+		<terminal x="20" y="90" name="-V" orientation="s" type="Generic" uuid="{222aee5e-aefd-5328-99f2-e8cff8db28fe}" potential="0V"/>
+		<terminal x="30" y="90" name="-V2" orientation="s" type="Generic" uuid="{f14804f0-a50d-5bda-b878-49f72047efa3}" potential="0V"/>
 	</description>
 </definition>
