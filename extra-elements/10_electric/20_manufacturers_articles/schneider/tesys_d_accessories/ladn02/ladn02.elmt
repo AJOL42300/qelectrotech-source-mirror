@@ -1,0 +1,38 @@
+<definition version="0.100.0" type="element" link_type="simple" width="90" height="80" hotspot_x="20" hotspot_y="10">
+	<uuid uuid="{d127f179-b2be-5562-a248-5cb021d09f79}" />
+	<names>
+		<name lang="en">TeSys D auxiliary contact block LADN02 2 NC</name>
+		<name lang="fr">Bloc de contacts auxiliaires TeSys D LADN02 2 NC</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">LADN02</elementInformation>
+		<elementInformation name="designation" show="1">TeSys D front auxiliary contact block LADN02, 2 NC, screw clamp</elementInformation>
+		<elementInformation name="description" show="1">Front-mounting instantaneous auxiliary contact block LADN02 for TeSys D (LC1D) and TeSys F contactors, 2 NC, screw clamp terminals. Terminal marking 61-62, 71-72. ASSUMED.</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.33 px/mm (1 module of 9 mm = 30 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="-8" length2="1.5" />
+		<line end1="none" end2="none" y1="14" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-8" length1="1.5" x2="0" length2="1.5" />
+		<text x="4" y="10.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="61" />
+		<text x="4" y="54.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="62" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="30" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="30" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="22" length2="1.5" />
+		<line end1="none" end2="none" y1="14" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="22" length1="1.5" x2="30" length2="1.5" />
+		<text x="34" y="10.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="71" />
+		<text x="34" y="54.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="72" />
+		<line end1="none" end2="none" y1="27" antialias="false" y2="27" style="line-style:dashed;line-weight:thin;filling:none;color:black" x1="-8" length1="1.5" x2="22" length2="1.5" />
+		<terminal x="0" y="0" name="61" orientation="n" type="Generic" uuid="{ead3531c-7ccb-5a87-9035-c94f074d9c36}" />
+		<terminal x="0" y="60" name="62" orientation="s" type="Generic" uuid="{dfc70068-f1c9-5f2b-bfdc-974113472f25}" />
+		<terminal x="30" y="0" name="71" orientation="n" type="Generic" uuid="{c8c5e086-91bb-5965-855c-7d7bdfefd2ca}" />
+		<terminal x="30" y="60" name="72" orientation="s" type="Generic" uuid="{1928ae06-1ba7-5328-9107-f373fc4604c8}" />
+		<dynamic_text x="-15" y="73" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{3e833c86-abf9-59e9-9f25-44bed1d30312}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

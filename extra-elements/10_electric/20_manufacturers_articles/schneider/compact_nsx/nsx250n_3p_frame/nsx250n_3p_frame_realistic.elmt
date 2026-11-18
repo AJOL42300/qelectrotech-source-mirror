@@ -1,0 +1,90 @@
+<definition version="0.100.0" type="element" link_type="simple" width="360" height="550" hotspot_x="60" hotspot_y="60">
+	<uuid uuid="{48c51b59-5578-5770-b087-394b76a1d3d1}" />
+	<names>
+		<name lang="en">ComPacT NSX250N 3P frame, no trip unit, front view</name>
+		<name lang="fr">ComPacT NSX250N 3P châssis sans déclencheur, vue de face</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">C25N3</elementInformation>
+		<elementInformation name="designation" show="1">ComPacT NSX250N basic frame, 3P, 250 A, 50 kA, without trip unit</elementInformation>
+		<elementInformation name="description" show="1">Basic frame ComPacT NSX250N, 3P, 250 A, 50 kA at 415 V, without trip unit. 105 x 161 x 86 mm.</elementInformation>
+		<elementInformation name="auxiliary1" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary1" show="0">Standard motor mechanism module MT250 for ComPacT NSX250, control voltage 220-240 V AC 50/60 Hz (208-277 V AC 60 Hz), consumption below 500 VA, automatic spring charging, padlocking still possible, supplied with an SDE adapter. Motor terminals M1-M2 ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary1" show="0">Motor mechanism module MT250, ComPacT NSX250, 220/240 V AC</elementInformation>
+		<elementInformation name="manufacturer_auxiliary1" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary1" show="0">LV431541</elementInformation>
+		<elementInformation name="quantity_auxiliary1" show="0">0</elementInformation>
+		<elementInformation name="auxiliary2" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary2" show="0">Standard auxiliary contact for ComPacT NSX, NS, PowerPact and EasyPact CVS: ON/OFF (OF), trip (SD), fault trip (SDE) and earth-fault trip (SDV) indication depending on its slot. One changeover contact (1 NO + 1 NC on a common point), 6 A, spring terminals. Terminals C, NC, NO.</elementInformation>
+		<elementInformation name="designation_auxiliary2" show="0">Auxiliary contact OF/SD/SDE/SDV, 1 changeover, spring terminals</elementInformation>
+		<elementInformation name="manufacturer_auxiliary2" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary2" show="0">29450</elementInformation>
+		<elementInformation name="quantity_auxiliary2" show="0">0</elementInformation>
+		<elementInformation name="auxiliary3" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary3" show="0">Instantaneous undervoltage release MN for ComPacT NSX, 24 V DC, spring terminals. Coil terminals D1-D2 ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary3" show="0">MN undervoltage release, ComPacT NSX, 24 V DC, spring terminals</elementInformation>
+		<elementInformation name="manufacturer_auxiliary3" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary3" show="0">LV429410</elementInformation>
+		<elementInformation name="quantity_auxiliary3" show="0">0</elementInformation>
+		<elementInformation name="auxiliary4" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary4" show="0">Long terminal shield for ComPacT NSX100/160/250, 3P, pole pitch 35 mm, degree of protection IP40. Mechanical accessory, no terminal.</elementInformation>
+		<elementInformation name="designation_auxiliary4" show="0">Long terminal shield, ComPacT NSX100/160/250, 3P</elementInformation>
+		<elementInformation name="manufacturer_auxiliary4" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary4" show="0">LV429517</elementInformation>
+		<elementInformation name="quantity_auxiliary4" show="0">0</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.43 px/mm (pole pitch 35 mm = 120 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="-60" y="-60" width="360" height="550" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayDimGray;color:black" rx="0" ry="0" />
+		<rect x="-40" y="-35" width="80" height="70" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDarkGray;color:black" rx="0" ry="0" />
+		<rect x="-40" y="395" width="80" height="70" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDarkGray;color:black" rx="0" ry="0" />
+		<circle x="-15" y="-15" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="30" />
+		<circle x="-12" y="-12" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="24" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-12" length1="1.5" x2="12" length2="1.5" />
+		<circle x="-15" y="415" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="30" />
+		<circle x="-12" y="418" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="24" />
+		<line end1="none" end2="none" y1="430" antialias="false" y2="430" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-12" length1="1.5" x2="12" length2="1.5" />
+		<rect x="80" y="-35" width="80" height="70" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDarkGray;color:black" rx="0" ry="0" />
+		<rect x="80" y="395" width="80" height="70" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDarkGray;color:black" rx="0" ry="0" />
+		<circle x="105" y="-15" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="30" />
+		<circle x="108" y="-12" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="24" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="108" length1="1.5" x2="132" length2="1.5" />
+		<circle x="105" y="415" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="30" />
+		<circle x="108" y="418" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="24" />
+		<line end1="none" end2="none" y1="430" antialias="false" y2="430" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="108" length1="1.5" x2="132" length2="1.5" />
+		<rect x="200" y="-35" width="80" height="70" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDarkGray;color:black" rx="0" ry="0" />
+		<rect x="200" y="395" width="80" height="70" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDarkGray;color:black" rx="0" ry="0" />
+		<circle x="225" y="-15" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="30" />
+		<circle x="228" y="-12" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="24" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="228" length1="1.5" x2="252" length2="1.5" />
+		<circle x="225" y="415" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="30" />
+		<circle x="228" y="418" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="24" />
+		<line end1="none" end2="none" y1="430" antialias="false" y2="430" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="228" length1="1.5" x2="252" length2="1.5" />
+		<rect x="-40" y="60" width="320" height="310" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayDarkGray;color:black" rx="0" ry="0" />
+		<rect x="-40" y="60" width="320" height="10" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGreenLimeGreen;color:black" rx="0" ry="0" />
+		<rect x="75" y="90" width="90" height="150" antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" rx="0" ry="0" />
+		<rect x="98" y="70" width="44" height="120" antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" rx="0" ry="0" />
+		<rect x="104" y="95" width="32" height="4" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDimGray;color:black" rx="0" ry="0" />
+		<rect x="104" y="110" width="32" height="4" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDimGray;color:black" rx="0" ry="0" />
+		<rect x="104" y="125" width="32" height="4" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDimGray;color:black" rx="0" ry="0" />
+		<rect x="104" y="140" width="32" height="4" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDimGray;color:black" rx="0" ry="0" />
+		<text x="47.21" y="104.95" rotation="0" color="#000000" font="Roboto Condensed,9,-1,5,75,0,0,0,0,0,Bold" text="I" />
+		<text x="47.21" y="219.95" rotation="0" color="#000000" font="Roboto Condensed,9,-1,5,75,0,0,0,0,0,Bold" text="O" />
+		<rect x="-25" y="265" width="290" height="100" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
+		<text x="96.9" y="303.85" rotation="0" color="#000000" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" text="no trip unit" />
+		<circle x="237" y="277" antialias="false" style="line-style:normal;line-weight:normal;filling:red;color:black" diameter="16" />
+		<text x="92.1" y="389.95" rotation="0" color="#000000" font="Roboto Condensed,9,-1,5,75,0,0,0,0,0,Bold" text="NSX250N 3P" />
+		<terminal x="0" y="0" name="1" orientation="n" type="Generic" uuid="{828be1b2-92b4-5a40-a218-bf63d3026a0c}" />
+		<terminal x="0" y="430" name="2" orientation="s" type="Generic" uuid="{291ac0ac-e766-5225-b38e-5080445f9087}" />
+		<terminal x="120" y="0" name="3" orientation="n" type="Generic" uuid="{e7991280-e87d-5198-b451-9ec72f953f82}" />
+		<terminal x="120" y="430" name="4" orientation="s" type="Generic" uuid="{6371346f-f290-5323-b7d7-974a028c5e71}" />
+		<terminal x="240" y="0" name="5" orientation="n" type="Generic" uuid="{fd8fdbbe-a4f2-53cb-96fe-958ed97a6e34}" />
+		<terminal x="240" y="430" name="6" orientation="s" type="Generic" uuid="{c552f4f9-66a7-5548-b6f3-f016c849447d}" />
+		<dynamic_text x="-55" y="493" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{1704491a-1df9-5dd0-ac46-8c05acca1f4c}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

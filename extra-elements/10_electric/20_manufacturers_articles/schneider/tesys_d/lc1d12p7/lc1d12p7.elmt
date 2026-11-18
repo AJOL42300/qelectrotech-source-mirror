@@ -1,0 +1,89 @@
+<definition version="0.100.0" type="element" link_type="simple" width="230" height="80" hotspot_x="20" hotspot_y="10">
+	<uuid uuid="{a1ab80ef-5e5e-5ee0-82da-438f5db20cc7}" />
+	<names>
+		<name lang="en">TeSys D contactor LC1D12P7 12 A 230 V AC</name>
+		<name lang="fr">Contacteur TeSys D LC1D12P7 12 A 230 V CA</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">LC1D12P7</elementInformation>
+		<elementInformation name="designation" show="1">TeSys D contactor, 3P, 12 A AC-3, 230 V AC coil, 1 NO + 1 NC</elementInformation>
+		<elementInformation name="description" show="1">TeSys D contactor LC1D12P7, 3 poles, 12 A AC-3 (5.5 kW at 400 V), coil 230 V AC 50/60 Hz, 1 NO + 1 NC auxiliary contact built in, screw clamp terminals, 45 mm wide. Terminals 1/L1-2/T1, 3/L2-4/T2, 5/L3-6/T3, coil A1-A2, auxiliary 13-14 (NO) and 21-22 (NC).</elementInformation>
+		<elementInformation name="auxiliary1" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary1" show="0">Front-mounting instantaneous auxiliary contact block LADN22 for TeSys D (LC1D) and TeSys F contactors, 2 NO + 2 NC, screw clamp terminals. Terminal marking 53-54, 61-62, 71-72, 83-84.</elementInformation>
+		<elementInformation name="designation_auxiliary1" show="0">TeSys D front auxiliary contact block LADN22, 2 NO + 2 NC, screw clamp</elementInformation>
+		<elementInformation name="manufacturer_auxiliary1" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary1" show="0">LADN22</elementInformation>
+		<elementInformation name="quantity_auxiliary1" show="0">0</elementInformation>
+		<elementInformation name="auxiliary2" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary2" show="0">Front-mounting instantaneous auxiliary contact block LADN11 for TeSys D (LC1D) and TeSys F contactors, 1 NO + 1 NC, screw clamp terminals. Terminal marking 53-54, 61-62. ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary2" show="0">TeSys D front auxiliary contact block LADN11, 1 NO + 1 NC, screw clamp</elementInformation>
+		<elementInformation name="manufacturer_auxiliary2" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary2" show="0">LADN11</elementInformation>
+		<elementInformation name="quantity_auxiliary2" show="0">0</elementInformation>
+		<elementInformation name="auxiliary3" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary3" show="0">Front-mounting instantaneous auxiliary contact block LADN20 for TeSys D (LC1D) and TeSys F contactors, 2 NO, screw clamp terminals. Terminal marking 53-54, 83-84. ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary3" show="0">TeSys D front auxiliary contact block LADN20, 2 NO, screw clamp</elementInformation>
+		<elementInformation name="manufacturer_auxiliary3" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary3" show="0">LADN20</elementInformation>
+		<elementInformation name="quantity_auxiliary3" show="0">0</elementInformation>
+		<elementInformation name="auxiliary4" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary4" show="0">Front-mounting instantaneous auxiliary contact block LADN02 for TeSys D (LC1D) and TeSys F contactors, 2 NC, screw clamp terminals. Terminal marking 61-62, 71-72. ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary4" show="0">TeSys D front auxiliary contact block LADN02, 2 NC, screw clamp</elementInformation>
+		<elementInformation name="manufacturer_auxiliary4" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary4" show="0">LADN02</elementInformation>
+		<elementInformation name="quantity_auxiliary4" show="0">0</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.33 px/mm (1 module of 9 mm = 30 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="-8" length2="1.5" />
+		<text x="4" y="10.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="1/L1" />
+		<text x="4" y="54.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="2/T1" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="30" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="30" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="22" length2="1.5" />
+		<text x="34" y="10.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="3/L2" />
+		<text x="34" y="54.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="4/T2" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="60" length1="1.5" x2="60" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="60" length1="1.5" x2="60" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="60" length1="1.5" x2="52" length2="1.5" />
+		<text x="64" y="10.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="5/L3" />
+		<text x="64" y="54.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="6/T3" />
+		<line end1="none" end2="none" y1="27" antialias="false" y2="27" style="line-style:dashed;line-weight:thin;filling:none;color:black" x1="-8" length1="1.5" x2="172" length2="1.5" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="20" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="110" length1="1.5" x2="110" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="110" length1="1.5" x2="110" length2="1.5" />
+		<rect x="100" y="20" width="20" height="20" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
+		<text x="114" y="10.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="A1" />
+		<text x="114" y="54.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="A2" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="150" length1="1.5" x2="150" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="150" length1="1.5" x2="150" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="150" length1="1.5" x2="142" length2="1.5" />
+		<text x="154" y="10.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="13" />
+		<text x="154" y="54.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="14" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="180" length1="1.5" x2="180" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="180" length1="1.5" x2="180" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="180" length1="1.5" x2="172" length2="1.5" />
+		<line end1="none" end2="none" y1="14" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="172" length1="1.5" x2="180" length2="1.5" />
+		<text x="184" y="10.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="21" />
+		<text x="184" y="54.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="22" />
+		<terminal x="0" y="0" name="1/L1" orientation="n" type="Generic" uuid="{b1351835-617c-556e-9d75-c046536e7d91}" />
+		<terminal x="0" y="60" name="2/T1" orientation="s" type="Generic" uuid="{13f9dd7e-9f25-540e-ae6f-879ffb28e42b}" />
+		<terminal x="30" y="0" name="3/L2" orientation="n" type="Generic" uuid="{7c191e3a-e935-5764-aa3e-0ff799291af3}" />
+		<terminal x="30" y="60" name="4/T2" orientation="s" type="Generic" uuid="{9da2eaca-fa0a-51f6-87f6-0c6b2aa3d0f8}" />
+		<terminal x="60" y="0" name="5/L3" orientation="n" type="Generic" uuid="{4da92723-1940-5603-9ef0-7b198a124bae}" />
+		<terminal x="60" y="60" name="6/T3" orientation="s" type="Generic" uuid="{12d0a590-83b1-5cdd-96b0-06c5453e1080}" />
+		<terminal x="110" y="0" name="A1" orientation="n" type="Generic" uuid="{b76c963a-b769-538c-89fb-4b7cd3841bfe}" />
+		<terminal x="110" y="60" name="A2" orientation="s" type="Generic" uuid="{f81bc896-9984-596c-a133-1af21f323d87}" />
+		<terminal x="150" y="0" name="13" orientation="n" type="Generic" uuid="{55174b41-af64-5139-8596-5aec47a23daf}" />
+		<terminal x="150" y="60" name="14" orientation="s" type="Generic" uuid="{935958dd-2238-5ddc-963d-f9b66fc4fc4b}" />
+		<terminal x="180" y="0" name="21" orientation="n" type="Generic" uuid="{7cca26df-ba0c-5b4c-94bf-17f529b25c5a}" />
+		<terminal x="180" y="60" name="22" orientation="s" type="Generic" uuid="{4a567c14-4000-5b25-b1fa-d95c454c90e9}" />
+		<dynamic_text x="-15" y="73" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{7e5d8662-ce6b-583b-8cec-f0e9c66746d3}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

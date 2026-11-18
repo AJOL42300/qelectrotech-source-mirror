@@ -1,0 +1,41 @@
+<definition version="0.100.0" type="element" link_type="simple" width="40" height="140" hotspot_x="20" hotspot_y="10">
+	<uuid uuid="{4a7f6fb4-5f1e-54ba-96e5-63f9b7cfbb72}" />
+	<names>
+		<name lang="en">iOF auxiliary contact A9A26924, front view</name>
+		<name lang="fr">Contact auxiliaire iOF A9A26924, vue de face</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">A9A26924</elementInformation>
+		<elementInformation name="designation" show="1">iOF auxiliary contact, Acti9, 1 changeover, AC/DC</elementInformation>
+		<elementInformation name="description" show="1">Acti9 iOF open/close auxiliary contact (also fault indication), 1 changeover (1 NO + 1 NC), 6 A at 240 V AC, 9 mm wide, for iC60, iID, iDPN Vigi and iSW 40-125 (public compatibility list). Terminals C, NC, NO ASSUMED.</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.43 px/mm (pole pitch 35 mm = 120 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="-15" y="-10" width="30" height="140" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLWhiteWhiteSmoke;color:black" rx="0" ry="0" />
+		<rect x="-15" y="100" width="30" height="30" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayGainsboro;color:black" rx="0" ry="0" />
+		<rect x="-15" y="20" width="30" height="5" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGreenLimeGreen;color:black" rx="0" ry="0" />
+		<rect x="-10" y="40" width="20" height="40" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
+		<rect x="-6" y="46" width="12" height="10" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGreenLimeGreen;color:black" rx="0" ry="0" />
+		<circle x="-14" y="-4" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="8" />
+		<circle x="-11" y="-1" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="2" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-11" length1="1.5" x2="-9" length2="1.5" />
+		<text x="-12.2" y="14.2" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="12" />
+		<circle x="-4" y="-4" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="8" />
+		<circle x="-1" y="-1" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="2" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-1" length1="1.5" x2="1" length2="1.5" />
+		<text x="-2.2" y="14.2" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="11" />
+		<circle x="6" y="-4" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="8" />
+		<circle x="9" y="-1" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="2" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="9" length1="1.5" x2="11" length2="1.5" />
+		<text x="7.8" y="14.2" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="14" />
+		<terminal x="-10" y="0" name="12" orientation="n" type="Generic" uuid="{26e6c702-5dd7-500d-b3d5-dd8853c1525e}" />
+		<terminal x="0" y="0" name="11" orientation="n" type="Generic" uuid="{e15e0550-f359-5fb4-80d0-9dd426f88340}" />
+		<terminal x="10" y="0" name="14" orientation="n" type="Generic" uuid="{5e32f247-c54b-5e4f-9ae8-6e981d3b9a51}" />
+		<dynamic_text x="-15" y="133" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{9597dafa-d737-587c-a86a-0b72aa7318b7}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

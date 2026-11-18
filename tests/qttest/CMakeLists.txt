@@ -109,6 +109,13 @@ target_compile_definitions(tst_kincoelements PRIVATE
   QET_EXTRA_ELEMENTS_DIR="${QET_DIR}/extra-elements"
   QET_EXAMPLES_DIR="${QET_DIR}/examples")
 target_link_libraries(tst_kincoelements PRIVATE Qt::Test Qt::Xml)
+# The Schneider Electric elements and example of extra-elements.
+add_executable(tst_schneiderelements tst_schneiderelements.cpp)
+add_test(NAME tst_schneiderelements COMMAND tst_schneiderelements)
+target_compile_definitions(tst_schneiderelements PRIVATE
+  QET_EXTRA_ELEMENTS_DIR="${QET_DIR}/extra-elements"
+  QET_EXAMPLES_DIR="${QET_DIR}/examples")
+target_link_libraries(tst_schneiderelements PRIVATE Qt::Test Qt::Xml)
 # MSVC's Debug libraries make QElectroTech five to eight times slower than a
 # GCC build, for which the tests' time limits were chosen. Every limit is
 # multiplied by this scale: ctest's below, and the tests' own through

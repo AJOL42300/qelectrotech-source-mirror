@@ -1,0 +1,58 @@
+<definition version="0.100.0" type="element" link_type="simple" width="100" height="80" hotspot_x="20" hotspot_y="10">
+	<uuid uuid="{48e24801-651e-5308-8699-7690bba24767}" />
+	<names>
+		<name lang="en">iSW switch-disconnector 3P 40 A</name>
+		<name lang="fr">Interrupteur-sectionneur iSW 3P 40 A</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">A9S65340</elementInformation>
+		<elementInformation name="designation" show="1">iSW switch-disconnector, 3P, 40 A, 415 V</elementInformation>
+		<elementInformation name="description" show="1">Switch-disconnector iSW, 3P, 40 A at 415 V AC (AC-22A), EN/IEC 60947-3, 6 x 9 mm (54 mm) wide, 85 mm high, 73 mm deep. Can be fitted with an OF auxiliary contact.</elementInformation>
+		<elementInformation name="auxiliary1" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary1" show="0">Acti9 iOF open/close auxiliary contact (also fault indication), 1 changeover (1 NO + 1 NC), 6 A at 240 V AC, 9 mm wide, for iC60, iID, iDPN Vigi and iSW 40-125 (public compatibility list). Terminals C, NC, NO ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary1" show="0">iOF auxiliary contact, Acti9, 1 changeover, AC/DC</elementInformation>
+		<elementInformation name="manufacturer_auxiliary1" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary1" show="0">A9A26924</elementInformation>
+		<elementInformation name="quantity_auxiliary1" show="0">0</elementInformation>
+		<elementInformation name="auxiliary2" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary2" show="0">Acti9 iMN instantaneous undervoltage release, control voltage 220-240 V AC 50/60 Hz, trips between 70 % and 35 % of Un, 2 modules of 9 mm, for iC60, iID, iDPN Vigi and iSW-NA (public product page). Coil terminals D1-D2 ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary2" show="0">iMN undervoltage release, Acti9, 220-240 V AC</elementInformation>
+		<elementInformation name="manufacturer_auxiliary2" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary2" show="0">A9A26960</elementInformation>
+		<elementInformation name="quantity_auxiliary2" show="0">0</elementInformation>
+		<elementInformation name="auxiliary3" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary3" show="0">Acti9 iMX+OF shunt trip release with an open/close auxiliary contact (OF), control voltage 220-415 V AC, for iC60, iID, iC40 and iSW-NA (public product page). Coil terminals C1-C2 and OF terminals 11, 12, 14 ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary3" show="0">iMX+OF shunt trip release with auxiliary contact, Acti9, 220-415 V AC</elementInformation>
+		<elementInformation name="manufacturer_auxiliary3" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary3" show="0">A9A26946</elementInformation>
+		<elementInformation name="quantity_auxiliary3" show="0">0</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.33 px/mm (1 module of 9 mm = 30 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="-8" length2="1.5" />
+		<line end1="none" end2="none" y1="11" antialias="false" y2="17" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-13" length1="1.5" x2="-3" length2="1.5" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="30" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="30" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="22" length2="1.5" />
+		<line end1="none" end2="none" y1="11" antialias="false" y2="17" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="17" length1="1.5" x2="27" length2="1.5" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="60" length1="1.5" x2="60" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="60" length1="1.5" x2="60" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="14" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="60" length1="1.5" x2="52" length2="1.5" />
+		<line end1="none" end2="none" y1="11" antialias="false" y2="17" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="47" length1="1.5" x2="57" length2="1.5" />
+		<line end1="none" end2="none" y1="27" antialias="false" y2="27" style="line-style:dashed;line-weight:thin;filling:none;color:black" x1="-8" length1="1.5" x2="52" length2="1.5" />
+		<terminal x="0" y="0" name="1" orientation="n" type="Generic" uuid="{cdd36226-7c20-5edb-9fc7-662e1734a014}" />
+		<terminal x="0" y="60" name="2" orientation="s" type="Generic" uuid="{9685bd57-c6ef-5e2c-bd35-523114e94333}" />
+		<terminal x="30" y="0" name="3" orientation="n" type="Generic" uuid="{2f954ada-125c-558e-bac4-d27a08ed5bf7}" />
+		<terminal x="30" y="60" name="4" orientation="s" type="Generic" uuid="{72dd9bd2-4e19-58a4-a667-d4fc86e79081}" />
+		<terminal x="60" y="0" name="5" orientation="n" type="Generic" uuid="{53bb6263-d518-587e-a4c7-9d9c05c7f22f}" />
+		<terminal x="60" y="60" name="6" orientation="s" type="Generic" uuid="{13fe8d7c-d989-5367-9b3a-c733f1e4fda7}" />
+		<dynamic_text x="-15" y="73" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{22f057d5-89fe-54a6-883f-47b9e11a0245}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

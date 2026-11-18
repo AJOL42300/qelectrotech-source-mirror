@@ -1,0 +1,98 @@
+<definition version="0.100.0" type="element" link_type="simple" width="120" height="310" hotspot_x="30" hotspot_y="30">
+	<uuid uuid="{e7067adb-4d83-506c-902d-e2c8ff9deb32}" />
+	<names>
+		<name lang="en">iID RCCB 2P 25 A 30 mA AC, front view</name>
+		<name lang="fr">Interrupteur différentiel iID 2P 25 A 30 mA AC, vue de face</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">A9R41225</elementInformation>
+		<elementInformation name="designation" show="1">iID residual current circuit breaker, 2P, 25 A, 30 mA, type AC</elementInformation>
+		<elementInformation name="description" show="1">RCCB iID, 2P, 25 A, 30 mA, type AC, instantaneous. Neutral on the left (N1-N2). Width 4 x 9 mm (36 mm) ASSUMED from the pole pitch.</elementInformation>
+		<elementInformation name="auxiliary1" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary1" show="0">Acti9 iOF open/close auxiliary contact (also fault indication), 1 changeover (1 NO + 1 NC), 6 A at 240 V AC, 9 mm wide, for iC60, iID, iDPN Vigi and iSW 40-125 (public compatibility list). Terminals C, NC, NO ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary1" show="0">iOF auxiliary contact, Acti9, 1 changeover, AC/DC</elementInformation>
+		<elementInformation name="manufacturer_auxiliary1" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary1" show="0">A9A26924</elementInformation>
+		<elementInformation name="quantity_auxiliary1" show="0">0</elementInformation>
+		<elementInformation name="auxiliary2" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary2" show="0">Acti9 iMN instantaneous undervoltage release, control voltage 220-240 V AC 50/60 Hz, trips between 70 % and 35 % of Un, 2 modules of 9 mm, for iC60, iID, iDPN Vigi and iSW-NA (public product page). Coil terminals D1-D2 ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary2" show="0">iMN undervoltage release, Acti9, 220-240 V AC</elementInformation>
+		<elementInformation name="manufacturer_auxiliary2" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary2" show="0">A9A26960</elementInformation>
+		<elementInformation name="quantity_auxiliary2" show="0">0</elementInformation>
+		<elementInformation name="auxiliary3" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary3" show="0">Acti9 iMX+OF shunt trip release with an open/close auxiliary contact (OF), control voltage 220-415 V AC, for iC60, iID, iC40 and iSW-NA (public product page). Coil terminals C1-C2 and OF terminals 11, 12, 14 ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary3" show="0">iMX+OF shunt trip release with auxiliary contact, Acti9, 220-415 V AC</elementInformation>
+		<elementInformation name="manufacturer_auxiliary3" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary3" show="0">A9A26946</elementInformation>
+		<elementInformation name="quantity_auxiliary3" show="0">0</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.33 px/mm (1 module of 9 mm = 30 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="-30" y="-20" width="120" height="300" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLWhiteWhiteSmoke;color:black" rx="0" ry="0" />
+		<rect x="-30" y="-20" width="120" height="52" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayGainsboro;color:black" rx="0" ry="0" />
+		<rect x="-30" y="248" width="120" height="32" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayGainsboro;color:black" rx="0" ry="0" />
+		<rect x="-30" y="32" width="5" height="216" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayGainsboro;color:black" rx="0" ry="0" />
+		<rect x="85" y="32" width="5" height="216" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayGainsboro;color:black" rx="0" ry="0" />
+		<rect x="-12" y="-30" width="24" height="10" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLYellowGold;color:black" rx="0" ry="0" />
+		<rect x="48" y="-30" width="24" height="10" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLYellowGold;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="32" antialias="false" y2="248" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="30" length1="1.5" x2="30" length2="1.5" />
+		<circle x="-14" y="-14" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayGainsboro;color:black" diameter="28" />
+		<circle x="-8" y="-8" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="16" />
+		<circle x="-5" y="-5" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="10" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-5" length1="1.5" x2="5" length2="1.5" />
+		<line end1="none" end2="none" y1="-5" antialias="false" y2="5" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<circle x="-14" y="246" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayGainsboro;color:black" diameter="28" />
+		<circle x="-8" y="252" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="16" />
+		<circle x="-5" y="255" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="10" />
+		<line end1="none" end2="none" y1="260" antialias="false" y2="260" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-5" length1="1.5" x2="5" length2="1.5" />
+		<line end1="none" end2="none" y1="255" antialias="false" y2="265" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<circle x="46" y="-14" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayGainsboro;color:black" diameter="28" />
+		<circle x="52" y="-8" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="16" />
+		<circle x="55" y="-5" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="10" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="55" length1="1.5" x2="65" length2="1.5" />
+		<line end1="none" end2="none" y1="-5" antialias="false" y2="5" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="60" length1="1.5" x2="60" length2="1.5" />
+		<circle x="46" y="246" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayGainsboro;color:black" diameter="28" />
+		<circle x="52" y="252" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="16" />
+		<circle x="55" y="255" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="10" />
+		<line end1="none" end2="none" y1="260" antialias="false" y2="260" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="55" length1="1.5" x2="65" length2="1.5" />
+		<line end1="none" end2="none" y1="255" antialias="false" y2="265" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="60" length1="1.5" x2="60" length2="1.5" />
+		<rect x="-24" y="44" width="108" height="40" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
+		<rect x="30" y="44" width="54" height="4" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGreenLimeGreen;color:black" rx="0" ry="0" />
+		<text x="12.42" y="61.3" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="iID" />
+		<text x="13.05" y="75.3" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" text="25A" />
+		<rect x="64" y="56" width="4" height="4" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="72" y="56" width="4" height="4" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="68" y="60" width="4" height="4" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="76" y="60" width="4" height="4" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="64" y="64" width="4" height="4" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="72" y="64" width="4" height="4" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="68" y="68" width="4" height="4" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="76" y="68" width="4" height="4" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="-20" y="96" width="40" height="74" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
+		<rect x="-10" y="102" width="20" height="12" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGreenLimeGreen;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="124" antialias="false" y2="124" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-14" length1="1.5" x2="14" length2="1.5" />
+		<line end1="none" end2="none" y1="132" antialias="false" y2="132" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-14" length1="1.5" x2="14" length2="1.5" />
+		<line end1="none" end2="none" y1="140" antialias="false" y2="140" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-14" length1="1.5" x2="14" length2="1.5" />
+		<rect x="40" y="96" width="40" height="74" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
+		<rect x="50" y="102" width="20" height="12" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGreenLimeGreen;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="124" antialias="false" y2="124" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="46" length1="1.5" x2="74" length2="1.5" />
+		<line end1="none" end2="none" y1="132" antialias="false" y2="132" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="46" length1="1.5" x2="74" length2="1.5" />
+		<line end1="none" end2="none" y1="140" antialias="false" y2="140" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="46" length1="1.5" x2="74" length2="1.5" />
+		<rect x="-22" y="158" width="104" height="12" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayDimGray;color:black" rx="0" ry="0" />
+		<circle x="-9" y="191" antialias="false" style="line-style:normal;line-weight:normal;filling:yellow;color:black" diameter="18" />
+		<text x="-2.17" y="203.85" rotation="0" color="#000000" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="T" />
+		<rect x="52" y="190" width="16" height="8" antialias="false" style="line-style:normal;line-weight:thin;filling:red;color:black" rx="0" ry="0" />
+		<text x="19.15" y="222.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Bold" text="30mA AC" />
+		<terminal x="0" y="0" name="N1" orientation="n" type="Generic" uuid="{b3d677f5-8500-5901-a13b-86fc8baa46a3}" />
+		<terminal x="0" y="260" name="N2" orientation="s" type="Generic" uuid="{231134fa-9149-5910-bd5f-6b11ab5684ec}" />
+		<terminal x="60" y="0" name="1" orientation="n" type="Generic" uuid="{3b8080d6-fa9e-5e58-b782-7c8e8a063903}" />
+		<terminal x="60" y="260" name="2" orientation="s" type="Generic" uuid="{31d6ecee-e567-5cbc-8076-c910c418fc9e}" />
+		<dynamic_text x="-25" y="283" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{2f15fbe1-58f9-5138-80d7-91181ae5f52e}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>
