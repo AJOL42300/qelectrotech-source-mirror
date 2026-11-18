@@ -31,6 +31,7 @@
 #include <QPointF>
 #include <QSet>
 #include <QtTest>
+#include <QRegularExpression>
 #include <algorithm>
 #include <cmath>
 
@@ -662,20 +663,25 @@ class TstBeckhoffElements : public QObject
 					continue;
 				}
 				const QString xml = load(path).toString();
-				QVERIFY2(xml.contains(QStringLiteral("text=\"+24 V\"")),
+					// the rails carry no text any more: square on the left
+					// where the power contacts are, round on the right
+				QVERIFY2(!xml.contains(QStringLiteral("text=\"+24 V\"")),
 						 qPrintable(key));
-				QVERIFY2(xml.contains(QStringLiteral("text=\"0 V\"")),
-						 qPrintable(key));
-					// the contacts: a filled square (red or blue wire)
-				QVERIFY2(xml.contains(QStringLiteral("<rect"))
-						 && xml.contains(QStringLiteral("filling:red"))
-						 && xml.contains(QStringLiteral("filling:blue")),
-						 qPrintable(key));
-					// +24 V wire in red, 0 V in blue
-				QVERIFY2(xml.contains(QStringLiteral("color:red"))
-						 && xml.contains(QStringLiteral("color:blue")),
-						 qPrintable(key));
-				++checked;
+				const bool left = key != QStringLiteral("el2652")
+					&& key != QStringLiteral("el2911")
+					&& key != QStringLiteral("ek1914");
+				if (key == QStringLiteral("el2652")) {
+					QVERIFY2(!xml.contains(QRegularExpression(
+								 QStringLiteral("<rect[^>]*filling:red"))),
+							 qPrintable(key));
+				} else {
+					QVERIFY2(xml.contains(QStringLiteral("color:red"))
+							 && xml.contains(QStringLiteral("color:blue")),
+							 qPrintable(key));
+					const QRegularExpression square(
+						QStringLiteral("<rect[^>]*filling:red"));
+					QCOMPARE(xml.contains(square), left);
+				}				++checked;
 			}
 			QCOMPARE(checked, cardKeys().size());
 		}
@@ -1368,7 +1374,7 @@ class TstBeckhoffElements : public QObject
 				}
 				++checked;
 			}
-			QCOMPARE(checked, 40);
+			QCOMPARE(checked, 44);
 		}
 
 		void schematicViewsAreDrawnInADottedOutlineAtTheRealisticPins()
@@ -1422,6 +1428,35 @@ class TstBeckhoffElements : public QObject
 											  QStringLiteral("_table")}) {
 					QVERIFY2(!appearance(key, suffix).isEmpty(),
 							 qPrintable(key + suffix));
+				}
+			}
+		}
+
+		void generic16CardsHave16TerminalsInEveryAppearance()
+		{
+			for (const QString &key : {QStringLiteral("el1xxx_generic_16"),
+									   QStringLiteral("el2xxx_generic_16"),
+									   QStringLiteral("el3xxx_generic_16"),
+									   QStringLiteral("el4xxx_generic_16")}) {
+				const auto symbol = load(appearance(key, QString()))
+					.documentElement();
+				const auto real = load(appearance(
+					key, QStringLiteral("_realistic"))).documentElement();
+				QCOMPARE(pinPoints(real.firstChildElement(
+							 QStringLiteral("description"))).size(), 16);
+				QCOMPARE(pinPoints(symbol.firstChildElement(
+							 QStringLiteral("description"))),
+						 pinPoints(real.firstChildElement(
+							 QStringLiteral("description"))));
+				for (const QString &suffix : {QStringLiteral("_description"),
+											  QStringLiteral("_table")}) {
+					const auto def = load(appearance(key, suffix))
+						.documentElement();
+					QVERIFY2(!def.isNull(), qPrintable(key + suffix));
+					if (suffix == QStringLiteral("_table")) {
+						QCOMPARE(def.elementsByTagName(
+									 QStringLiteral("plcIO")).size(), 16);
+					}
 				}
 			}
 		}

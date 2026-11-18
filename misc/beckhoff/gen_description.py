@@ -75,11 +75,15 @@ EL_LEDS = {
     "el2904": (4, True), "el2911": (5, True),
     "el1xxx_generic": (8, False), "el2xxx_generic": (8, False),
     "el3xxx_generic": (8, False), "el4xxx_generic": (8, False),
+    "el1xxx_generic_16": (16, False), "el2xxx_generic_16": (16, False),
+    "el3xxx_generic_16": (16, False), "el4xxx_generic_16": (16, False),
     "el2652": (4, False), "el1918": (8, 4),
 }
 EL60 = ("el1004", "el1008", "el2004", "el2008", "el2522", "el2574", "el5152",
         "el9100", "el1904", "el2904", "el1xxx_generic", "el2xxx_generic",
-        "el3xxx_generic", "el4xxx_generic", "el2652", "el1918")
+        "el3xxx_generic", "el4xxx_generic", "el2652", "el1918",
+        "el1xxx_generic_16", "el2xxx_generic_16", "el3xxx_generic_16",
+        "el4xxx_generic_16")
 
 
 def uid(*parts):

@@ -1,0 +1,107 @@
+<definition version="0.100.0" type="element" link_type="master" width="250" height="250" hotspot_x="5" hotspot_y="29">
+	<uuid uuid="{e145eee6-8bd9-566d-926d-8657a199131d}" />
+	<names>
+		<name lang="en">EL4xxx analog output terminal (generic, 16 terminals), I/O table</name>
+		<name lang="fr">EL4xxx borne de sortie analogique (générique, 16 bornes), tableau d'E/S</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="designation" show="1">EL4xxx</elementInformation>
+		<elementInformation name="description" show="1">EtherCAT Terminal, analog output terminal. Generic layout: contacts 1 to 16; the signal on each contact depends on the exact type, see its datasheet. The I/O table lists the 16 contacts: edit it in the element properties.</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60" />
+				<column index="1" width="66" />
+				<column index="2" width="130" />
+				<column index="3" width="90" />
+				<column index="4" width="64" />
+				<column index="5" width="44" />
+			</columnWidths>
+			<columnVisibility>
+				<column index="0" visible="false" />
+				<column index="1" visible="true" />
+				<column index="2" visible="true" />
+				<column index="3" visible="false" />
+				<column index="4" visible="false" />
+				<column index="5" visible="true" />
+			</columnVisibility>
+			<columnNames>
+				<column index="0" />
+				<column index="1">ID TwinCAT</column>
+				<column index="2">Label</column>
+				<column index="3" />
+				<column index="4" />
+				<column index="5">N° pin</column>
+			</columnNames>
+			<columnOrder>5,2,1</columnOrder>
+			<headerFont family="Roboto Condensed" size="7" bold="true" />
+			<cellFont family="Roboto Condensed" size="7" bold="false" />
+			<plcIOs>
+				<plcIO type="sortie_analogique" address="1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>1</terminal>
+				</plcIO>
+				<plcIO type="sortie_analogique" address="2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>2</terminal>
+				</plcIO>
+				<plcIO type="sortie_analogique" address="3" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>3</terminal>
+				</plcIO>
+				<plcIO type="sortie_analogique" address="4" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>4</terminal>
+				</plcIO>
+				<plcIO type="sortie_analogique" address="5" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>5</terminal>
+				</plcIO>
+				<plcIO type="sortie_analogique" address="6" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>6</terminal>
+				</plcIO>
+				<plcIO type="sortie_analogique" address="7" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>7</terminal>
+				</plcIO>
+				<plcIO type="sortie_analogique" address="8" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>8</terminal>
+				</plcIO>
+				<plcIO type="sortie_analogique" address="9" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>9</terminal>
+				</plcIO>
+				<plcIO type="sortie_analogique" address="10" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>10</terminal>
+				</plcIO>
+				<plcIO type="sortie_analogique" address="11" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>11</terminal>
+				</plcIO>
+				<plcIO type="sortie_analogique" address="12" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>12</terminal>
+				</plcIO>
+				<plcIO type="sortie_analogique" address="13" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>13</terminal>
+				</plcIO>
+				<plcIO type="sortie_analogique" address="14" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>14</terminal>
+				</plcIO>
+				<plcIO type="sortie_analogique" address="15" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>15</terminal>
+				</plcIO>
+				<plcIO type="sortie_analogique" address="16" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>16</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generic card, 16 terminals: made by misc/beckhoff/gen_generic16.py from the 8 terminal card; the signal of each contact depends on the exact type. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{81cc16ab-690e-5295-9da9-45388f513ef6}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+		<dynamic_text x="60" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{27835373-bd56-5aea-9995-15f7e110f994}" font="Liberation Sans,7,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>designation</info_name>
+		</dynamic_text>
+		<plc_table x="0" y="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+	</description>
+</definition>

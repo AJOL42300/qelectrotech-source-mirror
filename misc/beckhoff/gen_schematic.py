@@ -76,7 +76,9 @@ NOTE = ("Schematic view made by misc/beckhoff/gen_schematic.py from the "
 
 EL60 = ("el1004", "el1008", "el2004", "el2008", "el2522", "el2574", "el5152",
         "el9100", "el1904", "el2904", "el2911", "el1xxx_generic",
-        "el2xxx_generic", "el3xxx_generic", "el4xxx_generic", "el2652")
+        "el2xxx_generic", "el3xxx_generic", "el4xxx_generic", "el2652",
+        "el1xxx_generic_16", "el2xxx_generic_16", "el3xxx_generic_16",
+        "el4xxx_generic_16")
 # body of the 60 px wide terminals (x0, y0, x1, y1) and of the second body of
 # the EL2911 drawing
 EL60_BODY = (-14.5, -136.7, 22.0, 140.5)
@@ -87,7 +89,8 @@ EK1914_PINS = {"I1": "2", "I2": "10", "I3": "3", "I4": "11", "O1": "4",
                "O2": "12", "O3": "5", "O4": "13", "SI1": "7", "SI2": "15",
                "SO1": "8", "SO2": "16"}
 # power contacts of the cards (left, right): see the table of the doc
-CONTACTS = {}
+CONTACTS = {"el2652": (False, False), "el2911": (False, True),
+            "ek1914": (False, True)}
 CLIP_W = 16.0
 CLIP_H = 7.0
 SAFETY = ("el1904", "el2904", "el2911", "el1918", "ek1914")
@@ -164,6 +167,8 @@ class Sheet:
         a hollow circle at the right edge when it has them on its right
         (springs), and the rail between them. No text: the colour tells
         the potential."""
+        if not (left or right):
+            return
         for y, pot in ((y24, "24V"), (y0, "0V")):
             if left:
                 self.rect(x0 - 2.5, y - 2.5, 5, 5, POT_FILLED[pot])
