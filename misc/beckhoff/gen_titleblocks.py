@@ -30,6 +30,11 @@ approver, date of issue, revision) in a strip of four rows of 17 px. Fields
 without a QElectroTech variable (owner, document number, ...) are read from
 the custom fields of the folio (%{owner}, %{docnumber}, ...).
 
+MCATECH_ISO7200_A4, MCATECH_ISO7200_A3_landscape and
+MCATECH_ISO7200_A3_portrait are the same ISO 7200 layout with the logo of
+MCATECH (misc/beckhoff/mcatech_logo.svg, the logo of the owner of the fork,
+taken from his own title block) embedded in the first column.
+
 The matching folio sizes (see FOLIO_SIZES) are A3 at about 2.94 px per mm:
 a folio is cols * colsize + 20 px wide and rows * rowsize + 20 px + the
 height of its title block tall.
@@ -48,7 +53,11 @@ FOLIO_SIZES = {
     "A3 portrait": (14, 61, 14, 83),
     "A3 ISO 7200 landscape": (20, 61, 10, 78),
     "A3 ISO 7200 portrait": (14, 61, 14, 82),
+    "A4 ISO 7200 landscape": (14, 61, 7, 76),
 }
+
+LOGO_FILE = os.path.join(os.path.dirname(__file__), "mcatech_logo.svg")
+LOGO_NAME = "mcatech_logo.svg"
 
 TEMPLATES = {
     "A3_landscape": ("A3 landscape", "100px;r25%;r50%;r25%;"),
@@ -116,6 +125,16 @@ ISO_TEMPLATES = {
                              "100px;r25%;r25%;r25%;r25%;"),
     "ISO7200_A3_portrait": ("A3 ISO 7200 portrait",
                             "80px;r25%;r25%;r25%;r25%;"),
+}
+
+# file -> (template name, columns, format) with the logo of MCATECH
+MCATECH_TEMPLATES = {
+    "MCATECH_ISO7200_A4": ("MCATECH A4 ISO 7200",
+                           "100px;r25%;r25%;r25%;r25%;", "A4"),
+    "MCATECH_ISO7200_A3_landscape": ("MCATECH A3 ISO 7200 landscape",
+                                     "100px;r25%;r25%;r25%;r25%;", "A3"),
+    "MCATECH_ISO7200_A3_portrait": ("MCATECH A3 ISO 7200 portrait",
+                                    "80px;r25%;r25%;r25%;r25%;", "A3"),
 }
 
 ISO_FIELDS = {
@@ -188,21 +207,35 @@ def iso_field(name, value, col, row, colspan, rowspan, align="left"):
             f"<label>{labels}</label></field>")
 
 
-def iso_template_xml(title, cols, size):
+def logo_xml():
+    with open(LOGO_FILE, encoding="utf-8") as f:
+        svg = f.read().strip()
+    return (f'<logos>\n<logo name="{LOGO_NAME}" storage="xml" type="svg">'
+            f"{svg}</logo>\n</logos>\n")
+
+
+def iso_template_xml(title, cols, size, logo=False):
     fields = [iso_field(*f) for f in ISO_LAYOUT]
     # the logo slot spans the first three rows, the format sits under it
-    fields.append('<field valign="center" hadjust="true" name="logo" '
-                  'displaylabel="false" align="center" col="0" row="0" '
-                  'rowspan="2"><value/><label/></field>')
+    if logo:
+        fields.append(f'<logo name="" rowspan="2" col="0" row="0" '
+                      f'resource="{LOGO_NAME}"/>')
+    else:
+        fields.append('<field valign="center" hadjust="true" name="logo" '
+                      'displaylabel="false" align="center" col="0" row="0" '
+                      'rowspan="2"><value/><label/></field>')
     fields.append(iso_field("format", size, 0, 3, 0, 0, "center"))
+    slot = ("The first column holds the logo of MCATECH"
+            if logo else "The first column is left empty for a logo")
     return (f'<titleblocktemplate name="{title}">\n'
-            "<information>ISO 7200 title block for an A3 folio. The first "
-            "column is left empty for a logo; the owner, document number, "
+            f"<information>ISO 7200 title block for an {size} folio. {slot}; "
+            "the owner, document number, "
             "supplementary title, document type, status, language and "
             "approver are read from the custom fields of the folio "
             "(owner, docnumber, subtitle, doctype, status, language, "
-            "approver).</information>\n"
-            f'<logos/>\n<grid cols="{cols}" rows="{ISO_ROWS}">\n' +
+            "approver).</information>\n" +
+            (logo_xml() if logo else "<logos/>\n") +
+            f'<grid cols="{cols}" rows="{ISO_ROWS}">\n' +
             "\n".join(fields) + "\n</grid>\n</titleblocktemplate>\n")
 
 
@@ -216,6 +249,11 @@ def main():
         path = os.path.join(OUT_DIR, filename + ".titleblock")
         with open(path, "w", encoding="utf-8", newline="\n") as f:
             f.write(iso_template_xml(title, cols, "A3"))
+        print("wrote", os.path.relpath(path, ROOT))
+    for filename, (title, cols, size) in MCATECH_TEMPLATES.items():
+        path = os.path.join(OUT_DIR, filename + ".titleblock")
+        with open(path, "w", encoding="utf-8", newline="\n") as f:
+            f.write(iso_template_xml(title, cols, size, logo=True))
         print("wrote", os.path.relpath(path, ROOT))
 
 

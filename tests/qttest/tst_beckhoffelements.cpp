@@ -1189,7 +1189,10 @@ class TstBeckhoffElements : public QObject
 				QStringLiteral("default.titleblock"),
 				QStringLiteral("ISO7200_A3_landscape.titleblock"),
 				QStringLiteral("ISO7200_A3_portrait.titleblock"),
-				QStringLiteral("ISO7200_A4_V1.titleblock")}));
+				QStringLiteral("ISO7200_A4_V1.titleblock"),
+				QStringLiteral("MCATECH_ISO7200_A3_landscape.titleblock"),
+				QStringLiteral("MCATECH_ISO7200_A3_portrait.titleblock"),
+				QStringLiteral("MCATECH_ISO7200_A4.titleblock")}));
 
 			const QStringList iso{QStringLiteral("owner"),
 				QStringLiteral("docnumber"), QStringLiteral("title"),
@@ -1237,6 +1240,51 @@ class TstBeckhoffElements : public QObject
 					QVERIFY2(french, qPrintable(file + QLatin1Char(' ')
 											+ name));
 				}
+				for (const QString &name : iso) {
+					QVERIFY2(names.contains(name),
+							 qPrintable(file + QLatin1Char(' ') + name));
+				}
+			}
+
+				// MCATECH variants: same ISO fields, plus the logo of
+				// the company placed in the first column
+			for (const QString &file : {
+					QStringLiteral("MCATECH_ISO7200_A3_landscape.titleblock"),
+					QStringLiteral("MCATECH_ISO7200_A3_portrait.titleblock"),
+					QStringLiteral("MCATECH_ISO7200_A4.titleblock")}) {
+				const auto doc = load(dirPath + file);
+				const auto root = doc.documentElement();
+				const auto logos = root.firstChildElement(
+					QStringLiteral("logos")).elementsByTagName(
+					QStringLiteral("logo"));
+				QCOMPARE(logos.size(), 1);
+				const QString logoName = logos.at(0).toElement().attribute(
+					QStringLiteral("name"));
+				QVERIFY2(!logoName.isEmpty(), qPrintable(file));
+				QVERIFY2(!logos.at(0).toElement().elementsByTagName(
+					QStringLiteral("svg")).isEmpty(), qPrintable(file));
+
+				const auto grid = root.firstChildElement(
+					QStringLiteral("grid"));
+				QCOMPARE(grid.attribute(QStringLiteral("rows")),
+						 QStringLiteral("17;17;17;17;"));
+				bool placed = false;
+				QStringList names;
+				for (auto n = grid.firstChildElement(); !n.isNull();
+					 n = n.nextSiblingElement()) {
+					if (n.tagName() == QLatin1String("logo")) {
+						QCOMPARE(n.attribute(QStringLiteral("resource")),
+								 logoName);
+						QCOMPARE(n.attribute(QStringLiteral("col")),
+								 QStringLiteral("0"));
+						QCOMPARE(n.attribute(QStringLiteral("row")),
+								 QStringLiteral("0"));
+						placed = true;
+					} else if (n.tagName() == QLatin1String("field")) {
+						names << n.attribute(QStringLiteral("name"));
+					}
+				}
+				QVERIFY2(placed, qPrintable(file));
 				for (const QString &name : iso) {
 					QVERIFY2(names.contains(name),
 							 qPrintable(file + QLatin1Char(' ') + name));

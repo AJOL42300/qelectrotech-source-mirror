@@ -559,15 +559,27 @@ approver are custom variables (`%{owner}`, `%{docnumber}`, `%{subtitle}`,
 `%{doctype}`, `%{status}`, `%{language}`, `%{approver}`), set in the folio
 properties.
 
-The folder `titleblocks` keeps only these four A3 templates, `ISO7200_A4_V1`
-(ISO 7200, A4) and `default` (embedded in the program).
+Three more templates carry the logo of MCATECH in the first column (two rows
+high), with the same ISO 7200 fields: **MCATECH A4 ISO 7200**,
+**MCATECH A3 ISO 7200 landscape** and **MCATECH A3 ISO 7200 portrait**
+(`MCATECH_ISO7200_A4.titleblock`, `MCATECH_ISO7200_A3_landscape.titleblock`,
+`MCATECH_ISO7200_A3_portrait.titleblock`). The logo is the vector header logo
+(`Entete Doc.svg`) of the title blocks of the owner of this fork, stored in
+`misc/beckhoff/mcatech_logo.svg` and embedded in each template (`<logos>`); to
+use another logo, replace that file and run the generator, or change the logo
+of the template in the title block editor. The A4 template is for a landscape
+folio of 14 x 7 cells of 61 x 76 px (297 x 210 mm).
+
+The folder `titleblocks` keeps only these nine templates: the four A3 ones
+above, the three MCATECH ones, `ISO7200_A4_V1` (ISO 7200, A4, generic) and
+`default` (embedded in the program).
 
 A3 is 20 x 10 cells of 61 x 78 or 80 px for a landscape folio and 14 x 14 cells
 of 61 x 82 or 83 px for a portrait folio (about 2.9 px per mm, 297 x 420 mm).
 In the example, every folio is landscape except the I/O tables of the island
 `A1` (portrait, to show it). The templates are embedded in the project, so it
 does not need the installed ones, and new folios of the example are created as
-A3 landscape. `python misc/beckhoff/gen_titleblocks.py` writes the four files.
+A3 landscape. `python misc/beckhoff/gen_titleblocks.py` writes the nine files.
 
 ## EPP2338 box
 
