@@ -1176,6 +1176,74 @@ class TstBeckhoffElements : public QObject
 			QVERIFY(portrait < folios.size());
 		}
 
+		void titleBlockFolderIsReducedAndIso7200Complete()
+		{
+			const QString dirPath = QStringLiteral(QET_EXAMPLES_DIR)
+				+ QStringLiteral("/../titleblocks/");
+			QStringList files = QDir(dirPath).entryList(
+				{QStringLiteral("*.titleblock")}, QDir::Files, QDir::Name);
+			files.sort(Qt::CaseInsensitive);
+			QCOMPARE(files, (QStringList{
+				QStringLiteral("A3_landscape.titleblock"),
+				QStringLiteral("A3_portrait.titleblock"),
+				QStringLiteral("default.titleblock"),
+				QStringLiteral("ISO7200_A3_landscape.titleblock"),
+				QStringLiteral("ISO7200_A3_portrait.titleblock"),
+				QStringLiteral("ISO7200_A4_V1.titleblock")}));
+
+			const QStringList iso{QStringLiteral("owner"),
+				QStringLiteral("docnumber"), QStringLiteral("title"),
+				QStringLiteral("subtitle"), QStringLiteral("doctype"),
+				QStringLiteral("status"), QStringLiteral("language"),
+				QStringLiteral("sheet"), QStringLiteral("author"),
+				QStringLiteral("approver"), QStringLiteral("date"),
+				QStringLiteral("revision"), QStringLiteral("format")};
+			for (const QString &file : {
+					QStringLiteral("ISO7200_A3_landscape.titleblock"),
+					QStringLiteral("ISO7200_A3_portrait.titleblock")}) {
+				const auto doc = load(dirPath + file);
+				const auto root = doc.documentElement();
+					// generic: no logo and no company text
+				QCOMPARE(root.firstChildElement(QStringLiteral("logos"))
+						 .childNodes().size(), 0);
+				const auto grid = root.firstChildElement(
+					QStringLiteral("grid"));
+				QCOMPARE(grid.attribute(QStringLiteral("rows")),
+						 QStringLiteral("17;17;17;17;"));
+				const int columns = grid.attribute(QStringLiteral("cols"))
+					.split(QLatin1Char(';'), Qt::SkipEmptyParts).size();
+				QStringList names;
+				const auto fields = grid.elementsByTagName(
+					QStringLiteral("field"));
+				for (int i = 0; i < fields.size(); ++i) {
+					const auto f = fields.at(i).toElement();
+					QVERIFY(f.attribute(QStringLiteral("col")).toInt()
+							< columns);
+					QVERIFY(f.attribute(QStringLiteral("row")).toInt() < 4);
+					const QString name = f.attribute(QStringLiteral("name"));
+					names << name;
+					if (name == QLatin1String("logo")) {
+						continue;
+					}
+						// every label is translated into French
+					bool french = false;
+					const auto labels = f.firstChildElement(
+						QStringLiteral("label")).elementsByTagName(
+						QStringLiteral("translation"));
+					for (int j = 0; j < labels.size(); ++j) {
+						french |= labels.at(j).toElement().attribute(
+							QStringLiteral("lang")) == QLatin1String("fr");
+					}
+					QVERIFY2(french, qPrintable(file + QLatin1Char(' ')
+											+ name));
+				}
+				for (const QString &name : iso) {
+					QVERIFY2(names.contains(name),
+							 qPrintable(file + QLatin1Char(' ') + name));
+				}
+			}
+		}
+
 		void everyRealisticViewHasADescriptionViewWithTheSameTerminals()
 		{
 			int checked = 0;

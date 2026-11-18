@@ -208,7 +208,7 @@ private slots:
 				"var p = 'common://10_electric/10_allpole/310_relays_contactors_contacts/"
 				"01_coils/bobine_ka_a_remanence.elmt';\n"
 				"qet.log('ADDED ' + qet.addElement(0, p, 100, 100));\n"
-				"qet.log('EMBEDDED ' + qet.embedTitleBlockTemplate('DIN_A4'));\n"
+				"qet.log('EMBEDDED ' + qet.embedTitleBlockTemplate('ISO7200_A4_V1'));\n"
 				"dump('after');\n"));
 		QCOMPARE(r.value(QStringLiteral("before")).value(QStringLiteral("symbol_def")).size(), 1);
 		const Rows after = r.value(QStringLiteral("after"));
@@ -218,7 +218,7 @@ private slots:
 				 qPrintable(after.value(QStringLiteral("symbol_def")).keys().join(QLatin1Char('\n'))));
 		QVERIFY(after.value(QStringLiteral("symbol_category"))
 				.contains(QStringLiteral("import/10_electric/10_allpole")));
-		const Row din = after.value(QStringLiteral("titleblock_template")).value(QStringLiteral("DIN_A4"));
+		const Row din = after.value(QStringLiteral("titleblock_template")).value(QStringLiteral("ISO7200_A4_V1"));
 		QVERIFY2(din.content.startsWith(QStringLiteral("<titleblocktemplate")), qPrintable(din.content.left(200)));
 		QCOMPARE(din.hash, sha256(din.content));
 	}

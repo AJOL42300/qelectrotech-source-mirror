@@ -548,12 +548,26 @@ the folio and the folio number. The widths are relative, so the strip fits the
 folio. They use variables only: no logo and no company text is in the
 repository (put your logo in the first cell with the title block editor).
 
-A3 is 20 x 10 cells of 61 x 80 px for a landscape folio and 14 x 15 cells for a
-portrait folio (about 2.9 px per mm). In the example, every folio is landscape
-except the I/O tables of the island `A1` (portrait, to show it). The
-templates are embedded in the project, so it does not need the installed
-ones, and new folios of the example are created as A3 landscape.
-`python misc/beckhoff/gen_titleblocks.py` writes the two files.
+Two generic templates follow ISO 7200, **A3 ISO 7200 landscape** and
+**A3 ISO 7200 portrait** (`ISO7200_A3_landscape.titleblock`,
+`ISO7200_A3_portrait.titleblock`): legal owner, document number, title,
+supplementary title, document type, status, language, sheet n / N, author,
+approver, date, revision and format, with labels translated (fr, en, de, es,
+it). They have no logo and no company text; the first cell is empty for a logo.
+Owner, document number, supplementary title, type, status, language and
+approver are custom variables (`%{owner}`, `%{docnumber}`, `%{subtitle}`,
+`%{doctype}`, `%{status}`, `%{language}`, `%{approver}`), set in the folio
+properties.
+
+The folder `titleblocks` keeps only these four A3 templates, `ISO7200_A4_V1`
+(ISO 7200, A4) and `default` (embedded in the program).
+
+A3 is 20 x 10 cells of 61 x 78 or 80 px for a landscape folio and 14 x 14 cells
+of 61 x 82 or 83 px for a portrait folio (about 2.9 px per mm, 297 x 420 mm).
+In the example, every folio is landscape except the I/O tables of the island
+`A1` (portrait, to show it). The templates are embedded in the project, so it
+does not need the installed ones, and new folios of the example are created as
+A3 landscape. `python misc/beckhoff/gen_titleblocks.py` writes the four files.
 
 ## EPP2338 box
 
