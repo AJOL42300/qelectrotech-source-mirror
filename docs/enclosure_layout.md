@@ -56,6 +56,7 @@ use a smaller enclosure.
    | warning  | a door or a plate is placed on an enclosure it does not belong to |
    | warning  | footprints but no enclosure on the folio |
    | warning  | the catalog has no usable size for the enclosure: the outer size is used |
+   | warning  | the position of the rail fixing line of a footprint is assumed, or not verified (see `docs/rail-snapping.md`) |
 
 A footprint, a door or a plate belongs to the enclosure that contains its
 centre.
@@ -93,6 +94,15 @@ height is the depth for the check). The footprints are the TS35 rails (35 x
 7.5 and 35 x 15, EN 60715) and ten Efapel ETS 14 slotted panel ducts
 (heights 40 and 60 mm, widths 25 to 100 mm, grey PVC "CCZ" references; the
 halogen-free variant has the suffix "HCZ").
+
+### Rail snapping data
+
+Each rail and each DIN module footprint carries a `<railSnap>` element read
+by the rail snapping of the application (`docs/rail-snapping.md`). Ducts
+do not. A value can be given per footprint in `catalog.json` with an
+optional `rail_snap` object (`mount`, `mount_offset_mm`, `gap_mm`, `basis`,
+`source`, `verified`). Without it the position of the fixing line is
+`assumed` and `check` warns about it.
 
 ## Cabinets in the schema
 
