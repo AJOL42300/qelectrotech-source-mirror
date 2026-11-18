@@ -49,9 +49,16 @@ def num(v):
     return str(int(v)) if v == int(v) else ("%.2f" % v).rstrip("0")
 
 
-def text_size(s, size):
+def text_size(s, size, bold=False):
     """Estimated width and height, in pixels, of a text in the font used."""
-    return len(s) * size * 4.0 / 3.0 * 0.47 + 1, size * 4.0 / 3.0 + 1
+    return (len(s) * size * 4.0 / 3.0 * 0.47 * (1.08 if bold else 1.0) + 1,
+            size * 4.0 / 3.0 + 1)
+
+
+def text_ascent(size):
+    """Distance from the top of the text box to the baseline. QET draws a
+    text part with its (x, y) on the baseline, not on the top left corner."""
+    return size * 4.0 / 3.0 * 0.93
 
 
 def style(weight="thin", fill="none", color=BLACK, dash="normal"):
@@ -143,28 +150,37 @@ class Canvas:
 
     def text(self, x, y, s, size=5, bold=False, color="#000000",
              rotation=0):
-        """x, y is the top left corner of the text. With rotation=270 the
-        text reads upwards from x, y (the box is then above and to the
-        right of that point)."""
-        w, h = text_size(s, size)
+        """x, y is the top left corner of the text box. With rotation=270
+        the text reads upwards from x, y (the box is then above and to the
+        right of that point). The file gets the baseline position, which
+        is what QET uses."""
+        w, h = text_size(s, size, bold)
+        asc = text_ascent(size)
         if rotation == 270:
             box = (x, y - w, x + h, y)
+            fx, fy = x + asc, y
         else:
             box = (x, y, x + w, y + h)
+            fx, fy = x, y + asc
         self.grow(box[0], box[1], box[2], box[3])
         self.text_boxes.append(box + (s,))
         self.parts.append(
-            f'<text x="{num(x)}" y="{num(y)}" rotation="{rotation}" '
+            f'<text x="{num(fx)}" y="{num(fy)}" rotation="{rotation}" '
             f'color="{color}" font="{FONT},{size},-1,5,'
             f'{75 if bold else 50},0,0,0,0,0,Regular" text="{esc(s)}"/>')
 
     def text_c(self, cx, y, s, size=5, bold=False, color="#000000"):
-        self.text(cx - text_size(s, size)[0] / 2.0, y, s, size, bold,
+        self.text(cx - text_size(s, size, bold)[0] / 2.0, y, s, size, bold,
                   color)
+
+    def text_m(self, cx, cy, s, size=5, bold=False, color="#000000"):
+        """Centred on cx horizontally and on cy vertically."""
+        w, h = text_size(s, size, bold)
+        self.text(cx - w / 2.0, cy - h / 2.0, s, size, bold, color)
 
     def text_r(self, rx, y, s, size=5, bold=False, color="#000000"):
         """Right aligned: rx is the right edge."""
-        self.text(rx - text_size(s, size)[0], y, s, size, bold, color)
+        self.text(rx - text_size(s, size, bold)[0], y, s, size, bold, color)
 
 
 class Terminal:

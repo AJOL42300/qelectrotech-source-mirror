@@ -13,7 +13,7 @@ Each product has its own folder, below a folder for its family:
 
 | Folder | Products |
 | --- | --- |
-| `16_murrelektronik_mico/mico_basic` | MICO Basic 2.4, 4.4, 4.4.10, 8.6 |
+| `16_murrelektronik_mico/mico_basic` | MICO Basic 2.4, 2.6, 2.10 (9000-41042), 4.4, 4.6, 4.10 (9000-41034), 4.4.10, 8.6 |
 | `16_murrelektronik_mico/mico_pro` | MICO Pro 1, 2 and 4 channels |
 | `17_meanwell_psu/hdr` | HDR-15, 30, 60, 100 (24N), 150 |
 | `17_meanwell_psu/ndr` | NDR-120, 240, 480 |
@@ -77,8 +77,32 @@ screw of the output is a terminal of its own (`+V`, `+V2`, `+V3`, `-V`,
 | Product | Terminals |
 | --- | --- |
 | Power supply | see above; 13 and 14 are the DC OK relay contact |
-| MICO Basic | +24V, 0V, ON (enable input), ALARM (group alarm output), OUT1...OUTn |
-| MICO Pro | +24V, 0V, CTRL (control input), ALARM, OUT1...OUTn and 0V1...0Vn |
+| MICO Basic | +24V, 0V, ON (enable input), 13, 14 (group alarm contact), OUT1...OUTn |
+| MICO Pro | +24V, 0V, CTRL (control input), 13, 14 (group alarm contact), 23, 24 (90 % load contact), OUT1...OUTn and 0V1...0Vn |
+
+The MICO terminal numbers are written beside the stems in the schematic and
+outside the white terminal squares in the realistic view. The MICO current
+range is shown boxed, in bold and centred under the selectors (for example
+`4 x 1-2-3-4 A`); a mixed module shows one box per group of channels.
+
+### MICO Basic references
+
+| Reference | Name | Channels | Selector steps per channel |
+| --- | --- | --- | --- |
+| 9000-41042-0100400 | MICO Basic 2.4 | 2 | 1-2-3-4 A |
+| 9000-41042-0100600 | MICO Basic 2.6 | 2 | 1-2-4-6 A |
+| 9000-41042-0401000 | MICO Basic 2.10 | 2 | 4-6-8-10 A |
+| 9000-41034-0100400 | MICO Basic 4.4 | 4 | 1-2-3-4 A |
+| 9000-41034-0100600 | MICO Basic 4.6 | 4 | 1-2-4-6 A |
+| 9000-41034-0401000 | MICO Basic 4.10 | 4 | 4-6-8-10 A |
+
+Each channel has a transparent push button square with the status LED built
+in (no separate LED row, no round button) and a selector with these discrete
+steps. Sources: the Murrelektronik shop pages of these references
+(`shop.murrelektronik.com`), the "MICO Classic" listing of Mouser and the
+instructions of the MICO 2.4 / 4.4 (13-14 alarm contact). The 4.4.10
+(9000-41034-0101000, split ranges), the 8.6 (9000-41068-0600000) and the Pro
+references are kept from the earlier version and are **not verified**.
 
 The terminals carry a `potential` (24V / 0V) and a plcIO type, so that the
 data of the pins (the ID column of the table, the function text) can be filled
@@ -302,7 +326,21 @@ datasheet of the exact reference before use:**
 - the layout scale (1 px = 2 mm) is that of the enclosure layout branch; the
   Beckhoff cards use another scale (about 2.9 px/mm);
 - MICO Basic: no individual 0 V terminal per channel; the assignment of the
-  channels of the 4.4.10 (2 x 1-4 A, 2 x 4-10 A) is assumed;
+  channels of the 4.4.10 (2 x 1-2-3-4 A, 2 x 4-6-8-10 A) is assumed;
+- MICO terminals 13 / 14 (group alarm contact) come from the MICO 2.4 / 4.4
+  instructions; 23 / 24 (90 % contact) come from the MICO Pro manual and
+  are assumed for the Pro elements here; the presence of 13 / 14 on the
+  4.4.10, 8.6 and Pro models, and the Pro `CTRL` terminal, are assumed;
+- the push button as a transparent square with a built-in LED, and the LED
+  colour (green), are an interpretation of the data sheet text; the shape
+  and positions are assumed;
+- the Mean Well elements have no voltage adjustment range in their data, so
+  no range is highlighted near the trimmer;
+- text placement: QET draws the `<text>` of an element with (x, y) on the
+  baseline. The generators now convert their top left box to that baseline
+  (`Canvas.text`), which moves every text of the three libraries about 6
+  units down compared with the earlier revisions; the factor is estimated
+  for Roboto Condensed and was not checked on a rendered image;
 - MICO Pro: the terminal layout, the LED and the marking `+n` / `-n` of the
   channels are assumed; there is no 8-channel Pro here;
 - the numbers 13 / 14 of the "DC OK" relay contact are assumed;

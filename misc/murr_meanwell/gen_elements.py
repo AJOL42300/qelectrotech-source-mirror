@@ -387,11 +387,11 @@ class Psu(Device):
         otherwise rotated by 270 degrees."""
         s = self.ref
         for size in (5, 4):
-            w, h = text_size(s, size)
+            w, h = text_size(s, size, True)
             if w <= wpx - 2 and h <= 15:
                 return size, 0, (wpx - w) / 2.0
         for size in (5, 4, 3):
-            w, h = text_size(s, size)
+            w, h = text_size(s, size, True)
             if h <= wpx - 2 and w <= hpx - 22:
                 return size, 270, (wpx - h) / 2.0
         raise ValueError("no room for the layout label of " + s)
@@ -414,7 +414,7 @@ class Psu(Device):
         size, rot, tx = self.layout_label(w, h)
         rail_y = h / 2.0
         rail = (rail_y - 8.75, rail_y + 8.75)
-        tw, th = text_size(self.ref, size)
+        tw, th = text_size(self.ref, size, True)
         gap = None
         if rot:
             gap = (tx - 1, tx + th + 1)
@@ -539,21 +539,25 @@ class Mico(Device):
         self.family = "mico_" + line.lower()
         self.folder = ("mico_" + ref.lower().replace("mico ", "")
                        .replace(" ", "_").replace(".", "_"))
-        self.xs = [20 * n + 10 for n in range(channels)]
-        self.zs = [20 * n + 20 for n in range(channels)]
+        self.pitch = 30 if pro else 20
+        self.xs = [self.pitch * n + 10 for n in range(channels)]
+        self.zs = [self.pitch * n + 20 for n in range(channels)]
         last = (self.zs if pro else self.xs)[-1]
-        self.W = max(60, last) + 20
+        self.top_last = 120 if pro else 80
+        self.W = max(60, last, self.top_last) + 20
         self.H = 110
         self.fixed = all("-" not in s for s in specs)
         self.short = f"{channels} ch., {rating}"
         self.short_fr = f"{channels} voies, {rating}"
         self.designation = (f"{channels}-channel electronic circuit "
                             f"breaker, 24 V DC, {rating}")
-        notes = ["one status LED, one push button"
+        notes = ["one push button with integrated status LED"
                  + ("" if self.fixed else " and one current selector")
-                 + " per channel", "group alarm output"]
+                 + " per channel",
+                 "group alarm contact on terminals 13-14 (potential-free)"]
         if pro:
-            notes.append("modular system (power module + channel "
+            notes.append("90% load contact on terminals 23-24 (assumed); "
+                         "modular system (power module + channel "
                          "modules) drawn as one assembly; module layout "
                          "and LEDs assumed")
         else:
@@ -569,8 +573,15 @@ class Mico(Device):
                       "0 V supply", "0V"),
              Terminal(ctl, 40, 0, "n", "entree_digitale",
                       "On/restart input", ""),
-             Terminal("ALARM", 60, 0, "n", "sortie_digitale",
-                      "Group alarm output", "")]
+             Terminal("13", 60, 0, "n", "sortie_digitale",
+                      "Group alarm contact (13-14)", ""),
+             Terminal("14", 80, 0, "n", "sortie_digitale",
+                      "Group alarm contact (13-14)", "")]
+        if pro:
+            t += [Terminal("23", 100, 0, "n", "sortie_digitale",
+                           "90% load contact (23-24, assumed)", ""),
+                  Terminal("24", 120, 0, "n", "sortie_digitale",
+                           "90% load contact (23-24, assumed)", "")]
         for n in range(channels):
             t.append(Terminal(f"OUT{n + 1}", self.xs[n], self.H, "s",
                               "sortie_digitale",
@@ -586,6 +597,27 @@ class Mico(Device):
     def chx(self, n):
         return self.zs[n] - 5 if self.pro else self.xs[n]
 
+    def contact(self, c, x1, x2):
+        """Normally open contact between two top terminals."""
+        c.line(x1, 0, x1, 24)
+        c.line(x2, 0, x2, 24)
+        c.disc(x1, 24, 3, "black")
+        c.disc(x2, 24, 3, "black")
+        c.line(x1, 24, x2 - 5, 13)
+
+    def groups(self):
+        """Runs of channels with the same current range: (first, last,
+        text). One run shows the total, e.g. 4 x 1-2-3-4 A."""
+        runs = []
+        for n, s in enumerate(self.specs):
+            if runs and runs[-1][2] == s:
+                runs[-1][1] = n
+            else:
+                runs.append([n, n, s])
+        if len(runs) == 1:
+            return [(0, self.channels - 1, self.rating)]
+        return [tuple(r) for r in runs]
+
     def schematic(self):
         c = Canvas()
         W, H = self.W, self.H
@@ -594,10 +626,10 @@ class Mico(Device):
         c.line(0, 0, 0, 40, RED)
         c.line(0, 40, last, 40, RED)
         for x in self.xs:
-            c.line(x, 40, x, 62, RED)
-            c.rect(x - 6, 62, 12, 14)
-            c.text_c(x, 65, "I>", 4)
-            c.line(x, 76, x, H, RED)
+            c.line(x, 40, x, 60, RED)
+            c.rect(x - 8, 60, 16, 18)
+            c.text_m(x, 69, "I>", 7)
+            c.line(x, 78, x, H, RED)
             c.disc(x, 40, 3, "red", RED)
         if self.pro:
             c.line(20, 0, 20, H, BLUE)
@@ -610,9 +642,25 @@ class Mico(Device):
             c.line(20, 0, 20, H - 14, BLUE)
             c.disc(20, H - 12, 4)
         c.line(40, 0, 40, 12)
-        c.line(60, 0, 60, 12)
-        c.rect(32, 12, 36, 16)
-        c.text_c(50, 15.5, "CTRL", 5)
+        c.rect(28, 12, 24, 20)
+        c.text_m(40, 22, self.ctl, 7)
+        self.contact(c, 60, 80)
+        if self.pro:
+            self.contact(c, 100, 120)
+            c.text_m(110, 32, "90%", 5)
+        c.text(2, 2, "+24V", 5)
+        c.text(22, 2, "0V", 5)
+        c.text(62, 2, "13", 5)
+        c.text(82, 2, "14", 5)
+        if self.pro:
+            c.text(102, 2, "23", 5)
+            c.text(122, 2, "24", 5)
+        for n, x in enumerate(self.xs):
+            if self.pro:
+                c.text_r(x - 2, H - 9.5, f"+{n + 1}", 5)
+                c.text(self.zs[n] + 2, H - 9.5, f"-{n + 1}", 5)
+            else:
+                c.text(x + 2, H - 9.5, str(n + 1), 5)
         return c
 
     def realistic(self):
@@ -629,19 +677,34 @@ class Mico(Device):
             if narrow:
                 mark = ("+" if t.name.startswith("OUT") else "-") + \
                     t.name[-1]
-            c.text_c(t.x, 15.5 if top else H - 21, mark, 4, True)
-        c.text(-6, 24, self.ref, 5, True)
+            c.text_c(t.x, 16 if top else H - 23.5, mark, 5, True)
+        c.text(-6, 27, self.ref, 6, True)
         for n in range(self.channels):
             x = self.chx(n)
-            c.disc(x, 40, 5, "green")
-            c.disc(x, 52, 7, "white")
-            if self.specs[n] and "-" in self.specs[n]:
-                c.disc(x, 66, 8, "white")
-                c.line(x - 3, 66, x + 3, 66)
-            else:
-                c.text_c(x, 62.5, self.specs[n].replace(" ", ""), 4, True)
-        c.text_c((W - 20) / 2.0, 78, self.rating, 4)
+            c.rect(x - 8, 40, 16, 16, "none", BLACK, "normal")
+            c.rect(x - 6, 42, 12, 12)
+            c.disc(x, 48, 7, "green")
+            if not self.fixed:
+                c.disc(x, 64, 8, "white")
+                c.line(x - 3, 64, x + 3, 64)
+        for cx, w, txt in self.range_boxes():
+            c.rect(cx - w / 2.0, 70, w, 14, "white", "blue", "normal")
+            c.text_m(cx, 77, txt, 7, True, "#0033cc")
         return c
+
+    def range_boxes(self):
+        """Centre, width and text of the boxed current ranges."""
+        out = []
+        for first, lastn, s in self.groups():
+            w = text_size(s, 7, True)[0] + 6
+            cx = (self.chx(first) + self.chx(lastn)) / 2.0
+            cx = min(max(cx, -10 + w / 2.0 + 2), self.W - 10 - w / 2.0 - 2)
+            out.append((cx, w, s))
+        return out
+
+    def range_left(self):
+        cx, w, _ = self.range_boxes()[0]
+        return cx - w / 2.0
 
     def description_view(self):
         c = self.realistic()
@@ -650,7 +713,11 @@ class Mico(Device):
         top = [(0, "+24V: 24 V DC supply"), (20, "0V: supply 0 V"),
                (40, "ON: switch on / restart input" if not self.pro else
                 "CTRL: on/off input"),
-               (60, "ALARM: group alarm output")]
+               (60, "13: group alarm contact"),
+               (80, "14: group alarm contact")]
+        if self.pro:
+            top += [(100, "23: 90% load contact (assumed)"),
+                    (120, "24: 90% load contact (assumed)")]
         nt = legend_vertical(c, top, x1, x2, 0, False)
         bottom = [(self.xs[0], f"OUT1...OUT{self.channels}: channel "
                    "outputs")]
@@ -661,23 +728,33 @@ class Mico(Device):
                        f"0V{self.channels} channel 0 V")]
         legend_vertical(c, bottom, x1, x2, H, True)
         x = self.chx(0)
-        legend_side(c, x - 3, 40, "LED per channel (green/red)", -1, x1, x2)
-        legend_side(c, x - 4, 52, "Push button per channel", -1, x1, x2)
-        if self.fixed:
-            legend_side(c, x - 5, 63, "Fixed channel current", -1, x1, x2)
-        else:
-            legend_side(c, x - 5, 66, "Current selector per channel", -1,
+        legend_side(c, x - 6, 48, "Push button with integrated LED "
+                    "(green/red)", -1, x1, x2)
+        if not self.fixed:
+            legend_side(c, x - 4, 64, "Current selector per channel", -1,
                         x1, x2)
+        legend_side(c, self.range_left(), 77, "Current range per channel"
+                    if not self.fixed else "Fixed channel current", -1,
+                    x1, x2)
         return c, min(-24, -LEVEL * nt - 22)
 
 
 MICOS = [
     Mico("Basic", "MICO Basic 2.4", "9000-41042-0100400", 2,
-         ["1-4 A"] * 2, "2 x 1-4 A"),
+         ["1-2-3-4 A"] * 2, "2 x 1-2-3-4 A"),
+    Mico("Basic", "MICO Basic 2.6", "9000-41042-0100600", 2,
+         ["1-2-4-6 A"] * 2, "2 x 1-2-4-6 A"),
+    Mico("Basic", "MICO Basic 2.10", "9000-41042-0401000", 2,
+         ["4-6-8-10 A"] * 2, "2 x 4-6-8-10 A"),
     Mico("Basic", "MICO Basic 4.4", "9000-41034-0100400", 4,
-         ["1-4 A"] * 4, "4 x 1-4 A"),
+         ["1-2-3-4 A"] * 4, "4 x 1-2-3-4 A"),
+    Mico("Basic", "MICO Basic 4.6", "9000-41034-0100600", 4,
+         ["1-2-4-6 A"] * 4, "4 x 1-2-4-6 A"),
+    Mico("Basic", "MICO Basic 4.10", "9000-41034-0401000", 4,
+         ["4-6-8-10 A"] * 4, "4 x 4-6-8-10 A"),
     Mico("Basic", "MICO Basic 4.4.10", "9000-41034-0101000", 4,
-         ["1-4 A"] * 2 + ["4-10 A"] * 2, "2 x 1-4 A, 2 x 4-10 A"),
+         ["1-2-3-4 A"] * 2 + ["4-6-8-10 A"] * 2,
+         "2 x 1-2-3-4 A, 2 x 4-6-8-10 A"),
     Mico("Basic", "MICO Basic 8.6", "9000-41068-0600000", 8,
          ["6 A"] * 8, "8 x 6 A"),
     Mico("Pro", "MICO Pro 1 channel", "9000-41091-0101000", 1,

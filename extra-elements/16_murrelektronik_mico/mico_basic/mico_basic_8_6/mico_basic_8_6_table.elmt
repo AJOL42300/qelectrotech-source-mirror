@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="master" width="324" height="202" hotspot_x="5" hotspot_y="29">
+<definition version="0.100.0" type="element" link_type="master" width="324" height="214" hotspot_x="5" hotspot_y="29">
 	<uuid uuid="{3b28fe91-cbc3-5757-9791-0d6648257a45}"/>
 	<names>
 		<name lang="en">Murrelektronik MICO Basic 8.6 MICO electronic circuit breaker 8 x 6 A - pin table</name>
@@ -8,7 +8,7 @@
 		<elementInformation name="manufacturer" show="1">Murrelektronik</elementInformation>
 		<elementInformation name="manufacturer_reference" show="1">9000-41068-0600000</elementInformation>
 		<elementInformation name="designation" show="1">8-channel electronic circuit breaker, 24 V DC, 8 x 6 A</elementInformation>
-		<elementInformation name="description" show="1">one status LED, one push button per channel; group alarm output; no separate 0 V output terminal per channel (assumed)</elementInformation>
+		<elementInformation name="description" show="1">one push button with integrated status LED per channel; group alarm contact on terminals 13-14 (potential-free); no separate 0 V output terminal per channel (assumed)</elementInformation>
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
@@ -50,8 +50,11 @@
 				<plcIO type="entree_digitale" address="On/restart input" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>ON</terminal>
 				</plcIO>
-				<plcIO type="sortie_digitale" address="Group alarm output" functionText="" comment="" crossRef="" terminalCount="1">
-					<terminal>ALARM</terminal>
+				<plcIO type="sortie_digitale" address="Group alarm contact (13-14)" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>13</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Group alarm contact (13-14)" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>14</terminal>
 				</plcIO>
 				<plcIO type="sortie_digitale" address="Channel 1 output 6 A" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>OUT1</terminal>

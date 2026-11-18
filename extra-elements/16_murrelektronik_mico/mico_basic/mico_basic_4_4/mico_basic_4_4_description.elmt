@@ -1,14 +1,14 @@
-<definition version="0.100.0" type="element" link_type="master" width="310" height="190" hotspot_x="120" hotspot_y="50">
+<definition version="0.100.0" type="element" link_type="master" width="370" height="200" hotspot_x="170" hotspot_y="60">
 	<uuid uuid="{f8f90cab-c0ca-5cce-a90a-f2abd4611450}"/>
 	<names>
-		<name lang="en">Murrelektronik MICO Basic 4.4 MICO electronic circuit breaker 4 x 1-4 A, description view</name>
-		<name lang="fr">Disjoncteur électronique MICO Murrelektronik MICO Basic 4.4 4 x 1-4 A, vue descriptive</name>
+		<name lang="en">Murrelektronik MICO Basic 4.4 MICO electronic circuit breaker 4 x 1-2-3-4 A, description view</name>
+		<name lang="fr">Disjoncteur électronique MICO Murrelektronik MICO Basic 4.4 4 x 1-2-3-4 A, vue descriptive</name>
 	</names>
 	<elementInformations>
 		<elementInformation name="manufacturer" show="1">Murrelektronik</elementInformation>
 		<elementInformation name="manufacturer_reference" show="1">9000-41034-0100400</elementInformation>
-		<elementInformation name="designation" show="1">4-channel electronic circuit breaker, 24 V DC, 4 x 1-4 A</elementInformation>
-		<elementInformation name="description" show="1">one status LED, one push button and one current selector per channel; group alarm output; no separate 0 V output terminal per channel (assumed)</elementInformation>
+		<elementInformation name="designation" show="1">4-channel electronic circuit breaker, 24 V DC, 4 x 1-2-3-4 A</elementInformation>
+		<elementInformation name="description" show="1">one push button with integrated status LED and one current selector per channel; group alarm contact on terminals 13-14 (potential-free); no separate 0 V output terminal per channel (assumed)</elementInformation>
 	</elementInformations>
 	<kindInformations>
 		<kindInformation name="type">plc</kindInformation>
@@ -50,19 +50,22 @@
 				<plcIO type="entree_digitale" address="On/restart input" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>ON</terminal>
 				</plcIO>
-				<plcIO type="sortie_digitale" address="Group alarm output" functionText="" comment="" crossRef="" terminalCount="1">
-					<terminal>ALARM</terminal>
+				<plcIO type="sortie_digitale" address="Group alarm contact (13-14)" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>13</terminal>
 				</plcIO>
-				<plcIO type="sortie_digitale" address="Channel 1 output 1-4 A" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="sortie_digitale" address="Group alarm contact (13-14)" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>14</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Channel 1 output 1-2-3-4 A" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>OUT1</terminal>
 				</plcIO>
-				<plcIO type="sortie_digitale" address="Channel 2 output 1-4 A" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="sortie_digitale" address="Channel 2 output 1-2-3-4 A" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>OUT2</terminal>
 				</plcIO>
-				<plcIO type="sortie_digitale" address="Channel 3 output 1-4 A" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="sortie_digitale" address="Channel 3 output 1-2-3-4 A" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>OUT3</terminal>
 				</plcIO>
-				<plcIO type="sortie_digitale" address="Channel 4 output 1-4 A" functionText="" comment="" crossRef="" terminalCount="1">
+				<plcIO type="sortie_digitale" address="Channel 4 output 1-2-3-4 A" functionText="" comment="" crossRef="" terminalCount="1">
 					<terminal>OUT4</terminal>
 				</plcIO>
 			</plcIOs>
@@ -72,83 +75,96 @@
 Original vector drawing, not copied from a manufacturer drawing. Ratings and terminal names from the public datasheet; layout and symbols are generic, check them against the datasheet.
 License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<dynamic_text x="0" y="-40" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{ec578672-c3a9-51e7-9327-eee84ef55a1b}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
-		<rect x="-10" y="0" width="90" height="110" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
+		<dynamic_text x="0" y="-49" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{ec578672-c3a9-51e7-9327-eee84ef55a1b}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<rect x="-10" y="0" width="100" height="110" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
 		<rect x="-8" y="0" width="16" height="14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
 		<circle x="-2" y="5" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<text x="-5.51" y="15.5" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="+24V"/>
+		<text x="-7.27" y="22.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="+24V"/>
 		<rect x="12" y="0" width="16" height="14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
 		<circle x="18" y="5" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<text x="16.99" y="15.5" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="0V"/>
+		<text x="16.12" y="22.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="0V"/>
 		<rect x="32" y="0" width="16" height="14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
 		<circle x="38" y="5" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<text x="36.99" y="15.5" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="ON"/>
+		<text x="36.12" y="22.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="ON"/>
 		<rect x="52" y="0" width="16" height="14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
 		<circle x="58" y="5" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<text x="53.23" y="15.5" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="ALARM"/>
+		<text x="56.12" y="22.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="13"/>
+		<rect x="72" y="0" width="16" height="14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="78" y="5" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="76.12" y="22.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="14"/>
 		<rect x="2" y="96" width="16" height="14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
 		<circle x="8" y="101" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<text x="4.49" y="89" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="OUT1"/>
+		<text x="2.73" y="92.7" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="OUT1"/>
 		<rect x="22" y="96" width="16" height="14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
 		<circle x="28" y="101" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<text x="24.49" y="89" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="OUT2"/>
+		<text x="22.73" y="92.7" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="OUT2"/>
 		<rect x="42" y="96" width="16" height="14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
 		<circle x="48" y="101" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<text x="44.49" y="89" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="OUT3"/>
+		<text x="42.73" y="92.7" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="OUT3"/>
 		<rect x="62" y="96" width="16" height="14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
 		<circle x="68" y="101" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<text x="64.49" y="89" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="OUT4"/>
-		<text x="-6" y="24" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="MICO Basic 4.4"/>
-		<circle x="7.5" y="37.5" diameter="5" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
-		<circle x="6.5" y="48.5" diameter="7" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
-		<circle x="6" y="62" diameter="8" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
-		<line x1="7" y1="66" x2="13" y2="66" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<circle x="27.5" y="37.5" diameter="5" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
-		<circle x="26.5" y="48.5" diameter="7" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
-		<circle x="26" y="62" diameter="8" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
-		<line x1="27" y1="66" x2="33" y2="66" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<circle x="47.5" y="37.5" diameter="5" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
-		<circle x="46.5" y="48.5" diameter="7" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
-		<circle x="46" y="62" diameter="8" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
-		<line x1="47" y1="66" x2="53" y2="66" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<circle x="67.5" y="37.5" diameter="5" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
-		<circle x="66.5" y="48.5" diameter="7" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
-		<circle x="66" y="62" diameter="8" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
-		<line x1="67" y1="66" x2="73" y2="66" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="23.22" y="78" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="4 x 1-4 A"/>
+		<text x="62.73" y="92.7" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="OUT4"/>
+		<text x="-6" y="34.44" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Regular" text="MICO Basic 4.4"/>
+		<rect x="2" y="40" width="16" height="16" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<rect x="4" y="42" width="12" height="12" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<circle x="6.5" y="44.5" diameter="7" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
+		<circle x="6" y="60" diameter="8" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<line x1="7" y1="64" x2="13" y2="64" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="22" y="40" width="16" height="16" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<rect x="24" y="42" width="12" height="12" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<circle x="26.5" y="44.5" diameter="7" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
+		<circle x="26" y="60" diameter="8" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<line x1="27" y1="64" x2="33" y2="64" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="42" y="40" width="16" height="16" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<rect x="44" y="42" width="12" height="12" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<circle x="46.5" y="44.5" diameter="7" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
+		<circle x="46" y="60" diameter="8" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<line x1="47" y1="64" x2="53" y2="64" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="62" y="40" width="16" height="16" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+		<rect x="64" y="42" width="12" height="12" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<circle x="66.5" y="44.5" diameter="7" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
+		<circle x="66" y="60" diameter="8" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<line x1="67" y1="64" x2="73" y2="64" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="5.71" y="70" width="68.59" height="14" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:white;color:blue" antialias="false"/>
+		<text x="8.71" y="80.51" rotation="0" color="#0033cc" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Regular" text="4 x 1-2-3-4 A"/>
 		<circle x="-1" y="3" diameter="2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
 		<line x1="0" y1="4" x2="0" y2="-13" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
 		<line x1="0" y1="-13" x2="-16" y2="-13" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="-81.67" y="-16.8" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="+24V: 24 V DC supply"/>
+		<text x="-81.67" y="-10.6" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="+24V: 24 V DC supply"/>
 		<circle x="19" y="3" diameter="2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
 		<line x1="20" y1="4" x2="20" y2="-22" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
 		<line x1="20" y1="-22" x2="-16" y2="-22" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="-62.87" y="-25.8" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="0V: supply 0 V"/>
+		<text x="-62.87" y="-19.6" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="0V: supply 0 V"/>
+		<circle x="79" y="3" diameter="2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<line x1="80" y1="4" x2="80" y2="-13" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="80" y1="-13" x2="96" y2="-13" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="98" y="-10.6" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="14: group alarm contact"/>
 		<circle x="59" y="3" diameter="2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
-		<line x1="60" y1="4" x2="60" y2="-13" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<line x1="60" y1="-13" x2="86" y2="-13" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="88" y="-16.8" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="ALARM: group alarm output"/>
+		<line x1="60" y1="4" x2="60" y2="-22" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="60" y1="-22" x2="96" y2="-22" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="98" y="-19.6" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="13: group alarm contact"/>
 		<circle x="39" y="3" diameter="2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
-		<line x1="40" y1="4" x2="40" y2="-22" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<line x1="40" y1="-22" x2="86" y2="-22" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="88" y="-25.8" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="ON: switch on / restart input"/>
+		<line x1="40" y1="4" x2="40" y2="-31" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="40" y1="-31" x2="96" y2="-31" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="98" y="-28.6" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="ON: switch on / restart input"/>
 		<circle x="9" y="105" diameter="2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
 		<line x1="10" y1="106" x2="10" y2="123" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
 		<line x1="10" y1="123" x2="-16" y2="123" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="-106.73" y="119.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="OUT1...OUT4: channel outputs"/>
-		<circle x="6" y="39" diameter="2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
-		<line x1="7" y1="40" x2="-16" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="-103.6" y="36.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="LED per channel (green/red)"/>
-		<circle x="5" y="51" diameter="2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
-		<line x1="6" y1="52" x2="-16" y2="52" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="-91.07" y="48.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="Push button per channel"/>
-		<circle x="4" y="65" diameter="2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
-		<line x1="5" y1="66" x2="-16" y2="66" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="-106.73" y="62.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="Current selector per channel"/>
+		<text x="-106.73" y="125.4" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="OUT1...OUT4: channel outputs"/>
+		<circle x="3" y="47" diameter="2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<line x1="4" y1="48" x2="-16" y2="48" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="-153.73" y="50.4" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="Push button with integrated LED (green/red)"/>
+		<circle x="5" y="63" diameter="2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<line x1="6" y1="64" x2="-16" y2="64" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="-106.73" y="66.4" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="Current selector per channel"/>
+		<circle x="4.71" y="76" diameter="2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<line x1="5.71" y1="77" x2="-16" y2="77" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="-97.33" y="79.4" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="Current range per channel"/>
 		<terminal x="0" y="0" name="+24V" orientation="n" type="Generic" uuid="{8352907c-6377-5df6-8aad-bf40f106c0ba}" potential="24V"/>
 		<terminal x="20" y="0" name="0V" orientation="n" type="Generic" uuid="{3b925acf-c6fe-5b01-843d-4beb310c9a25}" potential="0V"/>
 		<terminal x="40" y="0" name="ON" orientation="n" type="Generic" uuid="{4a5c206e-fdb0-531b-a14a-a80b1e4980a0}"/>
-		<terminal x="60" y="0" name="ALARM" orientation="n" type="Generic" uuid="{4ee2bb88-cf36-52dd-b845-0c39792d3403}"/>
+		<terminal x="60" y="0" name="13" orientation="n" type="Generic" uuid="{fc2f6837-ab61-58c9-b38f-a7a4411bcce2}"/>
+		<terminal x="80" y="0" name="14" orientation="n" type="Generic" uuid="{e6502f09-ca99-5738-af92-94fe96ba1883}"/>
 		<terminal x="10" y="110" name="OUT1" orientation="s" type="Generic" uuid="{468704b9-30fe-527c-9407-6db22936936a}" potential="24V"/>
 		<terminal x="30" y="110" name="OUT2" orientation="s" type="Generic" uuid="{044bdccf-fa64-5621-b794-9dcd7630b05c}" potential="24V"/>
 		<terminal x="50" y="110" name="OUT3" orientation="s" type="Generic" uuid="{344c00f1-5d43-5bda-bcf0-3dc4e0cd78a6}" potential="24V"/>

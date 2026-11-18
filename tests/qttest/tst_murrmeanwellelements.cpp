@@ -932,12 +932,15 @@ class TstMurrMeanwellElements : public QObject
 			}
 			const auto micos =
 				products(QStringLiteral("16_murrelektronik_mico"));
-			QVERIFY(micos.size() >= 7);
+			QVERIFY(micos.size() >= 11);
+			QSet<QString> refs;
 			for (auto it = micos.cbegin(); it != micos.cend(); ++it) {
 				const QString base = it.key() + QLatin1Char('/')
 					+ QFileInfo(it.key()).fileName();
 				const auto def = load(base + QStringLiteral(".elmt"));
 				const auto p = pins(def);
+				refs.insert(info(def, QStringLiteral(
+									 "manufacturer_reference")));
 				int channels = 0;
 				for (auto t = p.cbegin(); t != p.cend(); ++t) {
 					channels += t.key().startsWith(QLatin1String("OUT"));
@@ -948,8 +951,19 @@ class TstMurrMeanwellElements : public QObject
 						 qPrintable(base));
 				QVERIFY2(p.contains(QStringLiteral("+24V"))
 						 && p.contains(QStringLiteral("0V"))
-						 && p.contains(QStringLiteral("ALARM")),
+						 && p.contains(QStringLiteral("13"))
+						 && p.contains(QStringLiteral("14"))
+						 && !p.contains(QStringLiteral("ALARM")),
 						 qPrintable(base));
+			}
+			// the 2 and 4 channel Basic series with their current ranges
+			for (const char *ref : {"9000-41042-0100400",
+									"9000-41042-0100600",
+									"9000-41042-0401000",
+									"9000-41034-0100400",
+									"9000-41034-0100600",
+									"9000-41034-0401000"}) {
+				QVERIFY2(refs.contains(QString::fromLatin1(ref)), ref);
 			}
 		}
 
