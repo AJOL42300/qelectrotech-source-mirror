@@ -340,6 +340,8 @@ set(QET_SRC_FILES
   ${QET_DIR}/sources/qfilenameedit.h
   ${QET_DIR}/sources/qgimanager.cpp
   ${QET_DIR}/sources/qgimanager.h
+  ${QET_DIR}/sources/railsnap.cpp
+  ${QET_DIR}/sources/railsnap.h
   ${QET_DIR}/sources/qtextorientationspinboxwidget.cpp
   ${QET_DIR}/sources/qtextorientationspinboxwidget.h
   ${QET_DIR}/sources/qtextorientationwidget.cpp
@@ -671,6 +673,8 @@ set(QET_SRC_FILES
   ${QET_DIR}/sources/properties/potentialtypes.h
   ${QET_DIR}/sources/properties/propertiesinterface.cpp
   ${QET_DIR}/sources/properties/propertiesinterface.h
+  ${QET_DIR}/sources/properties/railsnapdata.cpp
+  ${QET_DIR}/sources/properties/railsnapdata.h
   ${QET_DIR}/sources/properties/reportproperties.cpp
   ${QET_DIR}/sources/properties/reportproperties.h
   ${QET_DIR}/sources/properties/terminaldata.cpp

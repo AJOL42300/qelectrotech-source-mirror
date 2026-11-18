@@ -576,6 +576,10 @@ const QDomDocument ElementScene::toXml(bool all_parts)
 		root.appendChild(m_element_data.customInfoToXml(xml_document));
 	}
 
+	if (m_element_data.m_rail_snap.isValid()) {
+		root.appendChild(m_element_data.m_rail_snap.toXml(xml_document));
+	}
+
 	//complementary information about the element, when available
 	if (!(m_element_data.m_drawing_information.trimmed().isEmpty())) {
 		QDomElement informations_element = xml_document.createElement("informations");

@@ -696,6 +696,13 @@ void Element::paint(
 
 	painter->restore(); //Restore the QPainter after use drawPicture
 
+	if (widget && painter->device()
+		&& (painter->device()->devType() == QInternal::Widget
+			|| painter->device()->devType() == QInternal::Pixmap)) {
+			//On screen only: the marks of the rail never reach a print
+		drawRailSnapAids(painter);
+	}
+
 	// Draw PLC table from in-memory data (overwrites the stale cached picture)
 	if (scene() && painter->isActive() &&
 		m_data.m_type == ElementData::Master &&
@@ -822,7 +829,12 @@ QRectF Element::boundingRect() const
 {
 	const QRectF frame(QPointF(-hotspot_coord.x(), -hotspot_coord.y()),
 					   dimensions);
-	return m_drawn_rect.isNull() ? frame : frame.united(m_drawn_rect);
+	QRectF covered = m_drawn_rect.isNull() ? frame : frame.united(m_drawn_rect);
+	if (m_data.m_rail_snap.isValid()) {
+		covered = covered.united(
+			m_data.m_rail_snap.m_body.adjusted(-1, -1, 1, 1));
+	}
+	return covered;
 }
 
 /**
@@ -3073,10 +3085,80 @@ void Element::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 void Element::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
 	QetGraphicsItem::mouseReleaseEvent(event);
+	setRailGuide(std::nullopt);
 	foreach (Terminal *t, terminals())
 	{
 		t -> drawHelpLine(false);
 	}
+}
+
+/**
+	@brief Element::magneticPosition
+	@param expected : where the user brings the origin of this symbol
+	@param modifiers : keys held by the user
+	@return where this symbol stands on its rail instead, if it is a
+	component fixed on a rail close enough (see RailSnap)
+*/
+std::optional<QPointF> Element::magneticPosition(
+		const QPointF &expected, Qt::KeyboardModifiers modifiers)
+{
+	return RailSnap::snap(this, expected, modifiers);
+}
+
+/**
+	@brief Element::setRailGuide
+	@param guide : what to draw, on screen only, while this symbol is
+	held by the magnetism on a rail; nothing to draw nothing
+*/
+void Element::setRailGuide(const std::optional<RailSnap::Guide> &guide)
+{
+	const bool changed = guide.has_value() != m_rail_guide.has_value()
+			|| (guide && (guide->m_axis != m_rail_guide->m_axis
+						  || guide->m_neighbour_edge
+								 != m_rail_guide->m_neighbour_edge));
+	if (changed) {
+		m_rail_guide = guide;
+		update();
+	}
+}
+
+/**
+	@brief Element::drawRailSnapAids
+	Draw, on screen only, where this component is fixed on a rail: a thin
+	red cross on its fixing point (the middle of its body, on the line
+	which has to lie on the axis of the rail), and, while the magnetism
+	acts, the axis of the rail and the edge against the neighbour.
+	@param painter
+*/
+void Element::drawRailSnapAids(QPainter *painter) const
+{
+	const RailSnapData &data = m_data.m_rail_snap;
+	if (!data.isComponent() || !RailSnap::enabled()) {
+		return;
+	}
+	painter->save();
+	painter->setBrush(Qt::NoBrush);
+	QPen cross(QColor(220, 0, 0));
+	cross.setCosmetic(true);
+	painter->setPen(cross);
+	const QPointF fix = data.fixPoint();
+	const qreal arm = 3;
+	painter->drawLine(fix - QPointF(arm, 0), fix + QPointF(arm, 0));
+	painter->drawLine(fix - QPointF(0, arm), fix + QPointF(0, arm));
+	if (m_rail_guide) {
+		QPen guide(QColor(0, 150, 220));
+		guide.setCosmetic(true);
+		guide.setStyle(Qt::DashLine);
+		painter->setPen(guide);
+		painter->drawLine(mapFromScene(m_rail_guide->m_axis.p1()),
+						  mapFromScene(m_rail_guide->m_axis.p2()));
+		if (m_rail_guide->m_neighbour_edge) {
+			painter->drawLine(
+				mapFromScene(m_rail_guide->m_neighbour_edge->p1()),
+				mapFromScene(m_rail_guide->m_neighbour_edge->p2()));
+		}
+	}
+	painter->restore();
 }
 
 /**
