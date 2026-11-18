@@ -299,6 +299,12 @@
         <translation>Outil de traduction d&apos;éléments</translation>
     </message>
     <message>
+        <location filename="../sources/ui/aboutqetdialog.cpp" line="172"/>
+        <source>Fork by %1</source>
+        <comment>About box; %1 is the name of the fork&apos;s website</comment>
+        <translation>Fork par %1</translation>
+    </message>
+    <message>
         <location filename="../sources/ui/aboutqetdialog.cpp" line="163"/>
         <source>Snap package</source>
         <translation>Paquets Snap</translation>

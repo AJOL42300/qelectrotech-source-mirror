@@ -170,6 +170,9 @@ void AboutQETDialog::setVersion()
 {
 	QString str = "<span style=\"font-weight:bold;font-size:16pt;\">QElectroTech V "
 		+ QetVersion::displayedVersion()
+			+ "</span><br/><span style=\"font-style:italic;\">"
+		+ tr("Fork by %1", "About box; %1 is the name of the fork's website")
+			.arg(QStringLiteral("MCATech.fr"))
 			+ "</span>";
 	ui->m_version_label->setText(str + MachineInfo::instance()->compilation_info());
 }
