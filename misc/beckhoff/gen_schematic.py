@@ -22,8 +22,9 @@ terminal circles are at the same places and at the same scale as in
 <card>_realistic.elmt, so the views are interchangeable, and each terminal
 leads to the generic stage that its role in the I/O table suggests:
 
-  * input: resistor and LED (the light arrows mark the optocoupler);
-  * output: driver stage;
+  * input: LED, without any resistor (the light arrows mark the
+    optocoupler);
+  * output: generator, a circle with a "+";
   * supply and common terminals: rail marks and ground symbol.
 
 The terminals (names, places, orientation) come from the realistic view,
@@ -85,6 +86,8 @@ EL2911_BODY2 = (45.5, -136.7, 81.5, 140.5)
 EK1914_PINS = {"I1": "2", "I2": "10", "I3": "3", "I4": "11", "O1": "4",
                "O2": "12", "O3": "5", "O4": "13", "SI1": "7", "SI2": "15",
                "SO1": "8", "SO2": "16"}
+# power contacts of the cards (left, right): see the table of the doc
+CONTACTS = {}
 CLIP_W = 16.0
 CLIP_H = 7.0
 SAFETY = ("el1904", "el2904", "el2911", "el1918", "ek1914")
@@ -154,16 +157,20 @@ class Sheet:
         w = text_width(s) * size / 7.0
         self.text(cx - w / 2, cy - (size * 4 / 3.0 + 1) / 2 - 0.5, s, size)
 
-    def power_rails(self, x0, x1, y24, y0):
+    def power_rails(self, x0, x1, y24, y0, left=True, right=True):
         """+24 V (red) and 0 V (blue) of the power contacts, which run
-        through the housing: a filled square at the left edge (blade) and
-        a circle at the right edge (spring), a rail between them and its
-        legend."""
-        for y, pot, label in ((y24, "24V", "+24 V"), (y0, "0V", "0 V")):
-            self.rect(x0 - 2.5, y - 2.5, 5, 5, POT_FILLED[pot])
-            self.line(x0 + 2.5, y, x1 - 2.5, y, POT_STYLE[pot])
-            self.circle(x1, y, 5, POT_WHITE[pot])
-            self.text(x0 + 4, y - 8, label, 4, color=POT_TEXT[pot])
+        through the housing like the rails of the EL9410: a filled square
+        at the left edge when the card has contacts on its left (blades),
+        a hollow circle at the right edge when it has them on its right
+        (springs), and the rail between them. No text: the colour tells
+        the potential."""
+        for y, pot in ((y24, "24V"), (y0, "0V")):
+            if left:
+                self.rect(x0 - 2.5, y - 2.5, 5, 5, POT_FILLED[pot])
+            if right:
+                self.circle(x1, y, 5, POT_WHITE[pot])
+            self.line(x0 + 2.5 if left else x0, y,
+                      x1 - 2.5 if right else x1, y, POT_STYLE[pot])
 
     def junction(self, x, y, pot=""):
         self.circle(x, y, 2.4, POT_FILLED.get(pot, FILLED))
@@ -187,10 +194,13 @@ class Sheet:
             b = f.p(u + 0.2, 6.3 + dv)
             self.line(*a, *b, end2="simple")
 
-    def driver(self, f, u, length=11.0, width=6.0):
-        self.rect_f(f, u, length, width)
-        self.line(*f.p(u + length - 2.5, 0), *f.p(u + 2.5, 0),
-                  end2="simple")
+    def driver(self, f, u, length=9.0, width=6.0):
+        """Generator: a circle with a "+" inside."""
+        cx, cy = f.p(u + length / 2)
+        self.circle(cx, cy, length, THIN)
+        r = length / 2 - 2.0
+        self.line(cx - r, cy, cx + r, cy)
+        self.line(cx, cy - r, cx, cy + r)
 
     def rect_f(self, f, u, length, width):
         self.poly([f.p(u, -width / 2), f.p(u + length, -width / 2),
@@ -211,14 +221,7 @@ class Sheet:
     def stage(self, f, kind, length):
         """A stage of the given kind from u = 0 to u = length."""
         if kind == "in":
-            if length >= 26:
-                free = (length - 16.0) / 3.0
-                self.wire(f, 0, free)
-                self.resistor(f, free)
-                self.wire(f, free + 9.0, 2 * free + 9.0)
-                self.led(f, 2 * free + 9.0)
-                self.wire(f, 2 * free + 16.0, length)
-            elif length >= 13:
+            if length >= 13:
                 free = (length - 7.0) / 2.0
                 self.wire(f, 0, free)
                 self.led(f, free)
@@ -226,11 +229,11 @@ class Sheet:
             else:
                 self.wire(f, 0, length)
         elif kind == "out":
-            if length >= 17:
-                free = (length - 11.0) / 2.0
+            if length >= 15:
+                free = (length - 9.0) / 2.0
                 self.wire(f, 0, free)
                 self.driver(f, free)
-                self.wire(f, free + 11.0, length)
+                self.wire(f, free + 9.0, length)
             else:
                 self.wire(f, 0, length)
         elif kind == "gnd":
@@ -373,7 +376,9 @@ class Card:
         terminals that are on 24 V or 0 V. Returns the linked pins."""
         x0, y0, x1, y1 = body
         rails = {"24V": round(y0 + 14), "0V": round(y0 + 26)}
-        self.sheet.power_rails(x0, x1, rails["24V"], rails["0V"])
+        left, right = CONTACTS.get(self.stem, (True, True))
+        self.sheet.power_rails(x0, x1, rails["24V"], rails["0V"], left,
+                               right)
         branch_x = {"left": x0 + 2.5, "right": x1 - 2.5}
         linked = set()
         inside = [p for p in self.pins

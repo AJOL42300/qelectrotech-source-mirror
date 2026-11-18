@@ -46,7 +46,8 @@ Every card has up to **four appearances**:
   pins of the card; the couplers only show the two rails of the power
   contacts. The cards without 24 V / 0 V terminals (EL1008, EL2008, generic
   cards...) show the rails and the contacts only: the links are generic, not
-  from a datasheet;
+  from a datasheet. An input shows its LED without a resistor, an output
+  shows a generator: a circle with a "+" inside;
 - the **realistic** view (`_realistic`): the front with only the pin numbers
   and the I/O labels;
 - the **description** view (`_description`): the realistic view with the

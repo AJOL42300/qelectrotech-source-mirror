@@ -526,6 +526,34 @@ class TstBeckhoffElements : public QObject
 			}
 		}
 
+		void ledsHaveNoResistorAndOutputsAreRoundGenerators()
+		{
+				// a resistor was a 4 point polygon: none is left; the
+				// outputs of the EL2008 are circles of 9 with a "+" (more than the 8 terminals)
+			for (const QString &key : {QStringLiteral("el1008"),
+					QStringLiteral("el2008"), QStringLiteral("el5152")}) {
+				const auto parts = load(appearance(key, QString()))
+					.documentElement().firstChildElement(
+					QStringLiteral("description"));
+				const auto polys = parts.elementsByTagName(
+					QStringLiteral("polygon"));
+				for (int i = 0; i < polys.size(); ++i) {
+					QVERIFY2(polys.at(i).toElement().attribute(
+						QStringLiteral("x4")).isEmpty(), qPrintable(key));
+				}
+			}
+			const auto parts = load(appearance(QStringLiteral("el2008"),
+				QString())).documentElement().firstChildElement(
+				QStringLiteral("description"));
+			int generators = 0;
+			const auto circles = parts.elementsByTagName(
+				QStringLiteral("circle"));
+			for (int i = 0; i < circles.size(); ++i) {
+				generators += qFuzzyCompare(circles.at(i).toElement()
+					.attribute(QStringLiteral("diameter")).toDouble(), 9.0);
+			}
+			QVERIFY2(generators > 8, qPrintable(QString::number(generators)));
+		}
 		void ek1914NumbersAreOutsideTheBlockNextToTheirTerminal()
 		{
 			const auto parts = load(appearance(QStringLiteral("ek1914"),
