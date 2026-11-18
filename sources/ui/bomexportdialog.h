@@ -47,10 +47,13 @@ class BOMExportDialog : public QDialog
 		void on_m_format_as_bom_clicked(bool checked);
 		void on_m_no_junctions_clicked(bool checked);
 		void on_m_group_parts_clicked(bool checked);
+		void on_m_hierarchical_clicked(bool checked);
 		void on_m_preview_pb_clicked();
 
 		private:
 		QString currentQuery() const;
+		void updateQueryControls();
+		QStringList orphanLabels();
 		static QString groupedHeader(const QString &field_name);
 
 		Ui::BOMExportDialog *ui;

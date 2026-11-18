@@ -1277,6 +1277,63 @@ Remarque: Ces options n&apos;autorisent ou bloquent l&apos;auto numérotation, s
         <translation>Erreur dans la requête :
 %1</translation>
     </message>
+    <message>
+        <source>Each device, then its accessories indented below it. An accessory is an element whose label starts with the label of the device followed by &quot;.&quot; &quot;-&quot; or &quot;_&quot; (-QS1.1, -QS1-MC for -QS1), or an auxiliary article of the device. Quantity 0 is listed but not counted in the total quantity. Replaces the choices of the fields below.</source>
+        <translation type="unfinished">Chaque appareil, puis ses accessoires indentés dessous. Un accessoire est un élément dont le repère commence par celui de l&apos;appareil suivi de « . », « - » ou « _ » (-QS1.1, -QS1-MC pour -QS1), ou un article auxiliaire de l&apos;appareil. La quantité 0 est listée mais n&apos;entre pas dans la quantité totale. Remplace le choix des champs ci-dessous.</translation>
+    </message>
+    <message>
+        <source>Hierarchical list (device, then its accessories)</source>
+        <translation type="unfinished">Liste hiérarchique (appareil, puis ses accessoires)</translation>
+    </message>
+    <message>
+        <source>Accessories without a parent</source>
+        <translation type="unfinished">Accessoires sans appareil parent</translation>
+    </message>
+    <message>
+        <source>These elements look like accessories, but no element has the beginning of their label:
+%1</source>
+        <translation type="unfinished">Ces éléments ressemblent à des accessoires, mais aucun élément n&apos;a le début de leur repère :
+%1</translation>
+    </message>
+</context>
+<context>
+    <name>BomExport</name>
+    <message>
+        <source>Level</source>
+        <translation type="unfinished">Niveau</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation type="unfinished">Repère</translation>
+    </message>
+    <message>
+        <source>Quantity</source>
+        <translation type="unfinished">Quantité</translation>
+    </message>
+    <message>
+        <source>Total quantity</source>
+        <translation type="unfinished">Quantité totale</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Nom</translation>
+    </message>
+    <message>
+        <source>Part number</source>
+        <translation type="unfinished">Référence</translation>
+    </message>
+    <message>
+        <source>Manufacturer</source>
+        <translation type="unfinished">Fabricant</translation>
+    </message>
+    <message>
+        <source>Unit</source>
+        <translation type="unfinished">Unité</translation>
+    </message>
+    <message>
+        <source>No parent</source>
+        <translation type="unfinished">Sans parent</translation>
+    </message>
 </context>
 <context>
     <name>BackupDialog</name>
@@ -13833,6 +13890,14 @@ Donnez-leur une autre numérotation d&apos;abord.</numerusform>
 </context>
 <context>
     <name>ProjectDBModelPropertiesWidget</name>
+    <message>
+        <source>Hierarchical list (device, then its accessories)</source>
+        <translation type="unfinished">Liste hiérarchique (appareil, puis ses accessoires)</translation>
+    </message>
+    <message>
+        <source>Each device, then its accessories indented below it. An accessory is an element whose label starts with the label of the device followed by &quot;.&quot; &quot;-&quot; or &quot;_&quot; (-QS1.1, -QS1-MC for -QS1), or an auxiliary article of the device. Quantity 0 is listed but not counted in the total quantity. Replaces the choices of the fields above.</source>
+        <translation type="unfinished">Chaque appareil, puis ses accessoires indentés dessous. Un accessoire est un élément dont le repère commence par celui de l&apos;appareil suivi de « . », « - » ou « _ » (-QS1.1, -QS1-MC pour -QS1), ou un article auxiliaire de l&apos;appareil. La quantité 0 est listée mais n&apos;entre pas dans la quantité totale. Remplace le choix des champs ci-dessus.</translation>
+    </message>
     <message>
         <source>Form</source>
         <translation type="vanished">Formulaire</translation>

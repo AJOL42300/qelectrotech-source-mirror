@@ -19,6 +19,7 @@
 
 #include <algorithm>
 
+#include <bomexport.h>
 #include <dataBase/legacyelementtypes.h>
 #include <dataBase/projectdatabase.h>
 #include <qetapp.h>
@@ -380,13 +381,16 @@ void ProjectDBModel::setHeaderString()
 {
 	auto q = m_project->dataBase()->newQuery(m_query);
 	auto record = q.record();
+	const auto hierarchical = BomExport::isHierarchicalQuery(m_query);
 	
 	for (auto i=0 ; i<record.count() ; ++i)
 	{
 		auto field_name = record.fieldName(i);
 		QString header_name;
 		
-		if (field_name == "position") {
+		if (hierarchical) {
+			header_name = BomExport::hierarchicalHeader(field_name);
+		} else if (field_name == "position") {
 			header_name = tr("Position");
 		} else if (field_name == "diagram_position") {
 			header_name = tr("Sheet position");
