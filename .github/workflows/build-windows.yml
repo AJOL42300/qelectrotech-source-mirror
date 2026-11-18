@@ -1,0 +1,155 @@
+name: Build Windows (zip)
+
+# Simple Windows build of this fork: Qt 6.8.3 + MinGW, CMake/Ninja, no tests.
+# It publishes a portable folder (bin/, elements/, titleblocks/, lang/ ...)
+# as a zip artifact. See docs/build-windows-github-actions.md.
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'ajol42300-*'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  QT_VERSION: '6.8.3'
+  SQLITE_URL: https://www.sqlite.org/2025/sqlite-amalgamation-3500400.zip
+  SQLITE_SHA256: 1D3049DD0F830A025A53105FC79FD2AB9431AEA99E137809D064D8EE8356B032
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 90
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Checkout (with the elements submodule)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Qt (MinGW)
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: windows
+          target: desktop
+          arch: win64_mingw
+          tools: tools_mingw1310
+          cache: true
+
+      - name: Put the Qt MinGW toolchain first in PATH
+        run: |
+          $mingw = Join-Path $env:IQTA_TOOLS 'mingw1310_64\bin'
+          if (-not (Test-Path "$mingw\g++.exe")) { throw "g++ not found in $mingw" }
+          $mingw | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+
+      - name: Build SQLite with the session extension
+        run: |
+          $zip = Join-Path $env:RUNNER_TEMP 'sqlite.zip'
+          Invoke-WebRequest -Uri $env:SQLITE_URL -OutFile $zip
+          $hash = (Get-FileHash $zip -Algorithm SHA256).Hash
+          if ($hash -ne $env:SQLITE_SHA256) { throw "SQLite checksum mismatch: $hash" }
+          $dir = Join-Path $env:RUNNER_TEMP 'sqlite'
+          Expand-Archive $zip -DestinationPath $dir
+          $src = (Get-ChildItem $dir -Directory | Select-Object -First 1).FullName
+          Push-Location $src
+          gcc -c -O2 -DSQLITE_ENABLE_SESSION -DSQLITE_ENABLE_PREUPDATE_HOOK sqlite3.c -o sqlite3.o
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          ar rcs libsqlite3.a sqlite3.o
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          Pop-Location
+          "SQLITE_DIR=$src" | Out-File -Append -Encoding utf8 $env:GITHUB_ENV
+
+      - name: Install ccache
+        run: |
+          choco install ccache --no-progress -y
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          "CCACHE_DIR=$env:RUNNER_TEMP\ccache" | Out-File -Append -Encoding utf8 $env:GITHUB_ENV
+
+      - name: Cache ccache
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}\ccache
+          key: ccache-win-qt${{ env.QT_VERSION }}-${{ github.sha }}
+          restore-keys: ccache-win-qt${{ env.QT_VERSION }}-
+
+      - name: Configure
+        run: |
+          cmake -S . -B build -G Ninja `
+            -DCMAKE_BUILD_TYPE=Release `
+            -DCMAKE_C_COMPILER_LAUNCHER=ccache `
+            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache `
+            "-DCMAKE_PREFIX_PATH=$env:QT_ROOT_DIR" `
+            -DBUILD_WITH_KF=OFF `
+            -DPACKAGE_TESTS=OFF `
+            -DQET_DEPLOY_QT=ON `
+            "-DSQLite3_INCLUDE_DIR=$env:SQLITE_DIR" `
+            "-DSQLite3_LIBRARY=$env:SQLITE_DIR/libsqlite3.a"
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+
+      - name: Build
+        run: |
+          cmake --build build --parallel
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+
+      - name: Install into the portable folder (exe, Qt DLLs, elements, titleblocks, lang)
+        run: |
+          cmake --install build --prefix "$env:GITHUB_WORKSPACE/dist/QElectroTech"
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+
+      - name: Check the portable folder
+        run: |
+          $root = 'dist/QElectroTech'
+          foreach ($p in 'bin/QElectroTech.exe', 'bin/Qt6Core.dll',
+                   'bin/qt.conf', 'plugins/platforms/qwindows.dll', 'bin/libgcc_s_seh-1.dll',
+                   'bin/libstdc++-6.dll', 'bin/libwinpthread-1.dll',
+                   'elements', 'titleblocks', 'lang') {
+            if (-not (Test-Path "$root/$p")) { throw "Missing in the package: $p" }
+          }
+          $qm = @(Get-ChildItem "$root/lang" -Filter 'qet_*.qm').Count
+          if ($qm -lt 1) { throw 'No .qm translation in lang/' }
+          Write-Host "$qm .qm files in lang/"
+          Get-ChildItem "$root/bin" | Select-Object Name, Length | Format-Table
+
+      - name: Start the exe from the package with no Qt or MinGW in PATH
+        run: |
+          # Without the Qt DLLs and platforms/qwindows.dll beside the exe,
+          # this fails ("no Qt platform plugin could be initialized").
+          $exe = (Resolve-Path 'dist/QElectroTech/bin/QElectroTech.exe').Path
+          $env:PATH = "$env:SystemRoot\System32;$env:SystemRoot"
+          foreach ($v in 'QT_PLUGIN_PATH', 'QML2_IMPORT_PATH', 'QT_ROOT_DIR',
+                         'QT_QPA_PLATFORM_PLUGIN_PATH') {
+            Remove-Item "Env:$v" -ErrorAction SilentlyContinue
+          }
+          $out = Join-Path $env:RUNNER_TEMP 'version.out'
+          $err = Join-Path $env:RUNNER_TEMP 'version.err'
+          $p = Start-Process $exe -ArgumentList '--version' -PassThru `
+            -RedirectStandardOutput $out -RedirectStandardError $err
+          if (-not $p.WaitForExit(60000)) {
+            $p.Kill()
+            throw 'QElectroTech.exe --version did not exit within 60 s'
+          }
+          Get-Content $out, $err -ErrorAction SilentlyContinue
+          if ($p.ExitCode -ne 0) {
+            throw "QElectroTech.exe --version failed, exit code $($p.ExitCode)"
+          }
+
+      - name: Zip
+        run: |
+          $short = $env:GITHUB_SHA.Substring(0, 7)
+          $name = "QElectroTech-win64-qt$env:QT_VERSION-$short"
+          Compress-Archive -Path 'dist/QElectroTech' -DestinationPath "$name.zip"
+          "ZIP_NAME=$name" | Out-File -Append -Encoding utf8 $env:GITHUB_ENV
+
+      - name: Upload the zip
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ZIP_NAME }}
+          path: ${{ env.ZIP_NAME }}.zip
+          compression-level: 0
+          if-no-files-found: error
