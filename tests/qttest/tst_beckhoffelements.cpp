@@ -1374,7 +1374,7 @@ class TstBeckhoffElements : public QObject
 				}
 				++checked;
 			}
-			QCOMPARE(checked, 44);
+			QCOMPARE(checked, 46);
 		}
 
 		void schematicViewsAreDrawnInADottedOutlineAtTheRealisticPins()
@@ -1763,6 +1763,91 @@ class TstBeckhoffElements : public QObject
 										QStringLiteral("4: PE")}) {
 				QVERIFY2(legends.contains(text), qPrintable(text));
 			}
+		}
+		void ek1100AndCu1128HaveFourViewsAndTheirSockets()
+		{
+			const struct {
+				QString key;
+				QString reference;
+				QStringList pins;
+				int ios;
+			} hubs[] = {
+				{QStringLiteral("ek1100"), QStringLiteral("EK1100"),
+				 {QStringLiteral("EtherCAT IN"),
+				  QStringLiteral("EtherCAT OUT"), QStringLiteral("1"),
+				  QStringLiteral("2"), QStringLiteral("3"),
+				  QStringLiteral("4")}, 6},
+				{QStringLiteral("cu1128"), QStringLiteral("CU1128"),
+				 {QStringLiteral("P1"), QStringLiteral("P2"),
+				  QStringLiteral("P3"), QStringLiteral("P4"),
+				  QStringLiteral("P5"), QStringLiteral("P6"),
+				  QStringLiteral("P7"), QStringLiteral("P8"),
+				  QStringLiteral("1"), QStringLiteral("2"),
+				  QStringLiteral("3")}, 11}};
+			for (const auto &hub : hubs) {
+				const auto symbol = load(elementPath(
+					hub.key + QStringLiteral(".elmt"))).documentElement();
+				const auto real = load(appearance(
+					hub.key, QStringLiteral("_realistic"))).documentElement();
+				const auto desc = load(appearance(
+					hub.key, QStringLiteral("_description"))).documentElement();
+				const auto table = load(appearance(
+					hub.key, QStringLiteral("_table"))).documentElement();
+				for (const auto &def : {symbol, real, desc, table}) {
+					QVERIFY2(!def.isNull(), qPrintable(hub.key));
+					QCOMPARE(info(def, QStringLiteral("manufacturer")),
+							 QStringLiteral("Beckhoff"));
+					QCOMPARE(info(def,
+								  QStringLiteral("manufacturer_reference")),
+							 hub.reference);
+				}
+				const auto pins = pinPoints(real.firstChildElement(
+					QStringLiteral("description")));
+				QCOMPARE(pins.size(), hub.pins.size());
+				for (const QString &name : hub.pins) {
+					QVERIFY2(pins.contains(name), qPrintable(name));
+				}
+				QCOMPARE(terminalNames(symbol), terminalNames(real));
+				QCOMPARE(terminalNames(desc), terminalNames(real));
+				QCOMPARE(pinPoints(symbol.firstChildElement(
+					QStringLiteral("description"))), pins);
+
+					// a coupler or a junction has no channel: empty TwinCAT ID
+				const auto ios = table.elementsByTagName(
+					QStringLiteral("plcIO"));
+				QCOMPARE(ios.size(), hub.ios);
+				for (int i = 0; i < ios.size(); ++i) {
+					QVERIFY(ios.at(i).toElement().attribute(
+						QStringLiteral("address")).isEmpty());
+				}
+			}
+
+				// EK1100: 44 mm, as high as the other housings; CU1128:
+				// 122 mm, so about 2.8 times as wide
+			const auto ek = load(appearance(QStringLiteral("ek1100"),
+				QStringLiteral("_realistic"))).documentElement();
+			const auto cu = load(appearance(QStringLiteral("cu1128"),
+				QStringLiteral("_realistic"))).documentElement();
+			const auto el = load(appearance(QStringLiteral("el1004"),
+				QStringLiteral("_realistic"))).documentElement();
+			QCOMPARE(ek.attribute(QStringLiteral("height")),
+					 el.attribute(QStringLiteral("height")));
+			QCOMPARE(cu.attribute(QStringLiteral("height")),
+					 el.attribute(QStringLiteral("height")));
+			QVERIFY(cu.attribute(QStringLiteral("width")).toInt()
+					> 2.5 * ek.attribute(QStringLiteral("width")).toInt());
+
+				// the supply of the CU1128 uses the colour code
+			const auto cuTerminals = cu.elementsByTagName(
+				QStringLiteral("terminal"));
+			QStringList potentials;
+			for (int i = 0; i < cuTerminals.size(); ++i) {
+				potentials << cuTerminals.at(i).toElement().attribute(
+					QStringLiteral("potential"));
+			}
+			QVERIFY(potentials.contains(QStringLiteral("24V")));
+			QVERIFY(potentials.contains(QStringLiteral("0V")));
+			QVERIFY(potentials.contains(QStringLiteral("PE")));
 		}
 		void ek1322HasTwoM8SocketsAndFourFeedPins()
 		{

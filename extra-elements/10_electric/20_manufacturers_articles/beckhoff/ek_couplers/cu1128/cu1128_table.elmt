@@ -1,0 +1,88 @@
+<definition version="0.100.0" type="element" link_type="master" width="250" height="190" hotspot_x="5" hotspot_y="29">
+	<uuid uuid="{c0a28b44-fc22-579a-a26e-5e96988c5151}"/>
+	<names>
+		<name lang="en">CU1128 EtherCAT junction - terminal table</name>
+		<name lang="fr">CU1128 jonction EtherCAT - tableau des bornes</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">CU1128</elementInformation>
+		<elementInformation name="designation" show="1">EtherCAT junction, 8 x RJ45</elementInformation>
+		<elementInformation name="description" show="1">EtherCAT junction with eight RJ45 sockets (100BASE-TX): port 1 is the input from the master, ports 2 to 8 are outputs. Supply 24 V DC (18 to 30 V) on a three-pin connector: 1 +24 V, 2 0 V, 3 PE. One link/activity LED per socket. No E-bus and no power contact. The position of the sockets (two rows of four), of the supply terminals and of the LEDs is assumed.</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="66"/>
+				<column index="2" width="130"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="44"/>
+			</columnWidths>
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="true"/>
+				<column index="2" visible="true"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+				<column index="5" visible="true"/>
+			</columnVisibility>
+			<columnNames>
+				<column index="0"></column>
+				<column index="1">ID TwinCAT</column>
+				<column index="2">Label</column>
+				<column index="3"></column>
+				<column index="4"></column>
+				<column index="5">N° pin</column>
+			</columnNames>
+			<columnOrder>5,2,1</columnOrder>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
+			<plcIOs>
+				<plcIO type="entree_universelle" address="" functionText="Port 1: RJ45, EtherCAT input from the master" comment="" crossRef="" terminalCount="1">
+					<terminal>P1</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="" functionText="Port 2: RJ45, EtherCAT output" comment="" crossRef="" terminalCount="1">
+					<terminal>P2</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="" functionText="Port 3: RJ45, EtherCAT output" comment="" crossRef="" terminalCount="1">
+					<terminal>P3</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="" functionText="Port 4: RJ45, EtherCAT output" comment="" crossRef="" terminalCount="1">
+					<terminal>P4</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="" functionText="Port 5: RJ45, EtherCAT output" comment="" crossRef="" terminalCount="1">
+					<terminal>P5</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="" functionText="Port 6: RJ45, EtherCAT output" comment="" crossRef="" terminalCount="1">
+					<terminal>P6</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="" functionText="Port 7: RJ45, EtherCAT output" comment="" crossRef="" terminalCount="1">
+					<terminal>P7</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="" functionText="Port 8: RJ45, EtherCAT output" comment="" crossRef="" terminalCount="1">
+					<terminal>P8</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="" functionText="+24 V DC" comment="" crossRef="" terminalCount="1">
+					<terminal>1</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="" functionText="0 V" comment="" crossRef="" terminalCount="1">
+					<terminal>2</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="" functionText="PE" comment="" crossRef="" terminalCount="1">
+					<terminal>3</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generic layout, drawn from the public description of the product, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Table made by misc/beckhoff/gen_hubs.py. </informations>
+	<description>
+		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{ee256bd3-bb2f-5dbc-8c2c-2134f46935cc}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>label</info_name></dynamic_text>
+		<dynamic_text x="60" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{2dcace81-9560-5bd3-bb67-ced367961471}" font="Liberation Sans,7,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
+		<plc_table x="0" y="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+	</description>
+</definition>

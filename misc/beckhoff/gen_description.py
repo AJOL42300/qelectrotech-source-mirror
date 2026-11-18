@@ -512,6 +512,15 @@ def build_ek1322(card):
             [words[led]], 6))
 
 
+def build_hub(card):
+    """EK1100 and CU1128: the legends of the sockets, the supply terminals,
+    the LEDs and the power contacts (see gen_hubs.py; layout assumed)."""
+    import gen_hubs as hubs
+    hub = hubs.HUBS[card.stem]
+    for side, y, x0, lines, size in hub.legends():
+        card.legends.append(Legend(side, y, x0, lines, size))
+
+
 def build_ek1914(card):
     positions = [(28, -112 + LED_PITCH * k) for k in range(4)]
     add_leds(card, positions,
@@ -679,6 +688,8 @@ def build(card):
         build_ek1914(card)
     elif s == "ek1322":
         build_ek1322(card)
+    elif s in ("ek1100", "cu1128"):
+        build_hub(card)
     elif s.startswith("af") or s.startswith("ax"):
         build_drive(card)
     elif s == "epp2338":
