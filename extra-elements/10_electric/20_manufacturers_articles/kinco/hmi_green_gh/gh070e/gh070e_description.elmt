@@ -1,0 +1,289 @@
+<definition version="0.100.0" type="element" link_type="master" width="310" height="730" hotspot_x="60" hotspot_y="10">
+	<uuid uuid="{0d3a648e-d504-56fd-b63b-773928f9e23e}" />
+	<names>
+		<name lang="en">GH070E HMI Green Enhanced, 7 in, 800 x 480, Ethernet, description view</name>
+		<name lang="fr">GH070E IHM Green Enhanced, 7 pouces, 800 x 480, Ethernet, vue description</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Kinco</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">GH070E</elementInformation>
+		<elementInformation name="designation" show="1">HMI Green Enhanced, 7 in, 800 x 480, Ethernet</elementInformation>
+		<elementInformation name="description" show="1">Kinco HMI Green GH (Enhanced) GH070E, 7 inch 800 x 480 operator panel. The terminals are the power plug, the DB9 pins of the COM ports (pin number and signal), Ethernet and the USB ports; the pinout comes from the GL070E manual, check it against the datasheet of your model.</elementInformation>
+		<elementInformation name="quantity" show="0">1</elementInformation>
+		<elementInformation name="unity" show="0">pcs</elementInformation>
+		<elementInformation name="width" show="0">207</elementInformation>
+		<elementInformation name="height" show="0">125</elementInformation>
+		<elementInformation name="depth" show="0">41</elementInformation>
+		<elementInformation name="auxiliary1" show="0">Power plug</elementInformation>
+		<elementInformation name="description_auxiliary1" show="0">3-way screw terminal plug for FG, 0 V and 24 V</elementInformation>
+		<elementInformation name="designation_auxiliary1" show="0">Power plug</elementInformation>
+		<elementInformation name="quantity_auxiliary1" show="0">1</elementInformation>
+		<elementInformation name="unity_auxiliary1" show="0">pcs</elementInformation>
+		<elementInformation name="auxiliary2" show="0">DB9 plug</elementInformation>
+		<elementInformation name="description_auxiliary2" show="0">DB9 plug for a COM port cable</elementInformation>
+		<elementInformation name="designation_auxiliary2" show="0">DB9 plug</elementInformation>
+		<elementInformation name="quantity_auxiliary2" show="0">4</elementInformation>
+		<elementInformation name="unity_auxiliary2" show="0">pcs</elementInformation>
+		<elementInformation name="auxiliary3" show="0">RJ45 plug</elementInformation>
+		<elementInformation name="description_auxiliary3" show="0">RJ45 plug for the Ethernet cable</elementInformation>
+		<elementInformation name="designation_auxiliary3" show="0">RJ45 plug</elementInformation>
+		<elementInformation name="quantity_auxiliary3" show="0">1</elementInformation>
+		<elementInformation name="unity_auxiliary3" show="0">pcs</elementInformation>
+		<elementInformation name="auxiliary4" show="0">USB cable</elementInformation>
+		<elementInformation name="description_auxiliary4" show="0">USB cable for the host or slave port</elementInformation>
+		<elementInformation name="designation_auxiliary4" show="0">USB cable</elementInformation>
+		<elementInformation name="quantity_auxiliary4" show="0">1</elementInformation>
+		<elementInformation name="unity_auxiliary4" show="0">pcs</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="8.00">
+			<columnVisibility>
+				<column index="0" visible="false" />
+				<column index="1" visible="false" />
+				<column index="2" visible="false" />
+				<column index="3" visible="false" />
+				<column index="4" visible="false" />
+			</columnVisibility>
+			<plcIOs>
+				<plcIO type="entree_universelle" address="COM0 RX-/B" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>COM0.1</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="COM0 RXD" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>COM0.2</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="COM0 TXD" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>COM0.3</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="COM0 TX-" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>COM0.4</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="COM0 RX+/A" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>COM0.6</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="COM0 RXD-PC" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>COM0.7</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="COM0 TXD-PC" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>COM0.8</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="COM0 TX+" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>COM0.9</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="COM1 RX-/B" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>COM1.1</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="COM1 RXD" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>COM1.2</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="COM1 TXD" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>COM1.3</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="COM1 TX-" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>COM1.4</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="COM1 RX+/A" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>COM1.6</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="COM1 RXD-PC" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>COM1.7</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="COM1 TXD-PC" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>COM1.8</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="COM1 TX+" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>COM1.9</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="COM2 RXD" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>COM2.2</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="COM2 TXD" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>COM2.3</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="COM3 RX-/B" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>COM3.1</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="COM3 RX+/A" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>COM3.6</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Ethernet" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>ETH</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="USB host" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>USB.HOST</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="USB slave" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>USB.SLAVE</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generated by misc/kinco/gen_kinco.py from public Kinco documents, vector drawing, grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="-51.75" y="0" width="103.5" height="62.5" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<rect x="-38.12" y="8.38" width="76.23" height="45.74" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" />
+		<text x="-12" y="66.5" font="Roboto Condensed,8,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="GH070E" />
+		<rect x="-25" y="118" width="50" height="24" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" />
+		<circle x="-14.5" y="125.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:orange" />
+		<text x="-13" y="106" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="FG" />
+		<circle x="-4.5" y="125.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:blue" />
+		<text x="-3" y="106" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V" />
+		<circle x="5.5" y="125.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:red" />
+		<text x="5.5" y="106" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V" />
+		<text x="-27.75" y="150" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="COM0 RS232/485/422" />
+		<rect x="-50" y="165" width="100" height="50" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" />
+		<circle x="-44.5" y="175.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-40.88" y="175.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="1" />
+		<circle x="-24.5" y="175.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-21.25" y="175.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2" />
+		<circle x="-4.5" y="175.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-1.25" y="175.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="3" />
+		<circle x="15.5" y="175.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="18.75" y="175.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4" />
+		<circle x="35.5" y="175.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="38.75" y="175.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="5" />
+		<circle x="-34.5" y="195.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-31.25" y="195.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="6" />
+		<circle x="-14.5" y="195.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-11.25" y="195.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
+		<circle x="5.5" y="195.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="8.75" y="195.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="8" />
+		<circle x="25.5" y="195.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="28.75" y="195.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="9" />
+		<text x="-27.3" y="230" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="COM1 RS232/485/422" />
+		<rect x="-50" y="245" width="100" height="50" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" />
+		<circle x="-44.5" y="255.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-40.88" y="255.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="1" />
+		<circle x="-24.5" y="255.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-21.25" y="255.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2" />
+		<circle x="-4.5" y="255.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-1.25" y="255.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="3" />
+		<circle x="15.5" y="255.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="18.75" y="255.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4" />
+		<circle x="35.5" y="255.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="38.75" y="255.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="5" />
+		<circle x="-34.5" y="275.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-31.25" y="275.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="6" />
+		<circle x="-14.5" y="275.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-11.25" y="275.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
+		<circle x="5.5" y="275.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="8.75" y="275.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="8" />
+		<circle x="25.5" y="275.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="28.75" y="275.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="9" />
+		<text x="-15.75" y="310" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="COM2 RS232" />
+		<rect x="-50" y="325" width="100" height="50" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" />
+		<circle x="-44.5" y="335.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-40.88" y="335.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="1" />
+		<circle x="-24.5" y="335.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-21.25" y="335.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2" />
+		<circle x="-4.5" y="335.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-1.25" y="335.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="3" />
+		<circle x="15.5" y="335.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="18.75" y="335.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4" />
+		<circle x="35.5" y="335.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="38.75" y="335.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="5" />
+		<circle x="-34.5" y="355.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-31.25" y="355.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="6" />
+		<circle x="-14.5" y="355.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-11.25" y="355.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
+		<circle x="5.5" y="355.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="8.75" y="355.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="8" />
+		<circle x="25.5" y="355.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="28.75" y="355.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="9" />
+		<text x="-15.75" y="390" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="COM3 RS485" />
+		<rect x="-50" y="405" width="100" height="50" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" />
+		<circle x="-44.5" y="415.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-40.88" y="415.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="1" />
+		<circle x="-24.5" y="415.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-21.25" y="415.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2" />
+		<circle x="-4.5" y="415.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-1.25" y="415.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="3" />
+		<circle x="15.5" y="415.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="18.75" y="415.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4" />
+		<circle x="35.5" y="415.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="38.75" y="415.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="5" />
+		<circle x="-34.5" y="435.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-31.25" y="435.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="6" />
+		<circle x="-14.5" y="435.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-11.25" y="435.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
+		<circle x="5.5" y="435.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="8.75" y="435.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="8" />
+		<circle x="25.5" y="435.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="28.75" y="435.75" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="9" />
+		<text x="-12" y="468" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Ethernet" />
+		<rect x="-30" y="480" width="60" height="40" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" />
+		<circle x="-4.5" y="495.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<line x1="-17.5" y1="512" x2="-17.5" y2="518" end1="none" end2="none" length1="1.5" length2="3" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+		<line x1="-12.5" y1="512" x2="-12.5" y2="518" end1="none" end2="none" length1="1.5" length2="3" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+		<line x1="-7.5" y1="512" x2="-7.5" y2="518" end1="none" end2="none" length1="1.5" length2="3" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+		<line x1="-2.5" y1="512" x2="-2.5" y2="518" end1="none" end2="none" length1="1.5" length2="3" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+		<line x1="2.5" y1="512" x2="2.5" y2="518" end1="none" end2="none" length1="1.5" length2="3" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+		<line x1="7.5" y1="512" x2="7.5" y2="518" end1="none" end2="none" length1="1.5" length2="3" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+		<line x1="12.5" y1="512" x2="12.5" y2="518" end1="none" end2="none" length1="1.5" length2="3" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+		<line x1="17.5" y1="512" x2="17.5" y2="518" end1="none" end2="none" length1="1.5" length2="3" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+		<text x="-11.55" y="528" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="USB host" />
+		<rect x="-24" y="545" width="48" height="30" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" />
+		<circle x="-4.5" y="555.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="-12.6" y="588" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="USB slave" />
+		<rect x="-14" y="609" width="28" height="22" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" />
+		<circle x="-4.5" y="615.5" diameter="9" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" />
+		<text x="80" y="0" font="Roboto Condensed,8,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="GH070E" />
+		<text x="80" y="14" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Display 7 in, 800 x 480" />
+		<text x="80" y="23" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="COM0, COM1 RS232 / RS485 / RS422, COM2 RS232, COM3 RS485" />
+		<text x="80" y="32" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Ethernet: 1 x RJ45" />
+		<text x="80" y="41" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="USB host: 1, USB slave: 1" />
+		<text x="80" y="50" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Supply 12-28 V DC, 5 W" />
+		<text x="80" y="59" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Face 207 x 125 mm, depth 41 mm" />
+		<text x="80" y="68" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Panel cut-out 194 x 113 mm" />
+		<text x="80" y="77" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Front panel IP65" />
+		<text x="80" y="91" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Dimensions: 207 x 125 x 41 mm" />
+		<text x="80" y="105" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Power: FG, 0V, 24V" />
+		<text x="80" y="114" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="COM0 RS232/485/422: 1 RX-/B, 2 RXD, 3 TXD, 4 TX-," />
+		<text x="80" y="123" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="  5 GND, 6 RX+/A, 7 RXD-PC, 8 TXD-PC, 9 TX+" />
+		<text x="80" y="132" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="COM1 RS232/485/422: 1 RX-/B, 2 RXD, 3 TXD, 4 TX-," />
+		<text x="80" y="141" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="  5 GND, 6 RX+/A, 7 RXD-PC, 8 TXD-PC, 9 TX+" />
+		<text x="80" y="150" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="COM2 RS232: 2 RXD, 3 TXD, 5 GND" />
+		<text x="80" y="159" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="COM3 RS485: 1 RX-/B, 6 RX+/A, 5 GND" />
+		<text x="80" y="168" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Ethernet: ETH" />
+		<text x="80" y="177" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="USB host: HOST" />
+		<text x="80" y="186" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="USB slave: SLAVE" />
+		<rect x="80" y="202" width="8" height="4" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:red;color:red" />
+		<text x="92" y="200" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="+24 V" />
+		<rect x="80" y="211" width="8" height="4" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:blue;color:blue" />
+		<text x="92" y="209" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0 V" />
+		<rect x="80" y="220" width="8" height="4" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:orange;color:orange" />
+		<text x="92" y="218" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE / FG" />
+		<terminal x="-10" y="130" name="FG" orientation="n" type="Generic" uuid="{5c1f689f-723c-59ff-ae80-d0d234885486}" />
+		<terminal x="0" y="130" name="0V" orientation="n" type="Generic" uuid="{46f03942-826e-5f21-9254-cce569a7549c}" potential="0V" />
+		<terminal x="10" y="130" name="24V" orientation="n" type="Generic" uuid="{75a840c6-1429-5275-9cd7-4b22213eb11e}" />
+		<terminal x="-40" y="180" name="COM0.1" orientation="n" type="Generic" uuid="{f998666e-0dde-5f38-bf8e-eeaddb5d0df5}" />
+		<terminal x="-20" y="180" name="COM0.2" orientation="n" type="Generic" uuid="{feb3c2d1-f743-5677-baaa-d42f1fd79695}" />
+		<terminal x="0" y="180" name="COM0.3" orientation="n" type="Generic" uuid="{a198a1f0-24c7-5c2b-a42d-e3c4efdba144}" />
+		<terminal x="20" y="180" name="COM0.4" orientation="n" type="Generic" uuid="{be032f3b-a85d-5c95-8268-6ef32ee7da7b}" />
+		<terminal x="40" y="180" name="COM0.5" orientation="n" type="Generic" uuid="{cfdb042b-bcc5-5e84-80fd-f02c04bcbf9a}" />
+		<terminal x="-30" y="200" name="COM0.6" orientation="n" type="Generic" uuid="{812fb043-8dc6-53d2-b902-357d89a7baed}" />
+		<terminal x="-10" y="200" name="COM0.7" orientation="n" type="Generic" uuid="{76c9ba4b-daa7-5956-9de1-1942c3949452}" />
+		<terminal x="10" y="200" name="COM0.8" orientation="n" type="Generic" uuid="{0eda91f0-c442-55bd-aab7-97a7413fe279}" />
+		<terminal x="30" y="200" name="COM0.9" orientation="n" type="Generic" uuid="{55c18c44-e0ac-5d40-9996-6aef8d407166}" />
+		<terminal x="-40" y="260" name="COM1.1" orientation="n" type="Generic" uuid="{ae54ecf6-4342-57e0-b1be-1f6fd0900fe3}" />
+		<terminal x="-20" y="260" name="COM1.2" orientation="n" type="Generic" uuid="{cc1663ab-1ac8-5e1b-8e19-7045a1b94c50}" />
+		<terminal x="0" y="260" name="COM1.3" orientation="n" type="Generic" uuid="{98c8773d-0be2-5efb-b7ee-126e08adf103}" />
+		<terminal x="20" y="260" name="COM1.4" orientation="n" type="Generic" uuid="{2e11721c-b786-535b-b87f-4bb54881de65}" />
+		<terminal x="40" y="260" name="COM1.5" orientation="n" type="Generic" uuid="{89bc1932-c707-5751-9243-d238dd62546e}" />
+		<terminal x="-30" y="280" name="COM1.6" orientation="n" type="Generic" uuid="{3f04d73c-0fb9-5bdc-8e85-f00628b13688}" />
+		<terminal x="-10" y="280" name="COM1.7" orientation="n" type="Generic" uuid="{da197b96-e4f2-5f7f-b4ff-3cb6808e9d36}" />
+		<terminal x="10" y="280" name="COM1.8" orientation="n" type="Generic" uuid="{d90fc72d-5a14-5a90-9c24-be82d2dd3439}" />
+		<terminal x="30" y="280" name="COM1.9" orientation="n" type="Generic" uuid="{c99c33a2-d1ad-5510-bea9-10d073bf93de}" />
+		<terminal x="-20" y="340" name="COM2.2" orientation="n" type="Generic" uuid="{b53c7807-8d38-5c9e-8d86-220bd0563797}" />
+		<terminal x="0" y="340" name="COM2.3" orientation="n" type="Generic" uuid="{4e84291e-93fd-5ab0-951f-46ad5c318b37}" />
+		<terminal x="40" y="340" name="COM2.5" orientation="n" type="Generic" uuid="{4a7798f6-e1c8-5762-84e2-5d270cf73dbd}" />
+		<terminal x="-40" y="420" name="COM3.1" orientation="n" type="Generic" uuid="{8861f5b3-f804-5913-aaed-895e3c4f5cbf}" />
+		<terminal x="40" y="420" name="COM3.5" orientation="n" type="Generic" uuid="{3cce6548-0cad-52f5-9997-662d9fa0fdeb}" />
+		<terminal x="-30" y="440" name="COM3.6" orientation="n" type="Generic" uuid="{03d243a8-9e2d-5456-8aef-2806c806fa57}" />
+		<terminal x="0" y="500" name="ETH" orientation="n" type="Generic" uuid="{3a0749c9-1a29-5b3f-9c8b-b3489adb9475}" />
+		<terminal x="0" y="560" name="USB.HOST" orientation="n" type="Generic" uuid="{60c53b4f-d0e5-5b0d-b637-47d364a29261}" />
+		<terminal x="0" y="620" name="USB.SLAVE" orientation="n" type="Generic" uuid="{a0851f9b-603d-571c-8453-eee9a2001a95}" />
+		<dynamic_text x="-51.75" y="690" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{92948ffd-c62c-5496-b216-392bce955176}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+	</description>
+</definition>

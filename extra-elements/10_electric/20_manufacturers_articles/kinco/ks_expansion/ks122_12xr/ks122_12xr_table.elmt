@@ -1,0 +1,106 @@
+<definition version="0.100.0" type="element" link_type="master" width="250" height="202" hotspot_x="5" hotspot_y="29">
+	<uuid uuid="{c75ad10a-9a54-5260-be42-17f7d50ebe08}" />
+	<names>
+		<name lang="en">KS122-12XR Expansion module, 12 relay DO - I/O table</name>
+		<name lang="fr">KS122-12XR Module d'extension, 12 S relais - tableau d'E/S</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Kinco</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">KS122-12XR</elementInformation>
+		<elementInformation name="designation" show="1">Expansion module, 12 relay DO</elementInformation>
+		<elementInformation name="description" show="1">Kinco KS122-12XR expansion module for the KS series, 12 relay outputs in three groups of 4. The terminal markings are logical names, check them against the datasheet of your module.</elementInformation>
+		<elementInformation name="quantity" show="0">1</elementInformation>
+		<elementInformation name="unity" show="0">pcs</elementInformation>
+		<elementInformation name="width" show="0">25.4</elementInformation>
+		<elementInformation name="height" show="0">100</elementInformation>
+		<elementInformation name="depth" show="0">84.5</elementInformation>
+		<elementInformation name="auxiliary1" show="0">Screw terminal blocks</elementInformation>
+		<elementInformation name="description_auxiliary1" show="0">Terminal blocks of the module</elementInformation>
+		<elementInformation name="designation_auxiliary1" show="0">Screw terminal blocks</elementInformation>
+		<elementInformation name="quantity_auxiliary1" show="0">1</elementInformation>
+		<elementInformation name="unity_auxiliary1" show="0">pcs</elementInformation>
+		<elementInformation name="auxiliary2" show="0">DIN rail</elementInformation>
+		<elementInformation name="description_auxiliary2" show="0">Symmetrical DIN rail 35 mm</elementInformation>
+		<elementInformation name="designation_auxiliary2" show="0">DIN rail</elementInformation>
+		<elementInformation name="quantity_auxiliary2" show="0">1</elementInformation>
+		<elementInformation name="unity_auxiliary2" show="0">pcs</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="66"/>
+				<column index="2" width="130"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="44"/>
+			</columnWidths>
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="true"/>
+				<column index="2" visible="true"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+				<column index="5" visible="true"/>
+			</columnVisibility>
+			<columnNames>
+				<column index="0"></column>
+				<column index="1">Address</column>
+				<column index="2">Label</column>
+				<column index="3"></column>
+				<column index="4"></column>
+				<column index="5">Terminal</column>
+			</columnNames>
+			<columnOrder>5,2,1</columnOrder>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
+			<plcIOs>
+				<plcIO type="sortie_digitale" address="Q0.0" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Q0.0</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Q0.1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Q0.1</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Q0.2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Q0.2</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Q0.3" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Q0.3</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Q0.4" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Q0.4</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Q0.5" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Q0.5</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Q0.6" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Q0.6</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Q0.7" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Q0.7</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Q1.0" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Q1.0</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Q1.1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Q1.1</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Q1.2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Q1.2</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Q1.3" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Q1.3</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Generated by misc/kinco/gen_kinco.py from public Kinco documents, vector drawing, grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{0f608c5d-9ce8-5968-a06d-386890de8881}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>label</info_name></dynamic_text>
+		<dynamic_text x="60" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{6acc3cfb-1086-5be5-bba7-9908ae45b87d}" font="Liberation Sans,7,-1,5,75,0,0,0,0,0,Bold"><text></text><info_name>manufacturer_reference</info_name></dynamic_text>
+		<dynamic_text x="60" y="-12" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{9d33dca3-8cff-50f7-9392-5d43cdb1b004}" font="Liberation Sans,7,-1,5,50,0,0,0,0,0,Regular"><text></text><info_name>designation</info_name></dynamic_text>
+		<plc_table x="0" y="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+	</description>
+</definition>
