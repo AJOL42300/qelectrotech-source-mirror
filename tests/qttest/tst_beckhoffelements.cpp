@@ -1570,6 +1570,44 @@ class TstBeckhoffElements : public QObject
 			QVERIFY(!symbol.isNull());
 			QVERIFY(!real.isNull());
 
+				// the data sheet facts (M12 variant, size, pin-out) and what is
+				// assumed are written in the information of the element
+			const QString text = info(symbol,
+				QStringLiteral("description"));
+			QVERIFY(text.contains(QStringLiteral("M12 variant")));
+			QVERIFY(text.contains(QStringLiteral("30 x 126 x 26.5")));
+			QVERIFY(text.contains(QStringLiteral("ASSUMED")));
+			QVERIFY(text.contains(QStringLiteral("longer than 15 mm")));
+
+				// the housing is a silhouette (polygon with its ears and two
+				// M3 holes), not a rectangle; the label holders are white
+				// and each channel holder holds the 5 digit placeholder
+			const auto parts = real.firstChildElement(
+				QStringLiteral("description"));
+			QVERIFY(parts.elementsByTagName(QStringLiteral("polygon"))
+					.size() >= 1);
+			int holders = 0;
+			for (auto r = parts.firstChildElement(QStringLiteral("rect"));
+				 !r.isNull(); r = r.nextSiblingElement(
+					 QStringLiteral("rect"))) {
+				holders += r.attribute(QStringLiteral("style")).contains(
+					QStringLiteral("filling:white")) ? 1 : 0;
+			}
+			QCOMPARE(holders, 9);
+			int ids = 0;
+			for (auto t = parts.firstChildElement(
+					 QStringLiteral("dynamic_text"));
+				 !t.isNull(); t = t.nextSiblingElement(
+					 QStringLiteral("dynamic_text"))) {
+				if (t.attribute(QStringLiteral("text_from"))
+						== QLatin1String("UserText")) {
+					QCOMPARE(t.firstChildElement(QStringLiteral("text"))
+							 .text(), QStringLiteral("00000"));
+					++ids;
+				}
+			}
+			QCOMPARE(ids, 8);
+
 				// each M12 socket is one terminal (X01.4 was the channel 1
 				// of X01 before): 4 sockets + 2 EtherCAT P sockets
 			QMap<QString, QPointF> pins;
@@ -1973,16 +2011,44 @@ class TstBeckhoffElements : public QObject
 										 .arg(s.key(), r.key());
 					const QByteArray where = file.toUtf8();
 					const auto root = load(elementPath(file)).documentElement();
-					const auto rect = root.firstChildElement(
-						QStringLiteral("description"))
-						.firstChildElement(QStringLiteral("rect"));
-					QVERIFY2(!rect.isNull(), where.constData());
-					QVERIFY2(qAbs(rect.attribute("width").toDouble()
-								  - r.value().width() * s.value()) < 0.01,
-							 where.constData());
-					QVERIFY2(qAbs(rect.attribute("height").toDouble()
-								  - r.value().height() * s.value()) < 0.01,
-							 where.constData());
+					const auto desc = root.firstChildElement(
+						QStringLiteral("description"));
+					const auto rect = desc.firstChildElement(
+						QStringLiteral("rect"));
+					qreal width = 0;
+					qreal height = 0;
+					const auto poly = desc.firstChildElement(
+						QStringLiteral("polygon"));
+					if (!poly.isNull()) {
+						// a silhouette: the size of the polygon
+						QVERIFY2(rect.isNull() || r.key().startsWith(
+									 QStringLiteral("epp")),
+								 where.constData());
+						qreal x0 = 1e9;
+						qreal x1 = -1e9;
+						qreal y0 = 1e9;
+						qreal y1 = -1e9;
+						for (int n = 1; poly.hasAttribute(
+								 QStringLiteral("x%1").arg(n)); ++n) {
+							const qreal px = poly.attribute(
+								QStringLiteral("x%1").arg(n)).toDouble();
+							const qreal py = poly.attribute(
+								QStringLiteral("y%1").arg(n)).toDouble();
+							x0 = qMin(x0, px);
+							x1 = qMax(x1, px);
+							y0 = qMin(y0, py);
+							y1 = qMax(y1, py);
+						}
+						width = x1 - x0;
+						height = y1 - y0;
+					} else {
+						width = rect.attribute("width").toDouble();
+						height = rect.attribute("height").toDouble();
+					}
+					QVERIFY2(qAbs(width - r.value().width() * s.value())
+							 < 0.01, where.constData());
+					QVERIFY2(qAbs(height - r.value().height() * s.value())
+							 < 0.01, where.constData());
 					// the reference is written on the view, never cut
 					const QString ref = r.key().toUpper();
 					QCOMPARE(info(root, QStringLiteral("manufacturer_reference")),

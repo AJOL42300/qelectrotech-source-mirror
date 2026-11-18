@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="17" height="95" hotspot_x="0" hotspot_y="0">
+<definition version="0.100.0" type="element" link_type="simple" width="17" height="153" hotspot_x="0" hotspot_y="0">
 	<uuid uuid="{0162c275-0c6f-5dfa-b79b-2ccde5c6011d}" />
 	<names>
 		<name lang="en">EPP2338-0002 layout 1:2 (30 x 126 x 26.5 mm)</name>
@@ -10,9 +10,30 @@
 		<elementInformation name="manufacturer_reference" show="1">EPP2338-0002</elementInformation>
 		<elementInformation name="designation" show="1">EtherCAT P box, 8 digital channels, front view 1:2</elementInformation>
 	</elementInformations>
-	<informations>Front view of the EPP2338-0002 at the scale 1:2 (1 px = 2 mm), 30 x 126 x 26.5 mm (width x height x depth). Generic outline, no logo; check the dimensions on the data sheet of your exact version. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<informations>Front view of the EPP2338-0002 at the scale 1:2 (1 px = 2 mm), 30 x 126 x 26.5 mm (width x height x depth). Generic outline, no logo; check the dimensions on the data sheet of your exact version. Silhouette traced by eye on a photo (ears with the two M3 fixing holes, 3.5 mm, hole position assumed). Fixing (verified, Beckhoff EPP2xxx documentation, Fixing): two M3 bolts longer than 15 mm, holes not threaded, no torque given. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<rect x="0" y="0" width="15" height="63" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false" />
+		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false" x1="13.35" y1="0" x2="13.78" y2="0.06" x3="14.18" y3="0.22" x4="14.52" y4="0.48" x5="14.78" y5="0.83" x6="14.94" y6="1.22" x7="15" y7="1.65" x8="15" y8="61.95" x9="14.96" y9="62.22" x10="14.86" y10="62.48" x11="14.69" y11="62.69" x12="14.47" y12="62.86" x13="14.22" y13="62.96" x14="13.95" y14="63" x15="1.65" y15="63" x16="1.22" y16="62.94" x17="0.83" y17="62.78" x18="0.48" y18="62.52" x19="0.22" y19="62.18" x20="0.06" y20="61.78" x21="0" y21="61.35" x22="0" y22="1.05" x23="0.04" y23="0.78" x24="0.14" y24="0.52" x25="0.31" y25="0.31" x26="0.52" y26="0.14" x27="0.78" y27="0.04" x28="1.05" y28="0" />
+		<circle x="12.85" y="0.4" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="1.75" />
+		<circle x="0.4" y="60.85" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="1.75" />
+		<circle x="7.2" y="10.3" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" diameter="6.6" />
+		<circle x="7.8" y="10.9" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="5.4" />
+		<rect x="0.45" y="9.82" width="4.95" height="2.7" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
+		<rect x="0.45" y="14.96" width="4.95" height="2.7" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
+		<circle x="7.2" y="20.87" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" diameter="6.6" />
+		<circle x="7.8" y="21.47" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="5.4" />
+		<rect x="0.45" y="20.4" width="4.95" height="2.7" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
+		<rect x="0.45" y="25.53" width="4.95" height="2.7" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
+		<circle x="7.2" y="31.45" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" diameter="6.6" />
+		<circle x="7.8" y="32.05" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="5.4" />
+		<rect x="0.45" y="30.97" width="4.95" height="2.7" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
+		<rect x="0.45" y="36.11" width="4.95" height="2.7" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
+		<circle x="7.2" y="42.02" antialias="false" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" diameter="6.6" />
+		<circle x="7.8" y="42.62" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="5.4" />
+		<rect x="0.45" y="41.55" width="4.95" height="2.7" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
+		<rect x="0.45" y="46.68" width="4.95" height="2.7" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
+		<rect x="0.45" y="50.31" width="4.95" height="2.7" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
+		<circle x="1.05" y="2.58" antialias="false" style="line-style:normal;line-weight:thin;filling:red;color:black" diameter="3.9" />
+		<circle x="9.3" y="2.58" antialias="false" style="line-style:normal;line-weight:thin;filling:red;color:black" diameter="3.9" />
 		<text x="11.49" y="121" rotation="270" color="#000000" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" text="EPP2338-0002" />
 	</description>
 </definition>

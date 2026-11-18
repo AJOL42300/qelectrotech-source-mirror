@@ -39,10 +39,13 @@ import math
 import os
 import sys
 import uuid
+import xml.etree.ElementTree as ET
 
 NS = uuid.UUID("6f1c2a5e-8b0f-4d57-9a7e-5b1d0c8e2f10")
 RAIL_Y = 32.5      # mm from the top of a 100 mm module to the rail band
 RAIL_H = 35.0
+SILHOUETTE_W, EPP_H = 30.0, 126.0   # mm, EPP2338-0002 housing
+LIGHT = "line-style:normal;line-weight:thin;filling:lightgray;color:black"
 RAIL_LENGTH = 250.0
 
 SCALES = (("1to1", 1.0, "1:1"), ("1to2", 0.5, "1:2"), ("1to5", 0.2, "1:5"))
@@ -143,13 +146,63 @@ def definition(key, width, height, names, infos, body, desc):
     return "".join(out)
 
 
+def epp_body(scale):
+    """Silhouette of the EPP2338-0002 (ears with their M3 hole, white label
+    holders, M12 and M8 sockets, LEDs), from the geometry of gen_epp.py.
+    The details that are smaller than about 1.5 px are left out."""
+    import gen_epp as epp
+    bx, by, bw, bh = epp.BODY
+    k = SILHOUETTE_W * scale / bw          # px per unit of gen_epp
+    wpx, hpx = SILHOUETTE_W * scale, EPP_H * scale
+    ky = hpx / bh
+    d = epp.Drawing("layout")
+
+    def X(x):
+        return (x - bx) * k
+
+    def Y(y):
+        return (y - by) * ky
+
+    d.polygon(epp.silhouette(0, 0, wpx, hpx, tuple(
+        r * scale for r in epp.SILHOUETTE_MM[2])), LIGHT)
+    if scale >= 0.5:
+        for hx, hy in epp.hole_centres(0, 0, wpx, hpx, scale):
+            d.circle(hx, hy, epp.HOLE_MM[1] * scale, epp.WHITE)
+        for cy in epp.SOCKET_Y:
+            d.circle(X(0), Y(cy), 2 * epp.SOCKET_R * k, epp.METAL)
+            d.circle(X(0), Y(cy), (2 * epp.SOCKET_R - 8) * k, epp.WHITE)
+            hx, hw, hh = epp.HOLDER
+            for hy in (cy - 25, cy + 9):
+                d.rect(X(hx), Y(hy), hw * k, hh * k, epp.WHITE)
+        hx, hw, hh = epp.HOLDER
+        d.rect(X(hx), Y(epp.SOCKET_Y[-1] + 33), hw * k, hh * k, epp.WHITE)
+        for cx in epp.M8_X:
+            d.circle(X(cx), Y(epp.M8_Y), 2 * epp.M8_R * k, epp.RED)
+    if scale >= 1:
+        for cx, cy in (epp.LA_LEDS + (epp.RUN_LED,) + epp.POWER_LEDS
+                       + tuple((lx, cy) for cy in epp.SOCKET_Y
+                               for lx in epp.CHANNEL_LED_X)):
+            d.circle(X(cx), Y(cy), epp.LED_D * k, epp.LED)
+    out = ""
+    for p in d.parts:
+        out += "\t\t" + ET.tostring(p, encoding="unicode") + "\n"
+    return out
+
+
 def module(ref, w, h, d, designation, scale, tag):
     wpx, hpx = w * scale, h * scale
-    body = ('\t\t<rect x="0" y="0" width="%s" height="%s" rx="0" ry="0" '
-            'style="line-style:normal;line-weight:thin;filling:lightgray;'
-            'color:black" antialias="false" />\n' % (num(wpx), num(hpx)))
-    for x, y, rot, pt in label_parts(ref, wpx, hpx):
-        body += text_xml(ref, x, y, rot, pt)
+    if ref == "EPP2338-0002":
+        body = epp_body(scale)
+        pt, th = 6, 6 * 1.33
+        length = len(ref) * pt * 0.75
+        body += text_xml(ref, (wpx + th) / 2, hpx + 4 + length, 270, pt)
+        hpx += length + 4
+    else:
+        body = ('\t\t<rect x="0" y="0" width="%s" height="%s" rx="0" ry="0" '
+                'style="%s" antialias="false" />\n'
+                % (num(wpx), num(hpx), LIGHT))
+        for x, y, rot, pt in label_parts(ref, wpx, hpx):
+            body += text_xml(ref, x, y, rot, pt)
     size = "%s x %s x %s mm" % (num(w), num(h), num(d))
     names = ("%s layout %s (%s)" % (ref, tag, size),
              "%s implantation %s (%s)" % (ref, tag, size),
@@ -160,6 +213,12 @@ def module(ref, w, h, d, designation, scale, tag):
             "(width x height x depth). Generic outline, no logo; check the "
             "dimensions on the data sheet of your exact version."
             % (ref, tag, num(1 / scale), size))
+    if ref == "EPP2338-0002":
+        desc += (" Silhouette traced by eye on a photo (ears with the two "
+                 "M3 fixing holes, 3.5 mm, hole position assumed). Fixing "
+                 "(verified, Beckhoff EPP2xxx documentation, Fixing): two "
+                 "M3 bolts longer than 15 mm, holes not threaded, no "
+                 "torque given.")
     return definition((ref, tag), wpx, hpx + 30, names, infos, body, desc)
 
 

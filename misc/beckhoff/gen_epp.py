@@ -22,6 +22,9 @@ X50 (IN) and X51 (OUT).  Pin of a M12 socket: 1 +24 V DC Up, 2 channel B,
 3 GND P, 4 channel A, 5 not connected.  Pin of a M8 socket: 1 Tx+ / GNDs,
 2 Rx+ / GNDp, 3 Rx- / Up, 4 Tx- / Us.  In QET each M12 socket is ONE terminal
 (X01 to X04) shared by its two channels (their plcIO name the same terminal).
+EPP2338-0002 is the M12 variant (EPP2338-0001 is the M8 one); the numbers
+above and the housing size come from the public Beckhoff pages (see the
+"EPP2338 box" section of docs/beckhoff-ethercat.md).
 The positions of the sockets, of the pins in a socket and of the LEDs on the
 housing are ASSUMED (the drawing is original and vector only, traced by eye on
 the layout of the box: dark housing with a lighter lower band, chamfered top,
@@ -74,14 +77,16 @@ PIN_D = 8.0                                # insert of the M12 socket
 PIN = 15.0                                 # offset of the pins (schematic)
 SCH_R = 20.0                               # M12 socket (schematic)
 M8_X = (-50, 5)
-M8_Y = -135
+M8_Y = -130
 M8_R = 13.0
 LED_D = 5.0
 CHANNEL_LED_X = (-57, -38)                 # the two LEDs of a M12 socket
 HOLDER = (-67.0, 33.0, 18.0)               # label holder: x, width, height
-RUN_LED = (-20, -115)
+RUN_LED = (-22.5, -113)
 LA_LEDS = ((-30, -142), (-15, -142))       # L/A IN, L/A OUT
 POWER_LEDS = ((-4, 185), (11, 185))        # Us, Up
+ID_TEXT = "00000"                          # placeholder of the 5 digit ID
+ID_SIZE = 7
 FUNCTION = {"A": "In-/Output A", "B": "In-/Output B"}
 M8_PINOUT = ("Tx+ / GNDs", "Rx+ / GNDp", "Rx- / Up", "Tx- / Us")
 # A is on the pin 4, B on the pin 2 of every M12 socket
@@ -97,6 +102,7 @@ class Drawing:
         self.tag = tag
         self.parts = []
         self.terms = []
+        self.dynamic = []
 
     def line(self, x1, y1, x2, y2, style=THIN):
         self.parts.append(ET.Element("line", {
@@ -134,13 +140,35 @@ class Drawing:
             "uuid": uid(self.tag, name)}))
 
 
-def rounded(x, y, w, h, r_top, r_bottom, steps=5):
-    """Outline of a rectangle with rounded corners, as a polygon."""
+    def dynamic_text(self, x, y, text, size, tag):
+        """A text the user edits on the placed element (UserText); x, y is
+        its top left corner."""
+        t = ET.Element("dynamic_text", {
+            "x": num(x), "y": num(y), "z": "30", "text_width": "-1",
+            "Halignment": "AlignLeft", "Valignment": "AlignTop",
+            "frame": "false", "rotation": "0", "keep_visual_rotation": "true",
+            "text_from": "UserText", "uuid": uid(self.tag, "id", tag),
+            "font": FONT % size})
+        ET.SubElement(t, "text").text = text
+        self.dynamic.append(t)
+
+
+# Silhouette of the housing in mm (30 x 126, public data sheet), traced on the
+# outline of the photo of the box: straight sides, a small radius at the top
+# left and bottom right corners, a larger corner round the fixing hole at the
+# top right and at the bottom left (the "ears").  Radii: top left, top right,
+# bottom right, bottom left.
+SILHOUETTE_MM = (30.0, 126.0, (2.1, 3.3, 2.1, 3.3))
+HOLE_MM = (2.55, 3.5)                      # centre from both edges, diameter
+
+
+def silhouette(x, y, w, h, radii, steps=6):
+    """Polygon of a rectangle whose four corners have their own radius
+    (top left, top right, bottom right, bottom left)."""
+    tl, tr, br, bl = radii
+    corners = ((x + w - tr, y + tr, tr, -90), (x + w - br, y + h - br, br, 0),
+               (x + bl, y + h - bl, bl, 90), (x + tl, y + tl, tl, 180))
     pts = []
-    corners = ((x + w - r_top, y + r_top, r_top, -90),
-               (x + w - r_bottom, y + h - r_bottom, r_bottom, 0),
-               (x + r_bottom, y + h - r_bottom, r_bottom, 90),
-               (x + r_top, y + r_top, r_top, 180))
     for cx, cy, r, start in corners:
         for k in range(steps + 1):
             a = math.radians(start + 90.0 * k / steps)
@@ -148,12 +176,18 @@ def rounded(x, y, w, h, r_top, r_bottom, steps=5):
     return pts
 
 
+def hole_centres(x, y, w, h, k):
+    """Centres of the two fixing holes (top right, bottom left) of a
+    silhouette placed at x, y, w, h (k = unit per mm)."""
+    o = HOLE_MM[0] * k
+    return (x + w - o, y + o), (x + o, y + h - o)
+
+
 def body_outline(d, style):
-    """Housing silhouette: rounded corners, a flat head at the top that
-    carries the M8 sockets and two small shoulders at the fixing holes."""
     x, y, w, h = BODY
-    pts = rounded(x, y, w, h, 14.0, 10.0)
-    d.polygon(pts, style)
+    k = w / SILHOUETTE_MM[0]
+    d.polygon(silhouette(x, y, w, h,
+                         tuple(r * k for r in SILHOUETTE_MM[2])), style)
 
 
 def housing(d, dotted):
@@ -165,18 +199,11 @@ def housing(d, dotted):
             d.rect(cx - 8, y + h, 16, 7)
     else:
         body_outline(d, DARK)
-        # inclined lower band, a little lighter than the body
-        d.polygon([(x, y + h - 62), (x + w, y + h - 67),
-                   (x + w, y + h - 7), (x + w - 7, y + h),
-                   (x + 7, y + h), (x, y + h - 7)], BAND)
-        # moulded edge: a lighter frame a few units inside the silhouette
-        d.polygon(rounded(x + 4, y + 4, w - 8, h - 8, 10.0, 6.0, 4), THIN)
-        # head: the M8 sockets sit on a slightly raised plate
-        d.polygon(rounded(x + 6, y + 6, w - 12, 62, 8.0, 3.0, 3), THIN)
         # fixing holes with their collar: top right and bottom left
-        for hx, hy in ((23, -155), (-61, 246)):
-            d.circle(hx, hy, 11, BAND)
-            d.circle(hx, hy, 7, WHITE)
+        k = w / SILHOUETTE_MM[0]
+        for hx, hy in hole_centres(x, y, w, h, k):
+            d.circle(hx, hy, 1.4 * HOLE_MM[1] * k, BAND)
+            d.circle(hx, hy, HOLE_MM[1] * k, WHITE)
 
 
 def reference_text(d, bottom=False):
@@ -190,10 +217,10 @@ def m8_sockets(d, detail):
     # the M8 sockets send their conductors up, the M12 ones to the right
     d.terminal(M8_X[0], M8_Y, "IN X50", "n")
     d.terminal(M8_X[1], M8_Y, "OUT X51", "n")
-    d.text(-58, M8_Y - 15, "IN", 5)
-    d.text(M8_X[1] + 3, M8_Y - 15, "OUT", 5)
-    d.text(-66, -118, "X50", 4)
-    d.text(M8_X[1] + 10, -118, "X51", 4)
+    d.text(-55, M8_Y - 15, "IN", 5)
+    d.text(M8_X[1] - 9, M8_Y - 15, "OUT", 5)
+    d.text(-63, -112, "X50", 4)
+    d.text(M8_X[1] + 3, -112, "X51", 4)
     if detail:
         # IN / OUT arrows under the sockets
         for x0, x1 in ((-45, -30), (-12, 3)):
@@ -206,10 +233,10 @@ def realistic():
     d = Drawing("epp2338-realistic")
     housing(d, False)
     m8_sockets(d, True)
-    d.text(-29, -150, "L/A", 5)
+    d.text(-29, -148, "L/A", 5)
     for cx, cy in LA_LEDS + (RUN_LED,):
         d.circle(cx, cy, LED_D, LED)
-    d.text(-30, -108.5, "Run", 4)
+    d.text(RUN_LED[0] - 5, RUN_LED[1] - 5.5, "Run", 4)
     for n, cy in enumerate(SOCKET_Y):
         name = "X%02d" % (n + 1)
         # M12 socket: metal ring, insert and five pins
@@ -227,10 +254,12 @@ def realistic():
             d.text(lx - 8 if k == 0 else lx + 4, cy - 3, str(2 * n + k + 1),
                    4)
         hx, hw, hh = HOLDER
-        d.rect(hx, cy - 25, hw, hh)
-        d.rect(hx, cy + 9, hw, hh)
+        for k, hy in enumerate((cy - 25, cy + 9)):
+            d.rect(hx, hy, hw, hh, WHITE)
+            d.dynamic_text(hx + 5, hy + 4, ID_TEXT, ID_SIZE, "X%02d.%d"
+                           % (n + 1, k + 1))
     hx, hw, hh = HOLDER
-    d.rect(hx, SOCKET_Y[-1] + 33, hw, hh)
+    d.rect(hx, SOCKET_Y[-1] + 33, hw, hh, WHITE)
     for (lx, ly), s in zip(POWER_LEDS, ("Us", "Up")):
         d.circle(lx, ly, LED_D, LED)
         d.text(lx - 4, ly - 5, s, 4)
@@ -304,16 +333,30 @@ def patch_io(root):
         "manufacturer_reference": REFERENCE,
         "designation": "EtherCAT P Box, 8-channel digital input/output, "
                        "24 V DC, M12",
-        "description": "EtherCAT P box with a dark housing: four M12 sockets "
-                       "X01 to X04, two channels each (pin 4 = channel A, "
-                       "pin 2 = channel B, pin 1 = +24 V DC Up, pin 3 = "
-                       "GND P, pin 5 not connected), and two M8 EtherCAT P "
-                       "sockets, X50 IN and X51 OUT. Each M12 socket is ONE "
+        "description": "EPP2338-0002 is the M12 variant (the -0001 is the "
+                       "M8 one). EtherCAT P box, IP65/66/67, 30 x 126 x "
+                       "26.5 mm, about 165 g, 2 fixing holes: four M12 "
+                       "sockets X01 to X04, 5-pin A-coded, two channels "
+                       "each (pin 4 = channel A, pin 2 = channel B, pin 1 = "
+                       "+24 V DC Up, pin 3 = GND P, pin 5 not connected), "
+                       "and two M8 EtherCAT P sockets, 4-pin P-coded, X50 "
+                       "IN and X51 OUT (pin 1 Tx+/GNDs, 2 Rx+/GNDp, 3 "
+                       "Rx-/Up, 4 Tx-/Us). Us and Up 24 V DC, 3 A each; "
+                       "0.5 A per channel (verified on the public Beckhoff "
+                       "data of the EPP2338-0002). Each M12 socket is ONE "
                        "terminal (X01 to X04) shared by its two channels "
                        "(X01(1), X01(2)...), the channel is the signal of "
-                       "the I/O table, not the pin. The positions on the "
-                       "housing are assumed. The label of the box is the "
-                       "card id (A1.10).",
+                       "the I/O table, not the pin. ASSUMED (not stated in "
+                       "text by the data sheet): the positions of the "
+                       "sockets and LEDs on the housing and the number of "
+                       "channel LEDs. FIXING (verified, Beckhoff EPP2xxx "
+                       "documentation, chapter Mounting, Fixing, "
+                       "infosys.beckhoff.com/content/1033/epp2xxx/"
+                       "1072587019.html): narrow housing, two M3 bolts, "
+                       "bolts longer than 15 mm, holes not threaded; the "
+                       "documentation gives no tightening torque for the "
+                       "bolts. The label of the box is the card id "
+                       "(A1.10).",
     }
     for e in root.iter("elementInformation"):
         if e.get("name") in info:
@@ -324,7 +367,8 @@ def patch(path, drawing, rename=None):
     tree = ET.parse(path)
     root = tree.getroot()
     desc = root.find("description")
-    keep = [c for c in desc if c.tag == "dynamic_text"]
+    keep = [c for c in desc if c.tag == "dynamic_text"
+            and c.get("text_from") != "UserText"]
     for c in list(desc):
         desc.remove(c)
     x0, y0, x1, y1 = bounds(drawing.parts, drawing.terms)
@@ -333,7 +377,7 @@ def patch(path, drawing, rename=None):
     root.set("hotspot_y", str(hy))
     root.set("width", str(hx + int(x1) + 10))
     root.set("height", str(hy + int(y1) + 40))
-    for p in drawing.parts + drawing.terms:
+    for p in drawing.parts + drawing.terms + drawing.dynamic:
         desc.append(p)
     for k in keep:
         below = k.findtext("info_name") != "label"

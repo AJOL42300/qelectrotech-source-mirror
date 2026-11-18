@@ -216,7 +216,7 @@ The references found in the sample schematic and what covers them:
 | --- | --- |
 | EL1008, EL2008, EL2652 | their own symbol |
 | EK1100, EK1322, EK1914, CU1128 | their own symbol (the EK1322 is the EtherCAT P junction with feed-in) |
-| EPP2338 | `epp2338.elmt` (the `-0002` variant is not told apart: the difference is not known, edit the reference) |
+| EPP2338 | `epp2338.elmt` (the `-0002` M12 variant; the `-0001` M8 variant is not drawn) |
 | AX5203, AX5206 | `drives_ax5000/ax5203.elmt`, `ax5206.elmt` (2 axes) |
 | AF1103, AF1107, AF1115, AF1130, AF1155 | `drives_af1000/`, 1 axis |
 | AF1215, AF1222 | `drives_af1000/`, 2 axes |
@@ -811,9 +811,59 @@ trailing number of the address, the cross reference goes by the index of the
 I/O), so nothing changes in the program. The other pins of the socket are
 +24 V DC Up (1), GND P (3), not connected (5).
 
-INCERTAIN: the positions of the sockets, the LEDs and the labelling areas on
-the front are assumed from the reference picture; check the pin-outs against
-the datasheet of your box.
+### EPP2338-0002: verified and assumed
+
+The reference is `EPP2338-0002` (the "-002" typed in a request does not
+exist). It is the **M12** variant of the EPP2338; the `-0001` is the same box
+with 8 M8 sockets, `-1001`/`-1002` have a 3 ms input filter and `-2002`
+supplies X01/X02 from Us and X03/X04 from Up. Only the `-0002` is drawn.
+
+| Fact | Status | Source |
+| --- | --- | --- |
+| Designation "EtherCAT P Box, 8-channel digital combi, 24 V DC, 10 us, 0.5 A, M12" | verified | [product page](https://www.beckhoff.com/en-en/products/i-o/ethercat-box/eppxxxx-industrial-housing/epp23xx-digital-combi/epp2338-0002.html) |
+| 4 x M12 socket, 5-pin, A-coded (I/O); 2 x M8 socket, 4-pin, P-coded, shielded (EtherCAT P) | verified | [infosys](https://infosys.beckhoff.com/content/1033/epp2xxx/13601383947.html) |
+| 30 x 126 x 26.5 mm without connectors, about 165 g, PA6, 2 holes 3.5 mm for M3 | verified | [infosys](https://infosys.beckhoff.com/content/1033/epp2xxx/20008239243.html), product page |
+| M12 pin-out: 1 +24 V Up, 2 channel B, 3 GNDp, 4 channel A, 5 not connected | verified | [infosys](https://infosys.beckhoff.com/content/1033/epp2xxx/10739625739.html) |
+| M8 EtherCAT P pin-out: 1 Tx+/GNDs, 2 Rx+/GNDp, 3 Rx-/Up, 4 Tx-/Us | verified (generic EtherCAT P page and the -0001 page) | [infosys EK1310](https://infosys.beckhoff.com/content/1033/ek1310/3716753931.html) |
+| 8 channels, each input or output; Us and Up 24 V DC, 3 A each; 0.5 A per channel, 3 A total; sensor supply 0.5 A for channels 1-4 and 0.5 A for 5-8 | verified | [infosys](https://infosys.beckhoff.com/content/1033/epp2xxx/13601383947.html) |
+| LEDs: green channel LED (high level), Up and Us (green/red), L/A and Run per EtherCAT P port | verified (meaning) | [channel/Up](https://infosys.beckhoff.com/content/1033/epp2xxx/21883199243.html), [Us](https://infosys.beckhoff.com/content/1033/epp2xxx/13601333643.html), [L/A, Run](https://infosys.beckhoff.com/content/1033/epp2xxx/8838158731.html) |
+| IP65/66/67 | verified | [infosys](https://infosys.beckhoff.com/content/1033/epp2xxx/20008239243.html) |
+| Position of the sockets and LEDs on the front, which M8 is IN | **assumed** (the drawings of the data sheet are images; IN = left M8 comes from the generic EtherCAT P page) | [infosys](https://infosys.beckhoff.com/content/1033/epp2xxx/21883199243.html) |
+| Number of channel LEDs (8 drawn) | **assumed** (the table says "Channel 1-16", generic) | same |
+| Fixing: narrow housing = two M3 bolts, **bolts longer than 15 mm**, holes not threaded | verified (EPP2xxx family chapter, not a page of the -0002 alone) | [infosys Fixing](https://infosys.beckhoff.com/content/1033/epp2xxx/1072587019.html) |
+| Tightening torque of the M3 bolts | **not stated** (the torque table of the chapter is for plug connectors only) | same chapter |
+| Mounting rail ZS5300-0001: 500 x 129 mm, stainless steel 1.5 mm, M3 threads ready-made; up to 15 narrow modules, 2 mm apart | verified | same page |
+| Silhouette (ears, corner radii, hole 2.55 mm from the edges) | **assumed**: traced by eye on a photo, scaled to 30 x 126 mm; only the size and the 3.5 mm holes are data-sheet values | |
+| 5-digit I/O identifier in the label holders | **not available** in this repository (see below) | |
+
+**M3 screw length.** Beckhoff states "longer than 15 mm" for the narrow EPP
+housings; no exact length is given. A calculated value would be the 1.5 mm
+mounting rail (ZS5300-0001) plus the housing thickness at the ears, which the
+data sheet does not give (the 26.5 mm is the depth of the whole box): not
+verified, so no screw length is drawn or invented. Take a bolt longer than
+15 mm and check it on your support.
+
+**Label holders and identifiers.** In the realistic view the holders are white
+rectangles at the positions assumed above: two per M12 socket (upper = odd
+channel, lower = even channel) and one by the Us/Up LEDs. QElectroTech has no
+5-digit identifier of an I/O in this branch: the `plcIO` cross-reference is
+an empty, user-editable text and a dynamic text cannot read a value per
+channel. Each channel holder therefore holds an editable `UserText` dynamic
+text with the placeholder `00000`: double-click it on the placed element and
+type the identifier. The simplest real link would be a dynamic text bound to
+the `plcIO.crossRef` of the channel (not done: it needs C++). The EPP views are
+the only ones changed for this (EL, EK and drives are not).
+
+In the layout views (EPP2338-0002 only) the silhouette has the two ears with
+their 3.5 mm holes; the white holders and the M12/M8 sockets are drawn at 1:1
+and 1:2, the LEDs at 1:1 only, and at 1:5 only the silhouette (details below
+about 1.5 px are left out). The reference is written under the body. The
+holders are too small to carry the 5 digits at these scales.
+
+The "Housing data" summary of the product page says "8 x M8, 4 x M12" for both
+variants: it is a family field and misleading for the `-0002`. The same facts
+are in the `description` of the elements. The schematic, realistic and layout
+views (1:1, 1:2, 1:5; 30 x 126 mm x scale) use these values.
 
 ## Layout views and scale
 
