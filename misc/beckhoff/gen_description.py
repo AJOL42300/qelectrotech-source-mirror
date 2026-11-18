@@ -56,14 +56,18 @@ YELLOW = "line-style:normal;line-weight:normal;filling:yellow;color:black"
 GAP = 8.0           # between the drawing and the legends
 LEAD_GAP = 1.5      # between a circle and the start of its leader
 LED_D = 4.0
+# EL1918: the manual draws Diag1 green and Diag2 to Diag4 red
+DIAG_RED = {k: "line-style:normal;line-weight:thin;filling:red;color:black"
+            for k in (9, 10, 11)}
 LED_PITCH = 11.0
 NOTE = ("Description view made by misc/beckhoff/gen_description.py from the "
         "realistic view: legends, LEDs and power contacts are generic, check "
         "them against the datasheet. License: see "
         "http://qelectrotech.org/wiki/doc/elements_license")
 
-# Channel LEDs of the EL terminals (generic, not from a datasheet) and
-# whether the card also has a diagnostic LED.
+# Channel LEDs of the EL terminals (generic, not from a datasheet except
+# the EL1918) and the number of diagnostic LEDs (True is one; the EL1918
+# manual shows four: Diag1 and Diag2, then Diag3 and Diag4).
 EL_LEDS = {
     "el1004": (4, False), "el1008": (8, False), "el2004": (4, False),
     "el2008": (8, False), "el2522": (2, False), "el2574": (4, False),
@@ -71,7 +75,7 @@ EL_LEDS = {
     "el2904": (4, True), "el2911": (5, True),
     "el1xxx_generic": (8, False), "el2xxx_generic": (8, False),
     "el3xxx_generic": (8, False), "el4xxx_generic": (8, False),
-    "el2652": (4, False), "el1918": (8, True),
+    "el2652": (4, False), "el1918": (8, 4),
 }
 EL60 = ("el1004", "el1008", "el2004", "el2008", "el2522", "el2574", "el5152",
         "el9100", "el1904", "el2904", "el1xxx_generic", "el2xxx_generic",
@@ -367,10 +371,11 @@ def group_text(group):
     return ", ".join(names)
 
 
-def add_leds(card, positions, legends, size=6):
-    """positions: list of (cx, cy); legends: list of (index, side, text)."""
-    for cx, cy in positions:
-        card.circle(cx, cy, LED_D)
+def add_leds(card, positions, legends, size=6, styles=None):
+    """positions: list of (cx, cy); legends: list of (index, side, text);
+    styles: optional {index: style} to colour a LED."""
+    for k, (cx, cy) in enumerate(positions):
+        card.circle(cx, cy, LED_D, (styles or {}).get(k, LED_STYLE))
     for i, side, text in legends:
         cx, cy = positions[i]
         x0 = cx - LED_D / 2 - LEAD_GAP if side == "L" \
@@ -399,15 +404,22 @@ def led_word(stem):
 
 def el60_leds(card, x_left, x_right, y0):
     count, diag = EL_LEDS[card.stem]
-    n = count + (1 if diag else 0)
+    diag = int(diag)
+    n = count + diag
     positions, legends = [], []
     word = led_word(card.stem)
+    # six rows (EL1918) are packed to stay above the first terminal
+    pitch = LED_PITCH if n <= 10 else 8.0
     for k in range(n):
         cx = x_left if k % 2 == 0 else x_right
-        positions.append((cx, y0 + LED_PITCH * (k // 2)))
-        text = "%s %d" % (word, k + 1) if k < count else "Diagnostic"
+        positions.append((cx, y0 + pitch * (k // 2)))
+        if k < count:
+            text = "%s %d" % (word, k + 1)
+        else:
+            text = "Diagnostic" if diag == 1 else "Diag %d" % (k - count + 1)
         legends.append((k, "L" if k % 2 == 0 else "R", text))
-    add_leds(card, positions, legends)
+    add_leds(card, positions, legends,
+             styles=DIAG_RED if diag == 4 else None)
 
 
 def power_contacts(card, right, bottom):

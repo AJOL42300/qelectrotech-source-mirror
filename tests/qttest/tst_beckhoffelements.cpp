@@ -1389,6 +1389,59 @@ class TstBeckhoffElements : public QObject
 			QVERIFY(desc.elementsByTagName(QStringLiteral("circle")).size()
 					> real.elementsByTagName(QStringLiteral("circle")).size());
 		}
+		void el1918DescriptionHasTheEightInputAndFourDiagLeds()
+		{
+				// manual of the EL1918: Input1/Input2 ... Input7/Input8 on
+				// four rows (odd on the left), then Diag1/Diag2 and
+				// Diag3/Diag4 on two rows
+			const auto desc = load(appearance(
+				QStringLiteral("el1918"), QStringLiteral("_description")))
+				.documentElement();
+			QMap<QString, QPointF> legends;
+			const auto texts = desc.elementsByTagName(QStringLiteral("text"));
+			for (int i = 0; i < texts.size(); ++i) {
+				const auto t = texts.at(i).toElement();
+				legends.insert(t.attribute(QStringLiteral("text")),
+							   QPointF(t.attribute(QStringLiteral("x"))
+									   .toDouble(),
+									   t.attribute(QStringLiteral("y"))
+									   .toDouble()));
+			}
+			for (int n = 1; n <= 8; ++n) {
+				QVERIFY(legends.contains(
+					QStringLiteral("Safe input %1").arg(n)));
+			}
+			for (int n = 1; n <= 4; ++n) {
+				QVERIFY(legends.contains(QStringLiteral("Diag %1").arg(n)));
+			}
+			QVERIFY(!legends.contains(QStringLiteral("Diagnostic")));
+				// the odd inputs are on the left, the even ones on the right
+				// of the same row
+			for (int n = 1; n <= 7; n += 2) {
+				const auto a = legends.value(
+					QStringLiteral("Safe input %1").arg(n));
+				const auto b = legends.value(
+					QStringLiteral("Safe input %1").arg(n + 1));
+				QVERIFY(a.x() < b.x());
+				QCOMPARE(a.y(), b.y());
+			}
+			QVERIFY(legends.value(QStringLiteral("Diag 1")).y()
+					> legends.value(QStringLiteral("Safe input 7")).y());
+			QVERIFY(legends.value(QStringLiteral("Diag 3")).y()
+					> legends.value(QStringLiteral("Diag 1")).y());
+			int red = 0;
+			const auto circles = desc.elementsByTagName(
+				QStringLiteral("circle"));
+			for (int i = 0; i < circles.size(); ++i) {
+				if (circles.at(i).toElement().attribute(
+						QStringLiteral("style")).contains(
+						QLatin1String("filling:red"))) {
+					++red;
+				}
+			}
+			QCOMPARE(red, 3);
+		}
+
 		void epp2338HasASchematicAndARealisticView()
 		{
 			const QString key = QStringLiteral("epp2338");

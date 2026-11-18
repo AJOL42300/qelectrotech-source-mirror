@@ -360,7 +360,11 @@ scale and the same position of the reference, and in addition
   the type of the channel ("Input n", "Output n", "Safe input n", "Safe output
   n", "Analog input n", "Analog output n", "Encoder n"), and a "Diagnostic" LED
   for the TwinSAFE cards; two generic status LEDs for the EK1914; the header
-  LEDs of the drives, which a "Status LEDs" legend points to;
+  LEDs of the drives, which a "Status LEDs" legend points to. The EL1918 has
+  the 12 LEDs of its manual (v3.0.0, p. 55-56): 8 input LEDs (odd inputs on
+  the left, even ones on the right, 4 rows) then "Diag 1" to "Diag 4" on two
+  rows (the colours, green for Diag 1 and red for the others, are read from
+  the figure of the manual);
 - the power contacts (+24 V DC / 0 V) as two black marks on the side of the
   card, with a legend;
 - for the drives, the connectors are summarised by one legend per connector
