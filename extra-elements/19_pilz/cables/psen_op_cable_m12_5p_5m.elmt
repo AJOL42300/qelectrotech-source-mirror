@@ -1,0 +1,65 @@
+<definition version="0.100.0" type="element" link_type="simple" width="240" height="140" hotspot_x="20" hotspot_y="70">
+	<uuid uuid="{ec58bbca-0f66-5dfd-a38e-33626927a19b}"/>
+	<names>
+		<name lang="en">Pilz 630311 connection cable PSEN op cable axial M12 5-pole, 5 m</name>
+		<name lang="fr">Câble de raccordement Pilz 630311 PSEN op cable axial M12 5-pole, 5 m</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Pilz</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">630311</elementInformation>
+		<elementInformation name="designation" show="1">Câble de raccordement PSEN op axial M12 5 pôles, 5 m</elementInformation>
+		<elementInformation name="description" show="1">PSEN op cable axial M12 5-pole, 5 m: PUR, yellow (similar to RAL 1003), 5-pin M12 female connector straight (A-coded) on an open cable end, 5 x 0.25 mm2 (AWG 24), unshielded, 5.1 mm. VERIFIED (Pilz data sheet 1002482 of the PSEN op cable M12 5-pin and the data sheet of 630311): the wire colours are brown, white, blue, black, grey. ASSUMED: the colour of each pin, pin 1 BN, pin 2 WH, pin 3 BU, pin 4 BK, pin 5 GY, is the order of the A-coded M12 standard (EN 61076-2-101), the same as the PSEN cs1.1n operating manual; it is not printed in the data sheet. The terminals 1 to 5 are the connector pins, BN WH BU BK GY the wire ends.</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors
+Original vector drawing, not copied from a manufacturer drawing. Order numbers, pin assignments, terminal designations and wire colours come from public Pilz documents (see docs/pilz.md); the status of each datum is given in the description.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-52" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{ed25d2be-0d9e-511c-adb0-7bad954e2c6f}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<rect x="10" y="-5" width="36" height="50" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:lightgray;color:black" antialias="false"/>
+		<rect x="46" y="-5" width="38" height="50" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:yellow;color:black" antialias="false"/>
+		<text x="-2.58" y="-33.04" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="M12 female 5-pin A-coded"/>
+		<text x="59.42" y="-23.8" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="5 m"/>
+		<text x="110" y="-25.04" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="open end"/>
+		<line x1="0" y1="0" x2="10" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="25.93" y="2.7" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="1"/>
+		<rect x="84" y="-2" width="46" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:brun;color:black" antialias="false"/>
+		<text x="134" y="2.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="BN"/>
+		<text x="154" y="1.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="brown"/>
+		<line x1="190" y1="0" x2="200" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="10" x2="10" y2="10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="25.93" y="12.7" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="2"/>
+		<rect x="84" y="8" width="46" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<text x="134" y="12.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="WH"/>
+		<text x="154" y="11.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="white"/>
+		<line x1="190" y1="10" x2="200" y2="10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="20" x2="10" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="25.93" y="22.7" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="3"/>
+		<rect x="84" y="18" width="46" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:black" antialias="false"/>
+		<text x="134" y="22.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="BU"/>
+		<text x="154" y="21.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="blue"/>
+		<line x1="190" y1="20" x2="200" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="30" x2="10" y2="30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="25.93" y="32.7" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="4"/>
+		<rect x="84" y="28" width="46" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<text x="134" y="32.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="BK"/>
+		<text x="154" y="31.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="black"/>
+		<line x1="190" y1="30" x2="200" y2="30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="40" x2="10" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="25.93" y="42.7" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="5"/>
+		<rect x="84" y="38" width="46" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="134" y="42.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="GY"/>
+		<text x="154" y="41.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="grey"/>
+		<line x1="190" y1="40" x2="200" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="10" y="58.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="630311"/>
+		<terminal x="0" y="0" name="1" orientation="w" type="Generic" uuid="{cfcd0ef5-3272-51b4-ae30-bd7d3c5ebb24}"/>
+		<terminal x="0" y="10" name="2" orientation="w" type="Generic" uuid="{ff2d92dc-4cf4-57ad-a6ff-c7fbe833ec29}"/>
+		<terminal x="0" y="20" name="3" orientation="w" type="Generic" uuid="{eb3e4493-181a-5973-addf-318ca5a63705}"/>
+		<terminal x="0" y="30" name="4" orientation="w" type="Generic" uuid="{5d767706-d86a-512c-962b-22c436d38dca}"/>
+		<terminal x="0" y="40" name="5" orientation="w" type="Generic" uuid="{6c34ceb0-0c6e-53a7-8fc6-622be65b8e67}"/>
+		<terminal x="200" y="0" name="BN" orientation="e" type="Generic" uuid="{257ad93a-b51d-592d-92a7-442cee5518b8}"/>
+		<terminal x="200" y="10" name="WH" orientation="e" type="Generic" uuid="{31611b6d-e200-5135-8714-f91ed3a71a74}"/>
+		<terminal x="200" y="20" name="BU" orientation="e" type="Generic" uuid="{d0c9815a-d7bd-563f-b1a9-387db9c88066}"/>
+		<terminal x="200" y="30" name="BK" orientation="e" type="Generic" uuid="{6dd6a7be-b18b-5324-955d-b2e9bbf365ab}"/>
+		<terminal x="200" y="40" name="GY" orientation="e" type="Generic" uuid="{6b78cd80-521f-519f-85f9-9f212fbc935d}"/>
+	</description>
+</definition>
