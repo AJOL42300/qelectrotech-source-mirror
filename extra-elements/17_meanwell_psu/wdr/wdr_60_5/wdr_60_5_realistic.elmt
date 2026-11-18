@@ -1,0 +1,109 @@
+<definition version="0.100.0" type="element" link_type="master" width="80" height="180" hotspot_x="20" hotspot_y="40">
+	<uuid uuid="{2eb76254-e301-51a4-ae96-8d7fb60b74f1}"/>
+	<names>
+		<name lang="en">Mean Well WDR-60-5 DIN-rail power supply 5 V 10 A, realistic view</name>
+		<name lang="fr">Alimentation rail DIN Mean Well WDR-60-5 5 V 10 A, vue réaliste</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Mean Well</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">WDR-60-5</elementInformation>
+		<elementInformation name="designation" show="1">DIN-rail power supply, AC input, 5 V DC 10 A, 50 W, 32 mm wide</elementInformation>
+		<elementInformation name="description" show="1">DC OK LED and V ADJ output voltage trimmer on the front; 1 +V and 1 -V output terminals as on the datasheet (parallel screws); DC OK relay contact on terminals 13 and 14 (the datasheet numbers the two relay screws differently; 13/14 is a convention); terminal order of the symbol is a convention, the physical order depends on the series</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="140"/>
+				<column index="2" width="130"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="44"/>
+			</columnWidths>
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="false"/>
+				<column index="2" visible="false"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+				<column index="5" visible="false"/>
+			</columnVisibility>
+			<columnNames>
+				<column index="0"></column>
+				<column index="1">ID</column>
+				<column index="2">Label</column>
+				<column index="3"></column>
+				<column index="4"></column>
+				<column index="5">N° pin</column>
+			</columnNames>
+			<columnOrder>5,2,1</columnOrder>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
+			<plcIOs>
+				<plcIO type="entree_universelle" address="AC line L1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>L1</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="AC line L2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>L2</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="+5 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>+V</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="0 V DC output" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>-V</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="DC OK relay contact" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>13</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="DC OK relay contact" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>14</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Protective earth (FG)" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>PE</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Original vector drawing, not copied from a manufacturer drawing. Ratings and terminal names from the public datasheet; layout and symbols are generic, check them against the datasheet.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{e1d8797e-5d82-5322-a579-c94f1d55ca32}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<rect x="-10" y="0" width="60" height="120" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
+		<rect x="-4" y="0" width="8" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="-2" y="7" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="-3.21" y="25.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="L1"/>
+		<rect x="6" y="0" width="8" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="8" y="7" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="6.79" y="25.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="L2"/>
+		<rect x="-4" y="100" width="8" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="-2" y="109" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="-3.21" y="97.46" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="+V"/>
+		<rect x="6" y="100" width="8" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="8" y="109" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="6.79" y="97.46" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="-V"/>
+		<rect x="26" y="100" width="8" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="28" y="109" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="26.79" y="97.46" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="13"/>
+		<rect x="36" y="100" width="8" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="38" y="109" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="36.79" y="97.46" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="14"/>
+		<rect x="16" y="0" width="8" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="18" y="7" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="16.79" y="25.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="PE"/>
+		<rect x="-6" y="32" width="52" height="56" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<text x="5.96" y="40.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="WDR-60-5"/>
+		<text x="9.47" y="46.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="5 V 10 A"/>
+		<circle x="12" y="66.4" diameter="4" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
+		<circle x="22" y="65.4" diameter="6" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<line x1="22" y1="69.9" x2="28" y2="66.9" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<terminal x="0" y="0" name="L1" orientation="n" type="Generic" uuid="{6fb1c5b9-efc4-545f-b61e-97e25f852bdd}"/>
+		<terminal x="10" y="0" name="L2" orientation="n" type="Generic" uuid="{ed04badd-36cb-57cd-b822-27ee1f9b6a88}"/>
+		<terminal x="0" y="120" name="+V" orientation="s" type="Generic" uuid="{b9376e62-cbfc-5efc-997f-4d635ce90d94}" potential="5V"/>
+		<terminal x="10" y="120" name="-V" orientation="s" type="Generic" uuid="{cdf8815d-d219-52a2-bdc8-5be77d71a1ed}" potential="0V"/>
+		<terminal x="30" y="120" name="13" orientation="s" type="Generic" uuid="{0577beda-bd94-54e5-8fa2-befd5b98c750}"/>
+		<terminal x="40" y="120" name="14" orientation="s" type="Generic" uuid="{0e96830b-1c83-5437-9f6c-d90e5f3a6ce3}"/>
+		<terminal x="20" y="0" name="PE" orientation="n" type="Generic" uuid="{e0855ac9-3044-5a7f-af70-b8764649f6e7}"/>
+	</description>
+</definition>

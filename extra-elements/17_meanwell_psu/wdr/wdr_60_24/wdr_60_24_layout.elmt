@@ -1,0 +1,33 @@
+<definition version="0.100.0" type="element" link_type="simple" width="60" height="110" hotspot_x="10" hotspot_y="30">
+	<uuid uuid="{331f3b83-1a4f-5fa7-ac36-b9d161690a87}"/>
+	<names>
+		<name lang="en">Mean Well WDR-60-24 DIN-rail power supply 24 V 2.5 A, layout (1 px = 2 mm)</name>
+		<name lang="fr">Alimentation rail DIN Mean Well WDR-60-24 24 V 2.5 A, implantation (1 px = 2 mm)</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Mean Well</elementInformation>
+		<elementInformation name="designation" show="1">DIN-rail power supply, AC input, 24 V DC 2.5 A, 60 W, 32 mm wide (layout)</elementInformation>
+		<elementInformation name="description" show="1">Mean Well WDR-60-24, 32x125.2x102 mm (width x height x depth)</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors
+Original vector drawing, not copied from a manufacturer drawing. Ratings and terminal names from the public datasheet; layout and symbols are generic, check them against the datasheet.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-14" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{d648bc62-8b04-5e6b-853b-deb0a68df731}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<rect x="0" y="0" width="16" height="62.6" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="8" x2="16" y2="8" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="54.6" x2="16" y2="54.6" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<circle x="1.17" y="2.5" diameter="3" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<circle x="6.5" y="2.5" diameter="3" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<circle x="11.83" y="2.5" diameter="3" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<circle x="0.5" y="57.1" diameter="3" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<circle x="4.5" y="57.1" diameter="3" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<circle x="8.5" y="57.1" diameter="3" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<circle x="12.5" y="57.1" diameter="3" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<line x1="0" y1="22.55" x2="3.17" y2="22.55" end1="none" end2="none" length1="1.5" length2="3" style="line-style:dashed;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="12.83" y1="22.55" x2="16" y2="22.55" end1="none" end2="none" length1="1.5" length2="3" style="line-style:dashed;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="40.05" x2="3.17" y2="40.05" end1="none" end2="none" length1="1.5" length2="3" style="line-style:dashed;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="12.83" y1="40.05" x2="16" y2="40.05" end1="none" end2="none" length1="1.5" length2="3" style="line-style:dashed;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="10.37" y="51.6" rotation="270" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="WDR-60-24"/>
+	</description>
+</definition>

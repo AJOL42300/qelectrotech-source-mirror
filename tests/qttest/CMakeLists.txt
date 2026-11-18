@@ -88,6 +88,13 @@ target_compile_definitions(tst_beckhoffelements PRIVATE
   QET_EXTRA_ELEMENTS_DIR="${QET_DIR}/extra-elements"
   QET_EXAMPLES_DIR="${QET_DIR}/examples")
 target_link_libraries(tst_beckhoffelements PRIVATE Qt::Test Qt::Xml)
+# The Murrelektronik MICO and Mean Well symbols of extra-elements.
+add_executable(tst_murrmeanwellelements tst_murrmeanwellelements.cpp)
+add_test(NAME tst_murrmeanwellelements COMMAND tst_murrmeanwellelements)
+target_compile_definitions(tst_murrmeanwellelements PRIVATE
+  QET_EXTRA_ELEMENTS_DIR="${QET_DIR}/extra-elements"
+  QET_EXAMPLES_DIR="${QET_DIR}/examples")
+target_link_libraries(tst_murrmeanwellelements PRIVATE Qt::Test Qt::Xml)
 # MSVC's Debug libraries make QElectroTech five to eight times slower than a
 # GCC build, for which the tests' time limits were chosen. Every limit is
 # multiplied by this scale: ctest's below, and the tests' own through
