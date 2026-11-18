@@ -16,7 +16,7 @@
 	along with QElectroTech.  If not, see <http://www.gnu.org/licenses/>.
 */
 /*
-	The Kinco KS105 and HMI Green symbols shipped in extra-elements: every
+	The Kinco KS105 and HMI M2 symbols shipped in extra-elements: every
 	product has its four appearances (symbol, realistic, description and
 	I/O table) with the same data, terminals on the 10 px grid, a bounding
 	box that holds the drawing, its articles (Parts tab) and a layout
@@ -102,20 +102,8 @@ class TstKincoElements : public QObject
 				 QStringLiteral("KS133-06IV")},
 				{QStringLiteral("ks_expansion"),
 				 QStringLiteral("KS131-04RD")},
-				{QStringLiteral("hmi_green_gl"), QStringLiteral("GL043")},
-				{QStringLiteral("hmi_green_gl"), QStringLiteral("GL043E")},
-				{QStringLiteral("hmi_green_gl"), QStringLiteral("GL070")},
-				{QStringLiteral("hmi_green_gl"), QStringLiteral("GL070E")},
-				{QStringLiteral("hmi_green_gl"), QStringLiteral("GL100")},
-				{QStringLiteral("hmi_green_gl"), QStringLiteral("GL100E")},
-				{QStringLiteral("hmi_green_gl"), QStringLiteral("GL104E")},
-				{QStringLiteral("hmi_green_gl"), QStringLiteral("GL150E")},
-				{QStringLiteral("hmi_green_gh"), QStringLiteral("GH043")},
-				{QStringLiteral("hmi_green_gh"), QStringLiteral("GH043E")},
-				{QStringLiteral("hmi_green_gh"), QStringLiteral("GH070")},
-				{QStringLiteral("hmi_green_gh"), QStringLiteral("GH070E")},
-				{QStringLiteral("hmi_green_gh"), QStringLiteral("GH104E")},
-				{QStringLiteral("hmi_green_gh"), QStringLiteral("GH150E")}};
+				{QStringLiteral("hmi_m2"), QStringLiteral("M2070HE")},
+				{QStringLiteral("hmi_m2"), QStringLiteral("M2100E")}};
 			return list;
 		}
 
@@ -162,7 +150,7 @@ class TstKincoElements : public QObject
 	private slots:
 		void thereAreAllTheProducts()
 		{
-			QCOMPARE(products().size(), 23);
+			QCOMPARE(products().size(), 11);
 			for (const auto &product : products()) {
 				for (const QString &suffix : {QString(),
 						QStringLiteral("_realistic"),
@@ -172,8 +160,9 @@ class TstKincoElements : public QObject
 							 qPrintable(cardPath(product, suffix)));
 				}
 			}
-				// 4 views of 23 products, 9 PLC footprints, 2 per HMI
-			QCOMPARE(allFiles().size(), 23 * 4 + 9 + 14 * 2);
+				// 4 views of 11 products, 3 DIN rail views, 9 PLC footprints,
+				// 2 per HMI
+			QCOMPARE(allFiles().size(), 11 * 4 + 3 + 9 + 2 * 2);
 		}
 
 		void directoriesAreTranslated()
@@ -185,7 +174,7 @@ class TstKincoElements : public QObject
 			while (it.hasNext()) {
 				dirs << it.next();
 			}
-			QVERIFY(dirs.size() > 20);
+			QVERIFY(dirs.size() > 10);
 			for (const QString &dir : dirs) {
 				const auto doc = load(dir + QStringLiteral("/qet_directory"));
 				QVERIFY2(doc.documentElement().tagName()
@@ -528,7 +517,132 @@ class TstKincoElements : public QObject
 					.toDouble() * 2 - m.captured(2).toDouble()) < 1.5,
 					qPrintable(file));
 			}
-			QCOMPARE(count, 9 + 14 * 2);
+			QCOMPARE(count, 9 + 2 * 2);
+		}
+
+		void ks105HasAVerticalDinRailViewWithItsConnectors()
+		{
+			const QStringList front{
+				QStringLiteral("1L+"), QStringLiteral("I0.0"),
+				QStringLiteral("I0.1"), QStringLiteral("I0.2"),
+				QStringLiteral("I0.3"), QStringLiteral("I0.4"),
+				QStringLiteral("I0.5"), QStringLiteral("I0.6"),
+				QStringLiteral("I0.7"), QStringLiteral("2L-"),
+				QStringLiteral("2L+"), QStringLiteral("Q0.0"),
+				QStringLiteral("Q0.1"), QStringLiteral("Q0.2"),
+				QStringLiteral("Q0.3"), QStringLiteral("Q0.4"),
+				QStringLiteral("Q0.5"), QStringLiteral("Q0.6"),
+				QStringLiteral("Q0.7")};
+			int cpus = 0;
+			for (const auto &product : products()) {
+				const QString din = cardPath(product,
+					QStringLiteral("_din"));
+				if (product.first != QLatin1String("ks105_cpu")) {
+						// the layout of the expansion modules is not
+						// documented, they have no such view
+					QVERIFY2(!QFileInfo::exists(din),
+							 qPrintable(product.second));
+					continue;
+				}
+				++cpus;
+				const auto def = load(din).documentElement();
+				const auto symbol = load(cardPath(product, QString()))
+					.documentElement();
+				QCOMPARE(def.attribute(QStringLiteral("link_type")),
+						 QStringLiteral("master"));
+				QCOMPARE(info(def, QStringLiteral("manufacturer_reference")),
+						 product.second);
+				QCOMPARE(ioAddresses(def), ioAddresses(symbol));
+				QMap<qreal, QString> column;
+				QSet<QString> names;
+				QSet<QString> symbolNames;
+				for (const auto &t : children(symbol,
+						QStringLiteral("terminal"))) {
+					if (!t.attribute(QStringLiteral("uuid")).isEmpty()) {
+						symbolNames << t.attribute(QStringLiteral("name"));
+					}
+				}
+				for (const auto &t : children(def,
+						QStringLiteral("terminal"))) {
+					if (t.attribute(QStringLiteral("uuid")).isEmpty()) {
+						continue;
+					}
+					const QString name = t.attribute(QStringLiteral("name"));
+					names << name;
+					if (t.attribute(QStringLiteral("x")).toDouble() == 0) {
+						QCOMPARE(t.attribute(QStringLiteral("orientation")),
+								 QStringLiteral("w"));
+						column.insert(
+							t.attribute(QStringLiteral("y")).toDouble(),
+							name);
+					}
+				}
+					// the same terminals as the schematic symbol
+				QCOMPARE(names, symbolNames);
+					// the front column, from top to bottom
+				QCOMPARE(column.values(), front);
+				const auto ys = column.keys();
+				for (int i = 1; i < ys.size(); ++i) {
+					QCOMPARE(ys.at(i) - ys.at(i - 1), 20.0);
+				}
+					// the plug and the sockets of the other faces
+				QVERIFY(names.contains(QStringLiteral("PE")));
+				QVERIFY(names.contains(QStringLiteral("RS485.A")));
+				QVERIFY(names.contains(QStringLiteral("RS232.TXD"))
+						|| names.contains(QStringLiteral("CAN2.L")));
+			}
+			QCOMPARE(cpus, 3);
+		}
+
+		void hmiCutOutIsWrittenWidthByHeightAndOnlyM2IsKept()
+		{
+			QDir dir = categoryDir();
+			QVERIFY(!dir.exists(QStringLiteral("hmi_green_gl")));
+			QVERIFY(!dir.exists(QStringLiteral("hmi_green_gh")));
+			static const QRegularExpression cut(QStringLiteral(
+				"Panel cut-out \\(W x H\\): ([0-9]+) x ([0-9]+) mm, "
+				"verified, source: https://"));
+			const QMap<QString, QPair<int, int>> expected{
+				{QStringLiteral("M2070HE"), {192, 138}},
+				{QStringLiteral("M2100E"), {260, 179}}};
+			int hmis = 0;
+			for (const auto &product : products()) {
+				if (product.first != QLatin1String("hmi_m2")) {
+					continue;
+				}
+				++hmis;
+				const auto def = load(cardPath(product, QString()))
+					.documentElement();
+				const auto m = cut.match(info(def,
+					QStringLiteral("description")));
+				QVERIFY2(m.hasMatch(), qPrintable(product.second));
+				const int w = m.captured(1).toInt();
+				const int h = m.captured(2).toInt();
+				QCOMPARE(w, expected.value(product.second).first);
+				QCOMPARE(h, expected.value(product.second).second);
+				QVERIFY(w > h);
+
+				const QString id = stem(product.second);
+				const auto fp = load(categoryDir().filePath(
+					QStringLiteral("implantation/") + id
+					+ QStringLiteral("_fp_cutout.elmt"))).documentElement();
+					// 1 px is 2 mm, the label says the same width x height
+				const auto r = children(fp, QStringLiteral("rect")).first();
+				QCOMPARE(r.attribute(QStringLiteral("width")).toDouble() * 2,
+						 qreal(w));
+				QCOMPARE(r.attribute(QStringLiteral("height")).toDouble()
+						 * 2, qreal(h));
+				QStringList texts;
+				for (const auto &t : children(fp, QStringLiteral("text"))) {
+					texts << t.attribute(QStringLiteral("text"));
+				}
+				QVERIFY2(texts.contains(QStringLiteral("%1 x %2 mm")
+										.arg(w).arg(h)),
+						 qPrintable(product.second));
+					// nothing is drawn across the dimension text
+				QCOMPARE(children(fp, QStringLiteral("line")).size(), 0);
+			}
+			QCOMPARE(hmis, 2);
 		}
 
 		void exampleProjectShowsTheWholeRange()
@@ -567,7 +681,7 @@ class TstKincoElements : public QObject
 			}
 			QVERIFY(titles.size() >= 12);
 			QVERIFY(titles.first().contains(QStringLiteral("KS105")));
-			QVERIFY(titles.filter(QStringLiteral("IHM Green")).size() >= 3);
+			QVERIFY(titles.filter(QStringLiteral("IHM M2")).size() >= 3);
 			QVERIFY(titles.filter(QStringLiteral("Catalogue")).size() >= 5);
 			for (const auto &product : products()) {
 				const QString file = stem(product.second)
@@ -580,7 +694,7 @@ class TstKincoElements : public QObject
 			for (const QString &id : {QStringLiteral("ks105c2_16dt"),
 					QStringLiteral("ks121_16dx"),
 					QStringLiteral("ks131_04rd"),
-					QStringLiteral("gl070e")}) {
+					QStringLiteral("m2070he")}) {
 				for (const QString &suffix : {QString(),
 						QStringLiteral("_realistic"),
 						QStringLiteral("_description"),
@@ -593,6 +707,8 @@ class TstKincoElements : public QObject
 			QFile raw(path);
 			QVERIFY(raw.open(QIODevice::ReadOnly));
 			QVERIFY(!raw.readAll().contains("\r"));
+			QVERIFY(views.value(QStringLiteral("ks105c2_16dt_din.elmt"))
+					>= 1);
 		}
 };
 
