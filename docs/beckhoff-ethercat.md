@@ -606,6 +606,11 @@ templates are embedded in the project, so it does not need the installed
 ones, and new folios of the example are created as A3 landscape.
 `python misc/beckhoff/gen_titleblocks.py` writes the two files.
 
+The folder also ships the two MCATECH templates with their logo
+(`Page paysage MCATECH.titleblock`, `Page de garde MCATech.titleblock`, copied
+from the user configuration). The Alstom, SNCF and ESKD (GOST) templates were
+removed from the folder. The A3 templates above stay logo-free.
+
 ## EPP2338 box
 
 The EPP2338-0002 (EtherCAT P box, `epp_box`, reference `EPP2338-0002`) is a
