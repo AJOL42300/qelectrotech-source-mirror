@@ -75,6 +75,9 @@
 #include "qetgraphicsitem/terminal.h"
 #include "qetinformation.h"
 #include "qetversion.h"
+#include "lastusedstyle.h"
+#include "properties/wireprofiles.h"
+#include "ui/wireprofilecombobox.h"
 #include <QApplication>
 #include <QDropEvent>
 #include <QMessageBox>
@@ -166,6 +169,8 @@ DiagramView::DiagramView(Diagram *diagram, QWidget *parent) :
 
 		//Filled each time the context menu opens, see updateFolioReportMenu()
 	m_folio_report_menu = new QMenu(tr("Sheet reference"), this);
+		//Filled each time the context menu opens, see wireProfileMenu()
+	m_wire_profile_menu = new QMenu(tr("Wire profile"), this);
 
 		//setup three separators, to be use in context menu
 	for(int i=0 ; i<3 ; ++i)
@@ -3216,6 +3221,39 @@ void DiagramView::setEventInterface(DVEventInterface *event_interface)
 }
 
 /**
+	@brief DiagramView::wireProfileMenu
+	The submenu of the context menu listing the wire profiles of the
+	project, filled for the current selection: empty, so that the
+	context menu leaves it out, when no conductor is selected or the
+	folio is read-only.
+	@param selected_items : the selected items of the folio
+	@return the submenu, owned by the view
+*/
+QMenu *DiagramView::wireProfileMenu(const QList<QGraphicsItem *> &selected_items) const
+{
+	m_wire_profile_menu->clear();
+	const bool has_conductor = std::any_of(
+		selected_items.cbegin(), selected_items.cend(),
+		[](QGraphicsItem *qgi) {return qgraphicsitem_cast<Conductor *>(qgi) != nullptr;});
+	if (!has_conductor || m_diagram->isReadOnly() || !m_diagram->project())
+		return m_wire_profile_menu;
+
+	Diagram *diagram = m_diagram;
+	for (const WireProfile &profile : m_diagram->project()->wireProfiles().profiles()) {
+		QString text = profile.name;
+		if (!profile.section.isEmpty())
+			text += tr(" (%1 mm²)").arg(profile.section);
+		QAction *action = m_wire_profile_menu->addAction(
+					WireProfileComboBox::swatchIcon(profile), text);
+		connect(action, &QAction::triggered, diagram, [diagram, profile]() {
+			LastUsedStyle::setConductorColor(profile.color);
+			WireProfiles::applyToSelection(diagram, profile);
+		});
+	}
+	return m_wire_profile_menu;
+}
+
+/**
 	@brief DiagramView::contextMenuActions
 	@return a list of actions currently available for a context menu.
 
@@ -3260,6 +3298,7 @@ QList<QAction *> DiagramView::contextMenuActions() const
 				}));
 			list << m_generate_cabinet_thumbnail;
 			list << qde->m_conductor_reset;
+			list << wireProfileMenu(selected_items)->menuAction();
 			list << qde->m_select_same_symbols;
 			list << qde->m_duplicate_island;
 			list << qde->m_create_appearances;

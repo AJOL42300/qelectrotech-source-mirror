@@ -4805,6 +4805,10 @@ Maintenir Maj et faire glisser pour déplacer ce texte seul</translation>
 <context>
     <name>DiagramToolbarSettings</name>
     <message>
+        <source>Wire profile</source>
+        <translation type="unfinished">Profil de fil</translation>
+    </message>
+    <message>
         <location filename="../sources/diagramtoolbarsettings.cpp" line="294"/>
         <source>Handle size</source>
         <translation>Taille des poignées</translation>
@@ -4832,6 +4836,14 @@ Maintenir Maj et faire glisser pour déplacer ce texte seul</translation>
 </context>
 <context>
     <name>DiagramView</name>
+    <message>
+        <source>Wire profile</source>
+        <translation type="unfinished">Profil de fil</translation>
+    </message>
+    <message>
+        <source> (%1 mm²)</source>
+        <translation type="unfinished"> (%1 mm²)</translation>
+    </message>
     <message>
         <location filename="../sources/diagramview.cpp" line="125"/>
         <source>In this area you conceive your diagrams by adding elements and conductors between their terminals. You may also add independent texts.</source>
@@ -12345,6 +12357,10 @@ Voulez-vous tout de même lier ce contact esclave ?</translation>
 <context>
     <name>NewDiagramPage</name>
     <message>
+        <source>Wire profiles</source>
+        <translation type="unfinished">Profils de fils</translation>
+    </message>
+    <message>
         <location filename="../sources/ui/configpage/configpages.cpp" line="147"/>
         <source>Display of the terminal labelling</source>
         <comment>group box title</comment>
@@ -13223,6 +13239,216 @@ Les variables suivantes sont incompatibles :
         <location filename="../sources/ui/potentialsourceswidget.cpp" line="172"/>
         <source>Set the potential sources</source>
         <translation>Définir les sources de potentiel</translation>
+    </message>
+</context>
+<context>
+    <name>WireProfiles</name>
+    <message>
+        <source>+24 V DC</source>
+        <translation type="unfinished">+24 V DC</translation>
+    </message>
+    <message>
+        <source>0 V DC</source>
+        <translation type="unfinished">0 V DC</translation>
+    </message>
+    <message>
+        <source>Protective earth (PE)</source>
+        <translation type="unfinished">Terre de protection (PE)</translation>
+    </message>
+    <message>
+        <source>Power circuit L1</source>
+        <translation type="unfinished">Circuit de puissance L1</translation>
+    </message>
+    <message>
+        <source>Power circuit L2</source>
+        <translation type="unfinished">Circuit de puissance L2</translation>
+    </message>
+    <message>
+        <source>Power circuit L3</source>
+        <translation type="unfinished">Circuit de puissance L3</translation>
+    </message>
+    <message>
+        <source>Neutral (N)</source>
+        <translation type="unfinished">Neutre (N)</translation>
+    </message>
+    <message>
+        <source>AC control circuit</source>
+        <translation type="unfinished">Circuit de commande AC</translation>
+    </message>
+    <message>
+        <source>Circuit from an external source</source>
+        <translation type="unfinished">Circuit issu d&apos;une source externe</translation>
+    </message>
+    <message>
+        <source>Analogue signal</source>
+        <translation type="unfinished">Signal analogique</translation>
+    </message>
+    <message>
+        <source>Bus (EtherCAT)</source>
+        <translation type="unfinished">Bus (EtherCAT)</translation>
+    </message>
+    <message>
+        <source>White wire</source>
+        <translation type="unfinished">Fil blanc</translation>
+    </message>
+    <message>
+        <source>Pink wire</source>
+        <translation type="unfinished">Fil rose</translation>
+    </message>
+    <message>
+        <source>Yellow wire</source>
+        <translation type="unfinished">Fil jaune</translation>
+    </message>
+    <message>
+        <source>Green wire</source>
+        <translation type="unfinished">Fil vert</translation>
+    </message>
+    <message>
+        <source>Light grey wire</source>
+        <translation type="unfinished">Fil gris clair</translation>
+    </message>
+    <message>
+        <source>White-grey wire</source>
+        <translation type="unfinished">Fil blanc-gris</translation>
+    </message>
+    <message>
+        <source>White-green wire</source>
+        <translation type="unfinished">Fil blanc-vert</translation>
+    </message>
+    <message>
+        <source>White-yellow wire</source>
+        <translation type="unfinished">Fil blanc-jaune</translation>
+    </message>
+    <message>
+        <source>Brown-grey wire</source>
+        <translation type="unfinished">Fil marron-gris</translation>
+    </message>
+    <message>
+        <source>Brown-green wire</source>
+        <translation type="unfinished">Fil marron-vert</translation>
+    </message>
+    <message>
+        <source>Yellow-brown wire</source>
+        <translation type="unfinished">Fil jaune-marron</translation>
+    </message>
+    <message>
+        <source>Yellow-red wire</source>
+        <translation type="unfinished">Fil jaune-rouge</translation>
+    </message>
+    <message>
+        <source>Black-red wire</source>
+        <translation type="unfinished">Fil noir-rouge</translation>
+    </message>
+    <message>
+        <source>Wire colour meaning</source>
+        <translation type="unfinished">Signification des couleurs de fils</translation>
+    </message>
+    <message>
+        <source>Colour</source>
+        <translation type="unfinished">Couleur</translation>
+    </message>
+    <message>
+        <source>Section</source>
+        <translation type="unfinished">Section</translation>
+    </message>
+    <message>
+        <source>Function</source>
+        <translation type="unfinished">Fonction</translation>
+    </message>
+    <message>
+        <source>%1 mm²</source>
+        <translation type="unfinished">%1 mm²</translation>
+    </message>
+    <message numerus="yes">
+        <source>Apply the wire profile &quot;%1&quot; to %n conductors</source>
+        <comment>undo caption</comment>
+        <translation type="unfinished">
+            <numerusform>Appliquer le profil de fil « %1 » à %n conducteur</numerusform>
+            <numerusform>Appliquer le profil de fil « %1 » à %n conducteurs</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
+    <name>WireProfileComboBox</name>
+    <message>
+        <source>Wire profile</source>
+        <translation type="unfinished">Profil de fil</translation>
+    </message>
+    <message>
+        <source>Gives the selected conductors the colour, section and label of a function of the project&apos;s wire colour table</source>
+        <comment>status bar tip</comment>
+        <translation type="unfinished">Donne aux conducteurs sélectionnés la couleur, la section et le label d&apos;une fonction de la table des couleurs de fils du projet</translation>
+    </message>
+    <message>
+        <source>Wire profile…</source>
+        <translation type="unfinished">Profil de fil…</translation>
+    </message>
+    <message>
+        <source> (%1 mm²)</source>
+        <translation type="unfinished"> (%1 mm²)</translation>
+    </message>
+</context>
+<context>
+    <name>WireProfilesWidget</name>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Aucune</translation>
+    </message>
+    <message>
+        <source>The functions offered in the toolbar and in the menu of a conductor. Choosing one gives the selected conductors its colour, section and label. The colour code is the text written on the wire (BK, RD, GNYE...). A second colour draws the conductor striped.</source>
+        <translation type="unfinished">Les fonctions proposées dans la barre d&apos;outils et dans le menu d&apos;un conducteur. En choisir une donne aux conducteurs sélectionnés sa couleur, sa section et son label. Le code couleur est le texte écrit sur le fil (BK, RD, GNYE...). Une seconde couleur dessine le conducteur rayé.</translation>
+    </message>
+    <message>
+        <source>Function</source>
+        <translation type="unfinished">Fonction</translation>
+    </message>
+    <message>
+        <source>Colour code</source>
+        <translation type="unfinished">Code couleur</translation>
+    </message>
+    <message>
+        <source>Colour</source>
+        <translation type="unfinished">Couleur</translation>
+    </message>
+    <message>
+        <source>Stripe colour</source>
+        <translation type="unfinished">Couleur de la rayure</translation>
+    </message>
+    <message>
+        <source>Section (mm²)</source>
+        <translation type="unfinished">Section (mm²)</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation type="unfinished">Label</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation type="unfinished">Ajouter</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished">Supprimer</translation>
+    </message>
+    <message>
+        <source>Restore the default table</source>
+        <translation type="unfinished">Rétablir la table par défaut</translation>
+    </message>
+    <message>
+        <source>New function</source>
+        <translation type="unfinished">Nouvelle fonction</translation>
+    </message>
+    <message>
+        <source>Change the colour…</source>
+        <translation type="unfinished">Changer la couleur…</translation>
+    </message>
+    <message>
+        <source>No stripe</source>
+        <translation type="unfinished">Pas de rayure</translation>
+    </message>
+    <message>
+        <source>Choose a colour</source>
+        <translation type="unfinished">Choisir une couleur</translation>
     </message>
 </context>
 <context>
@@ -15082,6 +15308,15 @@ Options disponibles :
 </context>
 <context>
     <name>QETDiagramEditor</name>
+    <message>
+        <source>Add a wire colour legend</source>
+        <translation type="unfinished">Ajouter une légende des couleurs de fils</translation>
+    </message>
+    <message>
+        <source>Adds a text with the colour, section and function of the wire profiles of the project</source>
+        <comment>status bar tip</comment>
+        <translation type="unfinished">Ajoute un texte avec la couleur, la section et la fonction des profils de fils du projet</translation>
+    </message>
     <message>
         <location filename="../sources/qetdiagrameditor.cpp" line="688"/>
         <source>Place symbol texts</source>

@@ -98,6 +98,8 @@
 #include "cablelist/cableexportdialog.h"
 #include "ui/bomexportdialog.h"
 #include "ui/conductorcolortoolbutton.h"
+#include "ui/wireprofilecombobox.h"
+#include "properties/wireprofiles.h"
 #include "ui/diagrambgcolorbutton.h"
 #include "ui/duplicatelabelsdialog.h"
 #include "ui/devicetypecheckdialog.h"
@@ -1382,6 +1384,17 @@ void QETDiagramEditor::setUpActions()
 		}
 	});
 
+		//The legend of the wire colour meaning table, as a text on the sheet
+	m_add_wire_legend = new QAction(QET::Icons::TableOfContent, tr("Add a wire colour legend"), this);
+	m_add_wire_legend->setStatusTip(tr("Adds a text with the colour, section and function of the wire profiles of the project",
+									   "status bar tip"));
+	connect(m_add_wire_legend, &QAction::triggered, this, [this]() {
+		if (DiagramView *dv = this->currentDiagramView()) {
+			WireProfiles::addLegend(dv->diagram(),
+									dv->mapToScene(dv->viewport()->rect().center()));
+		}
+	});
+
 		//Export the whole cable list to CSV, every column of the list
 	m_export_cable_list = new QAction(QET::Icons::DocumentSpreadsheet, tr("Export the cable list to CSV format"), this);
 	connect(m_export_cable_list, &QAction::triggered, [this]() {
@@ -2144,6 +2157,10 @@ void QETDiagramEditor::setUpToolBar()
 		//the selected conductors and sets the colour of the next one drawn.
 	m_conductor_color_button = new ConductorColorToolButton(this, this);
 	add_widget(QStringLiteral("widget:conductor_color"), m_conductor_color_button);
+		//The functions of the project's wire colour table: colour, section
+		//and label of the selected conductors in one choice.
+	m_wire_profile_box = new WireProfileComboBox(this, this);
+	add_widget(QStringLiteral("widget:wire_profile"), m_wire_profile_box);
 
 	addToolBar(Qt::TopToolBarArea, main_tool_bar);
 	addToolBar(Qt::TopToolBarArea, view_tool_bar);
@@ -2436,6 +2453,7 @@ void QETDiagramEditor::setUpMenu()
 	menu_lists -> addAction(m_project_terminalBloc);
 	menu_lists -> addSeparator();
 	menu_lists -> addAction(m_add_cable_list);
+	menu_lists -> addAction(m_add_wire_legend);
 	menu_lists -> addSeparator();
 	menu_lists -> addAction(m_add_island_folio);
 	menu_lists -> addAction(m_add_island_io_folio);
@@ -4044,6 +4062,7 @@ void QETDiagramEditor::slot_updateActions()
 	m_add_island_io_folio         -> setEnabled(editable_project);
 	m_cable_numbering             -> setEnabled(editable_project);
 	m_add_cable_list              -> setEnabled(editable_project);
+	m_add_wire_legend             -> setEnabled(editable_project);
 	m_export_cable_list           -> setEnabled(editable_project);
 	m_reload_element_drawings     -> setEnabled(opened_project);
 	m_update_elements_from_collections -> setEnabled(editable_project);
@@ -4395,6 +4414,9 @@ void QETDiagramEditor::slot_updateModeActions()
 
 	if (m_conductor_color_button) {
 		m_conductor_color_button->updateEnabledState();
+	}
+	if (m_wire_profile_box) {
+		m_wire_profile_box->updateEnabledState();
 	}
 }
 

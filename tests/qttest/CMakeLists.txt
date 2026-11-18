@@ -2476,6 +2476,9 @@ qet_add_app_test(tst_dragtextswithoutshift tst_dragtextswithoutshift.cpp)
 # Potential types (#1539): a project that asks for it draws a conductor in the
 # colour, line style and width of its potential type.
 qet_add_app_test(tst_potentialtypes tst_potentialtypes.cpp)
+# Wire profiles: the project's wire colour meaning table (colour, section,
+# label per function), applied to conductors from the toolbar and context menu.
+qet_add_app_test(tst_wireprofiles tst_wireprofiles.cpp)
 # potential_view: one row per potential (wires, terminals, folios, wire
 # numbers, more than one number), as QElectroTech groups the wires.
 qet_add_app_test(tst_potentialview tst_potentialview.cpp)

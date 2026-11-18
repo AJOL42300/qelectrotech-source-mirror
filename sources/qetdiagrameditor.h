@@ -41,6 +41,7 @@ class QETProject;
 class QETResult;
 class ProjectView;
 class ConductorColorToolButton;
+class WireProfileComboBox;
 class CustomElement;
 class DiagramBgColorToolButton;
 class Diagram;
@@ -350,6 +351,7 @@ class QETDiagramEditor : public QETMainWindow
 		*m_add_island_io_folio,        ///< Action to add a folio listing its I/O
 		*m_cable_numbering,            ///< Action to open the cable numbering window (rule + numbering of every cable)
 		*m_add_cable_list,             ///< Add a cable list graphics item
+		*m_add_wire_legend,            ///< Add the legend of the wire colour meaning table
 		*m_export_cable_list,          ///< Export the cable list of the project to CSV
 		*m_reload_element_drawings,    ///< Action to redraw every placed element from its current definition
 		*m_update_elements_from_collections, ///< Action to replace embedded elements changed in their collection
@@ -386,6 +388,7 @@ class QETDiagramEditor : public QETMainWindow
 
 		///< One-click conductor colour, in the "Schéma" toolbar
 		ConductorColorToolButton *m_conductor_color_button = nullptr;
+	WireProfileComboBox *m_wire_profile_box = nullptr;
 		///< Diagram background color picker, in the "Affichage" toolbar
 		DiagramBgColorToolButton *m_background_color_button = nullptr;
 		QMenu *m_text_grid_menu = nullptr;		///< Snap step used when dragging texts

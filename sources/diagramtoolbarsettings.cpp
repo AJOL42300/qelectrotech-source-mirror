@@ -208,6 +208,7 @@ QStringList DiagramToolbarSettings::defaultIds(const QString &name)
 			QStringLiteral("diagrameditor.add_cable"),
 			QStringLiteral("diagrameditor.add_bridge"),
 			QStringLiteral("widget:conductor_color"),
+			QStringLiteral("widget:wire_profile"),
 			sep,
 			QStringLiteral("diagrameditor.place_symbol_texts")};
 	}
@@ -281,7 +282,8 @@ QStringList DiagramToolbarSettings::widgetIds()
 		QStringLiteral("widget:grid_step"),
 		QStringLiteral("widget:text_grid"),
 		QStringLiteral("widget:background_color"),
-		QStringLiteral("widget:conductor_color")};
+		QStringLiteral("widget:conductor_color"),
+		QStringLiteral("widget:wire_profile")};
 }
 
 bool DiagramToolbarSettings::isWidget(const QString &id)
@@ -301,6 +303,8 @@ QString DiagramToolbarSettings::widgetTitle(const QString &id)
 		return QCoreApplication::translate("DiagramToolbarSettings", "Sheet background color");
 	if (id == QLatin1String("widget:conductor_color"))
 		return QCoreApplication::translate("DiagramToolbarSettings", "Conductor color");
+	if (id == QLatin1String("widget:wire_profile"))
+		return QCoreApplication::translate("DiagramToolbarSettings", "Wire profile");
 	return id;
 }
 
