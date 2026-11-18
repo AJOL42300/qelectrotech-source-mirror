@@ -100,7 +100,8 @@ or table view), one sub-folder per family:
 | `m12_cable` | Moulded cable M12 male / M12 female, A-coded, PUR 4 x 0.34: `7000-40021-6340050`, `-6340100`, `-6340200`, `-6340300`, `-6340500`, `-6341000` (0.5, 1, 2, 3, 5, 10 m) |
 | `m12_y_distributor` | Y distributor M12 male / valve connector form BI 18 mm: `7000-42421-6260060` (0.6 m), `-6260030` (0.3 m) |
 | `m12_connector` | Free M12 A-coded connector, IDC terminals: male `7000-12481-0000000`, female `7000-12601-0000000` |
-| `m12_t_coupler` | T coupler, M12 male 5-pole input and 2 x M12 female 4-pole, LEDs: `7000-41135-0000000` |
+| `m12_t_coupler` | T coupler, M12 male 5-pole base and 2 x M12 female (5 contacts, 4 wired), 3 LEDs GN / WH / YE: `7000-41135-0000000` |
+| `m12_valve_plug` | Valve plug with LED and suppression diodes, form BI, 24 V AC/DC, with cable: `7000-11021-2160500`, `7000-18141-6R52500` |
 | `m12_valve_coil` | Generic solenoid valve coil form BI 18 mm, 24 V DC (no manufacturer reference) |
 
 Principles:
@@ -154,19 +155,50 @@ elements.
 
 Assumed, to check against the datasheets:
 
-- the cable 7000-40021 is 4-pole in the datasheet (only 4 pins are drawn); the
-  free connectors are 4-pole (12481 from the datasheet, 12601 by analogy);
-  only the T coupler input is 5-pole;
+- the cable 7000-40021: the female end has **5 contacts** but the cable has
+  **4 conductors** (1 brown, 2 white, 3 blue, 4 black); contact 5 is drawn
+  but not wired, the male end draws 4 pins. This is the user's information,
+  not read in a datasheet; the free connectors are 4-pole (12481 from the
+  datasheet, 12601 by analogy);
+- female contacts are drawn as discs filled with the pin colour, with a
+  black outline and a small hole, so that the colours are as readable as on
+  the male pins; the male/female difference stays in the shape (solid pin
+  vs. socket with hole and slot);
+- **T coupler** (wiring read from the internal diagram supplied by the user,
+  "vérifié par schéma fourni par l'utilisateur"): base pin 1 -> contact 1 of
+  both sockets; pin 4 -> contact 4 of socket 1 only; pin 2 -> contact 4 of
+  socket 2 only; pin 3 -> contact 3 and pin 5 -> contact 5 of both; three
+  LEDs with a resistor, cathodes on pin 3: GN between pins 1 and 3, WH between
+  pins 2 and 3, YE between pins 4 and 3. Dimensions 32 x 45 mm, M12x1, socket
+  spacing 16.4 mm, from the user's dimensioned drawing (recorded in the
+  description, not to scale in the symbol). The exact order reference
+  (kept `7000-41135-0000000` from the original list) is **to be confirmed**
+  on murrelektronik.com. There is no realistic or layout (32 x 45 mm)
+  appearance for the coupler: the M12 library is single-appearance;
+- **valve plugs** `7000-11021-2160500` (MSUD, form BI 11 mm, 24 V AC +/-20 %
+  / DC +/-25 %, LED and suppression, 4 A per contact, cable length 5 m
+  inferred from the suffix) and `7000-18141-6R52500` (24 V AC/DC, LED
+  green/yellow, PUR 5 x 0.5, 25 m; the shop title says A-18 mm while the text
+  says form BI 11 mm). Sources: shop.murrelektronik.com, "Valve-Connectors /
+  With-open-ended-wires" pages of these two references. The drawn circuit
+  (LED + resistor, two anti-series suppression diodes between contacts 1 and
+  2, PE) comes from the Y distributor diagram supplied by the user, not from
+  a plug datasheet; diode type (TVS or Zener) and polarity are not confirmed.
+  Form BI is 11 mm on the Murrelektronik site, the library keeps "18 mm"
+  from the designation of the 42421;
+- Y distributor 7000-42421 ("vérifié par schéma de fiche fourni par
+  l'utilisateur"): male M12 with pins 2, 3, 4, 5 wired (pin 1 free); pin 4 ->
+  contact 1 of valve 1, pin 2 -> contact 1 of valve 2, pin 3 -> contact 2 of
+  both, pin 5 -> PE of both; each valve connector has a yellow LED, a
+  resistor and two anti-series suppression diodes between 1 and 2;
 - the position of the pins (1 top left, 2 top right, 3 bottom right,
   4 bottom left, 5 centre, seen from the front of the male connector) and the
   colours of the conductors follow the usual M12 A-coded convention and the
   wire order given in the datasheet;
-- Y distributor 7000-42421: the M12 is drawn male (EPP side) and the two valve
-  connectors as sockets with contacts 1, 2 and PE; the datasheet of the 42421
-  was not found (only the 42401 family), so the contact assignment is assumed;
-- the LEDs of the T coupler are drawn without function (legend = the output
-  they are assumed to follow) and its internal wiring (distribution function)
-  is not drawn; the T-shaped body is a schematic silhouette, not to scale;
+- Y distributor 7000-42421: genders (male M12 on the EPP side, valve
+  connectors as sockets) and branch lengths are assumed; its own datasheet
+  was not found (only the 42401 family);
+- the T-shaped body of the coupler is a schematic silhouette, not to scale;
 - the coding key position, the contact layout and the pin colours of the
   M12 drawings come from the general A-coded convention, and the contact
   colours of the valve connector (red, blue, orange) are the library colour

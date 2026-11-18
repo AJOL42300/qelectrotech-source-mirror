@@ -61,6 +61,11 @@ FAMILIES = {
     "m12_valve_coil": ("Solenoid valve coils",
                        "Bobines d'\u00e9lectrovanne",
                        "Magnetventilspulen"),
+    "m12_valve_plug": ("Valve plugs form BI with LED and suppression",
+                       "Connecteurs d'\u00e9lectrovanne forme BI avec LED "
+                       "et protection",
+                       "Ventilstecker Bauform BI mit LED und "
+                       "Schutzbeschaltung"),
 }
 
 # Pin positions seen from the mating face of a male A-coded connector;
@@ -104,14 +109,18 @@ def connector(c, cx, cy, male, poles):
         px, py = cx + x, cy + y
         colour = PIN_COLOURS[n]
         if male:
-            c.disc(px, py, 4, colour, BLACK if colour == "white" else colour)
+            c.disc(px, py, 7, colour, BLACK, "normal")
         else:
-            c.disc(px, py, 5, "white", BLACK if colour == "white"
-                   else colour)
+            # a socket: a ring filled with the colour of the contact, with
+            # a dark (light for the black contact) hole in the middle
+            c.disc(px, py, 8, colour, BLACK, "normal")
+            c.disc(px, py, 3, "white" if colour == "black" else "black",
+                   BLACK)
+        ty = py - 1.2 if y < 0 else py - 5.2 if y > 0 else py - 3.1
         if x < 0:
-            c.text_r(px - 3, py - 3.2, str(n), 4)
+            c.text_r(px - 4.5, ty, str(n), 4)
         else:
-            c.text(px + 3, py - 3.2, str(n), 4)
+            c.text(px + 4.5, ty, str(n), 4)
 
 
 EV_COLOURS = {"1": "red", "2": "blue", "PE": "orange"}
@@ -129,11 +138,15 @@ def blade(c, x, y, w, h, colour, male, hole=False):
         c.disc(x + w / 2, y + h / 2, 2.4, "white", colour)
 
 
-def valve_connector(c, cx, cy, male=False):
+def valve_connector(c, cx, cy, male=False, led=False):
     """A valve connector form BI: two flat blades side by side for contacts
     1 and 2 and a lower, wider flat blade with a hole for PE (assumed).
-    Contact 1 is red, 2 blue and PE orange, as the colours of the library."""
+    Contact 1 is red, 2 blue and PE orange, as the colours of the library.
+    With led=True the yellow status LED of the plug is drawn between the
+    contacts 1 and 2."""
     c.rect(cx - 22, cy - 15, 44, 30, LIGHT)
+    if led:
+        c.disc(cx, cy - 6, 5, "yellow")
     blade(c, cx - 12, cy - 12, 4, 12, EV_COLOURS["1"], male)
     blade(c, cx + 8, cy - 12, 4, 12, EV_COLOURS["2"], male)
     blade(c, cx - 8, cy + 3, 16, 7, EV_COLOURS["PE"], male, True)
@@ -220,10 +233,13 @@ class Cable(Product):
             self.short,
             "C\u00e2ble moul\u00e9 M12 m\u00e2le 0\u00b0 / M12 femelle 0\u00b0 "
             f"cod\u00e9 A, PUR 4x0,34, {metres(length)} m",
-            "M12 male 0 deg / M12 female 0 deg, A-coded, 4 poles, "
-            f"PUR 4 x 0.34 mm2, {metres(length)} m. "
-            "Pins 1 brown, 2 white, 3 blue, 4 black. Function routing: "
-            "X1 and X2 are the same channels (1 = pin 4, 2 = pin 2).", 4)
+            "M12 male 0 deg / M12 female 0 deg, A-coded, PUR 4 x 0.34 mm2, "
+            f"{metres(length)} m. The female connector has 5 contacts (the "
+            "contact 5 is present but not wired) and the cable has 4 "
+            "conductors: 1 brown, 2 white, 3 blue, 4 black on the pins 1 to "
+            "4 of both ends (the free contact 5 is the information of the "
+            "user, not read in the datasheet). Function routing: X1 and X2 "
+            "are the same channels (1 = pin 4, 2 = pin 2).", 4)
         self.terms = (term("X1", 0, 0, "w"), term("X2", 200, 0, "e"))
 
     def draw(self):
@@ -231,7 +247,7 @@ class Cable(Product):
         c.line(0, 0, 10, 0)
         c.line(190, 0, 200, 0)
         connector(c, 33, 0, True, 4)
-        connector(c, 167, 0, False, 4)
+        connector(c, 167, 0, False, 5)
         overmould(c, 56, 0, 1)
         overmould(c, 144, 0, -1)
         c.rect(84, -3, 32, 6, "gray")
@@ -256,10 +272,17 @@ class YDistributor(Product):
             "m12_y_" + metres(length).replace(",", "_") + "m", self.short,
             "R\u00e9partiteur Y M12 m\u00e2le / 2 connecteurs pour "
             f"\u00e9lectrovanne forme BI 18 mm, {metres(length)} m",
-            "Y distributor, M12 male A-coded, 4 poles, to two valve "
-            f"connectors form BI 18 mm, {metres(length)} m. The contacts "
-            "of the valve connectors are assumed (1, 2, PE). Function "
-            "routing: channel 1 (pin 4) to X2, channel 2 (pin 2) to X3.", 4)
+            "Y distributor, M12 male A-coded to two valve connectors "
+            f"form BI, {metres(length)} m. Wiring from the diagram of the "
+            "datasheet supplied by the user: the M12 pins 2, 3, 4 and 5 are "
+            "wired (pin 1 free), pin 4 to the contact 1 of valve 1 (X2), "
+            "pin 2 to the contact 1 of valve 2 (X3), pin 3 to the contact 2 "
+            "and pin 5 to PE of both valves; each valve connector has a "
+            "yellow LED with a resistor and two suppression diodes in "
+            "anti-series between the contacts 1 and 2. The datasheet of the "
+            "42421 itself was not found (the connector form is the one of "
+            "the order designation). Function routing: channel 1 (pin 4) "
+            "to X2, channel 2 (pin 2) to X3.", 5)
         self.length = length
         self.terms = (term("X1", 0, 0, "w"), term("X2", 200, -30, "e"),
                       term("X3", 200, 30, "e"))
@@ -269,7 +292,7 @@ class YDistributor(Product):
         c.line(0, 0, 10, 0)
         c.line(190, -30, 200, -30)
         c.line(190, 30, 200, 30)
-        connector(c, 33, 0, True, 4)
+        connector(c, 33, 0, True, 5)
         overmould(c, 56, 0, 1)
         cable_line(c, 84, 0, 98, 0)
         c.poly([(96, -6), (106, -6), (120, -14), (120, 14), (106, 6),
@@ -277,7 +300,7 @@ class YDistributor(Product):
         for sign in (-1, 1):
             cable_line(c, 120, 14 * sign, 134, 30 * sign)
             cable_line(c, 134, 30 * sign, 146, 30 * sign)
-            valve_connector(c, 168, 30 * sign)
+            valve_connector(c, 168, 30 * sign, False, True)
         c.text_c(33, 26, "male", 4)
         c.text_c(100, 14, f"{metres(self.length)} m", 6, True)
         c.text_c(90, 26, self.order, 5)
@@ -333,12 +356,35 @@ class TCoupler(Product):
             "m12_t_coupler", "7000-41135-0000000", "m12_t_coupler",
             self.short,
             "Coupleur T M12 m\u00e2le (5 p\u00f4les) / 2 x M12 femelle "
-            "(4 p\u00f4les) cod\u00e9 A, LED",
-            "T coupler (Slim Line), M12 male 5 poles A-coded to two M12 "
-            "female 4 poles A-coded, LEDs, distribution function. Function "
-            "routing: channel 1 (pin 4) to X2, channel 2 (pin 2) to X3.", 5)
+            "(4 contacts c\u00e2bl\u00e9s) cod\u00e9 A, 3 LED",
+            "T coupler, M12 male base 5 poles A-coded to two M12 female "
+            "sockets A-coded, 3 LEDs with resistors. Housing about 32 x 45 "
+            "mm, M12x1, sockets 16.4 mm apart (dimensions read on the "
+            "drawing supplied by the user). Internal wiring from the "
+            "diagram supplied by the user (the order number itself is "
+            "still to be confirmed on the Murrelektronik site): base pin 1 "
+            "to the contacts 1 of both sockets, pin 2 to the contact 4 of "
+            "socket 2 (X3) only, pin 4 to the contact 4 of socket 1 (X2) "
+            "only, pin 3 to the contacts 3 and pin 5 to the contacts 5 of "
+            "both; the contact 2 of the sockets is not wired. LEDs, all "
+            "cathodes on pin 3: GN between pins 1 and 3, WH between pins "
+            "2 and 3, YE between pins 4 and 3. Function routing: channel 1 "
+            "(pin 4) to X2, channel 2 (pin 2) to X3.", 5)
         self.terms = (term("X1", 0, 0, "w"), term("X2", 200, -30, "e"),
                       term("X3", 200, 30, "e"))
+
+    def led_branch(self, c, x, y, fill, name):
+        """Resistor and LED in series from the line y down to the line of
+        the pin 3 (y 24), anode on top."""
+        c.line(x, y, x, 3)
+        c.rect(x - 3, 3, 6, 8)
+        c.line(x, 11, x, 14)
+        c.poly([(x - 4, 14), (x + 4, 14), (x, 21)], True, fill)
+        c.line(x - 4, 21, x + 4, 21)
+        c.line(x, 21, x, 24)
+        c.disc(x, y, 2.5, "black")
+        c.disc(x, 24, 2.5, "black")
+        c.text(x + 3.5, 12, name, 4)
 
     def draw(self):
         c = Canvas()
@@ -346,18 +392,43 @@ class TCoupler(Product):
         c.line(190, -30, 200, -30)
         c.line(190, 30, 200, 30)
         connector(c, 33, 0, True, 5)
-        connector(c, 167, -30, False, 4)
-        connector(c, 167, 30, False, 4)
-        c.poly([(56, -10), (90, -10), (90, -52), (124, -52), (124, -36),
-                (144, -36), (144, -24), (124, -24), (124, 24), (144, 24),
-                (144, 36), (124, 36), (124, 52), (90, 52), (90, 10),
-                (56, 10)], True, LIGHT)
-        for y, name in ((-30, "X2"), (0, "X1"), (30, "X3")):
-            c.disc(99, y, 6, GREEN)
-            c.text(106, y - 3.2, name, 4)
-        c.text_c(33, 26, "male", 4)
+        connector(c, 167, -30, False, 5)
+        connector(c, 167, 30, False, 5)
+        c.rect(58, -57, 84, 115, "white")
+        # the lines of the base pins, from top to bottom 4, 1, 2, 5, 3
+        lines = ((4, -24, "black"), (1, -16, "brun"), (2, -8, "black"),
+                 (5, 0, "gray"), (3, 24, "blue"))
+        for pin, y, colour in lines:
+            c.text(60.5, y - 2, str(pin), 4)
+        c.line(66, -24, 108, -24, "black")
+        c.line(108, -24, 108, -38, "black")
+        c.line(108, -38, 134, -38, "black")
+        c.line(66, -16, 112, -16, "brun")
+        c.line(66, -8, 108, -8, "black")
+        c.line(108, -8, 108, 45, "black")
+        c.line(108, 45, 134, 45, "black")
+        c.line(66, 0, 128, 0, "gray")
+        c.line(66, 24, 120, 24, "blue")
+        # buses of the contacts 1, 3 and 5, common to both sockets
+        c.line(112, -52, 112, 31, "brun")
+        c.line(120, -45, 120, 38, "blue")
+        c.line(128, -31, 128, 52, "gray")
+        for x, y in ((112, -16), (128, 0), (120, 24)):
+            c.disc(x, y, 3, "black")
+        for y, x0 in ((-52, 112), (-45, 120), (-31, 128), (31, 112),
+                      (38, 120), (52, 128)):
+            colour = {112: "brun", 120: "blue", 128: "gray"}[x0]
+            c.line(x0, y, 134, y, colour)
+        for y, name in ((-52, "1"), (-45, "3"), (-38, "4"), (-31, "5"),
+                        (31, "1"), (38, "3"), (45, "4"), (52, "5")):
+            c.text(136, y - 2, name, 4)
+        # the three LEDs, in this order GN (pin 1), WH (pin 2), YE (pin 4)
+        self.led_branch(c, 70, -8, "white", "WH")
+        self.led_branch(c, 83, -16, "green", "GN")
+        self.led_branch(c, 96, -24, "yellow", "YE")
+        c.text_c(33, 30, "male", 4)
         c.text_c(167, 56, "female", 4)
-        c.text_c(90, 56, self.order, 5)
+        c.text_c(100, 62, self.order, 5)
         return c
 
 
@@ -419,9 +490,95 @@ class ValveCoil(Product):
         return c
 
 
+class ValvePlug(Product):
+    """Valve plug form BI with LED and suppression; X1 is the cable end,
+    X2 the side of the valve coil. The internal circuit is drawn between
+    the contacts 1 and 2: a LED in series with a resistor, in parallel
+    with two suppression diodes in anti-series; PE goes straight through."""
+    kind_en = "Valve plug form BI with LED and suppression"
+    kind_fr = "Connecteur d'\u00e9lectrovanne forme BI avec LED et protection"
+    ly = -50
+
+    def __init__(self, order, file, short, cable, led, source_note):
+        self.short = short
+        self.short_fr = short
+        super().__init__(
+            "m12_valve_plug", order, file, short,
+            "Connecteur d'\u00e9lectrovanne forme BI, 24 V AC/DC, "
+            f"LED et protection, {cable}",
+            "MSUD valve plug form BI (11 mm in the datasheet), "
+            "24 V AC +-20 % / DC +-25 %, LED " + led + " and suppression "
+            "(diode, Zener diode), 4 A per contact max., cut-off peak "
+            f"voltage 55 V, {cable}. " + source_note +
+            " The internal circuit drawn (LED and resistor in series, in "
+            "parallel with two anti-series suppression diodes, between the "
+            "contacts 1 and 2; PE straight through) follows the diagram of "
+            "the Y distributor datasheet supplied by the user and is "
+            "assumed for the plug. Function routing: X1 and X2 are the "
+            "same channel.", 3)
+        self.terms = (term("X1", 0, 0, "w"), term("X2", 160, 0, "e"))
+
+    def draw(self):
+        c = Canvas()
+        cable_line(c, 0, 0, 30, 0)
+        c.rect(30, -34, 110, 68, "white")
+        # the cable wires fan out to the three contacts
+        rails = ((-18, "red"), (18, "blue"), (29, "orange"))
+        for y, colour in rails:
+            c.line(30, 0, 38, y, colour)
+            c.line(38, y, 128, y, colour)
+        # branch 1: LED in series with a resistor
+        c.line(65, -18, 65, -14)
+        c.rect(61, -14, 8, 12)
+        c.line(65, -2, 65, 3)
+        c.poly([(60, 3), (70, 3), (65, 12)], True, "yellow")
+        c.line(60, 12, 70, 12)
+        c.line(65, 12, 65, 18)
+        c.line(72, 6, 79, 1)
+        c.line(74, 10, 81, 5)
+        c.text(84, 0, "LED", 4)
+        # branch 2: two suppression diodes in anti-series
+        c.line(105, -18, 105, -14)
+        c.poly([(100, -14), (110, -14), (105, -4)], True)
+        c.line(100, -4, 110, -4)
+        c.line(105, -4, 105, 4)
+        c.line(100, 4, 110, 4)
+        c.poly([(100, 14), (110, 14), (105, 4)], True)
+        c.line(105, 14, 105, 18)
+        c.text(113, -2, "Z", 4)
+        for x in (65, 105):
+            c.disc(x, -18, 3, "black")
+            c.disc(x, 18, 3, "black")
+        # female contacts on the valve side, markings outside the housing
+        blade(c, 128, -22, 8, 8, EV_COLOURS["1"], False)
+        blade(c, 128, 14, 8, 8, EV_COLOURS["2"], False)
+        blade(c, 128, 25, 8, 8, EV_COLOURS["PE"], False, True)
+        c.text(143, -21, "1", 4)
+        c.text(143, 15, "2", 4)
+        c.text(143, 26, "PE", 4)
+        c.line(140, 0, 150, 0)
+        c.line(150, 0, 160, 0, BLACK, "hight")
+        c.text_c(85, 38, self.order, 5)
+        c.text_c(85, 46, "24 V AC/DC", 4)
+        return c
+
+
 CABLE_LENGTHS = ((0.5, "6340050"), (1, "6340100"), (2, "6340200"),
                  (3, "6340300"), (5, "6340500"), (10, "6341000"))
 Y_LENGTHS = ((0.6, "6260060"), (0.3, "6260030"))
+MSUD = "https://shop.murrelektronik.com/en/Connection-Technology/Valve-Connectors/"
+VALVE_PLUGS = (
+    ("7000-11021-2160500", "msud_bi_11021_2160500", "with cable",
+     "cable 5 m (assumed from the article number; the cable type was not "
+     "read)", "(see datasheet)",
+     "Source: " + MSUD + "With-open-ended-wires-oxid/"
+     "MSUD-valve-plug-BI-11mm-with-cable-7000-11021-2160500.html."),
+    ("7000-18141-6R52500", "msud_bi_18141_6r52500", "PUR 5x0.5, 25 m",
+     "cable PUR 5 x 0.5 mm2 black, 25 m", "green/yellow",
+     "Source: " + MSUD + "With-open-ended-wires-oxid/"
+     "MSUD-valve-plug-A-18mm-with-cable-7000-18141-6R52500.html (the shop "
+     "title says A-18mm, the text says form BI 11 mm: to check)."),
+)
 
 # How a function (signal) travels through the passive elements. A link is
 # (terminal, channel, terminal, channel) and works both ways. An EPP M12
@@ -432,6 +589,7 @@ ROUTES = {
     "m12_cable": [["X1", 1, "X2", 1], ["X1", 2, "X2", 2]],
     "m12_y_distributor": [["X1", 1, "X2", 1], ["X1", 2, "X3", 1]],
     "m12_t_coupler": [["X1", 1, "X2", 1], ["X1", 2, "X3", 1]],
+    "m12_valve_plug": [["X1", 1, "X2", 1]],
 }
 ROUTES_FILE = "function_routes.json"
 
@@ -445,6 +603,7 @@ def products():
             FreeConnector("7000-12601-0000000", False)]
     out.append(TCoupler())
     out.append(ValveCoil())
+    out += [ValvePlug(*v) for v in VALVE_PLUGS]
     return out
 
 

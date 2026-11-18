@@ -579,7 +579,7 @@ class TstMurrMeanwellElements : public QObject
 		void m12RoutesUseExistingTerminals()
 		{
 			const Routes r = routes();
-			QCOMPARE(r.size(), 3);
+			QCOMPARE(r.size(), 4);
 			for (auto it = r.cbegin(); it != r.cend(); ++it) {
 				const auto files = products(
 					QStringLiteral("18_murrelektronik_m12/") + it.key());
@@ -1043,7 +1043,8 @@ class TstMurrMeanwellElements : public QObject
 				{QStringLiteral("m12_y_distributor"), 3},
 				{QStringLiteral("m12_connector"), 1},
 				{QStringLiteral("m12_t_coupler"), 3},
-				{QStringLiteral("m12_valve_coil"), 1}};
+				{QStringLiteral("m12_valve_coil"), 1},
+				{QStringLiteral("m12_valve_plug"), 2}};
 			QSet<QString> references;
 			int files = 0;
 			QDir dir(root(cat));
@@ -1100,11 +1101,13 @@ class TstMurrMeanwellElements : public QObject
 					references << ref;
 				}
 			}
-			QCOMPARE(files, 12);
+			QCOMPARE(files, 14);
 			QSet<QString> expected{
 				QStringLiteral("7000-41135-0000000"),
 				QStringLiteral("7000-12481-0000000"),
 				QStringLiteral("7000-12601-0000000"),
+				QStringLiteral("7000-11021-2160500"),
+				QStringLiteral("7000-18141-6R52500"),
 				QStringLiteral("7000-42421-6260060"),
 				QStringLiteral("7000-42421-6260030")};
 			for (const char *code : {"6340050", "6340100", "6340200",
@@ -1112,6 +1115,27 @@ class TstMurrMeanwellElements : public QObject
 				expected << QStringLiteral("7000-40021-") + QLatin1String(code);
 			}
 			QCOMPARE(references, expected);
+		}
+
+		void m12DescriptionsKeepTheWiring()
+		{
+			const QString cat = QStringLiteral("18_murrelektronik_m12");
+			const auto coupler = load(root(cat)
+				+ QStringLiteral("/m12_t_coupler/m12_t_coupler.elmt"));
+			const QString c = info(coupler, QStringLiteral("description"));
+			for (const char *word : {"GN", "WH", "YE", "32 x 45",
+									 "16.4 mm", "contact 4"}) {
+				QVERIFY2(c.contains(QLatin1String(word)), word);
+			}
+			const auto cable = load(root(cat)
+				+ QStringLiteral("/m12_cable/m12_cable_1m.elmt"));
+			const QString k = info(cable, QStringLiteral("description"));
+			QVERIFY(k.contains(QLatin1String("5 contacts")));
+			QVERIFY(k.contains(QLatin1String("4 conductors")));
+			const auto plug = load(root(cat)
+				+ QStringLiteral("/m12_valve_plug/msud_bi_11021_2160500.elmt"));
+			QVERIFY(info(plug, QStringLiteral("description"))
+					.contains(QLatin1String("suppression")));
 		}
 
 		void m12ExampleFolioUsesDashedLinks()

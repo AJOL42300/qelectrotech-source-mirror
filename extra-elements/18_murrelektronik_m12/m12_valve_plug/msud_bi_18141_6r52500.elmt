@@ -1,0 +1,61 @@
+<definition version="0.100.0" type="element" link_type="simple" width="200" height="130" hotspot_x="20" hotspot_y="60">
+	<uuid uuid="{872c3763-cf16-56ee-a752-f22ee9090732}"/>
+	<names>
+		<name lang="en">Murrelektronik 7000-18141-6R52500 Valve plug form BI with LED and suppression PUR 5x0.5, 25 m</name>
+		<name lang="fr">Connecteur d'électrovanne forme BI avec LED et protection Murrelektronik 7000-18141-6R52500 PUR 5x0.5, 25 m</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Murrelektronik</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">7000-18141-6R52500</elementInformation>
+		<elementInformation name="designation" show="1">Connecteur d'électrovanne forme BI, 24 V AC/DC, LED et protection, cable PUR 5 x 0.5 mm2 black, 25 m</elementInformation>
+		<elementInformation name="description" show="1">MSUD valve plug form BI (11 mm in the datasheet), 24 V AC +-20 % / DC +-25 %, LED green/yellow and suppression (diode, Zener diode), 4 A per contact max., cut-off peak voltage 55 V, cable PUR 5 x 0.5 mm2 black, 25 m. Source: https://shop.murrelektronik.com/en/Connection-Technology/Valve-Connectors/With-open-ended-wires-oxid/MSUD-valve-plug-A-18mm-with-cable-7000-18141-6R52500.html (the shop title says A-18mm, the text says form BI 11 mm: to check). The internal circuit drawn (LED and resistor in series, in parallel with two anti-series suppression diodes, between the contacts 1 and 2; PE straight through) follows the diagram of the Y distributor datasheet supplied by the user and is assumed for the plug. Function routing: X1 and X2 are the same channel.</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors
+Original vector drawing, not copied from a manufacturer drawing. Ratings and terminal names from the public datasheet; layout and symbols are generic, check them against the datasheet.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-50" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{5f0f6cb9-8b17-5a55-bace-1f3e94e87ef0}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<line x1="0" y1="0" x2="30" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:hight;filling:none;color:black" antialias="false"/>
+		<rect x="30" y="-34" width="110" height="68" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<line x1="30" y1="0" x2="38" y2="-18" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:red" antialias="false"/>
+		<line x1="38" y1="-18" x2="128" y2="-18" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:red" antialias="false"/>
+		<line x1="30" y1="0" x2="38" y2="18" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:blue" antialias="false"/>
+		<line x1="38" y1="18" x2="128" y2="18" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:blue" antialias="false"/>
+		<line x1="30" y1="0" x2="38" y2="29" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:orange" antialias="false"/>
+		<line x1="38" y1="29" x2="128" y2="29" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:orange" antialias="false"/>
+		<line x1="65" y1="-18" x2="65" y2="-14" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="61" y="-14" width="8" height="12" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="65" y1="-2" x2="65" y2="3" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false" x1="60" y1="3" x2="70" y2="3" x3="65" y3="12"/>
+		<line x1="60" y1="12" x2="70" y2="12" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="65" y1="12" x2="65" y2="18" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="72" y1="6" x2="79" y2="1" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="74" y1="10" x2="81" y2="5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="84" y="0" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="LED"/>
+		<line x1="105" y1="-18" x2="105" y2="-14" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="100" y1="-14" x2="110" y2="-14" x3="105" y3="-4"/>
+		<line x1="100" y1="-4" x2="110" y2="-4" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="105" y1="-4" x2="105" y2="4" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="100" y1="4" x2="110" y2="4" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="100" y1="14" x2="110" y2="14" x3="105" y3="4"/>
+		<line x1="105" y1="14" x2="105" y2="18" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="113" y="-2" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="Z"/>
+		<circle x="63.5" y="-19.5" diameter="3" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<circle x="63.5" y="16.5" diameter="3" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<circle x="103.5" y="-19.5" diameter="3" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<circle x="103.5" y="16.5" diameter="3" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:white;color:red" antialias="false" x1="129.2" y1="-22" x2="134.8" y2="-22" x3="136" y3="-20.8" x4="136" y4="-15.2" x5="134.8" y5="-14" x6="129.2" y6="-14" x7="128" y7="-15.2" x8="128" y8="-20.8"/>
+		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:white;color:blue" antialias="false" x1="129.2" y1="14" x2="134.8" y2="14" x3="136" y3="15.2" x4="136" y4="20.8" x5="134.8" y5="22" x6="129.2" y6="22" x7="128" y7="20.8" x8="128" y8="15.2"/>
+		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:white;color:orange" antialias="false" x1="129.2" y1="25" x2="134.8" y2="25" x3="136" y3="26.2" x4="136" y4="31.8" x5="134.8" y5="33" x6="129.2" y6="33" x7="128" y7="31.8" x8="128" y8="26.2"/>
+		<circle x="130.8" y="27.8" diameter="2.4" style="line-style:normal;line-weight:thin;filling:white;color:orange" antialias="false"/>
+		<text x="143" y="-21" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="1"/>
+		<text x="143" y="15" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="2"/>
+		<text x="143" y="26" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="PE"/>
+		<line x1="140" y1="0" x2="150" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="150" y1="0" x2="160" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:hight;filling:none;color:black" antialias="false"/>
+		<text x="56.3" y="38" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="7000-18141-6R52500"/>
+		<text x="71.97" y="46" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="24 V AC/DC"/>
+		<terminal x="0" y="0" name="X1" orientation="w" type="Generic" uuid="{c0596362-eca2-5bc1-8982-d320f8884d53}"/>
+		<terminal x="160" y="0" name="X2" orientation="e" type="Generic" uuid="{6a0107ba-31ce-53e6-bec6-b79ba43ce575}"/>
+	</description>
+</definition>
