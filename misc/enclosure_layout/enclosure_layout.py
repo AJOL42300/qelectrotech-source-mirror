@@ -23,9 +23,13 @@ devices.json:
     python3 misc/enclosure_layout/enclosure_layout.py check project.qet
     python3 misc/enclosure_layout/enclosure_layout.py report project.qet
     python3 misc/enclosure_layout/enclosure_layout.py link REF --footprint ID
+    python3 misc/enclosure_layout/enclosure_layout.py length ID MM [MM...]
 
-"generate" writes the front-view enclosure elements and the generic
-footprint elements (DIN modules, DIN rails) next to the catalog. "check"
+"generate" writes the front-view enclosure, door and mounting plate
+elements and the footprint elements (DIN modules, DIN rails, ducts) next to
+the catalog. "length" writes a rail or a duct at the length given in
+millimetres (a duct also as a realistic view or as its cover). "articles"
+lists the references of the ducts. "check"
 reads a project and reports footprints that leave the usable area of their
 enclosure, are deeper than it or overlap, devices that do not fit in their
 cabinet, and components found in several cabinets. "report" lists the
@@ -37,6 +41,7 @@ import argparse
 import csv
 import json
 import math
+import re
 import sys
 import uuid
 import xml.etree.ElementTree as ET
@@ -46,6 +51,19 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_DIR = REPO_ROOT / "extra-elements" / "ide-enclosures"
 ENCLOSURE_PREFIX = "ide_enc_"
 FOOTPRINT_PREFIX = "ide_fp_"
+DOOR_PREFIX = "ide_door_"
+PLATE_PREFIX = "ide_plate_"
+# A duct has three views: the footprint (None), a realistic top view with
+# its slots and the cover alone. Each has its own stem prefix and folder.
+VIEW_PREFIX = {None: FOOTPRINT_PREFIX, "realistic": "ide_fpr_",
+               "cover": "ide_cov_"}
+VIEW_FOLDER = {None: "footprints", "realistic": "duct-realistic",
+               "cover": "duct-covers"}
+CUT_FOLDER = "duct-cut-lengths"
+# Pixels between two slots of the realistic view (schematic pitch).
+SLOT_PITCH_PX = 20
+# Suffix of the stem of a footprint drawn at a chosen length, in mm.
+LENGTH_SUFFIX = re.compile(r"^(.+)_L(\d+)$")
 # Millimetres of tolerance when comparing positions and sizes.
 EPSILON = 0.01
 # Share of the usable area above which a cabinet is reported as crowded.
@@ -99,6 +117,18 @@ def load_catalog(path=None, devices_path=None):
     for footprint in catalog["footprints"]:
         stem = FOOTPRINT_PREFIX + footprint["id"]
         catalog["_by_stem"][stem] = ("footprint", footprint)
+        if footprint["kind"] == "duct":
+            for view in ("realistic", "cover"):
+                item = dict(footprint, view=view)
+                catalog["_by_stem"][footprint_stem(item)] = (
+                    "footprint", item)
+    for enclosure in catalog["enclosures"]:
+        for kind, prefix, item in (("door", DOOR_PREFIX, door_item(enclosure)),
+                                   ("plate", PLATE_PREFIX,
+                                    plate_item(enclosure))):
+            if item:
+                catalog["_by_stem"][prefix + enclosure["reference"]] = (
+                    kind, item)
     by_id = {f["id"]: f for f in catalog["footprints"]}
     catalog["_devices"] = []
     for device in read_devices(catalog["devices_path"]):
@@ -138,7 +168,60 @@ def enclosure_stem(enclosure):
 
 
 def footprint_stem(footprint):
-    return FOOTPRINT_PREFIX + footprint["id"]
+    return VIEW_PREFIX[footprint.get("view")] + footprint["id"]
+
+
+def door_item(enclosure):
+    """The door of an enclosure as a placeable part, or None."""
+    door = enclosure.get("door")
+    if not door:
+        return None
+    return {"part": "door", "enclosure": enclosure["reference"],
+            "reference": enclosure["reference"], "data": door,
+            "width": door["width"], "height": door["height"],
+            "depth": door.get("thickness", 0)}
+
+
+def plate_item(enclosure):
+    """The mounting plate of an enclosure as a placeable part, or None."""
+    plate = enclosure.get("plate")
+    if not plate:
+        return None
+    return {"part": "plate", "enclosure": enclosure["reference"],
+            "reference": plate.get("reference") or enclosure["reference"],
+            "data": plate, "width": plate["width"],
+            "height": plate["height"], "depth": plate.get("thickness", 0)}
+
+
+def at_length(footprint, length):
+    """A copy of a stretchable footprint drawn at the given length (mm)."""
+    if not footprint.get("stretch"):
+        raise ValueError("%s has a fixed length" % footprint["id"])
+    if length <= 0:
+        raise ValueError("the length must be positive")
+    copy = dict(footprint)
+    copy["id"] = "%s_L%d" % (footprint["id"], length)
+    copy["width"] = length
+    copy["label"] = "%s L%d" % (footprint["label"], length)
+    copy["name_en"] = "%s, %d mm long" % (footprint["name_en"], length)
+    copy["name_fr"] = "%s, longueur %d mm" % (footprint["name_fr"], length)
+    return copy
+
+
+def lookup(catalog, stem):
+    """(kind, item) of an element stem; None when the catalog lacks it.
+
+    The stem of a stretchable footprint may end with _L and a length in
+    mm: it stands for the footprint at that length.
+    """
+    found = catalog["_by_stem"].get(stem)
+    if found:
+        return found
+    match = LENGTH_SUFFIX.match(stem)
+    base = catalog["_by_stem"].get(match.group(1)) if match else None
+    if base and base[0] == "footprint" and base[1].get("stretch"):
+        return ("footprint", at_length(base[1], int(match.group(2))))
+    return None
 
 
 def fit_area(enclosure):
@@ -146,12 +229,15 @@ def fit_area(enclosure):
 
     Returns (x0, y0, x1, y1, depth) relative to the top left corner of the
     front view, or None when the catalog does not give the usable space.
-    A known mounting plate wins over the usable space. The area is
-    centred in the front view.
+    When both the plate and the usable space are known the smaller of the
+    two wins on each side. The area is centred in the front view.
     """
     plate = enclosure.get("plate")
     usable = enclosure.get("usable")
-    if plate:
+    if plate and usable:
+        height = min(plate["height"], usable["height"])
+        width = min(plate["width"], usable["width"])
+    elif plate:
         height, width = plate["height"], plate["width"]
     elif usable:
         height, width = usable["height"], usable["width"]
@@ -285,23 +371,107 @@ def enclosure_element(catalog, enclosure):
                                   (10, 30, width, height, 10, 20), parts))
 
 
+def _duct_parts(view, width, height):
+    """The drawing of the realistic view or of the cover of a duct.
+
+    Seen from above: the walls are one pixel thick. The realistic view
+    shows the open duct with schematic slots in its base; the cover is a
+    plain lid with the lines of its edges.
+    """
+    normal = STYLE_BASE % ("normal", "normal")
+    thin = STYLE_BASE % ("normal", "thin")
+    parts = [_rect(0, 0, width, height, normal)]
+    wall = 1 if height > 4 else 0
+    if view == "cover":
+        parts.append(_rect(wall, wall, width - 2 * wall, height - 2 * wall,
+                           STYLE_BASE % ("dashed", "thin")))
+        return parts
+    inner_w, inner_h = width - 2 * wall, height - 2 * wall
+    parts.append(_rect(wall, wall, inner_w, inner_h, thin))
+    slot_h = max(1, round(inner_h * 0.6))
+    slot_y = wall + (inner_h - slot_h) / 2.0
+    x = SLOT_PITCH_PX / 2.0
+    while x + 3 <= width - wall:
+        parts.append(_rect(x - 3, slot_y, 6, slot_h, thin))
+        x += SLOT_PITCH_PX
+    return parts
+
+
 def footprint_element(catalog, footprint):
     """A footprint: the front view of a part, at the scale of the catalog."""
     scale = float(catalog["scale_mm_per_px"])
     stem = footprint_stem(footprint)
+    view = footprint.get("view")
     width = footprint["width"] / scale
     height = footprint["height"] / scale
-    parts = [_rect(0, 0, width, height, STYLE_BASE % ("normal", "normal"))]
+    if view:
+        parts = _duct_parts(view, width, height)
+    else:
+        parts = [_rect(0, 0, width, height,
+                       STYLE_BASE % ("normal", "normal"))]
     if width >= 24:
         parts.append(_static_text(stem, "name", 2, height / 2.0 - 3,
                                   footprint["label"], 5))
     parts.append(_label_text(stem, 1, 1, 5))
-    names = [("en", footprint["name_en"]), ("fr", footprint["name_fr"])]
+    name_en, name_fr = footprint["name_en"], footprint["name_fr"]
+    if view == "realistic":
+        name_en += " (realistic view)"
+        name_fr += " (vue réaliste)"
+    elif view == "cover":
+        name_en += ", cover (top view)"
+        name_fr += ", couvercle (vue de dessus)"
+    names = [("en", name_en), ("fr", name_fr)]
     infos = [("description", "%s, %sx%sx%s mm (width x height x depth)" % (
-        footprint["name_en"], _num(footprint["width"]),
+        name_en, _num(footprint["width"]),
         _num(footprint["height"]), _num(footprint["depth"])))]
+    if footprint.get("manufacturer"):
+        infos.append(("manufacturer", footprint["manufacturer"]))
+    if footprint.get("reference"):
+        infos.append(("manufacturer_reference", footprint["reference"]))
     return _serialize(_definition(stem, names, infos,
                                   (10, 10, width, height, 10, 10), parts))
+
+
+def part_element(catalog, kind, item):
+    """The front view of the door or of the mounting plate of an enclosure."""
+    scale = float(catalog["scale_mm_per_px"])
+    prefix = DOOR_PREFIX if kind == "door" else PLATE_PREFIX
+    stem = prefix + item["enclosure"]
+    width = item["width"] / scale
+    height = item["height"] / scale
+    size = _size_text(item["height"], item["width"], item["depth"])
+    data = item["data"]
+    manufacturer = catalog["manufacturer"]
+    if kind == "door":
+        kind_en, kind_fr = "door", "porte"
+        what = "%s door" % data.get("type", "opaque")
+        if data.get("reversible"):
+            what += ", reversible hinge side"
+        title = "%s %s" % (manufacturer, item["enclosure"])
+    else:
+        kind_en, kind_fr = "mounting plate", "platine de montage"
+        what = ("%s mounting plate" % data.get("material", "")).strip()
+        title = "%s %s" % (manufacturer, item["reference"])
+    parts = [_rect(0, 0, width, height, STYLE_BASE % ("normal", "normal"))]
+    parts.append(_static_text(stem, "reference", 0, -26, title, 8))
+    parts.append(_static_text(stem, "size", 0, -14,
+                              "%s of %s, %s mm" % (kind_en, item["enclosure"],
+                                                   size), 5))
+    parts.append(_label_text(stem, 0, height + 2, 8))
+    names = [
+        ("en", "%s %s of %s %s (front view)" % (
+            manufacturer, kind_en, manufacturer, item["enclosure"])),
+        ("fr", "%s %s de %s %s (vue de face)" % (
+            manufacturer, kind_fr, manufacturer, item["enclosure"])),
+    ]
+    infos = [
+        ("description", "%s of %s, %s mm (height x width x thickness)" % (
+            what, item["enclosure"], size)),
+        ("manufacturer", manufacturer),
+        ("manufacturer_reference", item["reference"]),
+    ]
+    return _serialize(_definition(stem, names, infos,
+                                  (10, 30, width, height, 10, 20), parts))
 
 
 def directory_file(names):
@@ -323,20 +493,57 @@ def render_all(catalog):
             ("en", "Enclosures (front view)"),
             ("fr", "Armoires et coffrets (vue de face)")]),
         "footprints/qet_directory": directory_file([
-            ("en", "Footprints (DIN rails and modular devices)"),
-            ("fr", "Empreintes (rails DIN et appareils modulaires)")]),
+            ("en", "Footprints (DIN rails, ducts and modular devices)"),
+            ("fr", "Empreintes (rails DIN, goulottes et appareils "
+                   "modulaires)")]),
+        "doors/qet_directory": directory_file([
+            ("en", "Doors (front view)"),
+            ("fr", "Portes (vue de face)")]),
+        "plates/qet_directory": directory_file([
+            ("en", "Mounting plates (front view)"),
+            ("fr", "Platines de montage (vue de face)")]),
+        VIEW_FOLDER["realistic"] + "/qet_directory": directory_file([
+            ("en", "Ducts, realistic view (top view)"),
+            ("fr", "Goulottes, vue réaliste (vue de dessus)")]),
+        VIEW_FOLDER["cover"] + "/qet_directory": directory_file([
+            ("en", "Duct covers (top view)"),
+            ("fr", "Couvercles de goulottes (vue de dessus)")]),
+        CUT_FOLDER + "/qet_directory": directory_file([
+            ("en", "Ducts cut to standard lengths (footprints)"),
+            ("fr", "Goulottes coupées à longueur standard (empreintes)")]),
     }
     for enclosure in catalog["enclosures"]:
         name = "enclosures/%s.elmt" % enclosure_stem(enclosure)
         files[name] = enclosure_element(catalog, enclosure)
+        for kind, folder, item in (("door", "doors", door_item(enclosure)),
+                                   ("plate", "plates",
+                                    plate_item(enclosure))):
+            if item:
+                name = "%s/%s%s.elmt" % (
+                    folder, DOOR_PREFIX if kind == "door" else PLATE_PREFIX,
+                    enclosure["reference"])
+                files[name] = part_element(catalog, kind, item)
     for footprint in catalog["footprints"]:
         name = "footprints/%s.elmt" % footprint_stem(footprint)
         files[name] = footprint_element(catalog, footprint)
+        if footprint["kind"] != "duct":
+            continue
+        for view in ("realistic", "cover"):
+            item = dict(footprint, view=view)
+            name = "%s/%s.elmt" % (VIEW_FOLDER[view], footprint_stem(item))
+            files[name] = footprint_element(catalog, item)
+        for length in catalog.get("duct_cut_lengths", []):
+            item = at_length(footprint, length)
+            name = "%s/%s.elmt" % (CUT_FOLDER, footprint_stem(item))
+            files[name] = footprint_element(catalog, item)
     return files
 
 
 def generate(catalog, out_dir):
-    """Write the elements; remove the ones the catalog no longer lists."""
+    """Write the elements; remove the ones the catalog no longer lists.
+
+    The custom folder, where "length" writes, is left alone.
+    """
     out_dir = Path(out_dir)
     files = render_all(catalog)
     for name, text in files.items():
@@ -344,11 +551,41 @@ def generate(catalog, out_dir):
         target.parent.mkdir(parents=True, exist_ok=True)
         with open(target, "w", encoding="utf-8", newline="\n") as handle:
             handle.write(text)
-    for sub in ("enclosures", "footprints"):
+    for sub in ("enclosures", "footprints", "doors", "plates", CUT_FOLDER,
+                VIEW_FOLDER["realistic"], VIEW_FOLDER["cover"]):
         for old in (out_dir / sub).glob("*.elmt"):
             if "%s/%s" % (sub, old.name) not in files:
                 old.unlink()
     return sorted(files)
+
+
+def write_lengths(catalog, footprint_id, lengths, out_dir, view=None):
+    """Write a stretchable footprint at each length (mm) to out_dir.
+
+    A duct may be written in its realistic view or as its cover.
+    """
+    if view not in VIEW_PREFIX:
+        raise ValueError("unknown view '%s'" % view)
+    found = catalog["_by_stem"].get(VIEW_PREFIX[view] + footprint_id)
+    if not found:
+        raise ValueError("unknown footprint '%s'%s" % (
+            footprint_id, " for the %s view" % view if view else ""))
+    out_dir = Path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    directory = out_dir / "qet_directory"
+    if not directory.exists():
+        with open(directory, "w", encoding="utf-8", newline="\n") as handle:
+            handle.write(directory_file([
+                ("en", "Rails and ducts at a chosen length"),
+                ("fr", "Rails et goulottes à la longueur choisie")]))
+    written = []
+    for length in lengths:
+        item = at_length(found[1], length)
+        target = out_dir / (footprint_stem(item) + ".elmt")
+        with open(target, "w", encoding="utf-8", newline="\n") as handle:
+            handle.write(footprint_element(catalog, item))
+        written.append(target)
+    return written
 
 
 class Finding:
@@ -394,6 +631,8 @@ class _Placed:
         return (dx * cos + dy * sin, -dx * sin + dy * cos)
 
     def label(self):
+        if self.kind in ("door", "plate"):
+            return "%s of %s" % (self.kind, self.item["enclosure"])
         return self.item.get("reference") or self.item["id"]
 
 
@@ -408,22 +647,46 @@ def _stem_of(type_attribute):
     return name[:-5] if name.endswith(".elmt") else name
 
 
+def _part_findings(title, owner, part):
+    """Findings for a door or a mounting plate placed on an enclosure."""
+    findings = []
+    reference = owner.item["reference"]
+    if part.item["enclosure"] != reference:
+        findings.append(Finding(title, "warning",
+            "%s belongs to %s but is placed on %s"
+            % (part.label(), part.item["enclosure"], reference)))
+    local = [owner.to_local(c) for c in part.corners()]
+    fx0, fy0, fx1, fy1 = _bounds(local)
+    over = max(-fx0, -fy0, fx1 - owner.item["width"],
+               fy1 - owner.item["height"])
+    if over > EPSILON:
+        findings.append(Finding(title, "error",
+            "%s leaves the outline of %s by %s mm"
+            % (part.label(), reference, _num(over))))
+    return findings
+
+
 def check_diagram(catalog, title, elements):
     """Findings for one folio; elements are its <element> nodes."""
     scale = float(catalog["scale_mm_per_px"])
-    enclosures, footprints = [], []
+    enclosures, footprints, parts = [], [], []
     for element in elements:
         stem = _stem_of(element.get("type", ""))
-        found = catalog["_by_stem"].get(stem)
+        found = lookup(catalog, stem)
         if not found:
             continue
         kind, item = found
         placed = _Placed(stem, kind, item, element, scale)
-        (enclosures if kind == "enclosure" else footprints).append(placed)
+        if kind == "enclosure":
+            enclosures.append(placed)
+        elif kind == "footprint":
+            footprints.append(placed)
+        else:
+            parts.append(placed)
 
     findings = []
     members = {id(e): [] for e in enclosures}
-    for footprint in footprints:
+    for footprint in footprints + parts:
         centre = [sum(c) / 4.0 for c in zip(*footprint.corners())]
         owner = None
         for enclosure in enclosures:
@@ -435,8 +698,10 @@ def check_diagram(catalog, title, elements):
         if owner is None:
             findings.append(Finding(title, "warning",
                 "%s is not inside any enclosure" % footprint.label()))
-        else:
+        elif footprint.kind == "footprint":
             members[id(owner)].append(footprint)
+        else:
+            findings += _part_findings(title, owner, footprint)
 
     for enclosure in enclosures:
         area = fit_area(enclosure.item)
@@ -465,6 +730,14 @@ def check_diagram(catalog, title, elements):
                        reference, _num(depth))))
         for index, (first, a) in enumerate(boxes):
             for second, b in boxes[index + 1:]:
+                # A cover lies over its duct on purpose.
+                if "cover" in (first.item.get("view"),
+                               second.item.get("view")):
+                    continue
+                # A device sits on its rail on purpose.
+                if {first.item.get("kind"),
+                        second.item.get("kind")} == {"rail", "module"}:
+                    continue
                 if (min(a[2], b[2]) - max(a[0], b[0]) > EPSILON
                         and min(a[3], b[3]) - max(a[1], b[1]) > EPSILON):
                     findings.append(Finding(title, "error",
@@ -501,7 +774,8 @@ class _Component:
 def _cabinet_entry(cabinets, name):
     return cabinets.setdefault(name, {
         "enclosure": None, "folio": None, "components": [], "items": [],
-        "unreferenced": 0, "occupied": 0, "available": None})
+        "parts": [], "profiles": [], "unreferenced": 0, "occupied": 0,
+        "available": None})
 
 
 def _share(value, total):
@@ -521,24 +795,35 @@ def analyse_project(catalog, folios):
     for title, folio_cabinet, elements in folios:
         findings += check_diagram(catalog, title, elements)
         for element in elements:
-            found = catalog["_by_stem"].get(_stem_of(element.get("type", "")))
+            found = lookup(catalog, _stem_of(element.get("type", "")))
             if found and found[0] == "footprint":
+                # Rails and ducts are bought by the metre of the layout; a
+                # cover comes with its duct.
+                profile = found[1]
+                name = _info(element, "location") or folio_cabinet
+                if (name and profile["kind"] in ("duct", "rail")
+                        and profile.get("view") != "cover"):
+                    _cabinet_entry(cabinets, name)["profiles"].append(profile)
                 continue
             if found:
                 name = (_info(element, "label") or _info(element, "location")
                         or folio_cabinet)
-                reference = found[1]["reference"]
+                kind, item = found
                 if not name:
                     findings.append(Finding(title, "warning",
-                        "enclosure %s has no label: its contents cannot be "
-                        "listed" % reference))
+                        "%s has no label: its contents cannot be listed"
+                        % ("enclosure " + item["reference"]
+                           if kind == "enclosure" else
+                           "%s of %s" % (kind, item["enclosure"]))))
                     continue
                 entry = _cabinet_entry(cabinets, name)
-                if entry["enclosure"]:
+                if kind != "enclosure":
+                    entry["parts"].append((kind, item, title))
+                elif entry["enclosure"]:
                     findings.append(Finding(title, "warning",
                         "cabinet %s has several enclosure elements" % name))
                 else:
-                    entry["enclosure"], entry["folio"] = found[1], title
+                    entry["enclosure"], entry["folio"] = item, title
                 continue
             component = _Component(title, element, folio_cabinet, shared)
             if component.cabinet and (component.label
@@ -599,6 +884,15 @@ def _cabinet_findings(catalog, name, entry):
     entry["items"] = [groups[key] for key in sorted(groups)]
 
     item = entry["enclosure"]
+    for kind, part, _folio in entry["parts"]:
+        if item and part["enclosure"] != item["reference"]:
+            findings.append(Finding(None, "warning",
+                "%s: the %s belongs to %s but the cabinet is %s"
+                % (name, kind, part["enclosure"], item["reference"])))
+        elif not item:
+            findings.append(Finding(None, "info",
+                "%s: the %s of %s has no enclosure element"
+                % (name, kind, part["enclosure"])))
     area = None
     if item:
         area = fit_area(item)
@@ -671,6 +965,23 @@ def check_project(catalog, project_path):
     return analyse_project(catalog, read_project(project_path))[0]
 
 
+def _profile_groups(entry):
+    """The rails and ducts of a cabinet: [(item, quantity)], by length."""
+    groups = {}
+    for profile in entry["profiles"]:
+        key = (profile["kind"], profile.get("reference", ""),
+               profile["id"], profile["width"])
+        groups.setdefault(key, [profile, 0])[1] += 1
+    return [tuple(groups[key]) for key in sorted(groups)]
+
+
+def _profile_name(profile):
+    if profile["kind"] == "rail":
+        return "DIN rail %s" % profile["label"]
+    return "%s duct %s" % (profile.get("manufacturer", ""),
+                           profile.get("reference") or profile["label"])
+
+
 def report_rows(cabinets):
     """The contents of every cabinet as rows of strings, header first."""
     rows = [["cabinet", "enclosure", "manufacturer", "reference",
@@ -686,6 +997,11 @@ def report_rows(cabinets):
                         + ([_num(device[k]) for k in
                             ("width", "height", "depth")] if device
                            else ["", "", ""]))
+        for profile, quantity in _profile_groups(entry):
+            rows.append([name, enclosure, profile.get("manufacturer", ""),
+                         profile.get("reference") or profile["label"],
+                         str(quantity), _num(profile["width"]),
+                         _num(profile["height"]), _num(profile["depth"])])
     return rows
 
 
@@ -698,6 +1014,10 @@ def render_report(cabinets):
         if item:
             head += ": %s %s" % (item["family"], item["reference"])
         lines.append(head)
+        for kind, part, _folio in entry["parts"]:
+            lines.append("  %s %s (%sx%s mm)" % (
+                kind, part["reference"], _num(part["height"]),
+                _num(part["width"])))
         for group in entry["items"]:
             device = group.get("device")
             size = ("%sx%sx%s mm" % tuple(_num(device[k]) for k in
@@ -709,11 +1029,39 @@ def render_report(cabinets):
         if entry["unreferenced"]:
             lines.append("  %d component(s) without manufacturer "
                          "reference" % entry["unreferenced"])
+        for profile, quantity in _profile_groups(entry):
+            lines.append("  %3d x %s, %s mm long" % (
+                quantity, _profile_name(profile), _num(profile["width"])))
         if entry["available"]:
             lines.append("  space: %s of the usable area" % _share(
                 entry["occupied"], entry["available"]))
         lines.append("")
     return "\n".join(lines)
+
+
+def article_rows(catalog):
+    """The articles of the ducts as rows of strings, header first.
+
+    One row per orderable reference. The length is the one of the
+    profile as sold; the cover comes with the duct.
+    """
+    rows = [["manufacturer", "reference", "description", "width mm",
+             "height mm", "length mm", "interior mm", "cover", "source"]]
+    for duct in catalog["footprints"]:
+        if duct["kind"] != "duct":
+            continue
+        interior = duct.get("interior")
+        for article in duct.get("articles", []):
+            rows.append([
+                duct.get("manufacturer", ""), article["reference"],
+                "%s, %s" % (duct["name_en"], article["finish"]),
+                _num(duct["height"]), _num(duct["depth"]),
+                _num(duct["width"]),
+                "%sx%s" % (_num(interior["width"]), _num(interior["height"]))
+                if interior else "",
+                "included" if duct.get("cover", {}).get("included") else "",
+                duct.get("source", "")])
+    return rows
 
 
 def link_device(catalog, reference, manufacturer=None, footprint=None,
@@ -760,10 +1108,43 @@ def main(argv=None):
     lnk.add_argument("--footprint", help="id of a footprint of the catalog")
     for key in ("width", "height", "depth"):
         lnk.add_argument("--" + key, type=float, help="%s in mm" % key)
+    lng = sub.add_parser("length", help="write a rail or a duct at a chosen "
+                         "length")
+    lng.add_argument("footprint", help="id of a stretchable footprint")
+    lng.add_argument("lengths", type=int, nargs="+", help="lengths in mm")
+    lng.add_argument("--out", help="output folder (default: custom, next "
+                     "to the catalog)")
+    lng.add_argument("--view", choices=("realistic", "cover"),
+                     help="write a duct in this view instead of its "
+                     "footprint")
+    art = sub.add_parser("articles", help="list the articles of the ducts "
+                         "as CSV")
+    art.add_argument("--csv", help="write the list to this file instead of "
+                     "the screen")
     args = parser.parse_args(argv)
 
     catalog_path = Path(args.catalog) if args.catalog else None
     catalog = load_catalog(catalog_path, args.devices)
+    if args.command == "articles":
+        handle = (open(args.csv, "w", encoding="utf-8", newline="")
+                  if args.csv else sys.stdout)
+        csv.writer(handle, lineterminator="\n").writerows(
+            article_rows(catalog))
+        if args.csv:
+            handle.close()
+        return 0
+    if args.command == "length":
+        out = Path(args.out) if args.out else (
+            (catalog_path.parent if catalog_path else DEFAULT_DIR)
+            / "custom")
+        try:
+            written = write_lengths(catalog, args.footprint, args.lengths,
+                                    out, args.view)
+        except ValueError as error:
+            parser.error(str(error))
+        for path in written:
+            print(path)
+        return 0
     if args.command == "generate":
         out = Path(args.out) if args.out else (
             catalog_path.parent if catalog_path else DEFAULT_DIR)
