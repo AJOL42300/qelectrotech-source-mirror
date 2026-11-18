@@ -714,6 +714,8 @@ set(QET_SRC_FILES
   ${QET_DIR}/sources/qetgraphicsitem/diagramimageitem.cpp
   ${QET_DIR}/sources/qetgraphicsitem/diagramimageitem.h
   ${QET_DIR}/sources/qetgraphicsitem/cropgeometry.h
+  ${QET_DIR}/sources/imagestorage.cpp
+  ${QET_DIR}/sources/imagestorage.h
   ${QET_DIR}/sources/qetgraphicsitem/diagramtextitem.cpp
   ${QET_DIR}/sources/qetgraphicsitem/diagramtextitem.h
   ${QET_DIR}/sources/qetgraphicsitem/dynamicelementtextitem.cpp

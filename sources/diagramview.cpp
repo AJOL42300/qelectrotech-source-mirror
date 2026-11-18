@@ -62,6 +62,7 @@
 #include "foliogrid.h"
 #include "diagramcontexttoolbar.h"
 #include "imagedrop.h"
+#include "imagestorage.h"
 #include "diagramgestureoverlay.h"
 #include "gesturesettings.h"
 #include "shortcutbarsettings.h"
@@ -510,7 +511,14 @@ void DiagramView::handleImageFilesDrop(QDropEvent *e)
 		if (image.isNull())
 			refused << tr("%1: %2").arg(QFileInfo(file).fileName(), error);
 		else
-			items << new DiagramImageItem(QPixmap::fromImage(image));
+		{
+			bool keep_alpha = true;
+			QByteArray file_bytes;
+			ImageStorage::inspectFile(file, image, &keep_alpha, &file_bytes);
+			auto *item = new DiagramImageItem(QPixmap::fromImage(image));
+			item -> setStoredFormat(keep_alpha, file_bytes);
+			items << item;
+		}
 	}
 
 	// Where each picture goes, as it will look on the folio: one picture

@@ -38,6 +38,7 @@
 #include <qetmessagebox.h>
 #include <qetgraphicsitem/qgraphicsitemutility.h>
 #include <foliogrid.h>
+#include <imagestorage.h>
 #include <autoconnect.h>
 #include <textgrid.h>
 #include <qetgraphicsitem/element.h>
@@ -259,6 +260,11 @@ GeneralConfigurationPage::GeneralConfigurationPage(QWidget *parent) :
 	ui->m_offer_backups->setChecked(settings.value("projects/offer_backups", true).toBool());
 	ui->m_working_copy_recovery->setChecked(QetSettings::workingCopyRecovery());
 	ui->m_qetdb_enabled->setChecked(QetSettings::qetdbEnabled());
+	ui->m_images_convert_cb->setChecked(ImageStorage::convertEnabled());
+	ui->m_images_quality_sb->setValue(ImageStorage::jpegQuality());
+	ui->m_images_quality_sb->setEnabled(ui->m_images_convert_cb->isChecked());
+	connect(ui->m_images_convert_cb, &QCheckBox::toggled,
+			ui->m_images_quality_sb, &QWidget::setEnabled);
 	ui->m_previous_versions_sb->setValue(PreviousVersions::count());
 	
 	QString fontInfos = settings.value("diagramitemfont", "Liberation Sans").toString() + " " +
@@ -554,6 +560,8 @@ void GeneralConfigurationPage::applyConf()
 	settings.setValue("projects/offer_backups", ui->m_offer_backups->isChecked());
 	QetSettings::setWorkingCopyRecovery(ui->m_working_copy_recovery->isChecked());
 	QetSettings::setQetdbEnabled(ui->m_qetdb_enabled->isChecked());
+	settings.setValue(ImageStorage::convertKey, ui->m_images_convert_cb->isChecked());
+	settings.setValue(ImageStorage::qualityKey, ui->m_images_quality_sb->value());
 	PreviousVersions::setCount(ui->m_previous_versions_sb->value());
 
 	settings.setValue("diagrameditor/grid_display_startup", ui->grid_startup_cb->isChecked());

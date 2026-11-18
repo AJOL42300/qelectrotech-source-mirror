@@ -25,6 +25,7 @@
 #include <QPropertyUndoCommand/qpropertyundocommand.h>
 #include <diagram.h>
 #include <diagramview.h>
+#include <imagestorage.h>
 #include <qet.h>
 #include <qetapp.h>
 #include <qetdiagrameditor.h>
@@ -45,6 +46,7 @@
 #include <QImageWriter>
 #include <QPainterPath>
 #include <QtMath>
+#include <algorithm>
 #include <QGraphicsView>
 #include <QMenu>
 #include <QMessageBox>
@@ -175,6 +177,9 @@ void DiagramImageItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *
 	const QTransform world = painter -> worldTransform();
 	const qreal drawn_scale = std::sqrt(std::abs(world.determinant()));
 	const QSize small_size = (QSizeF(pixmap_.size()) * drawn_scale * 4).toSize();
+	painter -> save();
+	if (m_picture_opacity < 1.0)
+		painter -> setOpacity(painter -> opacity() * m_picture_opacity);
 	if (diagram() && diagram() -> smallPictures() && !pixmap_.isNull()
 			&& small_size.width() < pixmap_.width()
 			&& small_size.height() < pixmap_.height()
@@ -190,6 +195,7 @@ void DiagramImageItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *
 	}
 	else
 		DarkImageRendering::paintPixmap(painter, pixmap_, m_adapt_to_dark_theme);
+	painter -> restore();
 
 	Q_UNUSED(option);
 
@@ -261,6 +267,68 @@ void DiagramImageItem::setAdaptToDarkTheme(bool adapt)
 }
 
 /**
+	@brief DiagramImageItem::setPictureOpacity
+	Set the opacity of the whole picture, from 0 (invisible) to 1.
+*/
+void DiagramImageItem::setPictureOpacity(qreal opacity)
+{
+	opacity = std::clamp(opacity, qreal(0), qreal(1));
+	if (qFuzzyCompare(m_picture_opacity, opacity)) return;
+	m_picture_opacity = opacity;
+	update();
+	emit pictureOpacityChanged();
+}
+
+/**
+	@brief DiagramImageItem::setKeepAlpha
+	Choose how the picture is stored in the project file: with its
+	transparency, as PNG, or without, as JPEG. The picture shown does not
+	change; what is stored is encoded again at the next save.
+*/
+void DiagramImageItem::setKeepAlpha(bool keep)
+{
+	if (m_keep_alpha == keep) return;
+	m_keep_alpha = keep;
+	emit keepAlphaChanged();
+}
+
+/**
+	@brief DiagramImageItem::setStoredFormat
+	Called by whoever inserts a picture read from a file: @p keepAlpha is
+	whether it has transparency worth keeping, and @p fileBytes the file
+	itself. A JPEG file is stored as it is, so that it is not compressed
+	a second time.
+*/
+void DiagramImageItem::setStoredFormat(bool keepAlpha, const QByteArray &fileBytes)
+{
+	setKeepAlpha(keepAlpha);
+	if (!keepAlpha && ImageStorage::isJpeg(fileBytes) && !pixmap_.isNull())
+	{
+		m_png_cache = fileBytes;
+		m_png_cache_key = pixmap_.cacheKey();
+		m_base_png_cache = fileBytes;
+		m_base_png_cache_key = m_base_pixmap.cacheKey();
+	}
+}
+
+/**
+	@brief DiagramImageItem::rotateBy
+	Turn the picture by @p degrees around its pivot, as one undo step.
+*/
+void DiagramImageItem::rotateBy(qreal degrees)
+{
+	if (!diagram() || diagram()->isReadOnly())
+		return;
+	const qreal old_angle = m_transform.rotation;
+	const qreal new_angle = QET::correctAngle(old_angle + degrees);
+	auto *undo = new QUndoCommand(degrees < 0
+			? tr("Rotate an image 90° counterclockwise")
+			: tr("Rotate an image 90° clockwise"));
+	new QPropertyUndoCommand(this, "rotationAngle", old_angle, new_angle, undo);
+	diagram()->undoStack().push(undo);
+}
+
+/**
 	@brief DiagramImageItem::editProperty
 	Open the appropriate dialog to edit this image
 */
@@ -316,6 +384,7 @@ void DiagramImageItem::setImageSource(const ImageSource &source)
 	m_base_pixmap = source.base;
 	m_crop_rect = source.crop;
 	m_transparent_colors = source.colors;
+	setKeepAlpha(source.keepAlpha);
 	setPixmap(computeDisplayPixmap(m_base_pixmap, m_crop_rect, m_transparent_colors));
 }
 
@@ -1778,32 +1847,38 @@ QString DiagramImageItem::name() const
 }
 
 namespace {
-	// Only PNG bytes read from a file are reused as they are: toXml()
-	// has always written PNG, and a hand-edited file holding another
-	// format keeps being converted, exactly as before.
-	bool isPng(const QByteArray &data)
+	// A file holding a format other than PNG or JPEG keeps being
+	// converted, exactly as before.
+	bool isStoredFormat(const QByteArray &data)
 	{
-		return data.startsWith("\x89PNG\r\n\x1a\n");
+		return ImageStorage::isPng(data) || ImageStorage::isJpeg(data);
 	}
 }
 
 /**
-	@brief DiagramImageItem::encodedPng
-	@return pixmap as PNG bytes, encoded only when cache does not already
-	hold them. QPixmap::cacheKey() changes whenever the pixmap is replaced
+	@brief DiagramImageItem::encodedPicture
+	@return pixmap as bytes, PNG or JPEG as storage rules say (see
+	ImageStorage), encoded only when cache does not already hold bytes
+	that fit. QPixmap::cacheKey() changes whenever the pixmap is replaced
 	or modified, which is what makes this safe without every function
 	that edits the picture having to remember to invalidate the cache.
+	A JPEG already there is never compressed again; a PNG is encoded
+	again as JPEG only for a picture that no longer keeps transparency.
 */
-const QByteArray &DiagramImageItem::encodedPng(const QPixmap &pixmap, QByteArray &cache, qint64 &cacheKey)
+const QByteArray &DiagramImageItem::encodedPicture(const QPixmap &pixmap, QByteArray &cache, qint64 &cacheKey, bool keepAlpha)
 {
-	if (cacheKey != pixmap.cacheKey())
+	const bool convert = ImageStorage::convertEnabled();
+	if (cacheKey == pixmap.cacheKey() && !cache.isEmpty())
 	{
-		cache.clear();
-		QBuffer buffer(&cache);
-		buffer.open(QIODevice::WriteOnly);
-		pixmap.save(&buffer, "PNG");
-		cacheKey = pixmap.cacheKey();
+		const bool fits = ImageStorage::isJpeg(cache)
+				? !keepAlpha
+				: (keepAlpha || !convert);
+		if (fits)
+			return cache;
 	}
+	cache = ImageStorage::encode(pixmap.toImage(), keepAlpha, convert,
+								 ImageStorage::jpegQuality());
+	cacheKey = pixmap.cacheKey();
 	return cache;
 }
 
@@ -1896,11 +1971,18 @@ bool DiagramImageItem::fromXml(const QDomElement &e, Picture picture)
 	//Set QPixmap from the decoded picture
 	QPixmap pixmap = QPixmap::fromImage(std::move(picture.image));
 	setPixmap(pixmap);
-	if (isPng(array) && !pixmap_.isNull())
+	if (isStoredFormat(array) && !pixmap_.isNull())
 	{
 		m_png_cache = array;
 		m_png_cache_key = pixmap_.cacheKey();
 	}
+	// The file tells whether the picture was stored with its
+	// transparency: no attribute is needed, and a file written by an
+	// older version (always PNG) keeps its pictures as they are.
+	m_keep_alpha = !ImageStorage::isJpeg(array);
+	m_picture_opacity = std::clamp(
+				e.attribute(QStringLiteral("opacity"), QStringLiteral("1")).toDouble(),
+				0.0, 1.0);
 
 	// Falls back to treating the loaded result as its own base, with no
 	// remembered crop or colours -- correct both for a genuinely plain
@@ -1956,7 +2038,7 @@ bool DiagramImageItem::fromXml(const QDomElement &e, Picture picture)
 			if (basePixmap.loadFromData(baseArray))
 			{
 				m_base_pixmap = basePixmap;
-				if (isPng(baseArray))
+				if (isStoredFormat(baseArray))
 				{
 					m_base_png_cache = baseArray;
 					m_base_png_cache_key = m_base_pixmap.cacheKey();
@@ -2058,9 +2140,14 @@ QDomElement DiagramImageItem::toXml(QDomDocument &document) const
 	// version requires the base64 text to be the first child.
 	if (!m_label.isEmpty())
 		result.setAttribute("label", m_label);
+	// Only written when the picture is not opaque, so that a file
+	// without it is exactly what it always was.
+	if (m_picture_opacity < 1.0)
+		result.setAttribute("opacity", QString::number(m_picture_opacity));
 
 	//write the pixmap in the xml element after he was been transformed to base64
-	const QByteArray &array = encodedPng(pixmap_, m_png_cache, m_png_cache_key);
+	const bool keep_alpha = m_keep_alpha || !m_transparent_colors.isEmpty();
+	const QByteArray &array = encodedPicture(pixmap_, m_png_cache, m_png_cache_key, keep_alpha);
 	QDomText base64 = document.createTextNode(array.toBase64());
 	result.appendChild(base64);
 
@@ -2130,7 +2217,7 @@ QDomElement DiagramImageItem::toXml(QDomDocument &document) const
 
 	if (hasCrop || hasColors)
 	{
-		const QByteArray &baseArray = encodedPng(m_base_pixmap, m_base_png_cache, m_base_png_cache_key);
+		const QByteArray &baseArray = encodedPicture(m_base_pixmap, m_base_png_cache, m_base_png_cache_key, keep_alpha);
 		QDomElement baseElement = document.createElement("image_base");
 		baseElement.appendChild(document.createTextNode(baseArray.toBase64()));
 		result.appendChild(baseElement);
@@ -2203,6 +2290,11 @@ void DiagramImageItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 			connect(mirrorH, &QAction::triggered, this, [this]() { mirror(true); });
 			connect(mirrorV, &QAction::triggered, this, [this]() { mirror(false); });
 
+			QAction *rotateCw = menu.data()->addAction(tr("Rotate 90° clockwise"));
+			QAction *rotateCcw = menu.data()->addAction(tr("Rotate 90° counterclockwise"));
+			connect(rotateCw, &QAction::triggered, this, [this]() { rotateBy(90); });
+			connect(rotateCcw, &QAction::triggered, this, [this]() { rotateBy(-90); });
+
 			QAction *restoreRatio = menu.data()->addAction(tr("Restore proportions"));
 			connect(restoreRatio, &QAction::triggered, this, &DiagramImageItem::restoreAspectRatio);
 
@@ -2244,7 +2336,9 @@ void DiagramImageItem::replaceImage()
 	if (fileName.isEmpty())
 		return;
 
-	QImage image(fileName);
+	bool keep_alpha = true;
+	QByteArray file_bytes;
+	const QImage image = ImageStorage::loadFile(fileName, &keep_alpha, &file_bytes);
 	if (image.isNull())
 	{
 		QMessageBox::critical(parentWidget, tr("Error"), tr("Unable to load the image."));
@@ -2259,9 +2353,10 @@ void DiagramImageItem::replaceImage()
 	// memory fresh rather than carrying over choices that would no
 	// longer make sense.
 	const ImageSource oldSource = imageSource();
-	const ImageSource newSource{newPixmap, newPixmap.rect(), {}};
+	const ImageSource newSource{newPixmap, newPixmap.rect(), {}, keep_alpha};
 
 	pushImageSourceChange(tr("Replace an image"), oldSource, newSource);
+	setStoredFormat(keep_alpha, file_bytes);
 }
 
 /**

@@ -792,6 +792,11 @@ qet_add_app_test(tst_editorlikefolio tst_editorlikefolio.cpp)
 # pixels and position; an <image> with no picture does not stop the others.
 qet_add_app_test(tst_folioimageload tst_folioimageload.cpp)
 
+# Pictures of a folio: stretch, crop, opacity, 90 degree rotation, and the
+# PNG or JPEG storage, each undoable, saved and loaded; an old file loads as
+# it did.
+qet_add_app_test(tst_imagestretchcrop tst_imagestretchcrop.cpp)
+
 # The Selection properties panel shrinks while the selection has nothing to
 # edit (#1566) and gets back the height the user gave it (#1439).
 qet_add_app_test(tst_selectionpanelheight tst_selectionpanelheight.cpp)
