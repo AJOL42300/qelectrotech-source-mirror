@@ -637,15 +637,35 @@ class TstBeckhoffElements : public QObject
 			QCOMPARE(def.attribute(QStringLiteral("height")),
 					 ref.attribute(QStringLiteral("height")));
 			QCOMPARE(el.size(), 16);
+				// two groups of two S+ / SI pairs (20 px apart): the power
+				// contact rails of the schematic view (y = 15 and 25) pass
+				// between the groups; on the 5 px grid
+			const double rows[8] = {-55, -35, -15, 5, 35, 55, 75, 95};
 			for (int n = 1; n <= 16; ++n) {
 				const QString name = QString::number(n);
 				QVERIFY2(el.contains(name), qPrintable(name));
 					// 1..8 in the left column, 9..16 in the right one
 				QCOMPARE(el.value(name).x(), n <= 8 ? -5.0 : 10.0);
-				const int row = (n - 1) % 8;
-				QCOMPARE(el.value(name).y(),
-						 el.value(QStringLiteral("1")).y() + 25.0 * row);
+				QCOMPARE(el.value(name).y(), rows[(n - 1) % 8]);
 			}
+		}
+
+		void el1918SchematicHasOneLedStagePerPairAndNoPinOnARail()
+		{
+			const auto def = load(elementPath(
+				QStringLiteral("el1918.elmt"))).documentElement();
+			const auto pins = pinPoints(def.firstChildElement(
+				QStringLiteral("description")));
+			QCOMPARE(pins.size(), 16);
+			for (auto it = pins.begin(); it != pins.end(); ++it) {
+					// the 9 px circle of a pin must not touch the rails
+				QVERIFY2(it.value().y() <= 9.5 || it.value().y() >= 30.5,
+						 qPrintable(it.key()));
+			}
+				// S+ above its input SI: one LED (triangle) per pair
+			const QString xml = rawText(elementPath(
+				QStringLiteral("el1918.elmt")));
+			QCOMPARE(xml.count(QStringLiteral("<polygon ")), 8);
 		}
 
 		void everyCardWithTerminalsHasTheSameHeight()
@@ -682,11 +702,7 @@ class TstBeckhoffElements : public QObject
 				const bool left = key != QStringLiteral("el2652")
 					&& key != QStringLiteral("el2911")
 					&& key != QStringLiteral("ek1914");
-				if (key == QStringLiteral("el6910")) {
-						// no power contact confirmed by the datasheet
-					QVERIFY2(!xml.contains(QStringLiteral("<arc ")),
-							 qPrintable(key));
-				} else if (key == QStringLiteral("el2652")) {
+				if (key == QStringLiteral("el2652")) {
 					QVERIFY2(!xml.contains(QRegularExpression(
 								 QStringLiteral("<rect[^>]*filling:white;color:red"))),
 							 qPrintable(key));

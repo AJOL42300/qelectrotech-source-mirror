@@ -35,6 +35,7 @@ Usage: python fix_boxes.py <elements dir>
 """
 import copy
 import os
+import re
 import sys
 import xml.etree.ElementTree as ET
 
@@ -50,10 +51,14 @@ BODY_SLOPE = (NEW_ROWS[-1] - NEW_ROWS[0]) / float(OLD_ROWS[-1] - OLD_ROWS[0])
 STRIP_X = 12.0              # the terminal block starts here
 LABEL_GAP = 14.0            # label of a terminal: top of the text above it
 
-EL1918_ROWS = [-55 + 25 * r for r in range(8)]
+# 20 px pitch in each S+ / SI pair, in two groups of two pairs: the power
+# contact rails of the schematic view (y = 15 and 25) run between the groups,
+# so no pair is cut by a rail; all on the 5 px grid
+EL1918_ROWS = [-55, -35, -15, 5, 35, 55, 75, 95]
 EL1918_X = (-5, 10)
-EL1918_RING = 12.0
-EL1918_INNER = 9.4
+EL1918_RING = 10.0          # a 6 pt label fits between two rings at 20 px
+EL1918_INNER = 7.8
+EL1918_LABEL_Y = 6.5        # baseline of the label above its ring
 EL1918_ORDER = (1, 3, 5, 7, 2, 4, 6, 8)
 
 
@@ -157,11 +162,17 @@ def label_of(pin):
 
 def fix_el1918(path, donor_path):
     root = ET.parse(path).getroot()
-    if root.get("height") == str(HEIGHT):
-        return False
-    donor = ET.parse(donor_path).getroot()
     old = root.find("description")
     terminals = {t.get("name"): t for t in old.findall("terminal")}
+    rows = [float(terminals[str(n)].get("y")) for n in range(1, 9)]
+    rings = [float(c.get("diameter")) for c in old.findall("circle")]
+    if (root.get("height") == str(HEIGHT)
+            and rows == [float(y) for y in EL1918_ROWS]
+            and rings and rings[0] == EL1918_RING
+            and not any("filling:blue" in r.get("style", "")
+                        for r in old.findall("rect"))):
+        return False
+    donor = ET.parse(donor_path).getroot()
     dynamic = old.find("dynamic_text")
     desc = ET.Element("description")
     ref = None
@@ -172,6 +183,10 @@ def fix_el1918(path, donor_path):
                 ref.set("text", "EL1918")
             continue
         if p.tag in ("terminal", "circle", "dynamic_text"):
+            continue
+        # underline of a supply label of the donor: the labels are not kept
+        if p.tag == "rect" and re.search(
+                r"filling:(red|blue|orange)", p.get("style", "")):
             continue
         b = box(p)
         if p.tag == "line" and b[1] > -82.0 and b[3] < 139.0:
@@ -191,9 +206,9 @@ def fix_el1918(path, donor_path):
         desc.append(circle(x, y, EL1918_INNER))
         label = label_of(pin)
         desc.append(ET.Element("text", {
-            "x": num(x - text_width(label) / 2), "y": num(y - LABEL_GAP),
+            "x": num(x - text_width(label) / 2),             "y": num(y - EL1918_LABEL_Y),
             "rotation": "0", "color": "#000000",
-            "font": "Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular",
+                        "font": "Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular",
             "text": label}))
     desc.append(ref)
     for pin in range(1, 17):

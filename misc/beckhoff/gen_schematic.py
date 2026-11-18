@@ -246,6 +246,15 @@ class Sheet:
                 self.wire(f, free + 7.0, length)
             else:
                 self.wire(f, 0, length)
+        elif kind == "led":
+            # the EL1918 pairs are 20 px apart: 2 px of wire on each side
+            if length >= 11:
+                free = (length - 7.0) / 2.0
+                self.wire(f, 0, free)
+                self.led(f, free)
+                self.wire(f, free + 7.0, length)
+            else:
+                self.wire(f, 0, length)
         elif kind == "out":
             if length >= 15:
                 free = (length - 9.0) / 2.0
@@ -570,7 +579,7 @@ class Card:
                     self.stub(upper, ("up",), 22.0)
                     self.stub(lower, ("down",), 22.0)
                 else:
-                    self.pair(upper, lower, "in")
+                    self.pair(upper, lower, "led")
         self.copy_reference()
 
     def build_rows(self, left_x, body):

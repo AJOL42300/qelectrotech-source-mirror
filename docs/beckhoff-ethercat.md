@@ -123,7 +123,7 @@ Per card
 | EL2574 | yes (verified) | not specified | not stated | default kept |
 | EL2652 | **no** | **no** | no | no power contacts (relay output), verified |
 | EL2911 | **no** | yes | not stated | starts a new potential group, verified. One double card: a single 12 mm outline, rails drawn once, dotted separator, groups "IN 1-4" / "OUT 1" (own grouping); pin-out from the public manual v2.2.0, not re-read in rev. 111 |
-| EL6910 | **none drawn** | **none drawn** | no | product page: "current consumption power contacts: -", no I/O channels; not verified on infosys (404). Redrawn in rev. 112 (`gen_el6910.py`): 12 mm body, "Logic" block, no terminals, no rails |
+| EL6910 | **assumed** (pass-through) | **assumed** (pass-through) | no | product page lists 24 V / 0 V power contacts but "current consumption power contacts: -"; no I/O channels; not verified on infosys (404). Rev. 112 drew none; since rev. 114 (`gen_el6910.py`) it has the same 12 mm body, rails at the common power-contact height (`POWER_Y`), contacts and title position as the other EL cards, plus a "Logic" block above the rails, still no terminals |
 | EL9011 (end cap) | no | no | no | no power contacts, verified; its schematic is an older generic drawing and still shows two generic rails (not redrawn) |
 | EL9100, EL9410 | yes (feed) | yes | yes (terminals 4/8 of the EL9410) | EL9410 verified, EL9100 from the documentation |
 | EK1100 | **no** | yes | yes | three spring contacts on the right face (24 V, 0 V, PE), verified |
@@ -356,7 +356,16 @@ pairs of pins are 1/2 for SI1, 3/4 for SI3, 5/6 for SI5, 7/8 for SI7, 9/10 for
 SI2, 11/12 for SI4, 13/14 for SI6, 15/16 for SI8. **Uncertain**: the exact
 position of the terminals on the real front (rows of two, left to right) is
 an assumption; the drawing is a layout made here, in vector, with a pitch of
-15 px between the rows, and nothing is copied from the manufacturer. The
+20 px between the rows (30 px between the two groups of two pairs, where the
+power-contact rails of the symbol pass, so no pin sits on a rail; all on the
+5 px grid), and nothing is copied from the manufacturer. In the symbol each
+pair (Sn+ above SIn) has its LED stage, the LED triangle pointing from the
+clock output to the input. **Checked**: the correspondence between the
+LEDs/terminals and the pins (S+ / SI pairs, order 1, 3, 5, 7, 2, 4, 6, 8)
+agrees with the operating instructions v3.0.0 of the card
+(https://www.manualslib.com/manual/3658259/Beckhoff-Twinsafe-El1918.html,
+text only); **assumed**: the physical arrangement of the LEDs on the front
+(the infosys page of the card returned 404). The
 table lists the two pins of each input. The EL1904 and EL2904 have the
 channels on pins 1, 5, 3, 7 and 0 V on 2, 6, 4, 8. The EL6910 is
 not verified and flagged so in the description. `misc/beckhoff/gen_safety.py`
@@ -485,7 +494,9 @@ two layouts below, to the generated views.
   was regenerated on the new pins.
 - **EL1918**: the same housing as the other cards (60x330, one yellow body),
   with 16 pins instead of 8: two columns of 8 rows, pins 1 to 8 in the left
-  column and 9 to 16 in the right one, the rows 25 px apart (estimated from
+  column and 9 to 16 in the right one, the rows 20 px apart (30 px between the
+  two groups of two pairs, on the 5 px grid, so the rails of the symbol view
+  do not cross a pin; estimated from
   the front picture). The signals follow the Beckhoff order, not the channel
   order (Sn+ on the odd pins, SIn on the even ones, channels 1, 3, 5, 7 first,
   then 2, 4, 6, 8).
