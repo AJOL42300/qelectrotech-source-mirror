@@ -5,7 +5,12 @@ architecture: a coupler with a stack of I/O terminals, EtherCAT boxes in a
 daisy chain, and AF1000 drives. The symbols are in
 `extra-elements/15_beckhoff_ethercat` and are installed into the common
 collection, as the category **Beckhoff EtherCAT**, sorted in one folder per
-family:
+family, and in each family **one folder per card** (`el1xxx_digital_in/el1004/`
+holds `el1004.elmt`, `el1004_realistic.elmt`, `el1004_description.elmt` and
+`el1004_table.elmt`). The folder of a card is named after its reference in
+lowercase and shows it in capitals in the collection panel (`EL1004`); the
+generic symbols have a folder each (`el1xxx_generic`, shown as
+`EL1xxx (generic)`):
 
 | Folder | Content |
 | --- | --- |
@@ -21,7 +26,9 @@ family:
 | `drives_af1000`, `drives_ax5000` | the drives |
 
 `misc/beckhoff/organize.py <scratch folder> extra-elements` sorts the output
-of the generators into these folders (see
+of the generators into these folders and `misc/beckhoff/split_cards.py
+<library folder>` puts each card in its own folder (organize.py calls it; a
+second run does nothing). See
 [Regenerating the library](#regenerating-the-library)). The elements named
 `*_generic` in the table (`el1xxx_generic`...) are the base symbols of a
 family, not a view.
@@ -264,10 +271,12 @@ island A1
 a card) adds the missing appearances of the selected card, on the current
 folio (placed to its right), on another folio, or on a new folio, in one
 undo step, with the label, the information and the I/O table copied. It
-needs the appearances to be side by side in the same collection folder
+needs the appearances to be side by side in the same collection folder, the
+folder of the card
 (`X.elmt`, `X_realistic.elmt`, `X_description.elmt`, `X_table.elmt`), as the
 Beckhoff ones are. Renumbering and duplicating work on the label, so they
-apply to every appearance at once.
+apply to every appearance at once. Projects made before the card folders
+keep opening: a project embeds the definition of its elements.
 
 The nomenclature of the project counts each appearance, so a card drawn four
 times is counted four times by the core bill of materials. The I/O lists
@@ -667,4 +676,4 @@ python misc/beckhoff/gen_example.py
 ```
 
 `organize.py` replaces the content of `extra-elements/15_beckhoff_ethercat`
-(family folders and their `qet_directory` names).
+(family folders, card folders and their `qet_directory` names).

@@ -443,18 +443,21 @@ def main():
     if len(sys.argv) != 2:
         raise SystemExit(__doc__)
     base = sys.argv[1]
-    ek = os.path.join(base, "ek_couplers", "ek1914_realistic.elmt")
-    renumber_ek1914(ek, os.path.join(base, "ek_couplers", "ek1914.elmt"))
+    ek = os.path.join(base, "ek_couplers", "ek1914", "ek1914_realistic.elmt")
+    renumber_ek1914(ek, os.path.join(base, "ek_couplers", "ek1914",
+                                     "ek1914.elmt"))
     fix_ek1914(ek)
-    fix_el1918(os.path.join(base, "twinsafe", "el1918_realistic.elmt"), ek)
-    for f in sorted(glob.glob(os.path.join(base, "*", "*_realistic.elmt"))):
+    safe = os.path.join(base, "twinsafe")
+    fix_el1918(os.path.join(safe, "el1918", "el1918_realistic.elmt"), ek)
+    for f in sorted(glob.glob(os.path.join(base, "*", "*",
+                                           "*_realistic.elmt"))):
         if simplify_terminals(f):
             print("simplified", os.path.relpath(f, base))
         if closer_labels(f):
             print("labels closer", os.path.relpath(f, base))
-    tight_labels(os.path.join(base, "twinsafe", "el1918_realistic.elmt"))
-    fix_el2911(os.path.join(base, "twinsafe", "el2911_realistic.elmt"),
-               os.path.join(base, "twinsafe", "el2911.elmt"))
+    tight_labels(os.path.join(safe, "el1918", "el1918_realistic.elmt"))
+    fix_el2911(os.path.join(safe, "el2911", "el2911_realistic.elmt"),
+               os.path.join(safe, "el2911", "el2911.elmt"))
 
 
 if __name__ == "__main__":

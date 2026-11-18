@@ -55,7 +55,7 @@ def uid(*parts):
 
 
 def find(base, stem):
-    hits = glob.glob(os.path.join(base, "*", stem + ".elmt"))
+    hits = glob.glob(os.path.join(base, "*", "*", stem + ".elmt"))
     return hits[0] if hits else None
 
 

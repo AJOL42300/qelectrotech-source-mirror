@@ -123,28 +123,27 @@ ELEMENTS = {}
 
 
 def exists(category, name):
-    if category == CAT:
-        try:
-            family(name)
-        except KeyError:
-            return False
-        return True
-    sub = category[len(CAT):].strip("/")
-    return os.path.exists(os.path.join(
-        ELMT_DIR, *(sub.split("/") if sub else []), name + ".elmt"))
+    try:
+        family(name)
+    except KeyError:
+        return False
+    return True
 
 
 def family(name):
-    """The family folder of a card, such as el1xxx_digital_in."""
+    """The folder of a card, such as el1xxx_digital_in/el1004."""
     for entry in sorted(os.listdir(ELMT_DIR)):
         folder = os.path.join(ELMT_DIR, entry)
-        if os.path.exists(os.path.join(folder, name + ".elmt")):
-            return CAT + "/" + entry
+        if not os.path.isdir(folder):
+            continue
+        for card in sorted(os.listdir(folder)):
+            if os.path.exists(os.path.join(folder, card, name + ".elmt")):
+                return CAT + "/" + entry + "/" + card
     raise KeyError(name)
 
 
 def get(category, name):
-    if category == CAT:
+    if category.startswith(CAT):
         category = family(name)
     key = (category, name)
     if key not in ELEMENTS:

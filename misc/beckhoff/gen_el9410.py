@@ -315,9 +315,10 @@ def table(template, path):
 
 
 def main(base):
-    folder = os.path.join(base, FAMILY)
-    template = os.path.join(folder, "el9100_realistic.elmt")
-    table_template = os.path.join(base, "el1xxx_digital_in",
+    folder = os.path.join(base, FAMILY, STEM)
+    os.makedirs(folder, exist_ok=True)
+    template = os.path.join(base, FAMILY, "el9100", "el9100_realistic.elmt")
+    table_template = os.path.join(base, "el1xxx_digital_in", "el1004",
                                   "el1004_table.elmt")
     real = realistic(template, os.path.join(folder, STEM + "_realistic.elmt"))
     schematic(real, os.path.join(folder, STEM + ".elmt"))

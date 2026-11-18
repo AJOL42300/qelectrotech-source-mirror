@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with QElectroTech.  If not, see <http://www.gnu.org/licenses/>.
-"""Sort the Beckhoff library into one folder per family.
+"""Sort the Beckhoff library into one folder per family, then per card.
 
 Usage: python misc/beckhoff/organize.py <scratch root> <extra-elements>
 
@@ -22,8 +22,9 @@ The generators (gen_symbols.py, gen_safety.py, gen_drives.py and
 realistic_from_model.py) write into a scratch root, in the layout
 <scratch root>/15_beckhoff_ethercat[/twinsafe|/drives_*]. This script
 replaces <extra-elements>/15_beckhoff_ethercat by the same elements, one
-folder per family. All the appearances of a card (symbol, _realistic,
-_table) stay in the same folder: the island commands look for them there.
+folder per family and one folder per card inside it (see split_cards.py). All
+the appearances of a card (symbol, _realistic, _description, _table) stay in
+the folder of the card: the island commands look for them there.
 """
 import os
 import shutil
@@ -114,6 +115,9 @@ def main(scratch, elements):
         f.write(gs.directory([("en", "Beckhoff EtherCAT"),
                               ("fr", "Beckhoff EtherCAT")]))
     print("%d elements in %d folders" % (len(out), len(FAMILIES) + len(KEPT)))
+    import split_cards
+    split_cards.split(dst)
+    print("one folder per card")
 
 
 if __name__ == "__main__":

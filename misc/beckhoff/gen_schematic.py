@@ -647,13 +647,14 @@ def main():
     if len(sys.argv) != 2:
         raise SystemExit(__doc__)
     base = sys.argv[1]
-    for sym in sorted(glob.glob(os.path.join(base, "drives_*", "a[fx]*.elmt"))):
+    for sym in sorted(glob.glob(os.path.join(base, "drives_*", "*",
+                                             "a[fx]*.elmt"))):
         if sym.endswith(("_realistic.elmt", "_description.elmt",
                          "_table.elmt")):
             continue
         if drive_schematic(sym):
             print("schematic", os.path.relpath(sym, base))
-    for real in sorted(glob.glob(os.path.join(base, "*",
+    for real in sorted(glob.glob(os.path.join(base, "*", "*",
                                               "*_realistic.elmt"))):
         sym = real[:-len("_realistic.elmt")] + ".elmt"
         if not os.path.exists(sym):

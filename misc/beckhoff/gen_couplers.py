@@ -161,7 +161,7 @@ def add_power(path):
 
 def main(base):
     for stem, label in CARDS.items():
-        hits = glob.glob(os.path.join(base, "*", stem + ".elmt"))
+        hits = glob.glob(os.path.join(base, "*", "*", stem + ".elmt"))
         if hits and patch(hits[0], label):
             print("coupler schematic", stem)
         if hits and add_power(hits[0]):

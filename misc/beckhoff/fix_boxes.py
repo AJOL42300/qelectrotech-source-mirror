@@ -216,10 +216,13 @@ def fix_el1918(path, donor_path):
 
 
 def main(base):
-    if fix_ek1914(os.path.join(base, "ek_couplers", "ek1914_realistic.elmt")):
+    if fix_ek1914(os.path.join(base, "ek_couplers", "ek1914",
+                               "ek1914_realistic.elmt")):
         print("EK1914 stretched to the height of the other cards")
-    if fix_el1918(os.path.join(base, "twinsafe", "el1918_realistic.elmt"),
-                  os.path.join(base, "twinsafe", "el1904_realistic.elmt")):
+    if fix_el1918(os.path.join(base, "twinsafe", "el1918",
+                               "el1918_realistic.elmt"),
+                  os.path.join(base, "twinsafe", "el1904",
+                               "el1904_realistic.elmt")):
         print("EL1918 redrawn in the standard housing, 16 terminals")
 
 

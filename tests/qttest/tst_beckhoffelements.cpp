@@ -832,10 +832,19 @@ class TstBeckhoffElements : public QObject
 		void driveAxesFollowTheSecondDigitOfTheReference()
 		{
 			int checked = 0;
+			QStringList cards;
 			for (const QString &family : {QStringLiteral("drives_af1000"),
 										  QStringLiteral("drives_ax5000")})
 			{
-				const QDir dir(elementPath(family));
+				const QDir familyDir(categoryDir().filePath(family));
+				for (const QString &card : familyDir.entryList(
+						 QDir::Dirs | QDir::NoDotAndDotDot)) {
+					cards << family + QLatin1Char('/') + card;
+				}
+			}
+			for (const QString &cardPath : cards)
+			{
+				const QDir dir(categoryDir().filePath(cardPath));
 				for (const QString &file : dir.entryList(
 						 {QStringLiteral("*.elmt")}, QDir::Files))
 				{
@@ -891,11 +900,11 @@ class TstBeckhoffElements : public QObject
 				}
 			}
 			QVERIFY(checked >= 19);
-			for (const QString &ref : {QStringLiteral("drives_af1000/af1103"),
-									   QStringLiteral("drives_af1000/af1215"),
-									   QStringLiteral("drives_ax5000/ax5103"),
-									   QStringLiteral("drives_ax5000/ax5203"),
-									   QStringLiteral("drives_ax5000/ax5206")}) {
+			for (const QString &ref : {QStringLiteral("drives_af1000/af1103/af1103"),
+									   QStringLiteral("drives_af1000/af1215/af1215"),
+									   QStringLiteral("drives_ax5000/ax5103/ax5103"),
+									   QStringLiteral("drives_ax5000/ax5203/ax5203"),
+									   QStringLiteral("drives_ax5000/ax5206/ax5206")}) {
 				QVERIFY2(categoryDir().exists(ref + QStringLiteral(".elmt")),
 						 qPrintable(ref));
 			}
@@ -903,12 +912,16 @@ class TstBeckhoffElements : public QObject
 
 		void safetyCardsAreYellowAndEl1918HasSixteenTerminals()
 		{
-			const QDir dir(elementPath(QStringLiteral("twinsafe")));
+			const auto dirOf = [](const QString &key) {
+				return QDir(categoryDir().filePath(
+					QStringLiteral("twinsafe/") + key));
+			};
 			for (const QString &key : {QStringLiteral("el1904"),
 									   QStringLiteral("el1918"),
 									   QStringLiteral("el2904"),
 									   QStringLiteral("el6910"),
 									   QStringLiteral("ek1960")}) {
+				const QDir dir = dirOf(key);
 				const QString file = key + QStringLiteral(".elmt");
 				QVERIFY2(!info(load(dir.filePath(file)).documentElement(),
 							   QStringLiteral("description")).isEmpty(),
@@ -929,6 +942,7 @@ class TstBeckhoffElements : public QObject
 						 qPrintable(f.fileName()));
 			}
 
+			const QDir dir = dirOf(QStringLiteral("el1918"));
 			const auto def = load(dir.filePath(
 				QStringLiteral("el1918.elmt"))).documentElement();
 			QStringList expected;

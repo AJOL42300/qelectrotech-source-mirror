@@ -332,7 +332,7 @@ def patch_table(path):
 
 
 def main(folder):
-    box_dir = os.path.join(folder, "epp_box")
+    box_dir = os.path.join(folder, "epp_box", "epp2338")
     patch(os.path.join(box_dir, "epp2338.elmt"), schematic())
     patch(os.path.join(box_dir, "epp2338_realistic.elmt"), realistic())
     patch_table(os.path.join(box_dir, "epp2338_table.elmt"))
