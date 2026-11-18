@@ -49,7 +49,7 @@ excluded. A Master device is counted once and PLC I/O entries are not
 expanded.
 
 Two options leave rows out (#1178). Contact blocks: uncheck **Contacts
-esclaves** in the dialog, or pass `--no-slaves`. Junctions, the
+enfants** in the dialog, or pass `--no-slaves`. Junctions, the
 terminal-type symbols drawn where wires branch (`114_connections`), which
 have no label, designation, manufacturer or manufacturer reference: check
 **Laisser de côté les jonctions**, or pass `--no-junctions`. A terminal block
