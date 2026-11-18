@@ -776,6 +776,10 @@ qet_add_app_test(tst_dockfold tst_dockfold.cpp)
 # View > Grid step sets a fine, medium or coarse step.
 qet_add_app_test(tst_gridsnap tst_gridsnap.cpp)
 
+# A symbol which declares itself a component of a rail (<railSnap>) is put
+# on the axis of the nearest rail and against its neighbour, 2 mm away.
+qet_add_app_test(tst_railsnap tst_railsnap.cpp)
+
 # The docks of the right side could not be made narrower than about 310 px:
 # the Assistant's check box text never wraps, the Auto numbering fields
 # never shrink.
