@@ -39,7 +39,7 @@ DEST = "10_electric/20_manufacturers_articles/beckhoff"
 
 # folder -> (English name, French name, card keys)
 FAMILIES = {
-    "ek_couplers": ("EK couplers", "Coupleurs EK",
+    "ek_couplers": ("EKxxx couplers", "EKxxx Coupleurs",
                     ("ek1100", "ek1322", "ek1914")),
     "el1xxx_digital_in": ("EL1xxx digital inputs", "EL1xxx entrées TOR",
                           ("el1004", "el1008", "el1xxx_generic")),
@@ -61,6 +61,8 @@ FAMILIES = {
 }
 # folders written as they are by gen_drives.py
 KEPT = ("drives_af1000", "drives_ax5000")
+# names in other languages, written after English and French
+EXTRA_NAMES = {"ek_couplers": [("de", "EKxxx Koppler")]}
 
 
 def family_of(key):
@@ -111,7 +113,8 @@ def main(scratch, elements):
     for folder, (en, fr, _) in FAMILIES.items():
         with open(os.path.join(dst, folder, "qet_directory"), "w",
                   encoding="utf-8", newline="\n") as f:
-            f.write(gs.directory([("en", en), ("fr", fr)]))
+            f.write(gs.directory([("en", en), ("fr", fr)]
+                                 + EXTRA_NAMES.get(folder, [])))
     with open(os.path.join(dst, "qet_directory"), "w", encoding="utf-8",
               newline="\n") as f:
         f.write(gs.directory([("en", "Beckhoff"),
