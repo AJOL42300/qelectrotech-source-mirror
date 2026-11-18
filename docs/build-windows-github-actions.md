@@ -29,7 +29,7 @@ libraries, and `elements/`, `titleblocks/`, `examples/`, `lang/` (the `.qm`
 files built by `lrelease`). Unzip it anywhere and run `bin/QElectroTech.exe`.
 The folder is self-contained: the job runs `windeployqt` (through
 `QET_DEPLOY_QT=ON` and `cmake --install`), which copies the Qt DLLs, the
-plugins (`bin/platforms/qwindows.dll`...) and the MinGW runtime DLLs
+plugins (`plugins/platforms/qwindows.dll`..., found through `bin/qt.conf`) and the MinGW runtime DLLs
 (`libgcc_s_seh-1.dll`, `libstdc++-6.dll`, `libwinpthread-1.dll`). Before
 zipping, the job checks these files, then starts the packaged exe with
 `--version` and a minimal `PATH` (no Qt, no MinGW): if a DLL or plugin is

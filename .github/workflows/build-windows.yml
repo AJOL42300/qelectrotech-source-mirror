@@ -106,7 +106,7 @@ jobs:
         run: |
           $root = 'dist/QElectroTech'
           foreach ($p in 'bin/QElectroTech.exe', 'bin/Qt6Core.dll',
-                   'bin/platforms/qwindows.dll', 'bin/libgcc_s_seh-1.dll',
+                   'bin/qt.conf', 'plugins/platforms/qwindows.dll', 'bin/libgcc_s_seh-1.dll',
                    'bin/libstdc++-6.dll', 'bin/libwinpthread-1.dll',
                    'elements', 'titleblocks', 'lang') {
             if (-not (Test-Path "$root/$p")) { throw "Missing in the package: $p" }
