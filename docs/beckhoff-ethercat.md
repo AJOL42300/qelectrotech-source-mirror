@@ -108,9 +108,21 @@ gives the height in millimetres; the middle is deduced from the user's
 request and the principle diagram. Known limit: the vertical 0 V of the EL9410
 crosses its PE rail without a dot; only the EL9410 uses the PE level.
 The vertical branches along the sides join the
-terminals marked 24 V / 0 V in the I/O table. The supply of each individual
-channel is **not** drawn: the public documentation does not state it channel
-by channel.
+terminals marked 24 V / 0 V in the I/O table.
+
+**Supply of each channel** (rev. 120, generic, UNCERTAIN): on the I/O cards a
+vertical rail runs along each side (left 24 V in red, right 0 V in blue, or
+the potential of the side branch the card already had) and a short link with
+a junction dot on the rail and one on the stage wire feeds every channel
+stage (`Card.supply`, `tap_u` in `gen_schematic.py`). The public text does not
+say channel by channel which potential feeds which stage, so the choice is
+generic, not read from the principle diagrams. Cards without this drawing
+(`NO_CHANNEL_SUPPLY`): EL2652 (no power contacts), EL2911 (double card, two
+groups), EL9100 (power feed terminal), EL1918 (stages 20 px apart), the 16
+channel generic cards (22 px pitch), EK1914 (horizontal stubs), EL9410,
+EK1100 and EL6910 (no channels) and the EPP boxes (supplied via UP, no side
+contacts). The rail heights (`POWER_Y`) do not change; the test
+`ioCardsDrawTheSupplyOfEachChannel` checks the junction dots.
 
 Per card
 (the table is the `CONTACTS` dictionary of `misc/beckhoff/gen_schematic.py`):
@@ -164,9 +176,9 @@ text of the pages confirms, and what stays open:
 No page states the left / right side in text (only the EL9410 mentions the
 right-hand side), so the sides drawn stay the ones of the first table. The
 datasheets show the principle diagram as an image, which cannot be read here:
-the **supply of each channel** (rail joined to each stage by dots) is therefore
-not drawn, since no text confirms it channel by channel. To add it for a card,
-read its principle diagram and extend `Card.power` in `gen_schematic.py`.
+the **supply of each channel** is therefore drawn in a generic way (see
+above), not confirmed channel by channel. To correct it for a card, read its
+principle diagram and adjust `Card.supply` in `gen_schematic.py`.
 
 ## Generators: the plus sign
 

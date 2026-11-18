@@ -755,6 +755,44 @@ class TstBeckhoffElements : public QObject
 			QVERIFY(cards >= 10);
 		}
 
+		void ioCardsDrawTheSupplyOfEachChannel()
+		{
+				// a junction dot (filled circle of 3 px) on the supply
+				// rail and on the wire of each channel stage
+			const QRegularExpression dot(QStringLiteral(
+				"<circle [^>]*diameter=\"3\"[^>]*filling:(red|blue)"));
+			const auto dots = [&dot](const QString &key) {
+				const QString xml = rawText(elementPath(
+					key + QStringLiteral(".elmt")));
+				int n = 0;
+				auto it = dot.globalMatch(xml);
+				while (it.hasNext()) {
+					it.next();
+					++n;
+				}
+				return n;
+			};
+			for (const QString &key : {QStringLiteral("el1004"),
+									   QStringLiteral("el1008"),
+									   QStringLiteral("el2004"),
+									   QStringLiteral("el2008"),
+									   QStringLiteral("el2522"),
+									   QStringLiteral("el2574"),
+									   QStringLiteral("el5152"),
+									   QStringLiteral("el1904"),
+									   QStringLiteral("el2904"),
+									   QStringLiteral("el1xxx_generic"),
+									   QStringLiteral("el2xxx_generic")}) {
+				QVERIFY2(dots(key) >= 10, qPrintable(key));
+			}
+				// no power contacts, power feed terminal, stages too close
+			for (const QString &key : {QStringLiteral("el2652"),
+									   QStringLiteral("el9100"),
+									   QStringLiteral("el1918")}) {
+				QCOMPARE(dots(key), 0);
+			}
+		}
+
 		void exampleTerminalsAreDistinctAndPresentInEveryMode()
 		{
 			const auto doc = load(QStringLiteral(QET_EXAMPLES_DIR)
