@@ -159,7 +159,7 @@ text of the pages confirms, and what stays open:
 | EK1322 | EtherCAT P "24 V DC for US and UP", max. 3 A each; no EL power contacts quoted | - |
 | CU1128 | 3-pin supply (+, -, PE); no power contact quoted | - |
 | EL9011 | no power contact listed (end cover) | - |
-| EPP2338-0002 | "inputs and outputs are supplied via UP"; no side contacts (M12 box) | - |
+| EPP2338-1002 | "inputs and outputs are supplied via UP"; no side contacts (M12 box) | - |
 
 No page states the left / right side in text (only the EL9410 mentions the
 right-hand side), so the sides drawn stay the ones of the first table. The
@@ -201,7 +201,7 @@ checked against a datasheet.
 | `ek1322.elmt` | Beckhoff | EK1322 | X1, X2 (M8 EtherCAT P sockets, one pin each), 1 +24 V Us, 2 0 V Us, 3 +24 V Up, 4 0 V Up (feed-in); no I/O channel, see [EK1322](#ek1322-ethercat-p-junction-with-feed-in) |
 | `ek1914.elmt` | Beckhoff | EK1914 | EtherCAT IN/OUT, I1 to I4, SI1, SI2, O1 to O4, SO1, SO2 (pins 2, 10, 3, 11 / 7, 15 / 4, 12, 5, 13 / 8, 16) |
 | `el9011.elmt` | Beckhoff | EL9011 | none (end cap) |
-| `epp2338.elmt` | Beckhoff | EPP2338-0002 | IN X50, OUT X51, X01 to X04 |
+| `epp2338.elmt` | Beckhoff | EPP2338-1002 | IN X50, OUT X51, X01 to X04 |
 | `ethercat_box_generic.elmt` | (empty) | (empty) | EtherCAT IN, EtherCAT OUT |
 | `drives_af1000/af11xx.elmt`, `af12xx.elmt` | Beckhoff | AF1103, AF1107, AF1115, AF1130, AF1155 (1 axis); AF1215, AF1222 (2 axes) | see [Drives](#drives-af1000-and-ax5000) |
 | `drives_ax5000/ax51xx.elmt`, `ax52xx.elmt` | Beckhoff | AX5101 to AX5125 (1 axis); AX5201 to AX5225 (2 axes) | see [Drives](#drives-af1000-and-ax5000) |
@@ -222,7 +222,7 @@ The references found in the sample schematic and what covers them:
 | --- | --- |
 | EL1008, EL2008, EL2652 | their own symbol |
 | EK1100, EK1322, EK1914, CU1128 | their own symbol (the EK1322 is the EtherCAT P junction with feed-in) |
-| EPP2338 | `epp2338.elmt` (the `-0002` M12 variant; the `-0001` M8 variant is not drawn) |
+| EPP2338 | `epp2338.elmt` (the `-1002` M12 variant; the `-1001` M8 variant is not drawn) |
 | AX5203, AX5206 | `drives_ax5000/ax5203.elmt`, `ax5206.elmt` (2 axes) |
 | AF1103, AF1107, AF1115, AF1130, AF1155 | `drives_af1000/`, 1 axis |
 | AF1215, AF1222 | `drives_af1000/`, 2 axes |
@@ -766,7 +766,7 @@ its reference as caption. They are separate from the functional islands
 - `A3`: head `A3.00`, the 1-axis drive `A3.10` (AX5103) and the 2-axis drive
   `A3.20` (AX5203).
 - `A4`: an EtherCAT P island: head `A4.00` (EK1322) and the box `A4.10`.
-  (EPP2338-0002).
+  (EPP2338-1002).
 
 The used channels carry their function in the I/O tables. The Beckhoff
 elements used are embedded in the project. It is
@@ -830,7 +830,7 @@ removed from the folder. The A3 templates above stay logo-free.
 
 ## EPP2338 box
 
-The EPP2338-0002 (EtherCAT P box, `epp_box`, reference `EPP2338-0002`) is a
+The EPP2338-1002 (EtherCAT P box, `epp_box`, reference `EPP2338-1002`) is a
 dark box, not a terminal card: 8 channels on four **M12** 5-pin sockets X01 to
 X04 (two channels per socket) and two **M8** EtherCAT P sockets X50 (IN) and
 X51 (OUT). It has four appearances, all original vector drawings that follow
@@ -858,30 +858,42 @@ trailing number of the address, the cross reference goes by the index of the
 I/O), so nothing changes in the program. The other pins of the socket are
 +24 V DC Up (1), GND P (3), not connected (5).
 
-### EPP2338-0002: verified and assumed
+### EPP2338-1002: verified and assumed
 
-The reference is `EPP2338-0002` (the "-002" typed in a request does not
-exist). It is the **M12** variant of the EPP2338; the `-0001` is the same box
-with 8 M8 sockets, `-1001`/`-1002` have a 3 ms input filter and `-2002`
-supplies X01/X02 from Us and X03/X04 from Up. Only the `-0002` is drawn.
+The reference is `EPP2338-1002` (corrected by the user: the elements first
+carried `EPP2338-0002`, then the "-002" typed in a request). It is the **M12**
+variant with a **3 ms** input filter: the `-1001` is the same box with 8 M8
+sockets (3 ms), the `-0002` / `-0001` are the 10 us versions, `-2002`
+supplies X01/X02 from Us and X03/X04 from Up. Only the `-1002` is drawn. The
+public technical data page
+([infosys](https://infosys.beckhoff.com/content/1033/epp2xxx/13602193419.html))
+lists both `EPP2338-1001` and `-1002` and gives for the `-1002`: 4 x M12
+socket, 5-pin, A-coded; 30 mm x 126 mm x 26.5 mm without connectors; about
+165 g; PA6; 2 x M8 P-coded EtherCAT P: size, M12 sockets and weight of the
+drawing are therefore **verified for the -1002**. The pin-out, LED and fixing
+pages below are EPP2xxx family pages that were read when the element was still
+called `-0002`; the box is the same except for the filter, but they have not
+been re-read for the `-1002` alone (**not re-verified**). The input filter
+(3 ms) is not drawn.
 
 | Fact | Status | Source |
 | --- | --- | --- |
-| Designation "EtherCAT P Box, 8-channel digital combi, 24 V DC, 10 us, 0.5 A, M12" | verified | [product page](https://www.beckhoff.com/en-en/products/i-o/ethercat-box/eppxxxx-industrial-housing/epp23xx-digital-combi/epp2338-0002.html) |
-| 4 x M12 socket, 5-pin, A-coded (I/O); 2 x M8 socket, 4-pin, P-coded, shielded (EtherCAT P) | verified | [infosys](https://infosys.beckhoff.com/content/1033/epp2xxx/13601383947.html) |
-| 30 x 126 x 26.5 mm without connectors, about 165 g, PA6, 2 holes 3.5 mm for M3 | verified | [infosys](https://infosys.beckhoff.com/content/1033/epp2xxx/20008239243.html), product page |
+| Designation "EtherCAT P Box, 8-channel digital combi, 24 V DC, 3 ms, 0.5 A, M12" | verified | [product page](https://www.beckhoff.com/en-en/products/i-o/ethercat-box/eppxxxx-industrial-housing/epp23xx-digital-combi/epp2338-1002.html) |
+| 4 x M12 socket, 5-pin, A-coded (I/O); 2 x M8 socket, 4-pin, P-coded, shielded (EtherCAT P) | verified | [infosys technical data](https://infosys.beckhoff.com/content/1033/epp2xxx/13602193419.html) |
+| 30 x 126 x 26.5 mm without connectors, about 165 g, PA6 | verified | [infosys technical data](https://infosys.beckhoff.com/content/1033/epp2xxx/13602193419.html) |
+| 2 holes 3.5 mm for M3 | verified (earlier read, family page) | [infosys](https://infosys.beckhoff.com/content/1033/epp2xxx/20008239243.html) |
 | M12 pin-out: 1 +24 V Up, 2 channel B, 3 GNDp, 4 channel A, 5 not connected | verified | [infosys](https://infosys.beckhoff.com/content/1033/epp2xxx/10739625739.html) |
-| M8 EtherCAT P pin-out: 1 Tx+/GNDs, 2 Rx+/GNDp, 3 Rx-/Up, 4 Tx-/Us | verified (generic EtherCAT P page and the -0001 page) | [infosys EK1310](https://infosys.beckhoff.com/content/1033/ek1310/3716753931.html) |
+| M8 EtherCAT P pin-out: 1 Tx+/GNDs, 2 Rx+/GNDp, 3 Rx-/Up, 4 Tx-/Us | verified (generic EtherCAT P page and the -1001 / -0001 page) | [infosys EK1310](https://infosys.beckhoff.com/content/1033/ek1310/3716753931.html) |
 | 8 channels, each input or output; Us and Up 24 V DC, 3 A each; 0.5 A per channel, 3 A total; sensor supply 0.5 A for channels 1-4 and 0.5 A for 5-8 | verified | [infosys](https://infosys.beckhoff.com/content/1033/epp2xxx/13601383947.html) |
 | LEDs: green channel LED (high level), Up and Us (green/red), L/A and Run per EtherCAT P port | verified (meaning) | [channel/Up](https://infosys.beckhoff.com/content/1033/epp2xxx/21883199243.html), [Us](https://infosys.beckhoff.com/content/1033/epp2xxx/13601333643.html), [L/A, Run](https://infosys.beckhoff.com/content/1033/epp2xxx/8838158731.html) |
 | IP65/66/67 | verified | [infosys](https://infosys.beckhoff.com/content/1033/epp2xxx/20008239243.html) |
 | Position of the sockets and LEDs on the front, which M8 is IN | **assumed** (the drawings of the data sheet are images; IN = left M8 comes from the generic EtherCAT P page) | [infosys](https://infosys.beckhoff.com/content/1033/epp2xxx/21883199243.html) |
 | Number of channel LEDs (8 drawn) | **assumed** (the table says "Channel 1-16", generic) | same |
-| Fixing: narrow housing = two M3 bolts, **bolts longer than 15 mm**, holes not threaded | verified (EPP2xxx family chapter, not a page of the -0002 alone) | [infosys Fixing](https://infosys.beckhoff.com/content/1033/epp2xxx/1072587019.html) |
+| Fixing: narrow housing = two M3 bolts, **bolts longer than 15 mm**, holes not threaded | verified (EPP2xxx family chapter, not a page of the -1002 alone) | [infosys Fixing](https://infosys.beckhoff.com/content/1033/epp2xxx/1072587019.html) |
 | Tightening torque of the M3 bolts | **not stated** (the torque table of the chapter is for plug connectors only) | same chapter |
 | Mounting rail ZS5300-0001: 500 x 129 mm, stainless steel 1.5 mm, M3 threads ready-made; up to 15 narrow modules, 2 mm apart | verified | same page |
 | Silhouette (ears, corner radii, hole 2.55 mm from the edges) | **assumed**: traced by eye on a photo, scaled to 30 x 126 mm; only the size and the 3.5 mm holes are data-sheet values | |
-| 5-digit I/O identifier in the label holders | **not available** in this repository (see below) | |
+| 5-digit I/O identifier in the label holders | corresponds to the Function column (`plcIO.functionText`) of the PLC table (user's answer); **not linked** to the holders (needs C++, see below) | |
 
 **M3 screw length.** Beckhoff states "longer than 15 mm" for the narrow EPP
 housings; no exact length is given. A calculated value would be the 1.5 mm
@@ -897,18 +909,33 @@ channel, lower = even channel) and one by the Us/Up LEDs. QElectroTech has no
 an empty, user-editable text and a dynamic text cannot read a value per
 channel. Each channel holder therefore holds an editable `UserText` dynamic
 text with the placeholder `00000`: double-click it on the placed element and
-type the identifier. The simplest real link would be a dynamic text bound to
-the `plcIO.crossRef` of the channel (not done: it needs C++). The EPP views are
-the only ones changed for this (EL, EK and drives are not).
+type the identifier. The EPP views are the only ones changed for this (EL, EK
+and drives are not).
 
-In the layout views (EPP2338-0002 only) the silhouette has the two ears with
+*Which field the identifier is* (user's answer): the **Function** column of the
+cross-reference table, that is `plcIO.functionText` of the channel in the
+card's own PLC table (the field the function propagation of the
+`ajol42300-function-propagation` branch reads and writes per channel). Not
+linked yet, because no existing variable gives a text the `functionText` of one
+channel of its own element: `%{plc_function}` (`AssignVariables`,
+`autoNum/assignvariables.cpp`) is filled only on a *slave* element linked to a
+master row (`LinkElementCommand`, `Element::setData`), and one slave holds one
+row, while the EPP is one element with eight rows. The smallest link needs C++
+(not done, waiting for agreement): fill per-channel keys `plc_function_1` to
+`plc_function_8` in the element's own information from `plcMasterData().ios`
+(in `Element::setData`, where `old_plc` is already compared) and replace them
+in `AssignVariables::replaceVariable`; the holders then become `CompositeText`
+`%{plc_function_N}` texts. Until then the value is typed by hand in the holder
+and, separately, in the Function column of the PLC table (it is not shared).
+
+In the layout views (EPP2338-1002 only) the silhouette has the two ears with
 their 3.5 mm holes; the white holders and the M12/M8 sockets are drawn at 1:1
 and 1:2, the LEDs at 1:1 only, and at 1:5 only the silhouette (details below
 about 1.5 px are left out). The reference is written under the body. The
 holders are too small to carry the 5 digits at these scales.
 
 The "Housing data" summary of the product page says "8 x M8, 4 x M12" for both
-variants: it is a family field and misleading for the `-0002`. The same facts
+variants: it is a family field and misleading for the `-1002`. The same facts
 are in the `description` of the elements. The schematic, realistic and layout
 views (1:1, 1:2, 1:5; 30 x 126 mm x scale) use these values.
 
@@ -941,7 +968,7 @@ side by side at `width x scale` (12 mm = 12 px at 1:1). Sizes (mm, W x H x D):
 | EK1914 | 44 x 100 x 68 | same housing as the EK1100, **not checked** |
 | EK1322 | 24 x 100 x 68 | width from the public data sheet, **height and depth assumed** |
 | CU1128 | 122 x 100 x 38 | public data sheet |
-| EPP2338-0002 | 30 x 126 x 26.5 | public data sheet (without connectors) |
+| EPP2338-1002 | 30 x 126 x 26.5 | public data sheet (without connectors) |
 | DIN rail | 35 x 7.5, 250 long | EN 60715 |
 
 Not covered: the drives (AF1000, AX5000), the end cap EL9011 and the generic

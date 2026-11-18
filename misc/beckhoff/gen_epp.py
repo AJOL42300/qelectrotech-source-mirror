@@ -22,7 +22,8 @@ X50 (IN) and X51 (OUT).  Pin of a M12 socket: 1 +24 V DC Up, 2 channel B,
 3 GND P, 4 channel A, 5 not connected.  Pin of a M8 socket: 1 Tx+ / GNDs,
 2 Rx+ / GNDp, 3 Rx- / Up, 4 Tx- / Us.  In QET each M12 socket is ONE terminal
 (X01 to X04) shared by its two channels (their plcIO name the same terminal).
-EPP2338-0002 is the M12 variant (EPP2338-0001 is the M8 one); the numbers
+EPP2338-1002 is the M12 variant with a 3 ms input filter (EPP2338-1001 is
+the M8 one; the -0002 / -0001 have a 10 us filter); the numbers
 above and the housing size come from the public Beckhoff pages (see the
 "EPP2338 box" section of docs/beckhoff-ethercat.md).
 The positions of the sockets, of the pins in a socket and of the LEDs on the
@@ -65,7 +66,7 @@ BAND = "line-style:normal;line-weight:thin;filling:lightgray;color:black"
 RED = "line-style:normal;line-weight:thin;filling:red;color:black"
 METAL = "line-style:normal;line-weight:thin;filling:lightgray;color:black"
 LED = "line-style:normal;line-weight:thin;filling:green;color:black"
-REFERENCE = "EPP2338-0002"
+REFERENCE = "EPP2338-1002"
 
 # Layout traced (by eye, at 0.71 of the photo scale) on the structure of the
 # box: the M12 sockets are on the right of the housing, the LEDs and the label
@@ -333,8 +334,9 @@ def patch_io(root):
         "manufacturer_reference": REFERENCE,
         "designation": "EtherCAT P Box, 8-channel digital input/output, "
                        "24 V DC, M12",
-        "description": "EPP2338-0002 is the M12 variant (the -0001 is the "
-                       "M8 one). EtherCAT P box, IP65/66/67, 30 x 126 x "
+        "description": "EPP2338-1002 is the M12 variant with a 3 ms input "
+                       "filter (the -1001 is the M8 one; the -0002 is the "
+                       "same box with a 10 us filter). EtherCAT P box, IP65/66/67, 30 x 126 x "
                        "26.5 mm, about 165 g, 2 fixing holes: four M12 "
                        "sockets X01 to X04, 5-pin A-coded, two channels "
                        "each (pin 4 = channel A, pin 2 = channel B, pin 1 = "
@@ -343,7 +345,7 @@ def patch_io(root):
                        "IN and X51 OUT (pin 1 Tx+/GNDs, 2 Rx+/GNDp, 3 "
                        "Rx-/Up, 4 Tx-/Us). Us and Up 24 V DC, 3 A each; "
                        "0.5 A per channel (verified on the public Beckhoff "
-                       "data of the EPP2338-0002). Each M12 socket is ONE "
+                       "data of the EPP2338-1002). Each M12 socket is ONE "
                        "terminal (X01 to X04) shared by its two channels "
                        "(X01(1), X01(2)...), the channel is the signal of "
                        "the I/O table, not the pin. ASSUMED (not stated in "
