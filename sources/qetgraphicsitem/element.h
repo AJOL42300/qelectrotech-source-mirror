@@ -193,6 +193,7 @@ class Element : public QetGraphicsItem
 		void setSequenceStruct(const autonum::sequentialNumbers &numbers);
 		void storeSequence();
 		void setUpFormula(bool code_letter = true, QUndoCommand *parent_undo = nullptr);
+		bool giveAutoLabel();
 		void setFormulaSchemeId(const QUuid &id);
 		void setPrefix(QString);
 		QString getPrefix() const;

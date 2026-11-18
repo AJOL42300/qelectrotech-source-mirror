@@ -71,6 +71,10 @@ namespace QetSettings
 		// next free ones. Off by default. A macro with a '?' always asks.
 	bool askLabelsPlacingMacro();
 	void setAskLabelsPlacingMacro(bool ask);
+		// Whether an element placed without a label is given one: its
+		// prefix and the next free number ("K1", "K2"...). On by default.
+	bool autoLabelOnPlacement();
+	void setAutoLabelOnPlacement(bool enabled);
 
 	/**
 		Whether a terminal strip draws the wires which end at it: one

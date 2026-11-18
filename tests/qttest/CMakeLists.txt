@@ -721,6 +721,11 @@ qet_add_app_test(tst_symbolcustominfo tst_symbolcustominfo.cpp)
 # way a contact of a coil shows the coil's.
 qet_add_app_test(tst_plcslavelabel tst_plcslavelabel.cpp)
 
+# The label an element is given when it is placed: its prefix and the first
+# number the project has not used; a label given already, a slave, and the
+# setting switched off leave it alone.
+qet_add_app_test(tst_autolabel tst_autolabel.cpp)
+
 # The bridge drawn over terminals: what a bridge holds (colour, how many
 # terminals it may take, its sections), which terminals a line about to be
 # drawn crosses, and which parallel track a new bridge takes at them --

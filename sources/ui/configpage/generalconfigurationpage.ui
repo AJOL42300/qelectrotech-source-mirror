@@ -798,6 +798,16 @@
            </widget>
           </item>
           <item>
+           <widget class="QCheckBox" name="m_auto_label_cb">
+            <property name="text">
+             <string>Label an element automatically when placing it</string>
+            </property>
+            <property name="toolTip">
+             <string>An element placed without a label takes its prefix and the next free number, such as K1 or A2. A project which numbers its elements with a scheme keeps using it.</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QCheckBox" name="m_macro_ask_labels_cb">
             <property name="text">
              <string>Ask for the device labels when placing a macro</string>
@@ -2400,6 +2410,7 @@
   <tabstop>m_offer_backups</tabstop>
   <tabstop>m_border_0</tabstop>
   <tabstop>m_new_folio_group_cb</tabstop>
+  <tabstop>m_auto_label_cb</tabstop>
   <tabstop>m_macro_ask_labels_cb</tabstop>
   <tabstop>m_strip_sort_by_label</tabstop>
   <tabstop>m_wiring_rules_cb</tabstop>
