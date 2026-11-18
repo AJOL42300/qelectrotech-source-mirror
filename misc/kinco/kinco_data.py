@@ -13,11 +13,12 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with QElectroTech.  If not, see <http://www.gnu.org/licenses/>.
-"""Product data of the Kinco KS105 range and of the Kinco HMI Green range.
+"""Product data of the Kinco KS105 range and of the Kinco M2 HMI models.
 
 Everything here comes from public documents of the manufacturer (product
-pages and datasheets of the KS series and of the GREEN HMI series, the
-installation manual of the GL070E, wiring pages of KS105 distributors).
+pages and datasheets of the KS series and of the M2 HMI series, the
+installation manuals of the MT070 and GL070E, the wiring pages of the KS105
+datasheet published by a distributor).
 Nothing is copied from a drawing: the drawings are made by gen_kinco.py.
 
 What could not be checked is described factually and listed as uncertain in
@@ -134,8 +135,8 @@ def plc_outputs(title, supply, group, n=8, side="e", zone="bottom"):
 
 CPU_FACTS = [
     "Compact PLC, KincoBuilder programming",
-    "8 digital inputs 24 V DC (I0.0 to I0.7)",
-    "8 transistor outputs 24 V DC (Q0.0 to Q0.7)",
+    "8 digital inputs 24 V DC (I0.0 to I0.7), sink type only",
+    "8 transistor outputs 24 V DC, source type (Q0.0 to Q0.7)",
     "4 high speed counters up to 200 kHz",
     "4 pulse train / PWM outputs",
     "Interrupt inputs I0.0 to I0.3, real time clock",
@@ -152,7 +153,7 @@ def cpu(ref, comm_groups, comm_facts, extra_desc):
     groups += comm_groups
     ports = sum(1 for g in groups if g.kind == "rj45")
     aux = [
-        ("RJ45 plug", "RJ45 plug for the cable of a PORT, CAN or expansion "
+        ("RJ45 plug", "RJ45 plug for the cable of a PORT0, CAN or expansion "
          "socket", str(ports)),
         ("Screw terminal blocks", "Terminal blocks of the unit: inputs, "
          "outputs, power supply and RS485", "1"),
@@ -172,27 +173,27 @@ def cpu(ref, comm_groups, comm_facts, extra_desc):
 def build_cpus():
     return [
         cpu("KS105-16DT",
-            [rj45("RS232 (PORT)", rs232_port()),
+            [rj45("RS232 (PORT0)", rs232_port()),
              rj45("Expansion", [Term("EXP", "bus")])],
-            ("", "", ["PORT: RS232, Modbus RTU slave",
-                      "PORT2: RS485, Modbus RTU master / slave",
+            ("", "", ["PORT0: RS232, Modbus RTU slave",
+                      "PORT1: RS485, Modbus RTU master / slave",
                       "Expansion bus socket (RJ45)"]),
             ""),
         cpu("KS105C1-16DT",
-            [rj45("RS232 (PORT)", rs232_port()),
+            [rj45("RS232 (PORT0)", rs232_port()),
              rj45("CAN", can_pins("CAN"))],
-            (", CAN", ", CAN", ["PORT: RS232, Modbus RTU slave",
-                                "PORT2: RS485, Modbus RTU master / slave",
+            (", CAN", ", CAN", ["PORT0: RS232, Modbus RTU slave",
+                                "PORT1: RS485, Modbus RTU master / slave",
                                 "1 CAN port, CANopen master / slave"]),
             " and one CAN port"),
         cpu("KS105C2-16DT",
             [rj45("CAN1", can_pins("CAN1")),
-             rj45("CAN2 / PORT",
+             rj45("CAN2 / PORT0",
                   [Term("CAN2.H", "data", 1), Term("CAN2.L", "data", 2)]
                   + rs232_port())],
             (", 2 x CAN", ", 2 x CAN",
-             ["PORT: RS232, Modbus RTU slave",
-              "PORT2: RS485, Modbus RTU master / slave",
+             ["PORT0: RS232, Modbus RTU slave",
+              "PORT1: RS485, Modbus RTU master / slave",
               "CAN1 usable as expansion port, CAN2 Kinco motion / CANopen"]),
             " and two CAN ports"),
     ]
@@ -282,8 +283,25 @@ def build_modules():
     return mods
 
 
-# ref, series, diag, resolution, ethernet, usb host, volts, watts, face, cut
+M2_PAGE = "https://kincoautomation.ru/en/product/automation/m2/"
+
+# The HMI of the library: the Kinco M2 series, models M2100E and M2070HE.
+# ref, series, diag, resolution, ethernet, usb host, volts, watts, face,
+# cut-out (width, height), source of the cut-out
 HMI_ROWS = [
+    ("M2070HE", "M2", 7.0, (1024, 600), 1, 1, "10.8-28", 4.2,
+     (204, 150, 37.2), (192, 138),
+     "https://dl.kinco-automation.com/HMI/manual/M2/Flyer_M2070HE.pdf and "
+     + M2_PAGE + "mass-series-2-m2-m2070he-11860"),
+    ("M2100E", "M2", 10.1, (1024, 600), 1, 1, "10.8-28", 6,
+     (271, 191, 36), (260, 179),
+     M2_PAGE + "mass-series-2-m2-m2100e-11863"),
+]
+
+# HMI Green GL and GH, taken out of the library on request (they were in
+# the first version of this library, see the git history). Kept as data only.
+# ref, series, diag, resolution, ethernet, usb host, volts, watts, face, cut
+HMI_GREEN_ARCHIVED = [
     ("GH043", "GH", 4.3, (480, 272), 0, 1, "10.8-28", 3.5,
      (154, 89, 60), (146, 81)),
     ("GH043E", "GH", 4.3, (480, 272), 1, 1, "10.8-28", 2,
@@ -333,59 +351,59 @@ def single(title, name, signal):
 
 def build_hmis():
     hmis = []
-    for (ref, series, diag, res, eth, usbh, volts, watts, face,
-         cut) in HMI_ROWS:
-        big = series == "GH" and ref not in ("GH043", "GH043E")
-        groups = [Group("Power", "power", [Term("FG", "pe"),
-                                           Term("0V", "0v"),
-                                           Term("24V", "24v")], "w",
+    for (ref, series, diag, res, eth, usbh, volts, watts, face, cut,
+         source) in HMI_ROWS:
+        groups = [Group("Power", "power", [Term("24V", "24v", 1),
+                                           Term("0V", "0v", 2),
+                                           Term("FG", "pe", 3)], "w",
                         title_fr="Alimentation"),
-                  com_group(0, range(1, 10), "COM0 RS232/485/422", "w")]
-        if big:
-            groups.append(com_group(1, range(1, 10), "COM1 RS232/485/422",
-                                    "w"))
-        groups.append(com_group(2, (2, 3, 5), "COM2 RS232", "e"))
-        if big:
-            groups.append(com_group(3, (1, 6, 5), "COM3 RS485", "e"))
+                  com_group(0, range(1, 10), "COM0 RS232/485/422", "w"),
+                  Group("COM1 RS485", "pins",
+                        [Term("COM1.1", "port", 1, "COM1 RX+/A",
+                              "1 RX+/A"),
+                         Term("COM1.2", "port", 2, "COM1 RX-/B",
+                              "2 RX-/B")], "w"),
+                  com_group(2, (2, 3, 5), "COM2 RS232", "e")]
         if eth:
             groups.append(single("Ethernet", "ETH", "Ethernet"))
         if usbh:
             groups.append(single("USB host", "USB.HOST", "USB host"))
         groups.append(single("USB slave", "USB.SLAVE", "USB slave"))
-        coms = 4 if big else 2
-        aux = [("Power plug", "3-way screw terminal plug for FG, 0 V and "
-                "24 V", "1"),
-               ("DB9 plug", "DB9 plug for a COM port cable", str(coms))]
+        aux = [("Power plug", "3-way screw terminal plug for 24 V, 0 V "
+                "and FG", "1"),
+               ("DB9 plug", "DB9 plug for a COM0 or COM2 port cable", "2"),
+               ("COM1 plug", "2-pin plug for the RS485 cable of COM1", "1")]
         if eth:
             aux.append(("RJ45 plug", "RJ45 plug for the Ethernet cable",
                         "1"))
         aux.append(("USB cable", "USB cable for the host or slave port",
                     "1"))
+        cut_text = f"{cut[0]} x {cut[1]} mm"
         facts = [f"Display {diag:g} in, {res[0]} x {res[1]}",
-                 "COM0, COM1 RS232 / RS485 / RS422, COM2 RS232, COM3 RS485"
-                 if big else "COM0 RS232 / RS485 / RS422, COM2 RS232",
+                 "COM0 RS232 / RS485 / RS422, COM1 RS485, COM2 RS232",
                  "Ethernet: " + ("1 x RJ45" if eth else "none"),
                  "USB host: " + ("1" if usbh else "none") + ", USB slave: 1",
                  f"Supply {volts} V DC, {watts:g} W",
                  f"Face {face[0]:g} x {face[1]:g} mm, depth {face[2]:g} mm",
-                 f"Panel cut-out {cut[0]} x {cut[1]} mm",
+                 f"Panel cut-out {cut_text} (W x H)",
                  "Front panel IP65"]
-        name = "Basic" if series == "GL" else "Enhanced"
-        desc = (f"Kinco HMI Green {series} ({name}) {ref}, {diag:g} inch "
-                f"{res[0]} x {res[1]} operator panel. The terminals are the "
-                "power plug, the DB9 pins of the COM ports (pin number and "
-                "signal), Ethernet and the USB ports; the pinout comes from "
-                "the GL070E manual, check it against the datasheet of your "
-                "model.")
-        p = Product(ref, f"hmi_green_{series.lower()}", "hmi", groups,
-                    f"HMI Green {name}, {diag:g} in, {res[0]} x {res[1]}"
+        desc = (f"Kinco HMI M2 series {ref}, {diag:g} inch {res[0]} x "
+                f"{res[1]} operator panel. Panel cut-out (W x H): "
+                f"{cut_text}, verified, source: {source}. The terminals "
+                "are the power plug, the COM ports (pin number and signal), "
+                "Ethernet and the USB ports; the pinout is the one of the "
+                "MT070 / GL070E manuals and is assumed identical on this "
+                "model, check it against the datasheet.")
+        p = Product(ref, "hmi_m2", "hmi", groups,
+                    f"HMI M2, {diag:g} in, {res[0]} x {res[1]}"
                     + (", Ethernet" if eth else ""),
-                    f"IHM Green {name}, {diag:g} pouces, {res[0]} x "
-                    f"{res[1]}" + (", Ethernet" if eth else ""),
+                    f"IHM M2, {diag:g} pouces, {res[0]} x {res[1]}"
+                    + (", Ethernet" if eth else ""),
                     face, facts, aux, desc)
         p.cutout = cut
         p.screen = (diag, res)
         p.volts = volts
+        p.source = source
         hmis.append(p)
     return hmis
 
@@ -394,10 +412,9 @@ FAMILIES = {
     "ks105_cpu": ("KS105 CPU", "Automates KS105", "KS105 CPU"),
     "ks_expansion": ("KS expansion modules", "Modules d'extension KS",
                      "KS Erweiterungsmodule"),
-    "hmi_green_gl": ("HMI Green GL (Basic)", "IHM Green GL (Basic)",
-                     "HMI Green GL (Basic)"),
-    "hmi_green_gh": ("HMI Green GH (Enhanced)", "IHM Green GH (Enhanced)",
-                     "HMI Green GH (Enhanced)"),
+    "hmi_m2": ("HMI M2 series (M2070HE, M2100E)",
+               "IHM série M2 (M2070HE, M2100E)",
+               "HMI M2-Serie (M2070HE, M2100E)"),
     "implantation": ("Layout (DIN rail, door cut-out)",
                      "Implantation (rail DIN, découpe de porte)",
                      "Layout (DIN-Schiene, Türausschnitt)"),

@@ -47,6 +47,8 @@ VIEWS = {
     "realistic": ("_realistic", ", realistic view", ", vue réaliste"),
     "description": ("_description", ", description view",
                     ", vue description"),
+    "din": ("_din", ", DIN rail view, vertical, connectors and pinout",
+            ", vue sur rail DIN verticale, connecteurs et brochage"),
     "table": ("_table", " - I/O table", " - tableau d'E/S"),
 }
 
@@ -233,12 +235,12 @@ def screw_row(b, terms, y, top):
         b.text(x, ty, t.text, 6, align="c")
 
 
-def pin_circle(b, x, y, pin, term=None):
+def pin_circle(b, x, y, pin, term=None, orient="n"):
     col = role_color(term.role) if term else "black"
     b.circle(x, y, 9, fill="white", color=col)
     b.text(x, y - 4.25, str(pin), 5, align="c")
     if term:
-        b.term(term.name, x, y, "n", term.role)
+        b.term(term.name, x, y, orient, term.role)
 
 
 def rj45_socket(b, g, yb):
@@ -297,7 +299,8 @@ def pinout_lines(p):
             continue
         parts = []
         for t in g.terms:
-            sig = t.text if g.kind == "db9" else t.name.split(".")[-1]
+            sig = t.text if g.kind in ("db9", "pins") else \
+                t.name.split(".")[-1]
             parts.append(f"{t.pin} {sig.split(' ', 1)[-1]}"
                          if t.pin else sig)
         text = f"{g.title}: " + ", ".join(parts)
@@ -336,6 +339,100 @@ def plc_description(p, key):
     return b
 
 
+def din_row(b, t, y):
+    """One screw terminal of the front column, wire entry on the left."""
+    col = role_color(t.role)
+    b.rect(4, y - 8, 56, 16, fill="lightgray", weight="thin")
+    b.line(0, y, 12, y, color=col)
+    b.rect(12, y - 5, 10, 10, fill="white", weight="thin")
+    b.circle(44, y, 10, fill="white", color=col)
+    b.line(41, y - 3, 47, y + 3, weight="thin")
+    b.line(41, y + 3, 47, y - 3, weight="thin")
+    b.term(t.name, 0, y, "w", t.role)
+    b.text(64, y - 5, t.text, 6)
+
+
+def din_plug(b, g, x0, y, caption):
+    """A plug of the top face: one circle per pole, labels below."""
+    n = len(g.terms)
+    b.rect(x0 - 15, y - 12, 20 * n + 10, 24, fill="lightgray",
+           weight="thin")
+    for i, t in enumerate(g.terms):
+        x = x0 + 20 * i
+        b.circle(x, y, 9, fill="white", color=role_color(t.role))
+        b.term(t.name, x, y, "n", t.role)
+        b.text(x, y + 15, t.name.split(".")[-1], 6, align="c")
+    b.text(x0 + 10 * (n - 1), y + 28, caption, 5, True, "c")
+
+
+def din_rj45(b, g, y0):
+    """An RJ45 socket of the bottom face, signal names above the pins."""
+    b.text(180, y0, g.title, 6, True)
+    b.rect(180, y0 + 28, 90, 26, fill="lightgray", weight="thin")
+    yc = y0 + 41
+    if g.terms and g.terms[0].pin is None:
+        for pin in range(1, 9):
+            pin_circle(b, 190 + 10 * (pin - 1), yc, pin)
+        t = g.terms[0]
+        b.circle(290, yc, 9, fill="white")
+        b.term(t.name, 290, yc, "s", t.role)
+        b.text(290, y0 + 11, "EXP", 5, align="c")
+        b.text(180, y0 + 57, "pinout not documented", 5)
+        return
+    used = {t.pin: t for t in g.terms}
+    for pin in range(1, 9):
+        x = 190 + 10 * (pin - 1)
+        term = used.get(pin)
+        pin_circle(b, x, yc, pin, term, "s")
+        if term:
+            b.text(x, y0 + 11 + 7 * (pin % 2), term.name.split(".")[-1],
+                   5, align="c")
+
+
+def plc_din(p, key):
+    """KS105 standing on a horizontal DIN rail: the front column of screw
+    terminals, with the plugs and sockets of the other faces beside it."""
+    b = Builder(key)
+    b.rect(100, 150, 50, 160, fill="lightgray", weight="thin")
+    b.rect(110, 224, 30, 12, fill="white", weight="thin")
+    b.text(112, 190, "DIN 35", 5)
+    b.rect(0, 0, 100, 460, fill="white")
+    b.rect(40, 460, 20, 10, fill="lightgray", weight="thin")
+    b.rect(0, 0, 100, 40, fill="lightgray", weight="thin")
+    b.circle(25, 20, 6, fill="green")
+    b.text(31, 15, "RUN", 5)
+    b.circle(65, 20, 6, fill="red")
+    b.text(71, 15, "ERR", 5)
+    top = zone_terms(p, "top")
+    bottom = zone_terms(p, "bottom")
+    for i, t in enumerate(top + bottom):
+        din_row(b, t, 60 + 20 * i)
+    for first, count, cap in ((1, len(top) - 1, "DI"),
+                              (len(top) + 2, len(bottom) - 2, "DO")):
+        y0, y1 = 60 + 20 * first - 8, 60 + 20 * (first + count - 1) + 8
+        b.line(97, y0, 97, y1, weight="thin")
+        b.text(92, (y0 + y1) / 2 - 5, cap, 6, True, "r")
+    b.text(50, 436, p.ref, 8, True, "c")
+    b.rect(170, 0, 140, 100, weight="thin")
+    b.text(176, 4, "Top face", 6, True)
+    for g in p.groups:
+        if g.kind == "power":
+            din_plug(b, g, 190, 50, "24V DC")
+        elif g.kind == "rs485":
+            din_plug(b, g, 270, 50, "RS485 (PORT1)")
+    sockets = [g for g in p.groups if g.kind == "rj45"]
+    h = 24 + 70 * len(sockets)
+    b.rect(170, 130, 140, h, weight="thin")
+    b.text(176, 134, "Bottom face", 6, True)
+    y0 = 149
+    for g in sockets:
+        din_rj45(b, g, y0)
+        y0 += 70
+    b.text(170, 130 + h + 6, "Faces of the plugs: assumed", 5)
+    b.dtext(0, 476, "label")
+    return b
+
+
 # --------------------------------------------------------------------- HMI
 
 
@@ -359,6 +456,13 @@ def hmi_realistic(p, key, panel=False):
                 b.circle(x, cy, 9, fill="white", color=role_color(t.role))
                 b.term(t.name, x, cy, "n", t.role)
                 b.text(x, cy - 24, t.name, 6, align="c")
+            cy += 50
+        elif g.kind == "pins":
+            used = {t.pin: t for t in g.terms}
+            b.text(0, cy - 30, g.title, 6, True, "c")
+            b.rect(-25, cy - 12, 50, 24, fill="lightgray", weight="thin")
+            for pin, x in ((1, -10), (2, 10)):
+                pin_circle(b, x, cy, pin, used[pin])
             cy += 50
         elif g.kind == "db9":
             b.text(0, cy - 30, g.title, 6, True, "c")
@@ -554,9 +658,9 @@ def footprint_text(p, kind):
         rw, rh, title = cw / 2, ch / 2, "door cut-out"
         title_fr = "découpe de porte"
         dims = f"{cw} x {ch} mm (width x height)"
+        title = "door cut-out (W x H)"
         b.rect(0, 0, rw, rh, line="dotted")
-        b.line(0, 0, rw, rh, weight="thin", line="dotted")
-        b.line(0, rh, rw, 0, weight="thin", line="dotted")
+        b.text(rw / 2, rh / 2 - 6, f"{cw} x {ch} mm", 7, True, "c")
     b.dtext(1, 1, "label", 5)
     b.finalize()
     b.hx = b.hy = 10
@@ -605,9 +709,12 @@ def builders(p):
         return {"schema": schema(p),
                 "realistic": hmi_realistic(p, f"{p.id}/realistic"),
                 "description": hmi_description(p, f"{p.id}/description")}
-    return {"schema": schema(p),
-            "realistic": plc_realistic(p, f"{p.id}/realistic"),
-            "description": plc_description(p, f"{p.id}/description")}
+    out = {"schema": schema(p),
+           "realistic": plc_realistic(p, f"{p.id}/realistic"),
+           "description": plc_description(p, f"{p.id}/description")}
+    if p.family == "ks105_cpu":
+        out["din"] = plc_din(p, f"{p.id}/din")
+    return out
 
 
 def main():

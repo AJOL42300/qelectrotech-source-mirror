@@ -16,7 +16,7 @@
 """Write examples/kinco_example.qet.
 
 The project shows a KS105C2-16DT (A1), four expansion modules (A2 to A5)
-and a GL070E operator panel (A6), with their power supply and
+and an M2070HE operator panel (A6), with their power supply and
 communication links, then the realistic views, description views, I/O
 tables and layout footprints of these products, and a catalogue folio set
 with every product of the library. Folios are named by category.
@@ -55,7 +55,7 @@ DEV = bg.DEV
 
 CPU = "ks105c2_16dt"
 MODULES = ["ks121_16dx", "ks122_14dt", "ks133_06iv", "ks131_04rd"]
-HMI = "gl070e"
+HMI = "m2070he"
 STYLE = ('style="line-style:normal;line-weight:normal;filling:none;'
          'color:black" antialias="false"')
 
@@ -219,7 +219,7 @@ def folio_comm(f):
             wire(cpu, "CAN1.H", node, "H"),
             wire(cpu, "CAN1.L", node, "L"),
             wire(cpu, "CAN1.GND", node, "GND")]
-    f.add("A1, A6 - Automate KS105 et IHM Green - symboles, "
+    f.add("A1, A6 - Automate KS105 et IHM M2 - symboles, "
           "communication", els, cond)
 
 
@@ -229,11 +229,16 @@ def views(f):
     for suffix, key, title in (
             ("_realistic", "real", "vues réalistes"),
             ("_description", "desc", "vues descriptives"),
-            ("_table", "table", "tableaux d'E/S")):
+            ("_table", "table", "tableaux d'E/S"),
+            ("_din", "din", "vues rail DIN verticales")):
+        if suffix == "_din":
+            f.grid(f"A1 - Automate KS105 - {title}",
+                   [(bg.get(CAT, CPU + suffix), "A1", f"{key}/A1")])
+            continue
         f.grid(f"A1-A5 - Automate KS105 et modules - {title}",
                [(bg.get(CAT, n + suffix), lab, f"{key}/{lab}")
                 for lab, n in plc])
-        f.grid(f"A6 - IHM Green GL - {title}",
+        f.grid(f"A6 - IHM M2 - {title}",
                [(bg.get(CAT, HMI + suffix), "A6", f"{key}/A6")])
 
 
@@ -267,6 +272,10 @@ def folio_catalogue(f):
         f.grid(f"Catalogue - {fr}",
                [(bg.get(CAT, p.id), p.ref, f"catalogue/{p.id}")
                 for p in cats[fam]])
+        if fam == "ks105_cpu":
+            f.grid(f"Catalogue - {fr}, rail DIN vertical",
+                   [(bg.get(CAT, p.id + "_din"), p.ref,
+                     f"catalogue/{p.id}_din") for p in cats[fam]])
 
 
 def main():
@@ -285,7 +294,7 @@ def main():
         'xrefpos="AlignBottom"/>'
         for t in ("cable", "coil", "commutator", "plc", "protection"))
     head = (
-        f'<project title="Kinco KS105 and HMI Green example" '
+        f'<project title="Kinco KS105 and HMI M2 example" '
         f'uuid="{bg.uid("project")}" version="{bg.VERSION}"><properties/>'
         + bg.titleblock_templates() +
         '<usage enabled="true" time_spent="0"/><newdiagrams>'
