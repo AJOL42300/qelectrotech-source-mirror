@@ -47,6 +47,28 @@ master link.
 | | `BK` | switch output Q | BK |
 | | `GY` | analog output 4-20 mA | GY |
 
+## Detection type and distance
+
+| Reference | Detection type | Detection distance | Status |
+| --- | --- | --- | --- |
+| PSM-BC100DPB-E2 | Diffuse reflection photoelectric, infrared 940 nm | 100 cm, adjustable with a single-turn potentiometer; stated for a 90 % white card of 20 x 20 cm, the real distance depends on the target | verified (data sheet) |
+| LR18XCF12DPOY-E2 | Inductive, metal targets, quasi-flush mounting | nominal Sn 12 mm, assured Sa 0-9.6 mm; standard target Fe 36 x 36 x 1 mm | verified (data sheet) |
+| PDB-CC50TGI | Laser distance measurement, red laser 650 nm class 2 | measuring range 80-500 mm (full scale 420 mm), 4-20 mA over the range; data given for a 90 % white card | verified (data sheet) |
+
+The correction factors of the LR18X for metals other than steel are not in the
+data sheet and are not given. The measuring principle of the PDB is not named
+in the data sheet and is not stated. The figures are shown:
+
+- in the `comment` and `description` fields of every appearance;
+- on the schematic, under the output type ("Diffuse / 100 cm",
+  "Inductive / Sn 12 mm", "Laser 80-500 mm"), and under the realistic and
+  description views;
+- in the function text of the inputs of the example.
+
+The layout view only gives the dimensions. The insertion point of the three
+electrical views is the +24 V terminal (the grid check of `--check-elements
+--grid` wants it on a connection point).
+
 The elements carry the manufacturer (`Lanbao`), the reference, a French
 designation and an English description with the ratings (supply 10-30 V DC,
 or 12-24 V DC for the PDB, switching current, range, protection, IP67).
