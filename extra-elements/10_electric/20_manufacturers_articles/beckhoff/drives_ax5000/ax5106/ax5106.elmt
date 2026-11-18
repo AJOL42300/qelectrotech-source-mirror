@@ -82,7 +82,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-74" y="52" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X06" />
 		<terminal x="-80" y="80" name="X06-24" orientation="w" type="Generic" uuid="{85f8a065-3267-5d4f-b79a-2e1f85664a87}" />
 		<line x1="-80" y1="80" x2="-70" y2="80" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24" />
+		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24" />
 		<terminal x="-80" y="100" name="X06-0" orientation="w" type="Generic" uuid="{0d5df8d7-3ee0-5fe5-b256-d33e8248f562}" />
 		<line x1="-80" y1="100" x2="-70" y2="100" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="94" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0" />
@@ -109,11 +109,11 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
 		<terminal x="-80" y="260" name="X06-0V" orientation="w" type="Generic" uuid="{91492dd4-4a1f-59ba-a82e-6f981546bb75}" />
 		<line x1="-80" y1="260" x2="-70" y2="260" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V" />
+		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V" />
 		<text x="-74" y="272" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X02" />
 		<terminal x="-80" y="300" name="DC+" orientation="w" type="Generic" uuid="{7b5b1c0c-120a-5b3d-b580-4d2e18e62640}" />
 		<line x1="-80" y1="300" x2="-70" y2="300" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC+" />
+		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="DC+" />
 		<terminal x="-80" y="320" name="DC-" orientation="w" type="Generic" uuid="{436ffcdf-3f63-54e2-8d20-fb31a3959638}" />
 		<line x1="-80" y1="320" x2="-70" y2="320" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC-" />
@@ -129,14 +129,14 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3N" />
 		<terminal x="-80" y="420" name="PE" orientation="w" type="Generic" uuid="{04638420-e017-55f0-bb20-862e92c32dc1}" />
 		<line x1="-80" y1="420" x2="-70" y2="420" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<text x="-74" y="432" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Up Us GND" />
 		<terminal x="-80" y="460" name="Up" orientation="w" type="Generic" uuid="{087658db-68c6-59e8-9500-09656e56f540}" />
 		<line x1="-80" y1="460" x2="-70" y2="460" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Up" />
+		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Up" />
 		<terminal x="-80" y="480" name="Us" orientation="w" type="Generic" uuid="{fbe99991-46ef-5079-8c16-4ed6a720a228}" />
 		<line x1="-80" y1="480" x2="-70" y2="480" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Us" />
+		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Us" />
 		<terminal x="-80" y="500" name="GND" orientation="w" type="Generic" uuid="{ccba6369-f0b0-5b79-b683-28c8078b689c}" />
 		<line x1="-80" y1="500" x2="-70" y2="500" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="494" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="GND" />
@@ -159,7 +159,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="174" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="200" name="M1-PE" orientation="e" type="Generic" uuid="{79e00369-2053-52f1-a6ee-aa85b4cd5cd6}" />
 		<line x1="80" y1="200" x2="70" y2="200" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="194" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="194" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<dynamic_text x="-74" y="544" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{8c9d970c-e396-57b7-9ef5-401d0adf4c0e}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>

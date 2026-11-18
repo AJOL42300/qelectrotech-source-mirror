@@ -2793,10 +2793,10 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="IN6" />
 		<terminal x="-80" y="260" name="24V_A" orientation="w" type="Generic" uuid="{5be60c4e-8148-5d6c-b5d7-769e49c7f2e6}" />
 		<line x1="-80" y1="260" x2="-70" y2="260" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V_A" />
+		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_A" />
 		<terminal x="-80" y="280" name="24V_B" orientation="w" type="Generic" uuid="{61c19ca8-a7b8-5a54-9a5d-5fcee0c9708a}" />
 		<line x1="-80" y1="280" x2="-70" y2="280" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="274" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V_B" />
+		<text x="-66" y="274" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_B" />
 		<terminal x="-80" y="300" name="FGND3" orientation="w" type="Generic" uuid="{6bde22a7-4441-57a3-9e10-c1f2feb31a3a}" />
 		<line x1="-80" y1="300" x2="-70" y2="300" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="FGND3" />
@@ -2812,7 +2812,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="374" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3" />
 		<terminal x="-80" y="400" name="PE" orientation="w" type="Generic" uuid="{595887c3-f9d3-57ec-91c2-9a908a66bf73}" />
 		<line x1="-80" y1="400" x2="-70" y2="400" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<terminal x="-80" y="420" name="RB+" orientation="w" type="Generic" uuid="{07df53c3-4e7a-573b-9fad-bd70d8a38693}" />
 		<line x1="-80" y1="420" x2="-70" y2="420" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="RB+" />
@@ -2831,7 +2831,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="114" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="140" name="M1-PE" orientation="e" type="Generic" uuid="{5024f610-f6eb-5f23-991a-c6674e230aa2}" />
 		<line x1="80" y1="140" x2="70" y2="140" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="134" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="134" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<dynamic_text x="-74" y="484" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{47c45b38-deec-5507-b8a3-4a9204c87fe6}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
@@ -2936,10 +2936,12 @@ Generic layout, not copied from a manufacturer drawing. License: see http://qele
 		<text x="86" y="155" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="IN6" />
 		<terminal x="80" y="160" name="IN6" orientation="e" type="Generic" uuid="{c813667e-6ad8-521f-b661-7336693d3916}" />
 		<circle x="77" y="167" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="86" y="165" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="24V_A" />
+		<rect x="87.00" y="166.00" width="17.97" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="86" y="165" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_A" />
 		<terminal x="80" y="170" name="24V_A" orientation="e" type="Generic" uuid="{e83c25ff-5761-5066-93e0-a03ce551b6e5}" />
 		<circle x="77" y="177" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="86" y="175" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="24V_B" />
+		<rect x="87.00" y="176.00" width="17.97" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="86" y="175" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_B" />
 		<terminal x="80" y="180" name="24V_B" orientation="e" type="Generic" uuid="{65118d6b-bffb-54be-b29b-cd26804ee386}" />
 		<circle x="77" y="187" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
 		<text x="86" y="185" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="FGND3" />
@@ -2956,7 +2958,8 @@ Generic layout, not copied from a manufacturer drawing. License: see http://qele
 		<text x="46" y="285" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="W" />
 		<terminal x="40" y="290" name="M1-W" orientation="w" type="Generic" uuid="{7f421976-4ab1-52f9-be16-c5018a4e964d}" />
 		<circle x="37" y="307" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="46" y="305" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="PE" />
+		<rect x="47.00" y="306.00" width="8.17" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:orange;color:orange" antialias="false" />
+		<text x="46" y="305" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<terminal x="40" y="310" name="M1-PE" orientation="w" type="Generic" uuid="{27f08e7f-8bc3-5479-a933-f1fb03ff651f}" />
 		<text x="38" y="334" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X01" />
 		<rect x="38" y="342" width="36" height="116" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:black;color:black" antialias="false" />
@@ -2970,7 +2973,8 @@ Generic layout, not copied from a manufacturer drawing. License: see http://qele
 		<text x="56" y="385" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="L3" />
 		<terminal x="50" y="390" name="L3" orientation="w" type="Generic" uuid="{24fd3a16-8457-5f71-9246-f482bd630805}" />
 		<circle x="47" y="407" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="56" y="405" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="PE" />
+		<rect x="57.00" y="406.00" width="8.17" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:orange;color:orange" antialias="false" />
+		<text x="56" y="405" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<terminal x="50" y="410" name="PE" orientation="w" type="Generic" uuid="{536119f0-4f77-597f-8ec0-3c6f5df0a08b}" />
 		<circle x="47" y="427" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
 		<text x="56" y="425" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="RB+" />
@@ -3158,10 +3162,10 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="IN6" />
 		<terminal x="-80" y="260" name="24V_A" orientation="w" type="Generic" uuid="{85792965-de8c-52e4-9686-11bb57e5c9db}" />
 		<line x1="-80" y1="260" x2="-70" y2="260" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V_A" />
+		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_A" />
 		<terminal x="-80" y="280" name="24V_B" orientation="w" type="Generic" uuid="{d3bfa1ec-a761-516e-937c-fcd7c199bb97}" />
 		<line x1="-80" y1="280" x2="-70" y2="280" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="274" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V_B" />
+		<text x="-66" y="274" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_B" />
 		<terminal x="-80" y="300" name="FGND3" orientation="w" type="Generic" uuid="{1d2db9c1-487e-545e-b6cd-090da9ecdb33}" />
 		<line x1="-80" y1="300" x2="-70" y2="300" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="FGND3" />
@@ -3177,7 +3181,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="374" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3" />
 		<terminal x="-80" y="400" name="PE" orientation="w" type="Generic" uuid="{9bcebeb2-f078-5a96-84f6-c0ad824775d0}" />
 		<line x1="-80" y1="400" x2="-70" y2="400" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<terminal x="-80" y="420" name="RB+" orientation="w" type="Generic" uuid="{c89dc796-5a43-51ae-b831-f63b53a0053d}" />
 		<line x1="-80" y1="420" x2="-70" y2="420" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="RB+" />
@@ -3196,7 +3200,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="114" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="140" name="M1-PE" orientation="e" type="Generic" uuid="{159c0a00-05ff-5440-8988-a9538905a5e3}" />
 		<line x1="80" y1="140" x2="70" y2="140" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="134" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="134" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<dynamic_text x="-74" y="484" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{ac1214a6-f91d-59f7-88bd-f21c51bf6f3f}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
@@ -3311,10 +3315,10 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="IN6" />
 		<terminal x="-80" y="260" name="24V_A" orientation="w" type="Generic" uuid="{e81c6cdc-92cb-52fa-825c-d9cd24239408}" />
 		<line x1="-80" y1="260" x2="-70" y2="260" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V_A" />
+		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_A" />
 		<terminal x="-80" y="280" name="24V_B" orientation="w" type="Generic" uuid="{a07c25ec-9324-5f8c-a44f-98204486b804}" />
 		<line x1="-80" y1="280" x2="-70" y2="280" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="274" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V_B" />
+		<text x="-66" y="274" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_B" />
 		<terminal x="-80" y="300" name="FGND3" orientation="w" type="Generic" uuid="{a4723e1b-571a-5dbf-88c7-fcee7e6a64c8}" />
 		<line x1="-80" y1="300" x2="-70" y2="300" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="FGND3" />
@@ -3330,7 +3334,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="374" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3" />
 		<terminal x="-80" y="400" name="PE" orientation="w" type="Generic" uuid="{19017de8-7bd0-524b-90b9-5b7cfd8c5ffb}" />
 		<line x1="-80" y1="400" x2="-70" y2="400" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<terminal x="-80" y="420" name="RB+" orientation="w" type="Generic" uuid="{75204944-440b-53fb-874c-8af96e933955}" />
 		<line x1="-80" y1="420" x2="-70" y2="420" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="RB+" />
@@ -3349,7 +3353,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="114" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="140" name="M1-PE" orientation="e" type="Generic" uuid="{a5b37d6e-ea27-569e-b564-89fde5618258}" />
 		<line x1="80" y1="140" x2="70" y2="140" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="134" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="134" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<dynamic_text x="-74" y="484" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{8dca0e2f-78db-5eb1-8fae-23575c1cfea6}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
@@ -3464,10 +3468,10 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="IN6" />
 		<terminal x="-80" y="260" name="24V_A" orientation="w" type="Generic" uuid="{cafaa5fa-58a3-54d7-a049-d9a7c6fafbf4}" />
 		<line x1="-80" y1="260" x2="-70" y2="260" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V_A" />
+		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_A" />
 		<terminal x="-80" y="280" name="24V_B" orientation="w" type="Generic" uuid="{3e53263a-303d-5b67-9b6a-6e69b1c95f28}" />
 		<line x1="-80" y1="280" x2="-70" y2="280" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="274" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V_B" />
+		<text x="-66" y="274" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_B" />
 		<terminal x="-80" y="300" name="FGND3" orientation="w" type="Generic" uuid="{8c383da1-2164-516a-bafe-5b5aba33381b}" />
 		<line x1="-80" y1="300" x2="-70" y2="300" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="FGND3" />
@@ -3483,7 +3487,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="374" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3" />
 		<terminal x="-80" y="400" name="PE" orientation="w" type="Generic" uuid="{d29ea8ae-1865-55f4-b9d0-bdfbc283fbd5}" />
 		<line x1="-80" y1="400" x2="-70" y2="400" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<terminal x="-80" y="420" name="RB+" orientation="w" type="Generic" uuid="{b60d921b-be2a-5ddb-8654-2489e7c2ba9b}" />
 		<line x1="-80" y1="420" x2="-70" y2="420" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="RB+" />
@@ -3502,7 +3506,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="114" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="140" name="M1-PE" orientation="e" type="Generic" uuid="{23e2732c-eaed-5144-b3ce-3ee7e0b80a4d}" />
 		<line x1="80" y1="140" x2="70" y2="140" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="134" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="134" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<dynamic_text x="-74" y="484" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{95585a32-dbde-5cc4-8132-9891da32a774}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
@@ -3617,10 +3621,10 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="IN6" />
 		<terminal x="-80" y="260" name="24V_A" orientation="w" type="Generic" uuid="{37e7122c-3c92-53d2-8d8c-60d40f89c3ca}" />
 		<line x1="-80" y1="260" x2="-70" y2="260" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V_A" />
+		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_A" />
 		<terminal x="-80" y="280" name="24V_B" orientation="w" type="Generic" uuid="{ed27b69c-b3e0-5b67-a2fb-8db8ea93506b}" />
 		<line x1="-80" y1="280" x2="-70" y2="280" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="274" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V_B" />
+		<text x="-66" y="274" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_B" />
 		<terminal x="-80" y="300" name="FGND3" orientation="w" type="Generic" uuid="{dd7dab2d-d9c1-5bc3-b197-e5c745cead2c}" />
 		<line x1="-80" y1="300" x2="-70" y2="300" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="FGND3" />
@@ -3636,7 +3640,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="374" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3" />
 		<terminal x="-80" y="400" name="PE" orientation="w" type="Generic" uuid="{bf9902f4-1306-5e89-ae4a-89aba226ee37}" />
 		<line x1="-80" y1="400" x2="-70" y2="400" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<terminal x="-80" y="420" name="RB+" orientation="w" type="Generic" uuid="{1fb4a20b-265e-50f7-be40-26780a6fe601}" />
 		<line x1="-80" y1="420" x2="-70" y2="420" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="RB+" />
@@ -3655,7 +3659,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="114" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="140" name="M1-PE" orientation="e" type="Generic" uuid="{988b6aa0-7cac-5aa0-a7ba-0e3759de7b01}" />
 		<line x1="80" y1="140" x2="70" y2="140" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="134" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="134" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<dynamic_text x="-74" y="484" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{186f396a-6c1f-543e-b665-73133cc2d577}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
@@ -3788,13 +3792,13 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="IN6" />
 		<terminal x="-80" y="320" name="24V_A" orientation="w" type="Generic" uuid="{b11fcd07-cbe3-55f2-97ed-2b85943e1093}" />
 		<line x1="-80" y1="320" x2="-70" y2="320" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V_A" />
+		<text x="-66" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_A" />
 		<terminal x="-80" y="340" name="24V_B" orientation="w" type="Generic" uuid="{5dfdefa1-9927-547d-a63e-d75c58e96fcb}" />
 		<line x1="-80" y1="340" x2="-70" y2="340" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="334" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V_B" />
+		<text x="-66" y="334" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_B" />
 		<terminal x="-80" y="360" name="24V_C" orientation="w" type="Generic" uuid="{71db2395-775e-540e-b010-c853fbec2819}" />
 		<line x1="-80" y1="360" x2="-70" y2="360" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="354" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V_C" />
+		<text x="-66" y="354" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_C" />
 		<terminal x="-80" y="380" name="FGND3" orientation="w" type="Generic" uuid="{042dae00-9d6a-57f0-877b-a6294cb6d136}" />
 		<line x1="-80" y1="380" x2="-70" y2="380" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="374" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="FGND3" />
@@ -3810,7 +3814,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3" />
 		<terminal x="-80" y="480" name="PE" orientation="w" type="Generic" uuid="{d637b05a-6613-5ef1-ae2c-d59995acdec1}" />
 		<line x1="-80" y1="480" x2="-70" y2="480" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<terminal x="-80" y="500" name="RB+" orientation="w" type="Generic" uuid="{4a00b881-2832-54a7-b5af-f4f7704fff57}" />
 		<line x1="-80" y1="500" x2="-70" y2="500" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="494" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="RB+" />
@@ -3829,7 +3833,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="114" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="140" name="M1-PE" orientation="e" type="Generic" uuid="{5df32867-c943-5a52-b949-6c0ce4c9e11d}" />
 		<line x1="80" y1="140" x2="70" y2="140" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="134" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="134" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<text x="40" y="152" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X23" />
 		<terminal x="80" y="180" name="M2-U" orientation="e" type="Generic" uuid="{31fcd784-c01f-5f09-91c1-3f47bde4bcfb}" />
 		<line x1="80" y1="180" x2="70" y2="180" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
@@ -3842,7 +3846,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="214" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="240" name="M2-PE" orientation="e" type="Generic" uuid="{81fb2643-24eb-54f4-b7dd-c2dc87be5812}" />
 		<line x1="80" y1="240" x2="70" y2="240" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<dynamic_text x="-74" y="564" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{9e83b96f-2851-5327-8bed-c7751a57c820}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
@@ -3965,13 +3969,16 @@ Generic layout, not copied from a manufacturer drawing. License: see http://qele
 		<text x="86" y="165" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="IN6" />
 		<terminal x="80" y="170" name="IN6" orientation="e" type="Generic" uuid="{6fdb0c26-507d-5f47-9cd6-fd77c22073f6}" />
 		<circle x="77" y="177" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="86" y="175" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="24V_A" />
+		<rect x="87.00" y="176.00" width="17.97" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="86" y="175" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_A" />
 		<terminal x="80" y="180" name="24V_A" orientation="e" type="Generic" uuid="{6114dc31-3ce2-56c6-9312-1d54248c557d}" />
 		<circle x="77" y="187" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="86" y="185" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="24V_B" />
+		<rect x="87.00" y="186.00" width="17.97" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="86" y="185" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_B" />
 		<terminal x="80" y="190" name="24V_B" orientation="e" type="Generic" uuid="{c1e49f48-4c0e-5c31-a435-5308d839b17d}" />
 		<circle x="77" y="197" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="86" y="195" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="24V_C" />
+		<rect x="87.00" y="196.00" width="17.97" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="86" y="195" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_C" />
 		<terminal x="80" y="200" name="24V_C" orientation="e" type="Generic" uuid="{a3fb8da7-8c1d-5739-b630-168f2fc04b03}" />
 		<circle x="77" y="207" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
 		<text x="86" y="205" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="FGND3" />
@@ -3988,7 +3995,8 @@ Generic layout, not copied from a manufacturer drawing. License: see http://qele
 		<text x="46" y="285" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="W" />
 		<terminal x="40" y="290" name="M1-W" orientation="w" type="Generic" uuid="{a0b53f78-a0d7-5652-94af-6263ee606853}" />
 		<circle x="37" y="307" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="46" y="305" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="PE" />
+		<rect x="47.00" y="306.00" width="8.17" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:orange;color:orange" antialias="false" />
+		<text x="46" y="305" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<terminal x="40" y="310" name="M1-PE" orientation="w" type="Generic" uuid="{5238b4ee-37c7-5d3f-b928-e887543c0fdc}" />
 		<text x="88" y="234" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X23" />
 		<rect x="88" y="242" width="36" height="76" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:black;color:black" antialias="false" />
@@ -4002,7 +4010,8 @@ Generic layout, not copied from a manufacturer drawing. License: see http://qele
 		<text x="106" y="285" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="W" />
 		<terminal x="100" y="290" name="M2-W" orientation="e" type="Generic" uuid="{aee15eb1-b9dd-5cf3-8d56-3c9d96900878}" />
 		<circle x="97" y="307" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="106" y="305" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="PE" />
+		<rect x="107.00" y="306.00" width="8.17" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:orange;color:orange" antialias="false" />
+		<text x="106" y="305" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<terminal x="100" y="310" name="M2-PE" orientation="e" type="Generic" uuid="{bdb5a564-9c45-5f51-a0bf-1461479296f4}" />
 		<text x="38" y="334" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X01" />
 		<rect x="38" y="342" width="36" height="116" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:black;color:black" antialias="false" />
@@ -4016,7 +4025,8 @@ Generic layout, not copied from a manufacturer drawing. License: see http://qele
 		<text x="56" y="385" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="L3" />
 		<terminal x="50" y="390" name="L3" orientation="w" type="Generic" uuid="{bba9c3e7-f7fb-54ca-8be1-b2a22d04c64c}" />
 		<circle x="47" y="407" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="56" y="405" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="PE" />
+		<rect x="57.00" y="406.00" width="8.17" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:orange;color:orange" antialias="false" />
+		<text x="56" y="405" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<terminal x="50" y="410" name="PE" orientation="w" type="Generic" uuid="{bd9bc7e1-196a-5920-a424-79e4eadacbc1}" />
 		<circle x="47" y="427" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
 		<text x="56" y="425" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="RB+" />
@@ -4231,13 +4241,13 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="IN6" />
 		<terminal x="-80" y="320" name="24V_A" orientation="w" type="Generic" uuid="{035aedac-95ca-5f7e-9170-fbc36fc79f75}" />
 		<line x1="-80" y1="320" x2="-70" y2="320" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V_A" />
+		<text x="-66" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_A" />
 		<terminal x="-80" y="340" name="24V_B" orientation="w" type="Generic" uuid="{698a53c5-d963-5c4e-9f31-93b688a983fb}" />
 		<line x1="-80" y1="340" x2="-70" y2="340" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="334" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V_B" />
+		<text x="-66" y="334" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_B" />
 		<terminal x="-80" y="360" name="24V_C" orientation="w" type="Generic" uuid="{eb7631ff-f03a-51ce-ab92-19709bf4ab6e}" />
 		<line x1="-80" y1="360" x2="-70" y2="360" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="354" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V_C" />
+		<text x="-66" y="354" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_C" />
 		<terminal x="-80" y="380" name="FGND3" orientation="w" type="Generic" uuid="{1deca7e8-6234-59eb-991d-ef3c1ab5c76a}" />
 		<line x1="-80" y1="380" x2="-70" y2="380" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="374" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="FGND3" />
@@ -4253,7 +4263,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3" />
 		<terminal x="-80" y="480" name="PE" orientation="w" type="Generic" uuid="{03f17668-4097-5627-b584-ac50bf5b0d81}" />
 		<line x1="-80" y1="480" x2="-70" y2="480" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<terminal x="-80" y="500" name="RB+" orientation="w" type="Generic" uuid="{e3ee3c66-12dd-552b-81eb-b473171f0808}" />
 		<line x1="-80" y1="500" x2="-70" y2="500" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="494" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="RB+" />
@@ -4272,7 +4282,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="114" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="140" name="M1-PE" orientation="e" type="Generic" uuid="{d66df210-643b-531e-9fe2-3e59bdd27e27}" />
 		<line x1="80" y1="140" x2="70" y2="140" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="134" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="134" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<text x="40" y="152" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X23" />
 		<terminal x="80" y="180" name="M2-U" orientation="e" type="Generic" uuid="{b39337f3-da49-572f-9ceb-8ae902c0bf56}" />
 		<line x1="80" y1="180" x2="70" y2="180" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
@@ -4285,7 +4295,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="214" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="240" name="M2-PE" orientation="e" type="Generic" uuid="{bde2e2b7-021a-5239-8ccc-87ea0a1e8dfc}" />
 		<line x1="80" y1="240" x2="70" y2="240" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<dynamic_text x="-74" y="564" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{854a865d-b420-5f2a-be58-c218bb1a8a52}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
@@ -4379,7 +4389,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-74" y="52" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X06" />
 		<terminal x="-80" y="80" name="X06-24" orientation="w" type="Generic" uuid="{0122c2fd-54ff-5bf0-b9a8-699b5de84071}" />
 		<line x1="-80" y1="80" x2="-70" y2="80" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24" />
+		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24" />
 		<terminal x="-80" y="100" name="X06-0" orientation="w" type="Generic" uuid="{5642bfc2-2265-55cf-bd70-24574c46c3c2}" />
 		<line x1="-80" y1="100" x2="-70" y2="100" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="94" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0" />
@@ -4406,11 +4416,11 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
 		<terminal x="-80" y="260" name="X06-0V" orientation="w" type="Generic" uuid="{f2acc704-982c-594c-94c4-b1628b6b6f13}" />
 		<line x1="-80" y1="260" x2="-70" y2="260" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V" />
+		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V" />
 		<text x="-74" y="272" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X02" />
 		<terminal x="-80" y="300" name="DC+" orientation="w" type="Generic" uuid="{8360204b-b28d-584c-99a0-86f99174dc55}" />
 		<line x1="-80" y1="300" x2="-70" y2="300" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC+" />
+		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="DC+" />
 		<terminal x="-80" y="320" name="DC-" orientation="w" type="Generic" uuid="{718d6de9-1796-530b-99ec-ac65fd388d4e}" />
 		<line x1="-80" y1="320" x2="-70" y2="320" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC-" />
@@ -4426,14 +4436,14 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3N" />
 		<terminal x="-80" y="420" name="PE" orientation="w" type="Generic" uuid="{47ec9acf-afdf-5a98-90f9-17e7c85dca88}" />
 		<line x1="-80" y1="420" x2="-70" y2="420" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<text x="-74" y="432" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Up Us GND" />
 		<terminal x="-80" y="460" name="Up" orientation="w" type="Generic" uuid="{17cb3ae2-5d95-51d9-a881-f39fd68b0d96}" />
 		<line x1="-80" y1="460" x2="-70" y2="460" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Up" />
+		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Up" />
 		<terminal x="-80" y="480" name="Us" orientation="w" type="Generic" uuid="{2d580103-0422-5eb4-869c-0cde3943e020}" />
 		<line x1="-80" y1="480" x2="-70" y2="480" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Us" />
+		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Us" />
 		<terminal x="-80" y="500" name="GND" orientation="w" type="Generic" uuid="{2638696a-ca92-551c-b5a3-218c79e403bd}" />
 		<line x1="-80" y1="500" x2="-70" y2="500" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="494" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="GND" />
@@ -4456,7 +4466,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="174" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="200" name="M1-PE" orientation="e" type="Generic" uuid="{6a657e0b-817c-53eb-87db-7aeaab0110b5}" />
 		<line x1="80" y1="200" x2="70" y2="200" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="194" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="194" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<dynamic_text x="-74" y="544" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{d7a65c8f-101d-5106-8147-fa425f41405d}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
@@ -4550,7 +4560,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-74" y="52" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X06" />
 		<terminal x="-80" y="80" name="X06-24" orientation="w" type="Generic" uuid="{da485137-7357-5434-a7e5-0c63ba145f2b}" />
 		<line x1="-80" y1="80" x2="-70" y2="80" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24" />
+		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24" />
 		<terminal x="-80" y="100" name="X06-0" orientation="w" type="Generic" uuid="{a6a81181-371a-5051-9cdf-c225a620b6c5}" />
 		<line x1="-80" y1="100" x2="-70" y2="100" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="94" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0" />
@@ -4577,11 +4587,11 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
 		<terminal x="-80" y="260" name="X06-0V" orientation="w" type="Generic" uuid="{173042bc-4994-5f36-b506-a911ffb78d11}" />
 		<line x1="-80" y1="260" x2="-70" y2="260" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V" />
+		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V" />
 		<text x="-74" y="272" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X02" />
 		<terminal x="-80" y="300" name="DC+" orientation="w" type="Generic" uuid="{f062350e-420a-596d-8baf-9a43392b0df2}" />
 		<line x1="-80" y1="300" x2="-70" y2="300" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC+" />
+		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="DC+" />
 		<terminal x="-80" y="320" name="DC-" orientation="w" type="Generic" uuid="{66e6bf05-d46e-506a-8199-27f672c05ea8}" />
 		<line x1="-80" y1="320" x2="-70" y2="320" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC-" />
@@ -4597,14 +4607,14 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3N" />
 		<terminal x="-80" y="420" name="PE" orientation="w" type="Generic" uuid="{159dbed8-8d6a-5dd5-9b94-61ecf8a4d196}" />
 		<line x1="-80" y1="420" x2="-70" y2="420" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<text x="-74" y="432" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Up Us GND" />
 		<terminal x="-80" y="460" name="Up" orientation="w" type="Generic" uuid="{163a89cf-43e1-51a8-a4cc-4547b127358c}" />
 		<line x1="-80" y1="460" x2="-70" y2="460" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Up" />
+		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Up" />
 		<terminal x="-80" y="480" name="Us" orientation="w" type="Generic" uuid="{1b1dbd77-3b55-520f-87e8-6d42ddd1ae82}" />
 		<line x1="-80" y1="480" x2="-70" y2="480" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Us" />
+		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Us" />
 		<terminal x="-80" y="500" name="GND" orientation="w" type="Generic" uuid="{bfd577a3-e1bf-55a6-a67c-2e97e2f11c83}" />
 		<line x1="-80" y1="500" x2="-70" y2="500" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="494" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="GND" />
@@ -4627,7 +4637,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="174" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="200" name="M1-PE" orientation="e" type="Generic" uuid="{d97e7ad4-efff-5ad5-849e-e5f2ce1b6344}" />
 		<line x1="80" y1="200" x2="70" y2="200" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="194" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="194" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<dynamic_text x="-74" y="544" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{52aa7cf3-5e55-55f2-a000-b08ff6035caa}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
@@ -4717,7 +4727,8 @@ Generic layout, not copied from a manufacturer drawing. License: see http://qele
 		<text x="30" y="146" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X06" />
 		<rect x="30" y="154" width="110" height="26" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:black;color:black" antialias="false" />
 		<circle x="37" y="167" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="37" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="24" />
+		<rect x="37.80" y="156.80" width="6.73" height="0.91" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="37" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24" />
 		<terminal x="40" y="170" name="X06-24" orientation="s" type="Generic" uuid="{447c2c14-7986-5277-93cb-a3547fbcf52c}" />
 		<circle x="47" y="167" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
 		<text x="47" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="0" />
@@ -4744,12 +4755,14 @@ Generic layout, not copied from a manufacturer drawing. License: see http://qele
 		<text x="117" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="7" />
 		<terminal x="120" y="170" name="X06-7" orientation="s" type="Generic" uuid="{20a78db5-e891-56fb-9938-0adc2bf9bcf2}" />
 		<circle x="127" y="167" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="127" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="0V" />
+		<rect x="127.80" y="156.80" width="6.78" height="0.91" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:blue" antialias="false" />
+		<text x="127" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V" />
 		<terminal x="130" y="170" name="X06-0V" orientation="s" type="Generic" uuid="{2be46404-ad17-5b4f-9b86-03aa44b972d8}" />
 		<text x="18" y="284" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X02" />
 		<rect x="18" y="292" width="36" height="36" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:black;color:black" antialias="false" />
 		<circle x="27" y="297" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="36" y="295" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="DC+" />
+		<rect x="37.00" y="296.00" width="11.43" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="36" y="295" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="DC+" />
 		<terminal x="30" y="300" name="DC+" orientation="w" type="Generic" uuid="{23c3460d-9f94-5d9c-b488-25ab9488ba41}" />
 		<circle x="27" y="317" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
 		<text x="36" y="315" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="DC-" />
@@ -4766,15 +4779,18 @@ Generic layout, not copied from a manufacturer drawing. License: see http://qele
 		<text x="36" y="385" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="L3N" />
 		<terminal x="30" y="390" name="L3N" orientation="w" type="Generic" uuid="{74ef65d9-997a-54b3-b3fa-f1d6382c717c}" />
 		<circle x="27" y="407" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="36" y="405" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="PE" />
+		<rect x="37.00" y="406.00" width="8.17" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:orange;color:orange" antialias="false" />
+		<text x="36" y="405" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<terminal x="30" y="410" name="PE" orientation="w" type="Generic" uuid="{ce0f2d44-8b4a-5d81-a435-964773364991}" />
 		<text x="118" y="264" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Up Us GND" />
 		<rect x="118" y="272" width="36" height="56" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:black;color:black" antialias="false" />
 		<circle x="127" y="277" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="136" y="275" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="Up" />
+		<rect x="137.00" y="276.00" width="8.17" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="136" y="275" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Up" />
 		<terminal x="130" y="280" name="Up" orientation="e" type="Generic" uuid="{98c52f5c-6b92-5bdb-a8fa-73956af812b3}" />
 		<circle x="127" y="297" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="136" y="295" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="Us" />
+		<rect x="137.00" y="296.00" width="8.17" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="136" y="295" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Us" />
 		<terminal x="130" y="300" name="Us" orientation="e" type="Generic" uuid="{a44a76e0-d49a-5f55-9a76-db70f9e14b58}" />
 		<circle x="127" y="317" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
 		<text x="136" y="315" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="GND" />
@@ -4950,7 +4966,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-74" y="52" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X06" />
 		<terminal x="-80" y="80" name="X06-24" orientation="w" type="Generic" uuid="{85f8a065-3267-5d4f-b79a-2e1f85664a87}" />
 		<line x1="-80" y1="80" x2="-70" y2="80" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24" />
+		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24" />
 		<terminal x="-80" y="100" name="X06-0" orientation="w" type="Generic" uuid="{0d5df8d7-3ee0-5fe5-b256-d33e8248f562}" />
 		<line x1="-80" y1="100" x2="-70" y2="100" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="94" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0" />
@@ -4977,11 +4993,11 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
 		<terminal x="-80" y="260" name="X06-0V" orientation="w" type="Generic" uuid="{91492dd4-4a1f-59ba-a82e-6f981546bb75}" />
 		<line x1="-80" y1="260" x2="-70" y2="260" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V" />
+		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V" />
 		<text x="-74" y="272" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X02" />
 		<terminal x="-80" y="300" name="DC+" orientation="w" type="Generic" uuid="{7b5b1c0c-120a-5b3d-b580-4d2e18e62640}" />
 		<line x1="-80" y1="300" x2="-70" y2="300" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC+" />
+		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="DC+" />
 		<terminal x="-80" y="320" name="DC-" orientation="w" type="Generic" uuid="{436ffcdf-3f63-54e2-8d20-fb31a3959638}" />
 		<line x1="-80" y1="320" x2="-70" y2="320" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC-" />
@@ -4997,14 +5013,14 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3N" />
 		<terminal x="-80" y="420" name="PE" orientation="w" type="Generic" uuid="{04638420-e017-55f0-bb20-862e92c32dc1}" />
 		<line x1="-80" y1="420" x2="-70" y2="420" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<text x="-74" y="432" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Up Us GND" />
 		<terminal x="-80" y="460" name="Up" orientation="w" type="Generic" uuid="{087658db-68c6-59e8-9500-09656e56f540}" />
 		<line x1="-80" y1="460" x2="-70" y2="460" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Up" />
+		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Up" />
 		<terminal x="-80" y="480" name="Us" orientation="w" type="Generic" uuid="{fbe99991-46ef-5079-8c16-4ed6a720a228}" />
 		<line x1="-80" y1="480" x2="-70" y2="480" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Us" />
+		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Us" />
 		<terminal x="-80" y="500" name="GND" orientation="w" type="Generic" uuid="{ccba6369-f0b0-5b79-b683-28c8078b689c}" />
 		<line x1="-80" y1="500" x2="-70" y2="500" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="494" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="GND" />
@@ -5027,7 +5043,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="174" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="200" name="M1-PE" orientation="e" type="Generic" uuid="{79e00369-2053-52f1-a6ee-aa85b4cd5cd6}" />
 		<line x1="80" y1="200" x2="70" y2="200" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="194" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="194" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<dynamic_text x="-74" y="544" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{8c9d970c-e396-57b7-9ef5-401d0adf4c0e}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
@@ -5121,7 +5137,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-74" y="52" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X06" />
 		<terminal x="-80" y="80" name="X06-24" orientation="w" type="Generic" uuid="{1dc349a3-10ed-5ef7-b53c-775d560f4880}" />
 		<line x1="-80" y1="80" x2="-70" y2="80" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24" />
+		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24" />
 		<terminal x="-80" y="100" name="X06-0" orientation="w" type="Generic" uuid="{51d8f48d-3ff7-5a8a-8213-487fe6c82ce0}" />
 		<line x1="-80" y1="100" x2="-70" y2="100" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="94" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0" />
@@ -5148,11 +5164,11 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
 		<terminal x="-80" y="260" name="X06-0V" orientation="w" type="Generic" uuid="{171f83da-89e1-59b1-ab64-8688d8034fc2}" />
 		<line x1="-80" y1="260" x2="-70" y2="260" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V" />
+		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V" />
 		<text x="-74" y="272" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X02" />
 		<terminal x="-80" y="300" name="DC+" orientation="w" type="Generic" uuid="{f3382a2f-7c8b-5161-bfd2-9eabc47fd738}" />
 		<line x1="-80" y1="300" x2="-70" y2="300" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC+" />
+		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="DC+" />
 		<terminal x="-80" y="320" name="DC-" orientation="w" type="Generic" uuid="{6ff1030a-6e2d-5e60-b649-30ca9dfb60fb}" />
 		<line x1="-80" y1="320" x2="-70" y2="320" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC-" />
@@ -5168,14 +5184,14 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3N" />
 		<terminal x="-80" y="420" name="PE" orientation="w" type="Generic" uuid="{84f3e91a-3495-5696-b9b4-f5ae6c927c5d}" />
 		<line x1="-80" y1="420" x2="-70" y2="420" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<text x="-74" y="432" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Up Us GND" />
 		<terminal x="-80" y="460" name="Up" orientation="w" type="Generic" uuid="{e82ba1fe-c312-542c-aef1-6670323f0654}" />
 		<line x1="-80" y1="460" x2="-70" y2="460" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Up" />
+		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Up" />
 		<terminal x="-80" y="480" name="Us" orientation="w" type="Generic" uuid="{78392e64-1cc7-533e-8af4-258a9c95f196}" />
 		<line x1="-80" y1="480" x2="-70" y2="480" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Us" />
+		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Us" />
 		<terminal x="-80" y="500" name="GND" orientation="w" type="Generic" uuid="{2de9a0c0-8c1b-58a5-9936-79ae11d567b1}" />
 		<line x1="-80" y1="500" x2="-70" y2="500" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="494" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="GND" />
@@ -5198,7 +5214,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="174" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="200" name="M1-PE" orientation="e" type="Generic" uuid="{1077a1cf-15ee-5b2b-87dc-3c4c9ce593f9}" />
 		<line x1="80" y1="200" x2="70" y2="200" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="194" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="194" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<dynamic_text x="-74" y="544" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{e7078044-2f3a-5882-9e6f-9aad4d2d1cbe}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
@@ -5292,7 +5308,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-74" y="52" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X06" />
 		<terminal x="-80" y="80" name="X06-24" orientation="w" type="Generic" uuid="{7d0769b9-cbf6-56fc-9f73-7297e4bbcdfd}" />
 		<line x1="-80" y1="80" x2="-70" y2="80" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24" />
+		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24" />
 		<terminal x="-80" y="100" name="X06-0" orientation="w" type="Generic" uuid="{49a9a707-216c-5637-ac32-6041e9db7f94}" />
 		<line x1="-80" y1="100" x2="-70" y2="100" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="94" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0" />
@@ -5319,11 +5335,11 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
 		<terminal x="-80" y="260" name="X06-0V" orientation="w" type="Generic" uuid="{a0f93e82-1295-5f6d-885e-6fe59f3d34c2}" />
 		<line x1="-80" y1="260" x2="-70" y2="260" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V" />
+		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V" />
 		<text x="-74" y="272" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X02" />
 		<terminal x="-80" y="300" name="DC+" orientation="w" type="Generic" uuid="{858251f2-36ed-5c73-8089-2e73ada9a2c9}" />
 		<line x1="-80" y1="300" x2="-70" y2="300" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC+" />
+		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="DC+" />
 		<terminal x="-80" y="320" name="DC-" orientation="w" type="Generic" uuid="{81608d01-706e-538e-860d-2c0904f6b571}" />
 		<line x1="-80" y1="320" x2="-70" y2="320" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC-" />
@@ -5339,14 +5355,14 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3N" />
 		<terminal x="-80" y="420" name="PE" orientation="w" type="Generic" uuid="{a00143fc-cf00-5a71-8447-1608e1d9e863}" />
 		<line x1="-80" y1="420" x2="-70" y2="420" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<text x="-74" y="432" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Up Us GND" />
 		<terminal x="-80" y="460" name="Up" orientation="w" type="Generic" uuid="{5c5c62cf-8486-5256-bf23-12a095cc53e4}" />
 		<line x1="-80" y1="460" x2="-70" y2="460" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Up" />
+		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Up" />
 		<terminal x="-80" y="480" name="Us" orientation="w" type="Generic" uuid="{81120684-a871-5b9e-9ea8-ff1021af479a}" />
 		<line x1="-80" y1="480" x2="-70" y2="480" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Us" />
+		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Us" />
 		<terminal x="-80" y="500" name="GND" orientation="w" type="Generic" uuid="{7116bfd7-2305-5df5-9f90-14e31744b70e}" />
 		<line x1="-80" y1="500" x2="-70" y2="500" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="494" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="GND" />
@@ -5369,7 +5385,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="174" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="200" name="M1-PE" orientation="e" type="Generic" uuid="{c27a2252-e97e-50e3-ad41-191d5c2dfdc0}" />
 		<line x1="80" y1="200" x2="70" y2="200" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="194" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="194" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<dynamic_text x="-74" y="544" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{408d290b-7c7f-54dd-9abf-a436d34d5966}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
@@ -5463,7 +5479,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-74" y="52" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X06" />
 		<terminal x="-80" y="80" name="X06-24" orientation="w" type="Generic" uuid="{e91ffb72-8c41-501d-827f-ed371082f057}" />
 		<line x1="-80" y1="80" x2="-70" y2="80" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24" />
+		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24" />
 		<terminal x="-80" y="100" name="X06-0" orientation="w" type="Generic" uuid="{0e5e461a-8ced-5401-94ad-c153400627c1}" />
 		<line x1="-80" y1="100" x2="-70" y2="100" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="94" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0" />
@@ -5490,11 +5506,11 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
 		<terminal x="-80" y="260" name="X06-0V" orientation="w" type="Generic" uuid="{5cda3ad0-2ddb-5f01-a0c2-1aa3f0355c14}" />
 		<line x1="-80" y1="260" x2="-70" y2="260" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V" />
+		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V" />
 		<text x="-74" y="272" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X02" />
 		<terminal x="-80" y="300" name="DC+" orientation="w" type="Generic" uuid="{1c82f80c-8bd2-59bd-807e-849340fbb04b}" />
 		<line x1="-80" y1="300" x2="-70" y2="300" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC+" />
+		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="DC+" />
 		<terminal x="-80" y="320" name="DC-" orientation="w" type="Generic" uuid="{2e242e03-2d6d-5fbe-934d-55efdb1e65c9}" />
 		<line x1="-80" y1="320" x2="-70" y2="320" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC-" />
@@ -5510,14 +5526,14 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3N" />
 		<terminal x="-80" y="420" name="PE" orientation="w" type="Generic" uuid="{cd98f49e-8c42-5b24-a059-cff36ce75bb2}" />
 		<line x1="-80" y1="420" x2="-70" y2="420" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<text x="-74" y="432" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Up Us GND" />
 		<terminal x="-80" y="460" name="Up" orientation="w" type="Generic" uuid="{8f943557-c68e-5486-b2ba-9f1376872a17}" />
 		<line x1="-80" y1="460" x2="-70" y2="460" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Up" />
+		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Up" />
 		<terminal x="-80" y="480" name="Us" orientation="w" type="Generic" uuid="{1c8899e5-916d-5d14-bcdc-b4ff31b3acf0}" />
 		<line x1="-80" y1="480" x2="-70" y2="480" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Us" />
+		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Us" />
 		<terminal x="-80" y="500" name="GND" orientation="w" type="Generic" uuid="{e029e679-9865-54be-a0fc-eb03221bd702}" />
 		<line x1="-80" y1="500" x2="-70" y2="500" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="494" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="GND" />
@@ -5540,7 +5556,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="174" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="200" name="M1-PE" orientation="e" type="Generic" uuid="{00c401fb-4f46-5519-a26d-bc1b04249513}" />
 		<line x1="80" y1="200" x2="70" y2="200" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="194" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="194" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<dynamic_text x="-74" y="544" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{d4422e11-5c95-5b1d-a6e7-faaa24b4bfd1}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
@@ -5634,7 +5650,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-74" y="52" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X06" />
 		<terminal x="-80" y="80" name="X06-24" orientation="w" type="Generic" uuid="{8208aa19-3132-5545-8fc2-014da83caf21}" />
 		<line x1="-80" y1="80" x2="-70" y2="80" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24" />
+		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24" />
 		<terminal x="-80" y="100" name="X06-0" orientation="w" type="Generic" uuid="{257d5748-093a-55b4-ada9-8f8b8c06cca2}" />
 		<line x1="-80" y1="100" x2="-70" y2="100" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="94" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0" />
@@ -5661,11 +5677,11 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
 		<terminal x="-80" y="260" name="X06-0V" orientation="w" type="Generic" uuid="{e422ebbe-ed9d-518c-8815-148197ae1b00}" />
 		<line x1="-80" y1="260" x2="-70" y2="260" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V" />
+		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V" />
 		<text x="-74" y="272" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X02" />
 		<terminal x="-80" y="300" name="DC+" orientation="w" type="Generic" uuid="{4726ab41-1d2c-59a5-b778-5b63dba37732}" />
 		<line x1="-80" y1="300" x2="-70" y2="300" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC+" />
+		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="DC+" />
 		<terminal x="-80" y="320" name="DC-" orientation="w" type="Generic" uuid="{cb1e3ea5-02e9-58c4-a7a8-a1b67d016b78}" />
 		<line x1="-80" y1="320" x2="-70" y2="320" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC-" />
@@ -5681,14 +5697,14 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3N" />
 		<terminal x="-80" y="420" name="PE" orientation="w" type="Generic" uuid="{e1b9cbc3-813e-5bd4-9426-e3ec8ded0cb3}" />
 		<line x1="-80" y1="420" x2="-70" y2="420" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<text x="-74" y="432" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Up Us GND" />
 		<terminal x="-80" y="460" name="Up" orientation="w" type="Generic" uuid="{1f605fe1-afdd-52fc-be26-cb2ca58558ce}" />
 		<line x1="-80" y1="460" x2="-70" y2="460" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Up" />
+		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Up" />
 		<terminal x="-80" y="480" name="Us" orientation="w" type="Generic" uuid="{33771c49-f36f-5538-a669-d0353a4c1c51}" />
 		<line x1="-80" y1="480" x2="-70" y2="480" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Us" />
+		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Us" />
 		<terminal x="-80" y="500" name="GND" orientation="w" type="Generic" uuid="{058c1a37-dde8-551e-a120-bcb993da1fbe}" />
 		<line x1="-80" y1="500" x2="-70" y2="500" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="494" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="GND" />
@@ -5717,7 +5733,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="214" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="240" name="M1-PE" orientation="e" type="Generic" uuid="{8e20f212-c5f5-51e2-96b6-5a5670abc501}" />
 		<line x1="80" y1="240" x2="70" y2="240" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<text x="40" y="252" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Motor 2" />
 		<terminal x="80" y="280" name="M2-U" orientation="e" type="Generic" uuid="{4875c2b4-7849-50dd-914b-51c2b3802084}" />
 		<line x1="80" y1="280" x2="70" y2="280" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
@@ -5730,7 +5746,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="340" name="M2-PE" orientation="e" type="Generic" uuid="{2cb1614d-c7c9-585b-9a25-b68528724590}" />
 		<line x1="80" y1="340" x2="70" y2="340" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="334" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="334" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<dynamic_text x="-74" y="544" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{e6d19cc8-b2ae-555f-8214-3e945480fd33}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
@@ -5824,7 +5840,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-74" y="52" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X06" />
 		<terminal x="-80" y="80" name="X06-24" orientation="w" type="Generic" uuid="{0536ee2f-2525-593c-a725-16c9084ccb72}" />
 		<line x1="-80" y1="80" x2="-70" y2="80" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24" />
+		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24" />
 		<terminal x="-80" y="100" name="X06-0" orientation="w" type="Generic" uuid="{75c38ea7-0584-5906-8395-1610e955e0d6}" />
 		<line x1="-80" y1="100" x2="-70" y2="100" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="94" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0" />
@@ -5851,11 +5867,11 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
 		<terminal x="-80" y="260" name="X06-0V" orientation="w" type="Generic" uuid="{36db7c33-c4a4-5141-af1c-61cb9a59dbd9}" />
 		<line x1="-80" y1="260" x2="-70" y2="260" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V" />
+		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V" />
 		<text x="-74" y="272" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X02" />
 		<terminal x="-80" y="300" name="DC+" orientation="w" type="Generic" uuid="{0c652199-a12d-5430-8319-e6bb3877fdea}" />
 		<line x1="-80" y1="300" x2="-70" y2="300" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC+" />
+		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="DC+" />
 		<terminal x="-80" y="320" name="DC-" orientation="w" type="Generic" uuid="{41169405-7ba6-59c4-8705-2884591110ee}" />
 		<line x1="-80" y1="320" x2="-70" y2="320" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC-" />
@@ -5871,14 +5887,14 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3N" />
 		<terminal x="-80" y="420" name="PE" orientation="w" type="Generic" uuid="{7e422e6b-bb9e-59f9-b541-3049d59e840a}" />
 		<line x1="-80" y1="420" x2="-70" y2="420" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<text x="-74" y="432" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Up Us GND" />
 		<terminal x="-80" y="460" name="Up" orientation="w" type="Generic" uuid="{94ada58e-168e-5f87-9646-91e642e636a3}" />
 		<line x1="-80" y1="460" x2="-70" y2="460" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Up" />
+		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Up" />
 		<terminal x="-80" y="480" name="Us" orientation="w" type="Generic" uuid="{8a1ed30a-cc6d-5301-998e-ec5365679072}" />
 		<line x1="-80" y1="480" x2="-70" y2="480" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Us" />
+		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Us" />
 		<terminal x="-80" y="500" name="GND" orientation="w" type="Generic" uuid="{a6b84a0a-25e8-5e80-8ce1-1de26b120792}" />
 		<line x1="-80" y1="500" x2="-70" y2="500" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="494" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="GND" />
@@ -5907,7 +5923,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="214" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="240" name="M1-PE" orientation="e" type="Generic" uuid="{1aad5d46-d6df-5d95-a9d1-6bf7e7502a36}" />
 		<line x1="80" y1="240" x2="70" y2="240" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<text x="40" y="252" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Motor 2" />
 		<terminal x="80" y="280" name="M2-U" orientation="e" type="Generic" uuid="{9d5354c6-d944-50fc-9e9d-64df909735d9}" />
 		<line x1="80" y1="280" x2="70" y2="280" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
@@ -5920,7 +5936,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="340" name="M2-PE" orientation="e" type="Generic" uuid="{2f5a09d9-e107-5ed6-aa63-cf00deaf7ce9}" />
 		<line x1="80" y1="340" x2="70" y2="340" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="334" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="334" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<dynamic_text x="-74" y="544" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{caa0321c-81a6-5368-b950-1182b338a29e}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
@@ -6016,7 +6032,8 @@ Generic layout, not copied from a manufacturer drawing. License: see http://qele
 		<text x="30" y="146" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X06" />
 		<rect x="30" y="154" width="110" height="26" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:black;color:black" antialias="false" />
 		<circle x="37" y="167" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="37" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="24" />
+		<rect x="37.80" y="156.80" width="6.73" height="0.91" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="37" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24" />
 		<terminal x="40" y="170" name="X06-24" orientation="s" type="Generic" uuid="{fa8f643b-587b-520e-b221-6b4de15a7b43}" />
 		<circle x="47" y="167" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
 		<text x="47" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="0" />
@@ -6043,12 +6060,14 @@ Generic layout, not copied from a manufacturer drawing. License: see http://qele
 		<text x="117" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="7" />
 		<terminal x="120" y="170" name="X06-7" orientation="s" type="Generic" uuid="{80264400-cabd-5d19-b98f-24cec3d8f94a}" />
 		<circle x="127" y="167" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="127" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="0V" />
+		<rect x="127.80" y="156.80" width="6.78" height="0.91" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:blue" antialias="false" />
+		<text x="127" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V" />
 		<terminal x="130" y="170" name="X06-0V" orientation="s" type="Generic" uuid="{58ac2827-324f-5b03-8a5a-2d454f96f8a5}" />
 		<text x="18" y="284" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X02" />
 		<rect x="18" y="292" width="36" height="36" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:black;color:black" antialias="false" />
 		<circle x="27" y="297" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="36" y="295" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="DC+" />
+		<rect x="37.00" y="296.00" width="11.43" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="36" y="295" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="DC+" />
 		<terminal x="30" y="300" name="DC+" orientation="w" type="Generic" uuid="{cb0a1e30-e34d-5624-839a-90c94b4256da}" />
 		<circle x="27" y="317" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
 		<text x="36" y="315" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="DC-" />
@@ -6065,15 +6084,18 @@ Generic layout, not copied from a manufacturer drawing. License: see http://qele
 		<text x="36" y="385" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="L3N" />
 		<terminal x="30" y="390" name="L3N" orientation="w" type="Generic" uuid="{624f2840-d030-572a-b9b7-d56b909111b6}" />
 		<circle x="27" y="407" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="36" y="405" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="PE" />
+		<rect x="37.00" y="406.00" width="8.17" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:orange;color:orange" antialias="false" />
+		<text x="36" y="405" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<terminal x="30" y="410" name="PE" orientation="w" type="Generic" uuid="{8f0c1d05-ef64-5dcc-afc3-6924b754c8cf}" />
 		<text x="118" y="264" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Up Us GND" />
 		<rect x="118" y="272" width="36" height="56" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:black;color:black" antialias="false" />
 		<circle x="127" y="277" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="136" y="275" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="Up" />
+		<rect x="137.00" y="276.00" width="8.17" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="136" y="275" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Up" />
 		<terminal x="130" y="280" name="Up" orientation="e" type="Generic" uuid="{b4f8482f-3b1d-59a2-af16-ffe8d3e7ba87}" />
 		<circle x="127" y="297" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="136" y="295" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="Us" />
+		<rect x="137.00" y="296.00" width="8.17" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="136" y="295" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Us" />
 		<terminal x="130" y="300" name="Us" orientation="e" type="Generic" uuid="{8a3c4ba0-4635-5ba9-9d9e-395bdae5bdd9}" />
 		<circle x="127" y="317" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
 		<text x="136" y="315" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="GND" />
@@ -6255,7 +6277,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-74" y="52" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X06" />
 		<terminal x="-80" y="80" name="X06-24" orientation="w" type="Generic" uuid="{e4e9af97-b724-5bae-bb94-0f2dee18627d}" />
 		<line x1="-80" y1="80" x2="-70" y2="80" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24" />
+		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24" />
 		<terminal x="-80" y="100" name="X06-0" orientation="w" type="Generic" uuid="{1cfd9f34-f602-5c40-9465-2a9dbc03f04c}" />
 		<line x1="-80" y1="100" x2="-70" y2="100" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="94" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0" />
@@ -6282,11 +6304,11 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
 		<terminal x="-80" y="260" name="X06-0V" orientation="w" type="Generic" uuid="{9cb472df-0628-53ae-9484-569dec2749da}" />
 		<line x1="-80" y1="260" x2="-70" y2="260" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V" />
+		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V" />
 		<text x="-74" y="272" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X02" />
 		<terminal x="-80" y="300" name="DC+" orientation="w" type="Generic" uuid="{4d1b6400-2c01-569b-b8ee-d13059270de6}" />
 		<line x1="-80" y1="300" x2="-70" y2="300" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC+" />
+		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="DC+" />
 		<terminal x="-80" y="320" name="DC-" orientation="w" type="Generic" uuid="{92560381-6853-5047-bc12-dadde87ac5a9}" />
 		<line x1="-80" y1="320" x2="-70" y2="320" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC-" />
@@ -6302,14 +6324,14 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3N" />
 		<terminal x="-80" y="420" name="PE" orientation="w" type="Generic" uuid="{44cfe3d8-ecfe-52a9-a17d-372a71f5b621}" />
 		<line x1="-80" y1="420" x2="-70" y2="420" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<text x="-74" y="432" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Up Us GND" />
 		<terminal x="-80" y="460" name="Up" orientation="w" type="Generic" uuid="{3b89e369-1d23-5723-8ccb-3222ce4d341b}" />
 		<line x1="-80" y1="460" x2="-70" y2="460" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Up" />
+		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Up" />
 		<terminal x="-80" y="480" name="Us" orientation="w" type="Generic" uuid="{6a285b3a-bfeb-5b50-b479-9da4c8575318}" />
 		<line x1="-80" y1="480" x2="-70" y2="480" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Us" />
+		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Us" />
 		<terminal x="-80" y="500" name="GND" orientation="w" type="Generic" uuid="{42f93141-3818-5455-a10f-7b50779b7a8d}" />
 		<line x1="-80" y1="500" x2="-70" y2="500" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="494" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="GND" />
@@ -6338,7 +6360,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="214" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="240" name="M1-PE" orientation="e" type="Generic" uuid="{108f7290-03ff-5daa-9d0b-24ae513a44dd}" />
 		<line x1="80" y1="240" x2="70" y2="240" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<text x="40" y="252" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Motor 2" />
 		<terminal x="80" y="280" name="M2-U" orientation="e" type="Generic" uuid="{06d0fe6d-1704-5bb1-8245-325ca387dadb}" />
 		<line x1="80" y1="280" x2="70" y2="280" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
@@ -6351,7 +6373,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="340" name="M2-PE" orientation="e" type="Generic" uuid="{30cd68bf-cec0-532f-9ad3-89389989bbd1}" />
 		<line x1="80" y1="340" x2="70" y2="340" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="334" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="334" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<dynamic_text x="-74" y="544" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{5a02f710-f988-5546-ab42-aa427897db5b}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
@@ -6445,7 +6467,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-74" y="52" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X06" />
 		<terminal x="-80" y="80" name="X06-24" orientation="w" type="Generic" uuid="{cfd94048-815d-5510-81a8-2bff6684dacd}" />
 		<line x1="-80" y1="80" x2="-70" y2="80" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24" />
+		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24" />
 		<terminal x="-80" y="100" name="X06-0" orientation="w" type="Generic" uuid="{4bd99481-42e3-5ec2-acf2-7a9d6a49f799}" />
 		<line x1="-80" y1="100" x2="-70" y2="100" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="94" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0" />
@@ -6472,11 +6494,11 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
 		<terminal x="-80" y="260" name="X06-0V" orientation="w" type="Generic" uuid="{bade6ef2-f2bc-594d-bd01-8216ad87f926}" />
 		<line x1="-80" y1="260" x2="-70" y2="260" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V" />
+		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V" />
 		<text x="-74" y="272" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X02" />
 		<terminal x="-80" y="300" name="DC+" orientation="w" type="Generic" uuid="{0ea9658a-6c23-5a65-88b8-6399a781c292}" />
 		<line x1="-80" y1="300" x2="-70" y2="300" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC+" />
+		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="DC+" />
 		<terminal x="-80" y="320" name="DC-" orientation="w" type="Generic" uuid="{f15e8f52-b67c-5a76-9b3f-4ae8f995f775}" />
 		<line x1="-80" y1="320" x2="-70" y2="320" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC-" />
@@ -6492,14 +6514,14 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3N" />
 		<terminal x="-80" y="420" name="PE" orientation="w" type="Generic" uuid="{b0170c2b-adff-5720-86ec-55a90e6b1ad2}" />
 		<line x1="-80" y1="420" x2="-70" y2="420" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<text x="-74" y="432" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Up Us GND" />
 		<terminal x="-80" y="460" name="Up" orientation="w" type="Generic" uuid="{3bf41924-25f2-5e18-8836-93a98bd54308}" />
 		<line x1="-80" y1="460" x2="-70" y2="460" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Up" />
+		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Up" />
 		<terminal x="-80" y="480" name="Us" orientation="w" type="Generic" uuid="{68ef71da-0f88-5718-b9da-1b8b824343e1}" />
 		<line x1="-80" y1="480" x2="-70" y2="480" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Us" />
+		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Us" />
 		<terminal x="-80" y="500" name="GND" orientation="w" type="Generic" uuid="{86bde5db-8ede-59ba-84dc-c963cb28b98c}" />
 		<line x1="-80" y1="500" x2="-70" y2="500" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="494" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="GND" />
@@ -6528,7 +6550,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="214" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="240" name="M1-PE" orientation="e" type="Generic" uuid="{6b7a230f-3345-5238-b9ed-dd0cca388a41}" />
 		<line x1="80" y1="240" x2="70" y2="240" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<text x="40" y="252" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Motor 2" />
 		<terminal x="80" y="280" name="M2-U" orientation="e" type="Generic" uuid="{7ef6d463-a073-5d90-b99d-cfc588dbb336}" />
 		<line x1="80" y1="280" x2="70" y2="280" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
@@ -6541,7 +6563,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="340" name="M2-PE" orientation="e" type="Generic" uuid="{36d9cd60-1c69-5fe1-9cfe-cfab3d53d39c}" />
 		<line x1="80" y1="340" x2="70" y2="340" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="334" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="334" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<dynamic_text x="-74" y="544" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{bf73fc53-3ef7-503c-ba61-19b2488912ac}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
@@ -6635,7 +6657,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-74" y="52" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X06" />
 		<terminal x="-80" y="80" name="X06-24" orientation="w" type="Generic" uuid="{01bafadc-8805-5052-8c4a-26428357ff95}" />
 		<line x1="-80" y1="80" x2="-70" y2="80" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24" />
+		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24" />
 		<terminal x="-80" y="100" name="X06-0" orientation="w" type="Generic" uuid="{19bdb0b6-4013-56d4-82e3-f23159224452}" />
 		<line x1="-80" y1="100" x2="-70" y2="100" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="94" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0" />
@@ -6662,11 +6684,11 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
 		<terminal x="-80" y="260" name="X06-0V" orientation="w" type="Generic" uuid="{62f61af6-9439-57e6-848d-89684a3b2123}" />
 		<line x1="-80" y1="260" x2="-70" y2="260" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V" />
+		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V" />
 		<text x="-74" y="272" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X02" />
 		<terminal x="-80" y="300" name="DC+" orientation="w" type="Generic" uuid="{c826caf2-f2a9-5f1b-8ffa-f78a9d520692}" />
 		<line x1="-80" y1="300" x2="-70" y2="300" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC+" />
+		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="DC+" />
 		<terminal x="-80" y="320" name="DC-" orientation="w" type="Generic" uuid="{5bdf5ec1-93c8-537e-b8ff-a96067fbc455}" />
 		<line x1="-80" y1="320" x2="-70" y2="320" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC-" />
@@ -6682,14 +6704,14 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3N" />
 		<terminal x="-80" y="420" name="PE" orientation="w" type="Generic" uuid="{0c30fc4f-4969-5eb5-b126-727b7e692369}" />
 		<line x1="-80" y1="420" x2="-70" y2="420" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<text x="-74" y="432" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Up Us GND" />
 		<terminal x="-80" y="460" name="Up" orientation="w" type="Generic" uuid="{fbf0335c-5ec5-52d7-a17c-930c399d0838}" />
 		<line x1="-80" y1="460" x2="-70" y2="460" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Up" />
+		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Up" />
 		<terminal x="-80" y="480" name="Us" orientation="w" type="Generic" uuid="{189dbe9e-e5e2-5703-befc-2e2bf436915e}" />
 		<line x1="-80" y1="480" x2="-70" y2="480" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Us" />
+		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Us" />
 		<terminal x="-80" y="500" name="GND" orientation="w" type="Generic" uuid="{bacea036-f255-55ce-bc54-4da62662c43e}" />
 		<line x1="-80" y1="500" x2="-70" y2="500" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="494" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="GND" />
@@ -6718,7 +6740,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="214" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="240" name="M1-PE" orientation="e" type="Generic" uuid="{d6a39810-2d9e-54ca-af7f-ff29553ca7c8}" />
 		<line x1="80" y1="240" x2="70" y2="240" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<text x="40" y="252" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Motor 2" />
 		<terminal x="80" y="280" name="M2-U" orientation="e" type="Generic" uuid="{57f87ed2-fc83-527f-8699-930103cfb330}" />
 		<line x1="80" y1="280" x2="70" y2="280" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
@@ -6731,7 +6753,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="340" name="M2-PE" orientation="e" type="Generic" uuid="{18b8c111-90c7-58e4-92c8-77c5c83fca60}" />
 		<line x1="80" y1="340" x2="70" y2="340" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="334" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="334" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<dynamic_text x="-74" y="544" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{002b6a94-744d-521e-9a96-624cb095dd53}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
@@ -6825,7 +6847,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-74" y="52" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X06" />
 		<terminal x="-80" y="80" name="X06-24" orientation="w" type="Generic" uuid="{3be66bf4-dee7-5685-97be-62ae164b8c27}" />
 		<line x1="-80" y1="80" x2="-70" y2="80" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24" />
+		<text x="-66" y="74" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24" />
 		<terminal x="-80" y="100" name="X06-0" orientation="w" type="Generic" uuid="{4d9d6210-df38-52f5-a22f-1e4e948e6dfc}" />
 		<line x1="-80" y1="100" x2="-70" y2="100" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="94" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0" />
@@ -6852,11 +6874,11 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
 		<terminal x="-80" y="260" name="X06-0V" orientation="w" type="Generic" uuid="{b36cb41a-f68e-5ea4-b4b0-2fb13838f3ee}" />
 		<line x1="-80" y1="260" x2="-70" y2="260" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V" />
+		<text x="-66" y="254" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V" />
 		<text x="-74" y="272" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X02" />
 		<terminal x="-80" y="300" name="DC+" orientation="w" type="Generic" uuid="{9051371d-a71d-5fff-a8b7-db240365406c}" />
 		<line x1="-80" y1="300" x2="-70" y2="300" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC+" />
+		<text x="-66" y="294" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="DC+" />
 		<terminal x="-80" y="320" name="DC-" orientation="w" type="Generic" uuid="{3ea7d261-b293-5aa0-9e68-e775e006250a}" />
 		<line x1="-80" y1="320" x2="-70" y2="320" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC-" />
@@ -6872,14 +6894,14 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="-66" y="394" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3N" />
 		<terminal x="-80" y="420" name="PE" orientation="w" type="Generic" uuid="{bb4c15af-9f50-59ec-8c25-76c1e38ab335}" />
 		<line x1="-80" y1="420" x2="-70" y2="420" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="-66" y="414" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<text x="-74" y="432" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Up Us GND" />
 		<terminal x="-80" y="460" name="Up" orientation="w" type="Generic" uuid="{753e752d-7764-557f-9856-88ffcf10fd61}" />
 		<line x1="-80" y1="460" x2="-70" y2="460" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Up" />
+		<text x="-66" y="454" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Up" />
 		<terminal x="-80" y="480" name="Us" orientation="w" type="Generic" uuid="{b67f83c5-f567-50cc-85f2-8af9b6ffaba5}" />
 		<line x1="-80" y1="480" x2="-70" y2="480" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Us" />
+		<text x="-66" y="474" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Us" />
 		<terminal x="-80" y="500" name="GND" orientation="w" type="Generic" uuid="{9eae1fc8-e753-572c-82cb-53493a6ce3f6}" />
 		<line x1="-80" y1="500" x2="-70" y2="500" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="-66" y="494" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="GND" />
@@ -6908,7 +6930,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="214" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="240" name="M1-PE" orientation="e" type="Generic" uuid="{97322429-9ab2-5dc4-a916-5fb7da109075}" />
 		<line x1="80" y1="240" x2="70" y2="240" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="234" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<text x="40" y="252" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Motor 2" />
 		<terminal x="80" y="280" name="M2-U" orientation="e" type="Generic" uuid="{d2f2d5ad-fb68-5e3e-84d1-e3fb4cd42821}" />
 		<line x1="80" y1="280" x2="70" y2="280" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
@@ -6921,7 +6943,7 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 		<text x="61.8" y="314" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
 		<terminal x="80" y="340" name="M2-PE" orientation="e" type="Generic" uuid="{0164a224-2d9f-5508-9d1d-3436b235fdd6}" />
 		<line x1="80" y1="340" x2="70" y2="340" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="57.6" y="334" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE" />
+		<text x="57.6" y="334" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<dynamic_text x="-74" y="544" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{a7ffb27e-5b05-5b2e-a0d1-5ec9ffcb804c}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
@@ -7045,8 +7067,8 @@ Schematic view made by misc/beckhoff/gen_hubs.py: the stages between the sockets
 		<circle x="43.8" y="-3.2" diameter="2.4" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
 		<polygon closed="false" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" x1="49.5" y1="100" x2="62" y2="100" x3="62" y3="10" />
 		<circle x="60.8" y="8.8" diameter="2.4" style="line-style:normal;line-weight:thin;filling:blue;color:blue" antialias="false" />
-		<text x="-31" y="30" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="Us" />
-		<text x="49" y="30" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="Up" />
+		<text x="-31" y="30" rotation="0" color="#ff0000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="Us" />
+		<text x="49" y="30" rotation="0" color="#ff0000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="Up" />
 		<circle x="-1.25" y="-85" diameter="14" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
 		<text x="3.25" y="-82.33" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="IN" />
 		<circle x="-1.25" y="-35" diameter="14" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
@@ -7115,9 +7137,11 @@ Realistic view made by misc/beckhoff/gen_hubs.py: scale 3.125 px per mm, grid 5 
 		<line end1="none" end2="none" y1="-38" antialias="false" y2="-30" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="19.75" length1="4.5" x2="19.75" length2="4.5" />
 		<text x="-27.25" y="-26" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="OUT" />
 		<circle x="-42" y="-124" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="4" />
-		<text x="-36" y="-119.8" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="Us" />
+		<rect x="-35.20" y="-119.00" width="6.83" height="0.91" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="-36" y="-119.8" rotation="0" color="#ff0000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="Us" />
 		<circle x="-42" y="-113" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="4" />
-		<text x="-36" y="-108.8" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="Up" />
+		<rect x="-35.20" y="-108.00" width="6.83" height="0.91" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="-36" y="-108.8" rotation="0" color="#ff0000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="Up" />
 		<circle x="-42" y="-102" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="4" />
 		<text x="-36" y="-97.8" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="Run" />
 		<circle x="48" y="-124" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="4" />
@@ -7140,8 +7164,10 @@ Realistic view made by misc/beckhoff/gen_hubs.py: scale 3.125 px per mm, grid 5 
 		<circle x="38.7" y="93.7" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="12.6" />
 		<rect x="39.5" y="88.8" width="11" height="1.6" antialias="false" style="line-style:none;line-weight:thin;filling:blue;color:blue" rx="0" ry="0" />
 		<text x="40.38" y="87.4" rotation="0" color="#0000ff" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="0V" />
-		<text x="-39.67" y="22" rotation="0" color="#000000" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="Us" />
-		<text x="40.33" y="22" rotation="0" color="#000000" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="Up" />
+		<rect x="-38.27" y="23.40" width="10.83" height="1.60" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="-39.67" y="22" rotation="0" color="#ff0000" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="Us" />
+		<rect x="41.73" y="23.40" width="10.83" height="1.60" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="40.33" y="22" rotation="0" color="#ff0000" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="Up" />
 		<rect x="68.5" y="60" width="6" height="4" antialias="false" style="line-style:none;line-weight:thin;filling:red;color:red" rx="0" ry="0" />
 		<rect x="68.5" y="70" width="6" height="4" antialias="false" style="line-style:none;line-weight:thin;filling:blue;color:blue" rx="0" ry="0" />
 		<rect x="68.5" y="80" width="6" height="4" antialias="false" style="line-style:none;line-weight:thin;filling:orange;color:orange" rx="0" ry="0" />
@@ -7196,8 +7222,8 @@ Schematic view made by misc/beckhoff/gen_ek1322.py: the junction between the por
 		<text x="-25" y="15" rotation="0" color="#0000ff" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="0 V" />
 		<text x="27" y="-10" rotation="0" color="#ff0000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="+24 V" />
 		<text x="28" y="15" rotation="0" color="#0000ff" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="0 V" />
-		<text x="-9.5" y="47" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="Us" />
-		<text x="10.5" y="47" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="Up" />
+		<text x="-9.5" y="47" rotation="0" color="#ff0000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="Us" />
+		<text x="10.5" y="47" rotation="0" color="#ff0000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="Up" />
 		<circle x="-2" y="-87" diameter="14" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
 		<text x="2" y="-84.33" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="X1" />
 		<circle x="-2" y="-37" diameter="14" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
@@ -7263,9 +7289,11 @@ Realistic view made by misc/beckhoff/gen_ek1322.py: scale 1.00, grid 5 px. Licen
 		<circle x="-17" y="-102" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="4" />
 		<text x="-11" y="-97.8" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="L/A2" />
 		<circle x="23" y="-124" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="4" />
-		<text x="15.67" y="-119.8" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="Us" />
+		<rect x="16.47" y="-119.00" width="6.83" height="0.91" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="15.67" y="-119.8" rotation="0" color="#ff0000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="Us" />
 		<circle x="23" y="-113" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="4" />
-		<text x="15.67" y="-108.8" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="Up" />
+		<rect x="16.47" y="-108.00" width="6.83" height="0.91" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="15.67" y="-108.8" rotation="0" color="#ff0000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="Up" />
 		<circle x="-23.1" y="36.9" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="16.2" />
 		<circle x="-21.3" y="38.7" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="12.6" />
 		<rect x="-20.5" y="33.8" width="11" height="1.6" antialias="false" style="line-style:none;line-weight:thin;filling:red;color:red" rx="0" ry="0" />
@@ -7282,8 +7310,10 @@ Realistic view made by misc/beckhoff/gen_ek1322.py: scale 1.00, grid 5 px. Licen
 		<circle x="18.7" y="93.7" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="12.6" />
 		<rect x="19.5" y="88.8" width="11" height="1.6" antialias="false" style="line-style:none;line-weight:thin;filling:blue;color:blue" rx="0" ry="0" />
 		<text x="20.38" y="87.4" rotation="0" color="#0000ff" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="0V" />
-		<text x="-19.67" y="22" rotation="0" color="#000000" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="Us" />
-		<text x="20.33" y="22" rotation="0" color="#000000" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="Up" />
+		<rect x="-18.27" y="23.40" width="10.83" height="1.60" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="-19.67" y="22" rotation="0" color="#ff0000" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="Us" />
+		<rect x="21.73" y="23.40" width="10.83" height="1.60" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="20.33" y="22" rotation="0" color="#ff0000" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="Up" />
 		<text x="-10.31" y="130" rotation="0" color="#000000" font="Roboto Condensed,8,-1,5,75,0,0,0,0,0,Bold" text="EK1322" />
 		<terminal x="5" y="-80" name="X1" orientation="n" type="Generic" uuid="{bbe8e5f3-b5ed-5142-a3ff-4c0dbbf169b0}" />
 		<terminal x="5" y="-30" name="X2" orientation="s" type="Generic" uuid="{67a9fbde-c278-5758-a1a6-4e9e704bc280}" />
@@ -11413,13 +11443,13 @@ Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: t
 Description view made by misc/beckhoff/gen_description.py from the realistic view: legends, LEDs and power contacts are generic, check them against the datasheet. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
 		<text x="-10.7" y="135.74" font="Roboto Condensed,8,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="EL5152" />
-		<text x="3.09" y="92.67" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V2" />
+		<text x="3.09" y="92.67" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V2" />
 		<text x="5.38" y="-7" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="B2" />
 		<text x="-9.2" y="-7" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="B1" />
 		<text x="5.38" y="-57" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="A2" />
 		<text x="-13.1" y="103" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V2" />
 		<text x="-13.1" y="48" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V1" />
-		<text x="3.51" y="37.67" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V1" />
+		<text x="3.51" y="37.67" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V1" />
 		<line end1="none" end2="none" y1="117.45" antialias="false" y2="139.29" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-12.56" length1="4.5" x2="-12.56" length2="4.5" />
 		<line end1="none" end2="none" y1="139.29" antialias="false" y2="139.29" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-12.56" length1="4.5" x2="23.45" length2="4.5" />
 		<line end1="none" end2="none" y1="139.29" antialias="false" y2="90.09" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="23.45" length1="4.5" x2="23.45" length2="4.5" />
@@ -11761,13 +11791,15 @@ Description view made by misc/beckhoff/gen_description.py from the realistic vie
 Realistic view made by misc/beckhoff/realistic_from_model.py from a drawing supplied by the user: scale 1.00, grid 5 px, residual 1.00 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
 		<text x="-10.7" y="135.74" font="Roboto Condensed,8,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="EL5152" />
-		<text x="3.09" y="92.67" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V2" />
+		<rect x="4.49" y="94.07" width="15.31" height="1.60" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:blue" antialias="false" />
+		<text x="3.09" y="92.67" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V2" />
 		<text x="5.38" y="-7" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="B2" />
 		<text x="-9.2" y="-7" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="B1" />
 		<text x="5.38" y="-57" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="A2" />
 		<text x="-13.1" y="103" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V2" />
 		<text x="-13.1" y="48" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24V1" />
-		<text x="3.51" y="37.67" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0V1" />
+		<rect x="4.91" y="39.07" width="14.47" height="1.60" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:blue" antialias="false" />
+		<text x="3.51" y="37.67" font="Roboto Condensed,7,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V1" />
 		<line end1="none" end2="none" y1="117.45" antialias="false" y2="139.29" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-12.56" length1="4.5" x2="-12.56" length2="4.5" />
 		<line end1="none" end2="none" y1="139.29" antialias="false" y2="139.29" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-12.56" length1="4.5" x2="23.45" length2="4.5" />
 		<line end1="none" end2="none" y1="139.29" antialias="false" y2="90.09" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="23.45" length1="4.5" x2="23.45" length2="4.5" />
@@ -12132,7 +12164,7 @@ The +24 V and 0 V rails stand for the power contacts (generic).</informations>
 		<circle x="17.5" y="67.5" diameter="5" style="line-style:normal;line-weight:normal;filling:white;color:red" antialias="false" />
 		<line x1="-17.5" y1="70" x2="17.5" y2="70" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
 		<rect x="-22.5" y="67.5" width="5" height="5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
-		<text x="-16" y="62" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="+24 V" />
+		<text x="-16" y="62" rotation="0" color="#ff0000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="+24 V" />
 		<line x1="-12" y1="0" x2="8" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="-7" y1="97" x2="3" y2="97" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<rect x="-10" y="92" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
@@ -12226,7 +12258,7 @@ Schematic view made by misc/beckhoff/gen_el9410.py: the supply, the infeeds and 
 		<line x1="-3.25" y1="145.5" x2="6.75" y2="145.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<rect x="-12" y="-122" width="29" height="30" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false" />
 		<text x="-5.17" y="-116.33" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="E-bus" />
-		<text x="-0.83" y="-108.33" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="Us" />
+		<text x="-0.83" y="-108.33" rotation="0" color="#ff0000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="Us" />
 		<text x="-10" y="-95" rotation="0" color="#ff0000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="24V" />
 		<text x="9" y="-95" rotation="0" color="#0000ff" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="0V" />
 		<line x1="-5" y1="-49.5" x2="-5" y2="-92" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
@@ -13295,9 +13327,11 @@ Realistic view drawn by misc/beckhoff/gen_symbols.py, layout assumed: scale 1.00
 		<rect x="-67" y="149" width="33" height="18" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" rx="0" ry="0" />
 		<rect x="-67" y="173" width="33" height="18" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" rx="0" ry="0" />
 		<circle x="-6.5" y="182.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
-		<text x="-8" y="180" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="Us" />
+		<rect x="-7.20" y="180.80" width="6.83" height="0.91" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="-8" y="180" rotation="0" color="#ff0000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="Us" />
 		<circle x="8.5" y="182.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="5" />
-		<text x="7" y="180" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="Up" />
+		<rect x="7.80" y="180.80" width="6.83" height="0.91" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="7" y="180" rotation="0" color="#ff0000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="Up" />
 		<text x="-59" y="220" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" text="EtherCAT P" />
 		<text x="-43" y="241" rotation="0" color="#000000" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="EPP2338-0002" />
 		<terminal x="-50" y="-135" name="IN X50" orientation="n" type="Generic" uuid="{d5816a82-72e6-5d23-97f4-7703c2eb9bbb}" />
@@ -13413,7 +13447,7 @@ The +24 V and 0 V rails stand for the power contacts (generic).</informations>
 		<circle x="57.5" y="51.5" diameter="5" style="line-style:normal;line-weight:normal;filling:white;color:red" antialias="false" />
 		<line x1="-57.5" y1="54" x2="57.5" y2="54" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
 		<rect x="-62.5" y="51.5" width="5" height="5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
-		<text x="-56" y="46" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="+24 V" />
+		<text x="-56" y="46" rotation="0" color="#ff0000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="+24 V" />
 		<text x="-11" y="24" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="E-bus" />
 		<polygon closed="false" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="40" y1="0" x2="40" y2="22" x3="22" y3="22" />
 		<polygon closed="false" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="-40" y1="0" x2="-40" y2="22" x3="-26" y3="22" />
@@ -14355,7 +14389,7 @@ The +24 V and 0 V rails stand for the power contacts (generic).</informations>
 		<circle x="47.5" y="87.5" diameter="5" style="line-style:normal;line-weight:normal;filling:white;color:red" antialias="false" />
 		<line x1="-47.5" y1="90" x2="47.5" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
 		<rect x="-52.5" y="87.5" width="5" height="5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
-		<text x="-46" y="82" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="+24 V" />
+		<text x="-46" y="82" rotation="0" color="#ff0000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="+24 V" />
 		<text x="-11" y="36" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="Logic" />
 		<rect x="-26" y="28" width="48" height="24" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="-7" y1="117" x2="3" y2="117" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />

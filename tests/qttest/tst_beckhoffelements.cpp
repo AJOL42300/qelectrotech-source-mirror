@@ -1892,6 +1892,82 @@ class TstBeckhoffElements : public QObject
 			}
 			QVERIFY(checked >= 40);
 		}
+		void supplyLabelsAreColouredByFunction()
+		{
+			const QRegularExpression positive(QStringLiteral(
+				"^(\\+?24( ?V)?(_[A-C])?|Us|Up|DC\\+)$"));
+			const QRegularExpression negative(QStringLiteral(
+				"^0 ?V[1-4]?$"));
+			int red = 0;
+			int blue = 0;
+			int orange = 0;
+			for (const QString &file : allFiles()) {
+				if (file.endsWith(QStringLiteral("_table.elmt"))) {
+					continue;
+				}
+				const auto texts = load(elementPath(file)).elementsByTagName(
+					QStringLiteral("text"));
+				for (int i = 0; i < texts.size(); ++i) {
+					const auto e = texts.at(i).toElement();
+					const QString text = e.attribute(QStringLiteral("text"));
+					const QString colour = e.attribute(QStringLiteral("color"));
+					const QByteArray where = (file + QLatin1Char(' ') + text)
+						.toUtf8();
+					if (positive.match(text).hasMatch()) {
+						QVERIFY2(colour == QStringLiteral("#ff0000"),
+								 where.constData());
+						++red;
+					}
+					else if (negative.match(text).hasMatch()) {
+						QVERIFY2(colour == QStringLiteral("#0000ff"),
+								 where.constData());
+						++blue;
+					}
+					else if (text == QStringLiteral("PE")) {
+						QVERIFY2(colour == QStringLiteral("#b87800"),
+								 where.constData());
+						++orange;
+					}
+				}
+			}
+			QVERIFY(red > 50);
+			QVERIFY(blue > 50);
+			QVERIFY(orange > 30);
+		}
+		void everyRealisticSupplyLabelHasItsColouredStroke()
+		{
+			int checked = 0;
+			for (const QString &file : allFiles()) {
+				if (!file.endsWith(QStringLiteral("_realistic.elmt"))) {
+					continue;
+				}
+				const auto root = load(elementPath(file)).documentElement();
+				const auto desc = root.firstChildElement(
+					QStringLiteral("description"));
+				int strokes = 0;
+				int labels = 0;
+				for (auto n = desc.firstChildElement(); !n.isNull();
+					 n = n.nextSiblingElement()) {
+					if (n.tagName() == QLatin1String("rect")
+						&& n.attribute(QStringLiteral("height")).toDouble() < 2
+						&& n.attribute(QStringLiteral("style")).contains(
+							QRegularExpression(QStringLiteral(
+								"filling:(red|blue|orange)")))) {
+						++strokes;
+					}
+					const QString c = n.attribute(QStringLiteral("color"));
+					if (n.tagName() == QLatin1String("text")
+						&& (c == QStringLiteral("#ff0000")
+							|| c == QStringLiteral("#0000ff")
+							|| c == QStringLiteral("#b87800"))) {
+						++labels;
+					}
+				}
+				QVERIFY2(strokes >= labels, qPrintable(file));
+				checked += labels > 0;
+			}
+			QVERIFY(checked >= 25);
+		}
 		void ek1322HasTwoM8SocketsAndFourFeedPins()
 		{
 			const QString key = QStringLiteral("ek1322");

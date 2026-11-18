@@ -67,7 +67,7 @@ Description view made by misc/beckhoff/gen_description.py from the realistic vie
 		<line end1="none" end2="none" y1="230" antialias="false" y2="230" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="55.5" length1="4.5" x2="-8" length2="4.5" />
 		<text x="-75.2" y="232.84" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="EtherCAT IN (RJ45)" />
 		<line end1="none" end2="none" y1="300" antialias="false" y2="300" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="25.5" length1="4.5" x2="-8" length2="4.5" />
-		<text x="-49.6" y="302.84" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC+ - DC link" />
+		<text x="-49.6" y="302.84" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="DC+ - DC link" />
 		<line end1="none" end2="none" y1="320" antialias="false" y2="320" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="25.5" length1="4.5" x2="-8" length2="4.5" />
 		<text x="-48.08" y="322.84" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC- - DC link" />
 		<line end1="none" end2="none" y1="350" antialias="false" y2="350" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="25.5" length1="4.5" x2="-8" length2="4.5" />
@@ -77,7 +77,7 @@ Description view made by misc/beckhoff/gen_description.py from the realistic vie
 		<line end1="none" end2="none" y1="390" antialias="false" y2="390" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="25.5" length1="4.5" x2="-8" length2="4.5" />
 		<text x="-69.6" y="392.84" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3N - Mains supply" />
 		<line end1="none" end2="none" y1="410" antialias="false" y2="410" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="25.5" length1="4.5" x2="-8" length2="4.5" />
-		<text x="-83.68" y="412.84" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="PE - Protective earth" />
+		<text x="-83.68" y="412.84" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE - Protective earth" />
 		<line end1="none" end2="none" y1="450" antialias="false" y2="450" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="15.5" length1="4.5" x2="-8" length2="4.5" />
 		<text x="-77.68" y="452.84" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Motor 1: U, V, W, PE" />
 		<line end1="none" end2="none" y1="44" antialias="false" y2="44" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="163.5" length1="4.5" x2="188" length2="4.5" />
@@ -87,9 +87,9 @@ Description view made by misc/beckhoff/gen_description.py from the realistic vie
 		<line end1="none" end2="none" y1="230" antialias="false" y2="230" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="104.5" length1="4.5" x2="188" length2="4.5" />
 		<text x="190" y="232.84" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="EtherCAT OUT (RJ45)" />
 		<line end1="none" end2="none" y1="280" antialias="false" y2="280" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="144.17" length1="4.5" x2="188" length2="4.5" />
-		<text x="190" y="282.84" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Up" />
+		<text x="190" y="282.84" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Up" />
 		<line end1="none" end2="none" y1="300" antialias="false" y2="300" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="144.17" length1="4.5" x2="188" length2="4.5" />
-		<text x="190" y="302.84" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Us" />
+		<text x="190" y="302.84" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Us" />
 		<line end1="none" end2="none" y1="320" antialias="false" y2="320" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="147.5" length1="4.5" x2="188" length2="4.5" />
 		<text x="190" y="322.84" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="GND - Ground" />
 		<dynamic_text x="8" y="56" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{5270ad77-532e-5fd8-9396-f6c5083d9964}" font="Liberation Sans,10,-1,5,75,0,0,0,0,0,Bold">
@@ -113,7 +113,8 @@ Description view made by misc/beckhoff/gen_description.py from the realistic vie
 		<text x="30" y="146" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X06" />
 		<rect x="30" y="154" width="110" height="26" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:black;color:black" antialias="false" />
 		<circle x="37" y="167" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="37" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="24" />
+		<rect x="37.80" y="156.80" width="6.73" height="0.91" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="37" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24" />
 		<terminal x="40" y="170" name="X06-24" orientation="s" type="Generic" uuid="{6d56cb12-240f-5e51-9f49-cec6187b9474}" />
 		<circle x="47" y="167" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
 		<text x="47" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="0" />
@@ -140,12 +141,14 @@ Description view made by misc/beckhoff/gen_description.py from the realistic vie
 		<text x="117" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="7" />
 		<terminal x="120" y="170" name="X06-7" orientation="s" type="Generic" uuid="{6669b8b5-7e59-59f7-91f0-735d1c32b3c5}" />
 		<circle x="127" y="167" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="127" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="0V" />
+		<rect x="127.80" y="156.80" width="6.78" height="0.91" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:blue" antialias="false" />
+		<text x="127" y="156" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V" />
 		<terminal x="130" y="170" name="X06-0V" orientation="s" type="Generic" uuid="{bde9f8d7-46b0-5ffb-bc82-7b3673699a51}" />
 		<text x="18" y="284" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X02" />
 		<rect x="18" y="292" width="36" height="36" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:black;color:black" antialias="false" />
 		<circle x="27" y="297" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="36" y="295" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="DC+" />
+		<rect x="37.00" y="296.00" width="11.43" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="36" y="295" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="DC+" />
 		<terminal x="30" y="300" name="DC+" orientation="w" type="Generic" uuid="{26c30e44-4970-56dc-952c-62f028ef7bc3}" />
 		<circle x="27" y="317" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
 		<text x="36" y="315" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="DC-" />
@@ -162,15 +165,18 @@ Description view made by misc/beckhoff/gen_description.py from the realistic vie
 		<text x="36" y="385" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="L3N" />
 		<terminal x="30" y="390" name="L3N" orientation="w" type="Generic" uuid="{a55ea9b1-5110-5e98-a5c4-916e3b964693}" />
 		<circle x="27" y="407" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="36" y="405" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="PE" />
+		<rect x="37.00" y="406.00" width="8.17" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:orange;color:orange" antialias="false" />
+		<text x="36" y="405" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
 		<terminal x="30" y="410" name="PE" orientation="w" type="Generic" uuid="{9024288f-6192-55d7-abc9-8dfd6ef7ca5b}" />
 		<text x="118" y="264" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Up Us GND" />
 		<rect x="118" y="272" width="36" height="56" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:black;color:black" antialias="false" />
 		<circle x="127" y="277" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="136" y="275" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="Up" />
+		<rect x="137.00" y="276.00" width="8.17" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="136" y="275" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Up" />
 		<terminal x="130" y="280" name="Up" orientation="e" type="Generic" uuid="{c41dd5b8-13f6-54ed-a614-b43b7a24de70}" />
 		<circle x="127" y="297" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
-		<text x="136" y="295" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="Us" />
+		<rect x="137.00" y="296.00" width="8.17" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="136" y="295" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Us" />
 		<terminal x="130" y="300" name="Us" orientation="e" type="Generic" uuid="{81f06b07-48a8-55db-8122-56598756c32b}" />
 		<circle x="127" y="317" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false" />
 		<text x="136" y="315" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="GND" />

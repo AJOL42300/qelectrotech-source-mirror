@@ -93,10 +93,12 @@ Generic layout, not copied from a manufacturer drawing. License: see http://qele
 		<text x="86" y="155" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="IN6"/>
 		<terminal x="80" y="160" name="IN6" orientation="e" type="Generic" uuid="{cacecf98-0b33-5152-afb5-4342ff6c6910}"/>
 		<circle x="77" y="167" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<text x="86" y="165" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="24V_A"/>
+		<rect x="87.00" y="166.00" width="17.97" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="86" y="165" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_A"/>
 		<terminal x="80" y="170" name="24V_A" orientation="e" type="Generic" uuid="{d51807c9-b34b-5b96-b32f-b15d5c456da5}"/>
 		<circle x="77" y="177" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<text x="86" y="175" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="24V_B"/>
+		<rect x="87.00" y="176.00" width="17.97" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="86" y="175" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24V_B"/>
 		<terminal x="80" y="180" name="24V_B" orientation="e" type="Generic" uuid="{d8351b30-c334-568f-bd89-703a64ef603f}"/>
 		<circle x="77" y="187" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
 		<text x="86" y="185" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="FGND3"/>
@@ -113,7 +115,8 @@ Generic layout, not copied from a manufacturer drawing. License: see http://qele
 		<text x="46" y="285" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="W"/>
 		<terminal x="40" y="290" name="M1-W" orientation="w" type="Generic" uuid="{9a733b5f-be20-5f07-bf8a-513f0c9b43dc}"/>
 		<circle x="37" y="307" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<text x="46" y="305" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="PE"/>
+		<rect x="47.00" y="306.00" width="8.17" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:orange;color:orange" antialias="false" />
+		<text x="46" y="305" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE"/>
 		<terminal x="40" y="310" name="M1-PE" orientation="w" type="Generic" uuid="{f191e910-accf-5379-8fc3-9570a66db914}"/>
 		<text x="38" y="334" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X01"/>
 		<rect x="38" y="342" width="36" height="116" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:black;color:black" antialias="false"/>
@@ -127,7 +130,8 @@ Generic layout, not copied from a manufacturer drawing. License: see http://qele
 		<text x="56" y="385" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="L3"/>
 		<terminal x="50" y="390" name="L3" orientation="w" type="Generic" uuid="{e08b9e5d-e7f0-5b63-8532-1cd39ce39099}"/>
 		<circle x="47" y="407" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<text x="56" y="405" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="PE"/>
+		<rect x="57.00" y="406.00" width="8.17" height="1.14" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:orange;color:orange" antialias="false" />
+		<text x="56" y="405" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE"/>
 		<terminal x="50" y="410" name="PE" orientation="w" type="Generic" uuid="{5b26134d-eebe-52e2-bb36-578fc975be1d}"/>
 		<circle x="47" y="427" diameter="6" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
 		<text x="56" y="425" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ffffff" text="RB+"/>

@@ -70,6 +70,18 @@ each contact depends on the exact type). Each of them also exists as a
 appearances, 16 channels numbered 1 to 16, no signal assumed. The EL6910, the EL9011 and `ethercat_box_generic` only have the
 schematic.
 
+## Colour code of the supply labels
+
+Every view (schematic, realistic, description) shows the supply labels in the
+same colours: **+24 V / 24V / Us / Up / DC+ in red**, **0 V / 0V1..0V4 in blue**,
+**PE in orange** (Qt's "green" is not yellow-green). Signals stay black.
+`misc/beckhoff/gen_colors.py` applies the rule by label text, so it is safe to
+run again. In the realistic views and on the dark housings of the description
+views, a thin coloured stroke is drawn above each label, like on the EL9410.
+In the schematic views and on the legends only the text colour changes.
+Compound texts ("Up Us GND", "+24 V DC / 0 V") stay black. QET cannot colour
+table cells: in the table views the colour code only appears in the title band.
+
 ## Power contacts: left and right
 
 In the schematic views the +24 V (red) and 0 V (blue) rails cross the card like
@@ -787,6 +799,7 @@ python misc/beckhoff/gen_ek1322.py extra-elements/10_electric/20_manufacturers_a
 python misc/beckhoff/gen_hubs.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/gen_description.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/simple_tables.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
+python misc/beckhoff/gen_colors.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/gen_table_titles.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/gen_titleblocks.py
 python misc/beckhoff/gen_example.py
