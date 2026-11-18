@@ -659,5 +659,72 @@ class ProjectTest(unittest.TestCase):
         self.assertIn("0 error(s)", out)
 
 
+class ExampleTest(unittest.TestCase):
+    """The example project and the rules it relies on."""
+
+    @classmethod
+    def setUpClass(cls):
+        sys.path.insert(0, str(ROOT / "misc" / "enclosure_layout"))
+        import make_example
+        cls.make = make_example
+        cls.project = make_example.PROJECT_FILE
+        cls.devices = make_example.DEVICES_FILE
+
+    def run_cli(self, *arguments):
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            code = el.main(["--devices", str(self.devices)]
+                           + list(arguments))
+        return code, out.getvalue()
+
+    def test_files_are_up_to_date(self):
+        text, devices = self.make.build(el.load_catalog())
+        self.assertEqual(self.project.read_bytes().decode("utf-8"), text)
+        self.assertEqual(self.devices.read_bytes().decode("utf-8"),
+                         self.make.devices_text(devices))
+
+    def test_check_finds_only_the_deliberate_errors(self):
+        code, out = self.run_cli("check", str(self.project))
+        self.assertEqual(code, 1)
+        errors = [line for line in out.splitlines()
+                  if line.startswith("ERROR")]
+        self.assertEqual(len(errors), 2)
+        for line in errors:
+            self.assertIn("ERROR DEMO", line)
+        self.assertIn("CP3: the devices take 81%", out)
+        self.assertIn("2 error(s), 1 warning(s), 0 note(s)", out)
+
+    def test_report_lists_the_material_of_each_cabinet(self):
+        code, out = self.run_cli("report", str(self.project))
+        for cabinet in ("CP1", "CP2", "CP3", "CP4-DEMO"):
+            self.assertIn("Cabinet %s:" % cabinet, out)
+        self.assertIn("1 x Beckhoff EK1100", out)
+        self.assertIn("1 x Efapel duct 14120 CCZ, 450 mm long", out)
+        self.assertIn("2 x DIN rail TS35 400, 400 mm long", out)
+
+    def test_every_element_of_the_project_is_embedded(self):
+        root = ET.fromstring(self.project.read_text(encoding="utf-8"))
+        embedded = {e.get("name")[:-5] for e in root.iter("element")
+                    if e.get("name")}
+        used = {e.get("type").rpartition("/")[2][:-5]
+                for e in root.iter("element") if e.get("type")}
+        self.assertEqual(used - embedded, set())
+
+    def test_a_device_on_its_rail_is_not_an_overlap(self):
+        catalog = el.load_catalog()
+        findings = el.check_diagram(catalog, "t", [
+            placed(ENC % "GN403020", 0, 0),
+            placed(FP % "rail_ts35_200", 25, 56),
+            placed(FP % "din_4m", 30, 40)])
+        self.assertEqual(messages(findings, "error"), [])
+
+    def test_two_devices_still_overlap(self):
+        catalog = el.load_catalog()
+        findings = el.check_diagram(catalog, "t", [
+            placed(ENC % "GN403020", 0, 0),
+            placed(FP % "din_4m", 30, 40), placed(FP % "din_4m", 50, 40)])
+        self.assertEqual(len(messages(findings, "error")), 1)
+
+
 if __name__ == "__main__":
     unittest.main()

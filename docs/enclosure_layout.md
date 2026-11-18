@@ -58,7 +58,8 @@ use a smaller enclosure.
    | warning  | the catalog has no usable size for the enclosure: the outer size is used |
 
 A footprint, a door or a plate belongs to the enclosure that contains its
-centre.
+centre. A cover lying on its duct and a module sitting on its rail are not
+overlaps; two modules, or a module and a duct, still are.
 
 ### Doors and mounting plates
 
@@ -199,6 +200,9 @@ python3 misc/enclosure_layout/enclosure_layout.py report project.qet [--csv cont
 
 lists, for each cabinet, its enclosure, its devices grouped by reference
 with the quantity and the footprint, and the share of the usable area used.
+The ducts and the rails placed in the cabinet are listed after the devices
+with their length (a cover comes with its duct); in the CSV they follow the
+devices, the length being in the "width mm" column.
 A component whose label appears several times in a cabinet counts once.
 `check` also reports, per cabinet with an enclosure element:
 
@@ -219,6 +223,59 @@ through its folios or through its "location" information. Terminals (a
 cabinets and only give a note. Slave symbols (contacts, cross references)
 carry no label of their own and are not reported. Cables and conductors
 between cabinets are not components and are not reported.
+
+### Example project: four cabinets
+
+`examples/enclosure_layout_example.qet` is a complete project. It embeds
+every element it uses, so it opens without any library. Plant:
+"Example plant". Each cabinet is a folio "Localisation" (`locmach`).
+
+| Folios | Content |
+|--------|---------|
+| `CP1 - Wiring`, `CP1 - Layout (front view)` | `GN605020`: three ducts (H40, H60, H80) cut to 450 mm with their covers, two TS35 rails of 400 mm, a Beckhoff coupler with four terminals, a power supply, four 1-pole and two 3-pole circuit breakers |
+| `CP2 - Wiring`, `CP2 - Layout (front view)` | `GN403020`: ducts H40 and H60 cut to 250 mm with covers, two rails of 200 mm, one coupler with three terminals, three circuit breakers |
+| `CP3 - Wiring`, `CP3 - Layout (front view)` | `GNG303020`: a power supply and eight 3-pole circuit breakers, crowded on purpose (the layout folio shows the enclosure, door and plate only) |
+| `ERROR DEMO - deliberate errors (CP4-DEMO)` | `GN403020` with two overlapping devices and one device outside the usable area |
+
+The wiring folios hold one generic box per component, with its label,
+designation, manufacturer and manufacturer reference; they are the source
+of the material list. The layout folios hold the enclosure (its label is the
+cabinet name), the plate and the door, then the footprints in front view
+(1 px = 2 mm).
+
+```sh
+python3 misc/enclosure_layout/enclosure_layout.py --devices examples/enclosure_layout_example_devices.json check examples/enclosure_layout_example.qet
+python3 misc/enclosure_layout/enclosure_layout.py --devices examples/enclosure_layout_example_devices.json report --csv contents.csv examples/enclosure_layout_example.qet
+```
+
+Expected result of `check` (exit code 1):
+
+```text
+ERROR: folio 'ERROR DEMO - deliberate errors (CP4-DEMO)': din_3m leaves the usable area of GN403020 by 17.5 mm
+ERROR: folio 'ERROR DEMO - deliberate errors (CP4-DEMO)': din_4m overlaps din_4m in GN403020
+WARNING: CP3: the devices take 81% of the usable area of GNG303020; ducts and spacing are not counted
+2 error(s), 1 warning(s), 0 note(s)
+```
+
+`report` gives the material list of each cabinet: enclosure, plate, door,
+devices, ducts and rails, and the share of the usable area (CP1 15%, CP2
+18%, CP3 81%). Opening the project in QElectroTech and using its material
+list (BOM) gives the components of the wiring folios.
+
+Notes:
+
+- The footprints of Beckhoff devices (`beckhoff_ek1100` and `beckhoff_el_12`,
+  the 12 mm housing of the EL1008 and EL2008) come from the product pages of
+  the manufacturer, checked on 2026-11-18 (see the `source` of each
+  footprint). The other devices (`PSU 24V 10A (generic)`, `MCB 1P C10
+  (generic)` and `MCB 3P C16 (generic)`) are placeholders on the footprints
+  `din_8m`, `din_1m` and `din_3m`: replace them with real references using
+  `link`.
+- The symbols of the wiring folios are one generic box, not the
+  electrical symbols of the collection.
+- The file is built by `misc/enclosure_layout/make_example.py` from the
+  catalog; `make_example.py --check` tells whether it is up to date, and
+  the unit tests do the same.
 
 ### Limits
 

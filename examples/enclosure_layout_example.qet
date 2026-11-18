@@ -1,0 +1,1731 @@
+<project title="Enclosure layout example" uuid="{01196cd7-f7ef-5078-9722-35410485fafe}" version="0.200.1">
+    <properties />
+    <usage enabled="true" time_spent="0" />
+    <symbol_texts upright="true" />
+    <newdiagrams>
+        <border cols="17" colsize="60" displaycols="true" displayrows="true" rows="8" rowsize="80" />
+        <inset author="" auto_page_num="" date="null" displayAt="bottom" filename="" folio="" indexrev="" locmach="" plant="" title="" version="" />
+        <conductors bicolor="false" bus="" cable="" color2="#000000" condsize="1" conductor_color="" conductor_section="" dash-size="1" displaytext="1" formula="" function="" horizontal-alignment="AlignBottom" horizrotatetext="0" num="_" numsize="7" onetextperfolio="0" tension_protocol="" text_color="#000000" type="multi" vertical-alignment="AlignRight" vertirotatetext="270" />
+        <report label="%f-%l%c" />
+        <xrefs>
+            <xref delayprefix="" displayhas="cross" master_label="%f-%l%c" offset="0" powerprefix="" showallconfiguredslaves="false" showpowerctc="true" showterminalname="true" slave_label="(%f-%l%c)" slave_offset="0" snapto="label" stackoverlapping="true" switchprefix="" xrefpos="AlignBottom" type="cable" />
+            <xref delayprefix="" displayhas="cross" master_label="%f-%l%c" offset="0" powerprefix="" showallconfiguredslaves="false" showpowerctc="true" showterminalname="true" slave_label="(%f-%l%c)" slave_offset="0" snapto="label" stackoverlapping="true" switchprefix="" xrefpos="AlignBottom" type="coil" />
+            <xref delayprefix="" displayhas="cross" master_label="%f-%l%c" offset="0" powerprefix="" showallconfiguredslaves="false" showpowerctc="true" showterminalname="true" slave_label="(%f-%l%c)" slave_offset="0" snapto="label" stackoverlapping="true" switchprefix="" xrefpos="AlignBottom" type="commutator" />
+            <xref delayprefix="" displayhas="cross" master_label="%f-%l%c" offset="0" powerprefix="" showallconfiguredslaves="false" showpowerctc="true" showterminalname="true" slave_label="(%f-%l%c)" slave_offset="0" snapto="label" stackoverlapping="true" switchprefix="" xrefpos="AlignBottom" type="plc" />
+            <xref delayprefix="" displayhas="cross" master_label="%f-%l%c" offset="0" powerprefix="" showallconfiguredslaves="false" showpowerctc="true" showterminalname="true" slave_label="(%f-%l%c)" slave_offset="0" snapto="label" stackoverlapping="true" switchprefix="" xrefpos="AlignBottom" type="protection" />
+        </xrefs>
+        <conductors_autonums auto_break_conductors="false" current_autonum="" freeze_new_conductors="false" />
+        <folio_autonums />
+        <element_autonums current_autonum="" freeze_new_elements="false" />
+        <guides />
+    </newdiagrams>
+    <diagram author="" auto_page_num="" cols="17" colsize="60" date="null" displayAt="bottom" displaycols="true" displayrows="true" filename="" folio="%id/%total" freezeNewConductor="false" freezeNewElement="false" height="660" indexrev="" locmach="CP1" order="1" plant="Example plant" rows="8" rowsize="80" title="CP1 - Wiring" uuid="{8efe62a5-b5d0-5e11-8cf8-4f1794209a1f}" version="0.200.1">
+        <defaultconductor bicolor="false" bus="" cable="" color2="#000000" condsize="1" conductor_color="" conductor_section="" dash-size="1" displaytext="1" formula="" function="" horizontal-alignment="AlignBottom" horizrotatetext="0" num="_" numsize="7" onetextperfolio="0" tension_protocol="" text_color="#000000" type="multi" vertical-alignment="AlignRight" vertirotatetext="270" />
+        <elements>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{f66b73a6-c6fa-5943-9377-72b3e855378a}" x="60" y="100" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP1-A1</elementInformation>
+                    <elementInformation name="designation" show="1">EtherCAT coupler</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">EK1100</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{2307b8d5-c812-57fd-b824-6c78673e5f53}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP1-A1</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{82f1ac90-e490-50d1-8d9a-cc9c0d02d907}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>EK1100</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{0a7cea07-0a35-54c1-a26e-7e4c6fed322e}" x="240" y="100" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP1-A2</elementInformation>
+                    <elementInformation name="designation" show="1">8-channel digital input</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">EL1008</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{92db1f07-20cb-5306-b58f-b0ebf5ab89e6}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP1-A2</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{77c57e3a-a1fd-50dc-bd46-0fa753f7ed86}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>EL1008</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{61a66b6c-67a0-52a3-a147-daba46bdf111}" x="420" y="100" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP1-A3</elementInformation>
+                    <elementInformation name="designation" show="1">8-channel digital input</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">EL1008</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{67ca872f-0b11-54e5-b0ec-add57f395296}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP1-A3</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{16aca4ef-d4f9-561d-8267-d4f5b814c254}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>EL1008</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{2889f9f7-6fee-5591-8dd9-69e1f0dd7958}" x="600" y="100" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP1-A4</elementInformation>
+                    <elementInformation name="designation" show="1">8-channel digital output</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">EL2008</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{bd0a4b75-1423-5918-aee3-254471d2f0d2}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP1-A4</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{0de59f15-91c9-567f-9598-cfd20ef14507}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>EL2008</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{61f6b75a-20e8-5851-90c6-1ed8af1f979f}" x="780" y="100" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP1-A5</elementInformation>
+                    <elementInformation name="designation" show="1">8-channel digital output</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">EL2008</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{fffae93f-3740-5d72-a16c-830bc1f6593f}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP1-A5</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{e1ddcebf-cad9-521f-8464-5922e98fcddc}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>EL2008</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{19b94ae2-68f1-5ec1-8a44-8f384c85b1af}" x="60" y="190" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP1-G1</elementInformation>
+                    <elementInformation name="designation" show="1">24 V DC power supply</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Generic</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">PSU 24V 10A (generic)</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{ac304541-e977-5c08-8ca5-f33316f02060}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP1-G1</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{38e1ea0a-fcfe-5661-a3ca-1730f0a196c9}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>PSU 24V 10A (generic)</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{6103209e-01b9-5429-8d4f-61e678174bbf}" x="240" y="190" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP1-F1</elementInformation>
+                    <elementInformation name="designation" show="1">Miniature circuit breaker, 1 pole</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Generic</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">MCB 1P C10 (generic)</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{63ad38fc-65e1-5c93-a93e-d909ceaadc56}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP1-F1</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{f0060867-e0b0-50bd-875f-7eb6276c1978}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>MCB 1P C10 (generic)</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{e2068c2b-7787-5486-be81-631c975fbda8}" x="420" y="190" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP1-F2</elementInformation>
+                    <elementInformation name="designation" show="1">Miniature circuit breaker, 1 pole</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Generic</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">MCB 1P C10 (generic)</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{8f24847a-6ce9-5a39-aee7-d585540d8e43}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP1-F2</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{26827a93-07d5-56cf-a05d-5702fc6351a8}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>MCB 1P C10 (generic)</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{84751c2d-4018-5dbb-99a4-745534be6cb8}" x="600" y="190" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP1-F3</elementInformation>
+                    <elementInformation name="designation" show="1">Miniature circuit breaker, 1 pole</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Generic</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">MCB 1P C10 (generic)</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{bc811fbe-14fd-5e0c-83f2-b74afe19ff36}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP1-F3</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{ec0c5905-0c0b-55de-b862-55efaab03239}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>MCB 1P C10 (generic)</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{4ab6d648-13b3-5301-a062-092b96530260}" x="780" y="190" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP1-F4</elementInformation>
+                    <elementInformation name="designation" show="1">Miniature circuit breaker, 1 pole</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Generic</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">MCB 1P C10 (generic)</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{86986662-5397-537b-b386-ba595b78e0e3}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP1-F4</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{9afd24e0-b9ee-5731-bda1-42c0e28e22d5}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>MCB 1P C10 (generic)</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{9d4ea2f8-7dd3-5392-bc25-95b16d64f01e}" x="60" y="280" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP1-Q1</elementInformation>
+                    <elementInformation name="designation" show="1">Miniature circuit breaker, 3 poles</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Generic</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">MCB 3P C16 (generic)</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{abc05f16-1132-5718-ae10-17cbb564b056}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP1-Q1</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{9105c0d1-264d-5d49-80f3-88c69f87dbfb}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>MCB 3P C16 (generic)</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{63b08291-d850-5885-a451-0506d4e63154}" x="240" y="280" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP1-Q2</elementInformation>
+                    <elementInformation name="designation" show="1">Miniature circuit breaker, 3 poles</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Generic</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">MCB 3P C16 (generic)</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{7beb732b-640a-5e54-b66e-eb7167329c63}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP1-Q2</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{205537ca-d8b4-5809-87de-58a68f6ac5a3}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>MCB 3P C16 (generic)</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+        </elements>
+    </diagram>
+    <diagram author="" auto_page_num="" cols="17" colsize="60" date="null" displayAt="bottom" displaycols="true" displayrows="true" filename="" folio="%id/%total" freezeNewConductor="false" freezeNewElement="false" height="660" indexrev="" locmach="CP1" order="2" plant="Example plant" rows="8" rowsize="80" title="CP1 - Layout (front view)" uuid="{4b0c952d-b533-5dcc-8c05-c9aec791b898}" version="0.200.1">
+        <defaultconductor bicolor="false" bus="" cable="" color2="#000000" condsize="1" conductor_color="" conductor_section="" dash-size="1" displaytext="1" formula="" function="" horizontal-alignment="AlignBottom" horizrotatetext="0" num="_" numsize="7" onetextperfolio="0" tension_protocol="" text_color="#000000" type="multi" vertical-alignment="AlignRight" vertirotatetext="270" />
+        <elements>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/enclosures/ide_enc_GN605020.elmt" uuid="{89bcaf0d-2f14-5ac4-8168-4ac256be8523}" x="40" y="40" z="1">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">CP1</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="0" y="302" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{7cdeba23-5f7f-5ae1-8b28-6c213377c696}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>CP1</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/plates/ide_plate_GN605020.elmt" uuid="{1daee976-7b72-590f-8774-0bda0e320513}" x="52.5" y="47.5" z="2">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">CP1</elementInformation>
+                </elementInformations>
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/doors/ide_door_GN605020.elmt" uuid="{07cc353a-6b0e-5042-9969-0104f879e9ec}" x="40" y="40" z="3">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">CP1</elementInformation>
+                </elementInformations>
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/custom/ide_fp_duct_efapel_14020_L450.elmt" uuid="{12120fdb-3f2a-57ac-a288-a4a4654f492b}" x="52.5" y="52.5" z="5">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/custom/ide_cov_duct_efapel_14020_L450.elmt" uuid="{bd6c21de-6fbc-5a81-b6c5-60380d7b01c6}" x="52.5" y="52.5" z="6">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/custom/ide_fp_duct_efapel_14110_L450.elmt" uuid="{4f6a003b-54ed-552f-b0d8-046d2e47d054}" x="52.5" y="140" z="5">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/custom/ide_cov_duct_efapel_14110_L450.elmt" uuid="{2cf151fd-a56d-5853-8c39-858c2be17e6c}" x="52.5" y="140" z="6">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/custom/ide_fp_duct_efapel_14120_L450.elmt" uuid="{5086d075-0d34-5ba8-80cc-2c18d291540e}" x="52.5" y="287.5" z="5">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/custom/ide_cov_duct_efapel_14120_L450.elmt" uuid="{889591ef-be68-50ca-870e-717e29e40e7b}" x="52.5" y="287.5" z="6">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_rail_ts35_400.elmt" uuid="{c7074a95-6861-58b1-9042-e98040eff54d}" x="65" y="96" z="4">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_rail_ts35_400.elmt" uuid="{7977160e-c850-56c1-acd0-9fdc307b5766}" x="65" y="193.5" z="4">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_beckhoff_ek1100.elmt" uuid="{93c2d02f-033f-5759-8cb6-77cca49f635c}" x="70" y="80" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_beckhoff_el_12.elmt" uuid="{253702fc-86de-51d3-a8a8-8b491f4e8cdd}" x="92" y="80" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_beckhoff_el_12.elmt" uuid="{6559c3a6-7af2-58e0-becb-221dea2d9bee}" x="98" y="80" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_beckhoff_el_12.elmt" uuid="{3d496e59-c8f6-54fe-b574-73da99c18c0c}" x="104" y="80" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_beckhoff_el_12.elmt" uuid="{369eff59-665e-530c-93e1-158b55ccbf4f}" x="110" y="80" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_din_8m.elmt" uuid="{eb61ab7d-05e4-5733-ad76-aafe96f30613}" x="140" y="82.5" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_din_1m.elmt" uuid="{7a7fd130-43ee-510b-94b2-942904bbf5ee}" x="70" y="180" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_din_1m.elmt" uuid="{0fe2ad71-af55-530a-9df9-eaee8356f926}" x="78.75" y="180" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_din_1m.elmt" uuid="{04e461ca-5f76-5737-a791-4bafeb87ec0d}" x="87.5" y="180" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_din_1m.elmt" uuid="{ff10033a-2e1a-57ce-8080-6b326e7cff81}" x="96.25" y="180" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_din_3m.elmt" uuid="{be9d0b88-7c70-51b2-80ef-52f20a69c15b}" x="115" y="180" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_din_3m.elmt" uuid="{7939d0d8-d46e-534c-bdba-0fabcfa7de79}" x="141.25" y="180" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+        </elements>
+    </diagram>
+    <diagram author="" auto_page_num="" cols="17" colsize="60" date="null" displayAt="bottom" displaycols="true" displayrows="true" filename="" folio="%id/%total" freezeNewConductor="false" freezeNewElement="false" height="660" indexrev="" locmach="CP2" order="3" plant="Example plant" rows="8" rowsize="80" title="CP2 - Wiring" uuid="{e3c201c8-c118-5261-bfda-121d7abd0b03}" version="0.200.1">
+        <defaultconductor bicolor="false" bus="" cable="" color2="#000000" condsize="1" conductor_color="" conductor_section="" dash-size="1" displaytext="1" formula="" function="" horizontal-alignment="AlignBottom" horizrotatetext="0" num="_" numsize="7" onetextperfolio="0" tension_protocol="" text_color="#000000" type="multi" vertical-alignment="AlignRight" vertirotatetext="270" />
+        <elements>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{ce91abbd-38e2-5bb0-8c57-dc2c97e073ec}" x="60" y="100" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP2-A1</elementInformation>
+                    <elementInformation name="designation" show="1">EtherCAT coupler</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">EK1100</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{049dc1b4-b431-5c44-8cfa-6e84b9d4b100}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP2-A1</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{e34e317f-2257-5dd3-b3ea-5010830beb12}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>EK1100</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{3e30cfd3-85b8-5efd-9d5e-77ee3c45e02b}" x="240" y="100" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP2-A2</elementInformation>
+                    <elementInformation name="designation" show="1">8-channel digital input</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">EL1008</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{66ca75b3-17b1-527b-acfc-a3359a4017ea}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP2-A2</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{b67d8aab-f382-5cdb-bd91-18e960ae6246}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>EL1008</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{f18af3b5-a60f-5e55-9310-1c8f88bac56f}" x="420" y="100" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP2-A3</elementInformation>
+                    <elementInformation name="designation" show="1">8-channel digital input</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">EL1008</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{35ff6369-0ebc-5e58-90a2-7a7f6b05aa09}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP2-A3</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{b3b77faf-ffb1-58e2-845a-582f54aa3595}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>EL1008</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{839d8b23-0f8a-5260-bd49-2b5871e5cf23}" x="600" y="100" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP2-A4</elementInformation>
+                    <elementInformation name="designation" show="1">8-channel digital output</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Beckhoff</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">EL2008</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{b54937ab-0f4c-54fb-9a81-1fa724391907}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP2-A4</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{e7e259d0-75a1-5265-9f83-e5f1bb4de217}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>EL2008</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{8c8a9e6a-5cf1-5148-b565-2c531cb6c85f}" x="780" y="100" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP2-F1</elementInformation>
+                    <elementInformation name="designation" show="1">Miniature circuit breaker, 1 pole</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Generic</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">MCB 1P C10 (generic)</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{09785d28-2a20-5b55-89d3-be99cfa16ddf}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP2-F1</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{1239940d-0369-5cb9-8fac-5dd45e588c20}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>MCB 1P C10 (generic)</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{1feb2e5a-cee1-599b-90d4-09d6be3c4865}" x="60" y="190" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP2-F2</elementInformation>
+                    <elementInformation name="designation" show="1">Miniature circuit breaker, 1 pole</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Generic</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">MCB 1P C10 (generic)</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{62072db8-41ca-579b-9834-a8f2ddfe7bf9}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP2-F2</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{cb3e9c97-ce24-56c2-9201-20d6b0fa94c2}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>MCB 1P C10 (generic)</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{6db2569b-a9c1-5454-ae38-9be4358bbd04}" x="240" y="190" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP2-Q1</elementInformation>
+                    <elementInformation name="designation" show="1">Miniature circuit breaker, 3 poles</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Generic</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">MCB 3P C16 (generic)</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{ee3fa0de-8919-58a1-9af2-b181aea612d5}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP2-Q1</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{f4191c18-51e3-5daf-b39c-2d4e9f6192da}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>MCB 3P C16 (generic)</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+        </elements>
+    </diagram>
+    <diagram author="" auto_page_num="" cols="17" colsize="60" date="null" displayAt="bottom" displaycols="true" displayrows="true" filename="" folio="%id/%total" freezeNewConductor="false" freezeNewElement="false" height="660" indexrev="" locmach="CP2" order="4" plant="Example plant" rows="8" rowsize="80" title="CP2 - Layout (front view)" uuid="{f29c49a1-6025-5a08-b65d-2e53adb2d81c}" version="0.200.1">
+        <defaultconductor bicolor="false" bus="" cable="" color2="#000000" condsize="1" conductor_color="" conductor_section="" dash-size="1" displaytext="1" formula="" function="" horizontal-alignment="AlignBottom" horizrotatetext="0" num="_" numsize="7" onetextperfolio="0" tension_protocol="" text_color="#000000" type="multi" vertical-alignment="AlignRight" vertirotatetext="270" />
+        <elements>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/enclosures/ide_enc_GN403020.elmt" uuid="{46afc92d-0cef-5151-a82b-3e1e937a573f}" x="40" y="40" z="1">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">CP2</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="0" y="202" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{2dc41f78-4f60-51e8-96c5-b0a97e1fd286}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>CP2</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/plates/ide_plate_GN403020.elmt" uuid="{7efa3ac2-331a-5564-a850-62665aaaaa3a}" x="52.5" y="47.5" z="2">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">CP2</elementInformation>
+                </elementInformations>
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/doors/ide_door_GN403020.elmt" uuid="{4d4aebea-848e-5ba5-bdd4-7a250b17c1e2}" x="40" y="40" z="3">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">CP2</elementInformation>
+                </elementInformations>
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/custom/ide_fp_duct_efapel_14020_L250.elmt" uuid="{1a91f780-3ffc-51fb-be4b-f4a2d04cc529}" x="52.5" y="52.5" z="5">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/custom/ide_cov_duct_efapel_14020_L250.elmt" uuid="{948342e6-1f9a-522b-8ef1-c08bdf858f32}" x="52.5" y="52.5" z="6">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/custom/ide_fp_duct_efapel_14110_L250.elmt" uuid="{e418f494-4e06-5fa1-a0f6-a24b5d34ac33}" x="52.5" y="207.5" z="5">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/custom/ide_cov_duct_efapel_14110_L250.elmt" uuid="{5be8fac3-9c4f-5346-ba71-9affbf60a2dd}" x="52.5" y="207.5" z="6">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_rail_ts35_200.elmt" uuid="{2b7f00d1-0f3c-510b-bd24-647c839aac0e}" x="65" y="96" z="4">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_rail_ts35_200.elmt" uuid="{943439da-f41b-5cb2-b13a-3055e2cbad2f}" x="65" y="171" z="4">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_beckhoff_ek1100.elmt" uuid="{584172d1-b234-5cb5-9d52-d50cd1e6ce32}" x="70" y="80" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_beckhoff_el_12.elmt" uuid="{818f1e9b-82b6-5d2b-88fc-75ebc4f09205}" x="92" y="80" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_beckhoff_el_12.elmt" uuid="{40842592-a919-5945-a07d-fde6536ebda2}" x="98" y="80" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_beckhoff_el_12.elmt" uuid="{e6c990d2-f50c-57d6-bcce-ea2446fa819c}" x="104" y="80" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_din_1m.elmt" uuid="{7f5c88cf-dda6-526d-8dc0-5b7cbb2bbd40}" x="70" y="155" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_din_1m.elmt" uuid="{cc1699c2-d37d-5960-8877-cc39b28098df}" x="78.75" y="155" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_din_3m.elmt" uuid="{ddc859a7-2ea2-5948-86bf-1e9941ec625e}" x="90" y="155" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+        </elements>
+    </diagram>
+    <diagram author="" auto_page_num="" cols="17" colsize="60" date="null" displayAt="bottom" displaycols="true" displayrows="true" filename="" folio="%id/%total" freezeNewConductor="false" freezeNewElement="false" height="660" indexrev="" locmach="CP3" order="5" plant="Example plant" rows="8" rowsize="80" title="CP3 - Wiring" uuid="{a156d179-ddda-540a-984d-d111f322c3bf}" version="0.200.1">
+        <defaultconductor bicolor="false" bus="" cable="" color2="#000000" condsize="1" conductor_color="" conductor_section="" dash-size="1" displaytext="1" formula="" function="" horizontal-alignment="AlignBottom" horizrotatetext="0" num="_" numsize="7" onetextperfolio="0" tension_protocol="" text_color="#000000" type="multi" vertical-alignment="AlignRight" vertirotatetext="270" />
+        <elements>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{8bc38ee7-ef6b-5fde-a94a-f1d5158bc6a5}" x="60" y="100" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP3-G1</elementInformation>
+                    <elementInformation name="designation" show="1">24 V DC power supply</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Generic</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">PSU 24V 10A (generic)</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{81134c99-cfe9-5a4f-871e-74918f8ab903}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP3-G1</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{d6e187da-e3b4-5d5a-97bb-7d3918420d39}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>PSU 24V 10A (generic)</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{78c2139d-f483-5843-b435-07a0f1f9494f}" x="240" y="100" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP3-Q1</elementInformation>
+                    <elementInformation name="designation" show="1">Miniature circuit breaker, 3 poles</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Generic</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">MCB 3P C16 (generic)</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{a9a988bb-d48d-586e-993d-dddc6df846f5}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP3-Q1</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{810ac953-a2f1-57ef-9304-8014183bd8c6}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>MCB 3P C16 (generic)</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{b69daa03-4e5b-57eb-a9c0-d74e52ddab22}" x="420" y="100" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP3-Q2</elementInformation>
+                    <elementInformation name="designation" show="1">Miniature circuit breaker, 3 poles</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Generic</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">MCB 3P C16 (generic)</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{48da5e84-89aa-53cc-9eaf-31d94f342e63}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP3-Q2</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{314c4d44-11c5-5d02-8035-18a0064b9210}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>MCB 3P C16 (generic)</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{99ba7a04-83a5-5a53-ab5b-74336dc1af15}" x="600" y="100" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP3-Q3</elementInformation>
+                    <elementInformation name="designation" show="1">Miniature circuit breaker, 3 poles</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Generic</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">MCB 3P C16 (generic)</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{ba35b048-463f-5ade-a7c1-3c517bc5c779}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP3-Q3</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{7f3e9911-6d80-5262-8b16-7ca299f5df03}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>MCB 3P C16 (generic)</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{8965f47a-4de2-5062-b964-263c60fa72e5}" x="780" y="100" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP3-Q4</elementInformation>
+                    <elementInformation name="designation" show="1">Miniature circuit breaker, 3 poles</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Generic</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">MCB 3P C16 (generic)</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{6dd9aa38-5775-5b89-81f5-2cba087ee86e}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP3-Q4</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{a2517d1a-32aa-5e5d-93a6-5d9c92fe25a4}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>MCB 3P C16 (generic)</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{8eab5f49-4450-59da-9a54-6074a6f67f67}" x="60" y="190" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP3-Q5</elementInformation>
+                    <elementInformation name="designation" show="1">Miniature circuit breaker, 3 poles</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Generic</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">MCB 3P C16 (generic)</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{c89c77df-4c53-52cc-b454-87e1d166b749}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP3-Q5</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{07117f39-f295-59ec-a309-ad21bcfa5171}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>MCB 3P C16 (generic)</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{7731426b-fe43-5edf-9f05-2c3e16991796}" x="240" y="190" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP3-Q6</elementInformation>
+                    <elementInformation name="designation" show="1">Miniature circuit breaker, 3 poles</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Generic</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">MCB 3P C16 (generic)</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{357d8309-c61a-5c5e-8d2a-b653f33ab0b4}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP3-Q6</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{f6e79980-e72a-5633-bfbb-15563c286cb6}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>MCB 3P C16 (generic)</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{314802e7-fa54-57b9-8e69-e1e9b28bd23f}" x="420" y="190" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP3-Q7</elementInformation>
+                    <elementInformation name="designation" show="1">Miniature circuit breaker, 3 poles</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Generic</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">MCB 3P C16 (generic)</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{3723114b-2470-5885-95fc-01d4b82e2bfb}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP3-Q7</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{79e94b20-4910-54bb-9704-d4e8de773ae3}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>MCB 3P C16 (generic)</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/example/example_generic_device.elmt" uuid="{d41dec2d-25ce-50ab-bf56-ffb36994bfcc}" x="600" y="190" z="10">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">-CP3-Q8</elementInformation>
+                    <elementInformation name="designation" show="1">Miniature circuit breaker, 3 poles</elementInformation>
+                    <elementInformation name="manufacturer" show="1">Generic</elementInformation>
+                    <elementInformation name="manufacturer_reference" show="1">MCB 3P C16 (generic)</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{755a055a-e76e-58c5-b982-a0da0cd5c5e8}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>-CP3-Q8</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                    <dynamic_elmt_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{83c4f8bd-605e-555b-bd2c-a139d67c9c31}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                        <text>MCB 3P C16 (generic)</text>
+                        <info_name>manufacturer_reference</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+        </elements>
+    </diagram>
+    <diagram author="" auto_page_num="" cols="17" colsize="60" date="null" displayAt="bottom" displaycols="true" displayrows="true" filename="" folio="%id/%total" freezeNewConductor="false" freezeNewElement="false" height="660" indexrev="" locmach="CP3" order="6" plant="Example plant" rows="8" rowsize="80" title="CP3 - Layout (front view)" uuid="{3269700a-7399-5e75-ab64-7a28e7fbd358}" version="0.200.1">
+        <defaultconductor bicolor="false" bus="" cable="" color2="#000000" condsize="1" conductor_color="" conductor_section="" dash-size="1" displaytext="1" formula="" function="" horizontal-alignment="AlignBottom" horizrotatetext="0" num="_" numsize="7" onetextperfolio="0" tension_protocol="" text_color="#000000" type="multi" vertical-alignment="AlignRight" vertirotatetext="270" />
+        <elements>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/enclosures/ide_enc_GNG303020.elmt" uuid="{724d4793-bc44-5f84-a1c3-4fbc9197db81}" x="40" y="40" z="1">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">CP3</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="0" y="152" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{3634be2d-2c40-514e-8828-3ef3cabe65d2}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>CP3</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/plates/ide_plate_GNG303020.elmt" uuid="{4c1a48ac-8cd7-5a12-82c4-7340b8b49b44}" x="52.5" y="47.5" z="2">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">CP3</elementInformation>
+                </elementInformations>
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/doors/ide_door_GNG303020.elmt" uuid="{8f171498-32eb-53f8-96ab-05c56557af83}" x="40" y="40" z="3">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">CP3</elementInformation>
+                </elementInformations>
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+        </elements>
+    </diagram>
+    <diagram author="" auto_page_num="" cols="17" colsize="60" date="null" displayAt="bottom" displaycols="true" displayrows="true" filename="" folio="%id/%total" freezeNewConductor="false" freezeNewElement="false" height="660" indexrev="" locmach="CP4-DEMO" order="7" plant="Example plant" rows="8" rowsize="80" title="ERROR DEMO - deliberate errors (CP4-DEMO)" uuid="{d3985b7e-62fe-5ceb-8343-67610e9fd263}" version="0.200.1">
+        <defaultconductor bicolor="false" bus="" cable="" color2="#000000" condsize="1" conductor_color="" conductor_section="" dash-size="1" displaytext="1" formula="" function="" horizontal-alignment="AlignBottom" horizrotatetext="0" num="_" numsize="7" onetextperfolio="0" tension_protocol="" text_color="#000000" type="multi" vertical-alignment="AlignRight" vertirotatetext="270" />
+        <elements>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/enclosures/ide_enc_GN403020.elmt" uuid="{f64bc158-c053-5fbb-a96b-8fdb0df54d8c}" x="40" y="40" z="1">
+                <terminals />
+                <inputs />
+                <elementInformations>
+                    <elementInformation name="label" show="1">CP4-DEMO</elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text x="0" y="202" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{63b2a974-ea69-5012-b8b2-9fa23425daa6}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                        <text>CP4-DEMO</text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_din_4m.elmt" uuid="{20b7f6e6-2800-5bde-932b-46250e8ab469}" x="70" y="90" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_din_4m.elmt" uuid="{20c82434-1202-52f1-83fd-ece3996ff7b1}" x="90" y="90" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+            <element freezeLabel="false" is_movable="1" orientation="0" prefix="" type="embed://import/ide-enclosures/footprints/ide_fp_din_3m.elmt" uuid="{54096682-ef03-5096-ab20-3c176bb4e5ab}" x="160" y="190" z="7">
+                <terminals />
+                <inputs />
+                <elementInformations />
+                <dynamic_texts />
+                <texts_groups />
+            </element>
+        </elements>
+    </diagram>
+    <collection>
+        <category name="import">
+            <names>
+                <name lang="en">Imported elements</name>
+                <name lang="fr">Éléments importés</name>
+            </names>
+            <category name="example">
+                <names>
+                    <name lang="en">Example</name>
+                    <name lang="fr">Exemple</name>
+                </names>
+                <element name="example_generic_device.elmt">
+                    <definition version="0.100.0" type="element" link_type="simple" width="140" height="50" hotspot_x="10" hotspot_y="10">
+                        <uuid uuid="{06648a71-1223-57d2-83b4-d65863b03279}" />
+                        <names>
+                            <name lang="en">Generic device (box)</name>
+                            <name lang="fr">Appareil générique (boîte)</name>
+                        </names>
+                        <elementInformations>
+                            <elementInformation show="1" name="description">Box showing the label and the reference</elementInformation>
+                        </elementInformations>
+                        <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                        <description>
+                            <rect x="0" y="0" width="120" height="30" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                            <dynamic_text x="3" y="3" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{daa9f244-c553-52de-a5bc-ea80caa510fc}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                                <text />
+                                <info_name>label</info_name>
+                            </dynamic_text>
+                            <dynamic_text x="3" y="17" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{2b58a507-efc5-5d4b-8172-25307927aa01}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+                                <text />
+                                <info_name>manufacturer_reference</info_name>
+                            </dynamic_text>
+                        </description>
+                    </definition>
+                </element>
+            </category>
+            <category name="ide-enclosures">
+                <names>
+                    <name lang="en">IDE enclosures and cabinets</name>
+                    <name lang="fr">Armoires et coffrets IDE</name>
+                </names>
+                <category name="custom">
+                    <names>
+                        <name lang="en">Rails and ducts at a chosen length</name>
+                        <name lang="fr">Rails et goulottes à la longueur choisie</name>
+                    </names>
+                    <element name="ide_cov_duct_efapel_14020_L250.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="150" height="40" hotspot_x="10" hotspot_y="10">
+                            <uuid uuid="{00b1a00e-37c3-5540-b582-699b34ddd494}" />
+                            <names>
+                                <name lang="en">Efapel ETS 14 slotted panel duct 40x40 mm, 250 mm long, cover (top view)</name>
+                                <name lang="fr">Goulotte de tableau ajourée Efapel ETS 14 40x40 mm, longueur 250 mm, couvercle (vue de dessus)</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">Efapel ETS 14 slotted panel duct 40x40 mm, 250 mm long, cover (top view), 250x40x40 mm (width x height x depth)</elementInformation>
+                                <elementInformation show="1" name="manufacturer">Efapel</elementInformation>
+                                <elementInformation show="1" name="manufacturer_reference">14020 CCZ</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="125" height="20" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <rect x="1" y="1" width="123" height="18" rx="0" ry="0" antialias="false" style="line-style:dashed;line-weight:thin;filling:none;color:black" />
+                                <text x="2" y="7" text="40x40 L250" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{382eebf9-a2ce-5f86-8b5f-7029580dc461}" />
+                                <dynamic_text x="1" y="1" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{134e2f4b-76f9-5539-b73f-7bf6d88b35b3}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_cov_duct_efapel_14020_L450.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="250" height="40" hotspot_x="10" hotspot_y="10">
+                            <uuid uuid="{689e6ff1-21f5-5211-aeeb-f5ecb962a37f}" />
+                            <names>
+                                <name lang="en">Efapel ETS 14 slotted panel duct 40x40 mm, 450 mm long, cover (top view)</name>
+                                <name lang="fr">Goulotte de tableau ajourée Efapel ETS 14 40x40 mm, longueur 450 mm, couvercle (vue de dessus)</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">Efapel ETS 14 slotted panel duct 40x40 mm, 450 mm long, cover (top view), 450x40x40 mm (width x height x depth)</elementInformation>
+                                <elementInformation show="1" name="manufacturer">Efapel</elementInformation>
+                                <elementInformation show="1" name="manufacturer_reference">14020 CCZ</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="225" height="20" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <rect x="1" y="1" width="223" height="18" rx="0" ry="0" antialias="false" style="line-style:dashed;line-weight:thin;filling:none;color:black" />
+                                <text x="2" y="7" text="40x40 L450" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{f7642862-5bdf-5b92-bf60-c69bc64070c2}" />
+                                <dynamic_text x="1" y="1" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{80567f57-2a1e-51a4-9da4-ec6a0156b26e}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_cov_duct_efapel_14110_L250.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="150" height="40" hotspot_x="10" hotspot_y="10">
+                            <uuid uuid="{0651634f-3d59-5b53-8fa3-f53fe46c5f5a}" />
+                            <names>
+                                <name lang="en">Efapel ETS 14 slotted panel duct 40x60 mm, 250 mm long, cover (top view)</name>
+                                <name lang="fr">Goulotte de tableau ajourée Efapel ETS 14 40x60 mm, longueur 250 mm, couvercle (vue de dessus)</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">Efapel ETS 14 slotted panel duct 40x60 mm, 250 mm long, cover (top view), 250x40x60 mm (width x height x depth)</elementInformation>
+                                <elementInformation show="1" name="manufacturer">Efapel</elementInformation>
+                                <elementInformation show="1" name="manufacturer_reference">14110 CCZ</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="125" height="20" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <rect x="1" y="1" width="123" height="18" rx="0" ry="0" antialias="false" style="line-style:dashed;line-weight:thin;filling:none;color:black" />
+                                <text x="2" y="7" text="40x60 L250" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{11e85024-d65c-5832-9fdc-17ba6a9c3feb}" />
+                                <dynamic_text x="1" y="1" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{ed2e14ba-04b2-5fdd-a28a-e5a29e3a5924}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_cov_duct_efapel_14110_L450.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="250" height="40" hotspot_x="10" hotspot_y="10">
+                            <uuid uuid="{992612a7-9646-5fb7-becf-b511614ff005}" />
+                            <names>
+                                <name lang="en">Efapel ETS 14 slotted panel duct 40x60 mm, 450 mm long, cover (top view)</name>
+                                <name lang="fr">Goulotte de tableau ajourée Efapel ETS 14 40x60 mm, longueur 450 mm, couvercle (vue de dessus)</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">Efapel ETS 14 slotted panel duct 40x60 mm, 450 mm long, cover (top view), 450x40x60 mm (width x height x depth)</elementInformation>
+                                <elementInformation show="1" name="manufacturer">Efapel</elementInformation>
+                                <elementInformation show="1" name="manufacturer_reference">14110 CCZ</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="225" height="20" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <rect x="1" y="1" width="223" height="18" rx="0" ry="0" antialias="false" style="line-style:dashed;line-weight:thin;filling:none;color:black" />
+                                <text x="2" y="7" text="40x60 L450" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{c5ef22a0-b456-5f3a-b15a-82d02ea1dd2e}" />
+                                <dynamic_text x="1" y="1" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{6c772a4e-3845-58c0-b5ec-c0f15d4f3459}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_cov_duct_efapel_14120_L450.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="250" height="40" hotspot_x="10" hotspot_y="10">
+                            <uuid uuid="{3f740388-c60a-5537-a8f1-93783e4bb305}" />
+                            <names>
+                                <name lang="en">Efapel ETS 14 slotted panel duct 40x80 mm, 450 mm long, cover (top view)</name>
+                                <name lang="fr">Goulotte de tableau ajourée Efapel ETS 14 40x80 mm, longueur 450 mm, couvercle (vue de dessus)</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">Efapel ETS 14 slotted panel duct 40x80 mm, 450 mm long, cover (top view), 450x40x80 mm (width x height x depth)</elementInformation>
+                                <elementInformation show="1" name="manufacturer">Efapel</elementInformation>
+                                <elementInformation show="1" name="manufacturer_reference">14120 CCZ</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="225" height="20" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <rect x="1" y="1" width="223" height="18" rx="0" ry="0" antialias="false" style="line-style:dashed;line-weight:thin;filling:none;color:black" />
+                                <text x="2" y="7" text="40x80 L450" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{370053c5-70a8-5e39-8169-cb19130411c5}" />
+                                <dynamic_text x="1" y="1" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{e0114910-3867-5fb1-b1b4-7a1d272c9342}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_fp_duct_efapel_14020_L250.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="150" height="40" hotspot_x="10" hotspot_y="10">
+                            <uuid uuid="{33e9a9ee-a046-5b60-8c00-3dff8ee25c3f}" />
+                            <names>
+                                <name lang="en">Efapel ETS 14 slotted panel duct 40x40 mm, 250 mm long</name>
+                                <name lang="fr">Goulotte de tableau ajourée Efapel ETS 14 40x40 mm, longueur 250 mm</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">Efapel ETS 14 slotted panel duct 40x40 mm, 250 mm long, 250x40x40 mm (width x height x depth)</elementInformation>
+                                <elementInformation show="1" name="manufacturer">Efapel</elementInformation>
+                                <elementInformation show="1" name="manufacturer_reference">14020 CCZ</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="125" height="20" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <text x="2" y="7" text="40x40 L250" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{98b658af-c455-50a5-8cbb-abba541324f1}" />
+                                <dynamic_text x="1" y="1" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{9cb92114-e1ff-55a1-8146-3274b9c81d8e}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_fp_duct_efapel_14020_L450.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="250" height="40" hotspot_x="10" hotspot_y="10">
+                            <uuid uuid="{83a2c43c-2ff1-5673-aad0-0952719f6618}" />
+                            <names>
+                                <name lang="en">Efapel ETS 14 slotted panel duct 40x40 mm, 450 mm long</name>
+                                <name lang="fr">Goulotte de tableau ajourée Efapel ETS 14 40x40 mm, longueur 450 mm</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">Efapel ETS 14 slotted panel duct 40x40 mm, 450 mm long, 450x40x40 mm (width x height x depth)</elementInformation>
+                                <elementInformation show="1" name="manufacturer">Efapel</elementInformation>
+                                <elementInformation show="1" name="manufacturer_reference">14020 CCZ</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="225" height="20" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <text x="2" y="7" text="40x40 L450" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{af71424b-35f8-5e9f-9a8f-795cea12680f}" />
+                                <dynamic_text x="1" y="1" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{86217628-36ee-5141-b3f2-26fc7b8ff71c}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_fp_duct_efapel_14110_L250.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="150" height="40" hotspot_x="10" hotspot_y="10">
+                            <uuid uuid="{c81526e4-3b1f-5ff2-8bc1-ef77c0838786}" />
+                            <names>
+                                <name lang="en">Efapel ETS 14 slotted panel duct 40x60 mm, 250 mm long</name>
+                                <name lang="fr">Goulotte de tableau ajourée Efapel ETS 14 40x60 mm, longueur 250 mm</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">Efapel ETS 14 slotted panel duct 40x60 mm, 250 mm long, 250x40x60 mm (width x height x depth)</elementInformation>
+                                <elementInformation show="1" name="manufacturer">Efapel</elementInformation>
+                                <elementInformation show="1" name="manufacturer_reference">14110 CCZ</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="125" height="20" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <text x="2" y="7" text="40x60 L250" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{995faf4e-161b-5cb4-ba04-d514d87469fe}" />
+                                <dynamic_text x="1" y="1" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{4dc47306-e6f9-5ac7-90a7-c8297ce38107}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_fp_duct_efapel_14110_L450.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="250" height="40" hotspot_x="10" hotspot_y="10">
+                            <uuid uuid="{a0b2ee6f-e275-58e1-bbd4-92aeffbcb9cf}" />
+                            <names>
+                                <name lang="en">Efapel ETS 14 slotted panel duct 40x60 mm, 450 mm long</name>
+                                <name lang="fr">Goulotte de tableau ajourée Efapel ETS 14 40x60 mm, longueur 450 mm</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">Efapel ETS 14 slotted panel duct 40x60 mm, 450 mm long, 450x40x60 mm (width x height x depth)</elementInformation>
+                                <elementInformation show="1" name="manufacturer">Efapel</elementInformation>
+                                <elementInformation show="1" name="manufacturer_reference">14110 CCZ</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="225" height="20" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <text x="2" y="7" text="40x60 L450" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{998e26c0-9fa3-5fe1-8327-46e97e459bbb}" />
+                                <dynamic_text x="1" y="1" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{129e2770-3729-522b-8042-6c87740bed04}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_fp_duct_efapel_14120_L450.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="250" height="40" hotspot_x="10" hotspot_y="10">
+                            <uuid uuid="{eb28cf66-7df3-5a19-899f-61b8d6a42c4f}" />
+                            <names>
+                                <name lang="en">Efapel ETS 14 slotted panel duct 40x80 mm, 450 mm long</name>
+                                <name lang="fr">Goulotte de tableau ajourée Efapel ETS 14 40x80 mm, longueur 450 mm</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">Efapel ETS 14 slotted panel duct 40x80 mm, 450 mm long, 450x40x80 mm (width x height x depth)</elementInformation>
+                                <elementInformation show="1" name="manufacturer">Efapel</elementInformation>
+                                <elementInformation show="1" name="manufacturer_reference">14120 CCZ</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="225" height="20" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <text x="2" y="7" text="40x80 L450" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{5310e1dc-f57b-554c-a54d-e56bca72bfb1}" />
+                                <dynamic_text x="1" y="1" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{c0a0f50c-1e9e-5f3b-bcf6-4f18c6ae7dff}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                </category>
+                <category name="doors">
+                    <names>
+                        <name lang="en">Doors (front view)</name>
+                        <name lang="fr">Portes (vue de face)</name>
+                    </names>
+                    <element name="ide_door_GN403020.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="170" height="250" hotspot_x="10" hotspot_y="30">
+                            <uuid uuid="{257a1fa6-c334-51bf-83bb-75e88dcde903}" />
+                            <names>
+                                <name lang="en">IDE door of IDE GN403020 (front view)</name>
+                                <name lang="fr">IDE porte de IDE GN403020 (vue de face)</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">opaque door, reversible hinge side of GN403020, 400x300x1.2 mm (height x width x thickness)</elementInformation>
+                                <elementInformation show="1" name="manufacturer">IDE</elementInformation>
+                                <elementInformation show="1" name="manufacturer_reference">GN403020</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="150" height="200" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <text x="0" y="-26" text="IDE GN403020" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{991e4def-e175-58cf-bfda-9798d587f84d}" />
+                                <text x="0" y="-14" text="door of GN403020, 400x300x1.2 mm" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{c45e6af0-b6c8-5556-986d-0d5a96692ab9}" />
+                                <dynamic_text x="0" y="202" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{85cfe7ef-1e16-53a5-810b-7a3839f4d9c2}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_door_GN605020.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="270" height="350" hotspot_x="10" hotspot_y="30">
+                            <uuid uuid="{31a7a8ca-bddd-59e6-ad87-cb21bc8e1dc7}" />
+                            <names>
+                                <name lang="en">IDE door of IDE GN605020 (front view)</name>
+                                <name lang="fr">IDE porte de IDE GN605020 (vue de face)</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">opaque door, reversible hinge side of GN605020, 600x500x1.5 mm (height x width x thickness)</elementInformation>
+                                <elementInformation show="1" name="manufacturer">IDE</elementInformation>
+                                <elementInformation show="1" name="manufacturer_reference">GN605020</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="250" height="300" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <text x="0" y="-26" text="IDE GN605020" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{5c81705b-bb19-511e-8474-a8235788a6b1}" />
+                                <text x="0" y="-14" text="door of GN605020, 600x500x1.5 mm" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{3549f8de-4922-504d-94ec-6d2ff71df35c}" />
+                                <dynamic_text x="0" y="302" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{12278c05-7689-572f-a186-a4c98f23b0f0}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_door_GNG303020.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="170" height="200" hotspot_x="10" hotspot_y="30">
+                            <uuid uuid="{564b378f-6d09-5baf-900d-137d32f50310}" />
+                            <names>
+                                <name lang="en">IDE door of IDE GNG303020 (front view)</name>
+                                <name lang="fr">IDE porte de IDE GNG303020 (vue de face)</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">opaque door, reversible hinge side of GNG303020, 300x300x1.2 mm (height x width x thickness)</elementInformation>
+                                <elementInformation show="1" name="manufacturer">IDE</elementInformation>
+                                <elementInformation show="1" name="manufacturer_reference">GNG303020</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="150" height="150" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <text x="0" y="-26" text="IDE GNG303020" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{fc801544-1eb4-518a-8dbd-78668a7348f0}" />
+                                <text x="0" y="-14" text="door of GNG303020, 300x300x1.2 mm" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{3396ef2b-a7d2-570e-bf4f-763b992df9a1}" />
+                                <dynamic_text x="0" y="152" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{8637649f-aa7c-5dd6-bdca-2a0ab2bbebea}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                </category>
+                <category name="enclosures">
+                    <names>
+                        <name lang="en">Enclosures (front view)</name>
+                        <name lang="fr">Armoires et coffrets (vue de face)</name>
+                    </names>
+                    <element name="ide_enc_GN403020.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="170" height="250" hotspot_x="10" hotspot_y="30">
+                            <uuid uuid="{36720507-09b3-588d-8ca8-bc6fa6a651bf}" />
+                            <names>
+                                <name lang="en">IDE GN403020 400x300x200 (front view)</name>
+                                <name lang="fr">IDE GN403020 400x300x200 (vue de face)</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">IP66 rolled steel wall-mounting cabinet 400x300x200 mm (height x width x depth)</elementInformation>
+                                <elementInformation show="1" name="manufacturer">IDE</elementInformation>
+                                <elementInformation show="1" name="manufacturer_reference">GN403020</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="150" height="200" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <rect x="12.5" y="12.5" width="125" height="175" rx="0" ry="0" antialias="false" style="line-style:dashed;line-weight:thin;filling:none;color:black" />
+                                <text x="0" y="-26" text="IDE GN403020" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{1b3bc4e5-ee95-5237-b1cb-455d14d1dafc}" />
+                                <text x="0" y="-14" text="400x300x200 mm, usable area 350x250 mm" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{7ed3dbe7-0cbf-58e2-9633-dd03b32f98ae}" />
+                                <dynamic_text x="0" y="202" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{b4191248-0293-5002-8b91-7461ef18db17}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_enc_GN605020.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="270" height="350" hotspot_x="10" hotspot_y="30">
+                            <uuid uuid="{0b006db2-5347-52ee-9148-d579683e5a4f}" />
+                            <names>
+                                <name lang="en">IDE GN605020 600x500x200 (front view)</name>
+                                <name lang="fr">IDE GN605020 600x500x200 (vue de face)</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">IP66 rolled steel wall-mounting cabinet 600x500x200 mm (height x width x depth)</elementInformation>
+                                <elementInformation show="1" name="manufacturer">IDE</elementInformation>
+                                <elementInformation show="1" name="manufacturer_reference">GN605020</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="250" height="300" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <rect x="12.5" y="12.5" width="225" height="275" rx="0" ry="0" antialias="false" style="line-style:dashed;line-weight:thin;filling:none;color:black" />
+                                <text x="0" y="-26" text="IDE GN605020" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{fd2353df-7eb9-5d10-9fab-cd74131375b0}" />
+                                <text x="0" y="-14" text="600x500x200 mm, usable area 550x450 mm" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{ed83df73-0d26-5517-b707-a57be30639e3}" />
+                                <dynamic_text x="0" y="302" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{2b365111-39ae-5433-99e2-7e2ada48c307}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_enc_GNG303020.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="170" height="200" hotspot_x="10" hotspot_y="30">
+                            <uuid uuid="{09e43b95-b213-51df-ae9c-4dff7d3cf6a4}" />
+                            <names>
+                                <name lang="en">IDE GNG303020 300x300x200 (front view)</name>
+                                <name lang="fr">IDE GNG303020 300x300x200 (vue de face)</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">IP66 galvanised steel wall-mounting cabinet 300x300x200 mm (height x width x depth)</elementInformation>
+                                <elementInformation show="1" name="manufacturer">IDE</elementInformation>
+                                <elementInformation show="1" name="manufacturer_reference">GNG303020</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="150" height="150" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <rect x="12.5" y="12.5" width="125" height="125" rx="0" ry="0" antialias="false" style="line-style:dashed;line-weight:thin;filling:none;color:black" />
+                                <text x="0" y="-26" text="IDE GNG303020" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{332ec813-2694-5749-84d9-e2f0d8ab5504}" />
+                                <text x="0" y="-14" text="300x300x200 mm, usable area 250x250 mm" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{2c3c11c0-f4af-5075-a5ef-51cbe396bdc8}" />
+                                <dynamic_text x="0" y="152" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{d828836c-1426-5b08-b56b-08672e337427}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                </category>
+                <category name="footprints">
+                    <names>
+                        <name lang="en">Footprints (DIN rails, ducts and modular devices)</name>
+                        <name lang="fr">Empreintes (rails DIN, goulottes et appareils modulaires)</name>
+                    </names>
+                    <element name="ide_fp_beckhoff_ek1100.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="50" height="70" hotspot_x="10" hotspot_y="10">
+                            <uuid uuid="{ddbbc38d-216f-5e61-a770-4a10432a63af}" />
+                            <names>
+                                <name lang="en">Beckhoff EK1100 EtherCAT coupler</name>
+                                <name lang="fr">Coupleur EtherCAT Beckhoff EK1100</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">Beckhoff EK1100 EtherCAT coupler, 44x100x68 mm (width x height x depth)</elementInformation>
+                                <elementInformation show="1" name="manufacturer">Beckhoff</elementInformation>
+                                <elementInformation show="1" name="manufacturer_reference">EK1100</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="22" height="50" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <dynamic_text x="1" y="1" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{528c501b-0d16-58f0-a1cd-78f6b326883c}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_fp_beckhoff_el_12.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="30" height="70" hotspot_x="10" hotspot_y="10">
+                            <uuid uuid="{d7ed9018-642f-5c43-a57d-5c25fed456bf}" />
+                            <names>
+                                <name lang="en">Beckhoff EL terminal, 12 mm housing (EL1008, EL2008)</name>
+                                <name lang="fr">Borne EL Beckhoff, boîtier 12 mm (EL1008, EL2008)</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">Beckhoff EL terminal, 12 mm housing (EL1008, EL2008), 12x100x68 mm (width x height x depth)</elementInformation>
+                                <elementInformation show="1" name="manufacturer">Beckhoff</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="6" height="50" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <dynamic_text x="1" y="1" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{8f65957c-4d3f-574b-addf-6ee625721ef9}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_fp_din_1m.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="30" height="70" hotspot_x="10" hotspot_y="10">
+                            <uuid uuid="{9e1d1f6e-f62c-5d3a-9e8a-5be9dc1c5d1f}" />
+                            <names>
+                                <name lang="en">Modular device, 1 module</name>
+                                <name lang="fr">Appareil modulaire, 1 module</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">Modular device, 1 module, 17.5x90x60 mm (width x height x depth)</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="8.75" height="45" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <dynamic_text x="1" y="1" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{fca79287-9b98-5e0b-ae0f-a2d5d35fc6bf}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_fp_din_3m.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="50" height="70" hotspot_x="10" hotspot_y="10">
+                            <uuid uuid="{69842cf2-5a37-57a3-86ae-11d7e39ca707}" />
+                            <names>
+                                <name lang="en">Modular device, 3 modules</name>
+                                <name lang="fr">Appareil modulaire, 3 modules</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">Modular device, 3 modules, 52.5x90x60 mm (width x height x depth)</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="26.25" height="45" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <text x="2" y="19.5" text="3M" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{4ccfbe4d-02e5-5876-81e8-99f791efa12b}" />
+                                <dynamic_text x="1" y="1" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{ae4dafc9-52d3-5b05-a4d1-3311bf7d181b}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_fp_din_4m.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="60" height="70" hotspot_x="10" hotspot_y="10">
+                            <uuid uuid="{da64e53f-df44-57c8-9500-4ca29821af7d}" />
+                            <names>
+                                <name lang="en">Modular device, 4 modules</name>
+                                <name lang="fr">Appareil modulaire, 4 modules</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">Modular device, 4 modules, 70x90x60 mm (width x height x depth)</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="35" height="45" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <text x="2" y="19.5" text="4M" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{deaa54f3-0f0c-5b33-83c3-2bc1756dcbd7}" />
+                                <dynamic_text x="1" y="1" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{3ac99d11-7054-5179-b184-6ae8e515c94c}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_fp_din_8m.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="90" height="70" hotspot_x="10" hotspot_y="10">
+                            <uuid uuid="{37590c04-95bf-537a-8781-a2cbefe0eb49}" />
+                            <names>
+                                <name lang="en">Modular device, 8 modules</name>
+                                <name lang="fr">Appareil modulaire, 8 modules</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">Modular device, 8 modules, 140x90x60 mm (width x height x depth)</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="70" height="45" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <text x="2" y="19.5" text="8M" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{7d3235bc-7b56-5985-8035-45c675cfe008}" />
+                                <dynamic_text x="1" y="1" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{6d87d088-9be1-5c19-aa14-da032ebe56d0}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_fp_rail_ts35_200.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="120" height="40" hotspot_x="10" hotspot_y="10">
+                            <uuid uuid="{5845ff52-0bd8-59fc-8c8f-f348c4fe706d}" />
+                            <names>
+                                <name lang="en">DIN rail TS35, 200 mm</name>
+                                <name lang="fr">Rail DIN TS35, 200 mm</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">DIN rail TS35, 200 mm, 200x35x7.5 mm (width x height x depth)</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="100" height="17.5" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <text x="2" y="5.75" text="TS35 200" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{c40ef412-b3e4-5fc0-9949-29da6d26d5de}" />
+                                <dynamic_text x="1" y="1" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{e8f07618-d609-51ad-9174-bf1b69b5c517}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_fp_rail_ts35_400.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="220" height="40" hotspot_x="10" hotspot_y="10">
+                            <uuid uuid="{3f42c113-0dd3-56b2-b363-520177c3e12a}" />
+                            <names>
+                                <name lang="en">DIN rail TS35, 400 mm</name>
+                                <name lang="fr">Rail DIN TS35, 400 mm</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">DIN rail TS35, 400 mm, 400x35x7.5 mm (width x height x depth)</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="200" height="17.5" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <text x="2" y="5.75" text="TS35 400" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{11ded029-a941-5bdd-8b5b-a561a66ccc5a}" />
+                                <dynamic_text x="1" y="1" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{cdb2a924-0782-55ff-93f8-69e63eb7c4d8}" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                </category>
+                <category name="plates">
+                    <names>
+                        <name lang="en">Mounting plates (front view)</name>
+                        <name lang="fr">Platines de montage (vue de face)</name>
+                    </names>
+                    <element name="ide_plate_GN403020.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="150" height="240" hotspot_x="10" hotspot_y="30">
+                            <uuid uuid="{8c394e7e-2883-5d80-b060-ede7f2f59887}" />
+                            <names>
+                                <name lang="en">IDE mounting plate of IDE GN403020 (front view)</name>
+                                <name lang="fr">IDE platine de montage de IDE GN403020 (vue de face)</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">galvanised steel mounting plate of GN403020, 370x250x2 mm (height x width x thickness)</elementInformation>
+                                <elementInformation show="1" name="manufacturer">IDE</elementInformation>
+                                <elementInformation show="1" name="manufacturer_reference">PL4030</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="125" height="185" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <text x="0" y="-26" text="IDE PL4030" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{9e957d15-f24e-5a85-bebc-e9e3e6cacc98}" />
+                                <text x="0" y="-14" text="mounting plate of GN403020, 370x250x2 mm" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{e8936c53-fb72-5c08-9b35-9a6dd5c5b5d0}" />
+                                <dynamic_text x="0" y="187" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{ebc4352e-7c5b-511c-ada0-1737dfe3ca61}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_plate_GN605020.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="250" height="340" hotspot_x="10" hotspot_y="30">
+                            <uuid uuid="{1decb336-2d18-532a-ae72-6851ae46b1dc}" />
+                            <names>
+                                <name lang="en">IDE mounting plate of IDE GN605020 (front view)</name>
+                                <name lang="fr">IDE platine de montage de IDE GN605020 (vue de face)</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">galvanised steel mounting plate of GN605020, 570x450x2 mm (height x width x thickness)</elementInformation>
+                                <elementInformation show="1" name="manufacturer">IDE</elementInformation>
+                                <elementInformation show="1" name="manufacturer_reference">PL6050</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="225" height="285" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <text x="0" y="-26" text="IDE PL6050" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{a15cc491-cc9d-5a60-80ff-be94a5fc886d}" />
+                                <text x="0" y="-14" text="mounting plate of GN605020, 570x450x2 mm" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{a6ae5c52-bebd-55e4-a80a-45b4f319d7c1}" />
+                                <dynamic_text x="0" y="287" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{1b4c4765-0586-5976-a868-5498b7c6c19e}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                    <element name="ide_plate_GNG303020.elmt">
+                        <definition version="0.100.0" type="element" link_type="simple" width="150" height="190" hotspot_x="10" hotspot_y="30">
+                            <uuid uuid="{af9d1800-5fd2-5591-8ec3-0c7d8838a649}" />
+                            <names>
+                                <name lang="en">IDE mounting plate of IDE GNG303020 (front view)</name>
+                                <name lang="fr">IDE platine de montage de IDE GNG303020 (vue de face)</name>
+                            </names>
+                            <elementInformations>
+                                <elementInformation show="1" name="description">galvanised steel mounting plate of GNG303020, 270x250x2 mm (height x width x thickness)</elementInformation>
+                                <elementInformation show="1" name="manufacturer">IDE</elementInformation>
+                                <elementInformation show="1" name="manufacturer_reference">PL3030</elementInformation>
+                            </elementInformations>
+                            <informations>Generated by misc/enclosure_layout from the catalog of extra-elements/ide-enclosures.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+                            <description>
+                                <rect x="0" y="0" width="125" height="135" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" />
+                                <text x="0" y="-26" text="IDE PL3030" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{ea8ffff4-6b26-584d-900b-fe1f1b7e827b}" />
+                                <text x="0" y="-14" text="mounting plate of GNG303020, 270x250x2 mm" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" uuid="{ff67311d-ec9e-5bca-a7b3-04ae6e8edd7a}" />
+                                <dynamic_text x="0" y="137" z="5" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="false" text_from="ElementInfo" uuid="{73ee2573-8aa0-599e-8a73-3216cf415241}" font="Liberation Sans,8,-1,5,50,0,0,0,0,0,Regular">
+                                    <text />
+                                    <info_name>label</info_name>
+                                </dynamic_text>
+                            </description>
+                        </definition>
+                    </element>
+                </category>
+            </category>
+        </category>
+    </collection>
+</project>

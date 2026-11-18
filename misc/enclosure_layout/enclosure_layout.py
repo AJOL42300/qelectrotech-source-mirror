@@ -734,6 +734,10 @@ def check_diagram(catalog, title, elements):
                 if "cover" in (first.item.get("view"),
                                second.item.get("view")):
                     continue
+                # A device sits on its rail on purpose.
+                if {first.item.get("kind"),
+                        second.item.get("kind")} == {"rail", "module"}:
+                    continue
                 if (min(a[2], b[2]) - max(a[0], b[0]) > EPSILON
                         and min(a[3], b[3]) - max(a[1], b[1]) > EPSILON):
                     findings.append(Finding(title, "error",
@@ -770,7 +774,8 @@ class _Component:
 def _cabinet_entry(cabinets, name):
     return cabinets.setdefault(name, {
         "enclosure": None, "folio": None, "components": [], "items": [],
-        "parts": [], "unreferenced": 0, "occupied": 0, "available": None})
+        "parts": [], "profiles": [], "unreferenced": 0, "occupied": 0,
+        "available": None})
 
 
 def _share(value, total):
@@ -792,6 +797,13 @@ def analyse_project(catalog, folios):
         for element in elements:
             found = lookup(catalog, _stem_of(element.get("type", "")))
             if found and found[0] == "footprint":
+                # Rails and ducts are bought by the metre of the layout; a
+                # cover comes with its duct.
+                profile = found[1]
+                name = _info(element, "location") or folio_cabinet
+                if (name and profile["kind"] in ("duct", "rail")
+                        and profile.get("view") != "cover"):
+                    _cabinet_entry(cabinets, name)["profiles"].append(profile)
                 continue
             if found:
                 name = (_info(element, "label") or _info(element, "location")
@@ -953,6 +965,23 @@ def check_project(catalog, project_path):
     return analyse_project(catalog, read_project(project_path))[0]
 
 
+def _profile_groups(entry):
+    """The rails and ducts of a cabinet: [(item, quantity)], by length."""
+    groups = {}
+    for profile in entry["profiles"]:
+        key = (profile["kind"], profile.get("reference", ""),
+               profile["id"], profile["width"])
+        groups.setdefault(key, [profile, 0])[1] += 1
+    return [tuple(groups[key]) for key in sorted(groups)]
+
+
+def _profile_name(profile):
+    if profile["kind"] == "rail":
+        return "DIN rail %s" % profile["label"]
+    return "%s duct %s" % (profile.get("manufacturer", ""),
+                           profile.get("reference") or profile["label"])
+
+
 def report_rows(cabinets):
     """The contents of every cabinet as rows of strings, header first."""
     rows = [["cabinet", "enclosure", "manufacturer", "reference",
@@ -968,6 +997,11 @@ def report_rows(cabinets):
                         + ([_num(device[k]) for k in
                             ("width", "height", "depth")] if device
                            else ["", "", ""]))
+        for profile, quantity in _profile_groups(entry):
+            rows.append([name, enclosure, profile.get("manufacturer", ""),
+                         profile.get("reference") or profile["label"],
+                         str(quantity), _num(profile["width"]),
+                         _num(profile["height"]), _num(profile["depth"])])
     return rows
 
 
@@ -995,6 +1029,9 @@ def render_report(cabinets):
         if entry["unreferenced"]:
             lines.append("  %d component(s) without manufacturer "
                          "reference" % entry["unreferenced"])
+        for profile, quantity in _profile_groups(entry):
+            lines.append("  %3d x %s, %s mm long" % (
+                quantity, _profile_name(profile), _num(profile["width"])))
         if entry["available"]:
             lines.append("  space: %s of the usable area" % _share(
                 entry["occupied"], entry["available"]))
