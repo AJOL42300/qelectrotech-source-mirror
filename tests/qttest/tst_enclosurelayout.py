@@ -84,7 +84,8 @@ class CatalogTest(unittest.TestCase):
         stretch = [f for f in self.catalog["footprints"]
                    if f.get("stretch")]
         ducts = [f for f in stretch if f["kind"] == "duct"]
-        self.assertEqual(len(ducts), 10)
+        self.assertEqual(len(ducts), 14)
+        self.assertEqual({d["depth"] for d in ducts}, {40, 60, 80})
         for duct in ducts:
             self.assertEqual(duct["manufacturer"], "Efapel")
             self.assertTrue(duct["reference"].endswith(" CCZ"))
@@ -99,7 +100,9 @@ class CatalogTest(unittest.TestCase):
             on_disk = ((el.DEFAULT_DIR / name).read_bytes().decode("utf-8")
                        .replace("\r\n", "\n"))
             self.assertEqual(on_disk, text, name + " is stale: run generate")
-        for sub in ("enclosures", "footprints", "doors", "plates"):
+        for sub in ("enclosures", "footprints", "doors", "plates",
+                    el.CUT_FOLDER, el.VIEW_FOLDER["realistic"],
+                    el.VIEW_FOLDER["cover"]):
             for path in (el.DEFAULT_DIR / sub).glob("*.elmt"):
                 self.assertIn("%s/%s" % (sub, path.name), files)
 
@@ -523,6 +526,95 @@ class LengthTest(unittest.TestCase):
                 placed(CUSTOM % length, 30, 50)])
         self.assertEqual(check(200), [])
         self.assertEqual(len(messages(check(300), "error")), 1)
+
+
+class DuctTest(unittest.TestCase):
+    def setUp(self):
+        self.catalog = el.load_catalog()
+        self.ducts = [f for f in self.catalog["footprints"]
+                      if f["kind"] == "duct"]
+
+    def test_height_80_range_is_complete(self):
+        by_width = {d["height"]: d["reference"] for d in self.ducts
+                    if d["depth"] == 80}
+        self.assertEqual(by_width, {40: "14120 CCZ", 60: "14130 CCZ",
+                                    80: "14140 CCZ", 100: "14150 CCZ"})
+
+    def test_every_duct_has_its_articles_interior_and_cover(self):
+        for duct in self.ducts:
+            number = duct["reference"].split()[0]
+            self.assertEqual([a["reference"] for a in duct["articles"]],
+                             [number + " CCZ", number + " HCZ"])
+            self.assertLess(duct["interior"]["width"], duct["height"])
+            self.assertLess(duct["interior"]["height"], duct["depth"])
+            self.assertLess(duct["useful_section_mm2"],
+                            duct["section_mm2"])
+            self.assertTrue(duct["cover"]["included"])
+
+    def test_articles_list_one_row_per_reference(self):
+        rows = el.article_rows(self.catalog)
+        self.assertEqual(len(rows), 1 + 2 * len(self.ducts))
+        self.assertIn("14140 HCZ", [row[1] for row in rows])
+        with contextlib.redirect_stdout(io.StringIO()) as out:
+            self.assertEqual(el.main(["articles"]), 0)
+        self.assertEqual(len(out.getvalue().splitlines()), len(rows))
+
+    def test_realistic_view_and_cover_have_the_size_of_the_duct(self):
+        for duct in self.ducts:
+            for view, prefix in (("realistic", "ide_fpr_"),
+                                 ("cover", "ide_cov_")):
+                kind, item = el.lookup(self.catalog, prefix + duct["id"])
+                self.assertEqual(kind, "footprint")
+                self.assertEqual(item["view"], view)
+                root = ET.fromstring(el.footprint_element(self.catalog,
+                                                          item))
+                rect = root.find("description/rect")
+                self.assertEqual((float(rect.get("width")),
+                                  float(rect.get("height"))),
+                                 (duct["width"] / 2.0, duct["height"] / 2.0))
+        realistic = ET.fromstring(el.footprint_element(
+            self.catalog, el.lookup(self.catalog,
+                                    "ide_fpr_duct_efapel_14140")[1]))
+        self.assertGreater(len(realistic.findall("description/rect")), 40)
+
+    def test_cut_lengths_are_generated_for_every_duct(self):
+        files = el.render_all(self.catalog)
+        lengths = self.catalog["duct_cut_lengths"]
+        self.assertTrue(lengths)
+        for duct in self.ducts:
+            for length in lengths:
+                name = "%s/ide_fp_%s_L%d.elmt" % (el.CUT_FOLDER, duct["id"],
+                                                  length)
+                root = ET.fromstring(files[name])
+                rect = root.find("description/rect")
+                self.assertEqual(float(rect.get("width")), length / 2.0)
+
+    def test_view_at_a_chosen_length(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            with contextlib.redirect_stdout(io.StringIO()):
+                code = el.main(["length", "duct_efapel_14140", "800",
+                                "--view", "cover", "--out", tmp])
+            self.assertEqual(code, 0)
+            root = ET.parse(Path(tmp) / "ide_cov_duct_efapel_14140_L800.elmt"
+                            ).getroot()
+            self.assertEqual(float(root.find("description/rect")
+                                   .get("width")), 400)
+            with self.assertRaises(ValueError):
+                el.write_lengths(self.catalog, "rail_ts35_15", [300], tmp,
+                                 "cover")
+
+    def test_example_cabinet_with_a_duct_and_its_cover(self):
+        # GN605020 holding an 80x80 duct cut to 400 mm, with its cover on
+        # top of it: no finding. A second duct on the first one overlaps.
+        base = "embed://import/ide-enclosures/"
+        duct = base + "footprints/ide_fp_duct_efapel_14140_L400.elmt"
+        cover = base + "duct-covers/ide_cov_duct_efapel_14140_L400.elmt"
+        elements = [placed(ENC % "GN605020", 0, 0),
+                    placed(duct, 30, 100), placed(cover, 30, 100)]
+        self.assertEqual(el.check_diagram(self.catalog, "t", elements), [])
+        elements.append(placed(duct, 30, 100))
+        self.assertEqual(len(messages(
+            el.check_diagram(self.catalog, "t", elements), "error")), 1)
 
 
 PROJECT = """<project version="0.100.0" title="t">

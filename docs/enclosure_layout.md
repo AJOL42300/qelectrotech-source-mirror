@@ -88,11 +88,65 @@ into your element collection. `check` and `report` recognise a name ending
 in `_L` and a length, so a custom length is checked like any footprint.
 `generate` never touches the `custom` folder.
 
+Standard cut lengths are also delivered, for the layout view of every duct,
+in `duct-cut-lengths/` (`ide_fp_<duct>_L500`, `_L1000`, `_L1500`, from
+`duct_cut_lengths` in the catalog). The realistic view and the cover exist
+at 2000 mm only; for other lengths use `--view`:
+
+```sh
+python3 misc/enclosure_layout/enclosure_layout.py length duct_efapel_14140 800 --view cover
+```
+
+(`--view realistic` or `cover`; the files are `ide_fpr_..._L800` and
+`ide_cov_..._L800`).
+
 Ducts are drawn in top view as a rectangle of length x width (the duct
 height is the depth for the check). The footprints are the TS35 rails (35 x
-7.5 and 35 x 15, EN 60715) and ten Efapel ETS 14 slotted panel ducts
-(heights 40 and 60 mm, widths 25 to 100 mm, grey PVC "CCZ" references; the
-halogen-free variant has the suffix "HCZ").
+7.5 and 35 x 15, EN 60715) and fourteen Efapel ETS 14 slotted panel ducts
+(heights 40, 60 and 80 mm, widths 25 to 100 mm, grey PVC "CCZ" references;
+the halogen-free variant has the suffix "HCZ").
+
+### Duct views and cover
+
+Each duct comes in three one-appearance elements of the same size:
+
+| view           | folder             | stem prefix | content                              |
+|----------------|--------------------|-------------|--------------------------------------|
+| layout         | `footprints/`      | `ide_fp_`   | plain rectangle, used by the check   |
+| realistic      | `duct-realistic/`  | `ide_fpr_`  | open duct, walls and base slots      |
+| cover          | `duct-covers/`     | `ide_cov_`  | closed cover, dashed inset line      |
+
+The slots of the realistic view are schematic (one every 40 mm); they do not
+reproduce the slot pattern of the manufacturer. In the Efapel references,
+"Completo" means duct and cover together: the cover is part of the
+reference (`cover.included` in the catalog) and no separate cover reference
+was found. The cover is assumed as wide as the duct. The check does not
+report a cover lying on its duct as an overlap.
+
+`articles` lists the references to order (the "CCZ" grey and the "HCZ"
+halogen-free article of each duct) as a table, or as a CSV file:
+
+```sh
+python3 misc/enclosure_layout/enclosure_layout.py articles --csv articles.csv
+```
+
+### Example: a cabinet with a duct and its cover
+
+Place `GN605020` (enclosure view), then the 80 x 80 duct cut to 400 mm,
+`ide_fp_duct_efapel_14140_L400`, inside it, and the cover
+`ide_cov_duct_efapel_14140_L400` on the duct (generate the 400 mm cut with
+`length duct_efapel_14140 400`, and the cover with the same command and
+`--view cover`). `check` reports nothing; a second duct
+on the first one is reported as an overlap. The unit test
+`test_example_cabinet_with_a_duct_and_its_cover` runs this case.
+
+### Rail fixing (DIN-rail snapping)
+
+The "Magnétisme sur rail" work (branch `ajol42300-rail-snapping-
+implantation`, not merged at the time of writing) defines an optional
+`rail_snap` object per footprint and a `railSnap` node in the element. It
+applies to the `rail` and `module` kinds only. Ducts do not take part in it
+and carry no such node.
 
 ## Cabinets in the schema
 
@@ -190,7 +244,10 @@ between cabinets are not components and are not reported.
   `source` (product page), `datasheet`, `verified` (date), `notes`;
 - `footprints`: `id`, `kind`, names, `width`, `height`, `depth` (mm); for
   ducts and rails also `stretch` (the width is the default length),
-  `manufacturer`, `reference`, `source`, `verified`.
+  `manufacturer`, `reference`, `source`, `verified`; ducts also `interior`
+  (`width`, `height`), `section_mm2`, `useful_section_mm2`, `cover`
+  (`included`) and `articles` (`reference`, `finish`);
+- `duct_cut_lengths`: standard lengths (mm) generated for every duct.
 
 The fit area is the plate or the usable size, whichever is known; when both
 are known, the smaller one on each side (the plate of the GN cabinets is
@@ -217,6 +274,13 @@ and PL20080. The Efapel ducts come from the technical sheet of the ETS 14
 slotted panel ducts (`efapel.pt`). Check them against the current
 datasheets before using them for a real mounting. The IDE reference encodes
 the size in centimetres (GN403020: height 40, width 30, depth 20).
+
+Efapel ETS 14 sheet: the interior width of the 60 x 80 and 60 x 100 ducts
+is printed as 56 mm, against 57 mm for the 60 mm wide ducts of heights 40
+and 60; the printed sections are not width x height. The values are kept as
+published. The product pages of the manufacturer are rendered by
+JavaScript and were not readable, so only the sheet is the source. The
+heights 30 and 100 of the sheet are not in the catalog.
 
 Inconsistencies found: the datasheet of PL6050 prints "450 x 570" under
 "H x W" (read as 570 high, 450 wide, as the cabinet datasheet implies); the
@@ -249,4 +313,6 @@ numeric "length" property on the element (saved as an optional attribute,
 so that old projects and old versions load unchanged), with the drawing
 rebuilt from it and a numeric field in the element properties dialog. It is
 not done here: it touches the element cache and the undo commands, and it
-needs a C++ build and its own review.
+needs a C++ build and its own review. Rough effort: several days with
+tests and review (uncertain). Until then, the standard cut lengths and the
+`length` command are the way to get another length.
