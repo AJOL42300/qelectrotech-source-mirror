@@ -23,7 +23,7 @@ inside the outline the EtherCAT bus (the E-bus block that links the bus
 connectors) or, for the EL6910, the logic block.  The terminals, names and
 data are kept.
 
-Usage: python gen_couplers.py <extra-elements>/15_beckhoff_ethercat
+Usage: python gen_couplers.py <extra-elements>/10_electric/20_manufacturers_articles/beckhoff
 """
 import glob
 import math

@@ -16,7 +16,7 @@
 # along with QElectroTech.  If not, see <http://www.gnu.org/licenses/>.
 """Corrections applied in place to the realistic views (idempotent).
 
-Run it on extra-elements/15_beckhoff_ethercat after realistic_from_model.py
+Run it on extra-elements/10_electric/20_manufacturers_articles/beckhoff after realistic_from_model.py
 and organize.py, and before gen_description.py:
 
   * a terminal is only a circle (outer and inner ring), without the notch

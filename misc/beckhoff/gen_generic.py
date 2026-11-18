@@ -25,7 +25,7 @@ which signal is on which contact depends on the exact type.  The schematic
 and the description views are then made by gen_schematic.py and
 gen_description.py, like for the other cards.
 
-Usage: python gen_generic.py <extra-elements>/15_beckhoff_ethercat
+Usage: python gen_generic.py <extra-elements>/10_electric/20_manufacturers_articles/beckhoff
 """
 import copy
 import glob

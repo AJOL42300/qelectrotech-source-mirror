@@ -22,7 +22,7 @@ view, description view, I/O table) with the same label, on four folios, and
 a few card pins
 are wired so that they show as used. A2 has a safety card and two drives, A3
 two drives (1 and 2 axes). The Beckhoff elements of
-extra-elements/15_beckhoff_ethercat (family folders) are embedded in the
+extra-elements/10_electric/20_manufacturers_articles/beckhoff (family folders) are embedded in the
 project; nothing comes from a manufacturer.
 
 Usage: python misc/beckhoff/gen_example.py
@@ -41,10 +41,11 @@ import gen_titleblocks  # noqa: E402
 ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", ".."))
 TB_DIR = os.path.join(ROOT, "titleblocks")
 TITLEBLOCKS = {"A3 landscape": "A3_landscape", "A3 portrait": "A3_portrait"}
-ELMT_DIR = os.path.join(ROOT, "extra-elements", "15_beckhoff_ethercat")
+ELMT_DIR = os.path.join(ROOT, "extra-elements", "10_electric",
+                        "20_manufacturers_articles", "beckhoff")
 OUT = os.path.join(ROOT, "examples", "beckhoff_islands_example.qet")
 NS = uuid.UUID("0b0d4f0e-6f1b-4c58-9a3e-5d1c9f5b7a10")
-CAT = "15_beckhoff_ethercat"
+CAT = "10_electric/20_manufacturers_articles/beckhoff"
 DEV = "example_devices"
 VERSION = "0.200.1"
 
@@ -422,7 +423,12 @@ def category_xml(name, names, inner):
 
 
 def collection_xml():
-    beckhoff = tree_xml(CAT)
+    beckhoff = category_xml(
+        "20_manufacturers_articles",
+        [("en", "Manufacturers articles"), ("fr", "Articles constructeurs")],
+        tree_xml(CAT))
+    beckhoff = category_xml(
+        "10_electric", [("en", "Electric"), ("fr", "Electrique")], beckhoff)
     inner = ""
     for name in sorted(DEVICES):
         inner += f'<element name="{name}.elmt">{DEVICES[name]}</element>'

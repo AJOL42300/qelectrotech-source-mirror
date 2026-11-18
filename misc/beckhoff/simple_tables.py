@@ -23,7 +23,8 @@ import re
 import sys
 
 DEFAULT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..",
-                       "extra-elements", "15_beckhoff_ethercat")
+                       "extra-elements", "10_electric",
+                       "20_manufacturers_articles", "beckhoff")
 
 W_PIN, W_LABEL, W_ID = 44, 130, 66
 ROW_H = 12

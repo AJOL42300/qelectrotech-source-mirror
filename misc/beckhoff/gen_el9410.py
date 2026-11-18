@@ -38,7 +38,7 @@ The realistic view reuses the housing of the el9100_realistic view; run it
 after gen_symbols.py (which creates el9100) and before gen_schematic.py,
 gen_description.py and simple_tables.py.
 
-Usage: python gen_el9410.py <extra-elements>/15_beckhoff_ethercat
+Usage: python gen_el9410.py <extra-elements>/10_electric/20_manufacturers_articles/beckhoff
 """
 import copy
 import math

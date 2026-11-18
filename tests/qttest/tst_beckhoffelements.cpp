@@ -42,7 +42,7 @@ class TstBeckhoffElements : public QObject
 		static QDir categoryDir()
 		{
 			return QDir(QStringLiteral(QET_EXTRA_ELEMENTS_DIR)
-						+ QStringLiteral("/15_beckhoff_ethercat"));
+						+ QStringLiteral("/10_electric/20_manufacturers_articles/beckhoff"));
 		}
 
 		static QDomDocument load(const QString &path)

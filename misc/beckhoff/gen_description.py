@@ -34,7 +34,7 @@ script.  The LED sets and the power contacts are generic (they are not taken
 from a datasheet): see docs/beckhoff-ethercat.md.
 
 Usage:
-  gen_description.py <elements dir>   (e.g. extra-elements/15_beckhoff_ethercat)
+  gen_description.py <elements dir>   (e.g. extra-elements/10_electric/20_manufacturers_articles/beckhoff)
 """
 import glob
 import math

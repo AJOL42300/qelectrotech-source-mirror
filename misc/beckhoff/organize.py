@@ -21,7 +21,8 @@ Usage: python misc/beckhoff/organize.py <scratch root> <extra-elements>
 The generators (gen_symbols.py, gen_safety.py, gen_drives.py and
 realistic_from_model.py) write into a scratch root, in the layout
 <scratch root>/15_beckhoff_ethercat[/twinsafe|/drives_*]. This script
-replaces <extra-elements>/15_beckhoff_ethercat by the same elements, one
+replaces <extra-elements>/10_electric/20_manufacturers_articles/beckhoff by
+the same elements, one
 folder per family and one folder per card inside it (see split_cards.py). All
 the appearances of a card (symbol, _realistic, _description, _table) stay in
 the folder of the card: the island commands look for them there.
@@ -33,7 +34,8 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import gen_symbols as gs
 
-CATEGORY = "15_beckhoff_ethercat"
+CATEGORY = "15_beckhoff_ethercat"  # folder of the scratch root
+DEST = "10_electric/20_manufacturers_articles/beckhoff"
 
 # folder -> (English name, French name, card keys)
 FAMILIES = {
@@ -79,7 +81,7 @@ def card_key(filename):
 
 def main(scratch, elements):
     src = os.path.join(scratch, CATEGORY)
-    dst = os.path.join(elements, CATEGORY)
+    dst = os.path.join(elements, *DEST.split("/"))
     files = {}
     for folder, _, names in os.walk(src):
         for n in names:
@@ -112,8 +114,8 @@ def main(scratch, elements):
             f.write(gs.directory([("en", en), ("fr", fr)]))
     with open(os.path.join(dst, "qet_directory"), "w", encoding="utf-8",
               newline="\n") as f:
-        f.write(gs.directory([("en", "Beckhoff EtherCAT"),
-                              ("fr", "Beckhoff EtherCAT")]))
+        f.write(gs.directory([("en", "Beckhoff"),
+                              ("fr", "Beckhoff")]))
     print("%d elements in %d folders" % (len(out), len(FAMILIES) + len(KEPT)))
     import split_cards
     split_cards.split(dst)

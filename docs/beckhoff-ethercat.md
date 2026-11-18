@@ -3,8 +3,10 @@
 A small set of symbols and tools for drawing a Beckhoff EtherCAT
 architecture: a coupler with a stack of I/O terminals, EtherCAT boxes in a
 daisy chain, and AF1000 drives. The symbols are in
-`extra-elements/15_beckhoff_ethercat` and are installed into the common
-collection, as the category **Beckhoff EtherCAT**, sorted in one folder per
+`extra-elements/10_electric/20_manufacturers_articles/beckhoff` and replace
+the Beckhoff folder of the common collection (**Constructeurs / Beckhoff**,
+`elements/10_electric/20_manufacturers_articles/beckhoff` of the standard
+collection; the install step leaves out that old folder): sorted in one folder per
 family, and in each family **one folder per card** (`el1xxx_digital_in/el1004/`
 holds `el1004.elmt`, `el1004_realistic.elmt`, `el1004_description.elmt` and
 `el1004_table.elmt`). The folder of a card is named after its reference in
@@ -369,7 +371,7 @@ The legends use Roboto Condensed (same fallback as the tables). The box of
 the element is widened (only the width, height and hotspot change, never the
 coordinates) so the legends fit and the terminals stay on the grid. The
 files are written by `python misc/beckhoff/gen_description.py
-<15_beckhoff_ethercat>` from the realistic views and their I/O tables (no
+<library folder>` from the realistic views and their I/O tables (no
 duplicated data; a second run gives identical files). There is one for each
 of the 39 cards that have a realistic view: AF1103, AF1107, AF1115, AF1130,
 AF1155, AF1215, AF1222, AX5101, AX5103, AX5106, AX5112, AX5118, AX5125,
@@ -662,18 +664,18 @@ python misc/beckhoff/gen_safety.py <scratch>
 python misc/beckhoff/gen_drives.py <scratch>
 python misc/beckhoff/realistic_from_model.py <drawings> <scratch>/15_beckhoff_ethercat
 python misc/beckhoff/organize.py <scratch> extra-elements
-python misc/beckhoff/realistic_fixes.py extra-elements/15_beckhoff_ethercat
-python misc/beckhoff/gen_epp.py extra-elements/15_beckhoff_ethercat
-python misc/beckhoff/fix_boxes.py extra-elements/15_beckhoff_ethercat
-python misc/beckhoff/gen_generic.py extra-elements/15_beckhoff_ethercat
-python misc/beckhoff/gen_schematic.py <absolute path of extra-elements/15_beckhoff_ethercat>
-python misc/beckhoff/gen_couplers.py extra-elements/15_beckhoff_ethercat
-python misc/beckhoff/gen_el9410.py extra-elements/15_beckhoff_ethercat
-python misc/beckhoff/gen_description.py extra-elements/15_beckhoff_ethercat
-python misc/beckhoff/simple_tables.py extra-elements/15_beckhoff_ethercat
+python misc/beckhoff/realistic_fixes.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
+python misc/beckhoff/gen_epp.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
+python misc/beckhoff/fix_boxes.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
+python misc/beckhoff/gen_generic.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
+python misc/beckhoff/gen_schematic.py <absolute path of extra-elements/10_electric/20_manufacturers_articles/beckhoff>
+python misc/beckhoff/gen_couplers.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
+python misc/beckhoff/gen_el9410.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
+python misc/beckhoff/gen_description.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
+python misc/beckhoff/simple_tables.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/gen_titleblocks.py
 python misc/beckhoff/gen_example.py
 ```
 
-`organize.py` replaces the content of `extra-elements/15_beckhoff_ethercat`
+`organize.py` replaces the content of `extra-elements/10_electric/20_manufacturers_articles/beckhoff`
 (family folders, card folders and their `qet_directory` names).

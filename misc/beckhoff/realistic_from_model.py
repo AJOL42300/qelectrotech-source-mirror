@@ -43,7 +43,7 @@ Usage:
   realistic_from_model.py <drawings dir> <elements dir>
 
 <drawings dir> holds the Beckhoff_<REF>.elmt files, <elements dir> is
-extra-elements/15_beckhoff_ethercat (made by gen_symbols.py and
+extra-elements/10_electric/20_manufacturers_articles/beckhoff (made by gen_symbols.py and
 gen_safety.py). The report (scale, offset, residual) goes to the standard
 output.
 """

@@ -34,7 +34,7 @@ header and dynamic text, replaces the drawing, the terminals and the I/O
 table data.  Run it after gen_symbols.py / organize.py, before
 gen_description.py and simple_tables.py.
 
-Usage: python gen_epp.py <extra-elements>/15_beckhoff_ethercat
+Usage: python gen_epp.py <extra-elements>/10_electric/20_manufacturers_articles/beckhoff
 """
 import math
 import os

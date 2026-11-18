@@ -32,7 +32,7 @@ the data (names, information, I/O table) are kept from the existing
 generic, not taken from a datasheet: see docs/beckhoff-ethercat.md.
 
 Usage:
-  gen_schematic.py <elements dir>   (e.g. extra-elements/15_beckhoff_ethercat)
+  gen_schematic.py <elements dir>   (e.g. extra-elements/10_electric/20_manufacturers_articles/beckhoff)
 """
 import glob
 import math
