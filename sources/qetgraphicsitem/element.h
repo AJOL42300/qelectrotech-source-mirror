@@ -211,6 +211,7 @@ class Element : public QetGraphicsItem
 		QString conductorTextForDisplay();
 		QString conductorInfoForDisplay(const QString &info_name);
 		void addDisplayValues(DiagramContext &dc);
+		void addPlcChannelValues(DiagramContext &dc) const;
 		QString infoForDisplay(const QString &info_name);
 		bool hasTerminalNumberText() const;
 		bool labelShown() const;

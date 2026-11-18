@@ -1723,7 +1723,8 @@ class TstBeckhoffElements : public QObject
 
 				// the housing is a silhouette (polygon with its ears and two
 				// M3 holes), not a rectangle; the label holders are white
-				// and each channel holder holds the 5 digit placeholder
+				// and each channel holder shows the 5 digit ID, which is the
+				// Function of its row in the PLC table
 			const auto parts = real.firstChildElement(
 				QStringLiteral("description"));
 			QVERIFY(parts.elementsByTagName(QStringLiteral("polygon"))
@@ -1736,19 +1737,36 @@ class TstBeckhoffElements : public QObject
 					QStringLiteral("filling:white")) ? 1 : 0;
 			}
 			QCOMPARE(holders, 9);
-			int ids = 0;
+			QStringList ids;
 			for (auto t = parts.firstChildElement(
 					 QStringLiteral("dynamic_text"));
 				 !t.isNull(); t = t.nextSiblingElement(
 					 QStringLiteral("dynamic_text"))) {
+					// the 5 digit ID is the Function of the row of the
+					// channel in the PLC table (%{plc_function_N}); the
+					// upper holder of a socket is its channel A, the lower
+					// one its channel B
+					// the other dynamic text is the element label
 				if (t.attribute(QStringLiteral("text_from"))
-						== QLatin1String("UserText")) {
-					QCOMPARE(t.firstChildElement(QStringLiteral("text"))
-							 .text(), QStringLiteral("00000"));
-					++ids;
+						== QStringLiteral("ElementInfo")) {
+					continue;
 				}
+				QCOMPARE(t.attribute(QStringLiteral("text_from")),
+						 QStringLiteral("CompositeText"));
+				ids << t.firstChildElement(QStringLiteral("composite_text"))
+						.text();
 			}
-			QCOMPARE(ids, 8);
+			QCOMPARE(ids.size(), 8);
+			ids.sort();
+			QCOMPARE(ids, QStringList({
+				QStringLiteral("%{plc_function_1}"),
+				QStringLiteral("%{plc_function_2}"),
+				QStringLiteral("%{plc_function_3}"),
+				QStringLiteral("%{plc_function_4}"),
+				QStringLiteral("%{plc_function_5}"),
+				QStringLiteral("%{plc_function_6}"),
+				QStringLiteral("%{plc_function_7}"),
+				QStringLiteral("%{plc_function_8}")}));
 
 				// each M12 socket is one terminal (X01.4 was the channel 1
 				// of X01 before): 4 sockets + 2 EtherCAT P sockets

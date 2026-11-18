@@ -455,6 +455,20 @@ namespace autonum
 			}
 		}
 
+			//The "Function" of one row of the table of a PLC element
+			//(@sa QETInformation::plcFunctionInfoKey)
+		if (QETInformation::usesPlcFunctionInfo(str)) {
+			static const QRegularExpression rx(
+						QStringLiteral("%\\{(plc_function_[1-9]\\d*)\\}"));
+			QRegularExpressionMatch match;
+			int from = 0;
+			while ((match = rx.match(str, from)).hasMatch()) {
+				const QString value = dc.value(match.captured(1)).toString();
+				str.replace(match.capturedStart(), match.capturedLength(), value);
+				from = match.capturedStart() + value.size();
+			}
+		}
+
 		str.replace("%{void}", QString());
 
 		str.replace("%{plc_type}", dc.value("plc_type").toString());

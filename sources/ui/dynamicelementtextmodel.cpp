@@ -1981,8 +1981,10 @@ void DynamicTextItemDelegate::setModelData(
 					if(deti)
 					{
 						DiagramContext dc;
-						if(deti->elementUseForInfo())
+						if(deti->elementUseForInfo()) {
 							dc = deti->elementUseForInfo()->elementInformations();
+							deti->elementUseForInfo()->addPlcChannelValues(dc);
+						}
 						assigned_text = autonum::AssignVariables::replaceVariable(edited_text, dc, deti->elementUseForInfo());
 					}
 					

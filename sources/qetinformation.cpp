@@ -282,6 +282,50 @@ bool QETInformation::usesTerminalConductorInfo(const QString &composite_text)
 }
 
 /**
+	@brief QETInformation::plcFunctionInfoKey
+	@param channel : a row of the table of a PLC element, from 1
+	@return the key of the text of the "Function" column of that row,
+	"plc_function_<channel>". Read from the PLC element itself, not
+	stored: a PLC element has as many keys as rows, with no limit.
+	Not to be mixed up with ELMT_PLC_FUNCTION, which a slave element
+	gets from the row of its master it is linked to.
+*/
+QString QETInformation::plcFunctionInfoKey(int channel)
+{
+	return QStringLiteral("plc_function_") + QString::number(channel);
+}
+
+/**
+	@brief QETInformation::isPlcFunctionInfo
+	@param info : an information key
+	@param channel : if not null, set to the row @p info reads, from 1
+	@return true if @p info is a plcFunctionInfoKey()
+*/
+bool QETInformation::isPlcFunctionInfo(const QString &info, int *channel)
+{
+	static const QRegularExpression rx(
+				QStringLiteral("^plc_function_([1-9]\\d*)$"));
+	const QRegularExpressionMatch match = rx.match(info);
+	if (!match.hasMatch()) {
+		return false;
+	}
+	if (channel) {
+		*channel = match.captured(1).toInt();
+	}
+	return true;
+}
+
+/**
+	@brief QETInformation::usesPlcFunctionInfo
+	@return true if @p composite_text reads a plcFunctionInfoKey(), and
+	so changes when the table of its PLC element does
+*/
+bool QETInformation::usesPlcFunctionInfo(const QString &composite_text)
+{
+	return composite_text.contains(QLatin1String("%{plc_function_"));
+}
+
+/**
  * @brief QETInformation::elementInfoToVar
  * @param info
  * @return The info to a variable or %{void} if @info
@@ -478,6 +522,9 @@ QString QETInformation::translatedInfoKey(const QString &info)
 
 	QString property;
 	int connection = 0;
+	if (isPlcFunctionInfo(info, &connection)) {
+		return QObject::tr("PLC function, row %1").arg(connection);
+	}
 	if (isTerminalConductorInfo(info, &property, &connection) && connection) {
 		return QObject::tr("%1, connection point %2")
 				.arg(translatedInfoKey(property)).arg(connection);

@@ -867,7 +867,7 @@ been re-read for the `-1002` alone (**not re-verified**). The input filter
 | Tightening torque of the M3 bolts | **not stated** (the torque table of the chapter is for plug connectors only) | same chapter |
 | Mounting rail ZS5300-0001: 500 x 129 mm, stainless steel 1.5 mm, M3 threads ready-made; up to 15 narrow modules, 2 mm apart | verified | same page |
 | Silhouette (ears, corner radii, hole 2.55 mm from the edges) | **assumed**: traced by eye on a photo, scaled to 30 x 126 mm; only the size and the 3.5 mm holes are data-sheet values | |
-| 5-digit I/O identifier in the label holders | corresponds to the Function column (`plcIO.functionText`) of the PLC table (user's answer); **not linked** to the holders (needs C++, see below) | |
+| 5-digit I/O identifier in the label holders | the Function column (`plcIO.functionText`) of the PLC table (user's answer), shown by `%{plc_function_N}` in each holder | |
 
 **M3 screw length.** Beckhoff states "longer than 15 mm" for the narrow EPP
 housings; no exact length is given. A calculated value would be the 1.5 mm
@@ -878,29 +878,38 @@ verified, so no screw length is drawn or invented. Take a bolt longer than
 
 **Label holders and identifiers.** In the realistic view the holders are white
 rectangles at the positions assumed above: two per M12 socket (upper = odd
-channel, lower = even channel) and one by the Us/Up LEDs. QElectroTech has no
-5-digit identifier of an I/O in this branch: the `plcIO` cross-reference is
-an empty, user-editable text and a dynamic text cannot read a value per
-channel. Each channel holder therefore holds an editable `UserText` dynamic
-text with the placeholder `00000`: double-click it on the placed element and
-type the identifier. The EPP views are the only ones changed for this (EL, EK
-and drives are not).
+channel A, lower = even channel B) and one by the Us/Up LEDs. Each channel
+holder is a `CompositeText` dynamic text `%{plc_function_N}` (N = 1 to 8, the
+row of the channel in the PLC table: X01(1) = 1, X01(2) = 2, ... X04(2) = 8).
+It shows the **Function** column (`plcIO.functionText`) of that row, which is
+the 5-digit I/O identifier (user's answer). Type the identifier once, in the
+Function column of the PLC table of the element (the table of the master
+properties); the holder and the cross-reference table then show the same
+value, and the holder follows later changes. The Function column of the EPP
+is empty when the element is placed, so the holders are empty until then.
+The EPP views are the only ones changed for this (EL, EK and drives are not:
+their drawings have no label holders).
 
-*Which field the identifier is* (user's answer): the **Function** column of the
-cross-reference table, that is `plcIO.functionText` of the channel in the
-card's own PLC table (the field the function propagation of the
-`ajol42300-function-propagation` branch reads and writes per channel). Not
-linked yet, because no existing variable gives a text the `functionText` of one
-channel of its own element: `%{plc_function}` (`AssignVariables`,
-`autoNum/assignvariables.cpp`) is filled only on a *slave* element linked to a
-master row (`LinkElementCommand`, `Element::setData`), and one slave holds one
-row, while the EPP is one element with eight rows. The smallest link needs C++
-(not done, waiting for agreement): fill per-channel keys `plc_function_1` to
-`plc_function_8` in the element's own information from `plcMasterData().ios`
-(in `Element::setData`, where `old_plc` is already compared) and replace them
-in `AssignVariables::replaceVariable`; the holders then become `CompositeText`
-`%{plc_function_N}` texts. Until then the value is typed by hand in the holder
-and, separately, in the Function column of the PLC table (it is not shared).
+**Variable `%{plc_function_N}`** (C++, generic, not specific to the EPP). Any
+element that is a PLC master with an I/O table (`master_type` PLC: the
+Beckhoff EL, EK, EPP and any other PLC card) can use `%{plc_function_N}` in a
+composite text, with N from 1, one per row of its own table and no upper
+limit. It is listed in the composite text editor ("PLC function, row N") for
+such an element. A row that does not exist gives an empty text. The value is
+display only (nothing is stored, no change of the file format), built in
+`Element::addPlcChannelValues` (called by `Element::addDisplayValues`) and
+replaced in `AssignVariables::replaceVariable`; the texts that use it are
+refreshed when the table changes (`Element::setElementData`). The slave
+variable `%{plc_function}` (the row of the master a slave element is linked
+to) is unchanged. The function propagation of the
+`ajol42300-function-propagation` branch reads and writes the same
+`functionText` field and is not duplicated here.
+
+Verified: the Function column is `plcIO.functionText` (user's answer;
+`crossrefitem.cpp::drawAsPlcTable`), tests `tst_plcfunctiontext` (rows beyond
+8, row missing, follows the table, slave unchanged) and the EPP holder
+test. Not verified: use in a real project and in the interface by hand; the
+composite text editor entry was not tried in the window.
 
 In the layout views (EPP2338-1002 only) the silhouette has the two ears with
 their 3.5 mm holes; the white holders and the M12/M8 sockets are drawn at 1:1

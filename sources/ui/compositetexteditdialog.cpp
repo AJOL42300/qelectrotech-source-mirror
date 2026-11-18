@@ -32,6 +32,13 @@ CompositeTextEditDialog::CompositeTextEditDialog(DynamicElementTextItem *text, Q
 	}
 	if (m_text && !report && m_text->elementUseForInfo()) {
 		addCustomInfo(m_text->elementUseForInfo()->elementInformations());
+		DiagramContext plc;
+		m_text->elementUseForInfo()->addPlcChannelValues(plc);
+		for (int i = 1 ; plc.contains(QETInformation::plcFunctionInfoKey(i)) ; ++i) {
+			const QString key = QETInformation::plcFunctionInfoKey(i);
+			ui->m_info_cb->addItem(QETInformation::translatedInfoKey(key),
+								   QETInformation::infoToVar(key));
+		}
 	}
 }
 
