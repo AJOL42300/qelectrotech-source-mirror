@@ -95,16 +95,22 @@ that face (pass-through of Up) and they take the colour of their function:
 red for +24 V / Us / Up+, blue for 0 V, orange for PE (rectangle outline,
 lines, arc and junction dots). The rails carry no text.
 
-Height: the contacts of the real terminals are half way up the housing, so
-the generator (`Card.middle_gap`) puts the two rails as near as possible to
-the vertical middle of the card, in a free band between two rows of terminals
-that no stage (diode, driver, coil) crosses; on a dense card (EL1918) they
-are closer together. The vertical branches along the sides join the
+Height: the power contacts are at the **same y on every card** (user request,
+rev. 109: in an island the cards touch, so the right contact of a card faces
+the left contact of the next one). The constant is `POWER_Y` in
+`misc/beckhoff/gen_schematic.py`, also used by `gen_hubs.py` and
+`gen_el9410.py`: +24 V at y = 15, 0 V at y = 25, PE at y = 35 (from the
+element origin, in the middle of the 302 px card). The EL9410 draws its three
+levels on these same y. A stage (diode, driver, coil) that would cross a rail
+at this height is replaced by a short stub, not the rail moved. The test
+`powerContactsAreAtTheSameHeightOnEveryCard` checks every card. No datasheet
+gives the height in millimetres; the middle is deduced from the user's
+request and the principle diagram. Known limit: the vertical 0 V of the EL9410
+crosses its PE rail without a dot; only the EL9410 uses the PE level.
+The vertical branches along the sides join the
 terminals marked 24 V / 0 V in the I/O table. The supply of each individual
 channel is **not** drawn: the public documentation does not state it channel
-by channel. The height is deduced from the user's request ("the contacts are
-in the middle") and the datasheet principle diagram; no datasheet gives it in
-millimetres.
+by channel.
 
 Per card
 (the table is the `CONTACTS` dictionary of `misc/beckhoff/gen_schematic.py`):
@@ -116,8 +122,8 @@ Per card
 | EL1904, EL1918, EL2904, EL2522, EL5152 | yes | yes (default) | not stated | right side **not specified** in the public documentation, default kept |
 | EL2574 | yes (verified) | not specified | not stated | default kept |
 | EL2652 | **no** | **no** | no | no power contacts (relay output), verified |
-| EL2911 | **no** | yes | not stated | starts a new potential group, verified |
-| EL6910 | not specified | not specified | not stated | not found, default kept |
+| EL2911 | **no** | yes | not stated | starts a new potential group, verified. One double card: a single 12 mm outline, rails drawn once, dotted separator, groups "IN 1-4" / "OUT 1" (own grouping); pin-out from the public manual v2.2.0, not re-read in rev. 111 |
+| EL6910 | **none drawn** | **none drawn** | no | product page: "current consumption power contacts: -", no I/O channels; not verified on infosys (404). Redrawn in rev. 112 (`gen_el6910.py`): 12 mm body, "Logic" block, no terminals, no rails |
 | EL9011 (end cap) | no | no | no | no power contacts, verified; its schematic is an older generic drawing and still shows two generic rails (not redrawn) |
 | EL9100, EL9410 | yes (feed) | yes | yes (terminals 4/8 of the EL9410) | EL9410 verified, EL9100 from the documentation |
 | EK1100 | **no** | yes | yes | three spring contacts on the right face (24 V, 0 V, PE), verified |
@@ -126,7 +132,7 @@ Per card
 | CU1128 | **no** | **no** | no | deduced: a junction powered by a 3-pin connector, no E-bus (not stated in so many words) |
 
 The "default" cases are drawn with both contacts; correct `CONTACTS` when a
-datasheet says otherwise and run `gen_schematic.py` again. The EL6910, EL9011, EK1322 and ethercat_box_generic keep the generic rails of
+datasheet says otherwise and run `gen_schematic.py` again. The EL9011, EK1322 and ethercat_box_generic keep the generic rails of
 their older schematic drawing. The PE contact is
 only drawn on the EL9410 (its PE terminals are drawn), not on the other cards.
 The sides are not stated by the datasheets (see below).
@@ -720,11 +726,26 @@ poorly: this works for line drawings and logos.
 
 ## Example project
 
-`examples/beckhoff_islands_example.qet` has four islands on 13 folios (symbols,
-realistic views, I/O tables for each island, and the description views of the
-cards of `A1`), then 14 "Catalogue" folios and one "Layout" folio (an island and
+`examples/beckhoff_islands_example.qet` has four islands on 18 folios, four per
+island (A1: folios 1-5, A2: 6-10, A3: 11-14, A4: 15-18; the description views
+wrap on two pages when wider than a folio): symbols, realistic views,
+description views and I/O tables. Inside an island the head comes first, then
+the cards in the same order; the symbol and realistic folios use the same
+columns and the same top edge, and every view of a card has the same label
+(`A1.00`, `A1.10`...). The I/O table folio lists the head too. After the 18
+island folios come 14 "Catalogue" folios and one "Layout" folio (an island and
 a DIN rail at 1:1, 1:2 and 1:5, see [Layout views](#layout-views-and-scale)), all on A3 folios with the A3 title
-blocks (see below). The folios are named by card category: the title of an
+blocks (see below). `gen_example.py` checks at generation, and the test
+`exampleTerminalsAreDistinctAndPresentInEveryMode` checks again, that no two
+terminals of a folio are closer than 7 px and that a card has the same
+terminals in its symbol, realistic and description views.
+
+What was "mixed" in the previous example (rev. 110): every placed card carried
+a spurious terminal without coordinates (read as 0,0, on the element origin)
+because the generator also read the PLC data `<terminal>` entries; the EK1100
+was only in the symbols folio; A2-A4 had no description views; the cards were
+at different positions on each folio; the table folio left out the head.
+All fixed in `gen_example.py`. The folios are named by card category: the title of an
 island folio lists the categories of its cards (`A1 - Coupleurs / Entrées TOR /
 Sorties TOR / Codeurs - symboles`) and the view (symboles, vues réalistes, vues
 descriptives, tableaux d'E/S). The catalogue folios (`Catalogue - Coupleurs`,
@@ -985,6 +1006,7 @@ python misc/beckhoff/gen_generic.py extra-elements/10_electric/20_manufacturers_
 python misc/beckhoff/gen_schematic.py <absolute path of extra-elements/10_electric/20_manufacturers_articles/beckhoff>
 python misc/beckhoff/gen_couplers.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/gen_el9410.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
+python misc/beckhoff/gen_el6910.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/gen_ek1322.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/gen_hubs.py extra-elements/10_electric/20_manufacturers_articles/beckhoff
 python misc/beckhoff/gen_description.py extra-elements/10_electric/20_manufacturers_articles/beckhoff

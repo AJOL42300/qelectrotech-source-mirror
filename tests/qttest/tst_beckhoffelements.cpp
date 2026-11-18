@@ -56,6 +56,13 @@ class TstBeckhoffElements : public QObject
 			return doc;
 		}
 
+		static QString rawText(const QString &path)
+		{
+			QFile file(path);
+			return file.open(QIODevice::ReadOnly)
+				? QString::fromUtf8(file.readAll()) : QString();
+		}
+
 		static QString info(const QDomElement &definition,
 							const QString &name)
 		{
@@ -675,7 +682,11 @@ class TstBeckhoffElements : public QObject
 				const bool left = key != QStringLiteral("el2652")
 					&& key != QStringLiteral("el2911")
 					&& key != QStringLiteral("ek1914");
-				if (key == QStringLiteral("el2652")) {
+				if (key == QStringLiteral("el6910")) {
+						// no power contact confirmed by the datasheet
+					QVERIFY2(!xml.contains(QStringLiteral("<arc ")),
+							 qPrintable(key));
+				} else if (key == QStringLiteral("el2652")) {
 					QVERIFY2(!xml.contains(QRegularExpression(
 								 QStringLiteral("<rect[^>]*filling:white;color:red"))),
 							 qPrintable(key));
@@ -694,6 +705,119 @@ class TstBeckhoffElements : public QObject
 				++checked;
 			}
 			QCOMPARE(checked, cardKeys().size());
+		}
+
+		void powerContactsAreAtTheSameHeightOnEveryCard()
+		{
+				// the cards touch in an island: +24 V, 0 V and PE are at
+				// the same y (15, 25, 35 from the origin) on all of them
+			const QRegularExpression arc(QStringLiteral(
+				"<arc x=\"([-0-9.]+)\" y=\"([-0-9.]+)\" width=\"8\" "
+				"height=\"8\" start=\"90\" angle=\"180\" style=\"[^\"]*"
+				"color:(red|blue|orange)\""));
+			const QMap<QString, double> level{
+				{QStringLiteral("red"), 15.0},
+				{QStringLiteral("blue"), 25.0},
+				{QStringLiteral("orange"), 35.0}};
+			int cards = 0;
+			for (const QString &key : cardKeys()) {
+				const QString path = elementPath(key + QStringLiteral(".elmt"));
+				if (!QFile::exists(path)) {
+					continue;
+				}
+				const QString xml = rawText(path);
+				int arcs = 0;
+				auto it = arc.globalMatch(xml);
+				while (it.hasNext()) {
+					const auto m = it.next();
+					QCOMPARE(m.captured(2).toDouble() + 4.0,
+							 level.value(m.captured(3)));
+					++arcs;
+				}
+				cards += arcs > 0 ? 1 : 0;
+			}
+			QVERIFY(cards >= 10);
+		}
+
+		void exampleTerminalsAreDistinctAndPresentInEveryMode()
+		{
+			const auto doc = load(QStringLiteral(QET_EXAMPLES_DIR)
+				+ QStringLiteral("/beckhoff_islands_example.qet"));
+			const auto folios = doc.documentElement().elementsByTagName(
+				QStringLiteral("diagram"));
+			const QRegularExpression island(QStringLiteral("^A\\d - "));
+			const QStringList modes{QStringLiteral("symboles"),
+									QStringLiteral("vues réalistes"),
+									QStringLiteral("vues descriptives")};
+				// card label -> mode -> number of terminals
+			QMap<QString, QMap<QString, int>> counts;
+			for (int i = 0; i < folios.size(); ++i) {
+				const auto folio = folios.at(i).toElement();
+				const QString title = folio.attribute(QStringLiteral("title"));
+				QList<QPointF> points;
+				const auto els = folio.firstChildElement(
+					QStringLiteral("elements")).elementsByTagName(
+					QStringLiteral("element"));
+				for (int j = 0; j < els.size(); ++j) {
+					const auto e = els.at(j).toElement();
+					QString label;
+					const auto infos = e.firstChildElement(
+						QStringLiteral("elementInformations"))
+						.elementsByTagName(QStringLiteral("elementInformation"));
+					for (int k = 0; k < infos.size(); ++k) {
+						if (infos.at(k).toElement().attribute(
+								QStringLiteral("name")) == QLatin1String("label")) {
+							label = infos.at(k).toElement().text();
+						}
+					}
+					const auto terms = e.firstChildElement(
+						QStringLiteral("terminals")).elementsByTagName(
+						QStringLiteral("terminal"));
+					for (int k = 0; k < terms.size(); ++k) {
+						const auto t = terms.at(k).toElement();
+							// a terminal without coordinates would sit on
+							// the origin of its element
+						bool okX = false, okY = false;
+						const qreal x = t.attribute(QStringLiteral("x"))
+							.toDouble(&okX);
+						const qreal y = t.attribute(QStringLiteral("y"))
+							.toDouble(&okY);
+						QVERIFY2(okX && okY, qPrintable(label));
+						points << QPointF(e.attribute(QStringLiteral("x"))
+							.toDouble() + x, e.attribute(QStringLiteral("y"))
+							.toDouble() + y);
+					}
+					if (island.match(title).hasMatch()) {
+						for (const QString &mode : modes) {
+							if (title.contains(mode)) {
+								counts[label][mode] += terms.size();
+							}
+						}
+					}
+				}
+				for (int a = 0; a < points.size(); ++a) {
+					for (int b = a + 1; b < points.size(); ++b) {
+						const QPointF d = points.at(a) - points.at(b);
+						QVERIFY2(qAbs(d.x()) >= 7 || qAbs(d.y()) >= 7,
+								 qPrintable(title));
+					}
+				}
+			}
+			int compared = 0;
+			for (auto it = counts.cbegin(); it != counts.cend(); ++it) {
+				if (it.value().size() < 2) {
+					continue;
+				}
+				++compared;
+				for (const QString &mode : modes) {
+					QVERIFY2(it.value().contains(mode),
+							 qPrintable(it.key() + QLatin1Char(' ') + mode));
+					QCOMPARE(it.value().value(mode),
+							 it.value().value(modes.first()));
+				}
+			}
+				// the head and the cards of the four islands
+			QVERIFY(compared >= 14);
 		}
 
 		void realisticTerminalsAreOnlyACircleWithTheLabelAbove()
@@ -999,6 +1123,24 @@ class TstBeckhoffElements : public QObject
 			}
 		}
 
+		void el2911IsOneDoubleCardAndEl6910HasNoChannel()
+		{
+				// one outline around the two halves, the rails run once
+			const QString xml = rawText(elementPath(
+				QStringLiteral("el2911.elmt")));
+			QRegularExpression outline(QStringLiteral(
+				"<rect x=\"-14.5\" y=\"-136.7\" width=\"96\""));
+			QVERIFY(xml.contains(outline));
+			QVERIFY(xml.contains(QStringLiteral("IN 1-4")));
+			QVERIFY(xml.contains(QStringLiteral("OUT 1")));
+			QCOMPARE(xml.count(QStringLiteral("color:orange")), 0);
+
+			const auto el6910 = load(elementPath(
+				QStringLiteral("el6910.elmt"))).documentElement();
+			QCOMPARE(terminalNames(el6910).size(), 0);
+			QVERIFY(!info(el6910, QStringLiteral("description")).isEmpty());
+		}
+
 		void safetyCardsAreYellowAndEl1918HasSixteenTerminals()
 		{
 			const auto dirOf = [](const QString &key) {
@@ -1158,13 +1300,13 @@ class TstBeckhoffElements : public QObject
 				// the folios are named by card category: the islands
 				// (13 folios) come first, then one catalogue per category
 				// with the symbol of every card of the library
-			QVERIFY(folios.size() > 13);
+			QVERIFY(folios.size() > 18);
 			QVERIFY(titles.at(0).contains(QStringLiteral("Coupleurs")));
 			QVERIFY(titles.at(0).contains(QStringLiteral("Entrées TOR")));
-			QVERIFY(titles.at(4).contains(QStringLiteral("TwinSAFE")));
-			QVERIFY(titles.at(4).contains(QStringLiteral("Variateurs")));
-			QVERIFY(titles.at(10).contains(QStringLiteral("EPP")));
-			QVERIFY(titles.at(13).startsWith(QStringLiteral("Catalogue")));
+			QVERIFY(titles.at(5).contains(QStringLiteral("TwinSAFE")));
+			QVERIFY(titles.at(5).contains(QStringLiteral("Variateurs")));
+			QVERIFY(titles.at(14).contains(QStringLiteral("EPP")));
+			QVERIFY(titles.at(18).startsWith(QStringLiteral("Catalogue")));
 			QVERIFY(titles.filter(QStringLiteral("Catalogue - Sorties TOR"))
 					.size() == 1);
 			int cards = 0;
@@ -1179,7 +1321,7 @@ class TstBeckhoffElements : public QObject
 			}
 			QVERIFY(cards >= 40);
 
-			QCOMPARE(appearances.value(QStringLiteral("A1.00")).size(), 1);
+			QCOMPARE(appearances.value(QStringLiteral("A1.00")).size(), 4);
 			for (const QString &card : {QStringLiteral("A1.10"),
 										QStringLiteral("A1.20"),
 										QStringLiteral("A1.30"),
