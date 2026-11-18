@@ -27,6 +27,7 @@ number, poles, coding, length, cable type) comes from public datasheets.
 Usage: python misc/murr_meanwell/gen_m12.py
 """
 import json
+import math
 import os
 import shutil
 import sys
@@ -65,7 +66,10 @@ FAMILIES = {
 # Pin positions seen from the mating face of a male A-coded connector;
 # a female connector seen from its face is the mirror image.
 PIN_XY = {1: (-8, -8), 2: (8, -8), 3: (8, 8), 4: (-8, 8), 5: (0, 0)}
-RADIUS = 20
+RADIUS = 23
+# Contact colours of the A-coded M12 (1 brown, 2 white, 3 blue, 4 black,
+# 5 grey); the white contact is outlined in black to stay visible.
+PIN_COLOURS = {1: "brun", 2: "white", 3: "blue", 4: "black", 5: "gray"}
 
 
 def pin_xy(n, male):
@@ -75,30 +79,56 @@ def pin_xy(n, male):
     return x, y
 
 
+def knurl(c, cx, cy, ticks=24):
+    """The knurled coupling nut: short radial ribs on its rim."""
+    for k in range(ticks):
+        a = 2 * math.pi * k / ticks
+        c.line(cx + 20.5 * math.cos(a), cy + 20.5 * math.sin(a),
+               cx + 23 * math.cos(a), cy + 23 * math.sin(a), "gray")
+
+
 def connector(c, cx, cy, male, poles):
-    """An M12 connector: coupling nut, insulator, numbered pins."""
+    """An M12 connector seen from its mating face: knurled coupling nut,
+    thread, insulator with the coding key of the A coding at the top, and
+    the numbered contacts (male: solid pins, female: hollow sockets)."""
     c.disc(cx, cy, 2 * RADIUS, LIGHT)
-    c.disc(cx, cy, 2 * RADIUS - 10, "white")
+    knurl(c, cx, cy)
+    c.disc(cx, cy, 40, "white")
+    c.disc(cx, cy, 38, LIGHT)
+    if male:
+        c.rect(cx - 2.5, cy - 19, 5, 4, "gray")
+    else:
+        c.rect(cx - 2.5, cy - 19, 5, 4, "white")
     for n in range(1, poles + 1):
         x, y = pin_xy(n, male)
         px, py = cx + x, cy + y
+        colour = PIN_COLOURS[n]
         if male:
-            c.disc(px, py, 3, "black")
+            c.disc(px, py, 4, colour, BLACK if colour == "white" else colour)
         else:
-            c.disc(px, py, 4, "white")
+            c.disc(px, py, 5, "white", BLACK if colour == "white"
+                   else colour)
         if x < 0:
             c.text_r(px - 3, py - 3.2, str(n), 4)
         else:
             c.text(px + 3, py - 3.2, str(n), 4)
 
 
+EV_COLOURS = {"1": "red", "2": "blue", "PE": "orange"}
+
+
 def valve_connector(c, cx, cy, male=False):
     """A valve connector form BI with two contacts and PE (assumed): socket
-    contacts on the cable side, pins on the valve coil side."""
-    c.rect(cx - 20, cy - 12, 40, 24, LIGHT)
+    contacts on the cable side, pins on the valve coil side. Contact 1 is
+    red, 2 blue and PE orange, as the colours of the library."""
+    c.rect(cx - 22, cy - 15, 44, 30, LIGHT)
     for k, name in enumerate(("1", "2", "PE")):
-        x = cx - 12 + 12 * k
-        c.disc(x, cy - 2, 5 if not male else 3, "black" if male else "white")
+        x = cx - 14 + 14 * k
+        colour = EV_COLOURS[name]
+        if male:
+            c.disc(x, cy - 5, 5, colour, colour)
+        else:
+            c.disc(x, cy - 5, 6, "white", colour)
         c.text_c(x, cy + 3, name, 4)
 
 
@@ -108,6 +138,17 @@ def cable_line(c, x1, y1, x2, y2):
 
 def boot(c, x, y, w):
     c.rect(x, y - 8, w, 16, LIGHT)
+
+
+def overmould(c, x, y, direction):
+    """The moulded strain relief at the end of a cable, tapering from the
+    connector (x) to the cable; direction is 1 towards +x, -1 towards -x."""
+    pts = [(x, y - 11), (x + direction * 20, y - 11),
+           (x + direction * 28, y - 3), (x + direction * 28, y + 3),
+           (x + direction * 20, y + 11), (x, y + 11)]
+    c.poly(pts, True, LIGHT)
+    for k in (6, 12):
+        c.line(x + direction * k, y - 11, x + direction * k, y + 11, "gray")
 
 
 class Product:
@@ -179,14 +220,16 @@ class Cable(Product):
         c = Canvas()
         c.line(0, 0, 10, 0)
         c.line(190, 0, 200, 0)
-        connector(c, 30, 0, True, 4)
-        connector(c, 170, 0, False, 4)
-        boot(c, 50, 0, 8)
-        boot(c, 142, 0, 8)
-        c.rect(58, -4, 84, 8, "white")
+        connector(c, 33, 0, True, 4)
+        connector(c, 167, 0, False, 4)
+        overmould(c, 56, 0, 1)
+        overmould(c, 144, 0, -1)
+        c.rect(84, -3, 32, 6, "gray")
         c.text_c(100, -20, f"{metres(self.length)} m", 6, True)
-        c.text_c(100, 8, self.order, 5)
-        c.text_c(100, 16, "PUR 4x0,34", 4)
+        c.text_c(100, 14, self.order, 5)
+        c.text_c(100, 23, "PUR 4x0,34", 4)
+        c.text_c(33, 26, "male", 4)
+        c.text_c(167, 26, "female", 4)
         return c
 
 
@@ -216,18 +259,18 @@ class YDistributor(Product):
         c.line(0, 0, 10, 0)
         c.line(190, -30, 200, -30)
         c.line(190, 30, 200, 30)
-        connector(c, 30, 0, True, 4)
-        boot(c, 50, 0, 8)
-        cable_line(c, 58, 0, 90, 0)
-        cable_line(c, 90, 0, 110, -30)
-        cable_line(c, 110, -30, 150, -30)
-        cable_line(c, 90, 0, 110, 30)
-        cable_line(c, 110, 30, 150, 30)
-        c.disc(90, 0, 3, "black")
-        valve_connector(c, 170, -30)
-        valve_connector(c, 170, 30)
-        c.text_c(100, 48, f"{metres(self.length)} m", 6, True)
-        c.text_c(100, 56, self.order, 5)
+        connector(c, 33, 0, True, 4)
+        overmould(c, 56, 0, 1)
+        cable_line(c, 84, 0, 98, 0)
+        c.poly([(96, -6), (106, -6), (120, -14), (120, 14), (106, 6),
+                (96, 6)], True, LIGHT)
+        for sign in (-1, 1):
+            cable_line(c, 120, 14 * sign, 134, 30 * sign)
+            cable_line(c, 134, 30 * sign, 146, 30 * sign)
+            valve_connector(c, 168, 30 * sign)
+        c.text_c(33, 26, "male", 4)
+        c.text_c(100, 14, f"{metres(self.length)} m", 6, True)
+        c.text_c(90, 26, self.order, 5)
         return c
 
 
@@ -255,10 +298,16 @@ class FreeConnector(Product):
     def draw(self):
         c = Canvas()
         c.line(0, 0, 10, 0)
-        connector(c, 30, 0, self.male, 4)
-        boot(c, 50, 0, 20)
-        c.text_c(60, 12, "IDC", 5)
-        c.text_c(40, 26, self.order, 5)
+        connector(c, 33, 0, self.male, 4)
+        # side view: coupling nut with knurl, body, screw-down cap
+        c.rect(70, -12, 14, 24, LIGHT)
+        for k in range(1, 4):
+            c.line(70 + 3.5 * k, -12, 70 + 3.5 * k, 12, "gray")
+        c.rect(84, -9, 34, 18, LIGHT)
+        c.rect(118, -7, 12, 14, "gray")
+        c.text_c(100, 12, "IDC", 5)
+        c.text_c(33, 26, "male" if self.male else "female", 4)
+        c.text_c(80, 30, self.order, 5)
         return c
 
 
@@ -286,16 +335,19 @@ class TCoupler(Product):
         c.line(0, 0, 10, 0)
         c.line(190, -30, 200, -30)
         c.line(190, 30, 200, 30)
-        connector(c, 30, 0, True, 5)
-        connector(c, 170, -30, False, 4)
-        connector(c, 170, 30, False, 4)
-        c.rect(50, -45, 70, 90, LIGHT)
-        cable_line(c, 120, -30, 150, -30)
-        cable_line(c, 120, 30, 150, 30)
-        for k in range(3):
-            c.disc(70 + 15 * k, -25, 5, GREEN)
-        c.text_c(85, -17, "LED", 4)
-        c.text_c(85, 25, self.order, 5)
+        connector(c, 33, 0, True, 5)
+        connector(c, 167, -30, False, 4)
+        connector(c, 167, 30, False, 4)
+        c.poly([(56, -10), (90, -10), (90, -52), (124, -52), (124, -36),
+                (144, -36), (144, -24), (124, -24), (124, 24), (144, 24),
+                (144, 36), (124, 36), (124, 52), (90, 52), (90, 10),
+                (56, 10)], True, LIGHT)
+        for y, name in ((-30, "X2"), (0, "X1"), (30, "X3")):
+            c.disc(99, y, 6, GREEN)
+            c.text(106, y - 3.2, name, 4)
+        c.text_c(33, 26, "male", 4)
+        c.text_c(167, 56, "female", 4)
+        c.text_c(90, 56, self.order, 5)
         return c
 
 
@@ -332,12 +384,16 @@ class ValveCoil(Product):
     def draw(self):
         c = Canvas()
         c.line(0, 0, 10, 0)
-        valve_connector(c, 30, 0, True)
-        c.line(50, 0, 90, 0)
-        c.rect(90, -15, 60, 30, "white")
-        c.text(93, -14, "A1", 4)
-        c.text(93, 8, "A2", 4)
-        c.text_c(125, -3, "24 V DC", 5)
+        valve_connector(c, 32, 0, True)
+        # coil body with the winding, the valve core and the markings
+        c.rect(54, -20, 76, 40, "white")
+        c.text(58, -18, "A1", 4)
+        c.text(58, 11.7, "A2", 4)
+        for k in range(4):
+            c.circle(84 + 8 * k, -9, 8)
+        c.text_c(104, 3, "24 V DC", 5)
+        c.rect(130, -8, 18, 16, LIGHT)
+        c.text_c(110, 24, "BI 18", 4)
         return c
 
 
@@ -380,6 +436,8 @@ def main():
     items = products()
     for p in items:
         p.write()
+        for problem in p.draw().layout_problems():
+            print(f"drawing problem in {p.file}: {problem}")
     with open(os.path.join(root, ROUTES_FILE), "w", encoding="utf-8",
               newline="\n") as f:
         json.dump(ROUTES, f, indent="\t")

@@ -118,6 +118,18 @@ Principles:
   (`manufacturer_reference`), the designation in French, and a description
   with the poles, the coding, the length and the colour code of the conductors
   (1 brown, 2 white, 3 blue, 4 black);
+- **detailed drawings** (vector, redrawn): the M12 connector has a knurled
+  coupling nut, a thread ring, an insulator, a coding key (a lug on the male,
+  a slot on the female) and contacts numbered 1 to 5 in the pin colours
+  (brown, white, blue, black, grey); the cable has an overmould at each end and
+  a grey sheath; the free connector adds a side view (nut with ribs, body, IDC
+  cap); the T coupler has a T-shaped body, round green LEDs aligned with a
+  legend (`X2`, `X1`, `X3`, the output they follow); the Y distributor has the
+  overmoulded junction, two branches and two valve connectors whose contacts
+  1, 2 and PE are numbered without overlap (red, blue, orange, the library
+  colour code); the valve coil has the body with the winding, the valve core,
+  A1 / A2 inside the outline and `24 V DC`. The terminal positions, the grid
+  and the data are unchanged by these drawings;
 - the links are drawn with a **dashed conductor** (the existing conductor
   line style, `line-style: dashed;` in the conductor `style` attribute, shown
   with the pattern of `conductordashpattern.h`). In the example the dashed
@@ -152,8 +164,13 @@ Assumed, to check against the datasheets:
 - Y distributor 7000-42421: the M12 is drawn male (EPP side) and the two valve
   connectors as sockets with contacts 1, 2 and PE; the datasheet of the 42421
   was not found (only the 42401 family), so the contact assignment is assumed;
-- the LEDs of the T coupler are drawn without function and its internal wiring
-  (distribution function) is not drawn;
+- the LEDs of the T coupler are drawn without function (legend = the output
+  they are assumed to follow) and its internal wiring (distribution function)
+  is not drawn; the T-shaped body is a schematic silhouette, not to scale;
+- the coding key position, the contact layout and the pin colours of the
+  M12 drawings come from the general A-coded convention, and the contact
+  colours of the valve connector (red, blue, orange) are the library colour
+  code, not the manufacturer's;
 - the symbols are schematic, the drawn length of a cable does not depend on
   its real length;
 - the valve coil is a generic symbol (A1 / A2, 24 V DC, connector form BI
