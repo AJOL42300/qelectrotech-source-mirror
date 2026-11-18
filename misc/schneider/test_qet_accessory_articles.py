@@ -122,5 +122,18 @@ class AccessoryArticles(unittest.TestCase):
         self.assertIn("no list", res.warnings[0])
 
 
+    def test_contactor_blocks(self):
+        root = project(element("-KM1", "LC1D09P7"),
+                       element("-KM1.1", "LADN22"),
+                       element("-KM1-2", "LADN11"),
+                       element("-KM1.3", "LV431541"))
+        res = tool.process(root)
+        self.assertEqual(blocks(root, "-KM1"),
+                         {"LADN22": "1", "LADN11": "1", "LADN20": "0",
+                          "LADN02": "0"})
+        self.assertEqual(len(res.warnings), 1)
+        self.assertIn("outside the list", res.warnings[0])
+
+
 if __name__ == "__main__":
     unittest.main()

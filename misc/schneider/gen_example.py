@@ -19,8 +19,10 @@
 A catalogue of the Schneider Electric library of
 extra-elements/10_electric/20_manufacturers_articles/schneider: the IEC
 symbols, the front views of the modular devices, of the ComPacT NSX and
-INS, and an NSX250 with its accessories (motor mechanism, auxiliary
-contact, undervoltage release, terminal shields, handle).  The accessories
+INS, an NSX250 with its accessories (motor mechanism, auxiliary
+contact, undervoltage release, terminal shields, handle), and the TeSys D
+contactors with their LADN auxiliary blocks (terminal numbers on the symbols
+and on the front views).  The accessories
 carry the label of the device followed by a separator (-QS1.1, -QS1-OF...)
 and misc/schneider/qet_accessory_articles.py gives them to the device as
 articles, which is what the example shows.
@@ -235,6 +237,28 @@ def folio_assembly_front():
     return diagram_xml(6, "NSX250 with accessories - front views", els)
 
 
+def folio_contactors():
+    """TeSys D contactors with their auxiliary blocks, terminals numbered."""
+    els = row([("-KM1", "lc1d09p7", ""), ("-KM2", "lc1d38p7", ""),
+               ("-KM3", "lc1d09bd", "")], 100, x0=60, gap=60)
+    els += row([("-KM1.1", "ladn22", ""), ("-KM2.1", "ladn11", ""),
+                ("-KM2.2", "ladn20", ""), ("-KM3.1", "ladn02", "")],
+               350, x0=60, gap=80)
+    return diagram_xml(7, "TeSys D contactors - IEC symbols and terminal "
+                       "numbers", els)
+
+
+def folio_contactors_front():
+    els = row([("-KM1", "lc1d09p7", "_realistic"),
+               ("-KM2", "lc1d38p7", "_realistic"),
+               ("-KM3", "lc1d09bd", "_realistic")], 140, x0=60, gap=60)
+    els += row([("-KM1.1", "ladn22", "_realistic"),
+                ("-KM2.1", "ladn11", "_realistic"),
+                ("-KM2.2", "ladn20", "_realistic"),
+                ("-KM3.1", "ladn02", "_realistic")], 560, x0=60, gap=60)
+    return diagram_xml(8, "TeSys D contactors - front views", els)
+
+
 # ------------------------------------------------------------- collection
 
 def directory_names(path):
@@ -286,7 +310,8 @@ def main():
                        ("-Q7", "nsx250n_3p_tm250")]),
         folio_compact(4, "ComPacT INS250 - front views",
                       [("-S3", "ins250_3p"), ("-S4", "ins250_4p")]),
-        folio_assembly(), folio_assembly_front()]
+        folio_assembly(), folio_assembly_front(),
+        folio_contactors(), folio_contactors_front()]
     head = (
         '<project title="Schneider Electric breakers example" uuid="%s" '
         'version="%s"><properties/>' % (uid("project"), VERSION)

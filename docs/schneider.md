@@ -1,8 +1,9 @@
-# Schneider Electric breakers: front views and accessories
+# Schneider Electric: breakers, contactors, front views and accessories
 
 Vector redrawings (no photo, logo or manufacturer text) of Schneider
-Electric circuit breakers, residual current devices (RCD) and disconnectors,
-each as an IEC symbol and as a front view, with their accessories. The
+Electric circuit breakers, residual current devices (RCD), disconnectors and
+TeSys D contactors, each as an IEC symbol and as a front view, with their
+accessories. The
 elements are in
 `extra-elements/10_electric/20_manufacturers_articles/schneider`, the
 generator is `misc/schneider/gen_schneider.py` (reproducible: it removes the
@@ -31,6 +32,8 @@ terminal is on the 10 px grid.
 | `compact_nsx` | NSX100B 3P TMD100 (LV429540), NSX250N 3P frame (C25N3), NSX250N 3P TM250 (C25N3TM250C, with an `_accessories` front view) |
 | `compact_ins` | INS250 3P / 4P (31106 / 31107) |
 | `accessories` | MT250 motor mechanism (LV431541 220/240 V AC, LV431543 24/30 V DC), MN undervoltage release (LV429410), OF/SD/SDE/SDV contact (29450), iOF contact (A9A26924), rotary handle (LV429337), terminal shield (LV429517) |
+| `tesys_d` | TeSys D contactors 3P, built-in 1NO+1NC: LC1D09P7, LC1D12P7, LC1D18P7, LC1D25P7, LC1D32P7, LC1D38P7 (230 V AC coil), LC1D09BD (24 V DC coil) |
+| `tesys_d_accessories` | LADN front-mounting auxiliary blocks: LADN22 (2NO+2NC), LADN11 (1NO+1NC), LADN20 (2NO), LADN02 (2NC) |
 
 The accessories are separate elements, so they can be placed next to a device
 or on another folio. The handle and the shield are mechanical: they have a
@@ -39,11 +42,55 @@ expected).
 
 ### Scale
 
-Acti9: one 9 mm module is 30 px, so an 18 mm pole is 60 px (3.33 px/mm).
+Acti9 and TeSys D: one 9 mm module is 30 px, so an 18 mm pole is 60 px
+(3.33 px/mm).
 ComPacT NSX and INS: the 35 mm pole pitch is 120 px (3.43 px/mm). The two
 differ by 3 %; this is a drawing choice, not a measurement. Each front view
 shows the device body, the toggle, the position indicator, the test button of
 the RCDs and the rating as dynamic text.
+
+## TeSys D contactors and terminal numbers
+
+The contactor symbol has the three power poles (terminals `1/L1`-`2/T1`,
+`3/L2`-`4/T2`, `5/L3`-`6/T3`), the coil (`A1`, `A2`), the built-in normally
+open contact (`13`, `14`) and normally closed contact (`21`, `22`), joined by
+a dashed mechanical link. The front view has the same 12 terminal names:
+power terminals at the top and bottom, coil and auxiliary terminals on the
+flanks. The numbers are drawn next to the terminals on the symbols and on the
+front views.
+
+| Product | Numbers | Status |
+| --- | --- | --- |
+| Contactors LC1D09 to D38, poles | 1/L1, 2/T1, 3/L2, 4/T2, 5/L3, 6/T3, coil A1/A2 | standard marking |
+| Contactor built-in contacts | 13-14 NO, 21-22 NC | count 1NO+1NC verified; the numbers follow the EN 50012 convention (ASSUMED) |
+| LADN22 | 53-54 NO, 61-62 NC, 71-72 NC, 83-84 NO, left to right | VERIFIED: [FA130288](https://www.se.com/au/en/faqs/FA130288/), [FA116636](https://www.se.com/us/en/faqs/FA116636/) |
+| LADN11, LADN20, LADN02 | the same positions as LADN22 (53-54 + 61-62; 53-54 + 83-84; 61-62 + 71-72) | ASSUMED (subset of the LADN22 marking) |
+| 29450 (OF/SD/SDE/SDV) | 11, 12, 14 (the OF1 slot) | ASSUMED; the marking depends on the slot (21-22-24, 31-32-34, 81-82-84, 91-92-94 for the others) |
+| A9A26924 (iOF) | 11, 12, 14 | ASSUMED; the public diagram is a picture only |
+
+The LADN "G" variants use another marking (31-32, 41-42, 53-54, 63-64) and
+are not drawn. The contactors are compatible with the four LADN blocks: they
+are seeded as articles of quantity 0 and take quantity 1 when a block is
+labelled with the prefix of the contactor (`-KM1`, `-KM1.1`), like the NSX
+accessories below.
+
+Sources (public pages, checked): LC1D09BD
+(<https://www.se.com/uk/en/product/LC1D09BD/>: 45 x 77 x 95 mm, 24 V DC coil,
+9 A AC-3, 1NO+1NC), LC1D38P7 (<https://www.se.com/uk/en/product/LC1D38P7/>:
+38 A, 230 V AC coil, 1NO+1NC, 45 mm), LADN22
+(<https://www.se.com/uk/en/product/LADN22/>: 2NO+2NC, screw clamp).
+
+## Colours
+
+The front views use the colours of the public product photos, as far as an
+element allows it. An element (`.elmt`) can only use the named colours of the
+element editor, so the Schneider green (about #3DCD58 on the photos) is drawn
+with the nearest one, `HTMLGreenLimeGreen` (#32CD32). Housings are
+`HTMLGrayGainsboro` (light) or `HTMLGrayDimGray` (dark), terminals and screws
+`HTMLGraySilver`, label windows white, and the status flags red or yellow
+by function. The green is a plain accent band: no logo is drawn. All the
+colours and shapes are ASSUMED from the photos (not measured), and the
+generator keeps them in a few constants (`GREEN`, `LIGHT`, `DARK`...).
 
 ## The "220 A" disconnector
 
@@ -135,9 +182,11 @@ element carrying C25N3220, LV429517, LV429410, LV429540, LV431543),
 `examples/industrial.qet` (A9D34616, A9F74202, A9N15651, GV2ME08) and
 `examples/affuteuse_250h.qet` (IC60N D32, C60ND1A). All the references found
 are covered except GV2ME08 (TeSys, not drawn) and C25N3220 (not found).
-`examples/schneider_example.qet` has six folios: the symbols, the Acti9 front
+`examples/schneider_example.qet` has eight folios: the symbols, the Acti9 front
 views, the NSX front views, the INS250, the NSX250 with its accessories linked
-by label, and the front views of the NSX250 with its accessories.
+by label, the front views of the NSX250 with its accessories, and the TeSys D
+contactors with their LADN blocks (symbols with terminal numbers, front
+views).
 
 ## Verified and uncertain
 
@@ -150,3 +199,13 @@ etc.), neither drawn nor listed; the IP degree of LV429337 (IP40 on one page,
 IP43 on another). The Vigi iC60 and iDPNa are discontinued or replaced. The
 iC60 plus Vigi assembly is not drawn. The Vigi has no list, so an iOF labelled
 under a Vigi gives "no list". The layouts and colours are generic.
+
+Contactors: the height and depth of LC1D12 to D38 (77 x 95 mm taken from the
+D09 and D38 pages), the layout of the coil and auxiliary terminals on the
+flanks of the front view, the numbers 13-14/21-22 of the built-in contacts,
+the marking of LADN11/20/02, the marking of the 29450 slots other than OF1,
+the iOF 11-12-14, the LADN dimensions (generic 45 mm block), and every colour
+(palette limited to the named colours). Not done: LADC22 and other LADN
+variants, ratings above D38 (LC1D40A and up), the other TeSys ranges (F, K),
+and a terminal-number overlay on the breaker symbols. `build/elements` is a
+copy of the library, refreshed by copying the `schneider` folder.

@@ -1,0 +1,115 @@
+<definition version="0.100.0" type="element" link_type="simple" width="150" height="260" hotspot_x="20" hotspot_y="30">
+	<uuid uuid="{cfd35dfa-297d-5427-8223-2364baf380d9}" />
+	<names>
+		<name lang="en">TeSys D contactor LC1D18P7 18 A 230 V AC, front view</name>
+		<name lang="fr">Contacteur TeSys D LC1D18P7 18 A 230 V CA, vue de face</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">LC1D18P7</elementInformation>
+		<elementInformation name="designation" show="1">TeSys D contactor, 3P, 18 A AC-3, 230 V AC coil, 1 NO + 1 NC</elementInformation>
+		<elementInformation name="description" show="1">TeSys D contactor LC1D18P7, 3 poles, 18 A AC-3 (7.5 kW at 400 V), coil 230 V AC 50/60 Hz, 1 NO + 1 NC auxiliary contact built in, screw clamp terminals, 45 mm wide. Terminals 1/L1-2/T1, 3/L2-4/T2, 5/L3-6/T3, coil A1-A2, auxiliary 13-14 (NO) and 21-22 (NC).</elementInformation>
+		<elementInformation name="auxiliary1" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary1" show="0">Front-mounting instantaneous auxiliary contact block LADN22 for TeSys D (LC1D) and TeSys F contactors, 2 NO + 2 NC, screw clamp terminals. Terminal marking 53-54, 61-62, 71-72, 83-84.</elementInformation>
+		<elementInformation name="designation_auxiliary1" show="0">TeSys D front auxiliary contact block LADN22, 2 NO + 2 NC, screw clamp</elementInformation>
+		<elementInformation name="manufacturer_auxiliary1" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary1" show="0">LADN22</elementInformation>
+		<elementInformation name="quantity_auxiliary1" show="0">0</elementInformation>
+		<elementInformation name="auxiliary2" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary2" show="0">Front-mounting instantaneous auxiliary contact block LADN11 for TeSys D (LC1D) and TeSys F contactors, 1 NO + 1 NC, screw clamp terminals. Terminal marking 53-54, 61-62. ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary2" show="0">TeSys D front auxiliary contact block LADN11, 1 NO + 1 NC, screw clamp</elementInformation>
+		<elementInformation name="manufacturer_auxiliary2" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary2" show="0">LADN11</elementInformation>
+		<elementInformation name="quantity_auxiliary2" show="0">0</elementInformation>
+		<elementInformation name="auxiliary3" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary3" show="0">Front-mounting instantaneous auxiliary contact block LADN20 for TeSys D (LC1D) and TeSys F contactors, 2 NO, screw clamp terminals. Terminal marking 53-54, 83-84. ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary3" show="0">TeSys D front auxiliary contact block LADN20, 2 NO, screw clamp</elementInformation>
+		<elementInformation name="manufacturer_auxiliary3" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary3" show="0">LADN20</elementInformation>
+		<elementInformation name="quantity_auxiliary3" show="0">0</elementInformation>
+		<elementInformation name="auxiliary4" show="0">Compatible accessory</elementInformation>
+		<elementInformation name="description_auxiliary4" show="0">Front-mounting instantaneous auxiliary contact block LADN02 for TeSys D (LC1D) and TeSys F contactors, 2 NC, screw clamp terminals. Terminal marking 61-62, 71-72. ASSUMED.</elementInformation>
+		<elementInformation name="designation_auxiliary4" show="0">TeSys D front auxiliary contact block LADN02, 2 NC, screw clamp</elementInformation>
+		<elementInformation name="manufacturer_auxiliary4" show="0">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference_auxiliary4" show="0">LADN02</elementInformation>
+		<elementInformation name="quantity_auxiliary4" show="0">0</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.33 px/mm (1 module of 9 mm = 30 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<rect x="-20" y="-30" width="150" height="260" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayDimGray;color:black" rx="0" ry="0" />
+		<rect x="-20" y="-30" width="150" height="60" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="-20" y="170" width="150" height="60" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<circle x="-8" y="-8" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="16" />
+		<circle x="-5" y="-5" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="10" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-5" length1="1.5" x2="5" length2="1.5" />
+		<circle x="-8" y="192" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="16" />
+		<circle x="-5" y="195" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="10" />
+		<line end1="none" end2="none" y1="200" antialias="false" y2="200" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-5" length1="1.5" x2="5" length2="1.5" />
+		<text x="-5.5" y="22.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="1/L1" />
+		<text x="-5.5" y="184.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="2/T1" />
+		<circle x="42" y="-8" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="16" />
+		<circle x="45" y="-5" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="10" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="45" length1="1.5" x2="55" length2="1.5" />
+		<circle x="42" y="192" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="16" />
+		<circle x="45" y="195" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="10" />
+		<line end1="none" end2="none" y1="200" antialias="false" y2="200" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="45" length1="1.5" x2="55" length2="1.5" />
+		<text x="44.5" y="22.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="3/L2" />
+		<text x="44.5" y="184.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="4/T2" />
+		<circle x="92" y="-8" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="16" />
+		<circle x="95" y="-5" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="10" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="95" length1="1.5" x2="105" length2="1.5" />
+		<circle x="92" y="192" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="16" />
+		<circle x="95" y="195" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="10" />
+		<line end1="none" end2="none" y1="200" antialias="false" y2="200" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="95" length1="1.5" x2="105" length2="1.5" />
+		<text x="94.5" y="22.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="5/L3" />
+		<text x="94.5" y="184.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="6/T3" />
+		<rect x="0" y="40" width="110" height="120" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayGainsboro;color:black" rx="0" ry="0" />
+		<rect x="0" y="40" width="110" height="8" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGreenLimeGreen;color:black" rx="0" ry="0" />
+		<rect x="10" y="58" width="90" height="36" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
+		<text x="37.64" y="73.85" rotation="0" color="#000000" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="230 V AC" />
+		<text x="45.1" y="88.3" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" text="LC1D18" />
+		<rect x="30" y="108" width="50" height="40" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayDarkGray;color:black" rx="0" ry="0" />
+		<rect x="40" y="116" width="30" height="24" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<circle x="-25" y="45" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="10" />
+		<circle x="-22" y="48" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="4" />
+		<line end1="none" end2="none" y1="50" antialias="false" y2="50" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-22" length1="1.5" x2="-18" length2="1.5" />
+		<text x="-16" y="52.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="A1" />
+		<circle x="-25" y="175" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="10" />
+		<circle x="-22" y="178" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="4" />
+		<line end1="none" end2="none" y1="180" antialias="false" y2="180" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-22" length1="1.5" x2="-18" length2="1.5" />
+		<text x="-16" y="182.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="A2" />
+		<circle x="125" y="45" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="10" />
+		<circle x="128" y="48" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="4" />
+		<line end1="none" end2="none" y1="50" antialias="false" y2="50" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="128" length1="1.5" x2="132" length2="1.5" />
+		<text x="120.5" y="52.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="13" />
+		<circle x="125" y="175" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="10" />
+		<circle x="128" y="178" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="4" />
+		<line end1="none" end2="none" y1="180" antialias="false" y2="180" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="128" length1="1.5" x2="132" length2="1.5" />
+		<text x="120.5" y="182.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="14" />
+		<circle x="125" y="85" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="10" />
+		<circle x="128" y="88" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="4" />
+		<line end1="none" end2="none" y1="90" antialias="false" y2="90" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="128" length1="1.5" x2="132" length2="1.5" />
+		<text x="120.5" y="92.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="21" />
+		<circle x="125" y="135" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="10" />
+		<circle x="128" y="138" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="4" />
+		<line end1="none" end2="none" y1="140" antialias="false" y2="140" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="128" length1="1.5" x2="132" length2="1.5" />
+		<text x="120.5" y="142.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="22" />
+		<terminal x="0" y="0" name="1/L1" orientation="n" type="Generic" uuid="{0d18244f-8904-557d-823f-fdc19ffb7526}" />
+		<terminal x="0" y="200" name="2/T1" orientation="s" type="Generic" uuid="{450dfcb0-ea22-5bc4-9c19-b8959e878a0e}" />
+		<terminal x="50" y="0" name="3/L2" orientation="n" type="Generic" uuid="{3d64dadd-43e0-5792-8bee-f7895ae832e8}" />
+		<terminal x="50" y="200" name="4/T2" orientation="s" type="Generic" uuid="{4726dcf5-1e8f-5757-828a-ea80ed5d0495}" />
+		<terminal x="100" y="0" name="5/L3" orientation="n" type="Generic" uuid="{c06a85c4-a87a-55ed-9f61-98ab860a7c2b}" />
+		<terminal x="100" y="200" name="6/T3" orientation="s" type="Generic" uuid="{ff815471-7c19-5ba6-8bc6-bd4bd4b424b3}" />
+		<terminal x="-20" y="50" name="A1" orientation="w" type="Generic" uuid="{de5b5162-c173-5dbc-9bbe-08ad56d9aed3}" />
+		<terminal x="-20" y="180" name="A2" orientation="w" type="Generic" uuid="{dfc481b2-e894-5588-9915-6a93588fef90}" />
+		<terminal x="130" y="50" name="13" orientation="e" type="Generic" uuid="{4be46143-d6f4-59b1-b637-00b3a7c3ee1c}" />
+		<terminal x="130" y="180" name="14" orientation="e" type="Generic" uuid="{9ff76e8f-fc33-58ac-8394-ae8453b2526c}" />
+		<terminal x="130" y="90" name="21" orientation="e" type="Generic" uuid="{ee75fc86-4506-5648-815d-f24255bb253b}" />
+		<terminal x="130" y="140" name="22" orientation="e" type="Generic" uuid="{abbf3262-b11a-5e7a-a644-c71d08ed55ed}" />
+		<dynamic_text x="-15" y="233" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{fa23cd7e-8e14-52ab-a694-27e2c408cc7a}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

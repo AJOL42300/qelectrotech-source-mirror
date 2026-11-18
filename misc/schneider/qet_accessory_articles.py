@@ -151,7 +151,7 @@ def process(root, strict=False, prune_zero=False):
     by_ref = gs.product_by_reference()
     by_stem = {p.stem: p for p in gs.PRODUCTS}
     accessory_refs = {p.reference for p in gs.PRODUCTS
-                      if p.folder == "accessories"} | LINKABLE
+                      if p.folder in gs.ACCESSORY_FOLDERS} | LINKABLE
     elements = []
     for diagram in root.iter("diagram"):
         title = diagram.get("title", "")
@@ -173,7 +173,7 @@ def process(root, strict=False, prune_zero=False):
         parent = next((c for c in parent_prefixes(label) if c in labels),
                       None)
         if parent is None:
-            if by_ref.get(ref) and by_ref[ref].folder == "accessories":
+            if by_ref.get(ref) and by_ref[ref].folder in gs.ACCESSORY_FOLDERS:
                 res.warnings.append(
                     "orphan accessory %s (%s) on %s: no device whose "
                     "label is a prefix" % (label, ref, title))

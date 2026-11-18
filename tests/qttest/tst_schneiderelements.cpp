@@ -123,14 +123,14 @@ class TstSchneiderElements : public QObject
 				QVERIFY2(langs.contains(QStringLiteral("en")), qPrintable(path));
 				++count;
 			}
-			QVERIFY(count >= 8);
+			QVERIFY(count >= 10);
 		}
 
 		void elementsAreWellFormed()
 		{
 			QSet<QString> uuids;
 			const QStringList files = allFiles();
-			QVERIFY(files.size() >= 40);
+			QVERIFY(files.size() >= 60);
 			for (const QString &file : files) {
 				const auto doc = load(file);
 				const auto def = doc.documentElement();
@@ -197,7 +197,7 @@ class TstSchneiderElements : public QObject
 						 terminals(load(symbol).documentElement()).keys());
 				++pairs;
 			}
-			QVERIFY(pairs >= 15);
+			QVERIFY(pairs >= 25);
 		}
 
 		void polesMatchTheDesignation()
@@ -207,7 +207,11 @@ class TstSchneiderElements : public QObject
 				{"ic60n_1p/ic60n_1p", 2}, {"ic60n_2p/ic60n_2p", 4},
 				{"ic60n_3p/ic60n_3p", 6}, {"ic60n_4p/ic60n_4p", 8},
 				{"nsx250n_3p_tm250/nsx250n_3p_tm250", 6},
-				{"ins250_4p/ins250_4p", 8}};
+				{"ins250_4p/ins250_4p", 8},
+				{"lc1d09p7/lc1d09p7", 12}, {"lc1d38p7/lc1d38p7", 12},
+				{"lc1d09bd/lc1d09bd", 12},
+				{"ladn22/ladn22", 8}, {"ladn11/ladn11", 4},
+				{"ladn20/ladn20", 4}, {"ladn02/ladn02", 4}};
 			for (const Case &c : cases) {
 				QStringList found;
 				for (const QString &file : allFiles()) {
@@ -219,6 +223,38 @@ class TstSchneiderElements : public QObject
 				QCOMPARE(found.size(), 1);
 				QCOMPARE(terminals(load(found.first()).documentElement()).size(),
 						 c.terminals);
+			}
+		}
+
+			// terminals carry the standardised numbers, on the symbol and on
+			// the front view alike
+		void contactorAndBlockTerminalsAreNumbered()
+		{
+			struct Case { const char *stem; QStringList names; };
+			const Case cases[] = {
+				{"lc1d09p7/lc1d09p7",
+				 {"1/L1", "2/T1", "3/L2", "4/T2", "5/L3", "6/T3", "A1", "A2",
+				  "13", "14", "21", "22"}},
+				{"ladn22/ladn22",
+				 {"53", "54", "61", "62", "71", "72", "83", "84"}}};
+			for (const Case &c : cases) {
+				for (const char *suffix : {".elmt", "_realistic.elmt"}) {
+					QString found;
+					for (const QString &file : allFiles()) {
+						if (file.endsWith(QString::fromLatin1("/%1%2")
+										  .arg(QLatin1String(c.stem),
+											   QLatin1String(suffix)))) {
+							found = file;
+						}
+					}
+					QVERIFY2(!found.isEmpty(), c.stem);
+					QStringList names = terminals(
+						load(found).documentElement()).keys();
+					QStringList expected = c.names;
+					names.sort();
+					expected.sort();
+					QCOMPARE(names, expected);
+				}
 			}
 		}
 
@@ -266,7 +302,7 @@ class TstSchneiderElements : public QObject
 			}
 			for (const char *ref : {"C25N3TM250C", "LV431541", "29450",
 									"LV429410", "LV429517", "A9F74310",
-									"31106"}) {
+									"31106", "LC1D09P7", "LADN22"}) {
 				QVERIFY2(refs.contains(QLatin1String(ref)), ref);
 			}
 				// the accessories of -QS1 were given to it: quantity 1
