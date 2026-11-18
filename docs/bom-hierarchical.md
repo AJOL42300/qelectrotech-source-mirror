@@ -68,6 +68,43 @@ label starts with the device label (`-QS1.5`, `-QS1.6`...): the hierarchical
 list has no limit on them. An element dedicated to an accessory can be an
 element with only the articles tab filled in.
 
+## Example project
+
+`examples/nomenclature_example.qet` is a small cabinet that shows each rule.
+Open it, then export the parts list (hierarchical option) or look at the
+folio "Hierarchical bill of materials". `docs/bom-hierarchical-example.csv` is
+what the hierarchical export gives for it (same format as the program:
+fields quoted, `;` between them).
+
+| Label | What it shows |
+|-------|---------------|
+| `-QS1`, `-QS1.1` | a switch disconnector and its accessory at quantity 0 (listed, total 0) |
+| `-QF1` | a circuit breaker with two auxiliary articles stored in the element (one at quantity 0) |
+| `-QF1.1`, `-QF1-VG`, `-QF1_AL`, `-QF1.2` | accessories attached by label prefix with the three separators: with the two auxiliary articles, `-QF1` has seven articles in all, more than the main article plus four auxiliary blocks |
+| `-QF9.1` | deliberate orphan: no `-QF9` exists, so the line is flagged "No parent" |
+| `-KM1`, `-KM1.1` | a contactor with one auxiliary block and one accessory element |
+| `-GS1` | a power supply, no accessory |
+| `-A1` and `-A1.1` to `-A1.9` | a Beckhoff coupler with its terminals as indented lines |
+
+The folios hold the symbols only, with no wiring: the example is about the
+parts list. A last folio holds the flat grouped list, to compare: the
+quantity 0 articles are not counted there and `-QF1.2`, `-QF9.1` and the
+auxiliary article of `-QF1` add up as one line of 3 contact blocks.
+
+The symbols come from the collections already in the repository: the
+definitions are embedded in the project, so it opens without the elements
+folder. The part numbers are real Schneider Electric and Beckhoff references,
+with a short generic designation of our own; no manufacturer text or picture
+is copied. Which accessory fits which device is not asserted by the file
+(for instance, the accessories are those of the iC60 range, used here on a
+switch disconnector only to show the list): check a reference against the
+manufacturer's catalogue before ordering.
+
+The file was written by a script, not saved from the program. The query
+results above were checked by running the SQL of `hierarchicalQuery()` on the
+element data of the file. Opening the project in the program has not been
+tested yet.
+
 ## Where it lives
 
 - `BomExport::hierarchicalQuery()`: the SQL, one `WITH RECURSIVE` query over
@@ -77,6 +114,8 @@ element with only the articles tab filled in.
 - `BomExport::isHierarchicalQuery()` and `hierarchicalHeader()`: detect such a
   query and translate its column names.
 - Tests: `tests/qttest/tst_groupedbom.cpp`.
+- Example: `examples/nomenclature_example.qet` and
+  `docs/bom-hierarchical-example.csv`.
 
 ## Compatibility
 
