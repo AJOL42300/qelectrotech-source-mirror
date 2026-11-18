@@ -134,13 +134,26 @@ class Drawing:
             "uuid": uid(self.tag, name)}))
 
 
+def rounded(x, y, w, h, r_top, r_bottom, steps=5):
+    """Outline of a rectangle with rounded corners, as a polygon."""
+    pts = []
+    corners = ((x + w - r_top, y + r_top, r_top, -90),
+               (x + w - r_bottom, y + h - r_bottom, r_bottom, 0),
+               (x + r_bottom, y + h - r_bottom, r_bottom, 90),
+               (x + r_top, y + r_top, r_top, 180))
+    for cx, cy, r, start in corners:
+        for k in range(steps + 1):
+            a = math.radians(start + 90.0 * k / steps)
+            pts.append((cx + r * math.cos(a), cy + r * math.sin(a)))
+    return pts
+
+
 def body_outline(d, style):
+    """Housing silhouette: rounded corners, a flat head at the top that
+    carries the M8 sockets and two small shoulders at the fixing holes."""
     x, y, w, h = BODY
-    c_top, c_bottom = 10.0, 7.0
-    d.polygon([(x + c_top, y), (x + w - c_top, y), (x + w, y + c_top),
-               (x + w, y + h - c_bottom), (x + w - c_bottom, y + h),
-               (x + c_bottom, y + h), (x, y + h - c_bottom),
-               (x, y + c_top)], style)
+    pts = rounded(x, y, w, h, 14.0, 10.0)
+    d.polygon(pts, style)
 
 
 def housing(d, dotted):
@@ -156,9 +169,14 @@ def housing(d, dotted):
         d.polygon([(x, y + h - 62), (x + w, y + h - 67),
                    (x + w, y + h - 7), (x + w - 7, y + h),
                    (x + 7, y + h), (x, y + h - 7)], BAND)
-        # fixing holes: top right and bottom left
-        d.circle(23, -155, 7, WHITE)
-        d.circle(-61, 246, 7, WHITE)
+        # moulded edge: a lighter frame a few units inside the silhouette
+        d.polygon(rounded(x + 4, y + 4, w - 8, h - 8, 10.0, 6.0, 4), THIN)
+        # head: the M8 sockets sit on a slightly raised plate
+        d.polygon(rounded(x + 6, y + 6, w - 12, 62, 8.0, 3.0, 3), THIN)
+        # fixing holes with their collar: top right and bottom left
+        for hx, hy in ((23, -155), (-61, 246)):
+            d.circle(hx, hy, 11, BAND)
+            d.circle(hx, hy, 7, WHITE)
 
 
 def reference_text(d, bottom=False):
