@@ -449,6 +449,8 @@ install(DIRECTORY ico/app/hicolor/64x64   DESTINATION ${QET_ICONS_PATH})
 install(DIRECTORY ico/app/hicolor/128x128 DESTINATION ${QET_ICONS_PATH})
 install(DIRECTORY ico/app/hicolor/256x256 DESTINATION ${QET_ICONS_PATH})
 install(DIRECTORY elements    DESTINATION ${QET_DATA_PATH})
+# Extra symbols kept in this repository, merged into the common collection.
+install(DIRECTORY extra-elements/ DESTINATION ${QET_DATA_PATH}elements)
 install(DIRECTORY examples    DESTINATION ${QET_DATA_PATH})
 install(DIRECTORY titleblocks DESTINATION ${QET_DATA_PATH})
 # The MCP server (misc/qet-mcp) finds this QElectroTech and its elements
