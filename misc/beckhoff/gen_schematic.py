@@ -169,23 +169,23 @@ class Sheet:
 
     def power_rails(self, x0, x1, y24, y0, left=True, right=True):
         """+24 V (red) and 0 V (blue) of the power contacts, which run
-        through the housing at mid height: a small filled rectangle at the
-        left edge when the card has contacts on its left (blades), an open
-        arc "(" at the right edge when it has them on its right (springs),
-        and a straight line between them. No text: the colour tells the
-        potential."""
+        through the housing at mid height, like on the principle diagram of
+        the datasheets: a hollow rectangle (blade) just outside the left
+        edge when the card has contacts on its left, an open arc "("
+        (spring) whose apex is on the right edge when it has them on its
+        right, and a straight line between them. No text: the colour tells
+        the potential."""
         if not (left or right):
             return
         for y, pot in ((y24, "24V"), (y0, "0V")):
             if left:
-                self.rect(x0 - 3, y - 1.5, 5, 3, POT_FILLED[pot])
+                self.rect(x0 - 9.5, y - 1.75, 8, 3.5, POT_WHITE[pot])
             if right:
-                self.arc(x1 - 2.5, y - 2.5, 5, 5, 90, 180, POT_STYLE[pot])
-            self.line(x0 + 2 if left else x0, y,
-                      x1 - 2.5 if right else x1, y, POT_STYLE[pot])
+                self.arc(x1, y - 4, 8, 8, 90, 180, POT_STYLE[pot])
+            self.line(x0 - 1.5 if left else x0, y, x1, y, POT_STYLE[pot])
 
     def junction(self, x, y, pot=""):
-        self.circle(x, y, 2.4, POT_FILLED.get(pot, FILLED))
+        self.circle(x, y, 3.0, POT_FILLED.get(pot, FILLED))
 
     # stages -------------------------------------------------------------
     def wire(self, f, u0, u1, v=0.0):

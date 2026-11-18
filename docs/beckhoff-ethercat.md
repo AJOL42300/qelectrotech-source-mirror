@@ -87,12 +87,13 @@ table cells: in the table views the colour code only appears in the title band.
 
 In the schematic views the +24 V (red) and 0 V (blue) rails cross the card
 horizontally. The contact of a rail has the shape of the datasheet principle
-diagram, redrawn in vector form: on the left face a **small filled rectangle**
-(the blade) joined by a horizontal line to the rail, on the right face an
-**open arc** (the spring) at the end of the rail. They are drawn only where
-the card has power contacts on that face (pass-through of Up) and they take
-the colour of their function: red for +24 V / Us / Up+, blue for 0 V, orange
-for PE (junction dots, lines, rectangle and arc). The rails carry no text.
+diagram, redrawn in vector form: on the left face a **small hollow
+rectangle** (the blade) just outside the housing, joined by a horizontal line
+to the rail, on the right face an **open arc** "(" (the spring) whose apex is
+on the housing edge. They are drawn only where the card has power contacts on
+that face (pass-through of Up) and they take the colour of their function:
+red for +24 V / Us / Up+, blue for 0 V, orange for PE (rectangle outline,
+lines, arc and junction dots). The rails carry no text.
 
 Height: the contacts of the real terminals are half way up the housing, so
 the generator (`Card.middle_gap`) puts the two rails as near as possible to
@@ -128,9 +129,38 @@ The "default" cases are drawn with both contacts; correct `CONTACTS` when a
 datasheet says otherwise and run `gen_schematic.py` again. The EL6910, EL9011, EK1322 and ethercat_box_generic keep the generic rails of
 their older schematic drawing. The PE contact is
 only drawn on the EL9410 (its PE terminals are drawn), not on the other cards.
-The datasheets of the cards marked "deduced" or "not specified" were not read
-one by one: mark such a card "not verified" here until its datasheet is
-checked.
+The sides are not stated by the datasheets (see below).
+
+### Check against the public product pages
+
+The public Beckhoff product pages (beckhoff.com, `en-en/products/i-o/...`, and
+infosys.beckhoff.com) were searched card by card. The PDF datasheets
+(`media/downloads/downloads/<ref>_en-en.pdf`) could not be downloaded. What the
+text of the pages confirms, and what stays open:
+
+| Card | Confirmed by the page text | Still open |
+| --- | --- | --- |
+| EL1004, EL1008, EL1904, EL1918, EL2904, EL4004, EL4008 | power contacts 24 V and 0 V (current consumption "power contacts" listed) | left / right side, PE |
+| EL2004, EL2008 | power contacts 24 V and 0 V; "current consumption power contacts typ. 15 mA + load" (the load is fed through them) | left / right side, channel supply drawing |
+| EL2522, EL2574, EL5152 | power contacts 24 V and 0 V ("generated from the 24 V DC power contacts" for the EL5152) | left / right side |
+| EL3004, EL3008 | "the power contacts are connected through" | left / right side |
+| EL2652 | "no power contacts" (verified) | - |
+| EL2911, EK1914 | "UP 24 V DC" / "+24 V US" and power contacts | left / right side |
+| EL9410 | three power contacts, 24 V and 0 V, "potential group on the right-hand side" | left side, PE contact |
+| EL9100 | infeed 24 V / 0 V, three "power contact" labels | side |
+| EL6910 | 24 V and 0 V listed, "current consumption power contacts: -" | side |
+| EK1100 | "input for power contacts", power contacts max. 24 V DC / 10 A | side (right deduced) |
+| EK1322 | EtherCAT P "24 V DC for US and UP", max. 3 A each; no EL power contacts quoted | - |
+| CU1128 | 3-pin supply (+, -, PE); no power contact quoted | - |
+| EL9011 | no power contact listed (end cover) | - |
+| EPP2338-0002 | "inputs and outputs are supplied via UP"; no side contacts (M12 box) | - |
+
+No page states the left / right side in text (only the EL9410 mentions the
+right-hand side), so the sides drawn stay the ones of the first table. The
+datasheets show the principle diagram as an image, which cannot be read here:
+the **supply of each channel** (rail joined to each stage by dots) is therefore
+not drawn, since no text confirms it channel by channel. To add it for a card,
+read its principle diagram and extend `Card.power` in `gen_schematic.py`.
 
 ## Generators: the plus sign
 

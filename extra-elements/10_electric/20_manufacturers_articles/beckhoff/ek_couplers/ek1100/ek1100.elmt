@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="150" height="302" hotspot_x="68" hotspot_y="149">
+<definition version="0.100.0" type="element" link_type="simple" width="156" height="302" hotspot_x="68" hotspot_y="149">
 	<uuid uuid="{6a4b3b2c-b157-5434-9a82-87c1c9a4a1d7}" />
 	<names>
 		<name lang="en">EK1100 EtherCAT coupler, 2 x RJ45</name>
@@ -25,10 +25,10 @@ Schematic view made by misc/beckhoff/gen_hubs.py: the stages between the sockets
 		<line x1="5.75" y1="-35" x2="5.75" y2="-52" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<line x1="65" y1="-59" x2="74.5" y2="-59" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
 		<text x="68" y="-61" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="E-bus" />
-		<arc x="72" y="-4.5" width="5" height="5" start="90" angle="180" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
-		<line x1="-63" y1="-2" x2="72" y2="-2" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
-		<arc x="72" y="7.5" width="5" height="5" start="90" angle="180" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
-		<line x1="-63" y1="10" x2="72" y2="10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
+		<arc x="74.5" y="-6" width="8" height="8" start="90" angle="180" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
+		<line x1="-63" y1="-2" x2="74.5" y2="-2" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
+		<arc x="74.5" y="6" width="8" height="8" start="90" angle="180" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
+		<line x1="-63" y1="10" x2="74.5" y2="10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
 		<line x1="-35" y1="40.5" x2="-35" y2="-52" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
 		<circle x="-36.2" y="-53.2" diameter="2.4" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
 		<polygon closed="false" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" x1="-39.5" y1="100" x2="-60" y2="100" x3="-60" y3="-59" x4="-55" y4="-59" />

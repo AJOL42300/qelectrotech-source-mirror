@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="52" height="302" hotspot_x="23" hotspot_y="149">
+<definition version="0.100.0" type="element" link_type="simple" width="64" height="302" hotspot_x="29" hotspot_y="149">
 	<uuid uuid="{b52bfd48-2c9b-5d05-9032-760d28dce6cb}" />
 	<names>
 		<name lang="en">EL9410 power feed terminal with diagnostics</name>
@@ -25,27 +25,27 @@ Schematic view made by misc/beckhoff/gen_el9410.py: the supply, the infeeds and 
 		<text x="-10" y="-95" rotation="0" color="#ff0000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="24V" />
 		<text x="9" y="-95" rotation="0" color="#0000ff" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="0V" />
 		<line x1="-5" y1="-49.5" x2="-5" y2="-92" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
-		<circle x="-6.2" y="-93.2" diameter="2.4" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<circle x="-6.5" y="-93.5" diameter="3" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
 		<line x1="10" y1="-49.5" x2="10" y2="-92" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
-		<circle x="8.8" y="-93.2" diameter="2.4" style="line-style:normal;line-weight:thin;filling:blue;color:blue" antialias="false" />
+		<circle x="8.5" y="-93.5" diameter="3" style="line-style:normal;line-weight:thin;filling:blue;color:blue" antialias="false" />
 		<line x1="-0.5" y1="5" x2="5.5" y2="5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
 		<circle x="1.3" y="3.8" diameter="2.4" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
-		<line x1="-12.5" y1="5" x2="-9.5" y2="5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
-		<rect x="-17.5" y="3.5" width="5" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
-		<line x1="14.5" y1="5" x2="19.5" y2="5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
-		<arc x="19.5" y="2.5" width="5" height="5" start="90" angle="180" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
+		<line x1="-16" y1="5" x2="-9.5" y2="5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
+		<rect x="-24" y="3.25" width="8" height="3.5" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:white;color:red" antialias="false" />
+		<line x1="14.5" y1="5" x2="22" y2="5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
+		<arc x="22" y="1" width="8" height="8" start="90" angle="180" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
 		<line x1="-0.5" y1="60" x2="5.5" y2="60" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
 		<circle x="1.3" y="58.8" diameter="2.4" style="line-style:normal;line-weight:thin;filling:blue;color:blue" antialias="false" />
-		<line x1="-12.5" y1="60" x2="-9.5" y2="60" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
-		<rect x="-17.5" y="58.5" width="5" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:blue" antialias="false" />
-		<line x1="14.5" y1="60" x2="19.5" y2="60" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
-		<arc x="19.5" y="57.5" width="5" height="5" start="90" angle="180" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
+		<line x1="-16" y1="60" x2="-9.5" y2="60" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
+		<rect x="-24" y="58.25" width="8" height="3.5" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:white;color:blue" antialias="false" />
+		<line x1="14.5" y1="60" x2="22" y2="60" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
+		<arc x="22" y="56" width="8" height="8" start="90" angle="180" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
 		<line x1="-0.5" y1="115" x2="5.5" y2="115" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:orange" antialias="false" />
 		<circle x="1.3" y="113.8" diameter="2.4" style="line-style:normal;line-weight:thin;filling:orange;color:orange" antialias="false" />
-		<line x1="-12.5" y1="115" x2="-9.5" y2="115" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:orange" antialias="false" />
-		<rect x="-17.5" y="113.5" width="5" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:orange;color:orange" antialias="false" />
-		<line x1="14.5" y1="115" x2="19.5" y2="115" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:orange" antialias="false" />
-		<arc x="19.5" y="112.5" width="5" height="5" start="90" angle="180" style="line-style:normal;line-weight:normal;filling:none;color:orange" antialias="false" />
+		<line x1="-16" y1="115" x2="-9.5" y2="115" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:orange" antialias="false" />
+		<rect x="-24" y="113.25" width="8" height="3.5" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:white;color:orange" antialias="false" />
+		<line x1="14.5" y1="115" x2="22" y2="115" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:orange" antialias="false" />
+		<arc x="22" y="111" width="8" height="8" start="90" angle="180" style="line-style:normal;line-weight:normal;filling:none;color:orange" antialias="false" />
 		<line x1="2.5" y1="115" x2="2.5" y2="106" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:orange" antialias="false" />
 		<line x1="-2" y1="106" x2="7" y2="106" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:orange" antialias="false" />
 		<line x1="-0.5" y1="103.8" x2="5.5" y2="103.8" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:orange" antialias="false" />

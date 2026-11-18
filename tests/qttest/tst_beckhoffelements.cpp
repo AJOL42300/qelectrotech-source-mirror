@@ -677,17 +677,17 @@ class TstBeckhoffElements : public QObject
 					&& key != QStringLiteral("ek1914");
 				if (key == QStringLiteral("el2652")) {
 					QVERIFY2(!xml.contains(QRegularExpression(
-								 QStringLiteral("<rect[^>]*filling:red"))),
+								 QStringLiteral("<rect[^>]*filling:white;color:red"))),
 							 qPrintable(key));
 				} else {
 					QVERIFY2(xml.contains(QStringLiteral("color:red"))
 							 && xml.contains(QStringLiteral("color:blue")),
 							 qPrintable(key));
 					const QRegularExpression square(
-						QStringLiteral("<rect[^>]*filling:red"));
+						QStringLiteral("<rect[^>]*filling:white;color:red"));
 					QCOMPARE(xml.contains(square), left);
-					// the right contact is an arc, the left one a small
-					// rectangle (blade)
+					// the right contact is an arc, the left one a
+					// hollow rectangle (blade)
 					QVERIFY2(xml.contains(QStringLiteral("<arc ")),
 							 qPrintable(key));
 				}
