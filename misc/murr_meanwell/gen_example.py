@@ -336,10 +336,12 @@ def folio_tables():
     return diagram_xml(4, "Example - pin tables", els, [])
 
 
+# Function typed on an output (label, address) or on a valve (label). It
+# follows the chain in both directions: the coil Y5 has its function typed
+# on the valve and the output X02(2) of the EPP gets it from there.
 M12_SOURCES = {("A3", "X01(1)"): "EV12", ("A3", "X01(2)"): "EV13",
-               ("A3", "X02(1)"): "EV14", ("A3", "X02(2)"): "EV15",
-               ("F1", "OUT1"): "EV16"}
-
+               ("A3", "X02(1)"): "EV14", ("F1", "OUT1"): "EV16"}
+M12_VALVES = {"Y5": "EV15"}
 
 def folio_m12():
     """EPP2338 and MICO outputs linked by dotted lines to M12 products.
@@ -386,22 +388,33 @@ def folio_m12():
     family = {label: el.category.split("/")[-1] for el, label, _, _ in placed
               if el.category.split("/")[-1] in routes}
     pairs = [((a, ta), (b, tb)) for a, _, ta, b, _, tb in links]
-    sources = {}
+    valve_terminal = "X1"
+    texts = {}
+    for label, el, in [(l, e) for e, l, _, _ in placed if e is coil]:
+        texts[(label, valve_terminal, 1)] = M12_VALVES.get(label, "")
     for (label, address), text in M12_SOURCES.items():
         terminal, ch = address.split("(")[0], 1
         if "(" in address:
             ch = int(address.split("(")[1].rstrip(")"))
-        sources[(label, terminal, ch)] = (address, text)
-    functions, comments = {}, {}
-    for (label, terminal, ch), (address, text) in sources.items():
+        texts[(label, terminal, ch)] = text
+    texts, conflicts = chain.reconcile(texts, valve_terminal, pairs, family,
+                                       routes)
+    for src, valve, a, b in conflicts:
+        print(f"CONFLICT {src} {a!r} <> {valve} {b!r}: both kept")
+    functions, used, comments = {}, {}, {}
+    for (label, terminal, ch), text in texts.items():
+        if terminal == valve_terminal and label in {
+                l for e, l, _, _ in placed if e is coil}:
+            functions[label] = text
+            continue
+        address = f"{terminal}({ch})" if label == "A3" else terminal
+        used[(label, address)] = text
         ends = chain.walk((label, terminal, ch), pairs, family, routes)
-        for end_label, _, _ in ends:
-            functions[end_label] = text
         if ends:
             comments[(label, address)] = "-> " + ", ".join(
                 e[0] for e in ends)
     els = [element_xml(el, label, x, y, f"m12/{label}",
-                       used=M12_SOURCES, comments=comments,
+                       used=used, comments=comments,
                        function=functions.get(label, "")
                        if el is coil else None)
            for el, label, x, y in placed]

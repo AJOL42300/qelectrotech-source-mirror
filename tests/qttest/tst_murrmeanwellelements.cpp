@@ -323,6 +323,73 @@ class TstMurrMeanwellElements : public QObject
 			return QString();
 		}
 
+		static void setShown(const Folio &folio, const QString &label,
+							 const QString &text)
+		{
+			const auto list = folio.element.value(label).firstChildElement(
+				QStringLiteral("elementInformations"))
+				.elementsByTagName(QStringLiteral("elementInformation"));
+			for (int i = 0; i < list.size(); ++i) {
+				auto info = list.at(i).toElement();
+				if (info.attribute(QStringLiteral("name"))
+					== QLatin1String("function")) {
+					while (info.hasChildNodes()) {
+						info.removeChild(info.firstChild());
+					}
+					info.appendChild(info.ownerDocument().createTextNode(text));
+				}
+			}
+		}
+
+		static void setFunctionOf(const Folio &folio, const QString &label,
+								  const QString &terminal, int channel,
+								  const QString &text)
+		{
+			const auto ios = folio.element.value(label).elementsByTagName(
+				QStringLiteral("plcIO"));
+			const QString address = terminal + QLatin1Char('(')
+				+ QString::number(channel) + QLatin1Char(')');
+			for (int i = 0; i < ios.size(); ++i) {
+				auto io = ios.at(i).toElement();
+				const QString a = io.attribute(QStringLiteral("address"));
+				if (io.firstChildElement(QStringLiteral("terminal")).text()
+					== terminal
+					&& (a == address || !a.endsWith(QLatin1Char(')')))) {
+					io.setAttribute(QStringLiteral("functionText"), text);
+				}
+			}
+		}
+
+			// the rule of the two directions, for the valve and the output
+			// it reaches: a text on one end only is copied to the other end;
+			// two different texts are a conflict and nothing is changed
+		enum class Sync { Nothing, ToValve, ToOutput, Conflict };
+		static Sync synchronize(const Folio &folio, const Routes &r,
+								const QString &coil)
+		{
+			const QStringList ends =
+				walk(folio, r, coil, QStringLiteral("X1"), 1);
+			if (ends.size() != 1) {
+				return Sync::Nothing;
+			}
+			const QStringList e = ends.first().split(QLatin1Char('/'));
+			const int channel = e.at(2).toInt();
+			const QString out = functionOf(folio, e.at(0), e.at(1), channel);
+			const QString valve = shownOn(folio, coil);
+			if (!out.isEmpty() && !valve.isEmpty() && out != valve) {
+				return Sync::Conflict;
+			}
+			if (!out.isEmpty() && valve.isEmpty()) {
+				setShown(folio, coil, out);
+				return Sync::ToValve;
+			}
+			if (out.isEmpty() && !valve.isEmpty()) {
+				setFunctionOf(folio, e.at(0), e.at(1), channel, valve);
+				return Sync::ToOutput;
+			}
+			return Sync::Nothing;
+		}
+
 	private slots:
 		void m12FunctionFollowsTheChain()
 		{
@@ -420,6 +487,87 @@ class TstMurrMeanwellElements : public QObject
 				// a channel the T coupler does not route stops there
 			QVERIFY(walk(folio, r, QStringLiteral("A3"),
 						 QStringLiteral("X02"), 3).isEmpty());
+		}
+
+		void m12FunctionIsBidirectional()
+		{
+			QFile file(QStringLiteral(QET_EXAMPLES_DIR)
+					   + QStringLiteral("/murr_meanwell_example.qet"));
+			QVERIFY(file.open(QIODevice::ReadOnly));
+			QDomDocument doc;
+			QVERIFY(doc.setContent(&file));
+			const Folio folio = m12Folio(doc);
+			const Routes r = routes();
+			const QString epp = QStringLiteral("A3");
+
+				// typed on the valve Y5 only, the generated example shows it
+				// on the right channel of the right socket, and not on the
+				// other channels
+			QCOMPARE(functionOf(folio, epp, QStringLiteral("X02"), 2),
+					 QStringLiteral("EV15"));
+			QCOMPARE(functionOf(folio, epp, QStringLiteral("X02"), 1),
+					 QStringLiteral("EV14"));
+			QCOMPARE(functionOf(folio, epp, QStringLiteral("X01"), 2),
+					 QStringLiteral("EV13"));
+
+				// valve to output, through the Y distributor: the other
+				// channel is not touched
+			setFunctionOf(folio, epp, QStringLiteral("X01"), 1, QString());
+			setShown(folio, QStringLiteral("Y1"), QStringLiteral("EV77"));
+			QVERIFY(synchronize(folio, r, QStringLiteral("Y1"))
+					== Sync::ToOutput);
+			QCOMPARE(functionOf(folio, epp, QStringLiteral("X01"), 1),
+					 QStringLiteral("EV77"));
+			QCOMPARE(functionOf(folio, epp, QStringLiteral("X01"), 2),
+					 QStringLiteral("EV13"));
+			QCOMPARE(shownOn(folio, QStringLiteral("Y2")),
+					 QStringLiteral("EV13"));
+
+				// valve to output, through the T coupler
+			setFunctionOf(folio, epp, QStringLiteral("X02"), 2, QString());
+			setShown(folio, QStringLiteral("Y5"), QStringLiteral("EV88"));
+			QVERIFY(synchronize(folio, r, QStringLiteral("Y5"))
+					== Sync::ToOutput);
+			QCOMPARE(functionOf(folio, epp, QStringLiteral("X02"), 2),
+					 QStringLiteral("EV88"));
+			QCOMPARE(functionOf(folio, epp, QStringLiteral("X02"), 1),
+					 QStringLiteral("EV14"));
+
+				// output to valve
+			setShown(folio, QStringLiteral("Y4"), QString());
+			QVERIFY(synchronize(folio, r, QStringLiteral("Y4"))
+					== Sync::ToValve);
+			QCOMPARE(shownOn(folio, QStringLiteral("Y4")),
+					 QStringLiteral("EV14"));
+
+				// different texts on both ends: a conflict, nothing changes
+			setShown(folio, QStringLiteral("Y2"), QStringLiteral("EV55"));
+			QVERIFY(synchronize(folio, r, QStringLiteral("Y2"))
+					== Sync::Conflict);
+			QCOMPARE(shownOn(folio, QStringLiteral("Y2")),
+					 QStringLiteral("EV55"));
+			QCOMPARE(functionOf(folio, epp, QStringLiteral("X01"), 2),
+					 QStringLiteral("EV13"));
+
+				// equal texts, or nothing on both ends: no change
+			setShown(folio, QStringLiteral("Y2"), QStringLiteral("EV13"));
+			QVERIFY(synchronize(folio, r, QStringLiteral("Y2"))
+					== Sync::Nothing);
+
+				// a valve that no output reaches is left alone
+			Folio broken = folio;
+			for (int i = broken.links.size() - 1; i >= 0; --i) {
+				if (broken.links.at(i).first.startsWith(QLatin1String("W2/"))
+					&& broken.links.at(i).second.startsWith(
+						QLatin1String("X2/"))) {
+					broken.links.removeAt(i);
+				}
+			}
+			setShown(broken, QStringLiteral("Y5"), QStringLiteral("EV66"));
+			QVERIFY(synchronize(broken, r, QStringLiteral("Y5"))
+					== Sync::Nothing);
+			QCOMPARE(functionOf(broken, epp, QStringLiteral("X02"), 2),
+					 QStringLiteral("EV88"));
 		}
 
 		void m12RoutesUseExistingTerminals()

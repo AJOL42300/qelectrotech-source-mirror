@@ -151,23 +151,35 @@ Approach without C++ (nothing in the application changes):
   A branch carries one channel, seen as its channel 1. The two channels
   never mix, and a channel with no route (for example channel 3) ends the
   chain, as does a missing conductor;
-- `misc/murr_meanwell/chain.py` follows the conductors with these routes;
-  `gen_example.py` uses it to write the function of the source on each valve
+- `misc/murr_meanwell/chain.py` follows the conductors with these routes, in
+  both directions (the walk is symmetric). `reconcile()` applies the rule of
+  the two directions: a function written on one end only (the output of the
+  EPP or the valve) is copied to the other end; two different functions are
+  a **conflict**: both are kept, nothing is overwritten, and the generator
+  prints it. `gen_example.py` uses it to write the function on each valve
   (the `function` element information, shown as a dynamic text next to the
-  coil) and the destination (`-> Y1`) in the comment of the output;
+  coil) and on the output (`functionText` of the channel), and the
+  destination (`-> Y1`) in the comment of the output. In the example the
+  function of `Y5` is typed on the valve only, and the generator gives it to
+  channel 2 of socket `X02` of the EPP;
 - folio 7 of the example: EPP output X01 channel 1 -> 1 m cable -> Y
   distributor -> coils `Y1` (`EV12`) and `Y2` (`EV13`); X02 -> 2 m cable ->
-  T coupler -> coils `Y4` (`EV14`) and `Y5` (`EV15`); the MICO output 1 ->
-  5 m cable -> coil `Y3` (`EV16`).
+  T coupler -> coils `Y4` (`EV14`) and `Y5` (`EV15`, typed on the valve); the
+  MICO output 1 -> 5 m cable -> coil `Y3` (`EV16`).
 
 Limits: the texts are computed when the example is generated. They do not
-change by themselves when the function of an output is edited in the
-application, and the intermediate parts show nothing. Making it live needs a
+change by themselves when a function is edited in the application, and the
+intermediate parts show nothing. Making it live and bidirectional needs a
 small C++ change, proposed here and not done: a generic pass-through step in
 `Terminal::relatedPotentialTerminal` that, for an element with a per-terminal
 channel map, continues through its other connector; the coil `function`
-text and the EPP tooltip would read the result. It must be an option of the
-settings dialog, off by default, and does not change the `.qet` format.
+text and the EPP tooltip would read the result. Editing the function of the
+valve or of the output would, in one `QUndoCommand` (a single undo), copy the
+text to the other end of the chain with the rule above: nothing on the other
+end, copy; the same text, nothing; a different text, warn and do not
+overwrite silently (the new text wins only if the user confirms). It must be
+an option of the settings dialog, off by default, and does not change the
+`.qet` format.
 
 ## Example
 

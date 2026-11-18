@@ -23,6 +23,11 @@ element that is not passive. A channel without link in a passive element
 breaks the chain and the walk returns nothing for it. The channels never
 get mixed.
 
+The walk is symmetric, so it goes from an output to a valve and from a
+valve back to its output. reconcile() uses it to make the function
+bidirectional: a function written on one end is copied to the other end,
+and two different functions are reported as a conflict, never overwritten.
+
 The same rules are written in C++ in tst_murrmeanwellelements.cpp.
 """
 
@@ -54,3 +59,28 @@ def walk(start, conductors, family_of, routes):
                 elif (t2, ch) == (tb, cb):
                     todo.append((l2, ta, ca))
     return sorted(ends)
+
+
+def reconcile(texts, valve_terminal, pairs, family, routes):
+    """texts: {(label, terminal, channel): function} for the outputs
+    (sources) AND the valves (key (label, terminal, 1), valve_terminal
+    gives their connector). Every valve is paired with the single output
+    it reaches. Returns (texts, conflicts): texts completed in both
+    directions (output -> valve and valve -> output); conflicts is a list
+    of (output key, valve key, output text, valve text) where both ends
+    have different texts. Both are then left unchanged."""
+    out = dict(texts)
+    conflicts = []
+    for key in sorted(k for k in texts if k[1] == valve_terminal):
+        ends = walk(key, pairs, family, routes)
+        if len(ends) != 1:
+            continue
+        src = ends[0]
+        a, b = out.get(src, ""), out.get(key, "")
+        if a and b and a != b:
+            conflicts.append((src, key, a, b))
+        elif a:
+            out[key] = a
+        elif b:
+            out[src] = b
+    return out, conflicts
