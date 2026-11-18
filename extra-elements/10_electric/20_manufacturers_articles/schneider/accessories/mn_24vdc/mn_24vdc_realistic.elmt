@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="290" height="90" hotspot_x="0" hotspot_y="0">
+<definition version="0.100.0" type="element" link_type="simple" width="290" height="110" hotspot_x="0" hotspot_y="0">
 	<uuid uuid="{6b31ca09-5e0e-5197-8ca1-ea8033e82b56}" />
 	<names>
 		<name lang="en">MN undervoltage release 24 V DC, front view</name>
@@ -13,11 +13,17 @@
 	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
 Made by misc/schneider/gen_schneider.py: scale 3.43 px/mm (pole pitch 35 mm = 120 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<rect x="230" y="58" width="60" height="26" antialias="false" style="line-style:normal;line-weight:normal;filling:yellow;color:black" rx="0" ry="0" />
-		<text x="256.9" y="73.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Bold" text="MN" />
-		<terminal x="250" y="80" name="D1" orientation="s" type="Generic" uuid="{07cefe3b-a814-55f7-8276-99649c7f5017}" />
-		<terminal x="270" y="80" name="D2" orientation="s" type="Generic" uuid="{95098b30-3db4-54b3-9caa-95883a654eb7}" />
-		<dynamic_text x="5" y="93" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{5b25246d-d75a-5f35-82c4-c0ffd1dcd546}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+		<rect x="230" y="58" width="60" height="52" antialias="false" style="line-style:normal;line-weight:normal;filling:yellow;color:black" rx="0" ry="0" />
+		<text x="256.28" y="70.3" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="MN" />
+		<text x="250.38" y="81.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="24 V DC" />
+		<text x="249" y="91.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="LV429410" />
+		<circle x="246" y="106" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="8" />
+		<text x="247.25" y="102.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="D1" />
+		<circle x="266" y="106" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="8" />
+		<text x="267.25" y="102.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="D2" />
+		<terminal x="250" y="110" name="D1" orientation="s" type="Generic" uuid="{07cefe3b-a814-55f7-8276-99649c7f5017}" />
+		<terminal x="270" y="110" name="D2" orientation="s" type="Generic" uuid="{95098b30-3db4-54b3-9caa-95883a654eb7}" />
+		<dynamic_text x="5" y="113" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{5b25246d-d75a-5f35-82c4-c0ffd1dcd546}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
 		</dynamic_text>

@@ -99,7 +99,9 @@ BLACK = "black"
 LIGHT = "HTMLGrayGainsboro"      # light grey housings, labels
 SILVER = "HTMLGraySilver"        # screws, metal
 MID = "HTMLGrayDarkGray"         # front plates
-DARK = "HTMLGrayDimGray"         # dark housings (ComPacT, TeSys)
+DARK = "HTMLGrayDimGray"         # dark housings (ComPacT)
+SMOKE = "HTMLWhiteWhiteSmoke"    # white-ish Acti9 / TeSys housings
+CLIP = "HTMLYellowGold"          # DIN rail clips
 ON_RED = "red"
 WARN = "yellow"
 
@@ -180,10 +182,24 @@ class Sheet:
         self.terminals.append((name, x, y, orientation))
 
 
-def screw(sh, x, y, d=16):
+def screw(sh, x, y, d=16, cross=False, recess=0):
+    """A terminal screw; cross adds the second slot of a cross-head screw
+    and recess draws the round housing around it."""
+    if recess:
+        sh.circle(x, y, recess, LIGHT, "normal")
     sh.circle(x, y, d, SILVER, "normal")
     sh.circle(x, y, d - 6, "HTMLGrayLightSlateGray")
     sh.line(x - d / 2.0 + 3, y, x + d / 2.0 - 3, y, "normal")
+    if cross:
+        sh.line(x, y - d / 2.0 + 3, x, y + d / 2.0 - 3, "normal")
+
+
+def code_zone(sh, x, y):
+    """A small square pattern standing for the marking code of the label
+    (an original pattern, not a real code)."""
+    for i, j in ((0, 0), (2, 0), (1, 1), (3, 1), (0, 2), (2, 2), (1, 3),
+                 (3, 3)):
+        sh.rect(x + 4 * i, y + 4 * j, 4, 4, BLACK)
 
 
 def mark(sh, name, x, y, size=5, side="r", color="#000000"):
@@ -391,6 +407,35 @@ add("accessories", "mn_24vdc", "LV429410",
     ("MN undervoltage release 24 V DC",
      "D\u00e9clencheur MN \u00e0 minimum de tension 24 V CC"), 0, [],
     "mn", body=ACC_BODY, supply="24 V DC")
+add("accessories", "mx_220_240vac", "LV429387",
+    "MX shunt trip release, ComPacT NSX, 220/240 V AC 50/60 Hz, spring "
+    "terminals",
+    "Shunt trip release MX for ComPacT NSX, PowerPact Multistandard and "
+    "EasyPact CVS, 220-240 V AC 50/60 Hz (208-277 V AC 60 Hz), screwless "
+    "spring terminal connections, opens the circuit breaker when the "
+    "control voltage exceeds 70 % of Un (IEC 60947-2). Coil terminals C1-C2 "
+    "ASSUMED.",
+    ("MX shunt trip release 220/240 V AC",
+     "D\u00e9clencheur MX \u00e0 \u00e9mission de courant 220/240 V CA"),
+    0, [], "mx", body=ACC_BODY, supply="220/240 V AC")
+add("accessories", "imn_a9a26960", "A9A26960",
+    "iMN undervoltage release, Acti9, 220-240 V AC",
+    "Acti9 iMN instantaneous undervoltage release, control voltage "
+    "220-240 V AC 50/60 Hz, trips between 70 % and 35 % of Un, 2 modules of "
+    "9 mm, for iC60, iID, iDPN Vigi and iSW-NA (public product page). Coil "
+    "terminals D1-D2 ASSUMED.",
+    ("iMN undervoltage release 220-240 V AC",
+     "D\u00e9clencheur iMN \u00e0 minimum de tension 220-240 V CA"), 0, [],
+    "imn", body=(-30, 30), supply="220-240 V AC", wmm=18)
+add("accessories", "imxof_a9a26946", "A9A26946",
+    "iMX+OF shunt trip release with auxiliary contact, Acti9, 220-415 V AC",
+    "Acti9 iMX+OF shunt trip release with an open/close auxiliary contact "
+    "(OF), control voltage 220-415 V AC, for iC60, iID, iC40 and iSW-NA "
+    "(public product page). Coil terminals C1-C2 and OF terminals 11, 12, "
+    "14 ASSUMED.",
+    ("iMX+OF shunt trip release 220-415 V AC",
+     "D\u00e9clencheur iMX+OF \u00e0 \u00e9mission de courant 220-415 V CA"),
+    0, [], "imxof", body=(-30, 30), supply="220-415 V AC", wmm=18)
 add("accessories", "aux_of_sd_29450", "29450",
     "Auxiliary contact OF/SD/SDE/SDV, 1 changeover, spring terminals",
     "Standard auxiliary contact for ComPacT NSX, NS, PowerPact and "
@@ -489,19 +534,22 @@ for stem, ref, contacts, blocks in LADN:
 # table has NO verified list: nothing may be linked to it.
 MAX_BLOCKS = 4
 IOF = "A9A26924"
+IMN, IMXOF, NSX_MX = "A9A26960", "A9A26946", "LV429387"
 NSX_OFF, NSX_MN, NSX_HANDLE, NSX_SHIELD = ("29450", "LV429410", "LV429337",
                                            "LV429517")
 MT_AC, MT_DC = "LV431541", "LV431543"
 COMPAT = {
-    "ic60n_1p": [IOF], "ic60n_2p": [IOF], "ic60n_4p": [IOF],
-    "ic60n_3p": [IOF, "A9V11325"],
-    "idpna_vigi_1pn": [IOF], "iid_2p": [IOF], "iid_4p": [IOF],
-    "isw_3p_40a": [IOF],
-    "nsx100b_3p_tmd100": [NSX_OFF, NSX_MN, NSX_HANDLE, NSX_SHIELD],
+    "ic60n_1p": [IOF, IMN, IMXOF], "ic60n_2p": [IOF, IMN, IMXOF],
+    "ic60n_4p": [IOF, IMN, IMXOF],
+    "ic60n_3p": [IOF, "A9V11325", IMN, IMXOF],
+    "idpna_vigi_1pn": [IOF, IMN, IMXOF], "iid_2p": [IOF, IMN, IMXOF],
+    "iid_4p": [IOF, IMN, IMXOF],
+    "isw_3p_40a": [IOF, IMN, IMXOF],
+    "nsx100b_3p_tmd100": [NSX_OFF, NSX_MN, NSX_HANDLE, NSX_SHIELD, NSX_MX],
     "nsx250n_3p_frame": [MT_AC, NSX_OFF, NSX_MN, NSX_SHIELD, MT_DC,
-                         NSX_HANDLE],
+                         NSX_HANDLE, NSX_MX],
     "nsx250n_3p_tm250": [MT_AC, NSX_OFF, NSX_MN, NSX_SHIELD, MT_DC,
-                         NSX_HANDLE],
+                         NSX_HANDLE, NSX_MX],
 }
 # TeSys D contactors: the front auxiliary blocks LADN (public product pages:
 # for LC1D and LC1F contactors)
@@ -579,22 +627,22 @@ def draw_symbol(p):
     return sh
 
 
-def aux_symbol():
+def aux_symbol(sh=None, dx=0):
     """One changeover contact: common 11, NC 12, NO 14 (ASSUMED marking of
     the first slot, see docs/schneider.md)."""
-    sh = Sheet()
-    sh.line(0, 0, 0, 12, "normal")
-    sh.line(0, 12, -8, 36, "normal")
-    sh.line(0, 60, 0, 48, "normal")
-    sh.line(30, 60, 30, 48, "normal")
-    sh.line(30, 48, 22, 24, "normal")
-    sh.terminal("11", 0, 0, "n")
-    sh.terminal("12", 0, 60, "s")
-    sh.terminal("14", 30, 60, "s")
-    mark(sh, "11", 0, 8)
-    mark(sh, "12", 0, 52)
-    mark(sh, "14", 30, 52)
-    sh.grow(-20, -10, 50, 70)
+    sh = sh or Sheet()
+    sh.line(dx, 0, dx, 12, "normal")
+    sh.line(dx, 12, dx - 8, 36, "normal")
+    sh.line(dx, 60, dx, 48, "normal")
+    sh.line(dx + 30, 60, dx + 30, 48, "normal")
+    sh.line(dx + 30, 48, dx + 22, 24, "normal")
+    sh.terminal("11", dx, 0, "n")
+    sh.terminal("12", dx, 60, "s")
+    sh.terminal("14", dx + 30, 60, "s")
+    mark(sh, "11", dx, 8)
+    mark(sh, "12", dx, 52)
+    mark(sh, "14", dx + 30, 52)
+    sh.grow(dx - 20, -10, dx + 50, 70)
     return sh
 
 
@@ -636,78 +684,109 @@ def ladn_symbol(p):
     return sh
 
 
+COILS = {"motor": ("M1", "M2", "M"), "mn": ("D1", "D2", "U<"),
+         "imn": ("D1", "D2", "U<"), "mx": ("C1", "C2", "MX"),
+         "imxof": ("C1", "C2", "MX")}
+
+
 def coil_symbol(kind):
+    """A release or motor box with its numbered terminals; the iMX+OF also
+    has its OF changeover contact beside the coil."""
+    top, bottom, tag = COILS[kind]
     sh = Sheet()
     sh.line(0, 0, 0, 20, "normal")
     sh.line(0, 40, 0, 60, "normal")
     if kind == "motor":
         sh.circle(0, 30, 20, "white", "normal")
-        sh.text(0, 30, "M", 8, True)
+        sh.text(0, 30, tag, 8, True)
     else:
         sh.rect(-10, 20, 20, 20, "white", "normal")
-        sh.text(0, 30, "U<", 6, True)
-    sh.terminal("M1" if kind == "motor" else "D1", 0, 0, "n")
-    sh.terminal("M2" if kind == "motor" else "D2", 0, 60, "s")
+        sh.text(0, 30, tag, 6, True)
+    sh.terminal(top, 0, 0, "n")
+    sh.terminal(bottom, 0, 60, "s")
+    mark(sh, top, 0, 8)
+    mark(sh, bottom, 0, 52)
     sh.grow(-20, -10, 20, 70)
+    if kind == "imxof":
+        sh.line(14, 30, 56, 30, dashed=True)
+        aux_symbol(sh, 70)
     return sh
 
 
 # ------------------------------------------------------ realistic views
 
 def modular_front(p):
-    """Acti9 front: light grey body, grey terminal zones with silver screws,
-    black toggle on a grey base, red position window, white label, green
-    accent band, DIN rail clip.  Colours ASSUMED, see docs/schneider.md."""
+    """Acti9 front, drawn after a public photo of an iC60N: a white housing
+    with a terminal stage at the top and the bottom, a round recess with a
+    cross-head screw per pole, two yellow DIN rail clips on the top, a white
+    label band with a green line and a marking zone, white handles with a
+    green ON/OFF window joined by a dark grey tie bar, shaded flanks.  The
+    shapes and colours are ASSUMED, see docs/schneider.md."""
     sh = Sheet()
     bx0, bx1 = p.body
     top, bot = -20, -20 + p.height
     w = bx1 - bx0
     cx = (p.xs[0] + p.xs[-1]) / 2.0
-    sh.rect(bx0, top, w, p.height, LIGHT, "normal", frame=True)
-    sh.rect(bx0, top, w, 30, MID)
-    sh.rect(bx0, bot - 30, w, 30, MID)
-    sh.rect(bx0, 30, w, 6, GREEN)                # colour accent band
-    sh.rect(cx - 25, bot - 8, 50, 8, DARK)       # DIN rail clip
-    for k in range(1, len(p.xs)):                # joint between two poles
-        sh.line((p.xs[k - 1] + p.xs[k]) / 2.0, top + 30,
-                (p.xs[k - 1] + p.xs[k]) / 2.0, bot - 30)
+    sh.rect(bx0, top, w, p.height, SMOKE, "normal", frame=True)
+    sh.rect(bx0, top, w, 52, LIGHT)                  # upper terminal stage
+    sh.rect(bx0, bot - 32, w, 32, LIGHT)             # lower terminal stage
+    sh.rect(bx0, top + 52, 5, p.height - 84, LIGHT)  # shaded flanks
+    sh.rect(bx1 - 5, top + 52, 5, p.height - 84, LIGHT)
+    for x in sorted({p.xs[0], p.xs[-1]}):            # yellow DIN clips
+        sh.rect(x - 12, top - 10, 24, 10, CLIP, "normal", frame=True)
+    for k in range(1, len(p.xs)):                    # joint between poles
+        sh.line((p.xs[k - 1] + p.xs[k]) / 2.0, top + 52,
+                (p.xs[k - 1] + p.xs[k]) / 2.0, bot - 32)
     for x, (t, b) in zip(p.xs, p.labels):
-        screw(sh, x, 0)
-        screw(sh, x, bot - 20)
+        screw(sh, x, 0, 16, True, 28)
+        screw(sh, x, bot - 20, 16, True, 28)
         sh.terminal(t, x, 0, "n")
         sh.terminal(b, x, bot - 20, "s")
     if p.kind == "fuse":
         for x in p.xs:                      # fuse carrier of each pole
-            sh.rect(x - 22, 50, 44, 140, MID, "normal")
-            sh.line(x - 22, 90, x + 22, 90)
-            sh.rect(x - 8, 50, 16, 20, BLACK)
-            sh.text(x, 140, p.rating, 7, True)
+            sh.rect(x - 22, 60, 44, 130, MID, "normal")
+            sh.line(x - 22, 100, x + 22, 100)
+            sh.rect(x - 8, 60, 16, 20, BLACK)
+            sh.text(x, 145, p.rating, 7, True)
+        sh.rect(bx0 + 6, 42, w - 12, 4, GREEN)
         sh.text(cx, 215, "10.3x38", 5)
+        return sh
+    # label band: green line, marking zone, code zone
+    code = w >= 90
+    lx, lw = bx0 + 6, w - 12
+    sh.rect(lx, 44, lw, 40, WHITE, "normal")
+    sh.rect(cx if code else lx + lw / 2.0, 44, lw / 2.0 if code else
+            lw / 2.0, 4, GREEN)
+    tw = lw - (24 if code else 0)
+    if p.kind in ("rcd", "rcbo"):
+        sh.text(lx + tw / 2.0, 58, p.model, 6, True)
+        sh.text(lx + tw / 2.0, 72, p.rating, 6)
     else:
-        if p.kind in ("switch", "rcd"):     # one common handle
-            handles = [(bx0 + 10, w - 20)]
-        elif p.kind == "rcbo":
-            handles = [(cx - 22, 44)]
-        else:                               # one handle per pole
-            handles = [(x - 22, 44) for x in p.xs]
-        for x, width in handles:
-            sh.rect(x - 4, 50, width + 8, 100, MID, "normal")   # base
-            sh.rect(x, 56, width, 52, BLACK)                    # toggle
-            for y in (64, 74, 84, 94):                          # grip
-                sh.rect(x + 4, y, width - 8, 3, DARK)
-            sh.rect(x, 38, width, 10, ON_RED)    # contact position: ON
-        if p.kind in ("rcd", "rcbo"):
-            sh.rect(bx0 + 4, 150, w - 8, 70, WHITE, "normal")
-            sh.circle(p.xs[0], 172, 18, WARN, "normal")
-            sh.text(p.xs[0], 172, "T", 7, True)
-            sh.rect(p.xs[-1] - 8, 160, 16, 8, ON_RED)  # fault indicator
-            sh.text(cx, 197, "%s %s" % (p.sens, p.rtype), 5, True)
-            sh.text(cx, 209, p.rating, 5)
-            sh.text(cx, 238, p.model, 6, True)
-        else:
-            sh.rect(p.xs[0] - 22, 175, 44, 28, WHITE, "normal")
-            sh.text(p.xs[0], 189, p.rating, 8, True)
-            sh.text(cx, 215, p.model, 6, True)
+        sh.text(lx + tw / 2.0, 66, p.model, 6, True)
+    if code:
+        code_zone(sh, lx + lw - 20, 56)
+    # handles with a green ON/OFF window, tied by a dark grey bar
+    if p.kind == "rcbo":
+        handles = [cx]
+    else:
+        handles = list(p.xs)
+    hw = 40 if p.kind != "rcbo" else 44
+    for x in handles:
+        sh.rect(x - hw / 2.0, 96, hw, 74, WHITE, "normal")
+        sh.rect(x - 10, 102, 20, 12, GREEN, "normal")
+        for y in (124, 132, 140):
+            sh.line(x - hw / 2.0 + 6, y, x + hw / 2.0 - 6, y)
+    if p.kind != "rcbo":
+        sh.rect(bx0 + 8, 158, w - 16, 12, DARK, "normal")
+    if p.kind in ("rcd", "rcbo"):
+        z1 = 184
+        sh.circle(p.xs[0], z1 + 16, 18, WARN, "normal")
+        sh.text(p.xs[0], z1 + 16, "T", 7, True)
+        sh.rect(p.xs[-1] - 8, z1 + 6, 16, 8, ON_RED)     # fault indicator
+        sh.text(cx, z1 + 36, "%s %s" % (p.sens, p.rtype), 5, True)
+    else:
+        sh.rect(bx0 + 8, 184, w - 16, 28, WHITE, "normal")
+        sh.text(cx, 198, p.rating, 8, True)
     return sh
 
 
@@ -761,14 +840,40 @@ def motor_module(sh, bx0, bx1, cx, frame):
     sh.text(bx1 - 65, 215, "MT250", 6, True)
 
 
-def of_flag(sh, bx0, frame):
-    sh.rect(bx0 + 10, 58, 60, 40, GREEN, "normal", frame=frame)
-    sh.text(bx0 + 40, 66, "OF/SD", 5, True)
+def of_flag(sh, bx0, frame, ref=None, terms=False):
+    """The OF/SD/SDE contact module with its reference and, as a separate
+    accessory, its numbered terminals on its bottom edge."""
+    sh.rect(bx0 + 10, 58, 60, 52, GREEN, "normal", frame=frame)
+    sh.text(bx0 + 40, 67, "OF/SD", 5, True)
+    if ref:
+        sh.text(bx0 + 40, 79, ref, 5)
+    if terms:
+        for name, x in (("11", bx0 + 20), ("12", bx0 + 40),
+                        ("14", bx0 + 60)):
+            terminal_screw(sh, name, x, 110, 100)
 
 
-def mn_flag(sh, bx1, frame):
-    sh.rect(bx1 - 70, 58, 60, 26, WARN, "normal", frame=frame)
-    sh.text(bx1 - 40, 71, "MN", 5, True)
+def release_flag(sh, bx1, frame, tag, supply=None, ref=None, names=()):
+    """A voltage release (MN undervoltage, MX shunt trip): a yellow module
+    with its tag, supply voltage and reference, and its two numbered
+    terminals on its bottom edge."""
+    x0 = bx1 - 70
+    sh.rect(x0, 58, 60, 52, WARN, "normal", frame=frame)
+    sh.text(x0 + 30, 67, tag, 6, True)
+    if supply:
+        sh.text(x0 + 30, 79, supply, 5)
+    if ref:
+        sh.text(x0 + 30, 89, ref, 5)
+    for name, x in zip(names, (x0 + 20, x0 + 40)):
+        terminal_screw(sh, name, x, 110, 100)
+
+
+def terminal_screw(sh, name, x, y, y_text):
+    """A numbered terminal of a front accessory: a silver screw head on the
+    edge of the module and its number above it."""
+    sh.terminal(name, x, y, "s")
+    sh.circle(x, y, 8, SILVER, "normal")
+    sh.text(x, y_text, name, 5)
 
 
 def nsx_front(p, with_accessories=False):
@@ -798,8 +903,8 @@ def nsx_front(p, with_accessories=False):
     if with_accessories:
         shields(sh, bx0, bx1, p.xs, True)
         motor_module(sh, bx0, bx1, cx, False)
-        of_flag(sh, bx0, False)
-        mn_flag(sh, bx1, False)
+        of_flag(sh, bx0, False, "29450")
+        release_flag(sh, bx1, False, "MN", "24 V DC", "LV429410")
     return sh
 
 
@@ -807,8 +912,8 @@ def iof_front(p):
     """Acti9 auxiliary contact: one module wide, terminals 11, 12, 14 on its
     top."""
     sh = Sheet()
-    sh.rect(-15, -10, 30, 140, LIGHT, "normal", frame=True)
-    sh.rect(-15, 100, 30, 30, MID)
+    sh.rect(-15, -10, 30, 140, SMOKE, "normal", frame=True)
+    sh.rect(-15, 100, 30, 30, LIGHT)
     sh.rect(-15, 20, 30, 5, GREEN)
     sh.rect(-10, 40, 20, 40, WHITE, "normal")
     sh.rect(-6, 46, 12, 10, GREEN)
@@ -816,6 +921,30 @@ def iof_front(p):
         screw(sh, x, 0, 8)
         sh.terminal(name, x, 0, "n")
         sh.text(x, 12, name, 4)
+    sh.grow(0, 0, 0, 0)
+    return sh
+
+
+def acti_release_front(p):
+    """Acti9 release or auxiliary module, 2 modules wide: a white housing
+    with a green line, a yellow window with the tag, supply voltage and
+    reference, and screw terminals on its top (D1-D2 for an iMN, C1-C2 and
+    11, 12, 14 for an iMX+OF).  ASSUMED shapes and numbering."""
+    sh = Sheet()
+    sh.rect(-30, -20, 60, 140, SMOKE, "normal", frame=True)
+    sh.rect(-30, -20, 60, 32, LIGHT)
+    sh.rect(-30, 100, 60, 20, LIGHT)
+    sh.rect(-24, 32, 48, 4, GREEN)
+    sh.rect(-24, 40, 48, 60, WARN, "normal")
+    sh.text(0, 50, "iMN" if p.kind == "imn" else "iMX+OF", 6, True)
+    sh.text(0, 64, p.supply, 5)
+    sh.text(0, 78, p.reference, 5)
+    names = (("D1", 0), ("D2", 20)) if p.kind == "imn" else (
+        ("C1", -20), ("C2", -10), ("12", 0), ("11", 10), ("14", 20))
+    for name, x in names:
+        screw(sh, x, 0, 8, True)
+        sh.terminal(name, x, 0, "n")
+        sh.text(x, 10, name, 4)
     sh.grow(0, 0, 0, 0)
     return sh
 
@@ -830,16 +959,12 @@ def accessory_front(p):
         sh.text(cx, 150, p.supply, 6)
         sh.terminal("M1", 100, 250, "s")
         sh.terminal("M2", 140, 250, "s")
-    elif p.kind == "mn":
-        mn_flag(sh, bx1, True)
-        sh.terminal("D1", 250, 80, "s")
-        sh.terminal("D2", 270, 80, "s")
+    elif p.kind in ("mn", "mx"):
+        names = ("D1", "D2") if p.kind == "mn" else ("C1", "C2")
+        release_flag(sh, bx1, True, p.kind.upper(), p.supply, p.reference,
+                     names)
     elif p.kind == "aux":
-        of_flag(sh, bx0, True)
-        for name, x in (("11", -40), ("12", -20), ("14", 0)):
-            sh.terminal(name, x, 90, "s")
-            sh.circle(x, 90, 6, SILVER, "normal")
-            sh.text(x, 80, name, 4)
+        of_flag(sh, bx0, True, p.reference, True)
     elif p.kind == "handle":
         rotary_handle(sh, cx)
         sh.grow(cx - 110, 105, cx + 110, 325)
@@ -851,37 +976,49 @@ def accessory_front(p):
 
 
 def contactor_front(p):
-    """TeSys D front: dark grey case, black terminal zones with silver
-    screws and white numbers, light front plate with a white coil window,
-    a green accent band and a black test button.  The side terminals
-    (A1, A2, 13, 14, 21, 22) are a generic ASSUMED layout."""
+    """TeSys D front, drawn after a public photo of an LC1D09: an anthracite
+    housing with a mounting lug on the top, a round recess with a cross-head
+    screw per terminal, the power terminals 1/L1, 3/L2, 5/L3 on the top and
+    2/T1, 4/T2, 6/T3 on the bottom, a row of control terminals under and
+    over a black cover (13 NO, 21 NC, A1 on the top, 14 NO, 22 NC, A2 on the
+    bottom), a green band on the cover with the designation and the coil
+    voltage.  The shapes, colours and the position of the control terminals
+    are ASSUMED, see docs/schneider.md."""
     sh = Sheet()
     sh.rect(-20, -30, 150, 260, DARK, "normal", frame=True)
-    sh.rect(-20, -30, 150, 60, BLACK)
-    sh.rect(-20, 170, 150, 60, BLACK)
+    sh.rect(35, -40, 40, 10, DARK, "normal", frame=True)    # mounting lug
+    sh.circle(55, -35, 6, SMOKE, "normal")
+    sh.rect(-20, 90, 8, 40, MID)                           # side latches
+    sh.rect(122, 90, 8, 40, MID)
+    sh.line(-20, 24, 130, 24)
+    sh.line(-20, 176, 130, 176)
+    sh.line(-20, 70, 130, 70)
+    sh.line(-20, 138, 130, 138)
     for x, (t, b) in zip(p.xs, p.labels):
-        screw(sh, x, 0, 16)
-        screw(sh, x, 200, 16)
+        sh.circle(x, 0, 26, BLACK, "normal")
+        sh.circle(x, 200, 26, BLACK, "normal")
+        screw(sh, x, 0, 16, True)
+        screw(sh, x, 200, 16, True)
         sh.terminal(t, x, 0, "n")
         sh.terminal(b, x, 200, "s")
-        sh.text(x, 20, t, 5, False, "#ffffff")
-        sh.text(x, 182, b, 5, False, "#ffffff")
-    sh.rect(0, 40, 110, 120, LIGHT, "normal")
-    sh.rect(0, 40, 110, 8, GREEN)                       # accent band
-    sh.rect(10, 58, 90, 36, WHITE, "normal")            # coil window
-    sh.text(55, 70, p.coil, 7, True)
-    sh.text(55, 85, p.model, 6)
-    sh.rect(30, 108, 50, 40, MID, "normal")             # test button
-    sh.rect(40, 116, 30, 24, BLACK)
-    for name, x, y, ori, side in (("A1", -20, 50, "w", "r"),
-                                  ("A2", -20, 180, "w", "r"),
-                                  ("13", 130, 50, "e", "l"),
-                                  ("14", 130, 180, "e", "l"),
-                                  ("21", 130, 90, "e", "l"),
-                                  ("22", 130, 140, "e", "l")):
-        screw(sh, x, y, 10)
+        sh.text(x, -22, "%s %s" % (t[0], t[2:]), 5, False, "#ffffff")
+        sh.text(x, 222, "%s %s" % (b[0], b[2:]), 5, False, "#ffffff")
+    for name, x, y, ori in (("13", 0, 50, "n"), ("21", 50, 50, "n"),
+                            ("A1", 100, 50, "n"), ("14", 0, 160, "s"),
+                            ("22", 50, 160, "s"), ("A2", 100, 160, "s")):
+        sh.circle(x, y, 22, BLACK, "normal")
+        screw(sh, x, y, 14, True)
         sh.terminal(name, x, y, ori)
-        mark(sh, name, x, y, 5, side, "#ffffff")
+        tag = {"13": "NO", "14": "NO", "21": "NC", "22": "NC"}.get(name)
+        mark(sh, "%s %s" % (name, tag) if tag else name, x, y - 16, 5, "c",
+             "#ffffff")
+    sh.rect(-8, 76, 126, 56, BLACK, "normal")               # front cover
+    sh.rect(-8, 76, 126, 14, GREEN)                         # accent band
+    sh.text(55, 83, p.model, 6, True)
+    sh.text(55, 104, p.coil, 7, True, "#ffffff")
+    sh.rect(6, 114, 30, 12, DARK)                           # test zone
+    sh.rect(92, 110, 22, 22, SMOKE)
+    code_zone(sh, 95, 113)
     return sh
 
 
@@ -894,12 +1031,12 @@ def ladn_front(p):
     sh.rect(-15 + dx, -30, 150, 130, DARK, "normal", frame=True)
     sh.rect(-15 + dx, -30, 150, 40, BLACK)
     sh.rect(-15 + dx, 60, 150, 40, BLACK)
-    sh.rect(-5 + dx, 20, 130, 30, LIGHT, "normal")
+    sh.rect(-5 + dx, 20, 130, 30, SMOKE, "normal")
     sh.rect(-5 + dx, 20, 130, 5, GREEN)
     for x, (top, bottom, kind) in zip(p.xs, p.contacts):
         x += dx
-        screw(sh, x, 0, 16)
-        screw(sh, x, 70, 16)
+        screw(sh, x, 0, 16, True, 26)
+        screw(sh, x, 70, 16, True, 26)
         sh.terminal(top, x, 0, "n")
         sh.terminal(bottom, x, 70, "s")
         sh.rect(x - 10, 34, 20, 8, GREEN if kind == "no" else ON_RED)
@@ -1001,7 +1138,7 @@ def build(p):
         if p.accessories:
             files["_accessories"] = nsx_front(p, True)
     else:
-        if p.kind in ("motor", "mn"):
+        if p.kind in COILS:
             files[""] = coil_symbol(p.kind)
         elif p.kind in ("aux", "iof"):
             files[""] = aux_symbol()
@@ -1009,6 +1146,8 @@ def build(p):
             files[""] = ladn_symbol(p)
         files["_realistic"] = (iof_front(p) if p.kind == "iof" else
                                ladn_front(p) if p.kind == "ladn" else
+                               acti_release_front(p)
+                               if p.kind in ("imn", "imxof") else
                                accessory_front(p))
     return files
 

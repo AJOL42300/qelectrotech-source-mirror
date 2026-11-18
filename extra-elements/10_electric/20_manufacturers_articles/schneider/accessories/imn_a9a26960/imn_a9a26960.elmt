@@ -1,0 +1,29 @@
+<definition version="0.100.0" type="element" link_type="simple" width="40" height="80" hotspot_x="20" hotspot_y="10">
+	<uuid uuid="{033b0d9c-dc80-51cd-819a-9f72c36b8260}" />
+	<names>
+		<name lang="en">iMN undervoltage release 220-240 V AC</name>
+		<name lang="fr">Déclencheur iMN à minimum de tension 220-240 V CA</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Schneider Electric</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">A9A26960</elementInformation>
+		<elementInformation name="designation" show="1">iMN undervoltage release, Acti9, 220-240 V AC</elementInformation>
+		<elementInformation name="description" show="1">Acti9 iMN instantaneous undervoltage release, control voltage 220-240 V AC 50/60 Hz, trips between 70 % and 35 % of Un, 2 modules of 9 mm, for iC60, iID, iDPN Vigi and iSW-NA (public product page). Coil terminals D1-D2 ASSUMED.</elementInformation>
+	</elementInformations>
+	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
+Made by misc/schneider/gen_schneider.py: scale 3.43 px/mm (pole pitch 35 mm = 120 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<line end1="none" end2="none" y1="0" antialias="false" y2="20" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<rect x="-10" y="20" width="20" height="20" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
+		<text x="-3.72" y="33.3" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="U&lt;" />
+		<text x="4" y="10.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="D1" />
+		<text x="4" y="54.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="D2" />
+		<terminal x="0" y="0" name="D1" orientation="n" type="Generic" uuid="{c6936bac-a4ef-5494-bdec-6560bb27348d}" />
+		<terminal x="0" y="60" name="D2" orientation="s" type="Generic" uuid="{23a046a0-a15b-5f12-bcf1-e6afa652e8d8}" />
+		<dynamic_text x="-15" y="73" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{7e3d003e-ec03-501a-bc7e-364026e702d4}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+			<text />
+			<info_name>label</info_name>
+		</dynamic_text>
+	</description>
+</definition>

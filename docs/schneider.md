@@ -31,7 +31,7 @@ terminal is on the 10 px grid.
 | `acti9_isolators` | iSW 3P 40 A (A9S65340), STI 2P 25 A (A9N15651) |
 | `compact_nsx` | NSX100B 3P TMD100 (LV429540), NSX250N 3P frame (C25N3), NSX250N 3P TM250 (C25N3TM250C, with an `_accessories` front view) |
 | `compact_ins` | INS250 3P / 4P (31106 / 31107) |
-| `accessories` | MT250 motor mechanism (LV431541 220/240 V AC, LV431543 24/30 V DC), MN undervoltage release (LV429410), OF/SD/SDE/SDV contact (29450), iOF contact (A9A26924), rotary handle (LV429337), terminal shield (LV429517) |
+| `accessories` | MT250 motor mechanism (LV431541 220/240 V AC, LV431543 24/30 V DC), MN undervoltage release (LV429410), MX shunt trip (LV429387), OF/SD/SDE/SDV contact (29450), iOF contact (A9A26924), iMN undervoltage release (A9A26960), iMX+OF shunt trip with contact (A9A26946), rotary handle (LV429337), terminal shield (LV429517) |
 | `tesys_d` | TeSys D contactors 3P, built-in 1NO+1NC: LC1D09P7, LC1D12P7, LC1D18P7, LC1D25P7, LC1D32P7, LC1D38P7 (230 V AC coil), LC1D09BD (24 V DC coil) |
 | `tesys_d_accessories` | LADN front-mounting auxiliary blocks: LADN22 (2NO+2NC), LADN11 (1NO+1NC), LADN20 (2NO), LADN02 (2NC) |
 
@@ -57,7 +57,15 @@ open contact (`13`, `14`) and normally closed contact (`21`, `22`), joined by
 a dashed mechanical link. The front view has the same 12 terminal names:
 power terminals at the top and bottom, coil and auxiliary terminals on the
 flanks. The numbers are drawn next to the terminals on the symbols and on the
-front views.
+front views. The front view follows a public photo of an LC1D09 (rev. 115):
+power terminals `1/L1`, `3/L2`, `5/L3` on the top and `2/T1`, `4/T2`, `6/T3`
+on the bottom, a row of control terminals above the black front cover
+(`13 NO`, `21 NC`, `A1`) and another under it (`14 NO`, `22 NC`, `A2`), a
+round recess with a cross-head screw per terminal, a mounting lug, side
+latches, a green band with the designation and the coil voltage, and a
+decorative check pattern in the marking zone. The terminal names are the
+same as before; only the positions of `A1`, `A2`, `13`, `14`, `21`, `22`
+moved from the flanks to these two rows.
 
 | Product | Numbers | Status |
 | --- | --- | --- |
@@ -91,6 +99,43 @@ with the nearest one, `HTMLGreenLimeGreen` (#32CD32). Housings are
 by function. The green is a plain accent band: no logo is drawn. All the
 colours and shapes are ASSUMED from the photos (not measured), and the
 generator keeps them in a few constants (`GREEN`, `LIGHT`, `DARK`...).
+
+### Photo-inspired shapes (rev. 113, 115)
+
+The Acti9 modular front views (breakers, RCDs, isolators) follow a public
+photo of an iC60N 3P: a white housing with a light terminal stage at the top
+and at the bottom, a round recess with a cross-head screw per pole, two
+yellow fixing clips on the top, a white label band with a green line and a
+check pattern in the marking zone, one white handle per pole with a green
+position window and a dark tie bar, lightly shaded flanks. The RCDs keep
+their test button and sensitivity text; the fuse isolator keeps its carriers.
+The photos were only looked at, nothing is copied: no logo, no manufacturer
+text, no raster. Shapes, proportions and colours are ASSUMED.
+
+### Auxiliaries and releases (rev. 114)
+
+Each auxiliary has a clear IEC symbol and a front view, with numbered
+terminals that are visible (not hidden under the body) and the commercial
+reference written on the module:
+
+| Reference | Product | Terminals | Source / status |
+| --- | --- | --- | --- |
+| A9A26960 | Acti9 iMN undervoltage release, 220-240 V AC, 2 modules | D1, D2 | reference and voltage VERIFIED ([se.com](https://www.se.com/uk/en/product/A9A26960/)); terminal marking ASSUMED |
+| A9A26946 | Acti9 iMX+OF shunt trip with OF contact, 220-415 V AC | C1, C2 + 11, 12, 14 | reference and voltage VERIFIED ([se.com](https://www.se.com/uk/en/product/A9A26946/)); marking ASSUMED |
+| LV429387 | ComPacT NSX MX shunt trip, 220/240 V AC | C1, C2 | VERIFIED ([se.com](https://www.se.com/il/en/product/LV429387/)); marking ASSUMED |
+| LV429410 | ComPacT NSX MN undervoltage release, 24 V DC | D1, D2 | VERIFIED earlier; marking ASSUMED |
+| 29450, A9A26924 | OF/SD/SDE/SDV and iOF contacts | 11, 12, 14 | see the table above |
+
+Other Acti9 references seen but not drawn: A9A26948 (iMX+OF 12-24 V AC),
+A9A26969 (iMNx 220-240 V AC), A9A26927 (iSD fault contact, discontinued on
+1 September 2023). The coil voltage selects the reference, so one element per
+voltage is needed: only one voltage per release is drawn so far.
+
+Every element of the library carries `manufacturer` (Schneider Electric),
+`manufacturer_reference`, `designation` and `description` in its element
+information, so the nomenclature can use it directly; the iC60N 3P, the other
+Acti9 devices and the NSX devices also list these releases as compatible
+accessories of quantity 0.
 
 ## The "220 A" disconnector
 
@@ -205,7 +250,12 @@ D09 and D38 pages), the layout of the coil and auxiliary terminals on the
 flanks of the front view, the numbers 13-14/21-22 of the built-in contacts,
 the marking of LADN11/20/02, the marking of the 29450 slots other than OF1,
 the iOF 11-12-14, the LADN dimensions (generic 45 mm block), and every colour
-(palette limited to the named colours). Not done: LADC22 and other LADN
+(palette limited to the named colours). Photo-inspired shapes (rev. 113 and
+115) and the new releases (rev. 114): the compatibility of iMN/iMX+OF with each
+Acti9 device (taken as the same list as the iOF, from the public pages), the
+terminal marking D1/D2 and C1/C2 of the releases, the 2-module width of the
+iMX+OF, the choice of one voltage per release. Not done: the other coil
+voltages and the iSD/iMNx/iMX+SD references. Not done: LADC22 and other LADN
 variants, ratings above D38 (LC1D40A and up), the other TeSys ranges (F, K),
 and a terminal-number overlay on the breaker symbols. `build/elements` is a
 copy of the library, refreshed by copying the `schneider` folder.

@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="150" height="260" hotspot_x="20" hotspot_y="30">
+<definition version="0.100.0" type="element" link_type="simple" width="150" height="270" hotspot_x="20" hotspot_y="40">
 	<uuid uuid="{cac93bd6-b4c9-5f4b-8388-573939352837}" />
 	<names>
 		<name lang="en">TeSys D contactor LC1D12P7 12 A 230 V AC, front view</name>
@@ -38,75 +38,112 @@
 Made by misc/schneider/gen_schneider.py: scale 3.33 px/mm (1 module of 9 mm = 30 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
 		<rect x="-20" y="-30" width="150" height="260" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayDimGray;color:black" rx="0" ry="0" />
-		<rect x="-20" y="-30" width="150" height="60" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
-		<rect x="-20" y="170" width="150" height="60" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="35" y="-40" width="40" height="10" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayDimGray;color:black" rx="0" ry="0" />
+		<circle x="52" y="-38" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLWhiteWhiteSmoke;color:black" diameter="6" />
+		<rect x="-20" y="90" width="8" height="40" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDarkGray;color:black" rx="0" ry="0" />
+		<rect x="122" y="90" width="8" height="40" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDarkGray;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="24" antialias="false" y2="24" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-20" length1="1.5" x2="130" length2="1.5" />
+		<line end1="none" end2="none" y1="176" antialias="false" y2="176" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-20" length1="1.5" x2="130" length2="1.5" />
+		<line end1="none" end2="none" y1="70" antialias="false" y2="70" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-20" length1="1.5" x2="130" length2="1.5" />
+		<line end1="none" end2="none" y1="138" antialias="false" y2="138" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-20" length1="1.5" x2="130" length2="1.5" />
+		<circle x="-13" y="-13" antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="26" />
+		<circle x="-13" y="187" antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="26" />
 		<circle x="-8" y="-8" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="16" />
 		<circle x="-5" y="-5" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="10" />
 		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-5" length1="1.5" x2="5" length2="1.5" />
+		<line end1="none" end2="none" y1="-5" antialias="false" y2="5" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
 		<circle x="-8" y="192" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="16" />
 		<circle x="-5" y="195" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="10" />
 		<line end1="none" end2="none" y1="200" antialias="false" y2="200" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-5" length1="1.5" x2="5" length2="1.5" />
-		<text x="-5.5" y="22.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="1/L1" />
-		<text x="-5.5" y="184.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="2/T1" />
+		<line end1="none" end2="none" y1="195" antialias="false" y2="205" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<text x="-5.5" y="-19.25" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="1 L1" />
+		<text x="-5.5" y="224.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="2 T1" />
+		<circle x="37" y="-13" antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="26" />
+		<circle x="37" y="187" antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="26" />
 		<circle x="42" y="-8" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="16" />
 		<circle x="45" y="-5" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="10" />
 		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="45" length1="1.5" x2="55" length2="1.5" />
+		<line end1="none" end2="none" y1="-5" antialias="false" y2="5" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="50" length1="1.5" x2="50" length2="1.5" />
 		<circle x="42" y="192" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="16" />
 		<circle x="45" y="195" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="10" />
 		<line end1="none" end2="none" y1="200" antialias="false" y2="200" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="45" length1="1.5" x2="55" length2="1.5" />
-		<text x="44.5" y="22.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="3/L2" />
-		<text x="44.5" y="184.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="4/T2" />
+		<line end1="none" end2="none" y1="195" antialias="false" y2="205" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="50" length1="1.5" x2="50" length2="1.5" />
+		<text x="44.5" y="-19.25" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="3 L2" />
+		<text x="44.5" y="224.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="4 T2" />
+		<circle x="87" y="-13" antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="26" />
+		<circle x="87" y="187" antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="26" />
 		<circle x="92" y="-8" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="16" />
 		<circle x="95" y="-5" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="10" />
 		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="95" length1="1.5" x2="105" length2="1.5" />
+		<line end1="none" end2="none" y1="-5" antialias="false" y2="5" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="100" length1="1.5" x2="100" length2="1.5" />
 		<circle x="92" y="192" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="16" />
 		<circle x="95" y="195" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="10" />
 		<line end1="none" end2="none" y1="200" antialias="false" y2="200" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="95" length1="1.5" x2="105" length2="1.5" />
-		<text x="94.5" y="22.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="5/L3" />
-		<text x="94.5" y="184.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="6/T3" />
-		<rect x="0" y="40" width="110" height="120" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayGainsboro;color:black" rx="0" ry="0" />
-		<rect x="0" y="40" width="110" height="8" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGreenLimeGreen;color:black" rx="0" ry="0" />
-		<rect x="10" y="58" width="90" height="36" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
-		<text x="37.64" y="73.85" rotation="0" color="#000000" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="230 V AC" />
-		<text x="45.1" y="88.3" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" text="LC1D12" />
-		<rect x="30" y="108" width="50" height="40" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayDarkGray;color:black" rx="0" ry="0" />
-		<rect x="40" y="116" width="30" height="24" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
-		<circle x="-25" y="45" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="10" />
-		<circle x="-22" y="48" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="4" />
-		<line end1="none" end2="none" y1="50" antialias="false" y2="50" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-22" length1="1.5" x2="-18" length2="1.5" />
-		<text x="-16" y="52.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="A1" />
-		<circle x="-25" y="175" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="10" />
-		<circle x="-22" y="178" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="4" />
-		<line end1="none" end2="none" y1="180" antialias="false" y2="180" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-22" length1="1.5" x2="-18" length2="1.5" />
-		<text x="-16" y="182.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="A2" />
-		<circle x="125" y="45" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="10" />
-		<circle x="128" y="48" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="4" />
-		<line end1="none" end2="none" y1="50" antialias="false" y2="50" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="128" length1="1.5" x2="132" length2="1.5" />
-		<text x="120.5" y="52.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="13" />
-		<circle x="125" y="175" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="10" />
-		<circle x="128" y="178" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="4" />
-		<line end1="none" end2="none" y1="180" antialias="false" y2="180" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="128" length1="1.5" x2="132" length2="1.5" />
-		<text x="120.5" y="182.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="14" />
-		<circle x="125" y="85" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="10" />
-		<circle x="128" y="88" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="4" />
-		<line end1="none" end2="none" y1="90" antialias="false" y2="90" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="128" length1="1.5" x2="132" length2="1.5" />
-		<text x="120.5" y="92.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="21" />
-		<circle x="125" y="135" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="10" />
-		<circle x="128" y="138" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="4" />
-		<line end1="none" end2="none" y1="140" antialias="false" y2="140" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="128" length1="1.5" x2="132" length2="1.5" />
-		<text x="120.5" y="142.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="22" />
+		<line end1="none" end2="none" y1="195" antialias="false" y2="205" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="100" length1="1.5" x2="100" length2="1.5" />
+		<text x="94.5" y="-19.25" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="5 L3" />
+		<text x="94.5" y="224.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="6 T3" />
+		<circle x="-11" y="39" antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="22" />
+		<circle x="-7" y="43" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="14" />
+		<circle x="-4" y="46" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="8" />
+		<line end1="none" end2="none" y1="50" antialias="false" y2="50" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-4" length1="1.5" x2="4" length2="1.5" />
+		<line end1="none" end2="none" y1="46" antialias="false" y2="54" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<text x="-6.88" y="36.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="13 NO" />
+		<circle x="39" y="39" antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="22" />
+		<circle x="43" y="43" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="14" />
+		<circle x="46" y="46" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="8" />
+		<line end1="none" end2="none" y1="50" antialias="false" y2="50" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="46" length1="1.5" x2="54" length2="1.5" />
+		<line end1="none" end2="none" y1="46" antialias="false" y2="54" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="50" length1="1.5" x2="50" length2="1.5" />
+		<text x="43.12" y="36.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="21 NC" />
+		<circle x="89" y="39" antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="22" />
+		<circle x="93" y="43" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="14" />
+		<circle x="96" y="46" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="8" />
+		<line end1="none" end2="none" y1="50" antialias="false" y2="50" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="96" length1="1.5" x2="104" length2="1.5" />
+		<line end1="none" end2="none" y1="46" antialias="false" y2="54" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="100" length1="1.5" x2="100" length2="1.5" />
+		<text x="97.25" y="36.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="A1" />
+		<circle x="-11" y="149" antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="22" />
+		<circle x="-7" y="153" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="14" />
+		<circle x="-4" y="156" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="8" />
+		<line end1="none" end2="none" y1="160" antialias="false" y2="160" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-4" length1="1.5" x2="4" length2="1.5" />
+		<line end1="none" end2="none" y1="156" antialias="false" y2="164" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<text x="-6.88" y="146.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="14 NO" />
+		<circle x="39" y="149" antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="22" />
+		<circle x="43" y="153" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="14" />
+		<circle x="46" y="156" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="8" />
+		<line end1="none" end2="none" y1="160" antialias="false" y2="160" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="46" length1="1.5" x2="54" length2="1.5" />
+		<line end1="none" end2="none" y1="156" antialias="false" y2="164" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="50" length1="1.5" x2="50" length2="1.5" />
+		<text x="43.12" y="146.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="22 NC" />
+		<circle x="89" y="149" antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="22" />
+		<circle x="93" y="153" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="14" />
+		<circle x="96" y="156" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="8" />
+		<line end1="none" end2="none" y1="160" antialias="false" y2="160" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="96" length1="1.5" x2="104" length2="1.5" />
+		<line end1="none" end2="none" y1="156" antialias="false" y2="164" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="100" length1="1.5" x2="100" length2="1.5" />
+		<text x="97.25" y="146.75" rotation="0" color="#ffffff" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="A2" />
+		<rect x="-8" y="76" width="126" height="56" antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" rx="0" ry="0" />
+		<rect x="-8" y="76" width="126" height="14" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGreenLimeGreen;color:black" rx="0" ry="0" />
+		<text x="43.84" y="86.3" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="LC1D12" />
+		<text x="37.64" y="107.85" rotation="0" color="#ffffff" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Bold" text="230 V AC" />
+		<rect x="6" y="114" width="30" height="12" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDimGray;color:black" rx="0" ry="0" />
+		<rect x="92" y="110" width="22" height="22" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLWhiteWhiteSmoke;color:black" rx="0" ry="0" />
+		<rect x="95" y="113" width="4" height="4" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="103" y="113" width="4" height="4" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="99" y="117" width="4" height="4" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="107" y="117" width="4" height="4" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="95" y="121" width="4" height="4" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="103" y="121" width="4" height="4" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="99" y="125" width="4" height="4" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="107" y="125" width="4" height="4" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
 		<terminal x="0" y="0" name="1/L1" orientation="n" type="Generic" uuid="{9907b3c1-aeb8-5a3f-ac5c-9e68aa0cddab}" />
 		<terminal x="0" y="200" name="2/T1" orientation="s" type="Generic" uuid="{f78b6f35-530f-5af6-99e6-e7f21b031f0f}" />
 		<terminal x="50" y="0" name="3/L2" orientation="n" type="Generic" uuid="{6c71c967-b1dc-5ed3-946f-d3db7ac3f931}" />
 		<terminal x="50" y="200" name="4/T2" orientation="s" type="Generic" uuid="{1dc8c60b-93dd-5fdb-a24d-1110d460dc3c}" />
 		<terminal x="100" y="0" name="5/L3" orientation="n" type="Generic" uuid="{79bdefa0-afe3-5ec2-9cf9-50837c90fd44}" />
 		<terminal x="100" y="200" name="6/T3" orientation="s" type="Generic" uuid="{ad7d4659-7765-5292-b491-bf90a803613c}" />
-		<terminal x="-20" y="50" name="A1" orientation="w" type="Generic" uuid="{eb1253df-9fa3-538d-add9-7cde7d032d55}" />
-		<terminal x="-20" y="180" name="A2" orientation="w" type="Generic" uuid="{a2d10e2f-11b4-5925-a1a5-3c1b8eb5c6b5}" />
-		<terminal x="130" y="50" name="13" orientation="e" type="Generic" uuid="{0a7c2c19-79e6-5fd7-903e-6d26aa122888}" />
-		<terminal x="130" y="180" name="14" orientation="e" type="Generic" uuid="{61715a63-e73a-51a0-9e37-dde2c208dce6}" />
-		<terminal x="130" y="90" name="21" orientation="e" type="Generic" uuid="{e849d093-358f-533b-a7c1-55b2189f9be2}" />
-		<terminal x="130" y="140" name="22" orientation="e" type="Generic" uuid="{798e3c62-c4fe-572b-acb7-9f0675ade89b}" />
+		<terminal x="0" y="50" name="13" orientation="n" type="Generic" uuid="{0a7c2c19-79e6-5fd7-903e-6d26aa122888}" />
+		<terminal x="50" y="50" name="21" orientation="n" type="Generic" uuid="{e849d093-358f-533b-a7c1-55b2189f9be2}" />
+		<terminal x="100" y="50" name="A1" orientation="n" type="Generic" uuid="{eb1253df-9fa3-538d-add9-7cde7d032d55}" />
+		<terminal x="0" y="160" name="14" orientation="s" type="Generic" uuid="{61715a63-e73a-51a0-9e37-dde2c208dce6}" />
+		<terminal x="50" y="160" name="22" orientation="s" type="Generic" uuid="{798e3c62-c4fe-572b-acb7-9f0675ade89b}" />
+		<terminal x="100" y="160" name="A2" orientation="s" type="Generic" uuid="{a2d10e2f-11b4-5925-a1a5-3c1b8eb5c6b5}" />
 		<dynamic_text x="-15" y="233" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{b36492ff-b0fe-536d-9dc1-7893c5aee5db}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>

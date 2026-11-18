@@ -227,7 +227,7 @@ class TstSchneiderElements : public QObject
 		}
 
 			// terminals carry the standardised numbers, on the symbol and on
-			// the front view alike
+			// the front view alike; so do the release and contact modules
 		void contactorAndBlockTerminalsAreNumbered()
 		{
 			struct Case { const char *stem; QStringList names; };
@@ -236,7 +236,11 @@ class TstSchneiderElements : public QObject
 				 {"1/L1", "2/T1", "3/L2", "4/T2", "5/L3", "6/T3", "A1", "A2",
 				  "13", "14", "21", "22"}},
 				{"ladn22/ladn22",
-				 {"53", "54", "61", "62", "71", "72", "83", "84"}}};
+				 {"53", "54", "61", "62", "71", "72", "83", "84"}},
+				{"imn_a9a26960/imn_a9a26960", {"D1", "D2"}},
+				{"mx_220_240vac/mx_220_240vac", {"C1", "C2"}},
+				{"imxof_a9a26946/imxof_a9a26946",
+				 {"C1", "C2", "11", "12", "14"}}};
 			for (const Case &c : cases) {
 				for (const char *suffix : {".elmt", "_realistic.elmt"}) {
 					QString found;
