@@ -394,7 +394,12 @@ class TCoupler(Product):
         connector(c, 33, 0, True, 5)
         connector(c, 167, -30, False, 5)
         connector(c, 167, 30, False, 5)
-        c.rect(58, -57, 84, 115, "white")
+        # T shaped housing: the stem of the male base (holds the pin lines
+        # and the LEDs) joins the bar that carries the two sockets
+        c.poly([(58, -30), (100, -30), (100, -57), (142, -57), (142, 58),
+                (100, 58), (100, 30), (58, 30)], True, "white", BLACK,
+               "normal")
+        c.rect(55, -14, 4, 28, "lightgray")
         # the lines of the base pins, from top to bottom 4, 1, 2, 5, 3
         lines = ((4, -24, "black"), (1, -16, "brun"), (2, -8, "black"),
                  (5, 0, "gray"), (3, 24, "blue"))

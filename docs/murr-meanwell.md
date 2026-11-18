@@ -195,7 +195,10 @@ Assumed, to check against the datasheets:
   LEDs with a resistor, cathodes on pin 3: GN between pins 1 and 3, WH between
   pins 2 and 3, YE between pins 4 and 3. Dimensions 32 x 45 mm, M12x1, socket
   spacing 16.4 mm, from the user's dimensioned drawing (recorded in the
-  description, not to scale in the symbol). The exact order reference
+  description, not to scale in the symbol). The internal diagram is drawn
+  inside a T-shaped housing silhouette (stem with the pin lines and LEDs,
+  bar with the buses and socket labels; stylised, not the exact housing
+  proportions). The exact order reference
   (kept `7000-41135-0000000` from the original list) is **to be confirmed**
   on murrelektronik.com. There is no realistic or layout (32 x 45 mm)
   appearance for the coupler: the M12 library is single-appearance;
