@@ -45,22 +45,40 @@ def snap_delta(v):
 
 
 class Axis:
-    def __init__(self, coords, factor):
+    # "fixed" maps source coordinates to destination coordinates kept as is
+    # (the power contacts of the cards must touch from one card to the next,
+    # so they stay at the scaled distance of the datum).  When a terminal row
+    # cannot be put on the grid without crossing a fixed coordinate, the
+    # fixed ones are dropped (self.relaxed).
+    def __init__(self, coords, factor, stages=()):
         self.s = factor
+        self.relaxed = False
+        for fixed in list(stages) + [{}]:
+            if self._build(coords, factor, dict(fixed)):
+                break
+            self.relaxed = True
+
+    def _build(self, coords, factor, fixed):
         clusters = []
-        for c in sorted(coords):
+        for c in sorted(set(coords) | set(fixed)):
             if clusters and abs(c - clusters[-1][-1]) < 0.75:
                 clusters[-1].append(c)
             else:
                 clusters.append([c])
         self.src = [sum(c) / len(c) for c in clusters]
         self.dst = []
-        for i, t in enumerate(self.src):
-            if i == 0:
+        last = None
+        for c, t in zip(clusters, self.src):
+            if not any(v in coords for v in c) and any(v in fixed for v in c):
+                self.dst.append(fixed[[v for v in c if v in fixed][0]])
+            elif last is None:
                 self.dst.append(snap_pos(factor * t))
+                last = len(self.dst) - 1
             else:
-                d = snap_delta(factor * (t - self.src[i - 1]))
-                self.dst.append(self.dst[-1] + max(10.0, d))
+                d = snap_delta(factor * (t - self.src[last]))
+                self.dst.append(self.dst[last] + max(10.0, d))
+                last = len(self.dst) - 1
+        return all(b > a for a, b in zip(self.dst, self.dst[1:]))
 
     def __call__(self, v):
         if not self.src:
@@ -105,7 +123,7 @@ def is_scalable(text):
     return geo is not None
 
 
-def transform(text, factor, text_factor):
+def transform(text, factor, text_factor, datum=False):
     head, sep, body = text.partition("<description>")
     body, sep2, tail = body.partition("</description>")
     xs, ys = [], []
@@ -115,12 +133,51 @@ def transform(text, factor, text_factor):
             if "x" in a and "y" in a:
                 xs.append(float(a["x"]))
                 ys.append(float(a["y"]))
-    fx, fy = Axis(xs, factor), Axis(ys, factor)
+    contacts = {}
+    for m in TAG_RE.finditer(body):
+        if m.group(1) == "arc":
+            a = parse_attrs(m.group(2))
+            if (a.get("width") == "8" and a.get("start") == "90"
+                    and a.get("angle") == "180"
+                    and re.search(r"color:(red|blue|orange)",
+                                  a.get("style", ""))):
+                y = float(a["y"]) + float(a["height"]) / 2
+                contacts[y] = factor * y
+    # Cards of one family share their datum (insertion point) and the edges
+    # of their housing, so that they still touch when placed side by side.
+    edges = {"x": [], "y": []}
+    if datum:
+        for m in TAG_RE.finditer(body):
+            if m.group(1) in ("line", "rect", "circle", "ellipse", "arc",
+                              "polygon"):
+                a = parse_attrs(m.group(2))
+                for ax, k1 in (("x", "width"), ("y", "height")):
+                    if m.group(1) == "line":
+                        edges[ax] += [float(a[ax + "1"]), float(a[ax + "2"])]
+                    elif m.group(1) == "polygon":
+                        i = 1
+                        while ("%s%d" % (ax, i)) in a:
+                            edges[ax].append(float(a["%s%d" % (ax, i)]))
+                            i += 1
+                    else:
+                        size = float(a["diameter" if m.group(1) == "circle"
+                                       else k1])
+                        edges[ax] += [float(a[ax]), float(a[ax]) + size]
+    bbox = {}
+    for ax in ("x", "y"):
+        if edges[ax]:
+            bbox[ax] = {v: factor * v for v in (min(edges[ax]),
+                                                max(edges[ax]))}
+    fx = Axis(xs, factor, [bbox["x"]] if "x" in bbox else [])
+    full = dict(bbox.get("y", {}))
+    full.update(contacts)
+    fy = Axis(ys, factor, [s for s in (full, bbox.get("y", {})) if s])
+    keep_datum = datum
     dm = re.search(r"<definition\b[^>]*>", head)
     d = parse_attrs(dm.group(0))
     w, h = float(d["width"]), float(d["height"])
     hx, hy = float(d["hotspot_x"]), float(d["hotspot_y"])
-    if xs:
+    if xs and not keep_datum:
         # The insertion point moves onto the terminal nearest to the centre
         # of the terminals: the views of one product (same terminals, other
         # frame) keep the same insertion point.
@@ -257,7 +314,8 @@ def main():
         if not is_scalable(norm):
             n_skipped += 1
             continue
-        out = transform(norm, args.factor, args.text_factor)
+        out = transform(norm, args.factor, args.text_factor,
+                        '/beckhoff/' in '/' + rel and '/drives_' not in rel)
         n_scaled += 1
         if not args.dry_run:
             open(path, "wb").write(out.encode("utf-8"))
