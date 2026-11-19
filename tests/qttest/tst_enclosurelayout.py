@@ -792,7 +792,13 @@ class ExampleTest(unittest.TestCase):
         for line in errors:
             self.assertIn("ERROR DEMO", line)
         self.assertIn("CP3: the devices take 81%", out)
-        self.assertIn("2 error(s), 1 warning(s), 0 note(s)", out)
+        # the fixing positions of the rail snapping are assumed in this
+        # example: one warning per footprint and folio, besides the CP3 one
+        assumed = [line for line in out.splitlines()
+                   if "fixing position on the rail is assumed" in line]
+        self.assertGreater(len(assumed), 0)
+        self.assertIn("2 error(s), %d warning(s), 0 note(s)"
+                      % (1 + len(assumed)), out)
 
     def test_report_lists_the_material_of_each_cabinet(self):
         code, out = self.run_cli("report", str(self.project))
