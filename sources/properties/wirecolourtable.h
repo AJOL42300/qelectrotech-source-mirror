@@ -29,11 +29,11 @@ class ConductorProperties;
 class Diagram;
 
 /**
-	@brief The WireProfile struct
+	@brief The WireColourEntry struct
 	One line of the wire colour meaning table: a function (+24 V, PE...)
 	and how a wire that carries it is drawn and labelled.
 */
-struct WireProfile
+struct WireColourEntry
 {
 		/// The function, shown in the lists and the legend
 	QString name;
@@ -49,38 +49,38 @@ struct WireProfile
 	QString label;
 
 	bool isTwoColour() const {return color_2.isValid();}
-	bool operator==(const WireProfile &other) const;
-	bool operator!=(const WireProfile &other) const {return !(*this == other);}
+	bool operator==(const WireColourEntry &other) const;
+	bool operator!=(const WireColourEntry &other) const {return !(*this == other);}
 };
 
 /**
-	@brief The WireProfiles class
+	@brief The WireColourTable class
 	The wire colour meaning table of a project. A project saved without
 	one has the default table.
 */
-class WireProfiles
+class WireColourTable
 {
 	public:
-		const QList<WireProfile> &profiles() const {return m_profiles;}
-		void setProfiles(const QList<WireProfile> &profiles) {m_profiles = profiles;}
-		bool find(const QString &name, WireProfile *found = nullptr) const;
+		const QList<WireColourEntry> &profiles() const {return m_profiles;}
+		void setProfiles(const QList<WireColourEntry> &profiles) {m_profiles = profiles;}
+		bool find(const QString &name, WireColourEntry *found = nullptr) const;
 
-		static QList<WireProfile> defaultProfiles();
+		static QList<WireColourEntry> defaultProfiles();
 
 		QDomElement toXml(QDomDocument &document) const;
-		static WireProfiles fromXml(const QDomElement &element);
+		static WireColourTable fromXml(const QDomElement &element);
 		QString legendHtml() const;
 		static void addLegend(Diagram *diagram, const QPointF &position);
 
 		bool isDefault() const;
-		bool operator==(const WireProfiles &other) const {return m_profiles == other.m_profiles;}
-		bool operator!=(const WireProfiles &other) const {return !(*this == other);}
+		bool operator==(const WireColourTable &other) const {return m_profiles == other.m_profiles;}
+		bool operator!=(const WireColourTable &other) const {return !(*this == other);}
 
-		static void apply(const WireProfile &profile, ConductorProperties &properties);
-		static bool applyToSelection(Diagram *diagram, const WireProfile &profile);
+		static void apply(const WireColourEntry &profile, ConductorProperties &properties);
+		static bool applyToSelection(Diagram *diagram, const WireColourEntry &profile);
 
 	private:
-		QList<WireProfile> m_profiles = defaultProfiles();
+		QList<WireColourEntry> m_profiles = defaultProfiles();
 };
 
 #endif // WIREPROFILES_H

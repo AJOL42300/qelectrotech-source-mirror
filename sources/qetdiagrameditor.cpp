@@ -98,8 +98,8 @@
 #include "cablelist/cableexportdialog.h"
 #include "ui/bomexportdialog.h"
 #include "ui/conductorcolortoolbutton.h"
-#include "ui/wireprofilecombobox.h"
-#include "properties/wireprofiles.h"
+#include "ui/wirecolourentrycombobox.h"
+#include "properties/wirecolourtable.h"
 #include "ui/diagrambgcolorbutton.h"
 #include "ui/duplicatelabelsdialog.h"
 #include "ui/devicetypecheckdialog.h"
@@ -1386,11 +1386,11 @@ void QETDiagramEditor::setUpActions()
 
 		//The legend of the wire colour meaning table, as a text on the sheet
 	m_add_wire_legend = new QAction(QET::Icons::TableOfContent, tr("Add a wire colour legend"), this);
-	m_add_wire_legend->setStatusTip(tr("Adds a text with the colour, section and function of the wire profiles of the project",
+	m_add_wire_legend->setStatusTip(tr("Adds a text with the colour, section and function of the wire colour entries of the project",
 									   "status bar tip"));
 	connect(m_add_wire_legend, &QAction::triggered, this, [this]() {
 		if (DiagramView *dv = this->currentDiagramView()) {
-			WireProfiles::addLegend(dv->diagram(),
+			WireColourTable::addLegend(dv->diagram(),
 									dv->mapToScene(dv->viewport()->rect().center()));
 		}
 	});
@@ -2159,8 +2159,8 @@ void QETDiagramEditor::setUpToolBar()
 	add_widget(QStringLiteral("widget:conductor_color"), m_conductor_color_button);
 		//The functions of the project's wire colour table: colour, section
 		//and label of the selected conductors in one choice.
-	m_wire_profile_box = new WireProfileComboBox(this, this);
-	add_widget(QStringLiteral("widget:wire_profile"), m_wire_profile_box);
+	m_wire_colour_box = new WireColourEntryComboBox(this, this);
+	add_widget(QStringLiteral("widget:wire_colour"), m_wire_colour_box);
 
 	addToolBar(Qt::TopToolBarArea, main_tool_bar);
 	addToolBar(Qt::TopToolBarArea, view_tool_bar);
@@ -4415,8 +4415,8 @@ void QETDiagramEditor::slot_updateModeActions()
 	if (m_conductor_color_button) {
 		m_conductor_color_button->updateEnabledState();
 	}
-	if (m_wire_profile_box) {
-		m_wire_profile_box->updateEnabledState();
+	if (m_wire_colour_box) {
+		m_wire_colour_box->updateEnabledState();
 	}
 }
 

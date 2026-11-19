@@ -29,7 +29,7 @@
 #include "dataBase/qetdbfile.h"
 #include "properties/projectlanguages.h"
 #include "properties/potentialtypes.h"
-#include "properties/wireprofiles.h"
+#include "properties/wirecolourtable.h"
 #include "properties/reportproperties.h"
 #include "properties/xrefproperties.h"
 #include "titleblock/templatescollection.h"
@@ -351,8 +351,8 @@ class QETProject : public QObject
 		void setLanguages(const ProjectLanguages &languages);
 		const PotentialTypes &potentialTypes() const {return m_potential_types;}
 		void setPotentialTypes(const PotentialTypes &potential_types);
-		const WireProfiles &wireProfiles() const {return m_wire_profiles;}
-		void setWireProfiles(const WireProfiles &wire_profiles);
+		const WireColourTable &wireColourTable() const {return m_wire_colour_table;}
+		void setWireColourTable(const WireColourTable &wire_colours);
 			/// The type @p wire takes from the source terminals of its
 			/// potential, in the mode that draws from them; empty otherwise
 		QString derivedPotentialType(const QUuid &wire);
@@ -461,7 +461,7 @@ class QETProject : public QObject
 
 	signals:
 		void projectFilePathChanged(QETProject *, const QString &);
-		void wireProfilesChanged(QETProject *);
+		void wireColourTableChanged(QETProject *);
 		void projectTitleChanged(QETProject *, const QString &);
 		void projectInformationsChanged(QETProject *);
 		void diagramAdded(QETProject *, Diagram *);
@@ -544,7 +544,7 @@ class QETProject : public QObject
 		void readDeviceTypeRulesXml(QDomDocument &xml_project);
 		void readLanguagesXml(QDomDocument &xml_project);
 		void readPotentialTypesXml(QDomDocument &xml_project);
-		void readWireProfilesXml(QDomDocument &xml_project);
+		void readWireColourTableXml(QDomDocument &xml_project);
 		void readChainedReportsXml(QDomDocument &xml_project);
 		void readConductorPlantCountersXml(QDomDocument &xml_project);
 		void readDeviceTypesXml(QDomDocument &xml_project);
@@ -567,7 +567,7 @@ class QETProject : public QObject
 		void writeDeviceTypeRulesXml(QDomElement &);
 		void writeLanguagesXml(QDomElement &);
 		void writePotentialTypesXml(QDomElement &);
-		void writeWireProfilesXml(QDomElement &);
+		void writeWireColourTableXml(QDomElement &);
 		void writeChainedReportsXml(QDomElement &);
 		void writeConductorPlantCountersXml(QDomElement &);
 		void writeDeviceTypesXml(QDomElement &);
@@ -702,7 +702,7 @@ class QETProject : public QObject
 		ProjectLanguages m_languages;
 			/// The potential types and whether conductors are drawn from them
 		PotentialTypes m_potential_types;
-		WireProfiles m_wire_profiles;
+		WireColourTable m_wire_colour_table;
 			/// The types wires take from the sources, see derivedPotentialType()
 		QHash<QUuid, QString> m_derived_potential_types;
 		bool m_derived_potential_types_due = false;

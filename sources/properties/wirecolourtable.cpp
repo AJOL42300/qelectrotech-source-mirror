@@ -16,7 +16,7 @@
 	You should have received a copy of the GNU General Public License
 	along with QElectroTech.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "wireprofiles.h"
+#include "wirecolourtable.h"
 
 #include "../QPropertyUndoCommand/qpropertyundocommand.h"
 #include "../conductorproperties.h"
@@ -39,11 +39,11 @@ namespace {
 
 	QString tr(const char *text)
 	{
-		return QCoreApplication::translate("WireProfiles", text);
+		return QCoreApplication::translate("WireColourTable", text);
 	}
 }
 
-bool WireProfile::operator==(const WireProfile &other) const
+bool WireColourEntry::operator==(const WireColourEntry &other) const
 {
 	return name == other.name
 			&& wire_color == other.wire_color
@@ -54,13 +54,13 @@ bool WireProfile::operator==(const WireProfile &other) const
 }
 
 /**
-	@brief WireProfiles::defaultProfiles
+	@brief WireColourTable::defaultProfiles
 	@return the table a project starts with. The colours are the ones of
 	the reference schematic of the team; where it gives no function the
 	line follows IEC 60204-1 (13.2.4) or is a plain colour that can be
-	given a meaning. See docs/wire-color-profiles.md.
+	given a meaning. See docs/wire-colour-table.md.
 */
-QList<WireProfile> WireProfiles::defaultProfiles()
+QList<WireColourEntry> WireColourTable::defaultProfiles()
 {
 	const QColor none;
 	const QColor black(0x00, 0x00, 0x00);
@@ -82,30 +82,30 @@ QList<WireProfile> WireProfiles::defaultProfiles()
 	const QString mm2_1 = QStringLiteral("1");
 
 	return {
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "+24 V DC")), QStringLiteral("RD"), red, none, mm2_075, QStringLiteral("+24V")},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "0 V DC")), QStringLiteral("BU"), blue, none, mm2_075, QStringLiteral("0V")},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "Protective earth (PE)")), QStringLiteral("GNYE"), green, yellow, QString(), QStringLiteral("PE")},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "Power circuit L1")), QStringLiteral("BK"), black, none, QString(), QStringLiteral("L1")},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "Power circuit L2")), QStringLiteral("BN"), brown, none, QString(), QStringLiteral("L2")},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "Power circuit L3")), QStringLiteral("GY"), grey, none, QString(), QStringLiteral("L3")},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "Neutral (N)")), QStringLiteral("BU"), light_blue, none, QString(), QStringLiteral("N")},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "AC control circuit")), QStringLiteral("RD"), red, none, mm2_1, QString()},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "Circuit from an external source")), QStringLiteral("OG"), orange, none, QString(), QString()},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "Analogue signal")), QStringLiteral("VT"), violet, none, QString(), QString()},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "Bus (EtherCAT)")), QStringLiteral("YE"), yellow, none, QString(), QString()},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "White wire")), QStringLiteral("WH"), white, none, QString(), QString()},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "Pink wire")), QStringLiteral("PK"), pink, none, QString(), QString()},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "Yellow wire")), QStringLiteral("YE"), yellow, none, QString(), QString()},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "Green wire")), QStringLiteral("GN"), green, none, QString(), QString()},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "Light grey wire")), QStringLiteral("GY"), light_grey, none, QString(), QString()},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "White-grey wire")), QStringLiteral("WHGY"), pure_white, grey, QString(), QString()},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "White-green wire")), QStringLiteral("WHGN"), pure_white, green, QString(), QString()},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "White-yellow wire")), QStringLiteral("WHYE"), pure_white, QColor(0xde, 0xde, 0x00), QString(), QString()},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "Brown-grey wire")), QStringLiteral("BNGY"), brown, light_grey, QString(), QString()},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "Brown-green wire")), QStringLiteral("BNGN"), brown, green, QString(), QString()},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "Yellow-brown wire")), QStringLiteral("YEBN"), yellow, brown, QString(), QString()},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "Yellow-red wire")), QStringLiteral("YERD"), yellow, red, QString(), QString()},
-		{tr(QT_TRANSLATE_NOOP("WireProfiles", "Black-red wire")), QStringLiteral("BKRD"), black, red, QString(), QString()}
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "+24 V DC")), QStringLiteral("RD"), red, none, mm2_075, QStringLiteral("+24V")},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "0 V DC")), QStringLiteral("BU"), blue, none, mm2_075, QStringLiteral("0V")},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "Protective earth (PE)")), QStringLiteral("GNYE"), green, yellow, QString(), QStringLiteral("PE")},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "Power circuit L1")), QStringLiteral("BK"), black, none, QString(), QStringLiteral("L1")},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "Power circuit L2")), QStringLiteral("BN"), brown, none, QString(), QStringLiteral("L2")},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "Power circuit L3")), QStringLiteral("GY"), grey, none, QString(), QStringLiteral("L3")},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "Neutral (N)")), QStringLiteral("BU"), light_blue, none, QString(), QStringLiteral("N")},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "AC control circuit")), QStringLiteral("RD"), red, none, mm2_1, QString()},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "Circuit from an external source")), QStringLiteral("OG"), orange, none, QString(), QString()},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "Analogue signal")), QStringLiteral("VT"), violet, none, QString(), QString()},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "Bus (EtherCAT)")), QStringLiteral("YE"), yellow, none, QString(), QString()},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "White wire")), QStringLiteral("WH"), white, none, QString(), QString()},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "Pink wire")), QStringLiteral("PK"), pink, none, QString(), QString()},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "Yellow wire")), QStringLiteral("YE"), yellow, none, QString(), QString()},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "Green wire")), QStringLiteral("GN"), green, none, QString(), QString()},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "Light grey wire")), QStringLiteral("GY"), light_grey, none, QString(), QString()},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "White-grey wire")), QStringLiteral("WHGY"), pure_white, grey, QString(), QString()},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "White-green wire")), QStringLiteral("WHGN"), pure_white, green, QString(), QString()},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "White-yellow wire")), QStringLiteral("WHYE"), pure_white, QColor(0xde, 0xde, 0x00), QString(), QString()},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "Brown-grey wire")), QStringLiteral("BNGY"), brown, light_grey, QString(), QString()},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "Brown-green wire")), QStringLiteral("BNGN"), brown, green, QString(), QString()},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "Yellow-brown wire")), QStringLiteral("YEBN"), yellow, brown, QString(), QString()},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "Yellow-red wire")), QStringLiteral("YERD"), yellow, red, QString(), QString()},
+		{tr(QT_TRANSLATE_NOOP("WireColourTable", "Black-red wire")), QStringLiteral("BKRD"), black, red, QString(), QString()}
 	};
 }
 
@@ -114,11 +114,11 @@ QList<WireProfile> WireProfiles::defaultProfiles()
 	@param found : if not null, the line is copied there when found
 	@return true if the table has a line of that name
 */
-bool WireProfiles::find(const QString &name, WireProfile *found) const
+bool WireColourTable::find(const QString &name, WireColourEntry *found) const
 {
 	if (name.isEmpty())
 		return false;
-	for (const WireProfile &profile : m_profiles) {
+	for (const WireColourEntry &profile : m_profiles) {
 		if (profile.name == name) {
 			if (found)
 				*found = profile;
@@ -132,15 +132,15 @@ bool WireProfiles::find(const QString &name, WireProfile *found) const
 	@return true when the table is the default one, so there is nothing
 	to write and an old QET reads the file as it always did
 */
-bool WireProfiles::isDefault() const
+bool WireColourTable::isDefault() const
 {
 	return m_profiles == defaultProfiles();
 }
 
-QDomElement WireProfiles::toXml(QDomDocument &document) const
+QDomElement WireColourTable::toXml(QDomDocument &document) const
 {
-	QDomElement root = document.createElement(QStringLiteral("wireprofiles"));
-	for (const WireProfile &profile : m_profiles) {
+	QDomElement root = document.createElement(QStringLiteral("wirecolourtable"));
+	for (const WireColourEntry &profile : m_profiles) {
 		QDomElement elmt = document.createElement(QStringLiteral("wireprofile"));
 		elmt.setAttribute(QStringLiteral("name"), profile.name);
 		elmt.setAttribute(QStringLiteral("wirecolor"), profile.wire_color);
@@ -155,13 +155,13 @@ QDomElement WireProfiles::toXml(QDomDocument &document) const
 }
 
 /**
-	@param element : the <wireprofiles> element, may be null
+	@param element : the <wirecolourtable> element, may be null
 	@return the table it holds. A null element is a project saved before
 	the table existed: it gets the default one.
 */
-WireProfiles WireProfiles::fromXml(const QDomElement &element)
+WireColourTable WireColourTable::fromXml(const QDomElement &element)
 {
-	WireProfiles result;
+	WireColourTable result;
 	if (element.isNull())
 		return result;
 
@@ -170,7 +170,7 @@ WireProfiles WireProfiles::fromXml(const QDomElement &element)
 		 !elmt.isNull();
 		 elmt = elmt.nextSiblingElement(QStringLiteral("wireprofile")))
 	{
-		WireProfile profile;
+		WireColourEntry profile;
 		profile.name = elmt.attribute(QStringLiteral("name"));
 		if (profile.name.isEmpty() || result.find(profile.name))
 			continue;
@@ -188,12 +188,12 @@ WireProfiles WireProfiles::fromXml(const QDomElement &element)
 }
 
 /**
-	@brief WireProfiles::apply
+	@brief WireColourTable::apply
 	Give @p properties the profile: the stroke colour (striped for two
 	colours), the function, the label and, unless the conductor is a core
 	of a cable which gives it its own, the colour code and the section.
 */
-void WireProfiles::apply(const WireProfile &profile, ConductorProperties &properties)
+void WireColourTable::apply(const WireColourEntry &profile, ConductorProperties &properties)
 {
 	properties.color = profile.color;
 	properties.m_bicolor = profile.isTwoColour();
@@ -215,11 +215,11 @@ void WireProfiles::apply(const WireProfile &profile, ConductorProperties &proper
 }
 
 /**
-	@brief WireProfiles::legendHtml
+	@brief WireColourTable::legendHtml
 	@return the table of the colour meaning as rich text: colour, section
 	and function of every line of the table
 */
-QString WireProfiles::legendHtml() const
+QString WireColourTable::legendHtml() const
 {
 	auto cell = [](const QColor &color) {
 		return QStringLiteral("<span style=\"background-color:%1\">&nbsp;&nbsp;&nbsp;&nbsp;</span>")
@@ -228,17 +228,17 @@ QString WireProfiles::legendHtml() const
 	QString html = QStringLiteral("<p><b>%1</b></p>"
 								  "<table border=\"1\" cellspacing=\"0\" cellpadding=\"3\">"
 								  "<tr><th>%2</th><th>%3</th><th>%4</th></tr>")
-			.arg(QCoreApplication::translate("WireProfiles", "Wire colour meaning").toHtmlEscaped(),
-				 QCoreApplication::translate("WireProfiles", "Colour").toHtmlEscaped(),
-				 QCoreApplication::translate("WireProfiles", "Section").toHtmlEscaped(),
-				 QCoreApplication::translate("WireProfiles", "Function").toHtmlEscaped());
-	for (const WireProfile &profile : m_profiles) {
+			.arg(QCoreApplication::translate("WireColourTable", "Wire colour meaning").toHtmlEscaped(),
+				 QCoreApplication::translate("WireColourTable", "Colour").toHtmlEscaped(),
+				 QCoreApplication::translate("WireColourTable", "Section").toHtmlEscaped(),
+				 QCoreApplication::translate("WireColourTable", "Function").toHtmlEscaped());
+	for (const WireColourEntry &profile : m_profiles) {
 		QString swatch = cell(profile.color);
 		if (profile.isTwoColour())
 			swatch += cell(profile.color_2);
 		const QString section = profile.section.isEmpty()
 				? QString()
-				: QCoreApplication::translate("WireProfiles", "%1 mm²").arg(profile.section);
+				: QCoreApplication::translate("WireColourTable", "%1 mm²").arg(profile.section);
 		html += QStringLiteral("<tr><td>%1 %2</td><td>%3</td><td>%4</td></tr>")
 				.arg(swatch, profile.wire_color.toHtmlEscaped(), section.toHtmlEscaped(),
 					 profile.name.toHtmlEscaped());
@@ -247,28 +247,28 @@ QString WireProfiles::legendHtml() const
 }
 
 /**
-	@brief WireProfiles::addLegend
+	@brief WireColourTable::addLegend
 	Put the legend of the table of the project on @p diagram, as an
 	independent text, as one undo step. It is a copy of the table at that
 	moment: it is not updated when the table changes.
 	@param position : where to put its top left corner
 */
-void WireProfiles::addLegend(Diagram *diagram, const QPointF &position)
+void WireColourTable::addLegend(Diagram *diagram, const QPointF &position)
 {
 	if (!diagram || diagram->isReadOnly() || !diagram->project())
 		return;
 	IndependentTextItem *text = new IndependentTextItem();
-	text->setHtml(diagram->project()->wireProfiles().legendHtml());
+	text->setHtml(diagram->project()->wireColourTable().legendHtml());
 	diagram->undoStack().push(new AddGraphicsObjectCommand(text, diagram, position));
 }
 
 /**
-	@brief WireProfiles::applyToSelection
+	@brief WireColourTable::applyToSelection
 	Apply @p profile to the selected conductors of @p diagram, and to the
 	conductors on the same potential, as one undo step.
 	@return true if at least one conductor changed
 */
-bool WireProfiles::applyToSelection(Diagram *diagram, const WireProfile &profile)
+bool WireColourTable::applyToSelection(Diagram *diagram, const WireColourEntry &profile)
 {
 	if (!diagram || diagram->isReadOnly())
 		return false;
@@ -283,8 +283,8 @@ bool WireProfiles::applyToSelection(Diagram *diagram, const WireProfile &profile
 		return false;
 
 	QUndoCommand *undo = new QUndoCommand(
-				QCoreApplication::translate("WireProfiles",
-											"Apply the wire profile \"%1\" to %n conductors",
+				QCoreApplication::translate("WireColourTable",
+											"Apply the wire colour entry \"%1\" to %n conductors",
 											"undo caption", conductors.count()).arg(profile.name));
 	int changed = 0;
 	for (Conductor *conductor : conductors) {

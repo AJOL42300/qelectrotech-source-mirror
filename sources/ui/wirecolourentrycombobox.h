@@ -21,26 +21,26 @@
 
 #include <QComboBox>
 
-#include <properties/wireprofiles.h>
+#include <properties/wirecolourtable.h>
 
 class QETDiagramEditor;
 class QETProject;
 
 /**
-	@brief The WireProfileComboBox class
-	The drop-down list of the toolbar giving the wire profiles of the
-	project (see WireProfiles). Choosing one applies it to the selected
+	@brief The WireColourEntryComboBox class
+	The drop-down list of the toolbar giving the wire colour entries of the
+	project (see WireColourTable). Choosing one applies it to the selected
 	conductors as one undo step, and the colour becomes the colour of the
 	next conductor drawn.
 */
-class WireProfileComboBox : public QComboBox
+class WireColourEntryComboBox : public QComboBox
 {
 		Q_OBJECT
 
 	public:
-		explicit WireProfileComboBox(QETDiagramEditor *editor, QWidget *parent = nullptr);
+		explicit WireColourEntryComboBox(QETDiagramEditor *editor, QWidget *parent = nullptr);
 
-		static QIcon swatchIcon(const WireProfile &profile);
+		static QIcon swatchIcon(const WireColourEntry &profile);
 
 	public slots:
 		void updateEnabledState();
@@ -54,7 +54,7 @@ class WireProfileComboBox : public QComboBox
 		void profileChosen(int index);
 
 		QETDiagramEditor *m_editor = nullptr;
-		QList<WireProfile> m_shown;
+		QList<WireColourEntry> m_shown;
 };
 
 #endif // WIREPROFILECOMBOBOX_H

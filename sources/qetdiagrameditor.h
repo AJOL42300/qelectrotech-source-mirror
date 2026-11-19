@@ -41,7 +41,7 @@ class QETProject;
 class QETResult;
 class ProjectView;
 class ConductorColorToolButton;
-class WireProfileComboBox;
+class WireColourEntryComboBox;
 class CustomElement;
 class DiagramBgColorToolButton;
 class Diagram;
@@ -388,7 +388,7 @@ class QETDiagramEditor : public QETMainWindow
 
 		///< One-click conductor colour, in the "Schéma" toolbar
 		ConductorColorToolButton *m_conductor_color_button = nullptr;
-	WireProfileComboBox *m_wire_profile_box = nullptr;
+	WireColourEntryComboBox *m_wire_colour_box = nullptr;
 		///< Diagram background color picker, in the "Affichage" toolbar
 		DiagramBgColorToolButton *m_background_color_button = nullptr;
 		QMenu *m_text_grid_menu = nullptr;		///< Snap step used when dragging texts

@@ -16,7 +16,7 @@
 	You should have received a copy of the GNU General Public License
 	along with QElectroTech.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "wireprofilecombobox.h"
+#include "wirecolourentrycombobox.h"
 
 #include <diagram.h>
 #include <diagramview.h>
@@ -28,25 +28,25 @@
 #include <QPainter>
 #include <QPixmap>
 
-WireProfileComboBox::WireProfileComboBox(QETDiagramEditor *editor, QWidget *parent) :
+WireColourEntryComboBox::WireColourEntryComboBox(QETDiagramEditor *editor, QWidget *parent) :
 	QComboBox(parent),
 	m_editor(editor)
 {
-	setToolTip(tr("Wire profile"));
+	setToolTip(tr("Wire colour"));
 	setStatusTip(tr("Gives the selected conductors the colour, section and label of a function of the project's wire colour table",
 					"status bar tip"));
 	setSizeAdjustPolicy(QComboBox::AdjustToContents);
 	setMinimumContentsLength(14);
 	refresh();
 	connect(this, QOverload<int>::of(&QComboBox::activated),
-			this, &WireProfileComboBox::profileChosen);
+			this, &WireColourEntryComboBox::profileChosen);
 }
 
 /**
 	@return a small swatch of the colours of @p profile, split in two for a
 	two-colour wire
 */
-QIcon WireProfileComboBox::swatchIcon(const WireProfile &profile)
+QIcon WireColourEntryComboBox::swatchIcon(const WireColourEntry &profile)
 {
 	QPixmap pix(16, 16);
 	pix.fill(Qt::transparent);
@@ -63,7 +63,7 @@ QIcon WireProfileComboBox::swatchIcon(const WireProfile &profile)
 	return QIcon(pix);
 }
 
-QETProject *WireProfileComboBox::currentProject() const
+QETProject *WireColourEntryComboBox::currentProject() const
 {
 	ProjectView *pv = m_editor ? m_editor->currentProjectView() : nullptr;
 	return pv ? pv->project() : nullptr;
@@ -73,18 +73,18 @@ QETProject *WireProfileComboBox::currentProject() const
 	Fill the list from the table of the current project, when it is not
 	the one shown. The first entry is a title, not a choice.
 */
-void WireProfileComboBox::refresh()
+void WireColourEntryComboBox::refresh()
 {
 	const QETProject *project = currentProject();
-	const QList<WireProfile> profiles = project ? project->wireProfiles().profiles()
-												: WireProfiles::defaultProfiles();
+	const QList<WireColourEntry> profiles = project ? project->wireColourTable().profiles()
+												: WireColourTable::defaultProfiles();
 	if (count() && profiles == m_shown)
 		return;
 
 	m_shown = profiles;
 	clear();
-	addItem(tr("Wire profile…"));
-	for (const WireProfile &profile : std::as_const(m_shown)) {
+	addItem(tr("Wire colour…"));
+	for (const WireColourEntry &profile : std::as_const(m_shown)) {
 		QString text = profile.name;
 		if (!profile.section.isEmpty())
 			text += tr(" (%1 mm²)").arg(profile.section);
@@ -93,13 +93,13 @@ void WireProfileComboBox::refresh()
 	setCurrentIndex(0);
 }
 
-void WireProfileComboBox::showPopup()
+void WireColourEntryComboBox::showPopup()
 {
 	refresh();
 	QComboBox::showPopup();
 }
 
-void WireProfileComboBox::updateEnabledState()
+void WireColourEntryComboBox::updateEnabledState()
 {
 	refresh();
 	ProjectView *pv = m_editor ? m_editor->currentProjectView() : nullptr;
@@ -107,16 +107,16 @@ void WireProfileComboBox::updateEnabledState()
 	setEnabled(dv && dv->diagram() && !dv->diagram()->isReadOnly());
 }
 
-void WireProfileComboBox::profileChosen(int index)
+void WireColourEntryComboBox::profileChosen(int index)
 {
 		//The entry 0 is the title
 	if (index > 0 && index <= m_shown.count()) {
-		const WireProfile profile = m_shown.at(index - 1);
+		const WireColourEntry profile = m_shown.at(index - 1);
 		LastUsedStyle::setConductorColor(profile.color);
 		ProjectView *pv = m_editor ? m_editor->currentProjectView() : nullptr;
 		DiagramView *dv = pv ? pv->currentDiagram() : nullptr;
 		if (dv)
-			WireProfiles::applyToSelection(dv->diagram(), profile);
+			WireColourTable::applyToSelection(dv->diagram(), profile);
 	}
 	setCurrentIndex(0);
 }

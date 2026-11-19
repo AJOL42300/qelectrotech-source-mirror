@@ -16,7 +16,7 @@
 	You should have received a copy of the GNU General Public License
 	along with QElectroTech.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "wireprofileswidget.h"
+#include "wirecolourtablewidget.h"
 
 #include <QColorDialog>
 #include <QHBoxLayout>
@@ -38,12 +38,12 @@ namespace {
 		swatch.fill(color.isValid() ? color : QColor(Qt::transparent));
 		button->setIcon(QIcon(swatch));
 		button->setIconSize(swatch.size());
-		button->setText(color.isValid() ? QString() : WireProfilesWidget::tr("None"));
+		button->setText(color.isValid() ? QString() : WireColourTableWidget::tr("None"));
 		button->setProperty("color", color);
 	}
 }
 
-WireProfilesWidget::WireProfilesWidget(QWidget *parent) :
+WireColourTableWidget::WireColourTableWidget(QWidget *parent) :
 	QWidget(parent)
 {
 	QLabel *help = new QLabel(tr("The functions offered in the toolbar and in the menu of a "
@@ -81,7 +81,7 @@ WireProfilesWidget::WireProfilesWidget(QWidget *parent) :
 	layout->addLayout(buttons);
 
 	connect(add_pb, &QPushButton::clicked, this, [this]() {
-		WireProfile profile;
+		WireColourEntry profile;
 		profile.name = tr("New function");
 		addRow(profile);
 		m_table->setCurrentCell(m_table->rowCount() - 1, NameColumn);
@@ -93,23 +93,23 @@ WireProfilesWidget::WireProfilesWidget(QWidget *parent) :
 			m_table->removeRow(row);
 	});
 	connect(reset_pb, &QPushButton::clicked, this, [this]() {
-		setProfiles(WireProfiles::defaultProfiles());
+		setProfiles(WireColourTable::defaultProfiles());
 	});
 }
 
-void WireProfilesWidget::setWireProfiles(const WireProfiles &profiles)
+void WireColourTableWidget::setWireColourTable(const WireColourTable &profiles)
 {
 	setProfiles(profiles.profiles());
 }
 
-void WireProfilesWidget::setProfiles(const QList<WireProfile> &profiles)
+void WireColourTableWidget::setProfiles(const QList<WireColourEntry> &profiles)
 {
 	m_table->setRowCount(0);
-	for (const WireProfile &profile : profiles)
+	for (const WireColourEntry &profile : profiles)
 		addRow(profile);
 }
 
-void WireProfilesWidget::addRow(const WireProfile &profile)
+void WireColourTableWidget::addRow(const WireColourEntry &profile)
 {
 	const int row = m_table->rowCount();
 	m_table->insertRow(row);
@@ -131,7 +131,7 @@ void WireProfilesWidget::addRow(const WireProfile &profile)
 
 	//For the stripe, a small menu offers to remove it; the dialog keeps
 	//the colour when cancelled.
-void WireProfilesWidget::chooseColor(QWidget *button, bool allow_none)
+void WireColourTableWidget::chooseColor(QWidget *button, bool allow_none)
 {
 	QPushButton *color_pb = static_cast<QPushButton *>(button);
 	const QColor current = color_pb->property("color").value<QColor>();
@@ -158,16 +158,16 @@ void WireProfilesWidget::chooseColor(QWidget *button, bool allow_none)
 	so is a second row of a function already listed: a conductor keeps the
 	name of its function, so two of the same name could not be told apart.
 */
-WireProfiles WireProfilesWidget::wireProfiles() const
+WireColourTable WireColourTableWidget::wireColourTable() const
 {
-	QList<WireProfile> profiles;
+	QList<WireColourEntry> profiles;
 	for (int row = 0; row < m_table->rowCount(); ++row) {
-		WireProfile profile;
+		WireColourEntry profile;
 		profile.name = m_table->item(row, NameColumn)->text().trimmed();
 		if (profile.name.isEmpty())
 			continue;
 		bool duplicate = false;
-		for (const WireProfile &other : profiles)
+		for (const WireColourEntry &other : profiles)
 			duplicate = duplicate || other.name == profile.name;
 		if (duplicate)
 			continue;
@@ -178,7 +178,7 @@ WireProfiles WireProfilesWidget::wireProfiles() const
 		profile.label = m_table->item(row, LabelColumn)->text().trimmed();
 		profiles << profile;
 	}
-	WireProfiles result;
+	WireColourTable result;
 	result.setProfiles(profiles);
 	return result;
 }

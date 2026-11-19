@@ -2965,7 +2965,7 @@ QDomDocument QETProject::toXml(QHash<int, QByteArray> *kept_folios, QStringList 
 	writeDeviceTypeRulesXml(project_root);
 	writeLanguagesXml(project_root);
 	writePotentialTypesXml(project_root);
-	writeWireProfilesXml(project_root);
+	writeWireColourTableXml(project_root);
 	writeTerminalLabelSplitXml(project_root);
 	writeWiringRulesXml(project_root);
 	writeChainedReportsXml(project_root);
@@ -4196,7 +4196,7 @@ void QETProject::readProjectXml(QDomDocument &xml_project)
 	readDeviceTypeRulesXml(xml_project);
 	readLanguagesXml(xml_project);
 	readPotentialTypesXml(xml_project);
-	readWireProfilesXml(xml_project);
+	readWireColourTableXml(xml_project);
 	readTerminalLabelSplitXml(xml_project);
 	readWiringRulesXml(xml_project);
 	readChainedReportsXml(xml_project);
@@ -5393,46 +5393,46 @@ void QETProject::setPotentialTypes(const PotentialTypes &potential_types)
 }
 
 /**
-	@brief QETProject::readWireProfilesXml
-	Read the <wireprofiles> element of the project, if any. A project
+	@brief QETProject::readWireColourTableXml
+	Read the <wirecolourtable> element of the project, if any. A project
 	without it has the default wire colour meaning table.
 	@param xml_project : the xml description of the project
 */
-void QETProject::readWireProfilesXml(QDomDocument &xml_project)
+void QETProject::readWireColourTableXml(QDomDocument &xml_project)
 {
-	m_wire_profiles = WireProfiles::fromXml(xml_project.documentElement()
-			.firstChildElement(QStringLiteral("wireprofiles")));
+	m_wire_colour_table = WireColourTable::fromXml(xml_project.documentElement()
+			.firstChildElement(QStringLiteral("wirecolourtable")));
 }
 
 /**
-	@brief QETProject::writeWireProfilesXml
-	Write the <wireprofiles> element, only when the table differs from the
+	@brief QETProject::writeWireColourTableXml
+	Write the <wirecolourtable> element, only when the table differs from the
 	default one, so any other project saves exactly as before.
 	@param xml_element : the <project> element
 */
-void QETProject::writeWireProfilesXml(QDomElement &xml_element)
+void QETProject::writeWireColourTableXml(QDomElement &xml_element)
 {
-	if (m_wire_profiles.isDefault()) {
+	if (m_wire_colour_table.isDefault()) {
 		return;
 	}
 	QDomDocument document = xml_element.ownerDocument();
-	xml_element.appendChild(m_wire_profiles.toXml(document));
+	xml_element.appendChild(m_wire_colour_table.toXml(document));
 }
 
 /**
-	@brief QETProject::setWireProfiles
+	@brief QETProject::setWireColourTable
 	Set the wire colour meaning table of the project.
-	@param wire_profiles
+	@param wire_colours
 */
-void QETProject::setWireProfiles(const WireProfiles &wire_profiles)
+void QETProject::setWireColourTable(const WireColourTable &wire_colours)
 {
-	if (wire_profiles == m_wire_profiles) {
+	if (wire_colours == m_wire_colour_table) {
 		return;
 	}
-	m_wire_profiles = wire_profiles;
+	m_wire_colour_table = wire_colours;
 	storeSettings();
 	setModified(true);
-	emit wireProfilesChanged(this);
+	emit wireColourTableChanged(this);
 }
 
 QString QETProject::derivedPotentialType(const QUuid &wire)
@@ -5869,7 +5869,7 @@ void QETProject::storeSettings()
 	writeDeviceTypeRulesXml(root);
 	writeLanguagesXml(root);
 	writePotentialTypesXml(root);
-	writeWireProfilesXml(root);
+	writeWireColourTableXml(root);
 	writeTerminalLabelSplitXml(root);
 	writeWiringRulesXml(root);
 	writeChainedReportsXml(root);

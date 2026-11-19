@@ -28,7 +28,7 @@
 #include <ui/borderpropertieswidget.h>
 #include <ui/conductorpropertieswidget.h>
 #include <ui/potentialtypeswidget.h>
-#include <ui/wireprofileswidget.h>
+#include <ui/wirecolourtablewidget.h>
 #include <ui/reportpropertiewidget.h>
 #include <ui/titleblockpropertieswidget.h>
 #include <ui/xrefpropertieswidget.h>
@@ -184,8 +184,8 @@ NewDiagramPage::NewDiagramPage(QETProject *project,
 		xrefpw -> setProperties (m_project -> defaultXRefProperties());
 		m_ptw = new PotentialTypesWidget(this);
 		m_ptw -> setPotentialTypes(m_project -> potentialTypes());
-		m_wpw = new WireProfilesWidget(this);
-		m_wpw -> setWireProfiles(m_project -> wireProfiles());
+		m_wct_widget = new WireColourTableWidget(this);
+		m_wct_widget -> setWireColourTable(m_project -> wireColourTable());
 	}
 
 	connect(ipw, &TitleBlockPropertiesWidget::openAutoNumFolioEditor, this, &NewDiagramPage::changeToAutoFolioTab);
@@ -235,8 +235,8 @@ NewDiagramPage::NewDiagramPage(QETProject *project,
 		tab_widget -> addTab (m_ptw,      tr("Potential types"));
 	}
 		//The wire colour meaning table belongs to a project too
-	if (m_wpw) {
-		tab_widget -> addTab (m_wpw,      tr("Wire profiles"));
+	if (m_wct_widget) {
+		tab_widget -> addTab (m_wct_widget,      tr("Wire colour table"));
 	}
 
 	// add auto-numbering tab only for global settings (not per project)
@@ -326,8 +326,8 @@ void NewDiagramPage::applyConf()
 		if (m_ptw) {
 			m_project -> setPotentialTypes(m_ptw -> potentialTypes());
 		}
-		if (m_wpw) {
-			m_project -> setWireProfiles(m_wpw -> wireProfiles());
+		if (m_wct_widget) {
+			m_project -> setWireColourTable(m_wct_widget -> wireColourTable());
 		}
 
 		if (modified_project) {

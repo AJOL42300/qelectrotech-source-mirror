@@ -1,18 +1,18 @@
-# Wire profiles (wire colour meaning table)
+# Wire colour table (wire colour meaning table)
 
-A **wire profile** gives a function (for example "+24 V DC") a drawing
+A **wire colour entry** gives a function (for example "+24 V DC") a drawing
 colour, an optional second colour (stripe), a wire colour code (IEC 60757),
 a section in mm² and a label. The profiles of a project form its **wire
 colour meaning table**.
 
 ## Using a profile
 
-- **Toolbar**: the "Wire profile" list applies the chosen profile to the
+- **Toolbar**: the "Wire colour" list applies the chosen profile to the
   selected conductors. It is in the default "Diagram" toolbar, after the
   conductor colour button; if your toolbar was customised, add it from
-  *Settings → Configure QElectroTech → Toolbars* (item "Wire profile").
+  *Settings → Configure QElectroTech → Toolbars* (item "Wire colour").
 - **Context menu**: right-click one or more selected conductors →
-  *Wire profile*.
+  *Wire colour*.
 - One choice is one undo step. It sets the line colour (and stripe), the
   section, the wire colour code, the function (profile name) and the text
   (label, shown). A conductor that belongs to a cable keeps its own colour
@@ -25,10 +25,10 @@ colour meaning table**.
 
 ## Editing the table
 
-*Project → Project properties → Wire profiles*: add, remove or edit lines
+*Project → Project properties → Wire colour table*: add, remove or edit lines
 (function, colour code, colour, stripe colour, section, label) or restore
 the default table. The table is saved in the `.qet` file as a
-`<wireprofiles>` element, only when it differs from the default table. A
+`<wirecolourtable>` element, only when it differs from the default table. A
 project without that element uses the default table, so old projects open
 and save as before.
 

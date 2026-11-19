@@ -4805,7 +4805,7 @@ Maintenir Maj et faire glisser pour déplacer ce texte seul</translation>
 <context>
     <name>DiagramToolbarSettings</name>
     <message>
-        <source>Wire profile</source>
+        <source>Wire colour</source>
         <translation type="unfinished">Profil de fil</translation>
     </message>
     <message>
@@ -4837,7 +4837,7 @@ Maintenir Maj et faire glisser pour déplacer ce texte seul</translation>
 <context>
     <name>DiagramView</name>
     <message>
-        <source>Wire profile</source>
+        <source>Wire colour</source>
         <translation type="unfinished">Profil de fil</translation>
     </message>
     <message>
@@ -12357,7 +12357,7 @@ Voulez-vous tout de même lier ce contact esclave ?</translation>
 <context>
     <name>NewDiagramPage</name>
     <message>
-        <source>Wire profiles</source>
+        <source>Wire colour table</source>
         <translation type="unfinished">Profils de fils</translation>
     </message>
     <message>
@@ -13242,7 +13242,7 @@ Les variables suivantes sont incompatibles :
     </message>
 </context>
 <context>
-    <name>WireProfiles</name>
+    <name>WireColourTable</name>
     <message>
         <source>+24 V DC</source>
         <translation type="unfinished">+24 V DC</translation>
@@ -13360,7 +13360,7 @@ Les variables suivantes sont incompatibles :
         <translation type="unfinished">%1 mm²</translation>
     </message>
     <message numerus="yes">
-        <source>Apply the wire profile &quot;%1&quot; to %n conductors</source>
+        <source>Apply the wire colour entry &quot;%1&quot; to %n conductors</source>
         <comment>undo caption</comment>
         <translation type="unfinished">
             <numerusform>Appliquer le profil de fil « %1 » à %n conducteur</numerusform>
@@ -13369,9 +13369,9 @@ Les variables suivantes sont incompatibles :
     </message>
 </context>
 <context>
-    <name>WireProfileComboBox</name>
+    <name>WireColourEntryComboBox</name>
     <message>
-        <source>Wire profile</source>
+        <source>Wire colour</source>
         <translation type="unfinished">Profil de fil</translation>
     </message>
     <message>
@@ -13380,7 +13380,7 @@ Les variables suivantes sont incompatibles :
         <translation type="unfinished">Donne aux conducteurs sélectionnés la couleur, la section et le label d&apos;une fonction de la table des couleurs de fils du projet</translation>
     </message>
     <message>
-        <source>Wire profile…</source>
+        <source>Wire colour…</source>
         <translation type="unfinished">Profil de fil…</translation>
     </message>
     <message>
@@ -13389,7 +13389,7 @@ Les variables suivantes sont incompatibles :
     </message>
 </context>
 <context>
-    <name>WireProfilesWidget</name>
+    <name>WireColourTableWidget</name>
     <message>
         <source>None</source>
         <translation type="unfinished">Aucune</translation>
@@ -15313,7 +15313,7 @@ Options disponibles :
         <translation type="unfinished">Ajouter une légende des couleurs de fils</translation>
     </message>
     <message>
-        <source>Adds a text with the colour, section and function of the wire profiles of the project</source>
+        <source>Adds a text with the colour, section and function of the wire colour entries of the project</source>
         <comment>status bar tip</comment>
         <translation type="unfinished">Ajoute un texte avec la couleur, la section et la fonction des profils de fils du projet</translation>
     </message>
