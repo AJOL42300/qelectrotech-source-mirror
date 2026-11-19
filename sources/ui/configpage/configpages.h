@@ -33,6 +33,7 @@ class XRefPropertiesWidget;
 class GuidesPropertiesWidget;
 class PotentialTypesWidget;
 class WireProfilesWidget;
+class WireColourTableWidget;
 class QETProject;
 class TitleBlockProperties;
 class SelectAutonumW;
@@ -77,6 +78,7 @@ public slots:
 	XRefPropertiesWidget       *xrefpw;    ///< Widget to edit default xref properties
 	PotentialTypesWidget       *m_ptw = nullptr; ///< Widget to edit the potential types, project only
 	WireProfilesWidget         *m_wpw = nullptr; ///< Widget to edit the standard wires, project only
+	WireColourTableWidget         *m_wct_widget = nullptr; ///< Widget to edit the wire colour meaning table, project only
 	GuidesPropertiesWidget     *m_gpw;     ///< Widget to edit guides
 		//How a new project's terminals draw their label, the application's
 		//default (Configure QElectroTech > New project). Per project it is

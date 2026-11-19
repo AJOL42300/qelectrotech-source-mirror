@@ -71,6 +71,7 @@ class DiagramView : public PaletteGraphicsView
 		QMenu            *m_folio_report_menu = nullptr;
 		QMenu            *m_wire_profile_menu = nullptr;
 		QMenu            *m_network_cable_menu = nullptr;
+		QMenu            *m_wire_colour_menu = nullptr;
 		QPoint            m_paste_here_pos;
 		QPoint            m_press_pos;
 		DiagramContextToolbar *m_context_toolbar = nullptr;
@@ -292,6 +293,7 @@ class DiagramView : public PaletteGraphicsView
 		void placeCellRulers();
 		void showContextToolbar(const QPoint &viewport_pos);
 		QList<QAction *> selectionCommands() const;
+		QMenu *wireColourMenu(const QList<QGraphicsItem *> &selected_items) const;
 		QList<QAction *> gestureCommands() const;
 
 		/// Lowest and highest allowed value of the view transform scale (m11).
