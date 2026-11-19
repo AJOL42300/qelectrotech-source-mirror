@@ -50,7 +50,8 @@ bool WireProfile::operator==(const WireProfile &other) const
 			&& color == other.color
 			&& color_2 == other.color_2
 			&& section == other.section
-			&& label == other.label;
+			&& label == other.label
+			&& qFuzzyCompare(1 + width, 1 + other.width);
 }
 
 /**
@@ -149,6 +150,8 @@ QDomElement WireProfiles::toXml(QDomDocument &document) const
 			elmt.setAttribute(QStringLiteral("color2"), profile.color_2.name());
 		elmt.setAttribute(QStringLiteral("section"), profile.section);
 		elmt.setAttribute(QStringLiteral("label"), profile.label);
+		if (profile.width > 0)
+			elmt.setAttribute(QStringLiteral("width"), QString::number(profile.width));
 		root.appendChild(elmt);
 	}
 	return root;
@@ -182,6 +185,9 @@ WireProfiles WireProfiles::fromXml(const QDomElement &element)
 			profile.color_2 = color_2;
 		profile.section = elmt.attribute(QStringLiteral("section"));
 		profile.label = elmt.attribute(QStringLiteral("label"));
+			//Absent in a table saved before the width: left as it is
+		const double width = elmt.attribute(QStringLiteral("width")).toDouble();
+		profile.width = qIsFinite(width) && width > 0 ? width : 0;
 		result.m_profiles << profile;
 	}
 	return result;
@@ -203,6 +209,8 @@ void WireProfiles::apply(const WireProfile &profile, ConductorProperties &proper
 			properties.m_dash_size = TWO_COLOUR_DASH_SIZE;
 	}
 	properties.m_function = profile.name;
+	if (profile.width > 0)
+		properties.cond_size = profile.width;
 	if (!profile.label.isEmpty()) {
 		properties.text = profile.label;
 		properties.m_show_text = true;

@@ -13395,8 +13395,8 @@ Les variables suivantes sont incompatibles :
         <translation type="unfinished">Aucune</translation>
     </message>
     <message>
-        <source>The functions offered in the toolbar and in the menu of a conductor. Choosing one gives the selected conductors its colour, section and label. The colour code is the text written on the wire (BK, RD, GNYE...). A second colour draws the conductor striped.</source>
-        <translation type="unfinished">Les fonctions proposées dans la barre d&apos;outils et dans le menu d&apos;un conducteur. En choisir une donne aux conducteurs sélectionnés sa couleur, sa section et son label. Le code couleur est le texte écrit sur le fil (BK, RD, GNYE...). Une seconde couleur dessine le conducteur rayé.</translation>
+        <source>The functions offered in the toolbar and in the menu of a conductor. Choosing one gives the selected conductors its colour, section, line width and label. The colour code is the text written on the wire (BK, RD, GNYE...). A second colour draws the conductor striped. An empty line width leaves the width of the conductor as it is.</source>
+        <translation type="unfinished">Les fonctions proposées dans la barre d&apos;outils et dans le menu d&apos;un conducteur. En choisir une donne aux conducteurs sélectionnés sa couleur, sa section, sa largeur de trait et son label. Le code couleur est le texte écrit sur le fil (BK, RD, GNYE...). Une seconde couleur dessine le conducteur rayé. Une largeur de trait vide laisse la largeur du conducteur telle quelle.</translation>
     </message>
     <message>
         <source>Function</source>
@@ -13417,6 +13417,10 @@ Les variables suivantes sont incompatibles :
     <message>
         <source>Section (mm²)</source>
         <translation type="unfinished">Section (mm²)</translation>
+    </message>
+    <message>
+        <source>Line width</source>
+        <translation type="unfinished">Largeur de trait</translation>
     </message>
     <message>
         <source>Label</source>

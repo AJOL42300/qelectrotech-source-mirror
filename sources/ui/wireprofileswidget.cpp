@@ -30,7 +30,7 @@
 
 namespace {
 	enum Column {NameColumn, CodeColumn, ColorColumn, StripeColumn,
-				 SectionColumn, LabelColumn};
+				 SectionColumn, WidthColumn, LabelColumn};
 
 	void paintColorButton(QPushButton *button, const QColor &color)
 	{
@@ -48,18 +48,20 @@ WireProfilesWidget::WireProfilesWidget(QWidget *parent) :
 {
 	QLabel *help = new QLabel(tr("The functions offered in the toolbar and in the menu of a "
 								 "conductor. Choosing one gives the selected conductors its "
-								 "colour, section and label. The colour code is the text "
+								 "colour, section, line width and label. The colour code is the text "
 								 "written on the wire (BK, RD, GNYE...). A second colour "
-								 "draws the conductor striped."), this);
+								 "draws the conductor striped. An empty line width leaves "
+								 "the width of the conductor as it is."), this);
 	help->setWordWrap(true);
 
-	m_table = new QTableWidget(0, 6, this);
+	m_table = new QTableWidget(0, 7, this);
 	m_table->setHorizontalHeaderLabels({tr("Function"), tr("Colour code"), tr("Colour"),
 										tr("Stripe colour"), tr("Section (mm²)"),
-										tr("Label")});
+										tr("Line width"), tr("Label")});
 	m_table->horizontalHeader()->setSectionResizeMode(NameColumn, QHeaderView::Stretch);
 	m_table->horizontalHeader()->setSectionResizeMode(CodeColumn, QHeaderView::ResizeToContents);
 	m_table->horizontalHeader()->setSectionResizeMode(SectionColumn, QHeaderView::ResizeToContents);
+	m_table->horizontalHeader()->setSectionResizeMode(WidthColumn, QHeaderView::ResizeToContents);
 	m_table->horizontalHeader()->setSectionResizeMode(LabelColumn, QHeaderView::ResizeToContents);
 	m_table->verticalHeader()->hide();
 	m_table->setMinimumHeight(220);
@@ -116,6 +118,8 @@ void WireProfilesWidget::addRow(const WireProfile &profile)
 	m_table->setItem(row, NameColumn, new QTableWidgetItem(profile.name));
 	m_table->setItem(row, CodeColumn, new QTableWidgetItem(profile.wire_color));
 	m_table->setItem(row, SectionColumn, new QTableWidgetItem(profile.section));
+	m_table->setItem(row, WidthColumn, new QTableWidgetItem(
+		profile.width > 0 ? QString::number(profile.width) : QString()));
 	m_table->setItem(row, LabelColumn, new QTableWidgetItem(profile.label));
 
 	QPushButton *color_pb = new QPushButton(m_table);
@@ -175,6 +179,9 @@ WireProfiles WireProfilesWidget::wireProfiles() const
 		profile.color = m_table->cellWidget(row, ColorColumn)->property("color").value<QColor>();
 		profile.color_2 = m_table->cellWidget(row, StripeColumn)->property("color").value<QColor>();
 		profile.section = m_table->item(row, SectionColumn)->text().trimmed();
+		const double width = m_table->item(row, WidthColumn)->text().trimmed()
+				.replace(QLatin1Char(','), QLatin1Char('.')).toDouble();
+		profile.width = qIsFinite(width) && width > 0 ? width : 0;
 		profile.label = m_table->item(row, LabelColumn)->text().trimmed();
 		profiles << profile;
 	}

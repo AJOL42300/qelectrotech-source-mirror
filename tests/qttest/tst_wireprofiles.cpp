@@ -201,6 +201,7 @@ class tst_wireprofiles : public QObject
 			mine.color = QColor(0x12, 0x34, 0x56);
 			mine.color_2 = QColor(0xab, 0xcd, 0xef);
 			mine.label = QStringLiteral("BRK");
+			mine.width = 2.5;
 			profiles << mine;
 			table.setProfiles(profiles);
 			QVERIFY(!table.isDefault());
@@ -211,6 +212,66 @@ class tst_wireprofiles : public QObject
 
 				//A project saved before the table existed has the default one
 			QCOMPARE(WireProfiles::fromXml(QDomElement()), WireProfiles());
+		}
+
+		void theLineWidthIsAppliedAndKeptAsItIsWhenNotSet()
+		{
+			Conductor *a = wire(400);
+			Conductor *b = wire(500);
+			QVERIFY(a && b);
+			m_diagram->clearSelection();
+			a->setSelected(true);
+			b->setSelected(true);
+			const double before = a->properties().cond_size;
+
+			WireProfile thick;
+			thick.name = QStringLiteral("Thick");
+			thick.width = before + 2;
+			const int steps = m_diagram->undoStack().count();
+			QVERIFY(WireProfiles::applyToSelection(m_diagram, thick));
+			QCOMPARE(m_diagram->undoStack().count(), steps + 1);
+			QCOMPARE(a->properties().cond_size, before + 2);
+			QCOMPARE(b->properties().cond_size, before + 2);
+
+				//A profile without width does not touch the width
+			WireProfile plain;
+			plain.name = QStringLiteral("Plain");
+			QVERIFY(WireProfiles::applyToSelection(m_diagram, plain));
+			QCOMPARE(a->properties().cond_size, before + 2);
+
+			m_diagram->undoStack().undo();
+			m_diagram->undoStack().undo();
+			QCOMPARE(a->properties().cond_size, before);
+			QCOMPARE(b->properties().cond_size, before);
+			m_diagram->undoStack().clear();
+		}
+
+		void theLineWidthSurvivesXmlAndOldTablesHaveNone()
+		{
+			WireProfiles table;
+			QList<WireProfile> profiles = table.profiles();
+			profiles.first().width = 1.5;
+			table.setProfiles(profiles);
+			QVERIFY(!table.isDefault());
+
+			QDomDocument doc;
+			doc.appendChild(table.toXml(doc));
+			const WireProfiles back = WireProfiles::fromXml(doc.documentElement());
+			QCOMPARE(back.profiles().first().width, 1.5);
+			QCOMPARE(back, table);
+
+				//A table written before the width existed
+			QDomDocument old;
+			old.setContent(QStringLiteral(
+				"<wireprofiles><wireprofile name=\"X\" wirecolor=\"RD\" "
+				"color=\"#ff0000\" section=\"1\" label=\"X\"/></wireprofiles>"));
+			const WireProfiles legacy = WireProfiles::fromXml(old.documentElement());
+			QCOMPARE(legacy.profiles().count(), 1);
+			QCOMPARE(legacy.profiles().first().width, 0.0);
+				//and the default table writes no width at all
+			QDomDocument def;
+			def.appendChild(WireProfiles().toXml(def));
+			QVERIFY(!def.toString().contains(QStringLiteral("width=")));
 		}
 
 		void theTableIsKeptWhenTheProjectIsSavedAndOpenedAgain()

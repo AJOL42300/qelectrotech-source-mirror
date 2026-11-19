@@ -14,8 +14,12 @@ colour meaning table**.
 - **Context menu**: right-click one or more selected conductors →
   *Wire profile*.
 - One choice is one undo step. It sets the line colour (and stripe), the
+  line width, the
   section, the wire colour code, the function (profile name) and the text
-  (label, shown). A conductor that belongs to a cable keeps its own colour
+  (label, shown). A profile without a line width (empty in the table, the
+  case of the default table and of tables saved before the width existed)
+  leaves the width of the conductor as it is. A conductor that belongs to a
+  cable keeps its own colour
   code and section.
 - The colour of the profile also becomes the colour of the next conductors
   drawn (the same as the conductor colour button). Section and label are
@@ -26,7 +30,8 @@ colour meaning table**.
 ## Editing the table
 
 *Project → Project properties → Wire profiles*: add, remove or edit lines
-(function, colour code, colour, stripe colour, section, label) or restore
+(function, colour code, colour, stripe colour, section, line width, label)
+or restore
 the default table. The table is saved in the `.qet` file as a
 `<wireprofiles>` element, only when it differs from the default table. A
 project without that element uses the default table, so old projects open

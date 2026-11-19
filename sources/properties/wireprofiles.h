@@ -47,6 +47,8 @@ struct WireProfile
 	QString section;
 		/// The text written on the conductor, empty to leave it as it is
 	QString label;
+		/// The stroke width, 0 to leave the width of the conductor as it is
+	double width = 0;
 
 	bool isTwoColour() const {return color_2.isValid();}
 	bool operator==(const WireProfile &other) const;
