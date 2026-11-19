@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="360" height="190" hotspot_x="20" hotspot_y="70">
+<definition version="0.100.0" type="element" link_type="master" width="360" height="190" hotspot_x="20" hotspot_y="70">
 	<uuid uuid="{1937bf4a-cdc5-5f51-8b46-117345f87168}"/>
 	<names>
 		<name lang="en">Pilz 6M000008 PSENmgate safety gate system entry from right, 2 LED pushbuttons + E-STOP</name>
@@ -10,6 +10,91 @@
 		<elementInformation name="designation" show="1">Système de porte de sécurité PSENmgate, 2 boutons lumineux (1 NO) et 1 arrêt d'urgence (2 NC + 1 NO), codé, rearmement automatique, entrée par la droite, connecteur M23 mâle 19 broches, sortie de câble vers le bas, connexion simple</elementInformation>
 		<elementInformation name="description" show="1">PSENmgate safety gate system (PSEN mg1-A-LLFXX, single connection), 2 illuminated pushbuttons (1 NO each) and 1 E-STOP (2 NC + 1 NO), coded, automatic reset, entry from right, 19-pin M23 male connector, cable outlet downwards, 24 V DC, 2 safety outputs (12, 22) and 1 signal output, actuator PSEN ml 1.1 (570480). VERIFIED (Pilz e-shop page of the order number and operating manual 1006672, pin assignment table): pin 1 Y1 red, 2 Y32 grey, 3 ES_SO violet, 4 terminal 22 yellow, 5 terminal 12 green, 6 A2 blue, 7 S41 white, 8 reserved red-blue, 9 ES1.1 grey-brown, 10 B2 brown-green, 11 ES1.2 yellow-brown, 12 B1 green-yellow, 13 LED2 black, 14 ES2.1 white-yellow, 15 LED1 white-green, 16 ES2.2 white-grey, 17 reserved grey-pink, 18 S31 pink, 19 A1 brown. The colours are those of the Pilz accessory cable only. ASSUMED: the three order numbers 6M000007, 6M000008 and 6M000009 share the same wiring (the manual gives one table for the series); the reserved pins 8 and 17 have no terminal.</elementInformation>
 	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="140"/>
+				<column index="2" width="130"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="44"/>
+			</columnWidths>
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="false"/>
+				<column index="2" visible="false"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+				<column index="5" visible="false"/>
+			</columnVisibility>
+			<columnNames>
+				<column index="0"></column>
+				<column index="1">ID</column>
+				<column index="2">Label</column>
+				<column index="3"></column>
+				<column index="4"></column>
+				<column index="5">N° pin</column>
+			</columnNames>
+			<columnOrder>5,2,1</columnOrder>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
+			<plcIOs>
+				<plcIO type="entree_universelle" address="+24 V DC supply UB" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>A1</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="0 V supply UB" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>A2</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="Diagnostic input" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Y1</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="Solenoid operation, channel 1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>S31</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="Solenoid operation, channel 2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>S41</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Pushbutton 1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>B1</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Pushbutton 2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>B2</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="LED of pushbutton 1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>LED1</terminal>
+				</plcIO>
+				<plcIO type="entree_digitale" address="LED of pushbutton 2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>LED2</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Safety output, channel 1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>12</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Safety output, channel 2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>22</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Signal / diagnostic output" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>Y32</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="E-STOP signal output" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>ES_SO</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="E-STOP, channel 1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>ES1.1</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="E-STOP, channel 1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>ES1.2</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="E-STOP, channel 2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>ES2.1</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="E-STOP, channel 2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>ES2.2</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
 	<informations>Author: QElectroTech contributors
 Original vector drawing, not copied from a manufacturer drawing. Order numbers, pin assignments, terminal designations and wire colours come from public Pilz documents (see docs/pilz.md); the status of each datum is given in the description.
 License: see http://qelectrotech.org/wiki/doc/elements_license</informations>

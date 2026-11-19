@@ -1,0 +1,71 @@
+<definition version="0.100.0" type="element" link_type="master" width="130" height="110" hotspot_x="20" hotspot_y="50">
+	<uuid uuid="{b099206f-9e16-5290-92b8-8f333be2ae45}"/>
+	<names>
+		<name lang="en">Pilz 570480 PSEN ml 1.1 actuator for PSENmlock, realistic view</name>
+		<name lang="fr">Actionneur PSEN ml 1.1 Pilz 570480 pour PSENmlock, vue réaliste</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Pilz</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">570480</elementInformation>
+		<elementInformation name="designation" show="1">Actionneur codé PSEN ml 1.1 pour interrupteur de sécurité à verrouillage PSENmlock</elementInformation>
+		<elementInformation name="description" show="1">PSEN ml 1.1 coded actuator for the PSENmlock safety guard locking devices and the PSENmgate systems (the Type 1 actuator of 6M000007 to 6M000009). VERIFIED (Pilz e-shop page of 570480): passive actuator, no electrical connection. ASSUMED: the single terminal MECH is only a marker for the mechanical coupling to the switch, it carries no signal.</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="140"/>
+				<column index="2" width="130"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="44"/>
+			</columnWidths>
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="false"/>
+				<column index="2" visible="false"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+				<column index="5" visible="false"/>
+			</columnVisibility>
+			<columnNames>
+				<column index="0"></column>
+				<column index="1">ID</column>
+				<column index="2">Label</column>
+				<column index="3"></column>
+				<column index="4"></column>
+				<column index="5">N° pin</column>
+			</columnNames>
+			<columnOrder>5,2,1</columnOrder>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
+			<plcIOs>
+				<plcIO type="entree_universelle" address="Mechanical coupling (no signal)" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>MECH</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Original vector drawing, not copied from a manufacturer drawing. Order numbers, pin assignments, terminal designations and wire colours come from public Pilz documents (see docs/pilz.md); the status of each datum is given in the description.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-40" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{2ff01e1e-d5ff-5686-9243-e02f65e91fec}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<line x1="0" y1="0" x2="14" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<polygon closed="true" style="line-style:normal;line-weight:normal;filling:gray;color:black" antialias="false" x1="14" y1="-2" x2="44" y2="-8" x3="44" y3="8" x4="14" y4="2"/>
+		<rect x="44" y="-20" width="56" height="40" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:lightgray;color:black" antialias="false"/>
+		<circle x="50" y="-16" diameter="8" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<circle x="52" y="-14" diameter="4" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<circle x="50" y="8" diameter="8" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<circle x="52" y="10" diameter="4" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<circle x="86" y="-16" diameter="8" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<circle x="88" y="-14" diameter="4" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<circle x="86" y="8" diameter="8" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<circle x="88" y="10" diameter="4" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<rect x="66" y="-6" width="12" height="12" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<text x="52.89" y="34.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="PSEN ml 1.1"/>
+		<text x="62.1" y="42.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="570480"/>
+		<terminal x="0" y="0" name="MECH" orientation="w" type="Generic" uuid="{e3e43676-1d5f-5fb8-9fc5-39a17502ac3f}"/>
+	</description>
+</definition>

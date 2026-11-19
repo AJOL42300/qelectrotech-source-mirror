@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="240" height="280" hotspot_x="20" hotspot_y="70">
+<definition version="0.100.0" type="element" link_type="master" width="240" height="280" hotspot_x="20" hotspot_y="70">
 	<uuid uuid="{b19450c3-e39a-5f0d-aaed-c46f3ea6811d}"/>
 	<names>
 		<name lang="en">Pilz C1000074 connection cable M23 19-pin cable, 10 m</name>
@@ -10,6 +10,154 @@
 		<elementInformation name="designation" show="1">Câble de raccordement M23 19 broches, 19 x 0,25 mm2, 10 m</elementInformation>
 		<elementInformation name="description" show="1">Connection cable, 19-pin M23 female connector straight, 19 x 0.25 mm2 (AWG 24), unshielded, PUR, yellow (RAL 1003), 8.05 mm, 2 A, 10 m. VERIFIED (Pilz e-shop page and data sheet of the order number): connector, conductors, section and length. ASSUMED: the wire colours, pin 1 RD, pin 2 GY, pin 3 VT, pin 4 YE, pin 5 GN, pin 6 BU, pin 7 WH, pin 8 RDBU, pin 9 GYBN, pin 10 BNGN, pin 11 YEBN, pin 12 GNYE, pin 13 BK, pin 14 WHYE, pin 15 WHGN, pin 16 WHGY, pin 17 GYPK, pin 18 PK, pin 19 BN, are the 'Cable colour (Pilz cable)' column of the PSEN mg1-A-LLFXX operating manual 1006672 (verified there), applied here to this Pilz cable; the end opposite to the connector is taken as open wires (the data sheet lists one connector only). The terminals 1 to 19 are the connector pins, the codes the wire ends.</elementInformation>
 	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="140"/>
+				<column index="2" width="130"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="44"/>
+			</columnWidths>
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="false"/>
+				<column index="2" visible="false"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+				<column index="5" visible="false"/>
+			</columnVisibility>
+			<columnNames>
+				<column index="0"></column>
+				<column index="1">ID</column>
+				<column index="2">Label</column>
+				<column index="3"></column>
+				<column index="4"></column>
+				<column index="5">N° pin</column>
+			</columnNames>
+			<columnOrder>5,2,1</columnOrder>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
+			<plcIOs>
+				<plcIO type="entree_universelle" address="Pin 1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>1</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>2</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 3" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>3</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 4" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>4</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 5" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>5</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 6" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>6</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 7" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>7</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 8" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>8</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 9" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>9</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 10" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>10</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 11" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>11</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 12" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>12</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 13" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>13</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 14" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>14</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 15" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>15</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 16" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>16</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 17" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>17</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 18" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>18</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 19" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>19</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire RD red" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>RD</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire GY grey" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>GY</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire VT violet" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>VT</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire YE yellow" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>YE</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire GN green" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>GN</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire BU blue" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>BU</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire WH white" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>WH</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire RDBU red-blue" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>RDBU</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire GYBN grey-brown" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>GYBN</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire BNGN brown-green" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>BNGN</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire YEBN yellow-brown" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>YEBN</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire GNYE green-yellow" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>GNYE</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire BK black" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>BK</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire WHYE white-yellow" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>WHYE</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire WHGN white-green" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>WHGN</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire WHGY white-grey" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>WHGY</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire GYPK grey-pink" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>GYPK</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire PK pink" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>PK</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire BN brown" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>BN</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
 	<informations>Author: QElectroTech contributors
 Original vector drawing, not copied from a manufacturer drawing. Order numbers, pin assignments, terminal designations and wire colours come from public Pilz documents (see docs/pilz.md); the status of each datum is given in the description.
 License: see http://qelectrotech.org/wiki/doc/elements_license</informations>

@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="240" height="140" hotspot_x="20" hotspot_y="70">
+<definition version="0.100.0" type="element" link_type="master" width="240" height="140" hotspot_x="20" hotspot_y="70">
 	<uuid uuid="{ec58bbca-0f66-5dfd-a38e-33626927a19b}"/>
 	<names>
 		<name lang="en">Pilz 630311 connection cable PSEN op cable axial M12 5-pole, 5 m</name>
@@ -10,6 +10,70 @@
 		<elementInformation name="designation" show="1">Câble de raccordement PSEN op axial M12 5 pôles, 5 m</elementInformation>
 		<elementInformation name="description" show="1">PSEN op cable axial M12 5-pole, 5 m: PUR, yellow (similar to RAL 1003), 5-pin M12 female connector straight (A-coded) on an open cable end, 5 x 0.25 mm2 (AWG 24), unshielded, 5.1 mm. VERIFIED (Pilz data sheet 1002482 of the PSEN op cable M12 5-pin and the data sheet of 630311): the wire colours are brown, white, blue, black, grey. ASSUMED: the colour of each pin, pin 1 BN, pin 2 WH, pin 3 BU, pin 4 BK, pin 5 GY, is the order of the A-coded M12 standard (EN 61076-2-101), the same as the PSEN cs1.1n operating manual; it is not printed in the data sheet. The terminals 1 to 5 are the connector pins, BN WH BU BK GY the wire ends.</elementInformation>
 	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="140"/>
+				<column index="2" width="130"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="44"/>
+			</columnWidths>
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="false"/>
+				<column index="2" visible="false"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+				<column index="5" visible="false"/>
+			</columnVisibility>
+			<columnNames>
+				<column index="0"></column>
+				<column index="1">ID</column>
+				<column index="2">Label</column>
+				<column index="3"></column>
+				<column index="4"></column>
+				<column index="5">N° pin</column>
+			</columnNames>
+			<columnOrder>5,2,1</columnOrder>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
+			<plcIOs>
+				<plcIO type="entree_universelle" address="Pin 1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>1</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>2</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 3" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>3</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 4" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>4</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 5" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>5</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire BN brown" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>BN</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire WH white" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>WH</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire BU blue" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>BU</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire BK black" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>BK</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire GY grey" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>GY</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
 	<informations>Author: QElectroTech contributors
 Original vector drawing, not copied from a manufacturer drawing. Order numbers, pin assignments, terminal designations and wire colours come from public Pilz documents (see docs/pilz.md); the status of each datum is given in the description.
 License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
