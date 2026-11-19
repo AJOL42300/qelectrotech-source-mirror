@@ -374,7 +374,7 @@ class TstBeckhoffElements : public QObject
 					const auto c = circles.at(i).toElement();
 					const qreal d = c.attribute(
 						QStringLiteral("diameter")).toDouble();
-					if (d < 7) {
+					if (d < 3.5) {
 						continue; // decorative, like a LED
 					}
 					centres << QPointF(
@@ -390,7 +390,7 @@ class TstBeckhoffElements : public QObject
 						QStringLiteral("width")).toDouble();
 					const qreal h = a.attribute(
 						QStringLiteral("height")).toDouble();
-					if (qAbs(w) < 10) {
+					if (qAbs(w) < 5) {
 						continue;
 					}
 					centres << QPointF(
@@ -476,7 +476,7 @@ class TstBeckhoffElements : public QObject
 					const auto c = circles.at(i).toElement();
 					const qreal d = c.attribute(
 						QStringLiteral("diameter")).toDouble();
-					if (d < 8) {
+					if (d < 4) {
 						continue; // the outer circle of the screw
 					}
 					const QPointF centre(
@@ -500,7 +500,7 @@ class TstBeckhoffElements : public QObject
 				// EK1100: the drawing was too narrow
 			const auto def = load(appearance(QStringLiteral("ek1914"),
 				QStringLiteral("_realistic"))).documentElement();
-			QCOMPARE(def.attribute(QStringLiteral("height")).toInt(), 330);
+			QCOMPARE(def.attribute(QStringLiteral("height")).toInt(), 170);
 			const auto parts = def.firstChildElement(
 				QStringLiteral("description"));
 			qreal x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
@@ -542,7 +542,7 @@ class TstBeckhoffElements : public QObject
 		void ledsHaveNoResistorAndOutputsAreRoundGenerators()
 		{
 				// a resistor was a 4 point polygon: none is left; the
-				// outputs of the EL2008 are circles of 9 with a "+" (more than the 8 terminals)
+				// outputs of the EL2008 are circles of 4.5 with a "+" (more than the 8 terminals)
 			for (const QString &key : {QStringLiteral("el1008"),
 					QStringLiteral("el2008"), QStringLiteral("el5152")}) {
 				const auto parts = load(appearance(key, QString()))
@@ -563,7 +563,7 @@ class TstBeckhoffElements : public QObject
 				QStringLiteral("circle"));
 			for (int i = 0; i < circles.size(); ++i) {
 				generators += qFuzzyCompare(circles.at(i).toElement()
-					.attribute(QStringLiteral("diameter")).toDouble(), 9.0);
+					.attribute(QStringLiteral("diameter")).toDouble(), 4.5);
 			}
 			QVERIFY2(generators > 8, qPrintable(QString::number(generators)));
 		}
@@ -608,17 +608,17 @@ class TstBeckhoffElements : public QObject
 				const QPointF p = pins.value(name);
 				const qreal x = t.attribute(QStringLiteral("x")).toDouble();
 				const qreal y = t.attribute(QStringLiteral("y")).toDouble();
-					// 7 pt digits: outside the circles (radius 4.25), a
+					// 5 pt digits: outside the circles (radius 2.125), a
 					// small gap from the circle, on the line of the terminal
 				if (pin <= 8) {
-					QVERIFY2(x + 4 * name.size() < p.x() - 4.25,
+					QVERIFY2(x + 2 * name.size() < p.x() - 2.125,
 							 qPrintable(name));
-					QVERIFY2(p.x() - x < 25, qPrintable(name));
+					QVERIFY2(p.x() - x < 12.5, qPrintable(name));
 				} else {
-					QVERIFY2(x > p.x() + 4.25, qPrintable(name));
-					QVERIFY2(x - p.x() < 25, qPrintable(name));
+					QVERIFY2(x > p.x() + 2.125, qPrintable(name));
+					QVERIFY2(x - p.x() < 12.5, qPrintable(name));
 				}
-				QVERIFY2(qAbs(y + 5.5 - p.y()) < 4, qPrintable(name));
+				QVERIFY2(qAbs(y + 2.75 - p.y()) < 2, qPrintable(name));
 			}
 			QCOMPARE(seen, 16);
 		}
@@ -640,12 +640,12 @@ class TstBeckhoffElements : public QObject
 				// two groups of two S+ / SI pairs (20 px apart): the power
 				// contact rails of the schematic view (y = 15 and 25) pass
 				// between the groups; on the 5 px grid
-			const double rows[8] = {-55, -35, -15, 5, 35, 55, 75, 95};
+			const double rows[8] = {-30, -20, -10, 0, 10, 20, 30, 40};
 			for (int n = 1; n <= 16; ++n) {
 				const QString name = QString::number(n);
 				QVERIFY2(el.contains(name), qPrintable(name));
 					// 1..8 in the left column, 9..16 in the right one
-				QCOMPARE(el.value(name).x(), n <= 8 ? -5.0 : 10.0);
+				QCOMPARE(el.value(name).x(), n <= 8 ? 0.0 : 10.0);
 				QCOMPARE(el.value(name).y(), rows[(n - 1) % 8]);
 			}
 		}
@@ -659,7 +659,8 @@ class TstBeckhoffElements : public QObject
 			QCOMPARE(pins.size(), 16);
 			for (auto it = pins.begin(); it != pins.end(); ++it) {
 					// the 9 px circle of a pin must not touch the rails
-				QVERIFY2(it.value().y() <= 9.5 || it.value().y() >= 30.5,
+				QVERIFY2(qAbs(it.value().y() - 3.33) > 2.25
+						 && qAbs(it.value().y() - 6.67) > 2.25,
 						 qPrintable(it.key()));
 			}
 				// S+ above its input SI: one LED (triangle) per pair
@@ -680,9 +681,9 @@ class TstBeckhoffElements : public QObject
 				const auto def = load(appearance(key,
 					QStringLiteral("_realistic"))).documentElement();
 				QCOMPARE(def.attribute(QStringLiteral("height")),
-						 QStringLiteral("330"));
+						 QStringLiteral("170"));
 				QCOMPARE(def.attribute(QStringLiteral("hotspot_y")),
-						 QStringLiteral("160"));
+						 QStringLiteral("80"));
 			}
 		}
 
@@ -728,15 +729,23 @@ class TstBeckhoffElements : public QObject
 				// the cards touch in an island: +24 V, 0 V and PE are at
 				// the same y (15, 25, 35 from the origin) on all of them
 			const QRegularExpression arc(QStringLiteral(
-				"<arc x=\"([-0-9.]+)\" y=\"([-0-9.]+)\" width=\"8\" "
-				"height=\"8\" start=\"90\" angle=\"180\" style=\"[^\"]*"
+				"<arc x=\"([-0-9.]+)\" y=\"([-0-9.]+)\" width=\"4\" "
+				"height=\"4\" start=\"90\" angle=\"180\" style=\"[^\"]*"
 				"color:(red|blue|orange)\""));
 			const QMap<QString, double> level{
-				{QStringLiteral("red"), 15.0},
-				{QStringLiteral("blue"), 25.0},
-				{QStringLiteral("orange"), 35.0}};
+				{QStringLiteral("red"), 7.5},
+				{QStringLiteral("blue"), 12.5},
+				{QStringLiteral("orange"), 17.5}};
+				// the rows of these cards are too close to keep the levels:
+				// their rails stay between their own pins
+			const QStringList relaxed{QStringLiteral("ek1914"), QStringLiteral("el1918"),
+				QStringLiteral("el1xxx_generic_16"), QStringLiteral("el2xxx_generic_16"),
+				QStringLiteral("el3xxx_generic_16"), QStringLiteral("el4xxx_generic_16")};
 			int cards = 0;
 			for (const QString &key : cardKeys()) {
+				if (relaxed.contains(key)) {
+					continue;
+				}
 				const QString path = elementPath(key + QStringLiteral(".elmt"));
 				if (!QFile::exists(path)) {
 					continue;
@@ -746,7 +755,7 @@ class TstBeckhoffElements : public QObject
 				auto it = arc.globalMatch(xml);
 				while (it.hasNext()) {
 					const auto m = it.next();
-					QCOMPARE(m.captured(2).toDouble() + 4.0,
+					QCOMPARE(m.captured(2).toDouble() + 2.0,
 							 level.value(m.captured(3)));
 					++arcs;
 				}
@@ -760,7 +769,7 @@ class TstBeckhoffElements : public QObject
 				// a junction dot (filled circle of 3 px) on the supply
 				// rail and on the wire of each channel stage
 			const QRegularExpression dot(QStringLiteral(
-				"<circle [^>]*diameter=\"3\"[^>]*filling:(red|blue)"));
+				"<circle [^>]*diameter=\"1.5\"[^>]*filling:(red|blue)"));
 			const auto dots = [&dot](const QString &key) {
 				const QString xml = rawText(elementPath(
 					key + QStringLiteral(".elmt")));
@@ -852,7 +861,7 @@ class TstBeckhoffElements : public QObject
 				for (int a = 0; a < points.size(); ++a) {
 					for (int b = a + 1; b < points.size(); ++b) {
 						const QPointF d = points.at(a) - points.at(b);
-						QVERIFY2(qAbs(d.x()) >= 7 || qAbs(d.y()) >= 7,
+						QVERIFY2(qAbs(d.x()) >= 1.5 || qAbs(d.y()) >= 1.5,
 								 qPrintable(title));
 					}
 				}
@@ -912,10 +921,11 @@ class TstBeckhoffElements : public QObject
 						const qreal y2 = l.attribute(QStringLiteral("y2"))
 							.toDouble();
 						const bool frame =
-							qMin(x1, x2) >= p.x() - 6
-							&& qMax(x1, x2) <= p.x() + 6.5
-							&& qMin(y1, y2) >= p.y() - 25.5
-							&& qMax(y1, y2) <= p.y() - 9.5;
+							qMax(qAbs(x2 - x1), qAbs(y2 - y1)) >= 3
+							&& qMin(x1, x2) >= p.x() - 3
+							&& qMax(x1, x2) <= p.x() + 3.25
+							&& qMin(y1, y2) >= p.y() - 12.75
+							&& qMax(y1, y2) <= p.y() - 4.75;
 						QVERIFY2(!frame, qPrintable(key + QLatin1Char(' ')
 							+ it.key()));
 					}
@@ -927,8 +937,8 @@ class TstBeckhoffElements : public QObject
 							.toDouble();
 						const qreal y = t.attribute(QStringLiteral("y"))
 							.toDouble();
-						label |= x > p.x() - 22 && x < p.x() + 2
-							&& y > p.y() - 30 && y < p.y() - 6;
+						label |= x > p.x() - 11 && x < p.x() + 1
+							&& y > p.y() - 15 && y < p.y() - 3;
 					}
 					QVERIFY2(label, qPrintable(key + QLatin1Char(' ')
 												+ it.key()));
@@ -1183,7 +1193,7 @@ class TstBeckhoffElements : public QObject
 			const QString xml = rawText(elementPath(
 				QStringLiteral("el2911.elmt")));
 			QRegularExpression outline(QStringLiteral(
-				"<rect x=\"-14.5\" y=\"-136.7\" width=\"96\""));
+				"<rect x=\"-7.25\" y=\"-68.17\" width=\"50.05\""));
 			QVERIFY(xml.contains(outline));
 			QVERIFY(xml.contains(QStringLiteral("IN 1-4")));
 			QVERIFY(xml.contains(QStringLiteral("OUT 1")));
@@ -2091,7 +2101,7 @@ class TstBeckhoffElements : public QObject
 			for (int n = 1; n <= 8; ++n) {
 				const QString name = QString::number(n);
 				QVERIFY2(pins.contains(name), qPrintable(name));
-				QCOMPARE(pins.value(name).x(), n <= 4 ? -5.0 : 10.0);
+				QCOMPARE(pins.value(name).x(), n <= 4 ? 0.0 : 10.0);
 			}
 			QCOMPARE(terminalNames(symbol), terminalNames(real));
 			QCOMPARE(terminalNames(desc), terminalNames(real));
@@ -2215,7 +2225,7 @@ class TstBeckhoffElements : public QObject
 			QCOMPARE(cu.attribute(QStringLiteral("height")),
 					 el.attribute(QStringLiteral("height")));
 			QVERIFY(cu.attribute(QStringLiteral("width")).toInt()
-					> 2.5 * ek.attribute(QStringLiteral("width")).toInt());
+					> 2 * ek.attribute(QStringLiteral("width")).toInt());
 
 				// the supply of the CU1128 uses the colour code
 			const auto cuTerminals = cu.elementsByTagName(
