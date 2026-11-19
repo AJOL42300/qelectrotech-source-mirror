@@ -53,6 +53,25 @@ class TstPilzElements : public QObject
 			return list;
 		}
 
+			// the schematic symbols, without the realistic views
+		static QStringList schematics()
+		{
+			QStringList list;
+			for (const auto &path : elements()) {
+				if (!path.endsWith(QLatin1String("_realistic.elmt"))) {
+					list << path;
+				}
+			}
+			return list;
+		}
+
+		static QString realisticOf(const QString &schematic)
+		{
+			QString path = schematic;
+			path.chop(5);
+			return path + QStringLiteral("_realistic.elmt");
+		}
+
 		static QDomElement load(const QString &path)
 		{
 			QDomDocument doc;
@@ -104,7 +123,7 @@ class TstPilzElements : public QObject
 			// the element of an order number
 		static QString fileOf(const QString &reference)
 		{
-			for (const auto &path : elements()) {
+			for (const auto &path : schematics()) {
 				if (info(load(path), QStringLiteral("manufacturer_reference"))
 					== reference) {
 					return path;
@@ -121,7 +140,8 @@ class TstPilzElements : public QObject
 				QStringLiteral("630311"), QStringLiteral("C1000074"),
 				QStringLiteral("C1000073"), QStringLiteral("6M000008"),
 				QStringLiteral("6M000009"), QStringLiteral("6M000007")};
-			QCOMPARE(elements().size(), references.size());
+			QCOMPARE(schematics().size(), references.size());
+			QCOMPARE(elements().size(), 2 * references.size());
 			for (const auto &reference : references) {
 				const QString path = fileOf(reference);
 				QVERIFY2(!path.isEmpty(), qPrintable(reference));
@@ -156,7 +176,10 @@ class TstPilzElements : public QObject
 				QVERIFY2(definition.tagName() == QLatin1String("definition"),
 						 qPrintable(path));
 				QCOMPARE(definition.attribute(QStringLiteral("link_type")),
-						 QStringLiteral("simple"));
+						 QStringLiteral("master"));
+				QCOMPARE(parts(definition, QStringLiteral("terminal")).size(),
+						 definition.elementsByTagName(
+							 QStringLiteral("plcIO")).size());
 				QVERIFY2(!parts(definition, QStringLiteral("image")).size(),
 						 qPrintable(path));
 				const auto names = terminals(definition);
@@ -165,6 +188,45 @@ class TstPilzElements : public QObject
 						 names.size());
 				QVERIFY2(!info(load(path), QStringLiteral("description"))
 						 .isEmpty(), qPrintable(path));
+			}
+		}
+
+		void realisticViewsMatchTheSchematics()
+		{
+			for (const auto &path : schematics()) {
+				const QString realistic = realisticOf(path);
+				QVERIFY2(QFileInfo::exists(realistic), qPrintable(path));
+				const auto a = load(path);
+				const auto b = load(realistic);
+				QCOMPARE(terminals(b), terminals(a));
+				const auto ta = parts(a, QStringLiteral("terminal"));
+				const auto tb = parts(b, QStringLiteral("terminal"));
+				QCOMPARE(tb.size(), ta.size());
+				for (int i = 0; i < ta.size(); ++i) {
+					for (const char *attribute :
+						 {"x", "y", "orientation"}) {
+						QCOMPARE(
+							tb.at(i).toElement().attribute(
+								QLatin1String(attribute)),
+							ta.at(i).toElement().attribute(
+								QLatin1String(attribute)));
+					}
+				}
+				QCOMPARE(info(b, QStringLiteral("manufacturer_reference")),
+						 info(a, QStringLiteral("manufacturer_reference")));
+				QVERIFY2(b.firstChildElement(QStringLiteral("uuid"))
+						 .attribute(QStringLiteral("uuid"))
+						 != a.firstChildElement(QStringLiteral("uuid"))
+						 .attribute(QStringLiteral("uuid")),
+						 qPrintable(path));
+				const auto names = b.firstChildElement(QStringLiteral("names"))
+					.elementsByTagName(QStringLiteral("name"));
+				bool found = false;
+				for (int i = 0; i < names.size(); ++i) {
+					found |= names.at(i).toElement().text().contains(
+						QLatin1String("realistic view"));
+				}
+				QVERIFY2(found, qPrintable(realistic));
 			}
 		}
 
