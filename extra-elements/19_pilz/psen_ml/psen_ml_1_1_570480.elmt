@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="130" height="110" hotspot_x="20" hotspot_y="50">
+<definition version="0.100.0" type="element" link_type="master" width="130" height="110" hotspot_x="20" hotspot_y="50">
 	<uuid uuid="{758007e5-22a8-5e70-aef0-13f164304a78}"/>
 	<names>
 		<name lang="en">Pilz 570480 PSEN ml 1.1 actuator for PSENmlock</name>
@@ -10,6 +10,43 @@
 		<elementInformation name="designation" show="1">Actionneur codé PSEN ml 1.1 pour interrupteur de sécurité à verrouillage PSENmlock</elementInformation>
 		<elementInformation name="description" show="1">PSEN ml 1.1 coded actuator for the PSENmlock safety guard locking devices and the PSENmgate systems (the Type 1 actuator of 6M000007 to 6M000009). VERIFIED (Pilz e-shop page of 570480): passive actuator, no electrical connection. ASSUMED: the single terminal MECH is only a marker for the mechanical coupling to the switch, it carries no signal.</elementInformation>
 	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="140"/>
+				<column index="2" width="130"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="44"/>
+			</columnWidths>
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="false"/>
+				<column index="2" visible="false"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+				<column index="5" visible="false"/>
+			</columnVisibility>
+			<columnNames>
+				<column index="0"></column>
+				<column index="1">ID</column>
+				<column index="2">Label</column>
+				<column index="3"></column>
+				<column index="4"></column>
+				<column index="5">N° pin</column>
+			</columnNames>
+			<columnOrder>5,2,1</columnOrder>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
+			<plcIOs>
+				<plcIO type="entree_universelle" address="Mechanical coupling (no signal)" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>MECH</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
 	<informations>Author: QElectroTech contributors
 Original vector drawing, not copied from a manufacturer drawing. Order numbers, pin assignments, terminal designations and wire colours come from public Pilz documents (see docs/pilz.md); the status of each datum is given in the description.
 License: see http://qelectrotech.org/wiki/doc/elements_license</informations>

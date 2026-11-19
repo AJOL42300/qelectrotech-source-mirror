@@ -1,0 +1,372 @@
+<definition version="0.100.0" type="element" link_type="master" width="240" height="290" hotspot_x="20" hotspot_y="70">
+	<uuid uuid="{ed876a96-8b1d-547f-8737-346231594dd2}"/>
+	<names>
+		<name lang="en">Pilz C1000074 connection cable M23 19-pin cable, 10 m, realistic view</name>
+		<name lang="fr">Câble de raccordement Pilz C1000074 M23 19-pin cable, 10 m, vue réaliste</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Pilz</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">C1000074</elementInformation>
+		<elementInformation name="designation" show="1">Câble de raccordement M23 19 broches, 19 x 0,25 mm2, 10 m</elementInformation>
+		<elementInformation name="description" show="1">Connection cable, 19-pin M23 female connector straight, 19 x 0.25 mm2 (AWG 24), unshielded, PUR, yellow (RAL 1003), 8.05 mm, 2 A, 10 m. VERIFIED (Pilz e-shop page and data sheet of the order number): connector, conductors, section and length. ASSUMED: the wire colours, pin 1 RD, pin 2 GY, pin 3 VT, pin 4 YE, pin 5 GN, pin 6 BU, pin 7 WH, pin 8 RDBU, pin 9 GYBN, pin 10 BNGN, pin 11 YEBN, pin 12 GNYE, pin 13 BK, pin 14 WHYE, pin 15 WHGN, pin 16 WHGY, pin 17 GYPK, pin 18 PK, pin 19 BN, are the 'Cable colour (Pilz cable)' column of the PSEN mg1-A-LLFXX operating manual 1006672 (verified there), applied here to this Pilz cable; the end opposite to the connector is taken as open wires (the data sheet lists one connector only). The terminals 1 to 19 are the connector pins, the codes the wire ends.</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="140"/>
+				<column index="2" width="130"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="44"/>
+			</columnWidths>
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="false"/>
+				<column index="2" visible="false"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+				<column index="5" visible="false"/>
+			</columnVisibility>
+			<columnNames>
+				<column index="0"></column>
+				<column index="1">ID</column>
+				<column index="2">Label</column>
+				<column index="3"></column>
+				<column index="4"></column>
+				<column index="5">N° pin</column>
+			</columnNames>
+			<columnOrder>5,2,1</columnOrder>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
+			<plcIOs>
+				<plcIO type="entree_universelle" address="Pin 1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>1</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>2</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 3" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>3</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 4" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>4</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 5" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>5</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 6" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>6</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 7" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>7</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 8" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>8</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 9" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>9</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 10" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>10</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 11" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>11</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 12" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>12</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 13" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>13</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 14" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>14</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 15" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>15</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 16" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>16</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 17" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>17</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 18" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>18</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Pin 19" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>19</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire RD red" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>RD</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire GY grey" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>GY</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire VT violet" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>VT</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire YE yellow" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>YE</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire GN green" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>GN</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire BU blue" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>BU</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire WH white" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>WH</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire RDBU red-blue" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>RDBU</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire GYBN grey-brown" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>GYBN</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire BNGN brown-green" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>BNGN</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire YEBN yellow-brown" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>YEBN</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire GNYE green-yellow" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>GNYE</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire BK black" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>BK</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire WHYE white-yellow" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>WHYE</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire WHGN white-green" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>WHGN</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire WHGY white-grey" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>WHGY</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire GYPK grey-pink" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>GYPK</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire PK pink" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>PK</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="Wire BN brown" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>BN</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Original vector drawing, not copied from a manufacturer drawing. Order numbers, pin assignments, terminal designations and wire colours come from public Pilz documents (see docs/pilz.md); the status of each datum is given in the description.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-52" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{aad72428-973e-5580-a41c-b13c4af42b91}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<line x1="0" y1="0" x2="16" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="6.25" y="-3.04" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="1"/>
+		<line x1="16" y1="0" x2="34" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="10" x2="16" y2="10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="6.25" y="6.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="2"/>
+		<line x1="16" y1="10" x2="34" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="20" x2="16" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="6.25" y="16.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="3"/>
+		<line x1="16" y1="20" x2="34" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="30" x2="16" y2="30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="6.25" y="26.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="4"/>
+		<line x1="16" y1="30" x2="34" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="40" x2="16" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="6.25" y="36.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="5"/>
+		<line x1="16" y1="40" x2="34" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="50" x2="16" y2="50" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="6.25" y="46.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="6"/>
+		<line x1="16" y1="50" x2="34" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="60" x2="16" y2="60" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="6.25" y="56.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="7"/>
+		<line x1="16" y1="60" x2="34" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="70" x2="16" y2="70" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="6.25" y="66.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="8"/>
+		<line x1="16" y1="70" x2="34" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="80" x2="16" y2="80" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="6.25" y="76.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="9"/>
+		<line x1="16" y1="80" x2="34" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="90" x2="16" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="4.99" y="86.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="10"/>
+		<line x1="16" y1="90" x2="34" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="100" x2="16" y2="100" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="4.99" y="96.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="11"/>
+		<line x1="16" y1="100" x2="34" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="110" x2="16" y2="110" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="4.99" y="106.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="12"/>
+		<line x1="16" y1="110" x2="34" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="120" x2="16" y2="120" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="4.99" y="116.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="13"/>
+		<line x1="16" y1="120" x2="34" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="130" x2="16" y2="130" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="4.99" y="126.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="14"/>
+		<line x1="16" y1="130" x2="34" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="140" x2="16" y2="140" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="4.99" y="136.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="15"/>
+		<line x1="16" y1="140" x2="34" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="150" x2="16" y2="150" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="4.99" y="146.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="16"/>
+		<line x1="16" y1="150" x2="34" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="160" x2="16" y2="160" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="4.99" y="156.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="17"/>
+		<line x1="16" y1="160" x2="34" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="170" x2="16" y2="170" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="4.99" y="166.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="18"/>
+		<line x1="16" y1="170" x2="34" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="180" x2="16" y2="180" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="4.99" y="176.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="19"/>
+		<line x1="16" y1="180" x2="34" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="34" y="66" width="8" height="48" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:gray;color:black" antialias="false"/>
+		<rect x="42" y="69" width="30" height="42" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:lightgray;color:black" antialias="false"/>
+		<rect x="72" y="82" width="12" height="16" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<rect x="84" y="86" width="46" height="8" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
+		<text x="38.19" y="56.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="M23 female 19-pin"/>
+		<text x="99.73" y="58.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="10 m"/>
+		<line x1="130" y1="90" x2="150" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="150" y="-1.5" width="20" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:black" antialias="false"/>
+		<text x="173" y="1.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="RD"/>
+		<line x1="190" y1="0" x2="200" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="130" y1="90" x2="150" y2="10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="150" y="8.5" width="20" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="173" y="11.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="GY"/>
+		<line x1="190" y1="10" x2="200" y2="10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="130" y1="90" x2="150" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="150" y="18.5" width="20" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:purple;color:black" antialias="false"/>
+		<text x="173" y="21.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="VT"/>
+		<line x1="190" y1="20" x2="200" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="130" y1="90" x2="150" y2="30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="150" y="28.5" width="20" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
+		<text x="173" y="31.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="YE"/>
+		<line x1="190" y1="30" x2="200" y2="30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="130" y1="90" x2="150" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="150" y="38.5" width="20" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
+		<text x="173" y="41.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="GN"/>
+		<line x1="190" y1="40" x2="200" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="130" y1="90" x2="150" y2="50" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="150" y="48.5" width="20" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:black" antialias="false"/>
+		<text x="173" y="51.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="BU"/>
+		<line x1="190" y1="50" x2="200" y2="50" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="130" y1="90" x2="150" y2="60" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="150" y="58.5" width="20" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<text x="173" y="61.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="WH"/>
+		<line x1="190" y1="60" x2="200" y2="60" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="130" y1="90" x2="150" y2="70" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="150" y="68.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:black" antialias="false"/>
+		<rect x="156" y="68.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:black" antialias="false"/>
+		<rect x="162" y="68.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:black" antialias="false"/>
+		<rect x="168" y="68.5" width="2" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:black" antialias="false"/>
+		<text x="173" y="71.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="RDBU"/>
+		<line x1="190" y1="70" x2="200" y2="70" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="130" y1="90" x2="150" y2="80" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="150" y="78.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<rect x="156" y="78.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:brun;color:black" antialias="false"/>
+		<rect x="162" y="78.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<rect x="168" y="78.5" width="2" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:brun;color:black" antialias="false"/>
+		<text x="173" y="81.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="GYBN"/>
+		<line x1="190" y1="80" x2="200" y2="80" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="130" y1="90" x2="150" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="150" y="88.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:brun;color:black" antialias="false"/>
+		<rect x="156" y="88.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
+		<rect x="162" y="88.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:brun;color:black" antialias="false"/>
+		<rect x="168" y="88.5" width="2" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
+		<text x="173" y="91.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="BNGN"/>
+		<line x1="190" y1="90" x2="200" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="130" y1="90" x2="150" y2="100" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="150" y="98.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
+		<rect x="156" y="98.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:brun;color:black" antialias="false"/>
+		<rect x="162" y="98.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
+		<rect x="168" y="98.5" width="2" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:brun;color:black" antialias="false"/>
+		<text x="173" y="101.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="YEBN"/>
+		<line x1="190" y1="100" x2="200" y2="100" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="130" y1="90" x2="150" y2="110" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="150" y="108.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
+		<rect x="156" y="108.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
+		<rect x="162" y="108.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
+		<rect x="168" y="108.5" width="2" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
+		<text x="173" y="111.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="GNYE"/>
+		<line x1="190" y1="110" x2="200" y2="110" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="130" y1="90" x2="150" y2="120" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="150" y="118.5" width="20" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<text x="173" y="121.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="BK"/>
+		<line x1="190" y1="120" x2="200" y2="120" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="130" y1="90" x2="150" y2="130" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="150" y="128.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<rect x="156" y="128.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
+		<rect x="162" y="128.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<rect x="168" y="128.5" width="2" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
+		<text x="173" y="131.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="WHYE"/>
+		<line x1="190" y1="130" x2="200" y2="130" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="130" y1="90" x2="150" y2="140" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="150" y="138.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<rect x="156" y="138.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
+		<rect x="162" y="138.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<rect x="168" y="138.5" width="2" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
+		<text x="173" y="141.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="WHGN"/>
+		<line x1="190" y1="140" x2="200" y2="140" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="130" y1="90" x2="150" y2="150" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="150" y="148.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<rect x="156" y="148.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<rect x="162" y="148.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<rect x="168" y="148.5" width="2" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="173" y="151.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="WHGY"/>
+		<line x1="190" y1="150" x2="200" y2="150" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="130" y1="90" x2="150" y2="160" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="150" y="158.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<rect x="156" y="158.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:HTMLPinkPink;color:black" antialias="false"/>
+		<rect x="162" y="158.5" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<rect x="168" y="158.5" width="2" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:HTMLPinkPink;color:black" antialias="false"/>
+		<text x="173" y="161.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="GYPK"/>
+		<line x1="190" y1="160" x2="200" y2="160" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="130" y1="90" x2="150" y2="170" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="150" y="168.5" width="20" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:HTMLPinkPink;color:black" antialias="false"/>
+		<text x="173" y="171.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="PK"/>
+		<line x1="190" y1="170" x2="200" y2="170" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="130" y1="90" x2="150" y2="180" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="150" y="178.5" width="20" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:brun;color:black" antialias="false"/>
+		<text x="173" y="181.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="BN"/>
+		<line x1="190" y1="180" x2="200" y2="180" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="93.97" y="200.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="C1000074"/>
+		<terminal x="0" y="0" name="1" orientation="w" type="Generic" uuid="{04abbf35-c449-5b28-ada4-90d79b3489e2}"/>
+		<terminal x="0" y="10" name="2" orientation="w" type="Generic" uuid="{5f1c8bd3-03c0-55df-b84c-c2a978704f59}"/>
+		<terminal x="0" y="20" name="3" orientation="w" type="Generic" uuid="{f5d9ef96-858d-5315-83eb-7dbcea475be0}"/>
+		<terminal x="0" y="30" name="4" orientation="w" type="Generic" uuid="{171e6df9-7aac-5885-b7e4-09fdf0d7bf39}"/>
+		<terminal x="0" y="40" name="5" orientation="w" type="Generic" uuid="{2e54c2ba-3134-5595-b75b-f59be4f8f748}"/>
+		<terminal x="0" y="50" name="6" orientation="w" type="Generic" uuid="{5d51d6c2-2173-5620-b57d-9d3da6bcd8b4}"/>
+		<terminal x="0" y="60" name="7" orientation="w" type="Generic" uuid="{fcfaf40a-d3eb-5598-8862-8e74a321ca85}"/>
+		<terminal x="0" y="70" name="8" orientation="w" type="Generic" uuid="{b4de7ecf-1127-5dfa-a89e-f9becc723d64}"/>
+		<terminal x="0" y="80" name="9" orientation="w" type="Generic" uuid="{626c9377-ff84-52e7-8daf-fd01931dc424}"/>
+		<terminal x="0" y="90" name="10" orientation="w" type="Generic" uuid="{455888a7-b3f2-5a8a-b7c7-d49cc71c66c9}"/>
+		<terminal x="0" y="100" name="11" orientation="w" type="Generic" uuid="{da9c909e-adbe-5d42-88a1-ddf0ab93269b}"/>
+		<terminal x="0" y="110" name="12" orientation="w" type="Generic" uuid="{d343ca9e-f5c6-50ca-9c00-cb69fa0239c2}"/>
+		<terminal x="0" y="120" name="13" orientation="w" type="Generic" uuid="{b0c26f13-b1f5-59d9-9e29-e62705ae99ac}"/>
+		<terminal x="0" y="130" name="14" orientation="w" type="Generic" uuid="{ee74663c-6d69-5193-85d4-a22f774fe153}"/>
+		<terminal x="0" y="140" name="15" orientation="w" type="Generic" uuid="{9bba208d-95b9-5025-8d13-af1e41db1fd4}"/>
+		<terminal x="0" y="150" name="16" orientation="w" type="Generic" uuid="{e2c7b37c-a113-58be-9b45-2c944cf2dad4}"/>
+		<terminal x="0" y="160" name="17" orientation="w" type="Generic" uuid="{a89c3d1e-a5ed-55ef-bde3-265d16365f0b}"/>
+		<terminal x="0" y="170" name="18" orientation="w" type="Generic" uuid="{ce4e62e9-d584-5ba7-88a9-4014fe7ee6d7}"/>
+		<terminal x="0" y="180" name="19" orientation="w" type="Generic" uuid="{d8fc03ec-3914-54d5-a1b4-3648b611afdb}"/>
+		<terminal x="200" y="0" name="RD" orientation="e" type="Generic" uuid="{1d3e5cf1-a678-554f-b223-71360db9d79e}"/>
+		<terminal x="200" y="10" name="GY" orientation="e" type="Generic" uuid="{e6c8afb6-8632-51bf-b4a1-65a9e5973145}"/>
+		<terminal x="200" y="20" name="VT" orientation="e" type="Generic" uuid="{445a0747-725e-5ae9-97b0-b004e05f1836}"/>
+		<terminal x="200" y="30" name="YE" orientation="e" type="Generic" uuid="{0fd74d48-ce22-5ad7-80ef-292ec501ea71}"/>
+		<terminal x="200" y="40" name="GN" orientation="e" type="Generic" uuid="{0e71ef18-a5d4-5304-819c-0a9aa84e9ab4}"/>
+		<terminal x="200" y="50" name="BU" orientation="e" type="Generic" uuid="{023f665a-32b2-54bf-a095-5a4bef8f593e}"/>
+		<terminal x="200" y="60" name="WH" orientation="e" type="Generic" uuid="{eca5fffa-15b7-59f1-bc76-d002232597af}"/>
+		<terminal x="200" y="70" name="RDBU" orientation="e" type="Generic" uuid="{abf44c4e-2157-52cb-b62d-57583838b51d}"/>
+		<terminal x="200" y="80" name="GYBN" orientation="e" type="Generic" uuid="{3cd1b7f7-abed-5946-be85-5e6df02fe3cc}"/>
+		<terminal x="200" y="90" name="BNGN" orientation="e" type="Generic" uuid="{32e17ca2-b51b-50ac-ae25-682b9ebf0f65}"/>
+		<terminal x="200" y="100" name="YEBN" orientation="e" type="Generic" uuid="{e9a36491-5972-56b7-834d-16061915f9ab}"/>
+		<terminal x="200" y="110" name="GNYE" orientation="e" type="Generic" uuid="{478b352a-79a3-56e5-a595-8c8693a29ad6}"/>
+		<terminal x="200" y="120" name="BK" orientation="e" type="Generic" uuid="{fa2a9817-2bc2-5dd7-83f3-e65352dd060a}"/>
+		<terminal x="200" y="130" name="WHYE" orientation="e" type="Generic" uuid="{b7541c7b-2369-53bd-ae55-c334b3d5ef18}"/>
+		<terminal x="200" y="140" name="WHGN" orientation="e" type="Generic" uuid="{d45611e7-2ac2-5404-84eb-724590049652}"/>
+		<terminal x="200" y="150" name="WHGY" orientation="e" type="Generic" uuid="{3b41bdc3-3d2e-545c-8579-bb2106751f52}"/>
+		<terminal x="200" y="160" name="GYPK" orientation="e" type="Generic" uuid="{509ea4f9-d3e6-57cf-b2eb-0ea650df6117}"/>
+		<terminal x="200" y="170" name="PK" orientation="e" type="Generic" uuid="{c70b750a-7464-5801-a1b1-ba3a98655f18}"/>
+		<terminal x="200" y="180" name="BN" orientation="e" type="Generic" uuid="{0dbca1c4-a85d-5369-b2c1-cfb686cb4845}"/>
+	</description>
+</definition>

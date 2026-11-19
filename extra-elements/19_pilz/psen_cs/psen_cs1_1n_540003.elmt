@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="240" height="180" hotspot_x="20" hotspot_y="50">
+<definition version="0.100.0" type="element" link_type="master" width="240" height="180" hotspot_x="20" hotspot_y="50">
 	<uuid uuid="{3d31588c-6cdf-5fe7-a054-b4bbfe663a97}"/>
 	<names>
 		<name lang="en">Pilz 540003 PSEN cs1.1n coded safety switch with 5-pin M12 male connector</name>
@@ -10,6 +10,52 @@
 		<elementInformation name="designation" show="1">Interrupteur de sécurité codé RFID PSEN cs1.1n, 2 sorties de sécurité à semi-conducteurs, connecteur M12 mâle 5 broches, 24 V DC</elementInformation>
 		<elementInformation name="description" show="1">PSEN cs1.1n / PSEN cs1.1 coded RFID safety switch with actuator, 2 safe semiconductor outputs, 5-pin M12 male connector, 24 V DC, IP67. VERIFIED (Pilz e-shop page of 540003 and the Pilz operating manual of the PSEN cs1.1n): pin 1 A1 +24 V UB brown, pin 2 terminal 12 output channel 1 white, pin 3 A2 0 V UB blue, pin 4 terminal 22 output channel 2 black, pin 5 grey do not connect (no terminal). The colours are those of the Pilz accessory cable.</elementInformation>
 	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="140"/>
+				<column index="2" width="130"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="44"/>
+			</columnWidths>
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="false"/>
+				<column index="2" visible="false"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+				<column index="5" visible="false"/>
+			</columnVisibility>
+			<columnNames>
+				<column index="0"></column>
+				<column index="1">ID</column>
+				<column index="2">Label</column>
+				<column index="3"></column>
+				<column index="4"></column>
+				<column index="5">N° pin</column>
+			</columnNames>
+			<columnOrder>5,2,1</columnOrder>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
+			<plcIOs>
+				<plcIO type="entree_universelle" address="+24 V DC supply UB" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>A1</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="0 V supply UB" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>A2</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Safety output 1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>12</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Safety output 2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>22</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
 	<informations>Author: QElectroTech contributors
 Original vector drawing, not copied from a manufacturer drawing. Order numbers, pin assignments, terminal designations and wire colours come from public Pilz documents (see docs/pilz.md); the status of each datum is given in the description.
 License: see http://qelectrotech.org/wiki/doc/elements_license</informations>

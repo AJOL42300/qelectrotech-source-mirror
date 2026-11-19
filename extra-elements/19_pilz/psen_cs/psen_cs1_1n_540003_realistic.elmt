@@ -1,0 +1,88 @@
+<definition version="0.100.0" type="element" link_type="master" width="240" height="140" hotspot_x="20" hotspot_y="50">
+	<uuid uuid="{a4a3de4b-b6e6-57db-8e27-d583835bb7ed}"/>
+	<names>
+		<name lang="en">Pilz 540003 PSEN cs1.1n coded safety switch with 5-pin M12 male connector, realistic view</name>
+		<name lang="fr">Interrupteur de sécurité codé PSEN cs1.1n Pilz 540003 avec connecteur M12 mâle 5 broches, vue réaliste</name>
+	</names>
+	<elementInformations>
+		<elementInformation name="manufacturer" show="1">Pilz</elementInformation>
+		<elementInformation name="manufacturer_reference" show="1">540003</elementInformation>
+		<elementInformation name="designation" show="1">Interrupteur de sécurité codé RFID PSEN cs1.1n, 2 sorties de sécurité à semi-conducteurs, connecteur M12 mâle 5 broches, 24 V DC</elementInformation>
+		<elementInformation name="description" show="1">PSEN cs1.1n / PSEN cs1.1 coded RFID safety switch with actuator, 2 safe semiconductor outputs, 5-pin M12 male connector, 24 V DC, IP67. VERIFIED (Pilz e-shop page of 540003 and the Pilz operating manual of the PSEN cs1.1n): pin 1 A1 +24 V UB brown, pin 2 terminal 12 output channel 1 white, pin 3 A2 0 V UB blue, pin 4 terminal 22 output channel 2 black, pin 5 grey do not connect (no terminal). The colours are those of the Pilz accessory cable.</elementInformation>
+	</elementInformations>
+	<kindInformations>
+		<kindInformation name="type">plc</kindInformation>
+		<plcMasterData rowHeight="12.00">
+			<columnWidths>
+				<column index="0" width="60"/>
+				<column index="1" width="140"/>
+				<column index="2" width="130"/>
+				<column index="3" width="90"/>
+				<column index="4" width="64"/>
+				<column index="5" width="44"/>
+			</columnWidths>
+			<columnVisibility>
+				<column index="0" visible="false"/>
+				<column index="1" visible="false"/>
+				<column index="2" visible="false"/>
+				<column index="3" visible="false"/>
+				<column index="4" visible="false"/>
+				<column index="5" visible="false"/>
+			</columnVisibility>
+			<columnNames>
+				<column index="0"></column>
+				<column index="1">ID</column>
+				<column index="2">Label</column>
+				<column index="3"></column>
+				<column index="4"></column>
+				<column index="5">N° pin</column>
+			</columnNames>
+			<columnOrder>5,2,1</columnOrder>
+			<headerFont family="Roboto Condensed" size="7" bold="true"/>
+			<cellFont family="Roboto Condensed" size="7" bold="false"/>
+			<plcIOs>
+				<plcIO type="entree_universelle" address="+24 V DC supply UB" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>A1</terminal>
+				</plcIO>
+				<plcIO type="entree_universelle" address="0 V supply UB" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>A2</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Safety output 1" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>12</terminal>
+				</plcIO>
+				<plcIO type="sortie_digitale" address="Safety output 2" functionText="" comment="" crossRef="" terminalCount="1">
+					<terminal>22</terminal>
+				</plcIO>
+			</plcIOs>
+		</plcMasterData>
+	</kindInformations>
+	<informations>Author: QElectroTech contributors
+Original vector drawing, not copied from a manufacturer drawing. Order numbers, pin assignments, terminal designations and wire colours come from public Pilz documents (see docs/pilz.md); the status of each datum is given in the description.
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+	<description>
+		<dynamic_text x="0" y="-40" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{7f249ad4-a625-58b3-8ff7-29782271fc61}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<rect x="0" y="-1" width="80" height="2" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:brun;color:black" antialias="false"/>
+		<text x="6" y="-3.34" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="A1"/>
+		<text x="69.99" y="-3.34" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="BN"/>
+		<rect x="0" y="29" width="80" height="2" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:black" antialias="false"/>
+		<text x="6" y="26.66" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="A2"/>
+		<text x="69.99" y="26.66" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="BU"/>
+		<rect x="120" y="-1" width="80" height="2" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<text x="187.59" y="-3.34" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="12"/>
+		<text x="124" y="-3.34" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="WH"/>
+		<rect x="120" y="29" width="80" height="2" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<text x="187.59" y="26.66" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="22"/>
+		<text x="124" y="26.66" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="BK"/>
+		<rect x="80" y="-24" width="40" height="66" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:lightgray;color:black" antialias="false"/>
+		<rect x="85" y="-19" width="30" height="12" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="95" y="11" diameter="10" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
+		<rect x="91" y="42" width="18" height="8" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:gray;color:black" antialias="false"/>
+		<rect x="94" y="50" width="12" height="10" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<text x="80.89" y="70.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="PSEN cs1.1n"/>
+		<text x="90.1" y="78.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="540003"/>
+		<terminal x="0" y="0" name="A1" orientation="w" type="Generic" uuid="{7c779a43-f798-50c6-a6b8-b46124a1e3d3}"/>
+		<terminal x="0" y="30" name="A2" orientation="w" type="Generic" uuid="{48a156bb-c910-5e5d-bb0b-904260f7ea4a}"/>
+		<terminal x="200" y="0" name="12" orientation="e" type="Generic" uuid="{e0e8595e-1cda-59b0-a3eb-987666863a74}"/>
+		<terminal x="200" y="30" name="22" orientation="e" type="Generic" uuid="{74dd1a5f-3c4e-5357-a3d5-932a6b3cca8c}"/>
+	</description>
+</definition>

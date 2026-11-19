@@ -17,7 +17,9 @@
 actuator and the connection cables of the order numbers 540003, 570480,
 630311, C1000073, C1000074, 6M000007, 6M000008 and 6M000009.
 
-Every product is ONE appearance (a simple element, no pin table). A device
+Every product has two appearances with the same terminals: the schematic
+symbol and a realistic view (<file>_realistic.elmt), both master elements
+with the same pin table data. A device
 has one terminal per connector pin that carries a signal, named with the
 designation of the manufacturer (A1, A2, 12, 22, S31 ...). A cable has one
 terminal per connector pin (named with the pin number) and one terminal per
@@ -103,8 +105,21 @@ def swatch(c, x, y, w, code, h=4):
         k += 1
 
 
-def term(name, x, y, orient):
-    return Terminal(name, x, y, orient, "", "", "")
+def wire_run(c, x_term, x_end, y, name, code, side):
+    """A coloured wire from a terminal to the housing, tagged with the
+    terminal name (near the terminal) and the colour code (near the
+    housing)."""
+    swatch(c, min(x_term, x_end), y, abs(x_end - x_term), code, 2)
+    if side == "w":
+        c.text(x_term + 6, y - 8.3, name, 4, True)
+        c.text_r(x_end - 4, y - 8.3, code, 4)
+    else:
+        c.text_r(x_term - 6, y - 8.3, name, 4, True)
+        c.text(x_end + 4, y - 8.3, code, 4)
+
+
+def term(name, x, y, orient, plc="entree_universelle", ident=""):
+    return Terminal(name, x, y, orient, plc, ident, "")
 
 
 class Product:
@@ -123,9 +138,9 @@ class Product:
     def key(self):
         return MANUFACTURER + "/" + self.order
 
-    def path(self):
-        return os.path.join(EXTRA, PILZ_DIR, self.family,
-                            self.file + ".elmt")
+    def path(self, realistic=False):
+        return os.path.join(EXTRA, PILZ_DIR, self.family, self.file
+                            + ("_realistic" if realistic else "") + ".elmt")
 
     def infos(self):
         return {"manufacturer": MANUFACTURER,
@@ -133,17 +148,24 @@ class Product:
                 "designation": self.designation,
                 "description": self.description}
 
-    def names(self):
+    def names(self, realistic=False):
         return {"en": f"{MANUFACTURER} {self.order} {self.kind_en} "
-                f"{self.short_en}",
+                f"{self.short_en}" + (", realistic view" if realistic
+                                      else ""),
                 "fr": f"{self.kind_fr} {MANUFACTURER} {self.order} "
-                f"{self.short_fr}"}
+                f"{self.short_fr}" + (", vue r\u00e9aliste" if realistic
+                                      else "")}
 
     def write(self):
-        canvas = self.draw()
-        write_element(self.path(), self.key, self.names(), self.infos(),
-                      AUTHOR, canvas, self.terms, label_at=(0, self.ly),
-                      master=False)
+        """The schematic symbol and the realistic view: same terminals,
+        same information, same pin table data (master elements)."""
+        for realistic in (False, True):
+            canvas = self.draw_realistic() if realistic else self.draw()
+            write_element(
+                self.path(realistic),
+                self.key + ("/realistic" if realistic else ""),
+                self.names(realistic), self.infos(), AUTHOR, canvas,
+                self.terms, label_at=(0, self.ly), master=True)
 
 
 # ------------------------------------------------------------ M12 drawing
@@ -222,6 +244,14 @@ class MGate(Device):
         ("ES2.2", "e", 16, "WHGY", "E-STOP, channel 2"),
     )
     RESERVED = ((8, "RDBU"), (17, "GYPK"))
+    # kind of each terminal in the pin table (supply, input, output)
+    PLC = {"A1": "entree_universelle", "A2": "entree_universelle",
+           "Y1": "entree_digitale", "S31": "entree_digitale",
+           "S41": "entree_digitale", "LED1": "entree_digitale",
+           "LED2": "entree_digitale"}
+    PLC.update({n: "sortie_digitale" for n in
+                ("B1", "B2", "12", "22", "Y32", "ES_SO", "ES1.1", "ES1.2",
+                 "ES2.1", "ES2.2")})
 
     def __init__(self, order, file, entry_en, entry_fr, entry_short):
         super().__init__(
@@ -249,12 +279,13 @@ class MGate(Device):
             "three order numbers 6M000007, 6M000008 and 6M000009 share the "
             "same wiring (the manual gives one table for the series); the "
             "reserved pins 8 and 17 have no terminal.")
+        self.entry = entry_short
         self.entry_en = entry_en
         self.terms = tuple(
             term(name, 0 if side == "w" else self.WIDTH + 20,
                  10 * [r for r in self.ROWS if r[1] == side].index(
                      (name, side, pin, code, fn)),
-                 side)
+                 side, self.PLC[name], fn)
             for name, side, pin, code, fn in self.ROWS)
 
     def draw(self):
@@ -279,6 +310,37 @@ class MGate(Device):
         c.text(14, bottom - 18, f"Reserved, no terminal: {res}", 4)
         c.text(14, bottom - 9, "Wire colours: Pilz accessory cable", 4)
         c.text_r(w + 6, bottom - 9, "VERIFIED pin-out", 4)
+        return c
+
+    def draw_realistic(self):
+        """The housing seen from the front: two illuminated pushbuttons, the
+        E-STOP, the coding slot (side depends on the entry) and the cable
+        outlet downwards. The colours of the buttons are generic."""
+        c = Canvas()
+        w = self.WIDTH
+        cx = 10 + w / 2
+        x0, x1 = cx - 30, cx + 30
+        for side, x_term in (("w", 0), ("e", w + 20)):
+            for i, row in enumerate(r for r in self.ROWS if r[1] == side):
+                wire_run(c, x_term, x0 if side == "w" else x1, 10 * i,
+                         row[0], row[3], side)
+        c.rect(x0, -50, 60, 190, LIGHT, BLACK, "normal")
+        for y, fill in ((-28, "green"), (2, "white")):
+            c.disc(cx, y, 22, "gray", BLACK)
+            c.disc(cx, y, 16, fill, BLACK)
+        c.disc(cx, 58, 44, "yellow", BLACK)
+        c.disc(cx, 58, 32, "red", BLACK)
+        c.disc(cx, 58, 16, "red", BLACK)
+        c.text_c(cx, 92, "PSEN mg1", 5, True)
+        if "left" in self.entry:
+            c.rect(x0, -44, 5, 36, "black")
+        elif "right" in self.entry:
+            c.rect(x1 - 5, -44, 5, 36, "black")
+        else:
+            c.rect(cx - 14, 106, 28, 5, "black")
+        c.rect(cx - 13, 140, 26, 14, "gray", BLACK, "normal")
+        c.rect(cx - 3, 154, 6, 16, "yellow", BLACK)
+        c.text_c(cx, 174, self.order, 5)
         return c
 
 
@@ -310,9 +372,32 @@ class CodedSwitch(Device):
             "3 A2 0 V UB blue, pin 4 terminal 22 output channel 2 black, "
             "pin 5 grey do not connect (no terminal). The colours are those "
             "of the Pilz accessory cable.")
-        self.terms = (term("A1", 0, 0, "w"), term("A2", 0, 30, "w"),
-                      term("12", self.WIDTH + 20, 0, "e"),
-                      term("22", self.WIDTH + 20, 30, "e"))
+        self.terms = (
+            term("A1", 0, 0, "w", "entree_universelle", "+24 V DC supply UB"),
+            term("A2", 0, 30, "w", "entree_universelle", "0 V supply UB"),
+            term("12", self.WIDTH + 20, 0, "e", "sortie_digitale",
+                 "Safety output 1"),
+            term("22", self.WIDTH + 20, 30, "e", "sortie_digitale",
+                 "Safety output 2"))
+
+    def draw_realistic(self):
+        """The switch head seen from the front, the M12 connector below it;
+        the wires of the accessory cable lead to the terminals."""
+        c = Canvas()
+        cx = 10 + self.WIDTH / 2
+        x0, x1 = cx - 20, cx + 20
+        for name, side, pin, code, fn in self.ROWS:
+            y = 0 if name in ("A1", "12") else 30
+            wire_run(c, 0 if side == "w" else self.WIDTH + 20,
+                     x0 if side == "w" else x1, y, name, code, side)
+        c.rect(x0, -24, 40, 66, LIGHT, BLACK, "normal")
+        c.rect(x0 + 5, -19, 30, 12, "white", BLACK)
+        c.disc(cx, 16, 10, "green", BLACK)
+        c.rect(cx - 9, 42, 18, 8, "gray", BLACK, "normal")
+        c.rect(cx - 6, 50, 12, 10, "black", BLACK)
+        c.text_c(cx, 64, "PSEN cs1.1n", 5, True)
+        c.text_c(cx, 72, self.order, 5)
+        return c
 
     def draw(self):
         c = Canvas()
@@ -365,7 +450,24 @@ class Actuator(Product):
             "connection. ASSUMED: the single terminal MECH is only a "
             "marker for the mechanical coupling to the switch, it carries "
             "no signal.")
-        self.terms = (term("MECH", 0, 0, "w"),)
+        self.terms = (term("MECH", 0, 0, "w", "entree_universelle",
+                           "Mechanical coupling (no signal)"),)
+
+    def draw_realistic(self):
+        """The actuator seen from the front: tapered tongue, head with
+        two fixing holes."""
+        c = Canvas()
+        c.line(0, 0, 14, 0)
+        c.poly([(14, -2), (44, -8), (44, 8), (14, 2)], True, "gray", BLACK,
+               "normal")
+        c.rect(44, -20, 56, 40, LIGHT, BLACK, "normal")
+        for x, y in ((54, -12), (54, 12), (90, -12), (90, 12)):
+            c.disc(x, y, 8, "gray", BLACK)
+            c.disc(x, y, 4, "black")
+        c.rect(66, -6, 12, 12, "white", BLACK)
+        c.text_c(72, 28, "PSEN ml 1.1", 5, True)
+        c.text_c(72, 36, self.order, 5)
+        return c
 
     def draw(self):
         c = Canvas()
@@ -401,10 +503,39 @@ class Cable(Product):
         self.connector, self.length, self.wires = connector, length, wires
         self.ly = -52
         self.terms = tuple(
-            [term(str(pin), 0, 10 * i, "w")
+            [term(str(pin), 0, 10 * i, "w", "entree_universelle",
+                  f"Pin {pin}")
              for i, (pin, code) in enumerate(wires)]
-            + [term(code, 200, 10 * i, "e")
+            + [term(code, 200, 10 * i, "e", "entree_universelle",
+                    f"Wire {code} {colour_name(code)}")
                for i, (pin, code) in enumerate(wires)])
+
+    def draw_realistic(self):
+        """Connector, cable and the fanned-out wires seen from the side."""
+        c = Canvas()
+        rows = len(self.wires)
+        bottom = 10 * (rows - 1)
+        cy = bottom / 2.0
+        half = 14 if rows <= 5 else 24
+        for i, (pin, code) in enumerate(self.wires):
+            y = 10 * i
+            c.line(0, y, 16, y)
+            c.text_c(8, y - 8, str(pin), 4)
+            c.line(16, y, 34, cy)
+        c.rect(34, cy - half, 8, 2 * half, "gray", BLACK, "normal")
+        c.rect(42, cy - half + 3, 30, 2 * half - 6, LIGHT, BLACK, "normal")
+        c.rect(72, cy - 8, 12, 16, "black", BLACK)
+        c.rect(84, cy - 4, 46, 8, "yellow", BLACK)
+        c.text_c(60, cy - half - 14, self.connector, 4)
+        c.text_c(107, cy - half - 14, self.length, 5, True)
+        for i, (pin, code) in enumerate(self.wires):
+            y = 10 * i
+            c.line(130, cy, 150, y)
+            swatch(c, 150, y, 20, code, 3)
+            c.text(173, y - 3, code, 4, True)
+            c.line(190, y, 200, y)
+        c.text_c(107, bottom + 14, self.order, 5)
+        return c
 
     def draw(self):
         c = Canvas()
@@ -503,7 +634,8 @@ def main():
     bad = 0
     for p in items:
         p.write()
-        for problem in p.draw().layout_problems():
+        for problem in (p.draw().layout_problems()
+                        + p.draw_realistic().layout_problems()):
             print(f"drawing problem in {p.file}: {problem}")
             bad += 1
     print(f"{len(items)} Pilz products written, {bad} drawing problem(s)")
