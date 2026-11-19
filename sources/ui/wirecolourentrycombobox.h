@@ -16,8 +16,8 @@
 	You should have received a copy of the GNU General Public License
 	along with QElectroTech.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef WIREPROFILECOMBOBOX_H
-#define WIREPROFILECOMBOBOX_H
+#ifndef WIRECOLOURENTRYCOMBOBOX_H
+#define WIRECOLOURENTRYCOMBOBOX_H
 
 #include <QComboBox>
 
@@ -57,4 +57,4 @@ class WireColourEntryComboBox : public QComboBox
 		QList<WireColourEntry> m_shown;
 };
 
-#endif // WIREPROFILECOMBOBOX_H
+#endif // WIRECOLOURENTRYCOMBOBOX_H

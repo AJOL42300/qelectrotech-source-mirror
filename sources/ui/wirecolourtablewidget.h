@@ -16,8 +16,8 @@
 	You should have received a copy of the GNU General Public License
 	along with QElectroTech.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef WIREPROFILESWIDGET_H
-#define WIREPROFILESWIDGET_H
+#ifndef WIRECOLOURTABLEWIDGET_H
+#define WIRECOLOURTABLEWIDGET_H
 
 #include <properties/wirecolourtable.h>
 
@@ -49,4 +49,4 @@ class WireColourTableWidget : public QWidget
 		QTableWidget *m_table = nullptr;
 };
 
-#endif // WIREPROFILESWIDGET_H
+#endif // WIRECOLOURTABLEWIDGET_H

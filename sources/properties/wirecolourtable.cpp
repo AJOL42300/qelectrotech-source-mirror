@@ -141,7 +141,7 @@ QDomElement WireColourTable::toXml(QDomDocument &document) const
 {
 	QDomElement root = document.createElement(QStringLiteral("wirecolourtable"));
 	for (const WireColourEntry &profile : m_profiles) {
-		QDomElement elmt = document.createElement(QStringLiteral("wireprofile"));
+		QDomElement elmt = document.createElement(QStringLiteral("wirecolourentry"));
 		elmt.setAttribute(QStringLiteral("name"), profile.name);
 		elmt.setAttribute(QStringLiteral("wirecolor"), profile.wire_color);
 		elmt.setAttribute(QStringLiteral("color"), profile.color.name());
@@ -166,9 +166,9 @@ WireColourTable WireColourTable::fromXml(const QDomElement &element)
 		return result;
 
 	result.m_profiles.clear();
-	for (QDomElement elmt = element.firstChildElement(QStringLiteral("wireprofile"));
+	for (QDomElement elmt = element.firstChildElement(QStringLiteral("wirecolourentry"));
 		 !elmt.isNull();
-		 elmt = elmt.nextSiblingElement(QStringLiteral("wireprofile")))
+		 elmt = elmt.nextSiblingElement(QStringLiteral("wirecolourentry")))
 	{
 		WireColourEntry profile;
 		profile.name = elmt.attribute(QStringLiteral("name"));

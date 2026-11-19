@@ -16,8 +16,8 @@
 	You should have received a copy of the GNU General Public License
 	along with QElectroTech.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef WIREPROFILES_H
-#define WIREPROFILES_H
+#ifndef WIRECOLOURTABLE_H
+#define WIRECOLOURTABLE_H
 
 #include <QColor>
 #include <QDomElement>
@@ -83,4 +83,4 @@ class WireColourTable
 		QList<WireColourEntry> m_profiles = defaultProfiles();
 };
 
-#endif // WIREPROFILES_H
+#endif // WIRECOLOURTABLE_H
