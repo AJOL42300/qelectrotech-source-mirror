@@ -583,7 +583,7 @@ class TstKincoElements : public QObject
 				QCOMPARE(column.values(), front);
 				const auto ys = column.keys();
 				for (int i = 1; i < ys.size(); ++i) {
-					QCOMPARE(ys.at(i) - ys.at(i - 1), 20.0);
+					QCOMPARE(ys.at(i) - ys.at(i - 1), 10.0);
 				}
 					// the plug and the sockets of the other faces
 				QVERIFY(names.contains(QStringLiteral("PE")));
