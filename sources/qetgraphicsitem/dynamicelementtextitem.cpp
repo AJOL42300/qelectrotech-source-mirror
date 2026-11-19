@@ -864,8 +864,10 @@ void DynamicElementTextItem::setCompositeText(const QString &text)
 	{
 		DiagramContext dc;
 		if(elementUseForInfo())
+		{
 			dc = elementUseForInfo()->elementInformations();
-		elementUseForInfo()->addPlcChannelValues(dc);
+			elementUseForInfo()->addPlcChannelValues(dc);
+		}
 		setPlainText(autonum::AssignVariables::replaceVariable(m_composite_text, dc, elementUseForInfo()));
 	}
 
