@@ -108,9 +108,21 @@ gives the height in millimetres; the middle is deduced from the user's
 request and the principle diagram. Known limit: the vertical 0 V of the EL9410
 crosses its PE rail without a dot; only the EL9410 uses the PE level.
 The vertical branches along the sides join the
-terminals marked 24 V / 0 V in the I/O table. The supply of each individual
-channel is **not** drawn: the public documentation does not state it channel
-by channel.
+terminals marked 24 V / 0 V in the I/O table.
+
+**Supply of each channel** (rev. 120, generic, UNCERTAIN): on the I/O cards a
+vertical rail runs along each side (left 24 V in red, right 0 V in blue, or
+the potential of the side branch the card already had) and a short link with
+a junction dot on the rail and one on the stage wire feeds every channel
+stage (`Card.supply`, `tap_u` in `gen_schematic.py`). The public text does not
+say channel by channel which potential feeds which stage, so the choice is
+generic, not read from the principle diagrams. Cards without this drawing
+(`NO_CHANNEL_SUPPLY`): EL2652 (no power contacts), EL2911 (double card, two
+groups), EL9100 (power feed terminal), EL1918 (stages 20 px apart), the 16
+channel generic cards (22 px pitch), EK1914 (horizontal stubs), EL9410,
+EK1100 and EL6910 (no channels) and the EPP boxes (supplied via UP, no side
+contacts). The rail heights (`POWER_Y`) do not change; the test
+`ioCardsDrawTheSupplyOfEachChannel` checks the junction dots.
 
 Per card
 (the table is the `CONTACTS` dictionary of `misc/beckhoff/gen_schematic.py`):
@@ -123,7 +135,7 @@ Per card
 | EL2574 | yes (verified) | not specified | not stated | default kept |
 | EL2652 | **no** | **no** | no | no power contacts (relay output), verified |
 | EL2911 | **no** | yes | not stated | starts a new potential group, verified. One double card: a single 12 mm outline, rails drawn once, dotted separator, groups "IN 1-4" / "OUT 1" (own grouping); pin-out from the public manual v2.2.0, not re-read in rev. 111 |
-| EL6910 | **none drawn** | **none drawn** | no | product page: "current consumption power contacts: -", no I/O channels; not verified on infosys (404). Redrawn in rev. 112 (`gen_el6910.py`): 12 mm body, "Logic" block, no terminals, no rails |
+| EL6910 | **assumed** (pass-through) | **assumed** (pass-through) | no | product page lists 24 V / 0 V power contacts but "current consumption power contacts: -"; no I/O channels; not verified on infosys (404). Rev. 112 drew none; since rev. 114 (`gen_el6910.py`) it has the same 12 mm body, rails at the common power-contact height (`POWER_Y`), contacts and title position as the other EL cards, plus a "Logic" block above the rails, still no terminals |
 | EL9011 (end cap) | no | no | no | no power contacts, verified; its schematic is an older generic drawing and still shows two generic rails (not redrawn) |
 | EL9100, EL9410 | yes (feed) | yes | yes (terminals 4/8 of the EL9410) | EL9410 verified, EL9100 from the documentation |
 | EK1100 | **no** | yes | yes | three spring contacts on the right face (24 V, 0 V, PE), verified |
@@ -164,9 +176,9 @@ text of the pages confirms, and what stays open:
 No page states the left / right side in text (only the EL9410 mentions the
 right-hand side), so the sides drawn stay the ones of the first table. The
 datasheets show the principle diagram as an image, which cannot be read here:
-the **supply of each channel** (rail joined to each stage by dots) is therefore
-not drawn, since no text confirms it channel by channel. To add it for a card,
-read its principle diagram and extend `Card.power` in `gen_schematic.py`.
+the **supply of each channel** is therefore drawn in a generic way (see
+above), not confirmed channel by channel. To correct it for a card, read its
+principle diagram and adjust `Card.supply` in `gen_schematic.py`.
 
 ## Generators: the plus sign
 
@@ -356,7 +368,16 @@ pairs of pins are 1/2 for SI1, 3/4 for SI3, 5/6 for SI5, 7/8 for SI7, 9/10 for
 SI2, 11/12 for SI4, 13/14 for SI6, 15/16 for SI8. **Uncertain**: the exact
 position of the terminals on the real front (rows of two, left to right) is
 an assumption; the drawing is a layout made here, in vector, with a pitch of
-15 px between the rows, and nothing is copied from the manufacturer. The
+20 px between the rows (30 px between the two groups of two pairs, where the
+power-contact rails of the symbol pass, so no pin sits on a rail; all on the
+5 px grid), and nothing is copied from the manufacturer. In the symbol each
+pair (Sn+ above SIn) has its LED stage, the LED triangle pointing from the
+clock output to the input. **Checked**: the correspondence between the
+LEDs/terminals and the pins (S+ / SI pairs, order 1, 3, 5, 7, 2, 4, 6, 8)
+agrees with the operating instructions v3.0.0 of the card
+(https://www.manualslib.com/manual/3658259/Beckhoff-Twinsafe-El1918.html,
+text only); **assumed**: the physical arrangement of the LEDs on the front
+(the infosys page of the card returned 404). The
 table lists the two pins of each input. The EL1904 and EL2904 have the
 channels on pins 1, 5, 3, 7 and 0 V on 2, 6, 4, 8. The EL6910 is
 not verified and flagged so in the description. `misc/beckhoff/gen_safety.py`
@@ -485,7 +506,9 @@ two layouts below, to the generated views.
   was regenerated on the new pins.
 - **EL1918**: the same housing as the other cards (60x330, one yellow body),
   with 16 pins instead of 8: two columns of 8 rows, pins 1 to 8 in the left
-  column and 9 to 16 in the right one, the rows 25 px apart (estimated from
+  column and 9 to 16 in the right one, the rows 20 px apart (30 px between the
+  two groups of two pairs, on the 5 px grid, so the rails of the symbol view
+  do not cross a pin; estimated from
   the front picture). The signals follow the Beckhoff order, not the channel
   order (Sn+ on the odd pins, SIn on the even ones, channels 1, 3, 5, 7 first,
   then 2, 4, 6, 8).
@@ -893,7 +916,7 @@ been re-read for the `-1002` alone (**not re-verified**). The input filter
 | Tightening torque of the M3 bolts | **not stated** (the torque table of the chapter is for plug connectors only) | same chapter |
 | Mounting rail ZS5300-0001: 500 x 129 mm, stainless steel 1.5 mm, M3 threads ready-made; up to 15 narrow modules, 2 mm apart | verified | same page |
 | Silhouette (ears, corner radii, hole 2.55 mm from the edges) | **assumed**: traced by eye on a photo, scaled to 30 x 126 mm; only the size and the 3.5 mm holes are data-sheet values | |
-| 5-digit I/O identifier in the label holders | corresponds to the Function column (`plcIO.functionText`) of the PLC table (user's answer); **not linked** to the holders (needs C++, see below) | |
+| 5-digit I/O identifier in the label holders | the Function column (`plcIO.functionText`) of the PLC table (user's answer), shown by `%{plc_function_N}` in each holder | |
 
 **M3 screw length.** Beckhoff states "longer than 15 mm" for the narrow EPP
 housings; no exact length is given. A calculated value would be the 1.5 mm
@@ -904,29 +927,38 @@ verified, so no screw length is drawn or invented. Take a bolt longer than
 
 **Label holders and identifiers.** In the realistic view the holders are white
 rectangles at the positions assumed above: two per M12 socket (upper = odd
-channel, lower = even channel) and one by the Us/Up LEDs. QElectroTech has no
-5-digit identifier of an I/O in this branch: the `plcIO` cross-reference is
-an empty, user-editable text and a dynamic text cannot read a value per
-channel. Each channel holder therefore holds an editable `UserText` dynamic
-text with the placeholder `00000`: double-click it on the placed element and
-type the identifier. The EPP views are the only ones changed for this (EL, EK
-and drives are not).
+channel A, lower = even channel B) and one by the Us/Up LEDs. Each channel
+holder is a `CompositeText` dynamic text `%{plc_function_N}` (N = 1 to 8, the
+row of the channel in the PLC table: X01(1) = 1, X01(2) = 2, ... X04(2) = 8).
+It shows the **Function** column (`plcIO.functionText`) of that row, which is
+the 5-digit I/O identifier (user's answer). Type the identifier once, in the
+Function column of the PLC table of the element (the table of the master
+properties); the holder and the cross-reference table then show the same
+value, and the holder follows later changes. The Function column of the EPP
+is empty when the element is placed, so the holders are empty until then.
+The EPP views are the only ones changed for this (EL, EK and drives are not:
+their drawings have no label holders).
 
-*Which field the identifier is* (user's answer): the **Function** column of the
-cross-reference table, that is `plcIO.functionText` of the channel in the
-card's own PLC table (the field the function propagation of the
-`ajol42300-function-propagation` branch reads and writes per channel). Not
-linked yet, because no existing variable gives a text the `functionText` of one
-channel of its own element: `%{plc_function}` (`AssignVariables`,
-`autoNum/assignvariables.cpp`) is filled only on a *slave* element linked to a
-master row (`LinkElementCommand`, `Element::setData`), and one slave holds one
-row, while the EPP is one element with eight rows. The smallest link needs C++
-(not done, waiting for agreement): fill per-channel keys `plc_function_1` to
-`plc_function_8` in the element's own information from `plcMasterData().ios`
-(in `Element::setData`, where `old_plc` is already compared) and replace them
-in `AssignVariables::replaceVariable`; the holders then become `CompositeText`
-`%{plc_function_N}` texts. Until then the value is typed by hand in the holder
-and, separately, in the Function column of the PLC table (it is not shared).
+**Variable `%{plc_function_N}`** (C++, generic, not specific to the EPP). Any
+element that is a PLC master with an I/O table (`master_type` PLC: the
+Beckhoff EL, EK, EPP and any other PLC card) can use `%{plc_function_N}` in a
+composite text, with N from 1, one per row of its own table and no upper
+limit. It is listed in the composite text editor ("PLC function, row N") for
+such an element. A row that does not exist gives an empty text. The value is
+display only (nothing is stored, no change of the file format), built in
+`Element::addPlcChannelValues` (called by `Element::addDisplayValues`) and
+replaced in `AssignVariables::replaceVariable`; the texts that use it are
+refreshed when the table changes (`Element::setElementData`). The slave
+variable `%{plc_function}` (the row of the master a slave element is linked
+to) is unchanged. The function propagation of the
+`ajol42300-function-propagation` branch reads and writes the same
+`functionText` field and is not duplicated here.
+
+Verified: the Function column is `plcIO.functionText` (user's answer;
+`crossrefitem.cpp::drawAsPlcTable`), tests `tst_plcfunctiontext` (rows beyond
+8, row missing, follows the table, slave unchanged) and the EPP holder
+test. Not verified: use in a real project and in the interface by hand; the
+composite text editor entry was not tried in the window.
 
 In the layout views (EPP2338-1002 only) the silhouette has the two ears with
 their 3.5 mm holes; the white holders and the M12/M8 sockets are drawn at 1:1

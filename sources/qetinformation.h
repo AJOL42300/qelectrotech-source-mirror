@@ -196,6 +196,9 @@ namespace QETInformation
 								 QString *property = nullptr,
 								 int *connection = nullptr);
 	bool usesTerminalConductorInfo(const QString &composite_text);
+	QString plcFunctionInfoKey(int channel);
+	bool isPlcFunctionInfo(const QString &info, int *channel = nullptr);
+	bool usesPlcFunctionInfo(const QString &composite_text);
 	QString elementInfoToVar(const QString &info);
 
 	bool isNumericInfoKey(const QString &key);

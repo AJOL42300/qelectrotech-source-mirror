@@ -15,11 +15,14 @@
 # You should have received a copy of the GNU General Public License
 # along with QElectroTech.  If not, see <http://www.gnu.org/licenses/>.
 """Schematic of the EL6910 (TwinSAFE Logic) in the housing of the other
-cards: same yellow body and clips, a "Logic" block, no field terminal.
+cards: same yellow body, clips, title and name position, the power contacts
+at the common heights POWER_Y (assumed pass-through, like the other EL
+cards) and a "Logic" block above them. No field terminal.
 
-The public datasheet gives "current consumption power contacts: -" and no
-power contact connection, so no power contact is drawn (not verified, see
-docs/beckhoff-ethercat.md).  The old drawing had a wide body, the text
+The public datasheet lists 24 V / 0 V power contacts but gives "current
+consumption power contacts: -", so the contacts are drawn as the generic
+pass-through of the series and are NOT verified (see
+docs/beckhoff-ethercat.md). The old drawing had a wide body, the text
 "BECKHOFF" and two generic rails under it: they are replaced.
 
 Usage: python gen_el6910.py <beckhoff elements dir>
@@ -32,8 +35,8 @@ import xml.etree.ElementTree as ET
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gen_schematic import (Sheet, DOTTED, THIN, YELLOW_FILL, CLIP_W,  # noqa
-                           CLIP_H, EL60_BODY, NOTE, uid)
-from realistic_fixes import num, write  # noqa: E402
+                           CLIP_H, EL60_BODY, NOTE, POWER_Y, uid)
+from realistic_fixes import write  # noqa: E402
 
 
 def main(base):
@@ -55,15 +58,16 @@ def main(base):
         inner = y + (2.0 if top else CLIP_H - 2.0)
         s.line(cx - CLIP_W / 2 + 3, inner, cx + CLIP_W / 2 - 3, inner)
     mx = (x0 + x1) / 2
-    s.rect(mx - 11, -22, 22, 44, THIN)
-    s.text_centered(mx, 0, "Logic", 5)
-    s.text(mx - 15, y1 - 14, "EL6910", 9, True)
+    s.power_rails(x0, x1, POWER_Y["24V"], POWER_Y["0V"], True, True)
+    s.rect(mx - 11, -45, 22, 40, THIN)
+    s.text_centered(mx, -25, "Logic", 5)
+    s.text(-10.7, 135.74, "EL6910", 8, True)
     desc = ET.Element("description")
     for e in s.parts:
         desc.append(e)
     if dyn is not None:
-        dyn.set("x", num(x0 - 6))
-        dyn.set("y", num(y1 + CLIP_H + 6))
+        dyn.set("x", "-20.96")
+        dyn.set("y", "155.89")
         desc.append(dyn)
     xs = [x for x, _ in s.bits]
     ys = [y for _, y in s.bits]
@@ -81,9 +85,10 @@ def main(base):
     for ei in root.iter("elementInformation"):
         if ei.get("name") == "description":
             ei.text = ("TwinSAFE logic terminal, no field terminals and no "
-                       "terminal drawn. Power contacts not drawn: the "
-                       "datasheet gives no power contact connection "
-                       "(current consumption power contacts: -).")
+                       "terminal drawn. Power contacts (24 V / 0 V) drawn "
+                       "as the pass-through of the series: ASSUMED, the "
+                       "datasheet gives \"current consumption power "
+                       "contacts: -\".")
     info.text = (
         "Author: QElectroTech contributors\n"
         "Generic layout, not copied from a manufacturer drawing. License: "
@@ -91,8 +96,9 @@ def main(base):
         + NOTE.replace("gen_schematic", "gen_el6910").replace(
             "the realistic view: the stages are generic, check them against"
             " the datasheet.", "the datasheet.") + "\n"
-        "No power contact drawn: the datasheet gives \"current consumption "
-        "power contacts: -\" (not verified), source "
+        "Power contacts drawn as the series pass-through, ASSUMED: the "
+        "datasheet gives \"current consumption power contacts: -\" "
+        "(not verified), source "
         "https://www.beckhoff.com/en-en/products/i-o/ethercat-terminals/"
         "el-ed6xxx-communication/el6910.html")
     write(root, path)

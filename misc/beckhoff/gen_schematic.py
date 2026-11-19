@@ -98,6 +98,13 @@ POWER_Y = {"24V": 15, "0V": 25, "PE": 35}
 CLIP_W = 16.0
 CLIP_H = 7.0
 SAFETY = ("el1904", "el2904", "el2911", "el1918", "ek1914")
+# cards without a supply drawn for each channel: no power contacts (EL2652),
+# double card with two groups (EL2911), power feed terminal (EL9100), stages
+# only 20 px apart (EL1918: no room for a link between them), 16 channel
+# generic cards (22 px pitch: the links would touch the terminals)
+NO_CHANNEL_SUPPLY = ("el2652", "el2911", "el9100", "el1918",
+                     "el1xxx_generic_16", "el2xxx_generic_16",
+                     "el3xxx_generic_16", "el4xxx_generic_16")
 
 
 def uid(*parts):
@@ -246,6 +253,15 @@ class Sheet:
                 self.wire(f, free + 7.0, length)
             else:
                 self.wire(f, 0, length)
+        elif kind == "led":
+            # the EL1918 pairs are 20 px apart: 2 px of wire on each side
+            if length >= 11:
+                free = (length - 7.0) / 2.0
+                self.wire(f, 0, free)
+                self.led(f, free)
+                self.wire(f, free + 7.0, length)
+            else:
+                self.wire(f, 0, length)
         elif kind == "out":
             if length >= 15:
                 free = (length - 9.0) / 2.0
@@ -286,6 +302,21 @@ def role_of(pin):
     return "other"
 
 
+def tap_u(kind, length, far=False):
+    """Where the supply of a channel joins its stage: the middle of the
+    wire on the terminal side of the component (LED or generator), or of
+    the wire on the far side for a single ended stage, whose near wire is
+    too short."""
+    comp = {"in": (13.0, 7.0), "led": (11.0, 7.0), "out": (15.0, 9.0)}
+    need, size = comp[kind]
+    if length < need:
+        return length / 2.0
+    free = (length - size) / 2.0
+    if far:
+        return (free + size + length) / 2.0
+    return free / 2.0
+
+
 class Card:
     def __init__(self, sym_path):
         self.path = sym_path
@@ -307,6 +338,8 @@ class Card:
         self.sheet = Sheet()
         self.outlines = []      # (x0, y0, x1, y1)
         self.rail_ys = []       # heights of the power rails drawn
+        self.sides = {}         # side branches of power(): x, pot, lo, hi
+        self.taps = []          # (x, y) on the wire of each channel stage
 
     def remap(self, table):
         """Rename the terminals of the I/O table to the pins of the view."""
@@ -359,10 +392,12 @@ class Card:
         if pin.name.isdigit():
             self.sheet.text_centered(pin.x, pin.y, pin.name, size)
 
-    def stage_from(self, pin, dx, dy, kind, length):
+    def stage_from(self, pin, dx, dy, kind, length, far=False):
         r = pin.d / 2
         f = Frame(pin.x + dx * r, pin.y + dy * r, dx, dy)
         self.sheet.stage(f, kind, length)
+        if dx == 0 and kind in ("in", "out", "led"):
+            self.taps.append(f.p(tap_u(kind, length, far)))
         return f
 
     def stub(self, pin, prefer=("up", "down", "left", "right"), cap=30.0):
@@ -384,7 +419,7 @@ class Card:
         if room < 5.0:
             return
         length = min(cap, room)
-        f = self.stage_from(pin, dx, dy, kind, length)
+        f = self.stage_from(pin, dx, dy, kind, length, far=True)
         if kind == "other" or kind == "in" or kind == "out":
             self.sheet.bar(f, length)
         if pin.role == "sup":
@@ -435,10 +470,13 @@ class Card:
             pot = wanted[side] if len(pots) > 1 else pins[0].pot
             kept = [p for p in pins if p.pot == pot]
             bx, top = branch_x[side], rails[pot]
+            lo = min(top, min(p.y for p in kept))
+            hi = max(top, max(p.y for p in kept))
             style = POT_STYLE[pot]
-            self.sheet.line(bx, min(top, min(p.y for p in kept)), bx,
-                            max(top, max(p.y for p in kept)), style)
+            self.sheet.line(bx, lo, bx, hi, style)
             self.sheet.junction(bx, top, pot)
+            if zone is None:
+                self.sides[side] = {"x": bx, "pot": pot, "lo": lo, "hi": hi}
             for p in kept:
                 edge = p.x + (-1 if side == "left" else 1) * p.d / 2
                 self.sheet.line(edge, p.y, bx, p.y, style)
@@ -457,6 +495,40 @@ class Card:
                                 o.x - sign * o.d / 2, p.y, POT_STYLE[p.pot])
                 linked.add(p.name)
         return linked
+
+    def supply(self, body):
+        """The supply of each channel: from the side branch of the power
+        contacts (24 V on the left and 0 V on the right unless the side
+        already carries a branch), a link and a dot to the wire of the
+        stage of every channel. Generic: the datasheets do not state which
+        potential feeds which channel. Not drawn for NO_CHANNEL_SUPPLY."""
+        if self.stem in NO_CHANNEL_SUPPLY or not self.taps:
+            return
+        x0, _, x1, _ = body
+        branch_x = {"left": x0 + 2.5, "right": x1 - 2.5}
+        wanted = {"left": "24V", "right": "0V"}
+        for side in ("left", "right"):
+            taps = [t for t in self.taps
+                    if (t[0] < (x0 + x1) / 2) == (side == "left")]
+            if not taps:
+                continue
+            info = self.sides.get(side)
+            if info is None:
+                pot = wanted[side]
+                info = {"x": branch_x[side], "pot": pot,
+                        "lo": POWER_Y[pot], "hi": POWER_Y[pot]}
+                self.sheet.junction(info["x"], POWER_Y[pot], pot)
+            style = POT_STYLE[info["pot"]]
+            lo = min(t[1] for t in taps)
+            hi = max(t[1] for t in taps)
+            if lo < info["lo"]:
+                self.sheet.line(info["x"], lo, info["x"], info["lo"], style)
+            if hi > info["hi"]:
+                self.sheet.line(info["x"], info["hi"], info["x"], hi, style)
+            for tx, ty in taps:
+                self.sheet.line(info["x"], ty, tx, ty, style)
+                self.sheet.junction(info["x"], ty, info["pot"])
+                self.sheet.junction(tx, ty, info["pot"])
 
     # outline and clips --------------------------------------------------------
     def outline(self, x0, y0, x1, y1, clips=True):
@@ -550,6 +622,7 @@ class Card:
                 if p.name in paired and p.role in ("in", "out") and \
                         abs(tx - p.x) < 12 and -16 < ty - p.y < -6:
                     self.sheet.parts.append(ET.fromstring(ET.tostring(t)))
+        self.supply(body)
         self.copy_reference()
 
     def build_el1918(self):
@@ -570,7 +643,7 @@ class Card:
                     self.stub(upper, ("up",), 22.0)
                     self.stub(lower, ("down",), 22.0)
                 else:
-                    self.pair(upper, lower, "in")
+                    self.pair(upper, lower, "led")
         self.copy_reference()
 
     def build_rows(self, left_x, body):

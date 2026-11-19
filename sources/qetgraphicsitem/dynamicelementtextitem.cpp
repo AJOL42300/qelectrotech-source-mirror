@@ -865,6 +865,7 @@ void DynamicElementTextItem::setCompositeText(const QString &text)
 		DiagramContext dc;
 		if(elementUseForInfo())
 			dc = elementUseForInfo()->elementInformations();
+		elementUseForInfo()->addPlcChannelValues(dc);
 		setPlainText(autonum::AssignVariables::replaceVariable(m_composite_text, dc, elementUseForInfo()));
 	}
 
@@ -1878,6 +1879,7 @@ void DynamicElementTextItem::updateLabel()
 			if (element) {
 				dc.addValue(QETInformation::ELMT_LABEL,           label_element->labelForDisplay());
 				dc.addValue(QETInformation::ELMT_TERMINAL_NUMBER, element->terminalNumberForDisplay());
+				element->addPlcChannelValues(dc);
 			}
 			setPlainText(autonum::AssignVariables::replaceVariable(m_composite_text, dc, element));
 		}

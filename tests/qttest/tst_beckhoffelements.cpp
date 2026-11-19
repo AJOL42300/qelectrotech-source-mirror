@@ -637,15 +637,35 @@ class TstBeckhoffElements : public QObject
 			QCOMPARE(def.attribute(QStringLiteral("height")),
 					 ref.attribute(QStringLiteral("height")));
 			QCOMPARE(el.size(), 16);
+				// two groups of two S+ / SI pairs (20 px apart): the power
+				// contact rails of the schematic view (y = 15 and 25) pass
+				// between the groups; on the 5 px grid
+			const double rows[8] = {-55, -35, -15, 5, 35, 55, 75, 95};
 			for (int n = 1; n <= 16; ++n) {
 				const QString name = QString::number(n);
 				QVERIFY2(el.contains(name), qPrintable(name));
 					// 1..8 in the left column, 9..16 in the right one
 				QCOMPARE(el.value(name).x(), n <= 8 ? -5.0 : 10.0);
-				const int row = (n - 1) % 8;
-				QCOMPARE(el.value(name).y(),
-						 el.value(QStringLiteral("1")).y() + 25.0 * row);
+				QCOMPARE(el.value(name).y(), rows[(n - 1) % 8]);
 			}
+		}
+
+		void el1918SchematicHasOneLedStagePerPairAndNoPinOnARail()
+		{
+			const auto def = load(elementPath(
+				QStringLiteral("el1918.elmt"))).documentElement();
+			const auto pins = pinPoints(def.firstChildElement(
+				QStringLiteral("description")));
+			QCOMPARE(pins.size(), 16);
+			for (auto it = pins.begin(); it != pins.end(); ++it) {
+					// the 9 px circle of a pin must not touch the rails
+				QVERIFY2(it.value().y() <= 9.5 || it.value().y() >= 30.5,
+						 qPrintable(it.key()));
+			}
+				// S+ above its input SI: one LED (triangle) per pair
+			const QString xml = rawText(elementPath(
+				QStringLiteral("el1918.elmt")));
+			QCOMPARE(xml.count(QStringLiteral("<polygon ")), 8);
 		}
 
 		void everyCardWithTerminalsHasTheSameHeight()
@@ -682,11 +702,7 @@ class TstBeckhoffElements : public QObject
 				const bool left = key != QStringLiteral("el2652")
 					&& key != QStringLiteral("el2911")
 					&& key != QStringLiteral("ek1914");
-				if (key == QStringLiteral("el6910")) {
-						// no power contact confirmed by the datasheet
-					QVERIFY2(!xml.contains(QStringLiteral("<arc ")),
-							 qPrintable(key));
-				} else if (key == QStringLiteral("el2652")) {
+				if (key == QStringLiteral("el2652")) {
 					QVERIFY2(!xml.contains(QRegularExpression(
 								 QStringLiteral("<rect[^>]*filling:white;color:red"))),
 							 qPrintable(key));
@@ -737,6 +753,44 @@ class TstBeckhoffElements : public QObject
 				cards += arcs > 0 ? 1 : 0;
 			}
 			QVERIFY(cards >= 10);
+		}
+
+		void ioCardsDrawTheSupplyOfEachChannel()
+		{
+				// a junction dot (filled circle of 3 px) on the supply
+				// rail and on the wire of each channel stage
+			const QRegularExpression dot(QStringLiteral(
+				"<circle [^>]*diameter=\"3\"[^>]*filling:(red|blue)"));
+			const auto dots = [&dot](const QString &key) {
+				const QString xml = rawText(elementPath(
+					key + QStringLiteral(".elmt")));
+				int n = 0;
+				auto it = dot.globalMatch(xml);
+				while (it.hasNext()) {
+					it.next();
+					++n;
+				}
+				return n;
+			};
+			for (const QString &key : {QStringLiteral("el1004"),
+									   QStringLiteral("el1008"),
+									   QStringLiteral("el2004"),
+									   QStringLiteral("el2008"),
+									   QStringLiteral("el2522"),
+									   QStringLiteral("el2574"),
+									   QStringLiteral("el5152"),
+									   QStringLiteral("el1904"),
+									   QStringLiteral("el2904"),
+									   QStringLiteral("el1xxx_generic"),
+									   QStringLiteral("el2xxx_generic")}) {
+				QVERIFY2(dots(key) >= 10, qPrintable(key));
+			}
+				// no power contacts, power feed terminal, stages too close
+			for (const QString &key : {QStringLiteral("el2652"),
+									   QStringLiteral("el9100"),
+									   QStringLiteral("el1918")}) {
+				QCOMPARE(dots(key), 0);
+			}
 		}
 
 		void exampleTerminalsAreDistinctAndPresentInEveryMode()
@@ -1841,7 +1895,8 @@ class TstBeckhoffElements : public QObject
 
 				// the housing is a silhouette (polygon with its ears and two
 				// M3 holes), not a rectangle; the label holders are white
-				// and each channel holder holds the 5 digit placeholder
+				// and each channel holder shows the 5 digit ID, which is the
+				// Function of its row in the PLC table
 			const auto parts = real.firstChildElement(
 				QStringLiteral("description"));
 			QVERIFY(parts.elementsByTagName(QStringLiteral("polygon"))
@@ -1854,19 +1909,36 @@ class TstBeckhoffElements : public QObject
 					QStringLiteral("filling:white")) ? 1 : 0;
 			}
 			QCOMPARE(holders, 9);
-			int ids = 0;
+			QStringList ids;
 			for (auto t = parts.firstChildElement(
 					 QStringLiteral("dynamic_text"));
 				 !t.isNull(); t = t.nextSiblingElement(
 					 QStringLiteral("dynamic_text"))) {
+					// the 5 digit ID is the Function of the row of the
+					// channel in the PLC table (%{plc_function_N}); the
+					// upper holder of a socket is its channel A, the lower
+					// one its channel B
+					// the other dynamic text is the element label
 				if (t.attribute(QStringLiteral("text_from"))
-						== QLatin1String("UserText")) {
-					QCOMPARE(t.firstChildElement(QStringLiteral("text"))
-							 .text(), QStringLiteral("00000"));
-					++ids;
+						== QStringLiteral("ElementInfo")) {
+					continue;
 				}
+				QCOMPARE(t.attribute(QStringLiteral("text_from")),
+						 QStringLiteral("CompositeText"));
+				ids << t.firstChildElement(QStringLiteral("composite_text"))
+						.text();
 			}
-			QCOMPARE(ids, 8);
+			QCOMPARE(ids.size(), 8);
+			ids.sort();
+			QCOMPARE(ids, QStringList({
+				QStringLiteral("%{plc_function_1}"),
+				QStringLiteral("%{plc_function_2}"),
+				QStringLiteral("%{plc_function_3}"),
+				QStringLiteral("%{plc_function_4}"),
+				QStringLiteral("%{plc_function_5}"),
+				QStringLiteral("%{plc_function_6}"),
+				QStringLiteral("%{plc_function_7}"),
+				QStringLiteral("%{plc_function_8}")}));
 
 				// each M12 socket is one terminal (X01.4 was the channel 1
 				// of X01 before): 4 sockets + 2 EtherCAT P sockets

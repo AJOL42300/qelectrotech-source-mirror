@@ -3092,6 +3092,16 @@ void Element::setElementData(ElementData data)
 	{
 		const auto &new_plc = m_data.plcMasterData();
 		bool plc_changed = (old_plc.ios != new_plc.ios);
+			//The texts which show the "Function" of a row
+			//(@sa QETInformation::plcFunctionInfoKey) follow the table
+		if (plc_changed)
+		{
+			for (DynamicElementTextItem *deti : m_dynamic_text_list) {
+				if (deti && QETInformation::usesPlcFunctionInfo(deti->compositeText())) {
+					deti->refreshConductorText();
+				}
+			}
+		}
 		bool label_changed = (old_info.value(QStringLiteral("label")) !=
 			m_data.m_informations.value(QStringLiteral("label")));
 		if (!m_group_index_map.isEmpty() && (plc_changed || label_changed))
@@ -3846,6 +3856,26 @@ void Element::addDisplayValues(DiagramContext &dc)
 			 : QETInformation::terminalConductorInfoKeys(m_terminals.size())) {
 			dc.addValue(key, conductorInfoForDisplay(key));
 		}
+	}
+	addPlcChannelValues(dc);
+}
+
+/**
+	@brief Element::addPlcChannelValues
+	Add to @p dc the "Function" of each row of the table of this element
+	when it is a PLC element, as plc_function_1, plc_function_2...
+	(@sa QETInformation::plcFunctionInfoKey). Nothing is stored.
+*/
+void Element::addPlcChannelValues(DiagramContext &dc) const
+{
+	if (m_data.m_type != ElementData::Master
+			|| m_data.m_master_type != ElementData::PLC) {
+		return;
+	}
+	const auto ios = m_data.plcMasterData().ios;
+	for (int i = 0 ; i < ios.size() ; ++i) {
+		dc.addValue(QETInformation::plcFunctionInfoKey(i + 1),
+					ios.at(i).functionText);
 	}
 }
 

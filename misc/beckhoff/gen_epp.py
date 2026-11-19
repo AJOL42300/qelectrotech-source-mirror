@@ -86,9 +86,7 @@ HOLDER = (-67.0, 33.0, 18.0)               # label holder: x, width, height
 RUN_LED = (-22.5, -113)
 LA_LEDS = ((-30, -142), (-15, -142))       # L/A IN, L/A OUT
 POWER_LEDS = ((-4, 185), (11, 185))        # Us, Up
-ID_TEXT = "00000"                          # placeholder of the 5 digit ID
-ID_SIZE = 7
-FUNCTION = {"A": "In-/Output A", "B": "In-/Output B"}
+ID_SIZE = 7                                # the 5 digit ID is the Function
 M8_PINOUT = ("Tx+ / GNDs", "Rx+ / GNDp", "Rx- / Up", "Tx- / Us")
 # A is on the pin 4, B on the pin 2 of every M12 socket
 CHANNELS = ((1, "A", 4), (2, "B", 2))
@@ -141,16 +139,18 @@ class Drawing:
             "uuid": uid(self.tag, name)}))
 
 
-    def dynamic_text(self, x, y, text, size, tag):
-        """A text the user edits on the placed element (UserText); x, y is
-        its top left corner."""
+    def dynamic_text(self, x, y, composite, size, tag):
+        """A text of the placed element made of a composite text (the
+        variables of QET, here %{plc_function_N}); x, y is its top left
+        corner."""
         t = ET.Element("dynamic_text", {
             "x": num(x), "y": num(y), "z": "30", "text_width": "-1",
             "Halignment": "AlignLeft", "Valignment": "AlignTop",
             "frame": "false", "rotation": "0", "keep_visual_rotation": "true",
-            "text_from": "UserText", "uuid": uid(self.tag, "id", tag),
+            "text_from": "CompositeText", "uuid": uid(self.tag, "id", tag),
             "font": FONT % size})
-        ET.SubElement(t, "text").text = text
+        ET.SubElement(t, "text").text = ""
+        ET.SubElement(t, "composite_text").text = composite
         self.dynamic.append(t)
 
 
@@ -257,8 +257,9 @@ def realistic():
         hx, hw, hh = HOLDER
         for k, hy in enumerate((cy - 25, cy + 9)):
             d.rect(hx, hy, hw, hh, WHITE)
-            d.dynamic_text(hx + 5, hy + 4, ID_TEXT, ID_SIZE, "X%02d.%d"
-                           % (n + 1, k + 1))
+            d.dynamic_text(hx + 5, hy + 4,
+                           "%%{plc_function_%d}" % (2 * n + k + 1), ID_SIZE,
+                           "X%02d.%d" % (n + 1, k + 1))
     hx, hw, hh = HOLDER
     d.rect(hx, SOCKET_Y[-1] + 33, hw, hh, WHITE)
     for (lx, ly), s in zip(POWER_LEDS, ("Us", "Up")):
@@ -322,14 +323,14 @@ def bounds(parts, terms):
 
 
 def patch_io(root):
-    """Each M12 socket is one terminal carrying its two channels: the
-    function of a channel follows its number (1 = A on pin 4, 2 = B on
-    pin 2)."""
+    """Each M12 socket is one terminal carrying its two channels (row 1 = A
+    on pin 4, row 2 = B on pin 2).  The Function column is left empty: it
+    holds the 5 digit ID the user types, which the label holders show
+    (%{plc_function_N})."""
     for io in root.iter("plcIO"):
         term = io.find("terminal")
         term.text = term.text.split(".")[0]
-        io.set("functionText",
-               FUNCTION["A" if io.get("address").endswith("(1)") else "B"])
+        io.set("functionText", "")
     info = {
         "manufacturer_reference": REFERENCE,
         "designation": "EtherCAT P Box, 8-channel digital input/output, "
