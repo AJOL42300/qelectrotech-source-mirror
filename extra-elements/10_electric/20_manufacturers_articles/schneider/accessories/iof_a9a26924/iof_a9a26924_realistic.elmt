@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="30" height="70" hotspot_x="5" hotspot_y="5">
+<definition version="0.100.0" type="element" link_type="simple" width="40" height="80" hotspot_x="20" hotspot_y="10">
 	<uuid uuid="{4a7f6fb4-5f1e-54ba-96e5-63f9b7cfbb72}" />
 	<names>
 		<name lang="en">iOF auxiliary contact A9A26924, front view</name>
@@ -13,27 +13,27 @@
 	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
 Made by misc/schneider/gen_schneider.py: scale 3.43 px/mm (pole pitch 35 mm = 120 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<rect x="-2.5" y="-5" width="25" height="70" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLWhiteWhiteSmoke;color:black" rx="0" ry="0" />
-		<rect x="-2.5" y="50" width="25" height="15" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayGainsboro;color:black" rx="0" ry="0" />
-		<rect x="-2.5" y="10" width="25" height="2.5" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGreenLimeGreen;color:black" rx="0" ry="0" />
-		<rect x="0" y="20" width="20" height="20" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
-		<rect x="4" y="23" width="12" height="5" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGreenLimeGreen;color:black" rx="0" ry="0" />
+		<rect x="-12.5" y="-5" width="25" height="70" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLWhiteWhiteSmoke;color:black" rx="0" ry="0" />
+		<rect x="-12.5" y="50" width="25" height="15" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayGainsboro;color:black" rx="0" ry="0" />
+		<rect x="-12.5" y="10" width="25" height="2.5" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGreenLimeGreen;color:black" rx="0" ry="0" />
+		<rect x="-10" y="20" width="20" height="20" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
+		<rect x="-6" y="23" width="12" height="5" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGreenLimeGreen;color:black" rx="0" ry="0" />
+		<circle x="-12" y="-2" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="4" />
+		<circle x="-10.5" y="-0.5" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="1" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-10.5" length1="1.5" x2="-9" length2="1.5" />
+		<text x="-11.1" y="7.1" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="12" />
 		<circle x="-2" y="-2" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="4" />
 		<circle x="-0.5" y="-0.5" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="1" />
-		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-0.5" length1="1.5" x2="1" length2="1.5" />
-		<text x="-1.1" y="7.1" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="12" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-1" length1="1.5" x2="1" length2="1.5" />
+		<text x="-2.2" y="7.1" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="11" />
 		<circle x="8" y="-2" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="4" />
 		<circle x="9.5" y="-0.5" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="1" />
-		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="9" length1="1.5" x2="11" length2="1.5" />
-		<text x="7.8" y="7.1" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="11" />
-		<circle x="18" y="-2" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="4" />
-		<circle x="19.5" y="-0.5" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="1" />
-		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="19" length1="1.5" x2="20.5" length2="1.5" />
-		<text x="17.8" y="7.1" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="14" />
-		<terminal x="0" y="0" name="12" orientation="n" type="Generic" uuid="{26e6c702-5dd7-500d-b3d5-dd8853c1525e}" />
-		<terminal x="10" y="0" name="11" orientation="n" type="Generic" uuid="{e15e0550-f359-5fb4-80d0-9dd426f88340}" />
-		<terminal x="20" y="0" name="14" orientation="n" type="Generic" uuid="{5e32f247-c54b-5e4f-9ae8-6e981d3b9a51}" />
-		<dynamic_text x="-2.5" y="66.5" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{9597dafa-d737-587c-a86a-0b72aa7318b7}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="9" length1="1.5" x2="10.5" length2="1.5" />
+		<text x="7.8" y="7.1" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="14" />
+		<terminal x="-10" y="0" name="12" orientation="n" type="Generic" uuid="{26e6c702-5dd7-500d-b3d5-dd8853c1525e}" />
+		<terminal x="0" y="0" name="11" orientation="n" type="Generic" uuid="{e15e0550-f359-5fb4-80d0-9dd426f88340}" />
+		<terminal x="10" y="0" name="14" orientation="n" type="Generic" uuid="{5e32f247-c54b-5e4f-9ae8-6e981d3b9a51}" />
+		<dynamic_text x="-12.5" y="66.5" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{9597dafa-d737-587c-a86a-0b72aa7318b7}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
 		</dynamic_text>

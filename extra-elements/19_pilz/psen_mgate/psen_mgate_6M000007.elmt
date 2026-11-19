@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="master" width="180" height="140" hotspot_x="10" hotspot_y="35">
+<definition version="0.100.0" type="element" link_type="master" width="180" height="140" hotspot_x="10" hotspot_y="80">
 	<uuid uuid="{533e18ba-671d-5e24-b434-62582f01309a}"/>
 	<names>
 		<name lang="en">Pilz 6M000007 PSENmgate safety gate system entry from left, 2 LED pushbuttons + E-STOP</name>
@@ -99,107 +99,107 @@
 Original vector drawing, not copied from a manufacturer drawing. Order numbers, pin assignments, terminal designations and wire colours come from public Pilz documents (see docs/pilz.md); the status of each datum is given in the description.
 License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<dynamic_text x="0" y="-26" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{ad4eccb1-d3ae-5507-b488-fe5e6c51d3a7}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
-		<rect x="5" y="-21" width="150" height="115" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<line x1="5" y1="-5" x2="155" y2="-5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<line x1="80" y1="-5" x2="80" y2="94" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="60.8" y="-15.16" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="PSEN mg1-A-LLFXX"/>
-		<text x="57.81" y="-10.9" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="6M000007  -  entry from left"/>
-		<text x="64.71" y="-7.02" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="M23 male 19-pin, 24 V DC"/>
-		<text x="7" y="2.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="A1"/>
-		<rect x="13.06" y="-1" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:brun;color:black" antialias="false"/>
-		<text x="20.56" y="1.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 19 BN  +24 V DC supply UB"/>
+		<dynamic_text x="0" y="-66" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{ad4eccb1-d3ae-5507-b488-fe5e6c51d3a7}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<rect x="5" y="-61" width="150" height="115" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+		<line x1="5" y1="-45" x2="155" y2="-45" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="80" y1="-45" x2="80" y2="54" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="60.8" y="-55.16" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="PSEN mg1-A-LLFXX"/>
+		<text x="57.81" y="-50.9" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="6M000007  -  entry from left"/>
+		<text x="64.71" y="-47.02" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="M23 male 19-pin, 24 V DC"/>
+		<text x="7" y="-37.06" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="A1"/>
+		<rect x="13.06" y="-41" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:brun;color:black" antialias="false"/>
+		<text x="20.56" y="-38.04" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 19 BN  +24 V DC supply UB"/>
+		<line x1="5" y1="-40" x2="0" y2="-40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="7" y="-27.06" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="A2"/>
+		<rect x="13.06" y="-32" width="6" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:black" antialias="false"/>
+		<text x="20.56" y="-28.04" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 6 BU  0 V supply UB"/>
+		<line x1="5" y1="-30" x2="0" y2="-30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="7" y="-17.06" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="Y1"/>
+		<rect x="13.06" y="-22" width="6" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:black" antialias="false"/>
+		<text x="20.56" y="-18.04" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 1 RD  Diagnostic input"/>
+		<line x1="5" y1="-20" x2="0" y2="-20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="7" y="-7.06" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="S31"/>
+		<rect x="15.09" y="-12" width="6" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:HTMLPinkPink;color:black" antialias="false"/>
+		<text x="22.59" y="-8.04" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 18 PK  Solenoid operation, channel 1"/>
+		<line x1="5" y1="-10" x2="0" y2="-10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="7" y="2.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="S41"/>
+		<rect x="15.09" y="-2" width="6" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<text x="22.59" y="1.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 7 WH  Solenoid operation, channel 2"/>
 		<line x1="5" y1="0" x2="0" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="7" y="12.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="A2"/>
-		<rect x="13.06" y="8" width="6" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:black" antialias="false"/>
-		<text x="20.56" y="11.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 6 BU  0 V supply UB"/>
+		<text x="7" y="12.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="B1"/>
+		<rect x="13.06" y="8" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
+		<rect x="16.06" y="8" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
+		<text x="20.56" y="11.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 12 GNYE  Pushbutton 1"/>
 		<line x1="5" y1="10" x2="0" y2="10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="7" y="22.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="Y1"/>
-		<rect x="13.06" y="18" width="6" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:black" antialias="false"/>
-		<text x="20.56" y="21.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 1 RD  Diagnostic input"/>
+		<text x="7" y="22.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="B2"/>
+		<rect x="13.06" y="18" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:brun;color:black" antialias="false"/>
+		<rect x="16.06" y="18" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
+		<text x="20.56" y="21.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 10 BNGN  Pushbutton 2"/>
 		<line x1="5" y1="20" x2="0" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="7" y="32.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="S31"/>
-		<rect x="15.09" y="28" width="6" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:HTMLPinkPink;color:black" antialias="false"/>
-		<text x="22.59" y="31.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 18 PK  Solenoid operation, channel 1"/>
+		<text x="7" y="32.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="LED1"/>
+		<rect x="17.12" y="28" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<rect x="20.12" y="28" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
+		<text x="24.62" y="31.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 15 WHGN  LED of pushbutton 1"/>
 		<line x1="5" y1="30" x2="0" y2="30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="7" y="42.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="S41"/>
-		<rect x="15.09" y="38" width="6" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
-		<text x="22.59" y="41.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 7 WH  Solenoid operation, channel 2"/>
+		<text x="7" y="41.47" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="LED2"/>
+		<rect x="17.12" y="38" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<text x="24.62" y="40.98" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 13 BK  LED of pushbutton 2"/>
 		<line x1="5" y1="40" x2="0" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="7" y="52.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="B1"/>
-		<rect x="13.06" y="48" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
-		<rect x="16.06" y="48" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
-		<text x="20.56" y="51.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 12 GNYE  Pushbutton 1"/>
-		<line x1="5" y1="50" x2="0" y2="50" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="7" y="62.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="B2"/>
-		<rect x="13.06" y="58" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:brun;color:black" antialias="false"/>
-		<rect x="16.06" y="58" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
-		<text x="20.56" y="61.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 10 BNGN  Pushbutton 2"/>
-		<line x1="5" y1="60" x2="0" y2="60" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="7" y="72.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="LED1"/>
-		<rect x="17.12" y="68" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
-		<rect x="20.12" y="68" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
-		<text x="24.62" y="71.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 15 WHGN  LED of pushbutton 1"/>
-		<line x1="5" y1="70" x2="0" y2="70" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="7" y="81.47" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="LED2"/>
-		<rect x="17.12" y="78" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
-		<text x="24.62" y="80.98" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 13 BK  LED of pushbutton 2"/>
-		<line x1="5" y1="80" x2="0" y2="80" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="148.44" y="2.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="12"/>
-		<rect x="140.94" y="-1" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
-		<text x="96.33" y="1.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 5 GN  Safety output, channel 1"/>
+		<text x="148.44" y="-37.06" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="12"/>
+		<rect x="140.94" y="-41" width="6" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
+		<text x="96.33" y="-38.04" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 5 GN  Safety output, channel 1"/>
+		<line x1="155" y1="-40" x2="160" y2="-40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="148.44" y="-27.06" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="22"/>
+		<rect x="140.94" y="-32" width="6" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
+		<text x="96.33" y="-28.04" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 4 YE  Safety output, channel 2"/>
+		<line x1="155" y1="-30" x2="160" y2="-30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="146.41" y="-17.06" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="Y32"/>
+		<rect x="138.91" y="-22" width="6" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="91.79" y="-18.04" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 2 GY  Signal / diagnostic output"/>
+		<line x1="155" y1="-20" x2="160" y2="-20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="142.35" y="-7.06" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="ES_SO"/>
+		<rect x="134.85" y="-12" width="6" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:purple;color:black" antialias="false"/>
+		<text x="95.25" y="-8.04" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 3 VT  E-STOP signal output"/>
+		<line x1="155" y1="-10" x2="160" y2="-10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="142.35" y="2.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="ES1.1"/>
+		<rect x="134.85" y="-2" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<rect x="137.85" y="-2" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:brun;color:black" antialias="false"/>
+		<text x="96.5" y="1.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 9 GYBN  E-STOP, channel 1"/>
 		<line x1="155" y1="0" x2="160" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="148.44" y="12.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="22"/>
-		<rect x="140.94" y="8" width="6" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
-		<text x="96.33" y="11.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 4 YE  Safety output, channel 2"/>
+		<text x="142.35" y="12.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="ES1.2"/>
+		<rect x="134.85" y="8" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
+		<rect x="137.85" y="8" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:brun;color:black" antialias="false"/>
+		<text x="95.25" y="11.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 11 YEBN  E-STOP, channel 1"/>
 		<line x1="155" y1="10" x2="160" y2="10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="146.41" y="22.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="Y32"/>
-		<rect x="138.91" y="18" width="6" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<text x="91.79" y="21.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 2 GY  Signal / diagnostic output"/>
+		<text x="142.35" y="22.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="ES2.1"/>
+		<rect x="134.85" y="18" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<rect x="137.85" y="18" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
+		<text x="95.25" y="21.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 14 WHYE  E-STOP, channel 2"/>
 		<line x1="155" y1="20" x2="160" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="142.35" y="32.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="ES_SO"/>
-		<rect x="134.85" y="28" width="6" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:purple;color:black" antialias="false"/>
-		<text x="95.25" y="31.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 3 VT  E-STOP signal output"/>
+		<text x="142.35" y="32.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="ES2.2"/>
+		<rect x="134.85" y="28" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<rect x="137.85" y="28" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="95.25" y="31.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 16 WHGY  E-STOP, channel 2"/>
 		<line x1="155" y1="30" x2="160" y2="30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="142.35" y="42.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="ES1.1"/>
-		<rect x="134.85" y="38" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<rect x="137.85" y="38" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:brun;color:black" antialias="false"/>
-		<text x="96.5" y="41.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 9 GYBN  E-STOP, channel 1"/>
-		<line x1="155" y1="40" x2="160" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="142.35" y="52.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="ES1.2"/>
-		<rect x="134.85" y="48" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
-		<rect x="137.85" y="48" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:brun;color:black" antialias="false"/>
-		<text x="95.25" y="51.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 11 YEBN  E-STOP, channel 1"/>
-		<line x1="155" y1="50" x2="160" y2="50" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="142.35" y="62.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="ES2.1"/>
-		<rect x="134.85" y="58" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
-		<rect x="137.85" y="58" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
-		<text x="95.25" y="61.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 14 WHYE  E-STOP, channel 2"/>
-		<line x1="155" y1="60" x2="160" y2="60" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="142.35" y="72.94" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="ES2.2"/>
-		<rect x="134.85" y="68" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
-		<rect x="137.85" y="68" width="3" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<text x="95.25" y="71.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 16 WHGY  E-STOP, channel 2"/>
-		<line x1="155" y1="70" x2="160" y2="70" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="7" y="87.48" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Reserved, no terminal: pin 8 RDBU, pin 17 GYPK"/>
-		<text x="7" y="91.98" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Wire colours: Pilz accessory cable"/>
-		<text x="132.44" y="91.98" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="VERIFIED pin-out"/>
-		<terminal x="0" y="0" name="A1" orientation="w" type="Generic" uuid="{030506ca-5a34-56b7-8696-22191b575db6}"/>
-		<terminal x="0" y="10" name="A2" orientation="w" type="Generic" uuid="{a8ac62ef-51e1-5139-adc5-e8d62b505db9}"/>
-		<terminal x="0" y="20" name="Y1" orientation="w" type="Generic" uuid="{6d0f2314-217f-5dc3-b583-1e0d472c0e9a}"/>
-		<terminal x="0" y="30" name="S31" orientation="w" type="Generic" uuid="{d6545b1a-41f3-5541-85b7-a63ae7f47e8d}"/>
-		<terminal x="0" y="40" name="S41" orientation="w" type="Generic" uuid="{f64390c6-b51c-5590-8fbf-158af34ca9dd}"/>
-		<terminal x="0" y="50" name="B1" orientation="w" type="Generic" uuid="{1b69e902-20c5-5271-aa91-274c1c8660c8}"/>
-		<terminal x="0" y="60" name="B2" orientation="w" type="Generic" uuid="{ebf759a7-a98a-50f4-ac03-39c98caf79c8}"/>
-		<terminal x="0" y="70" name="LED1" orientation="w" type="Generic" uuid="{48d2d055-cda3-5760-a3f1-a6460ed9c6ec}"/>
-		<terminal x="0" y="80" name="LED2" orientation="w" type="Generic" uuid="{94708791-f094-53ae-ba2a-645a56b70d87}"/>
-		<terminal x="160" y="0" name="12" orientation="e" type="Generic" uuid="{6f4eaae0-f9f6-52ac-bf97-c5412656416e}"/>
-		<terminal x="160" y="10" name="22" orientation="e" type="Generic" uuid="{3c557067-adee-558e-984b-89e958cdc9c9}"/>
-		<terminal x="160" y="20" name="Y32" orientation="e" type="Generic" uuid="{4c6a3d67-aba9-5f84-a89a-a7bb71bc9fb4}"/>
-		<terminal x="160" y="30" name="ES_SO" orientation="e" type="Generic" uuid="{f90d1421-66fb-50f2-ac50-89e4ad634788}"/>
-		<terminal x="160" y="40" name="ES1.1" orientation="e" type="Generic" uuid="{c64aea46-222f-5648-ba1a-59bc0a9e7db6}"/>
-		<terminal x="160" y="50" name="ES1.2" orientation="e" type="Generic" uuid="{78876e7d-651e-5068-9cd8-d4c4d7016422}"/>
-		<terminal x="160" y="60" name="ES2.1" orientation="e" type="Generic" uuid="{cdd8c15b-ae59-519a-9ad3-05928f7744ce}"/>
-		<terminal x="160" y="70" name="ES2.2" orientation="e" type="Generic" uuid="{993d3e6a-5fc4-5547-a68b-b4f3e554cfa3}"/>
+		<text x="7" y="47.48" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Reserved, no terminal: pin 8 RDBU, pin 17 GYPK"/>
+		<text x="7" y="51.98" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Wire colours: Pilz accessory cable"/>
+		<text x="132.44" y="51.98" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="VERIFIED pin-out"/>
+		<terminal x="0" y="-40" name="A1" orientation="w" type="Generic" uuid="{030506ca-5a34-56b7-8696-22191b575db6}"/>
+		<terminal x="0" y="-30" name="A2" orientation="w" type="Generic" uuid="{a8ac62ef-51e1-5139-adc5-e8d62b505db9}"/>
+		<terminal x="0" y="-20" name="Y1" orientation="w" type="Generic" uuid="{6d0f2314-217f-5dc3-b583-1e0d472c0e9a}"/>
+		<terminal x="0" y="-10" name="S31" orientation="w" type="Generic" uuid="{d6545b1a-41f3-5541-85b7-a63ae7f47e8d}"/>
+		<terminal x="0" y="0" name="S41" orientation="w" type="Generic" uuid="{f64390c6-b51c-5590-8fbf-158af34ca9dd}"/>
+		<terminal x="0" y="10" name="B1" orientation="w" type="Generic" uuid="{1b69e902-20c5-5271-aa91-274c1c8660c8}"/>
+		<terminal x="0" y="20" name="B2" orientation="w" type="Generic" uuid="{ebf759a7-a98a-50f4-ac03-39c98caf79c8}"/>
+		<terminal x="0" y="30" name="LED1" orientation="w" type="Generic" uuid="{48d2d055-cda3-5760-a3f1-a6460ed9c6ec}"/>
+		<terminal x="0" y="40" name="LED2" orientation="w" type="Generic" uuid="{94708791-f094-53ae-ba2a-645a56b70d87}"/>
+		<terminal x="160" y="-40" name="12" orientation="e" type="Generic" uuid="{6f4eaae0-f9f6-52ac-bf97-c5412656416e}"/>
+		<terminal x="160" y="-30" name="22" orientation="e" type="Generic" uuid="{3c557067-adee-558e-984b-89e958cdc9c9}"/>
+		<terminal x="160" y="-20" name="Y32" orientation="e" type="Generic" uuid="{4c6a3d67-aba9-5f84-a89a-a7bb71bc9fb4}"/>
+		<terminal x="160" y="-10" name="ES_SO" orientation="e" type="Generic" uuid="{f90d1421-66fb-50f2-ac50-89e4ad634788}"/>
+		<terminal x="160" y="0" name="ES1.1" orientation="e" type="Generic" uuid="{c64aea46-222f-5648-ba1a-59bc0a9e7db6}"/>
+		<terminal x="160" y="10" name="ES1.2" orientation="e" type="Generic" uuid="{78876e7d-651e-5068-9cd8-d4c4d7016422}"/>
+		<terminal x="160" y="20" name="ES2.1" orientation="e" type="Generic" uuid="{cdd8c15b-ae59-519a-9ad3-05928f7744ce}"/>
+		<terminal x="160" y="30" name="ES2.2" orientation="e" type="Generic" uuid="{993d3e6a-5fc4-5547-a68b-b4f3e554cfa3}"/>
 	</description>
 </definition>

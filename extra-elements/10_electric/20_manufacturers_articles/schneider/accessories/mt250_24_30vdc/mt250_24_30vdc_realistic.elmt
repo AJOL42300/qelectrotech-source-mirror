@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="170" height="130" hotspot_x="25" hotspot_y="-5">
+<definition version="0.100.0" type="element" link_type="simple" width="180" height="140" hotspot_x="80" hotspot_y="130">
 	<uuid uuid="{05b76665-9f64-58e7-8d0e-2285d6f8160f}" />
 	<names>
 		<name lang="en">MT250 motor mechanism 24/30 V DC, front view</name>
@@ -13,18 +13,18 @@
 	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
 Made by misc/schneider/gen_schneider.py: scale 3.43 px/mm (pole pitch 35 mm = 120 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<rect x="-25" y="25" width="170" height="107.5" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayGainsboro;color:black" rx="0" ry="0" />
-		<rect x="32.5" y="35" width="55" height="85" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayDarkGray;color:black" rx="0" ry="0" />
-		<rect x="49" y="42.5" width="22" height="55" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
-		<rect x="49" y="42.5" width="22" height="7" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGreenLimeGreen;color:black" rx="0" ry="0" />
-		<circle x="-4" y="103.5" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" diameter="18" />
-		<line end1="none" end2="none" y1="112.5" antialias="false" y2="104.5" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="5" length1="1.5" x2="13" length2="1.5" />
-		<text x="2.94" y="128.88" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="A/M" />
-		<text x="112.85" y="114.15" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Bold" text="MT250" />
-		<text x="51.75" y="81.65" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="24/30 V DC" />
-		<terminal x="50" y="130" name="M1" orientation="s" type="Generic" uuid="{cc1e0cf2-9264-540a-a76e-8731db16a4b7}" />
-		<terminal x="70" y="130" name="M2" orientation="s" type="Generic" uuid="{fdf96182-b050-5d39-abca-e9472135ee22}" />
-		<dynamic_text x="-22.5" y="136.5" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{c955e2cf-b589-55c1-8c25-285d2e46a768}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+		<rect x="-75" y="-105" width="170" height="107.5" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayGainsboro;color:black" rx="0" ry="0" />
+		<rect x="-17.5" y="-95" width="55" height="85" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayDarkGray;color:black" rx="0" ry="0" />
+		<rect x="-1" y="-87.5" width="22" height="55" antialias="false" style="line-style:normal;line-weight:thin;filling:black;color:black" rx="0" ry="0" />
+		<rect x="-1" y="-87.5" width="22" height="7" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGreenLimeGreen;color:black" rx="0" ry="0" />
+		<circle x="-54" y="-26.5" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" diameter="18" />
+		<line end1="none" end2="none" y1="-17.5" antialias="false" y2="-25.5" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-45" length1="1.5" x2="-37" length2="1.5" />
+		<text x="-47.06" y="-1.12" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="A/M" />
+		<text x="62.85" y="-15.85" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Bold" text="MT250" />
+		<text x="1.75" y="-48.35" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="24/30 V DC" />
+		<terminal x="0" y="0" name="M1" orientation="s" type="Generic" uuid="{cc1e0cf2-9264-540a-a76e-8731db16a4b7}" />
+		<terminal x="20" y="0" name="M2" orientation="s" type="Generic" uuid="{fdf96182-b050-5d39-abca-e9472135ee22}" />
+		<dynamic_text x="-72.5" y="6.5" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{c955e2cf-b589-55c1-8c25-285d2e46a768}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
 		</dynamic_text>

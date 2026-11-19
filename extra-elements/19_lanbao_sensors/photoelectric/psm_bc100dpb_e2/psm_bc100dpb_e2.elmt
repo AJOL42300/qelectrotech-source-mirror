@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="60" height="70" hotspot_x="30" hotspot_y="20">
+<definition version="0.100.0" type="element" link_type="simple" width="60" height="70" hotspot_x="10" hotspot_y="40">
 	<uuid uuid="{4ecfde72-5f41-5330-8dfe-93560583e7d3}"/>
 	<names>
 		<name lang="en">Lanbao PSM-BC100DPB-E2 diffuse photoelectric sensor</name>
@@ -15,30 +15,30 @@
 Original vector drawing, not copied from a manufacturer drawing. Ratings and terminal names from the public datasheet; layout and symbols are generic, check them against the datasheet.
 License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<dynamic_text x="-20" y="-12" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{ee4ce554-3fbf-5440-9ff4-3a1bb5390bbe}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
-		<rect x="-15" y="4" width="30" height="32" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<line x1="0" y1="0" x2="0" y2="4" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:red" antialias="false"/>
-		<line x1="0" y1="36" x2="0" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:blue" antialias="false"/>
-		<text x="1.5" y="0.6" rotation="0" color="#ff0000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="1 +"/>
-		<text x="1.5" y="36.6" rotation="0" color="#0000ff" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="3 -"/>
-		<text x="-9.65" y="4.8" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="PSM-BC100DPB-E2"/>
-		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="0" y1="9.6" x2="6" y2="14.4" x3="0" y3="19.2" x4="-6" y4="14.4"/>
-		<line x1="-3.5" y1="13.2" x2="2" y2="13.2" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<polygon closed="false" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="0.75" y1="12.7" x2="2" y2="13.2" x3="0.75" y3="13.7"/>
-		<line x1="3.5" y1="15.6" x2="-2" y2="15.6" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<polygon closed="false" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="-0.75" y1="15.1" x2="-2" y2="15.6" x3="-0.75" y3="16.1"/>
-		<text x="-5.89" y="21.2" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="PNP NO/NC"/>
-		<text x="-4.63" y="24.4" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Diffuse"/>
-		<text x="-4.01" y="27.6" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="100 cm"/>
-		<circle x="-6.25" y="31.55" diameter="2.5" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
-		<circle x="3.75" y="31.55" diameter="2.5" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
-		<line x1="-20" y1="20" x2="-15" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="-19.5" y="17" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="2"/>
-		<line x1="15" y1="20" x2="20" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="15.75" y="17" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="4"/>
-		<terminal x="0" y="0" name="1" orientation="n" type="Generic" uuid="{bad5749a-351f-5b30-8e30-f9043992d55c}" potential="24V"/>
-		<terminal x="-20" y="20" name="2" orientation="w" type="Generic" uuid="{cd3366c8-06f4-5cbb-a2aa-a1ebe702fedc}"/>
-		<terminal x="0" y="40" name="3" orientation="s" type="Generic" uuid="{603760b8-6fd4-508e-b0e8-ded7deca3852}" potential="0V"/>
-		<terminal x="20" y="20" name="4" orientation="e" type="Generic" uuid="{3e3d1b90-7912-5df5-8973-9cba45352607}"/>
+		<dynamic_text x="0" y="-32" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{ee4ce554-3fbf-5440-9ff4-3a1bb5390bbe}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<rect x="5" y="-16" width="30" height="32" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="20" y1="-20" x2="20" y2="-16" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:red" antialias="false"/>
+		<line x1="20" y1="16" x2="20" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:blue" antialias="false"/>
+		<text x="21.5" y="-19.4" rotation="0" color="#ff0000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="1 +"/>
+		<text x="21.5" y="16.6" rotation="0" color="#0000ff" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="3 -"/>
+		<text x="10.35" y="-15.2" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="PSM-BC100DPB-E2"/>
+		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="20" y1="-10.4" x2="26" y2="-5.6" x3="20" y3="-0.8" x4="14" y4="-5.6"/>
+		<line x1="16.5" y1="-6.8" x2="22" y2="-6.8" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<polygon closed="false" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="20.75" y1="-7.3" x2="22" y2="-6.8" x3="20.75" y3="-6.3"/>
+		<line x1="23.5" y1="-4.4" x2="18" y2="-4.4" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<polygon closed="false" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="19.25" y1="-4.9" x2="18" y2="-4.4" x3="19.25" y3="-3.9"/>
+		<text x="14.11" y="1.2" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="PNP NO/NC"/>
+		<text x="15.37" y="4.4" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Diffuse"/>
+		<text x="15.99" y="7.6" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="100 cm"/>
+		<circle x="13.75" y="11.55" diameter="2.5" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
+		<circle x="23.75" y="11.55" diameter="2.5" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
+		<line x1="0" y1="0" x2="5" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="0.5" y="-3" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="2"/>
+		<line x1="35" y1="0" x2="40" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="35.75" y="-3" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="4"/>
+		<terminal x="20" y="-20" name="1" orientation="n" type="Generic" uuid="{bad5749a-351f-5b30-8e30-f9043992d55c}" potential="24V"/>
+		<terminal x="0" y="0" name="2" orientation="w" type="Generic" uuid="{cd3366c8-06f4-5cbb-a2aa-a1ebe702fedc}"/>
+		<terminal x="20" y="20" name="3" orientation="s" type="Generic" uuid="{603760b8-6fd4-508e-b0e8-ded7deca3852}" potential="0V"/>
+		<terminal x="40" y="0" name="4" orientation="e" type="Generic" uuid="{3e3d1b90-7912-5df5-8973-9cba45352607}"/>
 	</description>
 </definition>

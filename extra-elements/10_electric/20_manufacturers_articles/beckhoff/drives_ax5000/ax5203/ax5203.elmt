@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="master" width="80" height="290" hotspot_x="43" hotspot_y="3">
+<definition version="0.100.0" type="element" link_type="master" width="90" height="300" hotspot_x="10" hotspot_y="130">
 	<uuid uuid="{bf4c0a66-9378-551d-8387-253140b0313d}" />
 	<names>
 		<name lang="en">AX5203 servo drive, 2 axis</name>
@@ -80,138 +80,138 @@
 Generic layout, not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
 Schematic view made by misc/beckhoff/gen_schematic.py from the realistic view: the stages are generic, check them against the datasheet. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<rect x="-40" y="0" width="70" height="270" rx="0" ry="0" style="line-style:dotted;line-weight:normal;filling:none;color:black" antialias="false" />
-		<text x="6.5" y="79.5" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="U V W" />
-		<text x="-16" y="169.5" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="AC" />
-		<circle x="19.8" y="109.4" diameter="1.2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false" />
-		<line x1="18" y1="110" x2="20.4" y2="110" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<circle x="19.8" y="99.4" diameter="1.2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false" />
-		<line x1="18" y1="100" x2="20.4" y2="100" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<circle x="19.8" y="89.4" diameter="1.2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false" />
-		<line x1="18" y1="90" x2="20.4" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<polygon closed="false" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="-2.5" y1="192" x2="11.6" y2="192" x3="11.6" y3="115" />
-		<polygon closed="false" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="-2.5" y1="188" x2="8" y2="188" x3="8" y3="115" />
-		<text x="14" y="108" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="~" />
-		<text x="6.5" y="86.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="=" />
-		<line x1="5" y1="115" x2="18" y2="85" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<rect x="5" y="85" width="13" height="30" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-7" y="198" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="=" />
-		<text x="-16" y="176.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="~" />
-		<line x1="-17.5" y1="205" x2="-2.5" y2="175" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<rect x="-17.5" y="175" width="15" height="30" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-37.6" y="11" font="Liberation Sans,8.5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="AX5203" />
-		<text x="-37.6" y="19" font="Liberation Sans,3.5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="BECKHOFF" />
-		<terminal x="-20" y="0" name="EtherCAT IN" orientation="n" type="Generic" uuid="{929c3db0-9acb-51ae-aee7-00f395c3e7a2}" />
-		<line x1="-20" y1="0" x2="-20" y2="5" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-24.8" y="6" font="Liberation Sans,3.5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X04 IN" />
-		<terminal x="10" y="0" name="EtherCAT OUT" orientation="n" type="Generic" uuid="{244e75ff-1c26-54f1-91bc-39c8612fa15b}" />
-		<line x1="10" y1="0" x2="10" y2="5" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="4" y="6" font="Liberation Sans,3.5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X05 OUT" />
-		<text x="-37.6" y="26" font="Liberation Sans,3.5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X06" />
-		<terminal x="-40" y="40" name="X06-24" orientation="w" type="Generic" uuid="{0536ee2f-2525-593c-a725-16c9084ccb72}" />
-		<line x1="-40" y1="40" x2="-36" y2="40" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-34.4" y="37" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24" />
-		<terminal x="-40" y="50" name="X06-0" orientation="w" type="Generic" uuid="{75c38ea7-0584-5906-8395-1610e955e0d6}" />
-		<line x1="-40" y1="50" x2="-36" y2="50" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-34.4" y="47" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0" />
-		<terminal x="-40" y="60" name="X06-1" orientation="w" type="Generic" uuid="{4098713f-c0d4-5f17-9ecd-b66e1ef8c763}" />
-		<line x1="-40" y1="60" x2="-36" y2="60" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-34.4" y="57" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="1" />
-		<terminal x="-40" y="70" name="X06-2" orientation="w" type="Generic" uuid="{1468fa18-6970-5cba-87c8-8ce1baa11587}" />
-		<line x1="-40" y1="70" x2="-36" y2="70" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-34.4" y="67" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2" />
-		<terminal x="-40" y="80" name="X06-3" orientation="w" type="Generic" uuid="{d991bb18-e175-5ceb-8195-939520198ea8}" />
-		<line x1="-40" y1="80" x2="-36" y2="80" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-34.4" y="77" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="3" />
-		<terminal x="-40" y="90" name="X06-4" orientation="w" type="Generic" uuid="{1469befe-200c-5899-9008-2c3e16cb353d}" />
-		<line x1="-40" y1="90" x2="-36" y2="90" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-34.4" y="87" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4" />
-		<terminal x="-40" y="100" name="X06-5" orientation="w" type="Generic" uuid="{e0e11fd8-f75e-58ea-9dbf-75d2b9be74e6}" />
-		<line x1="-40" y1="100" x2="-36" y2="100" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-34.4" y="97" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="5" />
-		<terminal x="-40" y="110" name="X06-6" orientation="w" type="Generic" uuid="{3da4c37e-194c-5490-84fb-c25aff94585f}" />
-		<line x1="-40" y1="110" x2="-36" y2="110" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-34.4" y="107" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="6" />
-		<terminal x="-40" y="120" name="X06-7" orientation="w" type="Generic" uuid="{bef39179-f138-5ece-82fa-310c511d54a1}" />
-		<line x1="-40" y1="120" x2="-36" y2="120" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-34.4" y="117" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
-		<terminal x="-40" y="130" name="X06-0V" orientation="w" type="Generic" uuid="{36db7c33-c4a4-5141-af1c-61cb9a59dbd9}" />
-		<line x1="-40" y1="130" x2="-36" y2="130" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-34.4" y="127" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V" />
-		<text x="-37.6" y="136" font="Liberation Sans,3.5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X02" />
-		<terminal x="-40" y="150" name="DC+" orientation="w" type="Generic" uuid="{0c652199-a12d-5430-8319-e6bb3877fdea}" />
-		<line x1="-40" y1="150" x2="-36" y2="150" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-34.4" y="147" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="DC+" />
-		<terminal x="-40" y="160" name="DC-" orientation="w" type="Generic" uuid="{41169405-7ba6-59c4-8705-2884591110ee}" />
-		<line x1="-40" y1="160" x2="-36" y2="160" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-34.4" y="157" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC-" />
-		<text x="-37.6" y="166" font="Liberation Sans,3.5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X01" />
-		<terminal x="-40" y="180" name="L1" orientation="w" type="Generic" uuid="{62c5c373-6cff-5fcd-b07f-ae3d8ecb7711}" />
-		<line x1="-40" y1="180" x2="-36" y2="180" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-34.4" y="177" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L1" />
-		<terminal x="-40" y="190" name="L2" orientation="w" type="Generic" uuid="{05f6f223-188b-5173-9423-bda3a1e03711}" />
-		<line x1="-40" y1="190" x2="-36" y2="190" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-34.4" y="187" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L2" />
-		<terminal x="-40" y="200" name="L3N" orientation="w" type="Generic" uuid="{5375a2b8-573a-56b7-bf08-f82d6e6f96cb}" />
-		<line x1="-40" y1="200" x2="-36" y2="200" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-34.4" y="197" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3N" />
-		<terminal x="-40" y="210" name="PE" orientation="w" type="Generic" uuid="{7e422e6b-bb9e-59f9-b541-3049d59e840a}" />
-		<line x1="-40" y1="210" x2="-36" y2="210" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-34.4" y="207" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
-		<text x="-37.6" y="216" font="Liberation Sans,3.5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Up Us GND" />
-		<terminal x="-40" y="230" name="Up" orientation="w" type="Generic" uuid="{94ada58e-168e-5f87-9646-91e642e636a3}" />
-		<line x1="-40" y1="230" x2="-36" y2="230" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-34.4" y="227" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Up" />
-		<terminal x="-40" y="240" name="Us" orientation="w" type="Generic" uuid="{8a1ed30a-cc6d-5301-998e-ec5365679072}" />
-		<line x1="-40" y1="240" x2="-36" y2="240" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-34.4" y="237" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Us" />
-		<terminal x="-40" y="250" name="GND" orientation="w" type="Generic" uuid="{a6b84a0a-25e8-5e80-8ce1-1de26b120792}" />
-		<line x1="-40" y1="250" x2="-36" y2="250" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-34.4" y="247" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="GND" />
-		<text x="14" y="26" font="Liberation Sans,3.5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X11 X12 X21 X22" />
-		<terminal x="30" y="40" name="X11" orientation="e" type="Generic" uuid="{49070f11-0863-560b-8973-d9a7cb3b9a29}" />
-		<line x1="30" y1="40" x2="26" y2="40" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="19.36" y="37" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X11" />
-		<terminal x="30" y="50" name="X12" orientation="e" type="Generic" uuid="{933cca50-1d32-5811-ad20-f40c246e47e1}" />
-		<line x1="30" y1="50" x2="26" y2="50" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="19.36" y="47" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X12" />
-		<terminal x="30" y="60" name="X21" orientation="e" type="Generic" uuid="{6def8f92-806d-5a19-b14e-5597e61ae896}" />
-		<line x1="30" y1="60" x2="26" y2="60" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="19.36" y="57" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X21" />
-		<terminal x="30" y="70" name="X22" orientation="e" type="Generic" uuid="{329b02cc-6364-5980-aa11-f2fc02a4a519}" />
-		<line x1="30" y1="70" x2="26" y2="70" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="19.36" y="67" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X22" />
-		<text x="14" y="76" font="Liberation Sans,3.5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Motor 1" />
-		<terminal x="30" y="90" name="M1-U" orientation="e" type="Generic" uuid="{c557d5b1-9667-5b03-9c45-b9607e5901f3}" />
-		<line x1="30" y1="90" x2="26" y2="90" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="22.72" y="87" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="U" />
-		<terminal x="30" y="100" name="M1-V" orientation="e" type="Generic" uuid="{19db9bbd-6d7e-5597-a654-ce4d4f4d1f0f}" />
-		<line x1="30" y1="100" x2="26" y2="100" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="22.72" y="97" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="V" />
-		<terminal x="30" y="110" name="M1-W" orientation="e" type="Generic" uuid="{60247ca3-692e-5828-90ec-82f4e205fa5c}" />
-		<line x1="30" y1="110" x2="26" y2="110" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="22.72" y="107" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
-		<terminal x="30" y="120" name="M1-PE" orientation="e" type="Generic" uuid="{1aad5d46-d6df-5d95-a9d1-6bf7e7502a36}" />
-		<line x1="30" y1="120" x2="26" y2="120" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="21.04" y="117" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
-		<text x="14" y="126" font="Liberation Sans,3.5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Motor 2" />
-		<terminal x="30" y="140" name="M2-U" orientation="e" type="Generic" uuid="{9d5354c6-d944-50fc-9e9d-64df909735d9}" />
-		<line x1="30" y1="140" x2="26" y2="140" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="22.72" y="137" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="U" />
-		<terminal x="30" y="150" name="M2-V" orientation="e" type="Generic" uuid="{e37ec62f-6403-53ac-b97f-583ff07ffaa6}" />
-		<line x1="30" y1="150" x2="26" y2="150" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="22.72" y="147" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="V" />
-		<terminal x="30" y="160" name="M2-W" orientation="e" type="Generic" uuid="{4f2fc80c-84c5-5bfb-88b8-c95a0786ff88}" />
-		<line x1="30" y1="160" x2="26" y2="160" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="22.72" y="157" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
-		<terminal x="30" y="170" name="M2-PE" orientation="e" type="Generic" uuid="{2f5a09d9-e107-5ed6-aa63-cf00deaf7ce9}" />
-		<line x1="30" y1="170" x2="26" y2="170" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="21.04" y="167" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
-		<dynamic_text x="-37.6" y="272" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{caa0321c-81a6-5368-b950-1182b338a29e}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+		<rect x="0" y="-120" width="70" height="270" rx="0" ry="0" style="line-style:dotted;line-weight:normal;filling:none;color:black" antialias="false" />
+		<text x="46.5" y="-40.5" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="U V W" />
+		<text x="24" y="49.5" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="AC" />
+		<circle x="59.8" y="-10.6" diameter="1.2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false" />
+		<line x1="58" y1="-10" x2="60.4" y2="-10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<circle x="59.8" y="-20.6" diameter="1.2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false" />
+		<line x1="58" y1="-20" x2="60.4" y2="-20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<circle x="59.8" y="-30.6" diameter="1.2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false" />
+		<line x1="58" y1="-30" x2="60.4" y2="-30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<polygon closed="false" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="37.5" y1="72" x2="51.6" y2="72" x3="51.6" y3="-5" />
+		<polygon closed="false" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="37.5" y1="68" x2="48" y2="68" x3="48" y3="-5" />
+		<text x="54" y="-12" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="~" />
+		<text x="46.5" y="-33.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="=" />
+		<line x1="45" y1="-5" x2="58" y2="-35" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<rect x="45" y="-35" width="13" height="30" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="33" y="78" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="=" />
+		<text x="24" y="56.5" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="~" />
+		<line x1="22.5" y1="85" x2="37.5" y2="55" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<rect x="22.5" y="55" width="15" height="30" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="2.4" y="-109" font="Liberation Sans,8.5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="AX5203" />
+		<text x="2.4" y="-101" font="Liberation Sans,3.5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="BECKHOFF" />
+		<terminal x="20" y="-120" name="EtherCAT IN" orientation="n" type="Generic" uuid="{929c3db0-9acb-51ae-aee7-00f395c3e7a2}" />
+		<line x1="20" y1="-120" x2="20" y2="-115" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="15.2" y="-114" font="Liberation Sans,3.5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X04 IN" />
+		<terminal x="50" y="-120" name="EtherCAT OUT" orientation="n" type="Generic" uuid="{244e75ff-1c26-54f1-91bc-39c8612fa15b}" />
+		<line x1="50" y1="-120" x2="50" y2="-115" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="44" y="-114" font="Liberation Sans,3.5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X05 OUT" />
+		<text x="2.4" y="-94" font="Liberation Sans,3.5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X06" />
+		<terminal x="0" y="-80" name="X06-24" orientation="w" type="Generic" uuid="{0536ee2f-2525-593c-a725-16c9084ccb72}" />
+		<line x1="0" y1="-80" x2="4" y2="-80" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="5.6" y="-83" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="24" />
+		<terminal x="0" y="-70" name="X06-0" orientation="w" type="Generic" uuid="{75c38ea7-0584-5906-8395-1610e955e0d6}" />
+		<line x1="0" y1="-70" x2="4" y2="-70" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="5.6" y="-73" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="0" />
+		<terminal x="0" y="-60" name="X06-1" orientation="w" type="Generic" uuid="{4098713f-c0d4-5f17-9ecd-b66e1ef8c763}" />
+		<line x1="0" y1="-60" x2="4" y2="-60" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="5.6" y="-63" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="1" />
+		<terminal x="0" y="-50" name="X06-2" orientation="w" type="Generic" uuid="{1468fa18-6970-5cba-87c8-8ce1baa11587}" />
+		<line x1="0" y1="-50" x2="4" y2="-50" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="5.6" y="-53" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2" />
+		<terminal x="0" y="-40" name="X06-3" orientation="w" type="Generic" uuid="{d991bb18-e175-5ceb-8195-939520198ea8}" />
+		<line x1="0" y1="-40" x2="4" y2="-40" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="5.6" y="-43" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="3" />
+		<terminal x="0" y="-30" name="X06-4" orientation="w" type="Generic" uuid="{1469befe-200c-5899-9008-2c3e16cb353d}" />
+		<line x1="0" y1="-30" x2="4" y2="-30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="5.6" y="-33" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4" />
+		<terminal x="0" y="-20" name="X06-5" orientation="w" type="Generic" uuid="{e0e11fd8-f75e-58ea-9dbf-75d2b9be74e6}" />
+		<line x1="0" y1="-20" x2="4" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="5.6" y="-23" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="5" />
+		<terminal x="0" y="-10" name="X06-6" orientation="w" type="Generic" uuid="{3da4c37e-194c-5490-84fb-c25aff94585f}" />
+		<line x1="0" y1="-10" x2="4" y2="-10" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="5.6" y="-13" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="6" />
+		<terminal x="0" y="0" name="X06-7" orientation="w" type="Generic" uuid="{bef39179-f138-5ece-82fa-310c511d54a1}" />
+		<line x1="0" y1="0" x2="4" y2="0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="5.6" y="-3" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="7" />
+		<terminal x="0" y="10" name="X06-0V" orientation="w" type="Generic" uuid="{36db7c33-c4a4-5141-af1c-61cb9a59dbd9}" />
+		<line x1="0" y1="10" x2="4" y2="10" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="5.6" y="7" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#0000ff" text="0V" />
+		<text x="2.4" y="16" font="Liberation Sans,3.5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X02" />
+		<terminal x="0" y="30" name="DC+" orientation="w" type="Generic" uuid="{0c652199-a12d-5430-8319-e6bb3877fdea}" />
+		<line x1="0" y1="30" x2="4" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="5.6" y="27" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="DC+" />
+		<terminal x="0" y="40" name="DC-" orientation="w" type="Generic" uuid="{41169405-7ba6-59c4-8705-2884591110ee}" />
+		<line x1="0" y1="40" x2="4" y2="40" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="5.6" y="37" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="DC-" />
+		<text x="2.4" y="46" font="Liberation Sans,3.5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X01" />
+		<terminal x="0" y="60" name="L1" orientation="w" type="Generic" uuid="{62c5c373-6cff-5fcd-b07f-ae3d8ecb7711}" />
+		<line x1="0" y1="60" x2="4" y2="60" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="5.6" y="57" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L1" />
+		<terminal x="0" y="70" name="L2" orientation="w" type="Generic" uuid="{05f6f223-188b-5173-9423-bda3a1e03711}" />
+		<line x1="0" y1="70" x2="4" y2="70" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="5.6" y="67" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L2" />
+		<terminal x="0" y="80" name="L3N" orientation="w" type="Generic" uuid="{5375a2b8-573a-56b7-bf08-f82d6e6f96cb}" />
+		<line x1="0" y1="80" x2="4" y2="80" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="5.6" y="77" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="L3N" />
+		<terminal x="0" y="90" name="PE" orientation="w" type="Generic" uuid="{7e422e6b-bb9e-59f9-b541-3049d59e840a}" />
+		<line x1="0" y1="90" x2="4" y2="90" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="5.6" y="87" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
+		<text x="2.4" y="96" font="Liberation Sans,3.5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Up Us GND" />
+		<terminal x="0" y="110" name="Up" orientation="w" type="Generic" uuid="{94ada58e-168e-5f87-9646-91e642e636a3}" />
+		<line x1="0" y1="110" x2="4" y2="110" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="5.6" y="107" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Up" />
+		<terminal x="0" y="120" name="Us" orientation="w" type="Generic" uuid="{8a1ed30a-cc6d-5301-998e-ec5365679072}" />
+		<line x1="0" y1="120" x2="4" y2="120" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="5.6" y="117" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#ff0000" text="Us" />
+		<terminal x="0" y="130" name="GND" orientation="w" type="Generic" uuid="{a6b84a0a-25e8-5e80-8ce1-1de26b120792}" />
+		<line x1="0" y1="130" x2="4" y2="130" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="5.6" y="127" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="GND" />
+		<text x="54" y="-94" font="Liberation Sans,3.5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="X11 X12 X21 X22" />
+		<terminal x="70" y="-80" name="X11" orientation="e" type="Generic" uuid="{49070f11-0863-560b-8973-d9a7cb3b9a29}" />
+		<line x1="70" y1="-80" x2="66" y2="-80" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="59.36" y="-83" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X11" />
+		<terminal x="70" y="-70" name="X12" orientation="e" type="Generic" uuid="{933cca50-1d32-5811-ad20-f40c246e47e1}" />
+		<line x1="70" y1="-70" x2="66" y2="-70" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="59.36" y="-73" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X12" />
+		<terminal x="70" y="-60" name="X21" orientation="e" type="Generic" uuid="{6def8f92-806d-5a19-b14e-5597e61ae896}" />
+		<line x1="70" y1="-60" x2="66" y2="-60" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="59.36" y="-63" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X21" />
+		<terminal x="70" y="-50" name="X22" orientation="e" type="Generic" uuid="{329b02cc-6364-5980-aa11-f2fc02a4a519}" />
+		<line x1="70" y1="-50" x2="66" y2="-50" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="59.36" y="-53" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="X22" />
+		<text x="54" y="-44" font="Liberation Sans,3.5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Motor 1" />
+		<terminal x="70" y="-30" name="M1-U" orientation="e" type="Generic" uuid="{c557d5b1-9667-5b03-9c45-b9607e5901f3}" />
+		<line x1="70" y1="-30" x2="66" y2="-30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="62.72" y="-33" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="U" />
+		<terminal x="70" y="-20" name="M1-V" orientation="e" type="Generic" uuid="{19db9bbd-6d7e-5597-a654-ce4d4f4d1f0f}" />
+		<line x1="70" y1="-20" x2="66" y2="-20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="62.72" y="-23" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="V" />
+		<terminal x="70" y="-10" name="M1-W" orientation="e" type="Generic" uuid="{60247ca3-692e-5828-90ec-82f4e205fa5c}" />
+		<line x1="70" y1="-10" x2="66" y2="-10" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="62.72" y="-13" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
+		<terminal x="70" y="0" name="M1-PE" orientation="e" type="Generic" uuid="{1aad5d46-d6df-5d95-a9d1-6bf7e7502a36}" />
+		<line x1="70" y1="0" x2="66" y2="0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="61.04" y="-3" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
+		<text x="54" y="6" font="Liberation Sans,3.5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="Motor 2" />
+		<terminal x="70" y="20" name="M2-U" orientation="e" type="Generic" uuid="{9d5354c6-d944-50fc-9e9d-64df909735d9}" />
+		<line x1="70" y1="20" x2="66" y2="20" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="62.72" y="17" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="U" />
+		<terminal x="70" y="30" name="M2-V" orientation="e" type="Generic" uuid="{e37ec62f-6403-53ac-b97f-583ff07ffaa6}" />
+		<line x1="70" y1="30" x2="66" y2="30" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="62.72" y="27" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="V" />
+		<terminal x="70" y="40" name="M2-W" orientation="e" type="Generic" uuid="{4f2fc80c-84c5-5bfb-88b8-c95a0786ff88}" />
+		<line x1="70" y1="40" x2="66" y2="40" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="62.72" y="37" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="W" />
+		<terminal x="70" y="50" name="M2-PE" orientation="e" type="Generic" uuid="{2f5a09d9-e107-5ed6-aa63-cf00deaf7ce9}" />
+		<line x1="70" y1="50" x2="66" y2="50" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="61.04" y="47" font="Liberation Sans,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#b87800" text="PE" />
+		<dynamic_text x="2.4" y="152" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{caa0321c-81a6-5368-b950-1182b338a29e}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
 		</dynamic_text>
-		<dynamic_text x="-37.6" y="278" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{4d5ffe06-7f01-5462-9426-64d108dd6aba}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
+		<dynamic_text x="2.4" y="158" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{4d5ffe06-7f01-5462-9426-64d108dd6aba}" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>designation</info_name>
 		</dynamic_text>

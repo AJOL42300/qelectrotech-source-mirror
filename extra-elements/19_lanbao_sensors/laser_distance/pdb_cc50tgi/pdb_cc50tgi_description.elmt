@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="120" height="90" hotspot_x="50" hotspot_y="20">
+<definition version="0.100.0" type="element" link_type="simple" width="120" height="90" hotspot_x="70" hotspot_y="30">
 	<uuid uuid="{869f0d9f-1116-58c8-bf45-6e917c3b368c}"/>
 	<names>
 		<name lang="en">Lanbao PDB-CC50TGI laser distance sensor, description view</name>
@@ -15,30 +15,30 @@
 Original vector drawing, not copied from a manufacturer drawing. Ratings and terminal names from the public datasheet; layout and symbols are generic, check them against the datasheet.
 License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<dynamic_text x="-20" y="-12" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{c7febc2c-3409-5dbd-b853-389082a9772f}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
-		<rect x="-7.47" y="2.58" width="14.95" height="34.83" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
-		<rect x="-6.47" y="3.25" width="12.95" height="18.07" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:black" antialias="false"/>
-		<rect x="-6.47" y="22.32" width="12.95" height="11.01" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:black" antialias="false"/>
-		<rect x="-3.48" y="36.08" width="6.95" height="1" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<line x1="0" y1="37.42" x2="0" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:hight;filling:none;color:black" antialias="false"/>
-		<text x="-13.47" y="27" rotation="270" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="PDB-CC50TGI"/>
-		<text x="-17.48" y="27" rotation="270" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Laser, 80-500 mm"/>
-		<circle x="-5.47" y="8.75" diameter="1" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
-		<line x1="-4.97" y1="9.25" x2="-23" y2="4" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="-44.55" y="2.73" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Receiving window"/>
-		<circle x="-5.47" y="28.83" diameter="1" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
-		<line x1="-4.97" y1="29.33" x2="-23" y2="33.33" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="-43.3" y="32.07" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Emitting window"/>
-		<circle x="-0.5" y="37.5" diameter="1" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
-		<line x1="0" y1="38" x2="23" y2="37.33" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="24" y="36.07" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Cable 2 m, 4 wires, shielded"/>
-		<text x="5" y="44" rotation="0" color="#ff0000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="BN: +24 V DC"/>
-		<text x="5" y="48" rotation="0" color="#0000ff" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="BU: 0 V"/>
-		<text x="5" y="52" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="BK: switch output Q"/>
-		<text x="5" y="56" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="GY: analog output Ia 4-20 mA"/>
-		<terminal x="0" y="0" name="BN" orientation="n" type="Generic" uuid="{06c88898-09f0-57a1-a172-f34ab345cf34}" potential="24V"/>
-		<terminal x="0" y="40" name="BU" orientation="s" type="Generic" uuid="{fdda390b-96a1-5752-a2ba-332ee0e2cf7d}" potential="0V"/>
-		<terminal x="20" y="10" name="BK" orientation="e" type="Generic" uuid="{c381323f-3664-5090-aeaa-4735053f45d2}"/>
-		<terminal x="20" y="30" name="GY" orientation="e" type="Generic" uuid="{711383a9-e842-5c29-837a-bfd5abc8bf73}"/>
+		<dynamic_text x="-40" y="-22" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{c7febc2c-3409-5dbd-b853-389082a9772f}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<rect x="-27.48" y="-7.42" width="14.95" height="34.83" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
+		<rect x="-26.48" y="-6.75" width="12.95" height="18.07" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:black" antialias="false"/>
+		<rect x="-26.48" y="12.32" width="12.95" height="11.01" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:black" antialias="false"/>
+		<rect x="-23.48" y="26.08" width="6.95" height="1" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<line x1="-20" y1="27.42" x2="-20" y2="30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:hight;filling:none;color:black" antialias="false"/>
+		<text x="-33.48" y="17" rotation="270" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="PDB-CC50TGI"/>
+		<text x="-37.48" y="17" rotation="270" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Laser, 80-500 mm"/>
+		<circle x="-25.48" y="-1.25" diameter="1" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<line x1="-24.98" y1="-0.75" x2="-43" y2="-6" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="-64.56" y="-7.27" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Receiving window"/>
+		<circle x="-25.48" y="18.83" diameter="1" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<line x1="-24.98" y1="19.33" x2="-43" y2="23.33" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="-63.3" y="22.07" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Emitting window"/>
+		<circle x="-20.5" y="27.5" diameter="1" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<line x1="-20" y1="28" x2="3" y2="27.33" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="4" y="26.07" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Cable 2 m, 4 wires, shielded"/>
+		<text x="-15" y="34" rotation="0" color="#ff0000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="BN: +24 V DC"/>
+		<text x="-15" y="38" rotation="0" color="#0000ff" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="BU: 0 V"/>
+		<text x="-15" y="42" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="BK: switch output Q"/>
+		<text x="-15" y="46" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="GY: analog output Ia 4-20 mA"/>
+		<terminal x="-20" y="-10" name="BN" orientation="n" type="Generic" uuid="{06c88898-09f0-57a1-a172-f34ab345cf34}" potential="24V"/>
+		<terminal x="-20" y="30" name="BU" orientation="s" type="Generic" uuid="{fdda390b-96a1-5752-a2ba-332ee0e2cf7d}" potential="0V"/>
+		<terminal x="0" y="0" name="BK" orientation="e" type="Generic" uuid="{c381323f-3664-5090-aeaa-4735053f45d2}"/>
+		<terminal x="0" y="20" name="GY" orientation="e" type="Generic" uuid="{711383a9-e842-5c29-837a-bfd5abc8bf73}"/>
 	</description>
 </definition>

@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="180" height="270" hotspot_x="30" hotspot_y="30">
+<definition version="0.100.0" type="element" link_type="simple" width="180" height="270" hotspot_x="90" hotspot_y="30">
 	<uuid uuid="{d67cc5e0-b2a6-58a7-ae1a-7bd3587269aa}" />
 	<names>
 		<name lang="en">ComPacT NSX250N 3P 250 A TM250, front view</name>
@@ -37,7 +37,15 @@
 	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
 Made by misc/schneider/gen_schneider.py: scale 3.43 px/mm (pole pitch 35 mm = 120 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<rect x="-30" y="-30" width="180" height="270" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayDimGray;color:black" rx="0" ry="0" />
+		<rect x="-90" y="-30" width="180" height="270" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayDimGray;color:black" rx="0" ry="0" />
+		<rect x="-80" y="-17.5" width="40" height="34.59" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDarkGray;color:black" rx="0" ry="0" />
+		<rect x="-80" y="192.91" width="40" height="34.59" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDarkGray;color:black" rx="0" ry="0" />
+		<circle x="-67.5" y="-7.5" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="15" />
+		<circle x="-66" y="-6" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="12" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-66" length1="1.5" x2="-54" length2="1.5" />
+		<circle x="-67.5" y="202.5" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="15" />
+		<circle x="-66" y="204" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="12" />
+		<line end1="none" end2="none" y1="210" antialias="false" y2="210" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-66" length1="1.5" x2="-54" length2="1.5" />
 		<rect x="-20" y="-17.5" width="40" height="34.59" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDarkGray;color:black" rx="0" ry="0" />
 		<rect x="-20" y="192.91" width="40" height="34.59" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDarkGray;color:black" rx="0" ry="0" />
 		<circle x="-7.5" y="-7.5" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="15" />
@@ -54,38 +62,30 @@ Made by misc/schneider/gen_schneider.py: scale 3.43 px/mm (pole pitch 35 mm = 12
 		<circle x="52.5" y="202.5" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="15" />
 		<circle x="54" y="204" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="12" />
 		<line end1="none" end2="none" y1="210" antialias="false" y2="210" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="54" length1="1.5" x2="66" length2="1.5" />
-		<rect x="100" y="-17.5" width="40" height="34.59" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDarkGray;color:black" rx="0" ry="0" />
-		<rect x="100" y="192.91" width="40" height="34.59" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDarkGray;color:black" rx="0" ry="0" />
-		<circle x="112.5" y="-7.5" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="15" />
-		<circle x="114" y="-6" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="12" />
-		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="114" length1="1.5" x2="126" length2="1.5" />
-		<circle x="112.5" y="202.5" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="15" />
-		<circle x="114" y="204" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayLightSlateGray;color:black" diameter="12" />
-		<line end1="none" end2="none" y1="210" antialias="false" y2="210" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="114" length1="1.5" x2="126" length2="1.5" />
-		<rect x="-20" y="29.3" width="160" height="151.4" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayDarkGray;color:black" rx="0" ry="0" />
-		<rect x="-20" y="29.3" width="160" height="4.88" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGreenLimeGreen;color:black" rx="0" ry="0" />
-		<rect x="37.5" y="43.95" width="45" height="73.26" antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" rx="0" ry="0" />
-		<rect x="49" y="34.19" width="22" height="58.6" antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" rx="0" ry="0" />
-		<rect x="52" y="46.4" width="16" height="1.95" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDimGray;color:black" rx="0" ry="0" />
-		<rect x="52" y="53.72" width="16" height="1.95" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDimGray;color:black" rx="0" ry="0" />
-		<rect x="52" y="61.05" width="16" height="1.95" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDimGray;color:black" rx="0" ry="0" />
-		<rect x="52" y="68.37" width="16" height="1.95" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDimGray;color:black" rx="0" ry="0" />
-		<text x="23.61" y="51.25" rotation="0" color="#000000" font="Roboto Condensed,6.5,-1,5,75,0,0,0,0,0,Bold" text="I" />
-		<text x="23.61" y="107.42" rotation="0" color="#000000" font="Roboto Condensed,6.5,-1,5,75,0,0,0,0,0,Bold" text="O" />
-		<rect x="-12.5" y="129.42" width="145" height="48.84" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
-		<circle x="16" y="139.84" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayGainsboro;color:black" diameter="28" />
-		<line end1="none" end2="none" y1="153.84" antialias="false" y2="144.07" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="40" length2="1.5" />
-		<text x="73.8" y="148.66" rotation="0" color="#000000" font="Roboto Condensed,5.5,-1,5,75,0,0,0,0,0,Bold" text="TM250" />
-		<text x="74.5" y="163.31" rotation="0" color="#000000" font="Roboto Condensed,5.5,-1,5,50,0,0,0,0,0,Regular" text="250 A" />
-		<circle x="118.5" y="135.19" antialias="false" style="line-style:normal;line-weight:normal;filling:red;color:black" diameter="8" />
-		<text x="46.05" y="190.44" rotation="0" color="#000000" font="Roboto Condensed,6.5,-1,5,75,0,0,0,0,0,Bold" text="NSX250N 3P" />
-		<terminal x="0" y="0" name="1" orientation="n" type="Generic" uuid="{b530a55e-d925-58f4-b4ed-0a46cc5b8a71}" />
-		<terminal x="0" y="210" name="2" orientation="s" type="Generic" uuid="{d8c640b3-7348-5fa8-9f3c-3d8c0cf9eb02}" />
-		<terminal x="60" y="0" name="3" orientation="n" type="Generic" uuid="{1ccfdff4-6512-53f1-ad25-8ab8f74bc8dd}" />
-		<terminal x="60" y="210" name="4" orientation="s" type="Generic" uuid="{50c7a751-b78c-5af0-a88b-9e703bfdbb3a}" />
-		<terminal x="120" y="0" name="5" orientation="n" type="Generic" uuid="{f04c7a20-f891-52af-a9e8-d52df31a85bb}" />
-		<terminal x="120" y="210" name="6" orientation="s" type="Generic" uuid="{80758f82-c10f-5232-bc38-387e9f7b4faa}" />
-		<dynamic_text x="-27.5" y="241.5" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{d6332eb7-ee15-51e7-a85b-a4a5d29760f0}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+		<rect x="-80" y="29.3" width="160" height="151.4" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayDarkGray;color:black" rx="0" ry="0" />
+		<rect x="-80" y="29.3" width="160" height="4.88" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGreenLimeGreen;color:black" rx="0" ry="0" />
+		<rect x="-22.5" y="43.95" width="45" height="73.26" antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" rx="0" ry="0" />
+		<rect x="-11" y="34.19" width="22" height="58.6" antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" rx="0" ry="0" />
+		<rect x="-8" y="46.4" width="16" height="1.95" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDimGray;color:black" rx="0" ry="0" />
+		<rect x="-8" y="53.72" width="16" height="1.95" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDimGray;color:black" rx="0" ry="0" />
+		<rect x="-8" y="61.05" width="16" height="1.95" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDimGray;color:black" rx="0" ry="0" />
+		<rect x="-8" y="68.37" width="16" height="1.95" antialias="false" style="line-style:normal;line-weight:thin;filling:HTMLGrayDimGray;color:black" rx="0" ry="0" />
+		<text x="-36.39" y="51.25" rotation="0" color="#000000" font="Roboto Condensed,6.5,-1,5,75,0,0,0,0,0,Bold" text="I" />
+		<text x="-36.39" y="107.42" rotation="0" color="#000000" font="Roboto Condensed,6.5,-1,5,75,0,0,0,0,0,Bold" text="O" />
+		<rect x="-72.5" y="129.42" width="145" height="48.84" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
+		<circle x="-44" y="139.84" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGrayGainsboro;color:black" diameter="28" />
+		<line end1="none" end2="none" y1="153.84" antialias="false" y2="144.07" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-30" length1="1.5" x2="-20" length2="1.5" />
+		<text x="13.8" y="148.66" rotation="0" color="#000000" font="Roboto Condensed,5.5,-1,5,75,0,0,0,0,0,Bold" text="TM250" />
+		<text x="14.5" y="163.31" rotation="0" color="#000000" font="Roboto Condensed,5.5,-1,5,50,0,0,0,0,0,Regular" text="250 A" />
+		<circle x="58.5" y="135.19" antialias="false" style="line-style:normal;line-weight:normal;filling:red;color:black" diameter="8" />
+		<text x="-13.95" y="190.44" rotation="0" color="#000000" font="Roboto Condensed,6.5,-1,5,75,0,0,0,0,0,Bold" text="NSX250N 3P" />
+		<terminal x="-60" y="0" name="1" orientation="n" type="Generic" uuid="{b530a55e-d925-58f4-b4ed-0a46cc5b8a71}" />
+		<terminal x="-60" y="210" name="2" orientation="s" type="Generic" uuid="{d8c640b3-7348-5fa8-9f3c-3d8c0cf9eb02}" />
+		<terminal x="0" y="0" name="3" orientation="n" type="Generic" uuid="{1ccfdff4-6512-53f1-ad25-8ab8f74bc8dd}" />
+		<terminal x="0" y="210" name="4" orientation="s" type="Generic" uuid="{50c7a751-b78c-5af0-a88b-9e703bfdbb3a}" />
+		<terminal x="60" y="0" name="5" orientation="n" type="Generic" uuid="{f04c7a20-f891-52af-a9e8-d52df31a85bb}" />
+		<terminal x="60" y="210" name="6" orientation="s" type="Generic" uuid="{80758f82-c10f-5232-bc38-387e9f7b4faa}" />
+		<dynamic_text x="-87.5" y="241.5" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{d6332eb7-ee15-51e7-a85b-a4a5d29760f0}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
 		</dynamic_text>

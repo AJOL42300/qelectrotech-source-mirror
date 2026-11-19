@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="50" height="40" hotspot_x="10" hotspot_y="5">
+<definition version="0.100.0" type="element" link_type="simple" width="50" height="50" hotspot_x="20" hotspot_y="10">
 	<uuid uuid="{7a5135be-9183-5c36-9a89-33636aaf1b04}" />
 	<names>
 		<name lang="en">iID RCCB 4P 40 A 30 mA AC</name>
@@ -31,10 +31,14 @@
 	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
 Made by misc/schneider/gen_schneider.py: scale 3.33 px/mm (1 module of 9 mm = 30 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
+		<line end1="none" end2="none" y1="0" antialias="false" y2="7" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-10" length1="1.5" x2="-10" length2="1.5" />
+		<line end1="none" end2="none" y1="20" antialias="false" y2="30" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-10" length1="1.5" x2="-10" length2="1.5" />
+		<line end1="none" end2="none" y1="20" antialias="false" y2="7" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-10" length1="1.5" x2="-14" length2="1.5" />
+		<line end1="none" end2="none" y1="5.5" antialias="false" y2="8.5" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-16.5" length1="1.5" x2="-11.5" length2="1.5" />
 		<line end1="none" end2="none" y1="0" antialias="false" y2="7" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
 		<line end1="none" end2="none" y1="20" antialias="false" y2="30" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
-		<line end1="none" end2="none" y1="20" antialias="false" y2="7" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="-4" length2="1.5" />
-		<line end1="none" end2="none" y1="5.5" antialias="false" y2="8.5" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-6.5" length1="1.5" x2="-1.5" length2="1.5" />
+		<line end1="none" end2="none" y1="20" antialias="false" y2="7" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="-2.67" length2="1.5" />
+		<line end1="none" end2="none" y1="5.5" antialias="false" y2="8.5" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-4.33" length1="1.5" x2="-1" length2="1.5" />
 		<line end1="none" end2="none" y1="0" antialias="false" y2="7" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="10" length1="1.5" x2="10" length2="1.5" />
 		<line end1="none" end2="none" y1="20" antialias="false" y2="30" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="10" length1="1.5" x2="10" length2="1.5" />
 		<line end1="none" end2="none" y1="20" antialias="false" y2="7" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="10" length1="1.5" x2="7.33" length2="1.5" />
@@ -43,22 +47,18 @@ Made by misc/schneider/gen_schneider.py: scale 3.33 px/mm (1 module of 9 mm = 30
 		<line end1="none" end2="none" y1="20" antialias="false" y2="30" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="20" length1="1.5" x2="20" length2="1.5" />
 		<line end1="none" end2="none" y1="20" antialias="false" y2="7" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="20" length1="1.5" x2="17.33" length2="1.5" />
 		<line end1="none" end2="none" y1="5.5" antialias="false" y2="8.5" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="15.67" length1="1.5" x2="19" length2="1.5" />
-		<line end1="none" end2="none" y1="0" antialias="false" y2="7" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="30" length2="1.5" />
-		<line end1="none" end2="none" y1="20" antialias="false" y2="30" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="30" length2="1.5" />
-		<line end1="none" end2="none" y1="20" antialias="false" y2="7" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="30" length1="1.5" x2="27.33" length2="1.5" />
-		<line end1="none" end2="none" y1="5.5" antialias="false" y2="8.5" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="25.67" length1="1.5" x2="29" length2="1.5" />
-		<line end1="none" end2="none" y1="13.5" antialias="false" y2="13.5" style="line-style:dashed;line-weight:thin;filling:none;color:black" x1="-4" length1="1.5" x2="27.33" length2="1.5" />
-		<circle x="12" y="22" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" diameter="6" />
-		<line end1="none" end2="none" y1="25" antialias="false" y2="25" style="line-style:dashed;line-weight:thin;filling:none;color:black" x1="0" length1="1.5" x2="37" length2="1.5" />
-		<terminal x="0" y="0" name="N1" orientation="n" type="Generic" uuid="{6f910311-91cc-5b3d-bf2e-877ad91d39d5}" />
-		<terminal x="0" y="30" name="N2" orientation="s" type="Generic" uuid="{3c660103-ca08-53d7-989e-13fdbe1aaca9}" />
-		<terminal x="10" y="0" name="1" orientation="n" type="Generic" uuid="{0b2a6a72-40e8-598a-bfce-abb1643fd952}" />
-		<terminal x="10" y="30" name="2" orientation="s" type="Generic" uuid="{c20a6c2f-256f-5f5d-b80c-0e2b1f988da6}" />
-		<terminal x="20" y="0" name="3" orientation="n" type="Generic" uuid="{93e25ebb-d972-5834-945e-433e87315f70}" />
-		<terminal x="20" y="30" name="4" orientation="s" type="Generic" uuid="{8faa3f75-f4e4-5066-8702-723f7ab0f46c}" />
-		<terminal x="30" y="0" name="5" orientation="n" type="Generic" uuid="{e240d2f8-3b8c-5fca-8515-3df74482b966}" />
-		<terminal x="30" y="30" name="6" orientation="s" type="Generic" uuid="{f83eeabe-3d54-505f-b998-62f6388203bf}" />
-		<dynamic_text x="-7.5" y="36.5" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{e9cfb177-08d2-52bb-b574-bebd4ba047ae}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+		<line end1="none" end2="none" y1="13.5" antialias="false" y2="13.5" style="line-style:dashed;line-weight:thin;filling:none;color:black" x1="-14" length1="1.5" x2="17.33" length2="1.5" />
+		<circle x="2" y="22" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" diameter="6" />
+		<line end1="none" end2="none" y1="25" antialias="false" y2="25" style="line-style:dashed;line-weight:thin;filling:none;color:black" x1="-10" length1="1.5" x2="27" length2="1.5" />
+		<terminal x="-10" y="0" name="N1" orientation="n" type="Generic" uuid="{6f910311-91cc-5b3d-bf2e-877ad91d39d5}" />
+		<terminal x="-10" y="30" name="N2" orientation="s" type="Generic" uuid="{3c660103-ca08-53d7-989e-13fdbe1aaca9}" />
+		<terminal x="0" y="0" name="1" orientation="n" type="Generic" uuid="{0b2a6a72-40e8-598a-bfce-abb1643fd952}" />
+		<terminal x="0" y="30" name="2" orientation="s" type="Generic" uuid="{c20a6c2f-256f-5f5d-b80c-0e2b1f988da6}" />
+		<terminal x="10" y="0" name="3" orientation="n" type="Generic" uuid="{93e25ebb-d972-5834-945e-433e87315f70}" />
+		<terminal x="10" y="30" name="4" orientation="s" type="Generic" uuid="{8faa3f75-f4e4-5066-8702-723f7ab0f46c}" />
+		<terminal x="20" y="0" name="5" orientation="n" type="Generic" uuid="{e240d2f8-3b8c-5fca-8515-3df74482b966}" />
+		<terminal x="20" y="30" name="6" orientation="s" type="Generic" uuid="{f83eeabe-3d54-505f-b998-62f6388203bf}" />
+		<dynamic_text x="-17.5" y="36.5" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{e9cfb177-08d2-52bb-b574-bebd4ba047ae}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
 		</dynamic_text>

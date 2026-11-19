@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="60" height="70" hotspot_x="25" hotspot_y="20">
+<definition version="0.100.0" type="element" link_type="simple" width="60" height="70" hotspot_x="50" hotspot_y="30">
 	<uuid uuid="{3c84fc92-baa8-5c1e-a2b3-c6345df7b1d6}"/>
 	<names>
 		<name lang="en">Lanbao PDB-CC50TGI laser distance sensor, realistic view</name>
@@ -15,17 +15,17 @@
 Original vector drawing, not copied from a manufacturer drawing. Ratings and terminal names from the public datasheet; layout and symbols are generic, check them against the datasheet.
 License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<dynamic_text x="-20" y="-12" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{333b861d-2c4a-53cc-b36a-101d41a7bc80}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
-		<rect x="-7.47" y="2.58" width="14.95" height="34.83" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
-		<rect x="-6.47" y="3.25" width="12.95" height="18.07" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:black" antialias="false"/>
-		<rect x="-6.47" y="22.32" width="12.95" height="11.01" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:black" antialias="false"/>
-		<rect x="-3.48" y="36.08" width="6.95" height="1" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<line x1="0" y1="37.42" x2="0" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:hight;filling:none;color:black" antialias="false"/>
-		<text x="-13.47" y="27" rotation="270" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="PDB-CC50TGI"/>
-		<text x="-17.48" y="27" rotation="270" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Laser, 80-500 mm"/>
-		<terminal x="0" y="0" name="BN" orientation="n" type="Generic" uuid="{9370f5ff-5bd8-59c3-ad6f-c624751614f3}" potential="24V"/>
-		<terminal x="0" y="40" name="BU" orientation="s" type="Generic" uuid="{e0837233-f5a5-5210-9b9c-67460ad4e17d}" potential="0V"/>
-		<terminal x="20" y="10" name="BK" orientation="e" type="Generic" uuid="{f94f2061-6e2f-5357-8cb8-588ba833b332}"/>
-		<terminal x="20" y="30" name="GY" orientation="e" type="Generic" uuid="{d8c471b2-9612-553d-a079-2802e39f2076}"/>
+		<dynamic_text x="-40" y="-22" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{333b861d-2c4a-53cc-b36a-101d41a7bc80}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<rect x="-27.48" y="-7.42" width="14.95" height="34.83" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
+		<rect x="-26.48" y="-6.75" width="12.95" height="18.07" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:black" antialias="false"/>
+		<rect x="-26.48" y="12.32" width="12.95" height="11.01" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:black" antialias="false"/>
+		<rect x="-23.48" y="26.08" width="6.95" height="1" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<line x1="-20" y1="27.42" x2="-20" y2="30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:hight;filling:none;color:black" antialias="false"/>
+		<text x="-33.48" y="17" rotation="270" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="PDB-CC50TGI"/>
+		<text x="-37.48" y="17" rotation="270" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Laser, 80-500 mm"/>
+		<terminal x="-20" y="-10" name="BN" orientation="n" type="Generic" uuid="{9370f5ff-5bd8-59c3-ad6f-c624751614f3}" potential="24V"/>
+		<terminal x="-20" y="30" name="BU" orientation="s" type="Generic" uuid="{e0837233-f5a5-5210-9b9c-67460ad4e17d}" potential="0V"/>
+		<terminal x="0" y="0" name="BK" orientation="e" type="Generic" uuid="{f94f2061-6e2f-5357-8cb8-588ba833b332}"/>
+		<terminal x="0" y="20" name="GY" orientation="e" type="Generic" uuid="{d8c471b2-9612-553d-a079-2802e39f2076}"/>
 	</description>
 </definition>

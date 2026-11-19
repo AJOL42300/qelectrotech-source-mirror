@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="40" height="40" hotspot_x="10" hotspot_y="5">
+<definition version="0.100.0" type="element" link_type="simple" width="40" height="50" hotspot_x="20" hotspot_y="10">
 	<uuid uuid="{8fddf79d-05e7-5c2f-9777-44204fc70d9e}" />
 	<names>
 		<name lang="en">iC60N circuit breaker 3P 10 A C</name>
@@ -37,32 +37,32 @@
 	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
 Made by misc/schneider/gen_schneider.py: scale 3.33 px/mm (1 module of 9 mm = 30 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
+		<line end1="none" end2="none" y1="0" antialias="false" y2="7" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-10" length1="1.5" x2="-10" length2="1.5" />
+		<line end1="none" end2="none" y1="20" antialias="false" y2="30" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-10" length1="1.5" x2="-10" length2="1.5" />
+		<line end1="none" end2="none" y1="20" antialias="false" y2="7" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-10" length1="1.5" x2="-14" length2="1.5" />
+		<line end1="none" end2="none" y1="5" antialias="false" y2="9" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-16" length1="1.5" x2="-12" length2="1.5" />
+		<line end1="none" end2="none" y1="9" antialias="false" y2="5" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-16" length1="1.5" x2="-12" length2="1.5" />
+		<rect x="-12" y="0" width="3.33" height="7" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" rx="0" ry="0" />
 		<line end1="none" end2="none" y1="0" antialias="false" y2="7" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
 		<line end1="none" end2="none" y1="20" antialias="false" y2="30" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
-		<line end1="none" end2="none" y1="20" antialias="false" y2="7" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="-4" length2="1.5" />
-		<line end1="none" end2="none" y1="5" antialias="false" y2="9" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-6" length1="1.5" x2="-2" length2="1.5" />
-		<line end1="none" end2="none" y1="9" antialias="false" y2="5" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-6" length1="1.5" x2="-2" length2="1.5" />
-		<rect x="-2" y="0" width="3.33" height="7" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="20" antialias="false" y2="7" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="-2.67" length2="1.5" />
+		<line end1="none" end2="none" y1="5" antialias="false" y2="9" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-4" length1="1.5" x2="-1.33" length2="1.5" />
+		<line end1="none" end2="none" y1="9" antialias="false" y2="5" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="-4" length1="1.5" x2="-1.33" length2="1.5" />
+		<rect x="-1.33" y="0" width="2.67" height="7" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" rx="0" ry="0" />
 		<line end1="none" end2="none" y1="0" antialias="false" y2="7" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="10" length1="1.5" x2="10" length2="1.5" />
 		<line end1="none" end2="none" y1="20" antialias="false" y2="30" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="10" length1="1.5" x2="10" length2="1.5" />
 		<line end1="none" end2="none" y1="20" antialias="false" y2="7" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="10" length1="1.5" x2="7.33" length2="1.5" />
 		<line end1="none" end2="none" y1="5" antialias="false" y2="9" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="6" length1="1.5" x2="8.67" length2="1.5" />
 		<line end1="none" end2="none" y1="9" antialias="false" y2="5" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="6" length1="1.5" x2="8.67" length2="1.5" />
-		<rect x="8.67" y="0" width="2.67" height="7" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" rx="0" ry="0" />
-		<line end1="none" end2="none" y1="0" antialias="false" y2="7" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="20" length1="1.5" x2="20" length2="1.5" />
-		<line end1="none" end2="none" y1="20" antialias="false" y2="30" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="20" length1="1.5" x2="20" length2="1.5" />
-		<line end1="none" end2="none" y1="20" antialias="false" y2="7" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="20" length1="1.5" x2="17.33" length2="1.5" />
-		<line end1="none" end2="none" y1="5" antialias="false" y2="9" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="16" length1="1.5" x2="18.67" length2="1.5" />
-		<line end1="none" end2="none" y1="9" antialias="false" y2="5" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="16" length1="1.5" x2="18.67" length2="1.5" />
-		<rect x="18.67" y="0" width="3.33" height="7" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" rx="0" ry="0" />
-		<line end1="none" end2="none" y1="13.5" antialias="false" y2="13.5" style="line-style:dashed;line-weight:thin;filling:none;color:black" x1="-4" length1="1.5" x2="17.33" length2="1.5" />
-		<terminal x="0" y="0" name="1" orientation="n" type="Generic" uuid="{dee90642-21f3-5985-a495-48cf6b1edbaf}" />
-		<terminal x="0" y="30" name="2" orientation="s" type="Generic" uuid="{e7c952cd-f93b-5543-bb57-98331b560187}" />
-		<terminal x="10" y="0" name="3" orientation="n" type="Generic" uuid="{f49b8270-e110-5fcd-b0eb-306a8d28d156}" />
-		<terminal x="10" y="30" name="4" orientation="s" type="Generic" uuid="{9107d2c1-c3fe-5da2-9822-83534e400a5c}" />
-		<terminal x="20" y="0" name="5" orientation="n" type="Generic" uuid="{822bfb32-1a91-55fd-b66b-e20c453fd2d9}" />
-		<terminal x="20" y="30" name="6" orientation="s" type="Generic" uuid="{9dfeb421-782f-5058-b803-6cbca80952f8}" />
-		<dynamic_text x="-7.5" y="36.5" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{6d3726a2-2523-5ab2-9c7d-ec7a023db183}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+		<rect x="8.67" y="0" width="3.33" height="7" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="13.5" antialias="false" y2="13.5" style="line-style:dashed;line-weight:thin;filling:none;color:black" x1="-14" length1="1.5" x2="7.33" length2="1.5" />
+		<terminal x="-10" y="0" name="1" orientation="n" type="Generic" uuid="{dee90642-21f3-5985-a495-48cf6b1edbaf}" />
+		<terminal x="-10" y="30" name="2" orientation="s" type="Generic" uuid="{e7c952cd-f93b-5543-bb57-98331b560187}" />
+		<terminal x="0" y="0" name="3" orientation="n" type="Generic" uuid="{f49b8270-e110-5fcd-b0eb-306a8d28d156}" />
+		<terminal x="0" y="30" name="4" orientation="s" type="Generic" uuid="{9107d2c1-c3fe-5da2-9822-83534e400a5c}" />
+		<terminal x="10" y="0" name="5" orientation="n" type="Generic" uuid="{822bfb32-1a91-55fd-b66b-e20c453fd2d9}" />
+		<terminal x="10" y="30" name="6" orientation="s" type="Generic" uuid="{9dfeb421-782f-5058-b803-6cbca80952f8}" />
+		<dynamic_text x="-17.5" y="36.5" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{6d3726a2-2523-5ab2-9c7d-ec7a023db183}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
 		</dynamic_text>

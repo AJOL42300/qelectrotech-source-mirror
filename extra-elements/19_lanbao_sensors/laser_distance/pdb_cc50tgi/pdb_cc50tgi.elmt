@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="60" height="70" hotspot_x="25" hotspot_y="20">
+<definition version="0.100.0" type="element" link_type="simple" width="60" height="70" hotspot_x="50" hotspot_y="30">
 	<uuid uuid="{f4b408c7-ed43-5835-932b-47f3237c255e}"/>
 	<names>
 		<name lang="en">Lanbao PDB-CC50TGI laser distance sensor</name>
@@ -15,31 +15,31 @@
 Original vector drawing, not copied from a manufacturer drawing. Ratings and terminal names from the public datasheet; layout and symbols are generic, check them against the datasheet.
 License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<dynamic_text x="-20" y="-12" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{fbf801df-82c7-51bd-89e3-eabed25e59f7}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
-		<rect x="-15" y="3.33" width="30" height="33.33" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<line x1="0" y1="0" x2="0" y2="3.33" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:red" antialias="false"/>
-		<line x1="0" y1="36.67" x2="0" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:blue" antialias="false"/>
-		<text x="1.5" y="0.5" rotation="0" color="#ff0000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="BN +"/>
-		<text x="1.5" y="37.17" rotation="0" color="#0000ff" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="BU -"/>
-		<text x="-7.14" y="4" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="PDB-CC50TGI"/>
-		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="0" y1="8" x2="6" y2="13" x3="0" y3="19" x4="-6" y4="13"/>
-		<line x1="-3.5" y1="11.5" x2="2" y2="11.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<polygon closed="false" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="0.75" y1="10.88" x2="2" y2="11.5" x3="0.75" y3="12.12"/>
-		<line x1="3.5" y1="14.5" x2="-2" y2="14.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<polygon closed="false" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="-0.75" y1="13.88" x2="-2" y2="14.5" x3="-0.75" y3="15.12"/>
-		<circle x="-0.75" y="15.75" diameter="1.5" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false"/>
-		<text x="-5.89" y="21.5" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Q: switch"/>
-		<text x="-7.14" y="25.5" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Ia: 4-20 mA"/>
-		<text x="-9.65" y="29.5" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Laser 80-500 mm"/>
-		<circle x="-6.25" y="32.75" diameter="2.5" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
-		<circle x="3.75" y="32.75" diameter="2.5" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
-		<line x1="15" y1="10" x2="20" y2="10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="15.75" y="7.5" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="BK Q"/>
-		<line x1="15" y1="30" x2="20" y2="30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="15.75" y="26.25" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="GY Ia"/>
-		<terminal x="0" y="0" name="BN" orientation="n" type="Generic" uuid="{fe535a6b-cc48-5f05-b2de-a8d50d772bba}" potential="24V"/>
-		<terminal x="0" y="40" name="BU" orientation="s" type="Generic" uuid="{0aaf41ce-2348-5723-923d-23c07237c223}" potential="0V"/>
-		<terminal x="20" y="10" name="BK" orientation="e" type="Generic" uuid="{fa0de686-d120-5adf-b847-845f74824723}"/>
-		<terminal x="20" y="30" name="GY" orientation="e" type="Generic" uuid="{12b518e5-4abd-5c10-8a39-cc148cfdd150}"/>
+		<dynamic_text x="-40" y="-22" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{fbf801df-82c7-51bd-89e3-eabed25e59f7}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<rect x="-35" y="-6.67" width="30" height="33.33" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="-20" y1="-10" x2="-20" y2="-6.67" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:red" antialias="false"/>
+		<line x1="-20" y1="26.67" x2="-20" y2="30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:blue" antialias="false"/>
+		<text x="-18.5" y="-9.5" rotation="0" color="#ff0000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="BN +"/>
+		<text x="-18.5" y="27.17" rotation="0" color="#0000ff" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="BU -"/>
+		<text x="-27.14" y="-6" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="PDB-CC50TGI"/>
+		<polygon closed="true" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="-20" y1="-2" x2="-14" y2="3" x3="-20" y3="9" x4="-26" y4="3"/>
+		<line x1="-23.5" y1="1.5" x2="-18" y2="1.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<polygon closed="false" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="-19.25" y1="0.88" x2="-18" y2="1.5" x3="-19.25" y3="2.12"/>
+		<line x1="-16.5" y1="4.5" x2="-22" y2="4.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<polygon closed="false" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" x1="-20.75" y1="3.88" x2="-22" y2="4.5" x3="-20.75" y3="5.12"/>
+		<circle x="-20.75" y="5.75" diameter="1.5" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false"/>
+		<text x="-25.89" y="11.5" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Q: switch"/>
+		<text x="-27.14" y="15.5" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Ia: 4-20 mA"/>
+		<text x="-29.65" y="19.5" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Laser 80-500 mm"/>
+		<circle x="-26.25" y="22.75" diameter="2.5" style="line-style:normal;line-weight:thin;filling:green;color:black" antialias="false"/>
+		<circle x="-16.25" y="22.75" diameter="2.5" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
+		<line x1="-5" y1="0" x2="0" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="-4.25" y="-2.5" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="BK Q"/>
+		<line x1="-5" y1="20" x2="0" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="-4.25" y="16.25" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="GY Ia"/>
+		<terminal x="-20" y="-10" name="BN" orientation="n" type="Generic" uuid="{fe535a6b-cc48-5f05-b2de-a8d50d772bba}" potential="24V"/>
+		<terminal x="-20" y="30" name="BU" orientation="s" type="Generic" uuid="{0aaf41ce-2348-5723-923d-23c07237c223}" potential="0V"/>
+		<terminal x="0" y="0" name="BK" orientation="e" type="Generic" uuid="{fa0de686-d120-5adf-b847-845f74824723}"/>
+		<terminal x="0" y="20" name="GY" orientation="e" type="Generic" uuid="{12b518e5-4abd-5c10-8a39-cc148cfdd150}"/>
 	</description>
 </definition>

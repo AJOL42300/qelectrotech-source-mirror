@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="30" height="40" hotspot_x="10" hotspot_y="5">
+<definition version="0.100.0" type="element" link_type="simple" width="30" height="50" hotspot_x="10" hotspot_y="40">
 	<uuid uuid="{6f316d54-0b8b-5c28-9ffa-c758be39db70}" />
 	<names>
 		<name lang="en">OF/SD/SDE/SDV auxiliary contact 29450</name>
@@ -13,18 +13,18 @@
 	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
 Made by misc/schneider/gen_schneider.py: scale 3.43 px/mm (pole pitch 35 mm = 120 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<line end1="none" end2="none" y1="0" antialias="false" y2="6" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
-		<line end1="none" end2="none" y1="6" antialias="false" y2="18" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="-4" length2="1.5" />
-		<line end1="none" end2="none" y1="30" antialias="false" y2="24" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
-		<line end1="none" end2="none" y1="30" antialias="false" y2="24" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="10" length1="1.5" x2="10" length2="1.5" />
-		<line end1="none" end2="none" y1="24" antialias="false" y2="12" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="10" length1="1.5" x2="7.33" length2="1.5" />
-		<text x="1.33" y="5.38" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="11" />
-		<text x="1.33" y="27.38" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="12" />
-		<text x="12" y="27.38" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="14" />
-		<terminal x="0" y="0" name="11" orientation="n" type="Generic" uuid="{9250f557-a2d3-5b16-ba81-7990a38cd0ac}" />
-		<terminal x="0" y="30" name="12" orientation="s" type="Generic" uuid="{5b1c1ec4-198c-5c94-8c3d-6dc24024b131}" />
-		<terminal x="10" y="30" name="14" orientation="s" type="Generic" uuid="{fc7eda08-99a2-5565-b091-f9fba927fc79}" />
-		<dynamic_text x="-7.5" y="36.5" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{f7439976-8158-5dde-ac9f-02e71962d793}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+		<line end1="none" end2="none" y1="-30" antialias="false" y2="-24" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="-24" antialias="false" y2="-12" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="-4" length2="1.5" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="-6" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="-6" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="10" length1="1.5" x2="10" length2="1.5" />
+		<line end1="none" end2="none" y1="-6" antialias="false" y2="-18" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="10" length1="1.5" x2="7.33" length2="1.5" />
+		<text x="1.33" y="-24.62" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="11" />
+		<text x="1.33" y="-2.62" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="12" />
+		<text x="12" y="-2.62" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="14" />
+		<terminal x="0" y="-30" name="11" orientation="n" type="Generic" uuid="{9250f557-a2d3-5b16-ba81-7990a38cd0ac}" />
+		<terminal x="0" y="0" name="12" orientation="s" type="Generic" uuid="{5b1c1ec4-198c-5c94-8c3d-6dc24024b131}" />
+		<terminal x="10" y="0" name="14" orientation="s" type="Generic" uuid="{fc7eda08-99a2-5565-b091-f9fba927fc79}" />
+		<dynamic_text x="-7.5" y="6.5" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{f7439976-8158-5dde-ac9f-02e71962d793}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
 		</dynamic_text>

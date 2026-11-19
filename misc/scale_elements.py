@@ -116,6 +116,20 @@ def transform(text, factor, text_factor):
                 xs.append(float(a["x"]))
                 ys.append(float(a["y"]))
     fx, fy = Axis(xs, factor), Axis(ys, factor)
+    dm = re.search(r"<definition\b[^>]*>", head)
+    d = parse_attrs(dm.group(0))
+    w, h = float(d["width"]), float(d["height"])
+    hx, hy = float(d["hotspot_x"]), float(d["hotspot_y"])
+    if xs:
+        # The insertion point moves onto the terminal nearest to the centre
+        # of the terminals: the views of one product (same terminals, other
+        # frame) keep the same insertion point.
+        cx, cy = sum(xs) / len(xs), sum(ys) / len(ys)
+        tx, ty = min(sorted(zip(xs, ys)),
+                     key=lambda p: (p[0] - cx) ** 2 + (p[1] - cy) ** 2)
+        ox, oy = fx(tx), fy(ty)
+        fx.dst = [v - ox for v in fx.dst]
+        fy.dst = [v - oy for v in fy.dst]
 
     def repl(m):
         kind, attrs, close = m.group(1), m.group(2), m.group(3)
@@ -183,12 +197,10 @@ def transform(text, factor, text_factor):
     body = TAG_RE.sub(repl, body)
 
     dm = re.search(r"<definition\b[^>]*>", head)
-    d = parse_attrs(dm.group(0))
-    w, h = float(d["width"]), float(d["height"])
-    hx, hy = float(d["hotspot_x"]), float(d["hotspot_y"])
     minx, maxx = fx(-hx), fx(w - hx)
     miny, maxy = fy(-hy), fy(h - hy)
-    minx, miny = math.floor(minx), math.floor(miny)
+    minx = math.floor(minx / 10.0) * 10
+    miny = math.floor(miny / 10.0) * 10
     nw = int(math.ceil((maxx - minx) / 10.0) * 10)
     nh = int(math.ceil((maxy - miny) / 10.0) * 10)
     tag = dm.group(0)

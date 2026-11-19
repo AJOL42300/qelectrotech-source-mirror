@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="180" height="170" hotspot_x="86" hotspot_y="81">
+<definition version="0.100.0" type="element" link_type="simple" width="180" height="180" hotspot_x="110" hotspot_y="110">
 	<uuid uuid="{66963262-af45-519a-9459-64b0bf5f01c2}" />
 	<names>
 		<name lang="en">EK1100 EtherCAT coupler, description view</name>
@@ -13,99 +13,99 @@
 	<informations>Author: QElectroTech contributors
 Description view made by misc/beckhoff/gen_description.py from the realistic view: legends, LEDs and power contacts are generic, check them against the datasheet. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<rect x="-34" y="-69.35" width="68.75" height="139.6" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" rx="0" ry="0" />
-		<line end1="none" end2="none" y1="-63.35" antialias="false" y2="-63.35" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-34" length1="4.5" x2="34.75" length2="4.5" />
-		<line end1="none" end2="none" y1="64.25" antialias="false" y2="64.25" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-34" length1="4.5" x2="34.75" length2="4.5" />
-		<rect x="-11.29" y="-50" width="23.01" height="18" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" rx="0" ry="0" />
-		<rect x="-8.83" y="-46" width="18.01" height="11.6" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
-		<rect x="-2.94" y="-48.5" width="6" height="2.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
-		<line end1="none" end2="none" y1="-45" antialias="false" y2="-41" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-6.87" length1="4.5" x2="-6.87" length2="4.5" />
-		<line end1="none" end2="none" y1="-45" antialias="false" y2="-41" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-4.91" length1="4.5" x2="-4.91" length2="4.5" />
-		<line end1="none" end2="none" y1="-45" antialias="false" y2="-41" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-2.94" length1="4.5" x2="-2.94" length2="4.5" />
-		<line end1="none" end2="none" y1="-45" antialias="false" y2="-41" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-0.98" length1="4.5" x2="-0.98" length2="4.5" />
-		<line end1="none" end2="none" y1="-45" antialias="false" y2="-41" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="1.02" length1="4.5" x2="1.02" length2="4.5" />
-		<line end1="none" end2="none" y1="-45" antialias="false" y2="-41" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="3.06" length1="4.5" x2="3.06" length2="4.5" />
-		<line end1="none" end2="none" y1="-45" antialias="false" y2="-41" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="5.1" length1="4.5" x2="5.1" length2="4.5" />
-		<line end1="none" end2="none" y1="-45" antialias="false" y2="-41" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="7.13" length1="4.5" x2="7.13" length2="4.5" />
-		<text x="-16.2" y="-39.2" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="IN" />
-		<rect x="-11.29" y="-28" width="23.01" height="18.96" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" rx="0" ry="0" />
-		<rect x="-8.83" y="-24.8" width="18.01" height="12.47" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
-		<rect x="-2.94" y="-26.8" width="6" height="2" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
-		<line end1="none" end2="none" y1="-24" antialias="false" y2="-20.8" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-6.87" length1="4.5" x2="-6.87" length2="4.5" />
-		<line end1="none" end2="none" y1="-24" antialias="false" y2="-20.8" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-4.91" length1="4.5" x2="-4.91" length2="4.5" />
-		<line end1="none" end2="none" y1="-24" antialias="false" y2="-20.8" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-2.94" length1="4.5" x2="-2.94" length2="4.5" />
-		<line end1="none" end2="none" y1="-24" antialias="false" y2="-20.8" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-0.98" length1="4.5" x2="-0.98" length2="4.5" />
-		<line end1="none" end2="none" y1="-24" antialias="false" y2="-20.8" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="1.02" length1="4.5" x2="1.02" length2="4.5" />
-		<line end1="none" end2="none" y1="-24" antialias="false" y2="-20.8" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="3.06" length1="4.5" x2="3.06" length2="4.5" />
-		<line end1="none" end2="none" y1="-24" antialias="false" y2="-20.8" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="5.1" length1="4.5" x2="5.1" length2="4.5" />
-		<line end1="none" end2="none" y1="-24" antialias="false" y2="-20.8" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="7.13" length1="4.5" x2="7.13" length2="4.5" />
-		<text x="-16.2" y="-18.9" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="OUT" />
-		<circle x="-23.5" y="-63" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="2" />
-		<text x="-20.5" y="-60.9" rotation="0" color="#ff0000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Us" />
-		<circle x="-23.5" y="-57.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="2" />
-		<text x="-20.5" y="-55.4" rotation="0" color="#ff0000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Up" />
-		<circle x="-23.5" y="-52" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="2" />
-		<text x="-20.5" y="-49.9" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Run" />
-		<circle x="21.5" y="-63" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="2" />
-		<text x="15.89" y="-60.9" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="L/A1" />
-		<circle x="21.5" y="-57.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="2" />
-		<text x="15.64" y="-55.4" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="L/A2" />
-		<circle x="-24.05" y="15.95" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="8.1" />
-		<circle x="-23.15" y="16.85" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="6.3" />
-		<rect x="-22.75" y="13.86" width="5.45" height="0.88" antialias="false" style="line-style:none;line-weight:thin;filling:red;color:red" rx="0" ry="0" />
-		<text x="-23.45" y="13.1" rotation="0" color="#ff0000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Bold" text="24V" />
-		<circle x="-24.05" y="45.95" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="8.1" />
-		<circle x="-23.15" y="46.85" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="6.3" />
-		<rect x="-22.75" y="43.89" width="5.45" height="0.87" antialias="false" style="line-style:none;line-weight:thin;filling:blue;color:blue" rx="0" ry="0" />
-		<text x="-22.31" y="43.13" rotation="0" color="#0000ff" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Bold" text="0V" />
-		<circle x="15.95" y="15.95" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="8.1" />
-		<circle x="16.85" y="16.85" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="6.3" />
-		<rect x="17.2" y="13.86" width="5.55" height="0.88" antialias="false" style="line-style:none;line-weight:thin;filling:red;color:red" rx="0" ry="0" />
-		<text x="16.48" y="13.1" rotation="0" color="#ff0000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Bold" text="24V" />
-		<circle x="15.95" y="45.95" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="8.1" />
-		<circle x="16.85" y="46.85" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="6.3" />
-		<rect x="17.2" y="43.89" width="5.55" height="0.87" antialias="false" style="line-style:none;line-weight:thin;filling:blue;color:blue" rx="0" ry="0" />
-		<text x="17.65" y="43.13" rotation="0" color="#0000ff" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Bold" text="0V" />
-		<text x="-22.34" y="7.4" rotation="0" color="#ff0000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Bold" text="Us" />
-		<text x="17.62" y="7.4" rotation="0" color="#ff0000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Bold" text="Up" />
-		<rect x="31.75" y="2.47" width="3" height="2.19" antialias="false" style="line-style:none;line-weight:thin;filling:red;color:red" rx="0" ry="0" />
-		<rect x="31.75" y="7.95" width="3" height="2.19" antialias="false" style="line-style:none;line-weight:thin;filling:blue;color:blue" rx="0" ry="0" />
-		<rect x="31.75" y="13.42" width="3" height="2.19" antialias="false" style="line-style:none;line-weight:thin;filling:orange;color:orange" rx="0" ry="0" />
-		<text x="-7.28" y="65" rotation="0" color="#000000" font="Roboto Condensed,5.5,-1,5,75,0,0,0,0,0,Bold" text="EK1100" />
-		<line end1="none" end2="none" y1="-62" antialias="false" y2="-62" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-24.25" length1="4.5" x2="-38" length2="4.5" />
-		<text x="-78.56" y="-60.58" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED Us (system supply)" />
-		<line end1="none" end2="none" y1="-56.5" antialias="false" y2="-56.5" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-24.25" length1="4.5" x2="-38" length2="4.5" />
-		<text x="-84.56" y="-55.08" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED Up (peripheral supply)" />
-		<line end1="none" end2="none" y1="-51" antialias="false" y2="-51" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-24.25" length1="4.5" x2="-38" length2="4.5" />
-		<text x="-51.88" y="-49.58" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED Run" />
-		<line end1="none" end2="none" y1="20" antialias="false" y2="20" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-24.8" length1="4.5" x2="-38" length2="4.5" />
-		<text x="-70.36" y="21.81" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="1: +24 V DC (Us)" />
-		<line end1="none" end2="none" y1="50" antialias="false" y2="50" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-24.8" length1="4.5" x2="-38" length2="4.5" />
-		<text x="-60.52" y="51.66" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2: 0 V (Us)" />
-		<line end1="none" end2="none" y1="-62" antialias="false" y2="-62" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="24.25" length1="4.5" x2="38.75" length2="4.5" />
-		<text x="39.75" y="-60.58" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED L/A IN" />
-		<line end1="none" end2="none" y1="-56.5" antialias="false" y2="-56.5" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="24.25" length1="4.5" x2="38.75" length2="4.5" />
-		<text x="39.75" y="-55.08" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED L/A OUT" />
-		<line end1="none" end2="none" y1="-40" antialias="false" y2="-40" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="12.48" length1="4.5" x2="38.75" length2="4.5" />
-		<text x="39.75" y="-40.83" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="EtherCAT IN: RJ45 socket" />
-		<text x="39.75" y="-37.06" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="EtherCAT input" />
-		<line end1="none" end2="none" y1="-20" antialias="false" y2="-20" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="12.48" length1="4.5" x2="38.75" length2="4.5" />
-		<text x="39.75" y="-20.66" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="EtherCAT OUT: RJ45 socket" />
-		<text x="39.75" y="-15.98" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="EtherCAT output" />
-		<line end1="none" end2="none" y1="9.04" antialias="false" y2="9.04" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="35.5" length1="4.5" x2="38.75" length2="4.5" />
-		<text x="39.75" y="8.13" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Power contacts" />
-		<text x="39.75" y="13.06" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24 V / 0 V / PE" />
-		<line end1="none" end2="none" y1="20" antialias="false" y2="20" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="24.8" length1="4.5" x2="38.75" length2="4.5" />
-		<text x="39.75" y="21.81" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="3: +24 V DC (Up)" />
-		<line end1="none" end2="none" y1="50" antialias="false" y2="50" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="24.8" length1="4.5" x2="38.75" length2="4.5" />
-		<text x="39.75" y="51.66" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4: 0 V (Up)" />
-		<terminal x="0" y="-40" name="EtherCAT IN" orientation="w" type="Generic" uuid="{c7da6c72-b7f6-588c-a40d-0f8a134541d0}" />
-		<terminal x="0" y="-20" name="EtherCAT OUT" orientation="e" type="Generic" uuid="{aaf69bc9-ab57-52e2-b3d5-3fd1be036ae4}" />
-		<terminal x="-20" y="20" name="1" orientation="s" type="Generic" uuid="{a964dd8e-f2ba-5978-ad02-ff6b26c0065e}" potential="24V" />
-		<terminal x="-20" y="50" name="2" orientation="s" type="Generic" uuid="{122f75c8-9e7e-505e-b613-24e1bd08bbb0}" potential="0V" />
-		<terminal x="20" y="20" name="3" orientation="s" type="Generic" uuid="{28ce5ba2-3b7e-54cd-97ce-959e42af7ff7}" potential="24V" />
-		<terminal x="20" y="50" name="4" orientation="s" type="Generic" uuid="{2f4cae8a-baf1-5717-83f7-aab91a9d689d}" potential="0V" />
-		<dynamic_text x="-34" y="77.94" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{2e72c495-f625-54a1-9358-4527287f2d0e}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+		<rect x="-54" y="-89.35" width="68.75" height="139.6" antialias="false" style="line-style:normal;line-weight:thin;filling:none;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="-83.35" antialias="false" y2="-83.35" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-54" length1="4.5" x2="14.75" length2="4.5" />
+		<line end1="none" end2="none" y1="44.25" antialias="false" y2="44.25" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-54" length1="4.5" x2="14.75" length2="4.5" />
+		<rect x="-31.29" y="-70" width="23.01" height="18" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" rx="0" ry="0" />
+		<rect x="-28.83" y="-66" width="18.01" height="11.6" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
+		<rect x="-22.94" y="-68.5" width="6" height="2.5" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="-65" antialias="false" y2="-61" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-26.87" length1="4.5" x2="-26.87" length2="4.5" />
+		<line end1="none" end2="none" y1="-65" antialias="false" y2="-61" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-24.91" length1="4.5" x2="-24.91" length2="4.5" />
+		<line end1="none" end2="none" y1="-65" antialias="false" y2="-61" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-22.94" length1="4.5" x2="-22.94" length2="4.5" />
+		<line end1="none" end2="none" y1="-65" antialias="false" y2="-61" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-20.98" length1="4.5" x2="-20.98" length2="4.5" />
+		<line end1="none" end2="none" y1="-65" antialias="false" y2="-61" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-18.98" length1="4.5" x2="-18.98" length2="4.5" />
+		<line end1="none" end2="none" y1="-65" antialias="false" y2="-61" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-16.94" length1="4.5" x2="-16.94" length2="4.5" />
+		<line end1="none" end2="none" y1="-65" antialias="false" y2="-61" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-14.9" length1="4.5" x2="-14.9" length2="4.5" />
+		<line end1="none" end2="none" y1="-65" antialias="false" y2="-61" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-12.87" length1="4.5" x2="-12.87" length2="4.5" />
+		<text x="-36.2" y="-59.2" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="IN" />
+		<rect x="-31.29" y="-48" width="23.01" height="18.96" antialias="false" style="line-style:normal;line-weight:thin;filling:gray;color:black" rx="0" ry="0" />
+		<rect x="-28.83" y="-44.8" width="18.01" height="12.47" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
+		<rect x="-22.94" y="-46.8" width="6" height="2" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" rx="0" ry="0" />
+		<line end1="none" end2="none" y1="-44" antialias="false" y2="-40.8" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-26.87" length1="4.5" x2="-26.87" length2="4.5" />
+		<line end1="none" end2="none" y1="-44" antialias="false" y2="-40.8" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-24.91" length1="4.5" x2="-24.91" length2="4.5" />
+		<line end1="none" end2="none" y1="-44" antialias="false" y2="-40.8" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-22.94" length1="4.5" x2="-22.94" length2="4.5" />
+		<line end1="none" end2="none" y1="-44" antialias="false" y2="-40.8" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-20.98" length1="4.5" x2="-20.98" length2="4.5" />
+		<line end1="none" end2="none" y1="-44" antialias="false" y2="-40.8" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-18.98" length1="4.5" x2="-18.98" length2="4.5" />
+		<line end1="none" end2="none" y1="-44" antialias="false" y2="-40.8" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-16.94" length1="4.5" x2="-16.94" length2="4.5" />
+		<line end1="none" end2="none" y1="-44" antialias="false" y2="-40.8" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-14.9" length1="4.5" x2="-14.9" length2="4.5" />
+		<line end1="none" end2="none" y1="-44" antialias="false" y2="-40.8" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-12.87" length1="4.5" x2="-12.87" length2="4.5" />
+		<text x="-36.2" y="-38.9" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="OUT" />
+		<circle x="-43.5" y="-83" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="2" />
+		<text x="-40.5" y="-80.9" rotation="0" color="#ff0000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Us" />
+		<circle x="-43.5" y="-77.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="2" />
+		<text x="-40.5" y="-75.4" rotation="0" color="#ff0000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Up" />
+		<circle x="-43.5" y="-72" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="2" />
+		<text x="-40.5" y="-69.9" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Run" />
+		<circle x="1.5" y="-83" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="2" />
+		<text x="-4.11" y="-80.9" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="L/A1" />
+		<circle x="1.5" y="-77.5" antialias="false" style="line-style:normal;line-weight:thin;filling:green;color:black" diameter="2" />
+		<text x="-4.36" y="-75.4" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="L/A2" />
+		<circle x="-44.05" y="-4.05" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="8.1" />
+		<circle x="-43.15" y="-3.15" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="6.3" />
+		<rect x="-42.75" y="-6.14" width="5.45" height="0.88" antialias="false" style="line-style:none;line-weight:thin;filling:red;color:red" rx="0" ry="0" />
+		<text x="-43.45" y="-6.9" rotation="0" color="#ff0000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Bold" text="24V" />
+		<circle x="-44.05" y="25.95" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="8.1" />
+		<circle x="-43.15" y="26.85" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="6.3" />
+		<rect x="-42.75" y="23.89" width="5.45" height="0.87" antialias="false" style="line-style:none;line-weight:thin;filling:blue;color:blue" rx="0" ry="0" />
+		<text x="-42.31" y="23.13" rotation="0" color="#0000ff" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Bold" text="0V" />
+		<circle x="-4.05" y="-4.05" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="8.1" />
+		<circle x="-3.15" y="-3.15" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="6.3" />
+		<rect x="-2.8" y="-6.14" width="5.55" height="0.88" antialias="false" style="line-style:none;line-weight:thin;filling:red;color:red" rx="0" ry="0" />
+		<text x="-3.52" y="-6.9" rotation="0" color="#ff0000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Bold" text="24V" />
+		<circle x="-4.05" y="25.95" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="8.1" />
+		<circle x="-3.15" y="26.85" antialias="false" style="line-style:normal;line-weight:thin;filling:white;color:black" diameter="6.3" />
+		<rect x="-2.8" y="23.89" width="5.55" height="0.87" antialias="false" style="line-style:none;line-weight:thin;filling:blue;color:blue" rx="0" ry="0" />
+		<text x="-2.35" y="23.13" rotation="0" color="#0000ff" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Bold" text="0V" />
+		<text x="-42.34" y="-12.6" rotation="0" color="#ff0000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Bold" text="Us" />
+		<text x="-2.38" y="-12.6" rotation="0" color="#ff0000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Bold" text="Up" />
+		<rect x="11.75" y="-17.53" width="3" height="2.19" antialias="false" style="line-style:none;line-weight:thin;filling:red;color:red" rx="0" ry="0" />
+		<rect x="11.75" y="-12.05" width="3" height="2.19" antialias="false" style="line-style:none;line-weight:thin;filling:blue;color:blue" rx="0" ry="0" />
+		<rect x="11.75" y="-6.58" width="3" height="2.19" antialias="false" style="line-style:none;line-weight:thin;filling:orange;color:orange" rx="0" ry="0" />
+		<text x="-27.28" y="45" rotation="0" color="#000000" font="Roboto Condensed,5.5,-1,5,75,0,0,0,0,0,Bold" text="EK1100" />
+		<line end1="none" end2="none" y1="-82" antialias="false" y2="-82" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-44.25" length1="4.5" x2="-58" length2="4.5" />
+		<text x="-98.56" y="-80.58" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED Us (system supply)" />
+		<line end1="none" end2="none" y1="-76.5" antialias="false" y2="-76.5" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-44.25" length1="4.5" x2="-58" length2="4.5" />
+		<text x="-104.56" y="-75.08" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED Up (peripheral supply)" />
+		<line end1="none" end2="none" y1="-71" antialias="false" y2="-71" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-44.25" length1="4.5" x2="-58" length2="4.5" />
+		<text x="-71.88" y="-69.58" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED Run" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-44.8" length1="4.5" x2="-58" length2="4.5" />
+		<text x="-90.36" y="1.81" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="1: +24 V DC (Us)" />
+		<line end1="none" end2="none" y1="30" antialias="false" y2="30" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-44.8" length1="4.5" x2="-58" length2="4.5" />
+		<text x="-80.52" y="31.66" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="2: 0 V (Us)" />
+		<line end1="none" end2="none" y1="-82" antialias="false" y2="-82" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="4.25" length1="4.5" x2="18.75" length2="4.5" />
+		<text x="19.75" y="-80.58" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED L/A IN" />
+		<line end1="none" end2="none" y1="-76.5" antialias="false" y2="-76.5" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="4.25" length1="4.5" x2="18.75" length2="4.5" />
+		<text x="19.75" y="-75.08" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="LED L/A OUT" />
+		<line end1="none" end2="none" y1="-60" antialias="false" y2="-60" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-7.52" length1="4.5" x2="18.75" length2="4.5" />
+		<text x="19.75" y="-60.83" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="EtherCAT IN: RJ45 socket" />
+		<text x="19.75" y="-57.06" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="EtherCAT input" />
+		<line end1="none" end2="none" y1="-40" antialias="false" y2="-40" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="-7.52" length1="4.5" x2="18.75" length2="4.5" />
+		<text x="19.75" y="-40.66" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="EtherCAT OUT: RJ45 socket" />
+		<text x="19.75" y="-35.98" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="EtherCAT output" />
+		<line end1="none" end2="none" y1="-10.96" antialias="false" y2="-10.96" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="15.5" length1="4.5" x2="18.75" length2="4.5" />
+		<text x="19.75" y="-11.87" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="Power contacts" />
+		<text x="19.75" y="-6.94" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="24 V / 0 V / PE" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="0" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="4.8" length1="4.5" x2="18.75" length2="4.5" />
+		<text x="19.75" y="1.81" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="3: +24 V DC (Up)" />
+		<line end1="none" end2="none" y1="30" antialias="false" y2="30" style="line-style:normal;line-weight:thin;filling:none;color:black" x1="4.8" length1="4.5" x2="18.75" length2="4.5" />
+		<text x="19.75" y="31.66" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="4: 0 V (Up)" />
+		<terminal x="-20" y="-60" name="EtherCAT IN" orientation="w" type="Generic" uuid="{c7da6c72-b7f6-588c-a40d-0f8a134541d0}" />
+		<terminal x="-20" y="-40" name="EtherCAT OUT" orientation="e" type="Generic" uuid="{aaf69bc9-ab57-52e2-b3d5-3fd1be036ae4}" />
+		<terminal x="-40" y="0" name="1" orientation="s" type="Generic" uuid="{a964dd8e-f2ba-5978-ad02-ff6b26c0065e}" potential="24V" />
+		<terminal x="-40" y="30" name="2" orientation="s" type="Generic" uuid="{122f75c8-9e7e-505e-b613-24e1bd08bbb0}" potential="0V" />
+		<terminal x="0" y="0" name="3" orientation="s" type="Generic" uuid="{28ce5ba2-3b7e-54cd-97ce-959e42af7ff7}" potential="24V" />
+		<terminal x="0" y="30" name="4" orientation="s" type="Generic" uuid="{2f4cae8a-baf1-5717-83f7-aab91a9d689d}" potential="0V" />
+		<dynamic_text x="-54" y="57.94" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{2e72c495-f625-54a1-9358-4527287f2d0e}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
 		</dynamic_text>
