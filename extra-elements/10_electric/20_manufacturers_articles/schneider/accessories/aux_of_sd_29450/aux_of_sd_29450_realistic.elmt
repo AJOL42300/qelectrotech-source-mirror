@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="60" height="110" hotspot_x="50" hotspot_y="0">
+<definition version="0.100.0" type="element" link_type="simple" width="30" height="60" hotspot_x="25" hotspot_y="-5">
 	<uuid uuid="{a7bcfecb-81dc-5172-8681-904033b3bce5}" />
 	<names>
 		<name lang="en">OF/SD/SDE/SDV auxiliary contact 29450, front view</name>
@@ -13,19 +13,19 @@
 	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
 Made by misc/schneider/gen_schneider.py: scale 3.43 px/mm (pole pitch 35 mm = 120 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<rect x="-50" y="58" width="60" height="52" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGreenLimeGreen;color:black" rx="0" ry="0" />
-		<text x="-27.75" y="69.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Bold" text="OF/SD" />
-		<text x="-26.88" y="81.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="29450" />
-		<circle x="-44" y="106" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="8" />
-		<text x="-42.75" y="102.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="11" />
-		<circle x="-24" y="106" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="8" />
-		<text x="-22.75" y="102.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="12" />
-		<circle x="-4" y="106" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="8" />
-		<text x="-2.75" y="102.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="14" />
-		<terminal x="-40" y="110" name="11" orientation="s" type="Generic" uuid="{8b0dfe65-6021-5ab3-a2bd-338c4ba69348}" />
-		<terminal x="-20" y="110" name="12" orientation="s" type="Generic" uuid="{537a4d33-5763-5c16-abef-2e22530120ed}" />
-		<terminal x="0" y="110" name="14" orientation="s" type="Generic" uuid="{10aa18fa-a00d-562a-943b-afa7b558f998}" />
-		<dynamic_text x="-45" y="113" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{bf5f78c8-94c0-50c9-964a-4cdd6fe96d73}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+		<rect x="-25" y="34" width="30" height="26" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGreenLimeGreen;color:black" rx="0" ry="0" />
+		<text x="-13.88" y="39.88" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,75,0,0,0,0,0,Bold" text="OF/SD" />
+		<text x="-13.44" y="45.88" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="29450" />
+		<circle x="-22" y="58" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="4" />
+		<text x="-21.38" y="56.38" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="11" />
+		<circle x="-12" y="58" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="4" />
+		<text x="-11.38" y="56.38" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="12" />
+		<circle x="-2" y="58" antialias="false" style="line-style:normal;line-weight:normal;filling:HTMLGraySilver;color:black" diameter="4" />
+		<text x="-1.38" y="56.38" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="14" />
+		<terminal x="-20" y="60" name="11" orientation="s" type="Generic" uuid="{8b0dfe65-6021-5ab3-a2bd-338c4ba69348}" />
+		<terminal x="-10" y="60" name="12" orientation="s" type="Generic" uuid="{537a4d33-5763-5c16-abef-2e22530120ed}" />
+		<terminal x="0" y="60" name="14" orientation="s" type="Generic" uuid="{10aa18fa-a00d-562a-943b-afa7b558f998}" />
+		<dynamic_text x="-22.5" y="61.5" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{bf5f78c8-94c0-50c9-964a-4cdd6fe96d73}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
 		</dynamic_text>

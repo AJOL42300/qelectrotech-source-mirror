@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="50" height="180" hotspot_x="25" hotspot_y="72">
+<definition version="0.100.0" type="element" link_type="simple" width="30" height="90" hotspot_x="13" hotspot_y="36">
 	<uuid uuid="{d5f4e4b0-0e98-527f-b537-ff5442bb643e}" />
 	<names>
 		<name lang="en">EL9011 bus end cap</name>
@@ -14,25 +14,25 @@ Generic layout, not copied from a manufacturer drawing. License: see http://qele
 Schematic view made by misc/beckhoff/gen_couplers.py from the realistic view: the stages are generic, check them against the datasheet. License: see http://qelectrotech.org/wiki/doc/elements_license
 The +24 V and 0 V rails stand for the power contacts (generic).</informations>
 	<description>
-		<rect x="-20" y="-60" width="40" height="152" rx="0" ry="0" style="line-style:dotted;line-weight:normal;filling:none;color:black" antialias="false" />
-		<text x="-16" y="74" rotation="0" color="#0000ff" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="0 V" />
-		<circle x="17.5" y="79.5" diameter="5" style="line-style:normal;line-weight:normal;filling:white;color:blue" antialias="false" />
-		<line x1="-17.5" y1="82" x2="17.5" y2="82" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
-		<rect x="-22.5" y="79.5" width="5" height="5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:blue" antialias="false" />
-		<text x="-16" y="62" rotation="0" color="#ff0000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="+24 V" />
-		<circle x="17.5" y="67.5" diameter="5" style="line-style:normal;line-weight:normal;filling:white;color:red" antialias="false" />
-		<line x1="-17.5" y1="70" x2="17.5" y2="70" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
-		<rect x="-22.5" y="67.5" width="5" height="5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
-		<text x="-16" y="62" rotation="0" color="#ff0000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="+24 V" />
-		<line x1="-12" y1="0" x2="8" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="-7" y1="97" x2="3" y2="97" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<rect x="-10" y="92" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="-7" y1="-65" x2="3" y2="-65" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<rect x="-10" y="-67" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-16" y="-56" font="Liberation Sans,4,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="BECKHOFF" />
-		<text x="-16" y="-40" font="Liberation Sans,7,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="EL9011" />
-		<text x="-16" y="-28" font="Liberation Sans,5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="End cap" />
-		<dynamic_text x="-20" y="103" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{ac1546b8-64b7-595b-8aea-408f7dac89c9}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+		<rect x="-10" y="-30" width="20" height="76" rx="0" ry="0" style="line-style:dotted;line-weight:normal;filling:none;color:black" antialias="false" />
+		<text x="-8" y="37" rotation="0" color="#0000ff" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="0 V" />
+		<circle x="8.75" y="39.75" diameter="2.5" style="line-style:normal;line-weight:normal;filling:white;color:blue" antialias="false" />
+		<line x1="-8.75" y1="41" x2="8.75" y2="41" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
+		<rect x="-11.25" y="39.75" width="2.5" height="2.5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:blue" antialias="false" />
+		<text x="-8" y="31" rotation="0" color="#ff0000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="+24 V" />
+		<circle x="8.75" y="33.75" diameter="2.5" style="line-style:normal;line-weight:normal;filling:white;color:red" antialias="false" />
+		<line x1="-8.75" y1="35" x2="8.75" y2="35" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
+		<rect x="-11.25" y="33.75" width="2.5" height="2.5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:red;color:red" antialias="false" />
+		<text x="-8" y="31" rotation="0" color="#ff0000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="+24 V" />
+		<line x1="-6" y1="0" x2="4" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-3.5" y1="48.5" x2="1.5" y2="48.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<rect x="-5" y="46" width="8" height="3.5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-3.5" y1="-32.5" x2="1.5" y2="-32.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<rect x="-5" y="-33.5" width="8" height="3.5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="-8" y="-28" font="Liberation Sans,3,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="BECKHOFF" />
+		<text x="-8" y="-20" font="Liberation Sans,5,-1,5,75,0,0,0,0,0,Bold" rotation="0" color="#000000" text="EL9011" />
+		<text x="-8" y="-14" font="Liberation Sans,3.5,-1,5,50,0,0,0,0,0,Regular" rotation="0" color="#000000" text="End cap" />
+		<dynamic_text x="-10" y="51.5" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{ac1546b8-64b7-595b-8aea-408f7dac89c9}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
 		</dynamic_text>

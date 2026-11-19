@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="64" height="322" hotspot_x="29" hotspot_y="149">
+<definition version="0.100.0" type="element" link_type="simple" width="40" height="170" hotspot_x="15" hotspot_y="75">
 	<uuid uuid="{c2e3fe9f-8233-55be-896c-1e6f3320f9ef}" />
 	<names>
 		<name lang="en">EL6910 TwinSAFE Logic Terminal</name>
@@ -15,22 +15,22 @@ Generic layout, not copied from a manufacturer drawing. License: see http://qele
 Schematic view made by misc/beckhoff/gen_el6910.py from the datasheet. License: see http://qelectrotech.org/wiki/doc/elements_license
 Power contacts drawn as the series pass-through, ASSUMED: the datasheet gives "current consumption power contacts: -" (not verified), source https://www.beckhoff.com/en-en/products/i-o/ethercat-terminals/el-ed6xxx-communication/el6910.html</informations>
 	<description>
-		<rect x="-14.5" y="-136.7" width="36.5" height="277.2" rx="0" ry="0" style="line-style:none;line-weight:thin;filling:yellow;color:black" antialias="false" />
-		<rect x="-14.5" y="-136.7" width="36.5" height="277.2" rx="0" ry="0" style="line-style:dotted;line-weight:normal;filling:none;color:black" antialias="false" />
-		<rect x="-6.25" y="-143.7" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="-3.25" y1="-141.7" x2="6.75" y2="-141.7" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<rect x="-6.25" y="140.5" width="16" height="7" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<line x1="-3.25" y1="145.5" x2="6.75" y2="145.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<rect x="-24" y="13.25" width="8" height="3.5" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:white;color:red" antialias="false" />
-		<arc x="22" y="11" width="8" height="8" start="90" angle="180" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
-		<line x1="-16" y1="15" x2="22" y2="15" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
-		<rect x="-24" y="23.25" width="8" height="3.5" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:white;color:blue" antialias="false" />
-		<arc x="22" y="21" width="8" height="8" start="90" angle="180" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
-		<line x1="-16" y1="25" x2="22" y2="25" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
-		<rect x="-7.25" y="-45" width="22" height="40" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
-		<text x="-3.75" y="-29.33" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="Logic" />
-		<text x="-10.7" y="135.74" rotation="0" color="#000000" font="Roboto Condensed,8,-1,5,75,0,0,0,0,0,Bold" text="EL6910" />
-		<dynamic_text x="-20.96" y="155.89" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{8a45a06d-b797-57ff-bb8d-a078dd48d9cc}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+		<rect x="-7.25" y="-68.35" width="18.25" height="138.6" rx="0" ry="0" style="line-style:none;line-weight:thin;filling:yellow;color:black" antialias="false" />
+		<rect x="-7.25" y="-68.35" width="18.25" height="138.6" rx="0" ry="0" style="line-style:dotted;line-weight:normal;filling:none;color:black" antialias="false" />
+		<rect x="-3.12" y="-71.85" width="8" height="3.5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-1.62" y1="-70.85" x2="3.38" y2="-70.85" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<rect x="-3.12" y="70.25" width="8" height="3.5" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<line x1="-1.62" y1="72.75" x2="3.38" y2="72.75" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<rect x="-12" y="6.62" width="4" height="1.75" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:white;color:red" antialias="false" />
+		<arc x="11" y="5.5" width="4" height="4" start="90" angle="180" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
+		<line x1="-8" y1="7.5" x2="11" y2="7.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:red" antialias="false" />
+		<rect x="-12" y="11.62" width="4" height="1.75" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:white;color:blue" antialias="false" />
+		<arc x="11" y="10.5" width="4" height="4" start="90" angle="180" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
+		<line x1="-8" y1="12.5" x2="11" y2="12.5" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:normal;filling:none;color:blue" antialias="false" />
+		<rect x="-3.62" y="-22.5" width="11" height="20" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false" />
+		<text x="-1.88" y="-14.66" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="Logic" />
+		<text x="-5.35" y="67.87" rotation="0" color="#000000" font="Roboto Condensed,5.5,-1,5,75,0,0,0,0,0,Bold" text="EL6910" />
+		<dynamic_text x="-10.48" y="77.94" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{8a45a06d-b797-57ff-bb8d-a078dd48d9cc}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
 		</dynamic_text>

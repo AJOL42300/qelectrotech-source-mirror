@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="master" width="130" height="110" hotspot_x="20" hotspot_y="50">
+<definition version="0.100.0" type="element" link_type="master" width="70" height="60" hotspot_x="10" hotspot_y="25">
 	<uuid uuid="{b099206f-9e16-5290-92b8-8f333be2ae45}"/>
 	<names>
 		<name lang="en">Pilz 570480 PSEN ml 1.1 actuator for PSENmlock, realistic view</name>
@@ -51,21 +51,21 @@
 Original vector drawing, not copied from a manufacturer drawing. Order numbers, pin assignments, terminal designations and wire colours come from public Pilz documents (see docs/pilz.md); the status of each datum is given in the description.
 License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<dynamic_text x="0" y="-40" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{2ff01e1e-d5ff-5686-9243-e02f65e91fec}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
-		<line x1="0" y1="0" x2="14" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<polygon closed="true" style="line-style:normal;line-weight:normal;filling:gray;color:black" antialias="false" x1="14" y1="-2" x2="44" y2="-8" x3="44" y3="8" x4="14" y4="2"/>
-		<rect x="44" y="-20" width="56" height="40" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:lightgray;color:black" antialias="false"/>
-		<circle x="50" y="-16" diameter="8" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<circle x="52" y="-14" diameter="4" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
-		<circle x="50" y="8" diameter="8" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<circle x="52" y="10" diameter="4" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
-		<circle x="86" y="-16" diameter="8" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<circle x="88" y="-14" diameter="4" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
-		<circle x="86" y="8" diameter="8" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<circle x="88" y="10" diameter="4" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
-		<rect x="66" y="-6" width="12" height="12" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
-		<text x="52.89" y="34.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="PSEN ml 1.1"/>
-		<text x="62.1" y="42.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="570480"/>
+		<dynamic_text x="0" y="-20" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{2ff01e1e-d5ff-5686-9243-e02f65e91fec}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<line x1="0" y1="0" x2="7" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<polygon closed="true" style="line-style:normal;line-weight:normal;filling:gray;color:black" antialias="false" x1="7" y1="-1" x2="22" y2="-4" x3="22" y3="4" x4="7" y4="1"/>
+		<rect x="22" y="-10" width="28" height="20" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:lightgray;color:black" antialias="false"/>
+		<circle x="25" y="-8" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<circle x="26" y="-7" diameter="2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<circle x="25" y="4" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<circle x="26" y="5" diameter="2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<circle x="43" y="-8" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<circle x="44" y="-7" diameter="2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<circle x="43" y="4" diameter="4" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<circle x="44" y="5" diameter="2" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<rect x="33" y="-3" width="6" height="6" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<text x="26.45" y="17.1" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,75,0,0,0,0,0,Regular" text="PSEN ml 1.1"/>
+		<text x="31.05" y="21.1" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="570480"/>
 		<terminal x="0" y="0" name="MECH" orientation="w" type="Generic" uuid="{e3e43676-1d5f-5fb8-9fc5-39a17502ac3f}"/>
 	</description>
 </definition>

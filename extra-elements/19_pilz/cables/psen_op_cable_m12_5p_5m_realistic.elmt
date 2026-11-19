@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="master" width="240" height="150" hotspot_x="20" hotspot_y="70">
+<definition version="0.100.0" type="element" link_type="master" width="120" height="100" hotspot_x="10" hotspot_y="35">
 	<uuid uuid="{85c095af-7681-5d38-b439-4cee623aa23e}"/>
 	<names>
 		<name lang="en">Pilz 630311 connection cable PSEN op cable axial M12 5-pole, 5 m, realistic view</name>
@@ -78,58 +78,58 @@
 Original vector drawing, not copied from a manufacturer drawing. Order numbers, pin assignments, terminal designations and wire colours come from public Pilz documents (see docs/pilz.md); the status of each datum is given in the description.
 License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<dynamic_text x="0" y="-52" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{baa37ea4-c2e2-525f-a3a0-a25eb537b141}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
-		<line x1="0" y1="0" x2="16" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="6.25" y="-3.04" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="1"/>
-		<line x1="16" y1="0" x2="34" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<line x1="0" y1="10" x2="16" y2="10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="6.25" y="6.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="2"/>
-		<line x1="16" y1="10" x2="34" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<line x1="0" y1="20" x2="16" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="6.25" y="16.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="3"/>
-		<line x1="16" y1="20" x2="34" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<line x1="0" y1="30" x2="16" y2="30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="6.25" y="26.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="4"/>
-		<line x1="16" y1="30" x2="34" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<line x1="0" y1="40" x2="16" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="6.25" y="36.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="5"/>
-		<line x1="16" y1="40" x2="34" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<rect x="34" y="6" width="8" height="28" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:gray;color:black" antialias="false"/>
-		<rect x="42" y="9" width="30" height="22" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:lightgray;color:black" antialias="false"/>
-		<rect x="72" y="12" width="12" height="16" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
-		<rect x="84" y="16" width="46" height="8" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
-		<text x="29.42" y="-3.04" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="M12 female 5-pin A-coded"/>
-		<text x="101.42" y="-1.8" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="5 m"/>
-		<line x1="130" y1="20" x2="150" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<rect x="150" y="-1.5" width="20" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:brun;color:black" antialias="false"/>
-		<text x="173" y="1.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="BN"/>
-		<line x1="190" y1="0" x2="200" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<line x1="130" y1="20" x2="150" y2="10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<rect x="150" y="8.5" width="20" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
-		<text x="173" y="11.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="WH"/>
-		<line x1="190" y1="10" x2="200" y2="10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<line x1="130" y1="20" x2="150" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<rect x="150" y="18.5" width="20" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:black" antialias="false"/>
-		<text x="173" y="21.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="BU"/>
-		<line x1="190" y1="20" x2="200" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<line x1="130" y1="20" x2="150" y2="30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<rect x="150" y="28.5" width="20" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
-		<text x="173" y="31.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="BK"/>
-		<line x1="190" y1="30" x2="200" y2="30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<line x1="130" y1="20" x2="150" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<rect x="150" y="38.5" width="20" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<text x="173" y="41.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="GY"/>
-		<line x1="190" y1="40" x2="200" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="97.1" y="60.2" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="630311"/>
+		<dynamic_text x="0" y="-26" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{baa37ea4-c2e2-525f-a3a0-a25eb537b141}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<line x1="0" y1="0" x2="8" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="3.12" y="-1.52" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="1"/>
+		<line x1="8" y1="0" x2="17" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="10" x2="8" y2="10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="3.12" y="6.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="2"/>
+		<line x1="8" y1="10" x2="17" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="20" x2="8" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="3.12" y="16.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="3"/>
+		<line x1="8" y1="20" x2="17" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="30" x2="8" y2="30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="3.12" y="26.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="4"/>
+		<line x1="8" y1="30" x2="17" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="40" x2="8" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="3.12" y="36.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="5"/>
+		<line x1="8" y1="40" x2="17" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="17" y="6" width="4" height="28" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:gray;color:black" antialias="false"/>
+		<rect x="21" y="9" width="15" height="22" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:lightgray;color:black" antialias="false"/>
+		<rect x="36" y="12" width="6" height="16" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<rect x="42" y="16" width="23" height="8" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:yellow;color:black" antialias="false"/>
+		<text x="14.71" y="-1.52" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="M12 female 5-pin A-coded"/>
+		<text x="50.71" y="-0.9" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,75,0,0,0,0,0,Regular" text="5 m"/>
+		<line x1="65" y1="20" x2="75" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="75" y="-0.75" width="10" height="2.25" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:brun;color:black" antialias="false"/>
+		<text x="86.5" y="1.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="BN"/>
+		<line x1="95" y1="0" x2="100" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="65" y1="20" x2="75" y2="10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="75" y="8.5" width="10" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<text x="86.5" y="11.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="WH"/>
+		<line x1="95" y1="10" x2="100" y2="10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="65" y1="20" x2="75" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="75" y="18.5" width="10" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:black" antialias="false"/>
+		<text x="86.5" y="21.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="BU"/>
+		<line x1="95" y1="20" x2="100" y2="20" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="65" y1="20" x2="75" y2="30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="75" y="28.5" width="10" height="3" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<text x="86.5" y="31.96" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="BK"/>
+		<line x1="95" y1="30" x2="100" y2="30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="65" y1="20" x2="75" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="75" y="38.5" width="10" height="2.25" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<text x="86.5" y="40.98" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,75,0,0,0,0,0,Regular" text="GY"/>
+		<line x1="95" y1="40" x2="100" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="48.55" y="50.1" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="630311"/>
 		<terminal x="0" y="0" name="1" orientation="w" type="Generic" uuid="{48292072-4cab-5d6d-8821-f4d4041edce4}"/>
 		<terminal x="0" y="10" name="2" orientation="w" type="Generic" uuid="{f429e5e4-7675-586c-8a23-03b7d9097c95}"/>
 		<terminal x="0" y="20" name="3" orientation="w" type="Generic" uuid="{1f19f056-1e6d-5fb4-b394-0c05f28a12bc}"/>
 		<terminal x="0" y="30" name="4" orientation="w" type="Generic" uuid="{03beb415-d644-5d61-8f3e-213dc43b51a4}"/>
 		<terminal x="0" y="40" name="5" orientation="w" type="Generic" uuid="{c56878d0-ef41-5f17-a8e3-d34f85e4a4b6}"/>
-		<terminal x="200" y="0" name="BN" orientation="e" type="Generic" uuid="{f240091b-2086-5676-842b-cb78c642c529}"/>
-		<terminal x="200" y="10" name="WH" orientation="e" type="Generic" uuid="{2443fd9b-b1eb-5966-81c9-ced0d02700f0}"/>
-		<terminal x="200" y="20" name="BU" orientation="e" type="Generic" uuid="{d7bb00a5-f26f-5872-a532-f40108cb9b69}"/>
-		<terminal x="200" y="30" name="BK" orientation="e" type="Generic" uuid="{3d7b07d0-6ab0-5f91-bbbb-e5dd1124b42a}"/>
-		<terminal x="200" y="40" name="GY" orientation="e" type="Generic" uuid="{c46a0fba-841f-56c8-a57a-0a0b77c75fe6}"/>
+		<terminal x="100" y="0" name="BN" orientation="e" type="Generic" uuid="{f240091b-2086-5676-842b-cb78c642c529}"/>
+		<terminal x="100" y="10" name="WH" orientation="e" type="Generic" uuid="{2443fd9b-b1eb-5966-81c9-ced0d02700f0}"/>
+		<terminal x="100" y="20" name="BU" orientation="e" type="Generic" uuid="{d7bb00a5-f26f-5872-a532-f40108cb9b69}"/>
+		<terminal x="100" y="30" name="BK" orientation="e" type="Generic" uuid="{3d7b07d0-6ab0-5f91-bbbb-e5dd1124b42a}"/>
+		<terminal x="100" y="40" name="GY" orientation="e" type="Generic" uuid="{c46a0fba-841f-56c8-a57a-0a0b77c75fe6}"/>
 	</description>
 </definition>

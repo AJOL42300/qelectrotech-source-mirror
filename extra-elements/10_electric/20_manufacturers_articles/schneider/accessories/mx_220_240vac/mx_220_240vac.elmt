@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="simple" width="40" height="80" hotspot_x="20" hotspot_y="10">
+<definition version="0.100.0" type="element" link_type="simple" width="20" height="40" hotspot_x="10" hotspot_y="5">
 	<uuid uuid="{c684f180-316e-5e45-b255-44466f0fcce8}" />
 	<names>
 		<name lang="en">MX shunt trip release 220/240 V AC</name>
@@ -13,15 +13,15 @@
 	<informations>Author: QElectroTech contributors&#10;Generic layout redrawn from the public data of the product (reference, poles, rating, dimensions), not copied from a manufacturer drawing. License: see http://qelectrotech.org/wiki/doc/elements_license
 Made by misc/schneider/gen_schneider.py: scale 3.43 px/mm (pole pitch 35 mm = 120 px), grid 10 px. License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<line end1="none" end2="none" y1="0" antialias="false" y2="20" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
-		<line end1="none" end2="none" y1="40" antialias="false" y2="60" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
-		<rect x="-10" y="20" width="20" height="20" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
-		<text x="-3.72" y="33.3" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Bold" text="MX" />
-		<text x="4" y="10.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="C1" />
-		<text x="4" y="54.75" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,50,0,0,0,0,0,Regular" text="C2" />
+		<line end1="none" end2="none" y1="0" antialias="false" y2="10" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<line end1="none" end2="none" y1="20" antialias="false" y2="30" style="line-style:normal;line-weight:normal;filling:none;color:black" x1="0" length1="1.5" x2="0" length2="1.5" />
+		<rect x="-5" y="10" width="10" height="10" antialias="false" style="line-style:normal;line-weight:normal;filling:white;color:black" rx="0" ry="0" />
+		<text x="-1.86" y="16.65" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Bold" text="MX" />
+		<text x="2" y="5.38" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="C1" />
+		<text x="2" y="27.38" rotation="0" color="#000000" font="Roboto Condensed,3.5,-1,5,50,0,0,0,0,0,Regular" text="C2" />
 		<terminal x="0" y="0" name="C1" orientation="n" type="Generic" uuid="{e588266a-305d-5ef2-8bdf-e944bd7a670b}" />
-		<terminal x="0" y="60" name="C2" orientation="s" type="Generic" uuid="{356e5356-3bfb-5bc6-81d0-eea9b5ce6826}" />
-		<dynamic_text x="-15" y="73" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{d8476103-6d77-50dd-b136-62dd3d91d2dd}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
+		<terminal x="0" y="30" name="C2" orientation="s" type="Generic" uuid="{356e5356-3bfb-5bc6-81d0-eea9b5ce6826}" />
+		<dynamic_text x="-7.5" y="36.5" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{d8476103-6d77-50dd-b136-62dd3d91d2dd}" font="Liberation Sans,9,-1,5,50,0,0,0,0,0,Regular">
 			<text />
 			<info_name>label</info_name>
 		</dynamic_text>

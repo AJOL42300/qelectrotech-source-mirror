@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="master" width="240" height="180" hotspot_x="20" hotspot_y="50">
+<definition version="0.100.0" type="element" link_type="master" width="120" height="90" hotspot_x="10" hotspot_y="25">
 	<uuid uuid="{3d31588c-6cdf-5fe7-a054-b4bbfe663a97}"/>
 	<names>
 		<name lang="en">Pilz 540003 PSEN cs1.1n coded safety switch with 5-pin M12 male connector</name>
@@ -60,48 +60,48 @@
 Original vector drawing, not copied from a manufacturer drawing. Order numbers, pin assignments, terminal designations and wire colours come from public Pilz documents (see docs/pilz.md); the status of each datum is given in the description.
 License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<dynamic_text x="0" y="-40" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{3bae7f89-dddb-5682-9369-f599599a282a}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
-		<rect x="10" y="-28" width="180" height="148" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<text x="73.44" y="-16.32" rotation="0" color="#000000" font="Roboto Condensed,7,-1,5,75,0,0,0,0,0,Regular" text="PSEN cs1.1n"/>
-		<text x="14" y="2.94" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Regular" text="A1"/>
-		<rect x="26.12" y="-2" width="12" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:brun;color:black" antialias="false"/>
-		<text x="14" y="10.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="pin 1 BN"/>
-		<text x="14" y="18.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="+24 V DC supply UB"/>
-		<line x1="10" y1="0" x2="0" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="14" y="32.94" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Regular" text="A2"/>
-		<rect x="26.12" y="28" width="12" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:black" antialias="false"/>
-		<text x="14" y="40.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="pin 3 BU"/>
-		<text x="14" y="48.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="0 V supply UB"/>
-		<line x1="10" y1="30" x2="0" y2="30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="176.88" y="2.94" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Regular" text="12"/>
-		<rect x="161.88" y="-2" width="12" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
-		<text x="164.95" y="10.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="pin 2 WH"/>
-		<text x="147.4" y="18.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="Safety output 1"/>
-		<line x1="190" y1="0" x2="200" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="176.88" y="32.94" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,75,0,0,0,0,0,Regular" text="22"/>
-		<rect x="161.88" y="28" width="12" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
-		<text x="164.95" y="40.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="pin 4 BK"/>
-		<text x="147.4" y="48.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="Safety output 2"/>
-		<line x1="190" y1="30" x2="200" y2="30" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<circle x="77" y="63" diameter="46" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
-		<circle x="80" y="66" diameter="40" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
-		<circle x="81" y="67" diameter="38" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
-		<rect x="97.5" y="67" width="5" height="4" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
-		<circle x="88.5" y="74.5" diameter="7" style="line-style:normal;line-weight:normal;filling:brun;color:black" antialias="false"/>
-		<text x="83.99" y="81.76" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="1"/>
-		<circle x="104.5" y="74.5" diameter="7" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
-		<text x="112.5" y="81.76" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="2"/>
-		<circle x="104.5" y="90.5" diameter="7" style="line-style:normal;line-weight:normal;filling:blue;color:black" antialias="false"/>
-		<text x="112.5" y="93.76" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="3"/>
-		<circle x="88.5" y="90.5" diameter="7" style="line-style:normal;line-weight:normal;filling:black;color:black" antialias="false"/>
-		<text x="83.99" y="93.76" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="4"/>
-		<circle x="96.5" y="82.5" diameter="7" style="line-style:normal;line-weight:normal;filling:gray;color:black" antialias="false"/>
-		<text x="104.5" y="87.86" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="5"/>
-		<text x="81.95" y="116.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="M12 male 5-pin"/>
-		<text x="14" y="86.96" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="pin 5 GY: do not connect"/>
+		<dynamic_text x="0" y="-20" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{3bae7f89-dddb-5682-9369-f599599a282a}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<rect x="5" y="-14" width="90" height="69" rx="0" ry="0" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+		<text x="36.72" y="-8.16" rotation="0" color="#000000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="PSEN cs1.1n"/>
+		<text x="7" y="0.98" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="A1"/>
+		<rect x="13.06" y="-1" width="6" height="1.67" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:brun;color:black" antialias="false"/>
+		<text x="7" y="3.65" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 1 BN"/>
+		<text x="7" y="6.32" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="+24 V DC supply UB"/>
+		<line x1="5" y1="0" x2="0" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="7" y="11.47" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="A2"/>
+		<rect x="13.06" y="9.33" width="6" height="1.67" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:blue;color:black" antialias="false"/>
+		<text x="7" y="15.48" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 3 BU"/>
+		<text x="7" y="19.48" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="0 V supply UB"/>
+		<line x1="5" y1="10" x2="0" y2="10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="88.44" y="0.98" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="12"/>
+		<rect x="80.94" y="-1" width="6" height="1.67" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<text x="82.47" y="3.65" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 2 WH"/>
+		<text x="73.7" y="6.32" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Safety output 1"/>
+		<line x1="95" y1="0" x2="100" y2="0" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="88.44" y="11.47" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,75,0,0,0,0,0,Regular" text="22"/>
+		<rect x="80.94" y="9.33" width="6" height="1.67" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+		<text x="82.47" y="15.48" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 4 BK"/>
+		<text x="73.7" y="19.48" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="Safety output 2"/>
+		<line x1="95" y1="10" x2="100" y2="10" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<circle x="38.5" y="26.5" diameter="23" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
+		<circle x="40" y="28" diameter="20" style="line-style:normal;line-weight:thin;filling:white;color:black" antialias="false"/>
+		<circle x="40.5" y="28.5" diameter="19" style="line-style:normal;line-weight:thin;filling:lightgray;color:black" antialias="false"/>
+		<rect x="48.75" y="28.5" width="2.5" height="2" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:gray;color:black" antialias="false"/>
+		<circle x="44.25" y="32.25" diameter="3.5" style="line-style:normal;line-weight:normal;filling:brun;color:black" antialias="false"/>
+		<text x="41.99" y="35.88" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="1"/>
+		<circle x="52.25" y="32.25" diameter="3.5" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+		<text x="56.25" y="35.88" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="2"/>
+		<circle x="52.25" y="40.25" diameter="3.5" style="line-style:normal;line-weight:normal;filling:blue;color:black" antialias="false"/>
+		<text x="56.25" y="41.88" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="3"/>
+		<circle x="44.25" y="40.25" diameter="3.5" style="line-style:normal;line-weight:normal;filling:black;color:black" antialias="false"/>
+		<text x="41.99" y="41.88" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="4"/>
+		<circle x="48.25" y="36.25" diameter="3.5" style="line-style:normal;line-weight:normal;filling:gray;color:black" antialias="false"/>
+		<text x="52.25" y="38.93" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="5"/>
+		<text x="40.98" y="53.48" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="M12 male 5-pin"/>
+		<text x="7" y="38.48" rotation="0" color="#000000" font="Roboto Condensed,3,-1,5,50,0,0,0,0,0,Regular" text="pin 5 GY: do not connect"/>
 		<terminal x="0" y="0" name="A1" orientation="w" type="Generic" uuid="{e3264992-d766-511f-aac8-f8143c85500d}"/>
-		<terminal x="0" y="30" name="A2" orientation="w" type="Generic" uuid="{f8b69484-0f36-51cf-89c1-74fbfcd584a3}"/>
-		<terminal x="200" y="0" name="12" orientation="e" type="Generic" uuid="{7a284e3e-eaac-52c0-a140-42899a856a46}"/>
-		<terminal x="200" y="30" name="22" orientation="e" type="Generic" uuid="{8fb1c880-8c36-5d25-9a26-4df1b1dccecb}"/>
+		<terminal x="0" y="10" name="A2" orientation="w" type="Generic" uuid="{f8b69484-0f36-51cf-89c1-74fbfcd584a3}"/>
+		<terminal x="100" y="0" name="12" orientation="e" type="Generic" uuid="{7a284e3e-eaac-52c0-a140-42899a856a46}"/>
+		<terminal x="100" y="10" name="22" orientation="e" type="Generic" uuid="{8fb1c880-8c36-5d25-9a26-4df1b1dccecb}"/>
 	</description>
 </definition>

@@ -1,4 +1,4 @@
-<definition version="0.100.0" type="element" link_type="master" width="70" height="150" hotspot_x="20" hotspot_y="40">
+<definition version="0.100.0" type="element" link_type="master" width="40" height="70" hotspot_x="10" hotspot_y="20">
 	<uuid uuid="{ddd45272-7177-5904-a47b-0a966857a3d6}"/>
 	<names>
 		<name lang="en">Mean Well HDR-30-24 DIN-rail power supply 24 V 1.5 A</name>
@@ -60,21 +60,21 @@
 Original vector drawing, not copied from a manufacturer drawing. Ratings and terminal names from the public datasheet; layout and symbols are generic, check them against the datasheet.
 License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
 	<description>
-		<dynamic_text x="0" y="-24" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{af4f15b4-fb84-598e-a5e0-681121020e8e}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
-		<rect x="-10" y="0" width="40" height="90" rx="0" ry="0" style="line-style:dotted;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<rect x="-6" y="26" width="22" height="34" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<line x1="16" y1="26" x2="-6" y2="60" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<text x="-4" y="34.44" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" text="~"/>
-		<text x="7" y="58.44" rotation="0" color="#000000" font="Roboto Condensed,6,-1,5,50,0,0,0,0,0,Regular" text="="/>
-		<line x1="0" y1="0" x2="0" y2="26" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<line x1="10" y1="0" x2="10" y2="26" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
-		<line x1="0" y1="60" x2="0" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:red" antialias="false"/>
-		<text x="3" y="76.2" rotation="0" color="#ff0000" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="+"/>
-		<line x1="10" y1="60" x2="10" y2="90" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:blue" antialias="false"/>
-		<text x="13" y="76.2" rotation="0" color="#0000ff" font="Roboto Condensed,5,-1,5,75,0,0,0,0,0,Regular" text="-"/>
+		<dynamic_text x="0" y="-12" z="25" text_width="-1" Halignment="AlignLeft" Valignment="AlignTop" frame="false" rotation="0" keep_visual_rotation="true" text_from="ElementInfo" uuid="{af4f15b4-fb84-598e-a5e0-681121020e8e}" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Regular"><text></text><info_name>label</info_name></dynamic_text>
+		<rect x="-5" y="0" width="25" height="40" rx="0" ry="0" style="line-style:dotted;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<rect x="-3" y="11.56" width="16" height="15.11" rx="0" ry="0" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="13" y1="11.56" x2="-3" y2="26.67" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<text x="-2" y="15.31" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="~"/>
+		<text x="7" y="25.97" rotation="0" color="#000000" font="Roboto Condensed,4,-1,5,50,0,0,0,0,0,Regular" text="="/>
+		<line x1="0" y1="0" x2="0" y2="11.56" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="10" y1="0" x2="10" y2="11.56" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:black" antialias="false"/>
+		<line x1="0" y1="26.67" x2="0" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:red" antialias="false"/>
+		<text x="3" y="33.87" rotation="0" color="#ff0000" font="Roboto Condensed,3.5,-1,5,75,0,0,0,0,0,Regular" text="+"/>
+		<line x1="10" y1="26.67" x2="10" y2="40" end1="none" end2="none" length1="1.5" length2="3" style="line-style:normal;line-weight:thin;filling:none;color:blue" antialias="false"/>
+		<text x="11.5" y="33.87" rotation="0" color="#0000ff" font="Roboto Condensed,3.5,-1,5,75,0,0,0,0,0,Regular" text="-"/>
 		<terminal x="0" y="0" name="L" orientation="n" type="Generic" uuid="{6eeb74b0-6a21-50f5-99ab-1c81a09690c4}"/>
 		<terminal x="10" y="0" name="N" orientation="n" type="Generic" uuid="{ec1d396b-c529-52c8-87b2-0589dc0716b9}"/>
-		<terminal x="0" y="90" name="+V" orientation="s" type="Generic" uuid="{788a17bd-faf3-5704-8e13-771a0ab18db2}" potential="24V"/>
-		<terminal x="10" y="90" name="-V" orientation="s" type="Generic" uuid="{e8fbf2c9-c96f-5e38-bbbf-e1cd9647b4cf}" potential="0V"/>
+		<terminal x="0" y="40" name="+V" orientation="s" type="Generic" uuid="{788a17bd-faf3-5704-8e13-771a0ab18db2}" potential="24V"/>
+		<terminal x="10" y="40" name="-V" orientation="s" type="Generic" uuid="{e8fbf2c9-c96f-5e38-bbbf-e1cd9647b4cf}" potential="0V"/>
 	</description>
 </definition>
